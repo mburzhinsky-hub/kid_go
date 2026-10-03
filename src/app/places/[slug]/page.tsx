@@ -18,8 +18,7 @@ import { AdventureCard } from "@/components/cards/AdventureCard";
 import { adventureCardData } from "@/lib/cards";
 import { ToastHost } from "@/components/ui/Toast";
 import { whatNextGroups } from "@/lib/what-next";
-import { formatKm } from "@/lib/geo";
-import { distanceFromUser } from "@/lib/data/repository";
+import { TravelBadge } from "@/components/ui/TravelBadge";
 import { categoryDef } from "@/lib/catalog";
 import { formatAgeRange, formatPrice } from "@/lib/format";
 
@@ -120,7 +119,7 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
           <div className="min-w-0 flex-1">
             <p className="line-clamp-2 text-[15.5px] font-semibold leading-tight">{place.address}</p>
             <p className="mt-0.5 truncate text-[13.5px] text-muted">
-              {formatKm(distanceFromUser(place))} от вас{place.metro ? ` · м. ${place.metro}` : ""}
+              <TravelBadge place={place} long className="text-[13.5px]" />{place.metro ? ` · м. ${place.metro}` : ""}
             </p>
           </div>
           <a

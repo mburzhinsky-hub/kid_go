@@ -11,13 +11,14 @@ import { plural } from "@/lib/format";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 import { PlannerLoader } from "./PlannerLoader";
+import { AgePicker } from "@/components/ui/AgePicker";
+import { LocationChip } from "@/components/location/LocationChip";
 
 const STEPS = ["Кто идёт?", "Сколько времени?", "Какое настроение?", "Бюджет", "Как добираемся?"];
 const KID_EMOJI = ["🦁", "🦄", "🐻", "🐰", "🦊", "🐼"];
 
-export function encodeKids(kids: Pick<Child, "name" | "age" | "interests">[]) {
-  return kids.map((k) => `${encodeURIComponent(k.name)}:${k.age}:${k.interests.join(".")}`).join(",");
-}
+export { encodeKids } from "./PlannerResults";
+import { encodeKids } from "./PlannerResults";
 
 export function PlannerWizard() {
   const router = useRouter();
@@ -141,8 +142,18 @@ export function PlannerWizard() {
               )}
             </div>
 
-            <h2 className="tight mt-7 text-[22px] font-[800]">Кто идёт?</h2>
-            <div className="mt-3 grid grid-cols-2 gap-2.5">
+            <h2 className="tight mt-7 text-[22px] font-[800]">{allKids.length ? "Кто идёт?" : "Сколько лет ребёнку?"}</h2>
+            {family.hydrated && !allKids.length && (
+              <AgePicker
+                className="mt-3"
+                onPick={(age) => {
+                  const c = { id: `c${Date.now()}`, name: "", age, interests: [], emoji: KID_EMOJI[0] };
+                  family.upsertChild(c);
+                  setGoing((g) => [...g, c.id]);
+                }}
+              />
+            )}
+            <div className={cn("mt-3 grid grid-cols-2 gap-2.5", !allKids.length && "hidden")}>
               {allKids.map((k, i) => {
                 const on = going.includes(k.id);
                 return (
@@ -159,9 +170,9 @@ export function PlannerWizard() {
                       {k.emoji ?? KID_EMOJI[i % KID_EMOJI.length]}
                     </span>
                     <span>
-                      <span className="block text-[16px] font-bold leading-tight">{k.name}</span>
+                      <span className="block text-[16px] font-bold leading-tight">{k.name || "Ребёнок"}</span>
                       <span className="text-[13.5px] text-muted">
-                        {k.age} {plural(k.age, "год", "года", "лет")}
+                        {k.age === 0 ? "до года" : `${k.age} ${plural(k.age, "год", "года", "лет")}`}
                       </span>
                     </span>
                     {on && (
@@ -234,6 +245,7 @@ export function PlannerWizard() {
           />
         )}
         {step === 4 && (
+          <>
           <StepTiles
             title="Как будете добираться?"
             items={TRANSPORTS.map((t) => ({ id: t.id, label: t.label, emoji: t.emoji }))}
@@ -242,6 +254,14 @@ export function PlannerWizard() {
             columns={1}
             colors={["#E4F4DD", "#E2EEFF", "#EEE5FE"]}
           />
+          <div className="mt-5 flex items-center justify-between gap-3 rounded-[22px] bg-surface p-3.5 shadow-card">
+            <span className="text-[15px] font-semibold leading-tight">
+              Откуда выезжаем?
+              <span className="block text-[13px] font-medium text-muted">считаем дорогу в минутах</span>
+            </span>
+            <LocationChip />
+          </div>
+          </>
         )}
       </div>
 
@@ -320,7 +340,7 @@ function AddKid({ onAdd, onCancel }: { onAdd: (c: Child) => void; onCancel: () =
         autoFocus
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Имя"
+        placeholder="Имя (необязательно)"
         className="h-12 w-full rounded-[14px] bg-fill px-3.5 text-[16px] outline-none focus:ring-2 focus:ring-pink/40"
       />
       <div className="mt-3 flex items-center justify-between">
@@ -342,7 +362,6 @@ function AddKid({ onAdd, onCancel }: { onAdd: (c: Child) => void; onCancel: () =
           Отмена
         </button>
         <button
-          disabled={!name.trim()}
           onClick={() => onAdd({ id: `c${Date.now()}`, name: name.trim(), age, interests: [], emoji: KID_EMOJI[Math.floor(Math.random() * KID_EMOJI.length)] })}
           className="press h-11 flex-1 rounded-full bg-pink text-[15px] font-semibold text-white disabled:opacity-40"
         >

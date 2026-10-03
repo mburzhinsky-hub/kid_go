@@ -1,11 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { WifiOff } from "lucide-react";
-import { rehydrateFamily } from "@/lib/store";
+import { rehydrateFamily, useFamily } from "@/lib/store";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [offline, setOffline] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+  const needsOnboarding = useFamily((s) => s.hydrated && !s.onboarded && s.children.length === 0);
+
+  // первый запуск (в том числе с экрана «Домой»): знакомимся, а не показываем чужую семью
+  useEffect(() => {
+    if (!needsOnboarding || pathname !== "/") return;
+    try {
+      if (sessionStorage.getItem("kidgo-onb-shown")) return;
+      sessionStorage.setItem("kidgo-onb-shown", "1");
+    } catch {
+      /* noop */
+    }
+    router.replace("/onboarding");
+  }, [needsOnboarding, pathname, router]);
 
   useEffect(() => {
     rehydrateFamily();

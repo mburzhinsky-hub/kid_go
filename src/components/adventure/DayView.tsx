@@ -20,6 +20,7 @@ export function DayView({
   explanation,
   emoji,
   durations,
+  dayOffset,
 }: {
   steps?: string[];
   title?: string;
@@ -28,12 +29,14 @@ export function DayView({
   explanation?: string;
   emoji?: string;
   durations?: number[];
+  dayOffset?: number;
 }) {
   const day = useFamily((s) => s.day);
   const hydrated = useFamily((s) => s.hydrated);
   const dayStart = useFamily((s) => s.dayStart);
   const moveInDay = useFamily((s) => s.moveInDay);
   const removeFromDay = useFamily((s) => s.removeFromDay);
+  const replaceInDay = useFamily((s) => s.replaceInDay);
   const fromUrl = !!steps?.length;
   const slugs = fromUrl ? steps! : day;
 
@@ -80,6 +83,9 @@ export function DayView({
       editable={!fromUrl}
       onMove={moveInDay}
       onRemove={removeFromDay}
+      onReplace={fromUrl ? undefined : replaceInDay}
+      syncUrl={fromUrl}
+      dayOffset={dayOffset}
     />
   );
 }

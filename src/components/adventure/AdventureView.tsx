@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import { Users, Clock, Wallet, Route, Umbrella, Sun, Heart, Share2, Shuffle, Sparkles } from "lucide-react";
-import type { Photo, Place } from "@/lib/types";
+import { useEffect, useMemo, useState } from "react";
+import { Users, Clock, Wallet, Route, Umbrella, Sun, Heart, Share2, Shuffle, Sparkles, CalendarPlus, Home, CloudRain, ArrowRight } from "lucide-react";
+import type { Photo, Place, PlanStop } from "@/lib/types";
 import { buildPlan, chainLabel, type StopInput } from "@/lib/plan";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { BackButton, ShareButton } from "@/components/place/PhotoGallery";
@@ -11,8 +11,16 @@ import { AdventureTimeline } from "./AdventureTimeline";
 import { StickyCTA } from "@/components/place/PlaceCTA";
 import { IconRocket } from "@/components/icons/brand-icons";
 import { useFamily } from "@/lib/store";
+import { useForecast } from "@/lib/use-context";
+import { bringList, daySummary, moscowDateISO, weekdayOf, windowWx } from "@/lib/forecast";
+import { wxFor } from "@/lib/recommend/engine";
+import { alternativesFor, type Alternative } from "@/lib/alternatives";
+import { downloadICS } from "@/lib/calendar";
+import { travelToPlace, formatTravel } from "@/lib/location";
+import { getPlaceSync } from "@/lib/data/repository";
+import { BottomSheet } from "@/components/ui/BottomSheet";
 import { useToast, ToastHost } from "@/components/ui/Toast";
-import { formatAgeRange, formatBudget, formatDuration, toMinutes } from "@/lib/format";
+import { formatAgeRange, formatBudget, formatDuration, moscowNow, toMinutes } from "@/lib/format";
 import { formatKm } from "@/lib/geo";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
@@ -36,6 +44,11 @@ export interface AdventureViewProps {
   editable?: boolean;
   onMove?: (slug: string, dir: -1 | 1) => void;
   onRemove?: (slug: string) => void;
+  /** Замена шага в «Нашем дне» (хранится в профиле). */
+  onReplace?: (index: number, slug: string) => void;
+  /** План живёт в ссылке — при замене шага обновляем ссылку. */
+  syncUrl?: boolean;
+  dayOffset?: number;
   children?: React.ReactNode;
 }
 
@@ -47,29 +60,76 @@ export function multiRouteUrl(places: Place[]) {
 
 export function AdventureView(props: AdventureViewProps) {
   const [start, setStart] = useState(props.start);
-  const plan = useMemo(
-    () =>
-      buildPlan(props.stops as StopInput[], {
-        key: props.planKey,
-        title: props.title,
-        start,
-        transport: "transit",
-      }),
-    [props.stops, props.planKey, props.title, start]
-  );
-  const saved = useFamily((s) => s.savedPlans.some((p) => p.key === props.planKey));
-  const toggleSaved = useFamily((s) => s.toggleSavedPlan);
+  const [stopsIn, setStopsIn] = useState(props.stops);
+  const [modified, setModified] = useState(false);
+  const [replacing, setReplacing] = useState<number | null>(null);
+  useEffect(() => {
+    setStopsIn(props.stops);
+    setModified(false);
+  }, [props.stops]);
+
+  const fam = useFamily();
+  const { forecast } = useForecast();
+  const dayOffset = props.dayOffset ?? 0;
+  const dateISO = moscowDateISO(dayOffset);
+  const weekday = dayOffset ? weekdayOf(dateISO) : moscowNow().weekday;
+  const kids = fam.children;
+  const youngest = kids.length ? Math.min(...kids.map((k) => k.age)) : 5;
+
+  const plan = useMemo(() => {
+    const p = buildPlan(stopsIn as StopInput[], { key: props.planKey, title: props.title, start, transport: fam.transport });
+    if (forecast) {
+      const summary = daySummary(forecast, dateISO).weather;
+      p.stops.forEach((s, i) => {
+        const r = wxFor(s.place, toMinutes(s.start), s.duration, { forecast, dateISO, youngest }, { weather: summary, mood: "surprise", constraints: undefined });
+        s.weather = r.w;
+        if (r.w?.bad && s.place.outdoor && !s.place.indoor) {
+          s.backup = alternativesFor(p.stops, i, { kids, transport: fam.transport, weekday, forecast, dateISO, indoorOnly: true })[0]?.place.slug;
+        }
+      });
+    }
+    return p;
+  }, [stopsIn, props.planKey, props.title, start, fam.transport, forecast, dateISO, youngest, kids, weekday]);
+
+  const saveKey = modified ? `custom:${plan.stops.map((s) => s.place.slug).join("+")}` : props.planKey;
+  const saved = fam.savedPlans.some((p) => p.key === saveKey);
   const toast = useToast((s) => s.show);
-  const ageMin = props.ageOverride?.[0] ?? plan.ageMin;
-  const ageMax = props.ageOverride?.[1] ?? plan.ageMax;
+  const ageMin = modified ? plan.ageMin : props.ageOverride?.[0] ?? plan.ageMin;
+  const ageMax = modified ? plan.ageMax : props.ageOverride?.[1] ?? plan.ageMax;
   const places = plan.stops.map((s) => s.place);
   const cover = props.cover ?? places[0]?.photos[0];
   const startOptions = START_OPTIONS.includes(props.start) ? START_OPTIONS : [props.start, ...START_OPTIONS].sort((a, b) => toMinutes(a) - toMinutes(b));
+  const fromHome = fam.hydrated && places[0] && fam.origin.source !== "default" ? travelToPlace(fam.origin, places[0], fam.transport) : null;
+  const endMin = plan.stops.length ? toMinutes(plan.stops[plan.stops.length - 1].start) + plan.stops[plan.stops.length - 1].duration : toMinutes(start);
+  const bring = forecast ? bringList(windowWx(forecast, dateISO, toMinutes(start), endMin), youngest, places.some((p) => p.outdoor)) : [];
+  const badIndex = plan.stops.findIndex((s) => s.weather?.bad && s.place.outdoor && !s.place.indoor);
+  const badStop = badIndex >= 0 ? plan.stops[badIndex] : undefined;
+  const backup = badStop?.backup ? getPlaceSync(badStop.backup) : null;
 
   const save = () => {
-    toggleSaved({ key: props.planKey, title: props.title, emoji: props.emoji, steps: props.saveSteps });
+    fam.toggleSavedPlan({ key: saveKey, title: props.title, emoji: props.emoji, steps: modified ? plan.stops.map((s) => s.place.slug) : props.saveSteps });
     toast(saved ? "Убрали из сохранённых" : "Сохранили в «Наши хотелки» ❤️", saved ? undefined : { href: "/favorites?tab=plans", label: "Открыть" });
-    track(saved ? "adventure_unsave" : "adventure_save", { key: props.planKey });
+    track(saved ? "adventure_unsave" : "adventure_save", { key: saveKey });
+  };
+
+  const replaceStop = (index: number, place: Place, why: string) => {
+    const next = stopsIn.map((s, i) => (i === index ? { place, duration: s.duration ?? place.average_duration } : s));
+    setStopsIn(next);
+    setModified(true);
+    setReplacing(null);
+    props.onReplace?.(index, place.slug);
+    if (props.syncUrl && typeof window !== "undefined") {
+      const u = new URL(window.location.href);
+      u.searchParams.set("steps", next.map((s) => s.place.slug).join(","));
+      window.history.replaceState(null, "", u.toString());
+    }
+    toast(`Заменили на «${place.title}» ✨`);
+    track("step_swapped", { reason: why, to: place.slug });
+  };
+
+  const go = () => {
+    fam.addTrip({ key: saveKey, title: props.title, emoji: props.emoji, steps: plan.stops.map((s) => s.place.slug) });
+    track("plan_go", { key: saveKey });
   };
 
   return (
@@ -128,13 +188,39 @@ export function AdventureView(props: AdventureViewProps) {
           </span>
         </div>
 
-        <div className="mt-5 grid grid-cols-3 gap-2">
+        {badStop && (
+          <div className="mt-4 rounded-[22px] bg-blue-50 p-3.5 animate-rise" role="status">
+            <p className="flex items-start gap-2 text-[15px] font-semibold leading-snug text-blue">
+              <CloudRain size={19} className="mt-0.5 shrink-0" />
+              <span>
+                В {badStop.start} в «{badStop.place.title}» по прогнозу {badStop.weather?.condition === "snow" ? "снег" : "дождь"} ({badStop.weather?.pop}%).
+                {backup ? ` Рядом есть крытое — «${backup.title}».` : " Можно сдвинуть начало или заменить шаг."}
+              </span>
+            </p>
+            {backup && (
+              <button onClick={() => replaceStop(badIndex, backup, "weather")} className="press mt-2.5 flex h-11 w-full items-center justify-center gap-1.5 rounded-full bg-blue text-[15px] font-bold text-white">
+                Заменить на «{backup.title}» <ArrowRight size={17} />
+              </button>
+            )}
+          </div>
+        )}
+
+        <div className="mt-5 grid grid-cols-4 gap-2">
           <ActionPill onClick={save} active={saved} icon={<Heart size={19} className={cn(saved && "fill-current")} />}>
             {saved ? "Сохранено" : "Сохранить"}
           </ActionPill>
           <ShareAction title={props.title} />
+          <ActionPill
+            onClick={() => {
+              downloadICS(plan, dayOffset);
+              track("plan_calendar", { key: saveKey });
+            }}
+            icon={<CalendarPlus size={19} />}
+          >
+            В календарь
+          </ActionPill>
           <ActionPill href={props.alternativeHref} icon={<Shuffle size={19} />}>
-            Другой вариант
+            Другой день
           </ActionPill>
         </div>
 
@@ -156,12 +242,25 @@ export function AdventureView(props: AdventureViewProps) {
           </section>
         )}
 
+        {bring.length > 0 && (
+          <section className="mt-4 rounded-[22px] bg-surface p-3.5 shadow-card">
+            <h2 className="text-[15px] font-bold">Что взять с собой</h2>
+            <ul className="mt-1.5 space-y-1 text-[14.5px] text-ink-2">
+              {bring.map((b) => (
+                <li key={b}>{b}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         {props.description && <p className="mt-5 text-[16px] leading-[1.5] text-ink-2">{props.description}</p>}
 
         <section className="mt-7">
           <div className="flex items-end justify-between">
             <h2 className="tight text-[24px] font-[800]">План дня</h2>
-            <span className="text-[13px] font-medium text-muted">время можно менять</span>
+            <Link href={`/map?plan=${places.map((p) => p.slug).join(",")}`} className="press text-[14px] font-semibold text-blue">
+              На карте →
+            </Link>
           </div>
           <div className="no-scrollbar -mx-4 mt-3 flex gap-2 overflow-x-auto px-4">
             <span className="flex shrink-0 items-center pr-1 text-[14px] font-semibold text-muted">Начать в</span>
@@ -170,24 +269,28 @@ export function AdventureView(props: AdventureViewProps) {
                 key={t}
                 onClick={() => setStart(t)}
                 aria-pressed={t === start}
-                className={cn(
-                  "press h-9 shrink-0 rounded-full px-3.5 text-[14.5px] font-bold transition-colors",
-                  t === start ? "bg-ink text-white" : "bg-surface text-ink shadow-card"
-                )}
+                className={cn("press h-9 shrink-0 rounded-full px-3.5 text-[14.5px] font-bold transition-colors", t === start ? "bg-ink text-white" : "bg-surface text-ink shadow-card")}
               >
                 {t}
               </button>
             ))}
           </div>
+          {fromHome && (
+            <div className="mt-4 flex items-center gap-2 rounded-[18px] bg-fill px-3.5 py-2 text-[13.5px] font-semibold text-ink-2">
+              <Home size={15} className="shrink-0" />
+              <span>
+                {fam.origin.source === "home" ? "Дом" : fam.origin.label} → {places[0].title}: {formatTravel(fromHome)}
+                <span className="font-medium text-muted"> · выйти около {leaveAt(start, fromHome.minutes)}</span>
+              </span>
+            </div>
+          )}
           <div className="mt-5">
-            <AdventureTimeline plan={plan} editable={props.editable} onMove={props.onMove} onRemove={props.onRemove} />
+            <AdventureTimeline plan={plan} editable={props.editable} onMove={props.onMove} onRemove={props.onRemove} onReplace={(i) => setReplacing(i)} />
           </div>
           <div className="mt-4 flex items-center gap-3 rounded-[22px] bg-ink p-4 text-white">
             <span className="text-[28px]">🏁</span>
             <div className="text-[14.5px] leading-snug">
-              <p className="font-bold">
-                Финиш около {plan.stops.length ? addMin(plan.stops[plan.stops.length - 1].start, plan.stops[plan.stops.length - 1].duration) : start}
-              </p>
+              <p className="font-bold">Финиш около {plan.stops.length ? addMin(plan.stops[plan.stops.length - 1].start, plan.stops[plan.stops.length - 1].duration) : start}</p>
               <p className="text-white/75">
                 {formatDuration(plan.totalMinutes)} · {formatBudget(plan.budget)} · {formatKm(plan.distanceKm || 0.1)}
               </p>
@@ -197,9 +300,17 @@ export function AdventureView(props: AdventureViewProps) {
         {props.children}
       </div>
 
+      <ReplaceSheet
+        index={replacing}
+        stops={plan.stops}
+        onClose={() => setReplacing(null)}
+        onPick={(i, p, why) => replaceStop(i, p, why)}
+        opts={{ kids, transport: fam.transport, weekday, forecast, dateISO }}
+      />
+
       <StickyCTA
         href={multiRouteUrl(places)}
-        onClick={() => track("adventure_go", { key: props.planKey })}
+        onClick={go}
         icon={<IconRocket width={24} height={24} />}
         secondary={
           <button
@@ -217,6 +328,52 @@ export function AdventureView(props: AdventureViewProps) {
       <ToastHost bottom={96} />
     </main>
   );
+}
+
+function ReplaceSheet({
+  index,
+  stops,
+  onClose,
+  onPick,
+  opts,
+}: {
+  index: number | null;
+  stops: PlanStop[];
+  onClose: () => void;
+  onPick: (index: number, p: Place, why: string) => void;
+  opts: Parameters<typeof alternativesFor>[2];
+}) {
+  const alts: Alternative[] = useMemo(() => (index == null ? [] : alternativesFor(stops, index, opts)), [index, stops, opts]);
+  if (index == null) return null;
+  const stop = stops[index];
+  return (
+    <BottomSheet open onClose={onClose} title={`Вместо «${stop.place.title}»`}>
+      <p className="-mt-1 text-[14px] text-muted">
+        В {stop.start}, на {formatDuration(stop.duration)} — рядом с остальными шагами и открыто в это время.
+      </p>
+      <div className="mt-4 space-y-2">
+        {alts.length === 0 && <p className="rounded-[18px] bg-fill p-4 text-[15px] text-ink-2">Рядом нет подходящей замены на это время. Попробуйте другое время старта.</p>}
+        {alts.map((a) => (
+          <button key={a.place.id} onClick={() => onPick(index, a.place, a.reason)} className="press flex w-full items-center gap-3 rounded-[20px] bg-surface p-2.5 text-left shadow-card">
+            <SmartImage photo={a.place.photos[0]} tint={a.place.tint} emoji={a.place.emoji} sizes="72px" className="h-16 w-16 shrink-0 rounded-[14px]" />
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-[15.5px] font-bold">{a.place.title}</span>
+              <span className="block truncate text-[13px] text-muted">{a.place.subtitle}</span>
+              <span className="mt-0.5 inline-flex gap-1.5 text-[12.5px] font-semibold">
+                <span className="rounded-full bg-green-50 px-2 py-0.5 text-green">{a.reason}</span>
+                {a.minutesFromPrev != null && <span className="rounded-full bg-fill px-2 py-0.5 text-ink-2">{a.minutesFromPrev} мин от прошлого шага</span>}
+              </span>
+            </span>
+          </button>
+        ))}
+      </div>
+    </BottomSheet>
+  );
+}
+
+function leaveAt(start: string, minutes: number) {
+  const t = toMinutes(start) - minutes - 5;
+  return `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(Math.floor((t % 60) / 5) * 5).padStart(2, "0")}`;
 }
 
 function addMin(hhmm: string, d: number) {
@@ -249,7 +406,7 @@ function ActionPill({
   active?: boolean;
 }) {
   const cls = cn(
-    "press flex h-[64px] flex-col items-center justify-center gap-1 rounded-[18px] text-[13px] font-semibold transition-colors",
+    "press flex h-[64px] flex-col items-center justify-center gap-1 rounded-[18px] px-1 text-center text-[12px] font-semibold leading-tight transition-colors",
     active ? "bg-pink-50 text-pink" : "bg-surface text-ink shadow-card"
   );
   if (href)

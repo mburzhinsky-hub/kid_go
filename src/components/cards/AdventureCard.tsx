@@ -19,6 +19,8 @@ export interface AdventureCardData {
   thumbs: { src: string; alt: string; tint: string; emoji: string }[];
   why?: string[];
   explanation?: string;
+  /** «25 мин от вас» */
+  fromHome?: string;
 }
 
 /**
@@ -113,7 +115,7 @@ export function AdventureCard({
               <b className="font-bold text-ink">{data.recommend}%</b> родителей рекомендуют
             </span>
           ) : (
-            <span className="text-[13px] font-medium text-muted">Собрано под вашу семью</span>
+            <span className="text-[13px] font-medium text-muted">{data.fromHome ?? "Собрано под вашу семью"}</span>
           )}
           <span className="inline-flex h-10 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-pink pl-4 pr-3 text-[15px] font-semibold text-white shadow-pink transition-transform group-active:scale-95">
             Хочу так <ArrowRight size={17} strokeWidth={2.4} />

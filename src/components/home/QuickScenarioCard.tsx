@@ -14,7 +14,7 @@ export function QuickScenarioCard({ s }: { s: Scenario }) {
         className="grid h-[56px] w-[56px] shrink-0 place-items-center rounded-full"
         style={{ background: `radial-gradient(circle at 35% 30%, #ffffffcc, ${s.bubble} 70%)` }}
       >
-        <Glyph width={40} height={40} />
+        {Glyph ? <Glyph width={40} height={40} /> : <span className="text-[30px] leading-none">{s.emoji}</span>}
       </span>
       <span className="text-[15px] font-semibold leading-[1.25] text-ink">{s.label}</span>
     </Link>

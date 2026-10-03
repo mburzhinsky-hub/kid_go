@@ -182,6 +182,36 @@ export interface GeoPoint {
   lng: number;
 }
 
+/** Сигналы семьи для персонализации (хотелки, история, оценки). */
+export interface FamilySignals {
+  want: string[];
+  visited: string[];
+  loved: string[];
+  disliked: string[];
+  /** Недавно показанные якоря — чтобы не крутить одно и то же. */
+  seen?: string[];
+}
+
+/** Ограничения сценария («до дневного сна», «без толпы», «только под крышей»…). */
+export interface ScenarioConstraints {
+  indoorOnly?: boolean;
+  outdoorPreferred?: boolean;
+  quiet?: boolean;
+  stroller?: boolean;
+  maxTravelMin?: number;
+  /** Вернуться домой к этому времени (минуты от полуночи). */
+  endBy?: number;
+  /** Начать не раньше (минуты от полуночи). */
+  startAt?: number;
+  minStops?: number;
+  preferCategories?: CategoryId[];
+  avoidCategories?: CategoryId[];
+  interests?: InterestId[];
+  /** Шаг-«передышка» для родителя: кафе с игровой зоной. */
+  parentBreak?: boolean;
+  bookingOk?: boolean;
+}
+
 export interface PlannerInput {
   children: Pick<Child, "age" | "interests" | "name">[];
   duration: DurationId;
@@ -195,15 +225,36 @@ export interface PlannerInput {
   foodAfter?: boolean;
   maxDistanceKm?: number;
   activity?: Level;
+  /** Почасовой прогноз — если есть, погода считается на окно каждого шага. */
+  forecast?: import("@/lib/forecast").Forecast;
+  /** 0 — сегодня, 1 — завтра… */
+  dayOffset?: number;
+  family?: FamilySignals;
+  constraints?: ScenarioConstraints;
+  /** Детерминированная «ротация» выдачи (день + семья). */
+  seed?: string;
+  /** Подпись точки выезда для объяснений. */
+  originLabel?: string;
 }
 
 /** Собранный маршрут: и готовые, и сгенерированные приключения приводятся к нему. */
+export interface StopWeather {
+  temp: number;
+  condition: Weather["condition"];
+  pop: number;
+  /** Плохо для улицы в это окно. */
+  bad: boolean;
+}
+
 export interface PlanStop {
   place: Place;
   start: string; // "12:30"
   duration: number;
   travelToNext?: { minutes: number; km: number; mode: TransportId };
   note?: string;
+  weather?: StopWeather;
+  /** Крытая замена рядом для уличного шага. */
+  backup?: string;
 }
 
 export interface Plan {
@@ -225,4 +276,11 @@ export interface Plan {
   explanation: string;
   score?: number;
   adventureSlug?: string;
+  /** Дорога от точки выезда до первого шага. */
+  fromHome?: { minutes: number; km: number; mode: TransportId };
+  /** Что взять с собой. */
+  bring?: string[];
+  /** Почему порядок/состав такие из-за погоды. */
+  weatherNote?: string;
+  dayOffset?: number;
 }

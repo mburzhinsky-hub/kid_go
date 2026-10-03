@@ -1,21 +1,19 @@
 import { AppHeader } from "@/components/layout/AppHeader";
 import { SearchBar } from "@/components/home/SearchBar";
 import { CategoryScroller } from "@/components/home/CategoryScroller";
-import { HeroBanner, type HeroSlide } from "@/components/home/HeroBanner";
-import { ScenarioGrid } from "@/components/home/QuickScenarioCard";
+import { type HeroSlide } from "@/components/home/HeroBanner";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { AdventureCard } from "@/components/cards/AdventureCard";
 import { adventureCardData } from "@/lib/cards";
 import { PlaceCarousel } from "@/components/cards/PlaceCard";
 import { EventCard } from "@/components/cards/EventCard";
-import { WeatherBanner } from "@/components/home/WeatherBanner";
+import { HomeHero, HomeScenarios, HomeWeather, NearbyPopular } from "@/components/home/HomeLive";
+import { TripFeedback } from "@/components/home/TripFeedback";
 import { PlannerPromo } from "@/components/home/PlannerPromo";
 import { ForYou } from "@/components/home/ForYou";
 import { OnboardingNudge } from "@/components/home/OnboardingNudge";
-import { SCENARIOS } from "@/lib/catalog";
-import { repo, distanceFromUser } from "@/lib/data/repository";
+import { repo } from "@/lib/data/repository";
 import { PH, ph } from "@/lib/data/photos";
-import { getWeather, isBadWeather } from "@/lib/weather";
 
 // Погода и афиша меняются в течение дня — обновляем страницу раз в 30 минут (ISR).
 export const revalidate = 1800;
@@ -73,20 +71,7 @@ const SLIDES: HeroSlide[] = [
 
 export default async function HomePage() {
   const [places, adventures, events] = await Promise.all([repo.listPlaces(), repo.listAdventures(), repo.listEvents()]);
-  const weather = getWeather();
-  const bad = isBadWeather(weather);
-
-  const popular = places
-    .filter((p) => p.category !== "cafe")
-    .map((p) => ({ p, s: p.rating * 2 + Math.log10(p.review_count) - distanceFromUser(p) / 4 }))
-    .sort((a, b) => b.s - a.s)
-    .map((x) => x.p)
-    .slice(0, 8);
-
-  // в дождь первыми показываем приключения под крышей
-  const adv = [...adventures].sort(
-    (a, b) => Number(bad && b.weather_tags.includes("rain")) - Number(bad && a.weather_tags.includes("rain")) || b.recommend_percent - a.recommend_percent
-  );
+  const adv = [...adventures].sort((a, b) => b.recommend_percent - a.recommend_percent);
 
   const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Moscow" }).format(new Date());
   const placeMap = new Map(places.map((p) => [p.id, p]));
@@ -102,15 +87,17 @@ export default async function HomePage() {
         <CategoryScroller />
       </div>
       <div className="mt-4">
-        <HeroBanner slides={bad ? [SLIDES[1], SLIDES[0], SLIDES[2], SLIDES[3]] : SLIDES} />
+        <HomeHero slides={SLIDES} />
       </div>
 
       <section className="mt-7">
         <SectionHeader title="Что хочется сегодня?" />
         <div className="mt-3.5">
-          <ScenarioGrid items={SCENARIOS} />
+          <HomeScenarios />
         </div>
       </section>
+
+      <TripFeedback />
 
       <section className="mt-7">
         <SectionHeader title="Готовые приключения" href="/adventures" />
@@ -122,13 +109,13 @@ export default async function HomePage() {
       </section>
 
       <div className="mt-3">
-        <WeatherBanner weather={weather} />
+        <HomeWeather />
       </div>
 
       <section className="mt-7">
         <SectionHeader title="Популярное рядом" href="/search?sort=popular" />
         <div className="mt-3">
-          <PlaceCarousel places={popular} />
+          <NearbyPopular places={places} />
         </div>
       </section>
 

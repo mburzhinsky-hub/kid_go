@@ -36,7 +36,8 @@ export interface Scenario {
   label: string;
   bg: string;
   bubble: string;
-  Glyph: Icon;
+  Glyph?: Icon;
+  emoji?: string;
   href: string;
 }
 

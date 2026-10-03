@@ -1,7 +1,7 @@
 import { Wallet, Users, MapPin, Clock } from "lucide-react";
 import type { Place } from "@/lib/types";
 import { formatAgeRange, formatPrice, scheduleSummary } from "@/lib/format";
-import { formatKm, distanceFromUser } from "@/lib/geo";
+import { TravelValue } from "./TravelValue";
 
 
 /** Четыре ключевых параметра в строку — как в референсе. */
@@ -13,7 +13,7 @@ export function InfoGrid({ place }: { place: Place }) {
   const items = [
     { Icon: Wallet, color: "#1FAE47", value: price, label: priceLabel },
     { Icon: Users, color: "#1FAE47", value: formatAgeRange(place.age_min, place.age_max), label: "возраст" },
-    { Icon: MapPin, color: "#FF3B4E", value: formatKm(distanceFromUser(place)), label: "от вас" },
+    { Icon: MapPin, color: "#FF3B4E", value: <TravelValue place={place} />, label: "в пути" },
     { Icon: Clock, color: "#2F7BFF", value: sched.days, label: sched.time },
   ];
   return (

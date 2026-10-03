@@ -42,5 +42,6 @@ export function planCardData(plan: Plan, href: string): AdventureCardData {
     thumbs: places.map((p) => ({ ...p.photos[0], tint: p.tint, emoji: p.emoji })),
     why: plan.why,
     explanation: plan.explanation,
+    fromHome: plan.fromHome ? `📍 ${plan.fromHome.minutes} мин от вас · старт ${plan.stops[0]?.start}` : undefined,
   };
 }

@@ -25,8 +25,9 @@ export const pt = (p: { latitude: number; longitude: number }): GeoPoint => ({
 export function travelMinutes(km: number, mode: TransportId): number {
   const road = km * 1.3;
   if (mode === "walk") return Math.max(2, Math.round((road / 4.3) * 60));
-  if (mode === "car") return Math.max(5, Math.round((road / 22) * 60 + 6)); // + парковка
-  return Math.max(6, Math.round((road / 18) * 60 + 8)); // транспорт: ожидание + пересадка
+  if (mode === "car") return Math.max(6, Math.round((road / 25) * 60 + 6)); // + парковка
+  // метро + наземный: ~30 км/ч по сети и 10 минут на дойти/подождать/пересесть
+  return Math.max(10, Math.round((road / 32) * 60 + 10));
 }
 
 /** Пешком — если близко; иначе — выбранный транспорт. */

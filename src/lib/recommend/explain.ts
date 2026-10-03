@@ -22,8 +22,8 @@ export const INTEREST_LABEL: Record<InterestId, { label: string; emoji: string; 
   fairy: { label: "Сказки", emoji: "🧚", love: "сказки" },
 };
 
-export function explainPlan(plan: Plan, input: PlannerInput): { why: string[]; explanation: string } {
-  const why: string[] = [];
+export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = []): { why: string[]; explanation: string } {
+  const why: string[] = [...notes];
   let head: string | null = null;
   const sentences: string[] = [];
   const [first, second] = plan.stops;
@@ -53,8 +53,8 @@ export function explainPlan(plan: Plan, input: PlannerInput): { why: string[]; e
   // интересы конкретных детей
   for (const child of input.children) {
     const hit = child.interests.find((i) => plan.stops.some((s) => s.place.interest_tags.includes(i)));
-    if (hit && child.name) {
-      why.push(`${INTEREST_LABEL[hit].emoji} ${child.name} любит ${INTEREST_LABEL[hit].love}`);
+    if (hit) {
+      why.push(child.name ? `${INTEREST_LABEL[hit].emoji} ${child.name} любит ${INTEREST_LABEL[hit].love}` : `${INTEREST_LABEL[hit].emoji} Про ${INTEREST_LABEL[hit].label.toLowerCase()}`);
       break;
     }
   }
@@ -62,13 +62,14 @@ export function explainPlan(plan: Plan, input: PlannerInput): { why: string[]; e
   const ages = input.children.map((c) => c.age);
   if (ages.length) {
     const fits = ages.every((a) => a >= plan.ageMin && a <= plan.ageMax);
-    if (fits) why.push(ages.length > 1 ? "👧👦 Подходит обоим" : `🎈 Для ${ages[0]} ${plural(ages[0], "года", "лет", "лет")}`);
+    if (fits) why.push(ages.length > 2 ? "👧👦 Подходит всем" : ages.length > 1 ? "👧👦 Подходит обоим" : `🎈 Для ${ages[0]} ${plural(ages[0], "года", "лет", "лет")}`);
   }
 
   if (plan.budget === 0) why.push("💚 Бесплатно");
   else if (input.budget !== "any" && plan.budget <= Number(input.budget)) why.push("👛 В бюджете");
 
   if (second && plan.distanceKm < 1.5) why.push("🚶 Всё рядом");
+  if (plan.fromHome && plan.fromHome.minutes <= 20) why.push(`📍 ${plan.fromHome.minutes} мин от вас`);
 
   let explanation: string;
   if (head && sentences.length) explanation = `${head}: ${sentences.join(", ")}.`;

@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Plus, Pencil, Trash2, ChevronRight, MapPin, Settings2, Sparkles, Check } from "lucide-react";
+import { Plus, Pencil, Trash2, ChevronRight, MapPin, Settings2, Sparkles, Check, Home, Users } from "lucide-react";
 import type { Child, InterestId } from "@/lib/types";
-import { useFamily } from "@/lib/store";
+import { useFamily, ageFromBirth, childLabel } from "@/lib/store";
+import { TRAVEL_LIMITS } from "@/lib/location";
+import { LocationSheet } from "@/components/location/LocationSheet";
 import { INTERESTS, interestDef, BUDGETS, TRANSPORTS } from "@/lib/catalog";
 import { BottomSheet } from "@/components/ui/BottomSheet";
 import { plural } from "@/lib/format";
@@ -22,6 +24,7 @@ export function ProfileScreen() {
   const s = useFamily();
   const [editing, setEditing] = useState<Child | null>(null);
   const [cityOpen, setCityOpen] = useState(false);
+  const [locOpen, setLocOpen] = useState(false);
 
   return (
     <main className="pb-28">
@@ -66,38 +69,36 @@ export function ProfileScreen() {
             options={TRANSPORTS.map((t) => ({ id: t.id, label: `${t.emoji} ${t.id === "transit" ? "Метро/автобус" : t.label}` }))}
             onChange={(v) => s.setPrefs({ transport: v as typeof s.transport })}
           />
-          <div>
-            <div className="flex items-baseline justify-between">
-              <p className="text-[14px] font-semibold text-ink-2">Готовы ехать до</p>
-              <p className="text-[17px] font-bold text-pink">{s.maxDistanceKm} км</p>
-            </div>
-            <input
-              type="range"
-              min={1}
-              max={30}
-              value={s.maxDistanceKm}
-              onChange={(e) => s.setPrefs({ maxDistanceKm: Number(e.target.value) })}
-              aria-label="Максимальное расстояние"
-              className="mt-2 w-full accent-[#FF2E88]"
-            />
-            <div className="flex justify-between text-[12px] text-muted">
-              <span>рядом с домом</span>
-              <span>через весь город</span>
-            </div>
-          </div>
+          <Segmented
+            label="Готовы ехать до"
+            value={String(s.maxTravelMin)}
+            options={TRAVEL_LIMITS.map((m) => ({ id: String(m), label: m === 90 ? "1,5 часа" : m === 60 ? "часа" : `${m} мин` }))}
+            onChange={(v) => s.setPrefs({ maxTravelMin: Number(v) })}
+          />
         </div>
       </section>
 
       <section className="mt-8 px-4">
         <div className="overflow-hidden rounded-[24px] bg-surface shadow-card">
+          <Row
+            id="home"
+            icon={<Home size={20} className="text-pink" />}
+            label="Откуда выезжаем"
+            value={s.home ? (s.home.label === "Дом" ? "Дом сохранён" : s.home.label) : s.origin.source === "default" ? "не выбрано" : s.origin.label}
+            onClick={() => setLocOpen(true)}
+          />
           <Row id="city" icon={<MapPin size={20} className="text-red" />} label="Город" value={s.city} onClick={() => setCityOpen(true)} />
           <Row href="/onboarding" icon={<Sparkles size={20} className="text-purple" />} label="Пройти знакомство заново" />
+          {s.hydrated && !s.children.length && (
+            <Row icon={<Users size={20} className="text-green" />} label="Посмотреть на демо-семье" value="Миша и Аня" onClick={() => s.loadDemoFamily()} />
+          )}
           <Row href="/admin" icon={<Settings2 size={20} className="text-blue" />} label="Кабинет контента" value="для команды" />
         </div>
-        <p className="mt-4 text-center text-[12.5px] text-muted">КидГоу · демо-версия · данные хранятся на этом устройстве</p>
+        <p className="mt-4 text-center text-[12.5px] text-muted">КидГоу · данные семьи хранятся только на этом устройстве</p>
       </section>
 
       <ChildEditor child={editing} onClose={() => setEditing(null)} />
+      <LocationSheet open={locOpen} onClose={() => setLocOpen(false)} />
       <BottomSheet open={cityOpen} onClose={() => setCityOpen(false)} title="Ваш город">
         <div className="space-y-2 pb-2">
           {CITIES.map((c) => (
@@ -137,7 +138,8 @@ export function ChildProfileCard({ child, index, onEdit }: { child: Child; index
       </span>
       <div className="min-w-0 flex-1">
         <p className="text-[17px] font-bold leading-tight">
-          {child.name}, <span className="font-semibold text-muted">{child.age} {plural(child.age, "год", "года", "лет")}</span>
+          {child.name ? <>{child.name}, </> : null}
+          <span className={child.name ? "font-semibold text-muted" : ""}>{childLabel(child).replace(/^.*?, /, "")}</span>
         </p>
         <div className="mt-2 flex flex-wrap gap-1.5">
           {child.interests.length ? (
@@ -147,7 +149,7 @@ export function ChildProfileCard({ child, index, onEdit }: { child: Child; index
           )}
         </div>
       </div>
-      <button onClick={onEdit} aria-label={`Изменить ${child.name}`} className="press grid h-9 w-9 shrink-0 place-items-center rounded-full bg-fill">
+      <button onClick={onEdit} aria-label={`Изменить ${child.name || "ребёнка"}`} className="press grid h-9 w-9 shrink-0 place-items-center rounded-full bg-fill">
         <Pencil size={16} />
       </button>
     </div>
@@ -188,7 +190,7 @@ function ChildEditor({ child, onClose }: { child: Child | null; onClose: () => v
     setDraft({ ...draft, interests: draft.interests.includes(i) ? draft.interests.filter((x) => x !== i) : [...draft.interests, i] });
 
   return (
-    <BottomSheet open onClose={onClose} title={isNew ? "Новый ребёнок" : `${child.name}`}>
+    <BottomSheet open onClose={onClose} title={isNew ? "Новый ребёнок" : child.name || "Ребёнок"}>
       <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
         {AVATARS.map((a) => (
           <button
@@ -206,7 +208,7 @@ function ChildEditor({ child, onClose }: { child: Child | null; onClose: () => v
           value={draft.name}
           onChange={(e) => setDraft({ ...draft, name: e.target.value })}
           className="mt-1 h-12 w-full rounded-[14px] bg-fill px-3.5 text-[16px] font-medium text-ink outline-none focus:ring-2 focus:ring-pink/40"
-          placeholder="Как зовут?"
+          placeholder="Как зовут? (необязательно)"
         />
       </label>
       <div className="mt-3 grid grid-cols-2 gap-2">
@@ -217,7 +219,7 @@ function ChildEditor({ child, onClose }: { child: Child | null; onClose: () => v
             value={draft.birthDate ?? ""}
             onChange={(e) => {
               const bd = e.target.value;
-              const age = bd ? Math.max(0, Math.floor((Date.now() - new Date(bd).getTime()) / (365.25 * 86400000))) : draft.age;
+              const age = bd ? ageFromBirth(bd) : draft.age;
               setDraft({ ...draft, birthDate: bd, age });
             }}
             className="mt-1 h-12 w-full rounded-[14px] bg-fill px-3 text-[15px] font-medium text-ink outline-none"
@@ -232,7 +234,7 @@ function ChildEditor({ child, onClose }: { child: Child | null; onClose: () => v
           >
             {Array.from({ length: 15 }).map((_, i) => (
               <option key={i} value={i}>
-                {i} {plural(i, "год", "года", "лет")}
+                {i === 0 ? "до года" : `${i} ${plural(i, "год", "года", "лет")}`}
               </option>
             ))}
           </select>
@@ -258,7 +260,6 @@ function ChildEditor({ child, onClose }: { child: Child | null; onClose: () => v
           </button>
         )}
         <button
-          disabled={!draft.name.trim()}
           onClick={() => {
             s.upsertChild({ ...draft, name: draft.name.trim() });
             onClose();

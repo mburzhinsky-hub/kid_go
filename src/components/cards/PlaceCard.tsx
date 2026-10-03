@@ -3,7 +3,8 @@ import type { Place } from "@/lib/types";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { FavoriteButton } from "@/components/ui/FavoriteButton";
 import { RatingBadge, DistanceBadge } from "@/components/ui/badges";
-import { formatKm, distanceFromUser } from "@/lib/geo";
+import { formatKm } from "@/lib/geo";
+import { TravelBadge } from "@/components/ui/TravelBadge";
 
 import { cn } from "@/lib/cn";
 
@@ -47,7 +48,7 @@ export function PlaceCard({
         <h3 className="truncate text-[15px] font-semibold leading-snug">{place.title}</h3>
         <div className="mt-1 flex items-center justify-between gap-2">
           <RatingBadge rating={place.rating} count={place.review_count} />
-          <DistanceBadge km={formatKm(km ?? distanceFromUser(place))} />
+          {km != null ? <DistanceBadge km={formatKm(km)} /> : <TravelBadge place={place} />}
         </div>
       </div>
     </Link>
@@ -77,7 +78,7 @@ export function PlaceRow({ place, km, aside }: { place: Place; km?: number; asid
         <p className="mt-0.5 truncate text-[13.5px] text-muted">{place.subtitle}</p>
         <div className="mt-auto flex items-center gap-3 pt-1">
           <RatingBadge rating={place.rating} count={place.review_count} />
-          <DistanceBadge km={formatKm(km ?? distanceFromUser(place))} />
+          {km != null ? <DistanceBadge km={formatKm(km)} /> : <TravelBadge place={place} />}
         </div>
       </div>
       {aside && <div className="flex shrink-0 flex-col items-end justify-end">{aside}</div>}

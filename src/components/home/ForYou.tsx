@@ -1,18 +1,21 @@
 "use client";
 
 import { useMemo } from "react";
-import { useFamily } from "@/lib/store";
+import { useFamily, familySignals } from "@/lib/store";
 import { rankPlaces } from "@/lib/recommend/engine";
+import { useForecast } from "@/lib/use-context";
+import { daySummary, moscowDateISO } from "@/lib/forecast";
 import { getWeather } from "@/lib/weather";
-import { DEFAULT_LOCATION } from "@/lib/geo";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { PlaceCard } from "@/components/cards/PlaceCard";
+import { AgePicker } from "@/components/ui/AgePicker";
 import { INTEREST_LABEL } from "@/lib/recommend/explain";
 
-/** Персональная подборка: те же правила рекомендаций, что и в планировщике. */
+/** Персональная подборка: те же правила, что и в планировщике, — от точки выезда и по погоде. */
 export function ForYou() {
-  const kids = useFamily((s) => s.children);
-  const hydrated = useFamily((s) => s.hydrated);
+  const s = useFamily();
+  const { forecast } = useForecast();
+  const kids = s.children;
 
   const ranked = useMemo(() => {
     if (!kids.length) return [];
@@ -22,21 +25,38 @@ export function ForYou() {
         duration: "mid",
         mood: "surprise",
         budget: "any",
-        transport: "transit",
-        location: DEFAULT_LOCATION,
-        weather: getWeather(),
+        transport: s.transport,
+        location: s.origin,
+        weather: forecast ? daySummary(forecast, moscowDateISO(0)).weather : getWeather(),
+        forecast,
         now: new Date(),
+        family: familySignals(s),
+        constraints: { maxTravelMin: s.maxTravelMin + 15 },
       },
       (p) => p.category !== "cafe"
     ).slice(0, 8);
-  }, [kids]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [kids, forecast, s.origin, s.transport, s.maxTravelMin, s.wantPlaces, s.visitedPlaces, s.loved, s.disliked]);
 
-  if (!hydrated || !ranked.length) return null;
-  const names = kids.map((k) => k.name).join(" и ");
+  if (!s.hydrated) return null;
+  if (!kids.length)
+    return (
+      <section className="mx-4 mt-7 rounded-[24px] bg-surface p-4 shadow-card">
+        <h2 className="tight text-[20px] font-[800] leading-tight">Сколько лет ребёнку? 💛</h2>
+        <p className="mt-1 text-[14px] text-muted">Один тап — и подборки, и планы будут только про подходящие места.</p>
+        <AgePicker
+          className="mt-3"
+          onPick={(age) => s.upsertChild({ id: `c${Date.now()}`, name: "", age, interests: [], emoji: "🦁" })}
+        />
+      </section>
+    );
+  if (!ranked.length) return null;
+  const named = kids.filter((k) => k.name);
+  const title = named.length === kids.length ? `Для ${kidsGenitive(named.map((k) => k.name))} 💛` : "Для ваших детей 💛";
 
   return (
     <section className="mt-7">
-      <SectionHeader title={`Для ${kidsGenitive(kids.map((k) => k.name))} 💛`} subtitle="По интересам и возрасту" href="/search?for=family" />
+      <SectionHeader title={title} subtitle="По возрасту, интересам и погоде" href="/search?for=family" />
       <div className="no-scrollbar snap-x-pad mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-3 pt-1">
         {ranked.map(({ place }) => {
           const interest = kids.flatMap((k) => k.interests).find((i) => place.interest_tags.includes(i));
@@ -44,12 +64,11 @@ export function ForYou() {
             <PlaceCard
               key={place.id}
               place={place}
-              caption={interest ? `${INTEREST_LABEL[interest].emoji} ${INTEREST_LABEL[interest].label}` : undefined}
+              caption={s.wantPlaces.includes(place.slug) ? "❤️ Хотели сюда" : interest ? `${INTEREST_LABEL[interest].emoji} ${INTEREST_LABEL[interest].label}` : undefined}
             />
           );
         })}
       </div>
-      <span className="sr-only">{names}</span>
     </section>
   );
 }

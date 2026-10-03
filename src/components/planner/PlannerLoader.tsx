@@ -8,11 +8,11 @@ import { plural } from "@/lib/format";
 export function PlannerLoader({ kids, onDone }: { kids: Pick<Child, "name" | "age">[]; onDone: () => void }) {
   const ages = kids.map((k) => k.age).join(" и ");
   const steps = [
-    "Смотрим погоду на сегодня…",
+    "Смотрим прогноз по часам…",
     kids.length ? `Ищем места для ${ages} ${plural(kids[kids.length - 1].age, "года", "лет", "лет")}…` : "Ищем лучшие места…",
     "Проверяем, что всё открыто…",
-    "Считаем дорогу и бюджет…",
-    "Добавляем кафе поблизости…",
+    "Считаем дорогу от вас и бюджет…",
+    "Ставим прогулку в сухое окно…",
   ];
   const [i, setI] = useState(0);
   useEffect(() => {

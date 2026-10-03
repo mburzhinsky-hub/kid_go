@@ -27,6 +27,8 @@ jobs:
         with:
           enablement: true
       - run: npm ci
+      - name: Engine evaluation (0 нарушений, разнообразие, полнота дня)
+        run: npm run eval
       - name: Build static export
         env:
           GITHUB_PAGES: "true"

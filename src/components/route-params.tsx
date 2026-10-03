@@ -24,6 +24,7 @@ function DayRoute() {
       explanation={g("why")}
       why={g("chips")?.split("|").filter(Boolean)}
       durations={g("d")?.split(",").map(Number)}
+      dayOffset={Number(g("day") ?? 0) || 0}
     />
   );
 }
@@ -42,7 +43,13 @@ function SearchRoute() {
 
 function MapRoute() {
   const sp = useSearchParams();
-  return <MapScreen initialCategory={(sp.get("category") as CategoryId) || undefined} initialFocus={sp.get("place") || undefined} />;
+  return (
+    <MapScreen
+      initialCategory={(sp.get("category") as CategoryId) || undefined}
+      initialFocus={sp.get("place") || undefined}
+      initialPlan={sp.get("plan")?.split(",").filter(Boolean)}
+    />
+  );
 }
 
 function FavoritesRoute() {

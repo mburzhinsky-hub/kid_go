@@ -1,116 +1,77 @@
-# Сквозные пользовательские сценарии (Playwright, Python): python3 scripts/smoke-flows.py http://localhost:3000
-import asyncio, sys
-from playwright.async_api import async_playwright, expect
-BASE=sys.argv[1] if len(sys.argv)>1 else "http://localhost:3002"
-async def main():
-    async with async_playwright() as p:
-        b=await p.chromium.launch(executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome")
-        ctx=await b.new_context(viewport={"width":390,"height":844}, device_scale_factor=1, is_mobile=True, has_touch=True, locale="ru-RU", timezone_id="Europe/Moscow")
-        page=await ctx.new_page()
-        errs=[]
-        page.on("pageerror", lambda e: errs.append(str(e)))
-        await page.route("**/tiles.openfreemap.org/**", lambda r: r.abort())
-        ok=lambda m: print("✓", m)
-
-        # 1. сценарий «Если дождь» → результаты → план → день
-        await page.goto(BASE+"/")
-        await page.get_by_role("link", name="Если дождь").click()
-        await page.wait_for_url("**/planner/results**")
-        await expect(page.get_by_role("heading", name="Мы придумали вам", exact=False)).to_be_visible(timeout=15000)
-        n=await page.get_by_role("link", name="Хочу так").count()
-        ok(f"сценарий «Если дождь» → {n} варианта")
-        await page.get_by_role("link", name="Хочу так").first.click()
-        await page.wait_for_url("**/day?**")
-        await expect(page.get_by_text("План дня")).to_be_visible()
-        stops=await page.locator("ol > li").count()
-        ok(f"план дня открыт, точек: {stops}")
-        await page.get_by_role("button", name="11:00", exact=True).click()
-        ok("сменили время старта")
-
-        # 2. Планировщик: 5 шагов
-        await page.goto(BASE+"/planner")
-        await expect(page.get_by_text("Кто идёт?")).to_be_visible()
-        await page.get_by_role("button", name="Дальше").click()
-        await page.get_by_role("button", name="Полдня").click()
-        await page.get_by_role("button", name="Выплеснуть энергию").click()
-        await page.get_by_role("button", name="до 5 000 ₽").click()
-        await page.get_by_role("button", name="На машине").click()
-        await page.get_by_role("button", name="Придумать день ✨").click()
-        await expect(page.get_by_text("Придумываем приключение…")).to_be_visible()
-        await page.wait_for_url("**/planner/results**", timeout=15000)
-        await expect(page.get_by_role("heading", name="Мы придумали вам", exact=False)).to_be_visible(timeout=15000)
-        ok("планировщик: 5 шагов → лоадер → результаты")
-
-        # 2b. Естественный язык
-        await page.goto(BASE+"/planner")
-        await page.get_by_label("Или просто опишите словами").fill("Хочу куда-нибудь недалеко, чтобы дети побегали и потом нормально поесть")
-        await expect(page.get_by_text("потом поесть")).to_be_visible()
-        await page.get_by_role("button", name="Готово").click()
-        await page.wait_for_url("**/planner/results**", timeout=15000)
-        await expect(page.locator("text=Хочу так").first).to_be_visible(timeout=15000)
-        ok("NL-запрос → фильтры → результаты")
-
-        # 3. Место → «Что потом?» → наш день
-        await page.goto(BASE+"/places/paleontologichesky-muzey")
-        await page.get_by_role("button", name="Добавить в наш день").click()
-        await expect(page.get_by_role("status")).to_contain_text("в нашем дне")
-        await page.goto(BASE+"/day")
-        await expect(page.get_by_role("heading", name="Наш день")).to_be_visible()
-        stops=await page.locator("ol > li").count()
-        ok(f"«Что потом?» → наш день: {stops} точки")
-
-        # 4. Хочу сюда → шит
-        await page.goto(BASE+"/places/moskvarium")
-        await page.get_by_role("button", name="Хочу сюда!").click()
-        await expect(page.get_by_text("Отличный выбор!")).to_be_visible()
-        await page.get_by_role("button", name="Сохранить в «Хотим сходить»").click()
-        await page.goto(BASE+"/favorites")
-        await expect(page.get_by_text("Москвариум")).to_be_visible()
-        ok("«Хочу сюда!» → сохранено в хотелки")
-
-        # 5. Приключение → сохранить → в избранном
-        await page.goto(BASE+"/adventures/den-dinozavrov")
-        await page.get_by_role("button", name="Сохранить", exact=True).first.click()
-        await page.goto(BASE+"/favorites?tab=plans")
-        await expect(page.get_by_text("День динозавров")).to_be_visible()
-        ok("приключение сохранено")
-
-        # 6. Поиск
-        await page.goto(BASE+"/search")
-        await page.get_by_label("Поиск").fill("батуты")
-        await expect(page.get_by_text("Батутный центр «Прыг-Скок»")).to_be_visible()
-        ok("поиск «батуты»")
-        await page.get_by_label("Поиск").fill("бесплатно на улице")
-        await expect(page.get_by_text("Поняли так")).to_be_visible()
-        c=await page.locator("a[href^='/places/']").count()
-        ok(f"поиск «бесплатно на улице» → {c} мест")
-
-        # 7. Профиль: добавить ребёнка
-        await page.goto(BASE+"/profile")
-        await page.get_by_role("button", name="Добавить ребёнка").click()
-        await page.get_by_placeholder("Как зовут?").fill("Соня")
-        await page.get_by_role("button", name="🎨 Рисование").click()
-        await page.get_by_role("button", name="Добавить", exact=True).click()
-        await expect(page.get_by_text("Соня,")).to_be_visible()
-        ok("профиль: добавлен ребёнок")
-
-        # 8. Карта: фильтр и выбор маркера
-        await page.goto(BASE+"/map")
-        await page.wait_for_timeout(2500)
-        await page.get_by_role("button", name="Под крышей").click()
-        await page.locator("button[aria-label*=\", рейтинг\"]").first.click()
-        await expect(page.get_by_role("link", name="Подробнее")).to_be_visible()
-        ok("карта: фильтр + маркер → карточка")
-
-        # 9. Онбординг
-        await page.goto(BASE+"/onboarding")
-        await page.get_by_role("button", name="Дальше").click()
-        await page.get_by_role("button", name="Дальше").click()
-        await page.get_by_placeholder("Имя").fill("Лёва")
-        await page.get_by_role("button", name="Поехали! 🚀").click()
-        await page.wait_for_url(BASE+"/")
-        ok("онбординг пройден")
-
-        print("ошибки страницы:", errs[:5] or "нет")
-        await b.close()
-asyncio.run(main())
+# Сквозные сценарии (Playwright): python3 scripts/smoke-flows.py http://localhost:3000
+# Онбординг без демо-детей → точка выезда → сценарий «Успеть до дождя» (тестовая погода) → план дня →
+# замена шага → .ics → «Если дождь» только под крышей → ситуации → маршрут на карте → профиль → планер без детей.
+import re, sys
+from playwright.sync_api import sync_playwright
+B=sys.argv[1] if len(sys.argv)>1 else "http://localhost:3000"
+errs=[]
+def run():
+  with sync_playwright() as p:
+    b=p.chromium.launch()
+    ctx=b.new_context(viewport={"width":390,"height":844}, accept_downloads=True)
+    # block external network (open-meteo, tiles) quickly
+    ctx.route(re.compile(r"https://(api\.open-meteo|tiles\.openfreemap|images\.unsplash).*"), lambda r: r.abort())
+    pg=ctx.new_page()
+    pg.on("pageerror", lambda e: errs.append(("pageerror", str(e))))
+    pg.on("console", lambda m: m.type=="error" and errs.append(("console", m.text[:200])))
+    pg.goto(B+"/"); pg.wait_for_url("**/onboarding", timeout=8000); print("1 redirected to onboarding")
+    pg.click("text=Начнём")
+    pg.get_by_role("radio", name="5").click()
+    pg.fill("input[placeholder='Имя — если хотите']","Тёма")
+    pg.click("text=Динозавры")
+    pg.click("text=Дальше")
+    pg.click("text=Выбрать район")
+    pg.get_by_role("dialog").get_by_text("Сокольники", exact=True).click()
+    pg.wait_for_timeout(300)
+    assert "Сокольники" in pg.inner_text("main"), "origin not shown"
+    pg.click("text=Поехали! 🚀"); pg.wait_for_url(B+"/"); pg.wait_for_timeout(1500)
+    body=pg.inner_text("body")
+    assert "Миша" not in body and "Аня" not in body, "demo kids visible"
+    print("2 home ok; chip:", pg.locator("header button[aria-label^='Точка выезда']").inner_text())
+    print("   weather:", pg.locator("a:has-text('Сегодня')").first.inner_text().replace("\n"," | ")[:160])
+    print("   for you title present:", "Для Тёмы" in body)
+    # scenarios grid
+    print("   scenario cards:", pg.locator("section:has-text('Что хочется сегодня?') a[href*='planner/results?s=']").count())
+    # results with rain from 15
+    pg.goto(B+"/planner/results?s=before-rain&wx=rain15"); pg.wait_for_selector("h1"); pg.wait_for_timeout(800)
+    print("3 results h1:", pg.inner_text("h1"))
+    print("   sub:", pg.locator("h1 + p").inner_text()[:200])
+    cards=pg.locator("a[href*='/day?']"); print("   plans:", cards.count())
+    print("   first explanation:", pg.locator("a[href*='/day?'] p").nth(1).inner_text()[:220])
+    cards.first.click(); pg.wait_for_url("**/day?**"); pg.wait_for_timeout(800)
+    tl=pg.inner_text("ol"); print("4 day timeline:", tl.replace("\n"," | ")[:400])
+    assert "Тёма" not in pg.url, "name leaked in url"
+    # replace a step
+    pg.locator("button:has-text('Заменить')").first.click(); pg.wait_for_timeout(300)
+    opts=pg.get_by_role("dialog").locator("button:has(img), button:has(span.truncate)")
+    n=pg.get_by_role("dialog").locator("button.press").count()
+    print("   replace options:", n-1)
+    if n>1:
+        pg.get_by_role("dialog").locator("button.press").nth(1).click(); pg.wait_for_timeout(500)
+        print("   replaced, url steps:", re.search(r"steps=([^&]+)", pg.url).group(1))
+    with pg.expect_download() as dl:
+        pg.click("text=В календарь")
+    print("   ics:", dl.value.suggested_filename)
+    # rain all day: indoor only
+    pg.goto(B+"/planner/results?s=rain&wx=rain"); pg.wait_for_selector("a[href*='/day?']"); 
+    hrefs=[pg.locator("a[href*='/day?']").nth(i).get_attribute("href") for i in range(pg.locator("a[href*='/day?']").count())]
+    print("5 rain plans:", [re.search(r"steps=([^&]+)", h).group(1) for h in hrefs])
+    pg.goto(B+"/scenarios"); print("6 scenarios:", pg.locator("a[href*='?s=']").count())
+    pg.goto(B+"/map?plan=paleontologichesky-muzey,kafe-ponchik"); pg.wait_for_timeout(2500); print("7 map:", pg.locator("h2").first.inner_text())
+    pg.goto(B+"/profile"); print("8 profile has minutes:", "40 мин" in pg.inner_text("main"))
+    pg.goto(B+"/places/skazochny-les"); pg.wait_for_timeout(500); print("9 place travel:", pg.locator("text=/\\d+ мин/").first.inner_text())
+    # planner wizard with no kids path: new context
+    ctx2=b.new_context(viewport={"width":390,"height":844}); ctx2.route(re.compile(r"https://(api\.open-meteo|tiles|images).*"), lambda r: r.abort())
+    p2=ctx2.new_page(); p2.on("pageerror", lambda e: errs.append(("pageerror2", str(e))))
+    p2.goto(B+"/planner"); p2.wait_for_timeout(800)
+    print("10 wizard no kids heading:", p2.locator("h2").first.inner_text())
+    p2.get_by_role("radio", name="7").click(); p2.click("text=Дальше")
+    p2.click("text=3–4 часа"); p2.wait_for_timeout(400); p2.click("text=Выплеснуть энергию"); p2.wait_for_timeout(400)
+    p2.click("text=до 5 000 ₽"); p2.wait_for_timeout(400); p2.click("text=Общественный транспорт"); p2.click("text=Придумать день ✨")
+    p2.wait_for_url("**/planner/results**", timeout=10000); p2.wait_for_timeout(1000)
+    print("   results:", p2.inner_text("h1"), p2.locator("a[href*='/day?']").count(), "plans; url kids:", re.search(r"kids=([^&]+)", p2.url).group(1))
+    b.close()
+run()
+real=[e for e in errs if "ERR_FAILED" not in e[1]]
+print("ERRORS:", real[:10])
+sys.exit(1 if real else 0)

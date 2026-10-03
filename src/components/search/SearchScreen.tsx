@@ -8,7 +8,7 @@ import type { CategoryId, Place } from "@/lib/types";
 import { allPlaces } from "@/lib/data/repository";
 import { parseQuery } from "@/lib/recommend/nlu";
 import { CATEGORIES } from "@/lib/catalog";
-import { distanceFromUser } from "@/lib/geo";
+import { travelToPlace } from "@/lib/location";
 import { useFamily } from "@/lib/store";
 import { PlaceRow } from "@/components/cards/PlaceCard";
 import { FilterChip } from "@/components/ui/FilterChip";
@@ -30,6 +30,9 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
   const [category, setCategory] = useState<CategoryId | undefined>(initialCategory);
   const [sort, setSort] = useState<Sort>(initialSort ?? "best");
   const kids = useFamily((s) => s.children);
+  const origin = useFamily((s) => s.origin);
+  const transport = useFamily((s) => s.transport);
+  const mins = (p: Place) => travelToPlace(origin, p, transport).minutes;
   const parsed = useMemo(() => (q.trim().length > 2 ? parseQuery(q) : null), [q]);
 
   const results = useMemo(() => {
@@ -52,7 +55,8 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
           if (parsed.activity && p.activity_level === parsed.activity) score += 1.5;
           score += parsed.interests.filter((i) => p.interest_tags.includes(i)).length * 3;
           if (parsed.category === p.category) score += 2;
-          if (parsed.maxDistanceKm && distanceFromUser(p) > parsed.maxDistanceKm) ok = false;
+          if (parsed.maxDistanceKm && mins(p) > 20) ok = false;
+          if (parsed.ageMax == null && kids.length && kids.every((k) => k.age < p.age_min || k.age > p.age_max)) score -= 2;
           const structured = parsed.chips.length > 0;
           if (!structured && words.length && textHits === 0) ok = false;
           if (structured && words.length && textHits === 0 && score < p.rating + 1) ok = false;
@@ -62,12 +66,13 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
       })
       .filter((x) => x.ok);
     const sorted = [...scored].sort((a, b) => {
-      if (sort === "near") return distanceFromUser(a.p) - distanceFromUser(b.p);
+      if (sort === "near") return mins(a.p) - mins(b.p);
       if (sort === "cheap") return a.p.price_min - b.p.price_min || b.score - a.score;
       return b.score - a.score;
     });
     return sorted.map((x) => x.p);
-  }, [q, category, sort, parsed]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q, category, sort, parsed, origin, transport, kids]);
 
   const plannerHref = parsed
     ? `/planner/results?${new URLSearchParams({

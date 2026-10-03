@@ -8,7 +8,8 @@ import { Search, SlidersHorizontal, Navigation, ArrowRight, X, ChevronDown, Loca
 import type { Map as MLMap, Marker as MLMarker } from "maplibre-gl";
 import type { CategoryId, GeoPoint } from "@/lib/types";
 import { allPlaces } from "@/lib/data/repository";
-import { DEFAULT_LOCATION, haversineKm, pt } from "@/lib/geo";
+import { DEFAULT_LOCATION, haversineKm } from "@/lib/geo";
+import { travelToPlace, nearestAreaLabel } from "@/lib/location";
 import { openState } from "@/lib/format";
 import { categoryDef } from "@/lib/catalog";
 import { useFamily } from "@/lib/store";
@@ -26,8 +27,9 @@ import { cn } from "@/lib/cn";
 /** Бесплатные векторные тайлы OSM (без ключа). В проде можно заменить на Mapbox/MapTiler. */
 const STYLE_URL = process.env.NEXT_PUBLIC_MAP_STYLE_URL ?? "https://tiles.openfreemap.org/styles/positron";
 
-type Toggle = "open" | "indoor" | "outdoor" | "cafe" | "parking" | "free";
+type Toggle = "near" | "open" | "indoor" | "outdoor" | "cafe" | "parking" | "free";
 const TOGGLES: { id: Toggle; label: string }[] = [
+  { id: "near", label: "Рядом сейчас" },
   { id: "open", label: "Сейчас открыто" },
   { id: "indoor", label: "Под крышей" },
   { id: "outdoor", label: "На улице" },
@@ -47,7 +49,7 @@ const PRICES = [
   { id: "2000", label: "до 2 000 ₽", max: 2000 },
 ] as const;
 
-export function MapScreen({ initialCategory, initialFocus }: { initialCategory?: CategoryId; initialFocus?: string }) {
+export function MapScreen({ initialCategory, initialFocus, initialPlan }: { initialCategory?: CategoryId; initialFocus?: string; initialPlan?: string[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MLMap | null>(null);
   const markersRef = useRef<Map<string, MLMarker>>(new Map());
@@ -68,6 +70,17 @@ export function MapScreen({ initialCategory, initialFocus }: { initialCategory?:
   const [user, setUser] = useState<GeoPoint>(DEFAULT_LOCATION);
   const [geo, setGeo] = useState<"idle" | "ok" | "denied">("idle");
   const kids = useFamily((s) => s.children);
+  const origin = useFamily((s) => s.origin);
+  const hydrated = useFamily((s) => s.hydrated);
+  const setOrigin = useFamily((s) => s.setOrigin);
+  const transport = useFamily((s) => s.transport);
+  const maxTravelMin = useFamily((s) => s.maxTravelMin);
+  const planSlugs = useMemo(() => (initialPlan ?? []).filter((x) => allPlaces.some((p) => p.slug === x)), [initialPlan]);
+  const planPlaces = useMemo(() => planSlugs.map((x) => allPlaces.find((p) => p.slug === x)!), [planSlugs]);
+  // точка выезда семьи — она же «я» на карте
+  useEffect(() => {
+    if (hydrated && origin.source !== "default") setUser({ lat: origin.lat, lng: origin.lng });
+  }, [hydrated, origin]);
   const sheetRef = useRef<HTMLElement>(null);
   const [sheetH, setSheetH] = useState(300);
   useEffect(() => {
@@ -82,8 +95,10 @@ export function MapScreen({ initialCategory, initialFocus }: { initialCategory?:
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
     const now = new Date();
+    if (planSlugs.length) return planPlaces;
     return allPlaces.filter((p) => {
       if (category && p.category !== category) return false;
+      if (toggles.has("near") && (travelToPlace(user, p, transport).minutes > maxTravelMin || !openState(p.opening_hours, now).open)) return false;
       if (q && !`${p.title} ${p.subtitle} ${p.tags.join(" ")}`.toLowerCase().includes(q)) return false;
       if (toggles.has("open") && !openState(p.opening_hours, now).open) return false;
       if (toggles.has("indoor") && !p.indoor) return false;
@@ -101,11 +116,14 @@ export function MapScreen({ initialCategory, initialFocus }: { initialCategory?:
       }
       return true;
     });
-  }, [query, toggles, age, price, category]);
+  }, [query, toggles, age, price, category, user, transport, maxTravelMin, planSlugs, planPlaces]);
   const visibleIds = useMemo(() => new Set(visible.map((p) => p.slug)), [visible]);
   const nearby = useMemo(
-    () => visible.map((p) => ({ p, km: haversineKm(user, pt(p)) })).sort((a, b) => a.km - b.km),
-    [visible, user]
+    () =>
+      planSlugs.length
+        ? visible.map((p) => ({ p, min: 0 }))
+        : visible.map((p) => ({ p, min: travelToPlace(user, p, transport).minutes })).sort((a, b) => a.min - b.min),
+    [visible, user, transport, planSlugs]
   );
   const selectedPlace = selected ? allPlaces.find((p) => p.slug === selected) ?? null : null;
 
@@ -153,7 +171,15 @@ export function MapScreen({ initialCategory, initialFocus }: { initialCategory?:
           }
           setEls(created);
           const bounds = new ml.LngLatBounds();
-          allPlaces.forEach((p) => bounds.extend([p.longitude, p.latitude]));
+          (planPlaces.length ? planPlaces : allPlaces).forEach((p) => bounds.extend([p.longitude, p.latitude]));
+          if (planPlaces.length > 1) {
+            map.addSource("plan-route", {
+              type: "geojson",
+              data: { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: planPlaces.map((p) => [p.longitude, p.latitude]) } },
+            });
+            map.addLayer({ id: "plan-route-casing", type: "line", source: "plan-route", paint: { "line-color": "#ffffff", "line-width": 8, "line-opacity": 0.9 }, layout: { "line-cap": "round", "line-join": "round" } });
+            map.addLayer({ id: "plan-route", type: "line", source: "plan-route", paint: { "line-color": "#FF2E88", "line-width": 4, "line-dasharray": [1.5, 1.2] }, layout: { "line-cap": "round", "line-join": "round" } });
+          }
           map.fitBounds(bounds, { padding: { top: 150, bottom: 300, left: 30, right: 30 }, duration: 0 });
           setZoom(map.getZoom());
           setMode("map");
@@ -230,6 +256,7 @@ export function MapScreen({ initialCategory, initialFocus }: { initialCategory?:
         const target = inCity ? loc : DEFAULT_LOCATION;
         setUser(target);
         setGeo("ok");
+        if (inCity) setOrigin({ ...loc, label: nearestAreaLabel(loc), source: "gps" });
         const map = mapRef.current;
         if (map) {
           const ml = (await import("maplibre-gl")).default;
@@ -294,6 +321,18 @@ export function MapScreen({ initialCategory, initialFocus }: { initialCategory?:
               </div>
             );
           })}
+          {planPlaces.length > 1 && (
+            <svg className="pointer-events-none absolute left-0 top-0 overflow-visible" width="1" height="1" aria-hidden>
+              <polyline
+                points={planPlaces.map((p) => `${project(p.latitude, p.longitude).x * fz},${project(p.latitude, p.longitude).y * fz}`).join(" ")}
+                fill="none"
+                stroke="#FF2E88"
+                strokeWidth={4}
+                strokeDasharray="7 6"
+                strokeLinecap="round"
+              />
+            </svg>
+          )}
           <span className="kg-user-dot absolute" style={{ left: project(user.lat, user.lng).x * fz, top: project(user.lat, user.lng).y * fz }} />
         </StylizedMap>
       )}
@@ -358,7 +397,7 @@ export function MapScreen({ initialCategory, initialFocus }: { initialCategory?:
         {geo === "denied" && (
           <div className="mx-4 mt-1 flex items-center gap-2 rounded-[16px] bg-white/95 px-3 py-2 text-[13px] shadow-card animate-rise">
             <LocateOff size={16} className="shrink-0 text-red" />
-            <span className="flex-1">Геолокация выключена — считаем расстояния от центра Москвы</span>
+            <span className="flex-1">Геолокация выключена — считаем дорогу от «{origin.source === "default" ? "центр" : origin.label}». Точку можно выбрать в шапке главной</span>
             <button onClick={() => setGeo("idle")} aria-label="Скрыть" className="text-muted">
               <X size={15} />
             </button>
@@ -396,13 +435,13 @@ export function MapScreen({ initialCategory, initialFocus }: { initialCategory?:
         <div className="mx-auto h-[5px] w-10 rounded-full bg-[#dcdad4]" />
         {selectedPlace ? (
           <div className="px-4 pt-3">
-            <PlaceBottomSheet key={selectedPlace.slug} place={selectedPlace} km={haversineKm(user, pt(selectedPlace))} onClose={() => setSelected(null)} />
+            <PlaceBottomSheet key={selectedPlace.slug} place={selectedPlace} minutes={travelToPlace(user, selectedPlace, transport).minutes} onClose={() => setSelected(null)} />
           </div>
         ) : (
           <>
             <div className="flex items-end justify-between px-4 pt-3">
               <h2 className="tight text-[23px] font-[800]">
-                {visible.length === allPlaces.length ? "Рядом с вами" : `Нашли ${visible.length}`}
+                {planSlugs.length ? "Маршрут дня" : visible.length === allPlaces.length ? "Рядом с вами" : `Нашли ${visible.length}`}
               </h2>
               <Link href="/search" className="press flex items-center gap-1 text-[16px] font-medium text-blue">
                 Все <ArrowRight size={18} />
@@ -410,8 +449,8 @@ export function MapScreen({ initialCategory, initialFocus }: { initialCategory?:
             </div>
             {nearby.length ? (
               <div className="no-scrollbar snap-x-pad mt-2.5 flex snap-x gap-3 overflow-x-auto px-4 pb-1 pt-1">
-                {nearby.slice(0, 12).map(({ p, km }) => (
-                  <PlaceCard key={p.id} place={p} km={km} width="w-[196px]" />
+                {nearby.slice(0, 12).map(({ p }, i) => (
+                  <PlaceCard key={p.id} place={p} width="w-[196px]" caption={planSlugs.length ? `Шаг ${i + 1}` : undefined} />
                 ))}
               </div>
             ) : (
@@ -443,7 +482,7 @@ export function MapScreen({ initialCategory, initialFocus }: { initialCategory?:
               }}
               className="press col-span-2 h-14 rounded-[18px] bg-pink-50 text-[15.5px] font-semibold text-pink"
             >
-              Как у наших: {kids.map((k) => `${k.name} ${k.age}`).join(", ")}
+              Как у наших: {kids.map((k) => (k.name ? `${k.name} ${k.age}` : `${k.age} ${k.age === 1 ? "год" : "лет"}`)).join(", ")}
             </button>
           )}
           {AGES.map((a) => (

@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Footprints, Bus, Car, ChevronUp, ChevronDown, Trash2, Clock } from "lucide-react";
+import { Footprints, Bus, Car, ChevronUp, ChevronDown, Trash2, Clock, Replace } from "lucide-react";
 import type { Plan, PlanStop, TransportId } from "@/lib/types";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { categoryDef } from "@/lib/catalog";
 import { formatDuration, plural } from "@/lib/format";
 import { formatKm } from "@/lib/geo";
+import { cn } from "@/lib/cn";
 
 const STOP_COLORS = ["#FF2E88", "#8B3DF0", "#1FA9F5", "#1FAE47", "#FF7A2E", "#FFC21A"];
 
@@ -15,11 +16,13 @@ export function AdventureTimeline({
   editable,
   onMove,
   onRemove,
+  onReplace,
 }: {
   plan: Plan;
   editable?: boolean;
   onMove?: (slug: string, dir: -1 | 1) => void;
   onRemove?: (slug: string) => void;
+  onReplace?: (index: number) => void;
 }) {
   return (
     <ol className="relative">
@@ -35,6 +38,7 @@ export function AdventureTimeline({
             canDown={i < plan.stops.length - 1}
             onMove={onMove}
             onRemove={onRemove}
+            onReplace={onReplace ? () => onReplace(i) : undefined}
           />
           {stop.travelToNext && <TravelConnector {...stop.travelToNext} />}
         </li>
@@ -53,6 +57,7 @@ function StopRow({
   canDown,
   onMove,
   onRemove,
+  onReplace,
 }: {
   stop: PlanStop;
   index: number;
@@ -63,8 +68,11 @@ function StopRow({
   canDown: boolean;
   onMove?: (slug: string, dir: -1 | 1) => void;
   onRemove?: (slug: string) => void;
+  onReplace?: () => void;
 }) {
   const p = stop.place;
+  const w = stop.weather;
+  const wxIcon = w ? (w.condition === "rain" ? "🌧" : w.condition === "snow" ? "🌨" : w.condition === "sun" ? "☀️" : "⛅") : null;
   const cat = categoryDef(p.category);
   return (
     <div className="relative flex gap-3 animate-rise" style={{ animationDelay: `${index * 70}ms` }}>
@@ -83,23 +91,43 @@ function StopRow({
               <cat.Icon width={13} height={13} /> {cat.name}
             </span>
             <h3 className="mt-0.5 line-clamp-2 text-[16px] font-bold leading-tight">{p.title}</h3>
-            <p className="mt-1 inline-flex items-center gap-1 text-[13.5px] font-medium text-muted">
-              <Clock size={13} strokeWidth={2.3} /> {formatDuration(stop.duration)}
+            <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[13.5px] font-medium text-muted">
+              <span className="inline-flex items-center gap-1">
+                <Clock size={13} strokeWidth={2.3} /> {formatDuration(stop.duration)}
+              </span>
+              {w && (
+                <span
+                  className={cn("inline-flex items-center gap-0.5", w.bad && !p.indoor ? "font-semibold text-blue" : "")}
+                  title={`Вероятность осадков ${w.pop}%`}
+                >
+                  {wxIcon} {w.temp > 0 ? "+" : ""}
+                  {w.temp}°{p.indoor && !p.outdoor ? " · под крышей" : w.bad ? ` · ${w.pop}%` : ""}
+                </span>
+              )}
             </p>
           </div>
         </Link>
         {stop.note && <p className="mx-2.5 mb-2.5 rounded-[12px] bg-yellow-50 px-3 py-2 text-[13px] leading-snug text-[#7a5600]">💡 {stop.note}</p>}
-        {editable && (
+        {(editable || onReplace) && (
           <div className="flex items-center justify-end gap-1 border-t border-line px-2 py-1.5">
-            <IconBtn label="Выше" disabled={!canUp} onClick={() => onMove?.(p.slug, -1)}>
-              <ChevronUp size={18} />
-            </IconBtn>
-            <IconBtn label="Ниже" disabled={!canDown} onClick={() => onMove?.(p.slug, 1)}>
-              <ChevronDown size={18} />
-            </IconBtn>
-            <IconBtn label="Убрать" onClick={() => onRemove?.(p.slug)}>
-              <Trash2 size={17} />
-            </IconBtn>
+            {onReplace && (
+              <button onClick={onReplace} className="press mr-auto inline-flex h-9 items-center gap-1.5 rounded-full px-2.5 text-[13.5px] font-semibold text-ink-2">
+                <Replace size={16} /> Заменить
+              </button>
+            )}
+            {editable && (
+              <>
+                <IconBtn label="Выше" disabled={!canUp} onClick={() => onMove?.(p.slug, -1)}>
+                  <ChevronUp size={18} />
+                </IconBtn>
+                <IconBtn label="Ниже" disabled={!canDown} onClick={() => onMove?.(p.slug, 1)}>
+                  <ChevronDown size={18} />
+                </IconBtn>
+                <IconBtn label="Убрать" onClick={() => onRemove?.(p.slug)}>
+                  <Trash2 size={17} />
+                </IconBtn>
+              </>
+            )}
           </div>
         )}
       </div>
