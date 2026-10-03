@@ -5,6 +5,7 @@ import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
 import { BottomNavigation } from "@/components/layout/BottomNavigation";
 
+const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kidgo.app";
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     title: "КидГоу — куда пойти с детьми сегодня",
     description: "Выберите настроение — мы соберём ваш день.",
   },
-  icons: { icon: [{ url: "/icons/favicon-48.png", sizes: "48x48" }, { url: "/icons/icon-192.png", sizes: "192x192" }], apple: "/icons/apple-touch-icon.png" },
+  icons: { icon: [{ url: `${B}/icons/favicon-48.png`, sizes: "48x48" }, { url: `${B}/icons/icon-192.png`, sizes: "192x192" }], apple: `${B}/icons/apple-touch-icon.png` },
 };
 
 export const viewport: Viewport = {

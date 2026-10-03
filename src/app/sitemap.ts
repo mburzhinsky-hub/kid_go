@@ -3,6 +3,8 @@ import { repo } from "@/lib/data/repository";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kidgo.app";
 
+export const dynamic = "force-static";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [places, adventures] = await Promise.all([repo.listPlaces(), repo.listAdventures()]);
   const now = new Date();

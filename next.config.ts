@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
+const pages = process.env.GITHUB_PAGES === "true";
+
 const nextConfig: NextConfig = {
+  // Статическая выгрузка для GitHub Pages (workflow задаёт GITHUB_PAGES и NEXT_PUBLIC_BASE_PATH)
+  ...(pages ? { output: "export" as const, trailingSlash: true, basePath: process.env.NEXT_PUBLIC_BASE_PATH } : {}),
   reactStrictMode: true,
   devIndicators: false,
   images: {
