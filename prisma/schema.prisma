@@ -1,0 +1,220 @@
+// Схема БД для production (PostgreSQL + PostGIS).
+// Сейчас приложение работает на mocked data layer (src/lib/data/*) с теми же полями.
+// Подключение: npm i -D prisma && npm i @prisma/client, DATABASE_URL в .env,
+// затем `npx prisma migrate dev` и реализация DataRepository через Prisma (src/lib/data/repository.ts).
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [postgis]
+}
+
+enum Category {
+  park
+  play
+  museum
+  active
+  animals
+  cafe
+  shop
+}
+
+model Place {
+  id                String   @id @default(cuid())
+  slug              String   @unique
+  title             String
+  subtitle          String
+  description       String
+  address           String
+  metro             String?
+  latitude          Float
+  longitude         Float
+  /// Точка для гео-запросов: ST_DWithin / сортировка по <->
+  geom              Unsupported("geography(Point, 4326)")?
+  category          Category
+  tint              String   @default("#FFE3EE")
+  emoji             String   @default("✨")
+  rating            Float    @default(0)
+  reviewCount       Int      @default(0) @map("review_count")
+  priceMin          Int      @default(0) @map("price_min")
+  priceMax          Int      @default(0) @map("price_max")
+  priceLevel        Int      @default(0) @map("price_level")
+  familyBudget      Int      @default(0) @map("family_budget")
+  ageMin            Int      @map("age_min")
+  ageMax            Int      @map("age_max")
+  averageDuration   Int      @map("average_duration")
+  indoor            Boolean
+  outdoor           Boolean
+  activityLevel     Int      @map("activity_level")
+  noiseLevel        Int      @map("noise_level")
+  strollerFriendly  Boolean  @map("stroller_friendly")
+  babyRoom          Boolean  @map("baby_room")
+  kidsMenu          Boolean  @map("kids_menu")
+  parking           Boolean
+  toilets           Boolean
+  wardrobe          Boolean
+  bookingRequired   Boolean  @map("booking_required")
+  /// [["10:00","22:00"], null, ...] — индекс 0 = понедельник
+  openingHours      Json     @map("opening_hours")
+  weatherTags       String[] @map("weather_tags")
+  seasonTags        String[] @map("season_tags")
+  interestTags      String[] @map("interest_tags")
+  experienceTags    String[] @map("experience_tags")
+  tags              String[]
+  isHit             Boolean  @default(false) @map("is_hit")
+  photos            Photo[]
+  reviews           Review[]
+  steps             AdventureStep[]
+  events            Event[]
+  favorites         Favorite[]
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  @@index([category])
+  @@map("places")
+}
+
+model Photo {
+  id       String @id @default(cuid())
+  placeId  String @map("place_id")
+  place    Place  @relation(fields: [placeId], references: [id], onDelete: Cascade)
+  /// ключ в Supabase Storage / S3
+  src      String
+  alt      String
+  position Int    @default(0)
+
+  @@map("photos")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  placeId   String   @map("place_id")
+  place     Place    @relation(fields: [placeId], references: [id], onDelete: Cascade)
+  userId    String?  @map("user_id")
+  author    String
+  kids      String
+  rating    Int
+  text      String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("reviews")
+}
+
+model Adventure {
+  id                String          @id @default(cuid())
+  slug              String          @unique
+  title             String
+  tagline           String
+  description       String
+  coverImage        String          @map("cover_image")
+  tint              String
+  emoji             String
+  ageMin            Int             @map("age_min")
+  ageMax            Int             @map("age_max")
+  estimatedDuration Int             @map("estimated_duration")
+  estimatedBudget   Int             @map("estimated_budget")
+  weatherTags       String[]        @map("weather_tags")
+  interestTags      String[]        @map("interest_tags")
+  moods             String[]
+  startTime         String          @map("start_time")
+  recommendPercent  Int             @default(90) @map("recommend_percent")
+  published         Boolean         @default(true)
+  steps             AdventureStep[]
+
+  @@map("adventures")
+}
+
+model AdventureStep {
+  id                  String    @id @default(cuid())
+  adventureId         String    @map("adventure_id")
+  adventure           Adventure @relation(fields: [adventureId], references: [id], onDelete: Cascade)
+  placeId             String    @map("place_id")
+  place               Place     @relation(fields: [placeId], references: [id])
+  position            Int
+  recommendedDuration Int       @map("recommended_duration")
+  travelTimeToNext    Int?      @map("travel_time_to_next")
+  note                String?
+
+  @@unique([adventureId, position])
+  @@map("adventure_steps")
+}
+
+model Event {
+  id         String   @id @default(cuid())
+  placeId    String   @map("place_id")
+  place      Place    @relation(fields: [placeId], references: [id], onDelete: Cascade)
+  title      String
+  description String
+  startAt    DateTime @map("start_at")
+  endAt      DateTime @map("end_at")
+  ageMin     Int      @map("age_min")
+  ageMax     Int      @map("age_max")
+  price      Int      @default(0)
+  ticketsUrl String?  @map("tickets_url")
+
+  @@index([startAt])
+  @@map("events")
+}
+
+/// Семья = аккаунт (Supabase Auth / Clerk user id)
+model Family {
+  id            String     @id
+  city          String     @default("Москва")
+  budget        String     @default("5000")
+  transport     String     @default("transit")
+  maxDistanceKm Int        @default(10) @map("max_distance_km")
+  children      Child[]
+  favorites     Favorite[]
+  savedPlans    SavedPlan[]
+
+  @@map("families")
+}
+
+model Child {
+  id        String    @id @default(cuid())
+  familyId  String    @map("family_id")
+  family    Family    @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  name      String
+  birthDate DateTime? @map("birth_date")
+  age       Int?
+  interests String[]
+  emoji     String?
+
+  @@map("children")
+}
+
+enum FavoriteKind {
+  want
+  visited
+}
+
+model Favorite {
+  familyId  String       @map("family_id")
+  family    Family       @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  placeId   String       @map("place_id")
+  place     Place        @relation(fields: [placeId], references: [id], onDelete: Cascade)
+  kind      FavoriteKind
+  createdAt DateTime     @default(now()) @map("created_at")
+
+  @@id([familyId, placeId, kind])
+  @@map("favorites")
+}
+
+model SavedPlan {
+  id        String   @id @default(cuid())
+  familyId  String   @map("family_id")
+  family    Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  key       String
+  title     String
+  emoji     String
+  steps     String[]
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([familyId, key])
+  @@map("saved_plans")
+}

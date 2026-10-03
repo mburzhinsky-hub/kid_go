@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/*
+ * КидГоу — design system (снято с визуального референса).
+ * Светлый тёплый фон, белые карточки с мягкой тенью, большие скругления,
+ * фуксиевый primary CTA и сочные категориальные акценты.
+ */
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter Variable", "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-logo: "Nunito", "Arial Rounded MT Bold", -apple-system, sans-serif;
+
+  --color-bg: #fbfaf7;
+  --color-surface: #ffffff;
+  --color-fill: #f3f2ef;
+  --color-fill-2: #f7f6f3;
+  --color-line: #eeece7;
+
+  --color-ink: #11121a;
+  --color-ink-2: #3a3d4a;
+  --color-muted: #7d818d;
+  --color-muted-2: #a3a6af;
+
+  --color-pink: #ff2e88;
+  --color-pink-600: #ec1676;
+  --color-pink-50: #ffe9f3;
+  --color-blue: #2f7bff;
+  --color-blue-50: #e9f1ff;
+  --color-purple: #8b3df0;
+  --color-purple-50: #f4eaff;
+  --color-green: #1fae47;
+  --color-green-50: #e6f6e3;
+  --color-yellow: #ffc21a;
+  --color-yellow-50: #fff5d6;
+  --color-orange: #ff7a2e;
+  --color-orange-50: #ffece0;
+  --color-red: #ff3b4e;
+  --color-red-50: #ffe6ea;
+  --color-sky: #1fa9f5;
+  --color-sky-50: #ddf0fc;
+  --color-star: #fdb813;
+
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-4xl: 28px;
+
+  --shadow-card: 0 1px 2px rgba(17, 18, 26, 0.04), 0 6px 20px rgba(17, 18, 26, 0.06);
+  --shadow-float: 0 2px 6px rgba(17, 18, 26, 0.06), 0 12px 32px rgba(17, 18, 26, 0.12);
+  --shadow-pink: 0 10px 24px -6px rgba(255, 46, 136, 0.55);
+  --shadow-nav: 0 -1px 0 rgba(17, 18, 26, 0.05), 0 -8px 24px rgba(17, 18, 26, 0.04);
+
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-pop: pop 0.45s var(--ease-spring) both;
+  --animate-rise: rise 0.5s var(--ease-out) both;
+  --animate-fade: fade 0.35s ease both;
+  --animate-shimmer: shimmer 1.4s linear infinite;
+  --animate-bob: bob 2.4s ease-in-out infinite;
+  --animate-spin-slow: spin 6s linear infinite;
+  --animate-sheet: sheet 0.42s var(--ease-out) both;
+
+  @keyframes pop {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes rise {
+    0% { transform: translateY(14px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-8px) rotate(3deg); }
+  }
+  @keyframes sheet {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    background: #f1efea;
+  }
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+    font-feature-settings: "ss01", "cv11";
+    overscroll-behavior-y: none;
+  }
+  button, a { touch-action: manipulation; }
+  button { cursor: pointer; }
+  :focus-visible { outline: 2.5px solid var(--color-blue); outline-offset: 2px; border-radius: 12px; }
+  ::selection { background: var(--color-pink-50); }
+}
+
+@layer utilities {
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .snap-x-pad { scroll-padding-inline: 16px; }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+  .pt-safe { padding-top: env(safe-area-inset-top); }
+  .press { transition: transform 0.18s var(--ease-out); }
+  .press:active { transform: scale(0.97); }
+  .tight { letter-spacing: -0.022em; }
+  .skeleton {
+    background: linear-gradient(90deg, #efede8 0%, #f8f7f4 40%, #efede8 80%);
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+  }
+  .text-balance { text-wrap: balance; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* ───── Карта ───── */
+.kg-marker { cursor: pointer; }
+.kg-user-dot {
+  display: block; width: 22px; height: 22px; border-radius: 9999px;
+  background: #1a6cff; border: 4px solid #fff;
+  box-shadow: 0 0 0 10px rgba(26, 108, 255, 0.16), 0 4px 10px rgba(26, 108, 255, 0.4);
+  transform: translate(-50%, -50%);
+}
+.maplibregl-ctrl-bottom-right, .maplibregl-ctrl-bottom-left { bottom: calc(var(--sheet-h, 300px) + 4px) !important; }
+.maplibregl-ctrl-attrib { font-size: 10px; background: rgba(255,255,255,0.8) !important; border-radius: 10px !important; }
