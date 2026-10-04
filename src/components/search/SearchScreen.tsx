@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, Search, X, Sparkles, ArrowRight } from "lucide-react";
 import type { CategoryId, Place } from "@/lib/types";
 import { allPlaces } from "@/lib/data/repository";
+import { useNearbyExtras } from "@/lib/nearby";
 import { parseQuery } from "@/lib/recommend/nlu";
 import { CATEGORIES } from "@/lib/catalog";
 import { travelToPlace } from "@/lib/location";
@@ -32,6 +33,8 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
   const kids = useFamily((s) => s.children);
   const origin = useFamily((s) => s.origin);
   const transport = useFamily((s) => s.transport);
+  const { places: extra } = useNearbyExtras();
+  const pool = useMemo(() => (extra.length ? [...allPlaces, ...extra] : allPlaces), [extra]);
   const mins = (p: Place) => travelToPlace(origin, p, transport).minutes;
   const parsed = useMemo(() => (q.trim().length > 2 ? parseQuery(q) : null), [q]);
 
@@ -40,7 +43,7 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
       .split(/\s+/)
       .filter((w) => w.length > 2)
       .map((w) => w.slice(0, Math.max(4, w.length - 2))); // грубый стемминг: «батуты» → «бату»
-    const scored = allPlaces
+    const scored = pool
       .filter((p) => !category || p.category === category)
       .map((p) => {
         const hay = norm(`${p.title} ${p.subtitle} ${p.tags.join(" ")} ${p.description}`);
@@ -72,7 +75,7 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
     });
     return sorted.map((x) => x.p);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [q, category, sort, parsed, origin, transport, kids]);
+  }, [q, category, sort, parsed, origin, transport, kids, pool]);
 
   const plannerHref = parsed
     ? `/planner/results?${new URLSearchParams({

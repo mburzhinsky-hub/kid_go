@@ -8,6 +8,8 @@ import type { BudgetId, Child, DurationId, InterestId, MoodId, Plan, PlannerInpu
 import { useFamily, familySignals } from "@/lib/store";
 import { generatePlans } from "@/lib/recommend/engine";
 import { useForecast } from "@/lib/use-context";
+import { useNearbyExtras } from "@/lib/nearby";
+import { isSuburban } from "@/lib/location";
 import { daySummary, moscowDateISO, weekdayOf, type Forecast } from "@/lib/forecast";
 import { plural } from "@/lib/format";
 import { MOODS, DURATIONS, BUDGETS, TRANSPORTS } from "@/lib/catalog";
@@ -64,6 +66,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
   const router = useRouter();
   const fam = useFamily();
   const { forecast, loading } = useForecast();
+  const nearby = useNearbyExtras();
   const scenario = scenarioById(query.s);
   const urlKids = decodeKids(query.kids);
   const kids = urlKids ?? fam.children;
@@ -91,6 +94,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
       budget: (query.budget ?? scenario?.budget ?? fam.budget) as BudgetId,
       transport: (query.transport ?? fam.transport) as TransportId,
       location: fam.origin,
+      extraPlaces: nearby.places.length ? nearby.places : undefined,
       weather: daySummary(forecast, dateISO).weather,
       forecast,
       dayOffset,
@@ -102,7 +106,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
       seed: `${dateISO}:${ages}`,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fam.hydrated, forecast, JSON.stringify(query), JSON.stringify(kids), fam.origin, fam.budget, fam.transport, fam.maxTravelMin, fam.wantPlaces, fam.visitedPlaces, fam.loved, fam.disliked]);
+  }, [fam.hydrated, forecast, JSON.stringify(query), JSON.stringify(kids), fam.origin, fam.budget, fam.transport, fam.maxTravelMin, fam.wantPlaces, fam.visitedPlaces, fam.loved, fam.disliked, nearby.places]);
 
   const result = useMemo(() => (input ? generatePlans(input, 3, offset) : null), [input, offset]);
 
@@ -116,7 +120,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shownKey]);
 
-  if (!fam.hydrated || loading || !result || !input) return <ResultsSkeleton />;
+  if (!fam.hydrated || loading || nearby.settling || !result || !input) return <ResultsSkeleton />;
 
   const withQuery = (patch: Record<string, string | undefined>) => {
     const q = new URLSearchParams(Object.entries(query).filter(([, v]) => v != null) as [string, string][]);
@@ -193,6 +197,17 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
             <p className="text-[15px] font-bold">Сколько лет ребёнку? Подберём точнее</p>
             <AgePicker className="mt-2.5" onPick={(age) => fam.upsertChild({ id: `c${Date.now()}`, name: "", age, interests: [], emoji: "🦁" })} />
           </div>
+        )}
+        {result.relaxed && (
+          <p className="mt-3 rounded-[14px] bg-yellow-50 px-3 py-2 text-[13.5px] leading-snug text-[#7a5600]">
+            📍 Рядом с вами подходящих мест немного, поэтому мы расширили поиск до {result.relaxed.to} мин в пути
+            {result.relaxed.nearest ? ` (ближайшее подходящее — в ${result.relaxed.nearest} мин)` : ""}. Если хочется ближе — смените точку выезда или условия.
+          </p>
+        )}
+        {!result.relaxed && nearby.status === "error" && isSuburban(fam.origin) && (
+          <p className="mt-3 rounded-[14px] bg-fill-2 px-3 py-2 text-[13px] leading-snug text-muted">
+            Не удалось подгрузить места рядом с вами (нет связи с картой). Показываем то, что есть в нашем каталоге.
+          </p>
         )}
         {result.partialAge && (
           <p className="mt-3 rounded-[14px] bg-blue-50 px-3 py-2 text-[13.5px] leading-snug text-blue">

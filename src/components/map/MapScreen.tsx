@@ -6,9 +6,10 @@ import { createPortal } from "react-dom";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Search, SlidersHorizontal, Navigation, ArrowRight, X, ChevronDown, LocateOff, Plus, Minus } from "lucide-react";
 import type { Map as MLMap, Marker as MLMarker } from "maplibre-gl";
-import type { CategoryId, GeoPoint } from "@/lib/types";
-import { allPlaces } from "@/lib/data/repository";
-import { DEFAULT_LOCATION, haversineKm } from "@/lib/geo";
+import type { CategoryId, GeoPoint, Place } from "@/lib/types";
+import { allPlaces, getPlaceSync } from "@/lib/data/repository";
+import { useNearbyExtras } from "@/lib/nearby";
+import { DEFAULT_LOCATION } from "@/lib/geo";
 import { travelToPlace, nearestAreaLabel } from "@/lib/location";
 import { openState } from "@/lib/format";
 import { categoryDef } from "@/lib/catalog";
@@ -16,16 +17,14 @@ import { useFamily } from "@/lib/store";
 import { MapMarker } from "./MapMarker";
 import { declutter, type MarkerLayout } from "./declutter";
 import { PlaceBottomSheet } from "./PlaceBottomSheet";
-import { StylizedMap, project } from "./StylizedMap";
+import { StylizedMap, makeProjector } from "./StylizedMap";
+import { createBaseMap, applyKidStyle, type ProviderId } from "./base-map";
 import { PlaceCard } from "@/components/cards/PlaceCard";
 import { FilterChip } from "@/components/ui/FilterChip";
 import { BottomSheet } from "@/components/ui/BottomSheet";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
-
-/** Бесплатные векторные тайлы OSM (без ключа). В проде можно заменить на Mapbox/MapTiler. */
-const STYLE_URL = process.env.NEXT_PUBLIC_MAP_STYLE_URL ?? "https://tiles.openfreemap.org/styles/positron";
 
 type Toggle = "near" | "open" | "indoor" | "outdoor" | "cafe" | "parking" | "free";
 const TOGGLES: { id: Toggle; label: string }[] = [
@@ -56,10 +55,11 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   const userMarkerRef = useRef<MLMarker | null>(null);
   const [els, setEls] = useState<Record<string, HTMLElement>>({});
   const [mode, setMode] = useState<"loading" | "map" | "fallback">("loading");
+  const [provider, setProvider] = useState<ProviderId | null>(null);
   const [zoom, setZoom] = useState(11);
   const [layout, setLayout] = useState<Record<string, MarkerLayout>>({});
   const [viewTick, setViewTick] = useState(0);
-  const [fz, setFz] = useState(1); // зум офлайн-карты
+  const [fz, setFz] = useState(1); // зум схемы без подложки
   const [selected, setSelected] = useState<string | null>(initialFocus ?? null);
   const [query, setQuery] = useState("");
   const [toggles, setToggles] = useState<Set<Toggle>>(new Set());
@@ -75,12 +75,40 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   const setOrigin = useFamily((s) => s.setOrigin);
   const transport = useFamily((s) => s.transport);
   const maxTravelMin = useFamily((s) => s.maxTravelMin);
-  const planSlugs = useMemo(() => (initialPlan ?? []).filter((x) => allPlaces.some((p) => p.slug === x)), [initialPlan]);
-  const planPlaces = useMemo(() => planSlugs.map((x) => allPlaces.find((p) => p.slug === x)!), [planSlugs]);
+  // каталог + места рядом из OpenStreetMap (для тех, у кого каталог редкий)
+  const { places: extra } = useNearbyExtras();
+  const pool = useMemo(() => (extra.length ? [...allPlaces, ...extra] : allPlaces), [extra]);
+  const poolRef = useRef(pool);
+  poolRef.current = pool;
+  const poolBySlug = useMemo(() => new Map(pool.map((p) => [p.slug, p])), [pool]);
+  const planPlaces = useMemo(() => (initialPlan ?? []).map((x) => poolBySlug.get(x) ?? getPlaceSync(x)).filter(Boolean) as Place[], [initialPlan, poolBySlug]);
+  const planSlugs = useMemo(() => planPlaces.map((p) => p.slug), [planPlaces]);
+  const mlRef = useRef<typeof import("maplibre-gl") | null>(null);
+  const [mapReady, setMapReady] = useState(false);
   // точка выезда семьи — она же «я» на карте
   useEffect(() => {
     if (hydrated && origin.source !== "default") setUser({ lat: origin.lat, lng: origin.lng });
   }, [hydrated, origin]);
+  // схема без подложки: кадр = точка выезда + ближайшие места (влезают в экран)
+  const fbFrame = useMemo(() => {
+    const me: GeoPoint = origin.source !== "default" ? { lat: origin.lat, lng: origin.lng } : DEFAULT_LOCATION;
+    const near = planPlaces.length
+      ? planPlaces
+      : [...pool].sort((a, b) => travelToPlace(me, a, "car").minutes - travelToPlace(me, b, "car").minutes).slice(0, 8);
+    const pts = [me, ...near.map((p) => ({ lat: p.latitude, lng: p.longitude }))];
+    const lat = (Math.min(...pts.map((q) => q.lat)) + Math.max(...pts.map((q) => q.lat))) / 2;
+    const lng = (Math.min(...pts.map((q) => q.lng)) + Math.max(...pts.map((q) => q.lng))) / 2;
+    const kmY = (Math.max(...pts.map((q) => q.lat)) - Math.min(...pts.map((q) => q.lat))) * 110.57;
+    const kmX = (Math.max(...pts.map((q) => q.lng)) - Math.min(...pts.map((q) => q.lng))) * 111.32 * Math.cos((lat * Math.PI) / 180);
+    const extent = Math.max(kmX / 300, kmY / 360, 0.01);
+    return { center: { lat, lng } as GeoPoint, zoom: Math.max(0.35, Math.min(3, (1 / (extent * 9)) * 0.72)) };
+  }, [origin, planPlaces, pool]);
+  const fbCenter = fbFrame.center;
+  useEffect(() => {
+    if (mode === "fallback") setFz(fbFrame.zoom);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode]);
+  const fbProject = useMemo(() => makeProjector(fbCenter, fz).project, [fbCenter, fz]);
   const sheetRef = useRef<HTMLElement>(null);
   const [sheetH, setSheetH] = useState(300);
   useEffect(() => {
@@ -96,8 +124,10 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
     const q = query.trim().toLowerCase();
     const now = new Date();
     if (planSlugs.length) return planPlaces;
-    return allPlaces.filter((p) => {
+    return pool.filter((p) => {
       if (category && p.category !== category) return false;
+      // кафе и магазины из OSM — только по запросу, иначе они заслоняют места, куда стоит ехать
+      if (p.confidence === "osm" && (p.category === "cafe" || p.category === "shop") && !(toggles.has("cafe") || category === "cafe" || category === "shop" || q)) return false;
       if (toggles.has("near") && (travelToPlace(user, p, transport).minutes > maxTravelMin || !openState(p.opening_hours, now).open)) return false;
       if (q && !`${p.title} ${p.subtitle} ${p.tags.join(" ")}`.toLowerCase().includes(q)) return false;
       if (toggles.has("open") && !openState(p.opening_hours, now).open) return false;
@@ -116,7 +146,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       }
       return true;
     });
-  }, [query, toggles, age, price, category, user, transport, maxTravelMin, planSlugs, planPlaces]);
+  }, [query, toggles, age, price, category, user, transport, maxTravelMin, planSlugs, planPlaces, pool]);
   const visibleIds = useMemo(() => new Set(visible.map((p) => p.slug)), [visible]);
   const nearby = useMemo(
     () =>
@@ -125,84 +155,124 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
         : visible.map((p) => ({ p, min: travelToPlace(user, p, transport).minutes })).sort((a, b) => a.min - b.min),
     [visible, user, transport, planSlugs]
   );
-  const selectedPlace = selected ? allPlaces.find((p) => p.slug === selected) ?? null : null;
+  const selectedPlace = selected ? poolBySlug.get(selected) ?? getPlaceSync(selected) : null;
 
   /* ───── инициализация карты ───── */
+  // Ждём гидрации, чтобы сразу открыть карту у точки выезда семьи (а не в центре Москвы).
+  const startRef = useRef<GeoPoint | null>(null);
+  if (hydrated && !startRef.current) startRef.current = origin.source !== "default" ? { lat: origin.lat, lng: origin.lng } : DEFAULT_LOCATION;
+  const start = startRef.current;
   useEffect(() => {
-    let cancelled = false;
-    let fallbackTimer: ReturnType<typeof setTimeout> | undefined;
+    if (!start || !containerRef.current) return;
+    const flag = { cancelled: false };
     (async () => {
-      try {
-        const ml = (await import("maplibre-gl")).default;
-        if (cancelled || !containerRef.current) return;
-        const map = new ml.Map({
-          container: containerRef.current,
-          style: STYLE_URL,
-          center: [DEFAULT_LOCATION.lng, DEFAULT_LOCATION.lat],
-          zoom: 10.6,
-          attributionControl: { compact: true },
-          dragRotate: false,
-          pitchWithRotate: false,
-          maxBounds: [
-            [36.9, 55.35],
-            [38.3, 56.1],
-          ],
-        });
-        map.touchZoomRotate.disableRotation();
-        mapRef.current = map;
-        fallbackTimer = setTimeout(() => !map.isStyleLoaded() && setMode("fallback"), 9000);
-        map.on("error", (e) => {
-          // стиль/тайлы недоступны (офлайн, блокировка) → иллюстрированная карта
-          if (!map.isStyleLoaded()) {
-            console.warn("[map] fallback:", e.error?.message);
-            setMode("fallback");
-          }
-        });
-        map.on("load", () => {
-          clearTimeout(fallbackTimer);
-          applyKidStyle(map);
-          const created: Record<string, HTMLElement> = {};
-          for (const p of allPlaces) {
-            const el = document.createElement("div");
-            el.className = "kg-marker";
-            created[p.slug] = el;
-            const marker = new ml.Marker({ element: el, anchor: "bottom" }).setLngLat([p.longitude, p.latitude]).addTo(map);
-            markersRef.current.set(p.slug, marker);
-          }
-          setEls(created);
-          const bounds = new ml.LngLatBounds();
-          (planPlaces.length ? planPlaces : allPlaces).forEach((p) => bounds.extend([p.longitude, p.latitude]));
-          if (planPlaces.length > 1) {
-            map.addSource("plan-route", {
-              type: "geojson",
-              data: { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: planPlaces.map((p) => [p.longitude, p.latitude]) } },
-            });
-            map.addLayer({ id: "plan-route-casing", type: "line", source: "plan-route", paint: { "line-color": "#ffffff", "line-width": 8, "line-opacity": 0.9 }, layout: { "line-cap": "round", "line-join": "round" } });
-            map.addLayer({ id: "plan-route", type: "line", source: "plan-route", paint: { "line-color": "#FF2E88", "line-width": 4, "line-dasharray": [1.5, 1.2] }, layout: { "line-cap": "round", "line-join": "round" } });
-          }
-          map.fitBounds(bounds, { padding: { top: 150, bottom: 300, left: 30, right: 30 }, duration: 0 });
-          setZoom(map.getZoom());
-          setMode("map");
-        });
-        map.on("zoomend", () => setZoom(map.getZoom()));
-        map.on("moveend", () => setViewTick((t) => t + 1));
-        map.on("click", (e) => {
-          if ((e.originalEvent.target as HTMLElement).closest(".kg-marker")) return;
-          setSelected(null);
-        });
-      } catch (err) {
-        console.warn("[map] WebGL/MapLibre недоступен", err);
+      const res = await createBaseMap({ container: containerRef.current!, center: [start.lng, start.lat], zoom: 10.6, signal: flag });
+      if (flag.cancelled) return;
+      if (!res) {
         setMode("fallback");
+        return;
       }
-    })();
+      const { map } = res;
+      const ml = (await import("maplibre-gl")).default;
+      if (flag.cancelled) {
+        map.remove();
+        return;
+      }
+      mapRef.current = map;
+      mlRef.current = ml as unknown as typeof import("maplibre-gl");
+      setProvider(res.provider);
+      track("map_ready", { provider: res.provider, tried: res.tried.join(",") });
+      const ready = () => {
+        if (res.vector) applyKidStyle(map);
+        if (planPlaces.length > 1) {
+          map.addSource("plan-route", {
+            type: "geojson",
+            data: { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: planPlaces.map((p) => [p.longitude, p.latitude]) } },
+          });
+          map.addLayer({ id: "plan-route-casing", type: "line", source: "plan-route", paint: { "line-color": "#ffffff", "line-width": 8, "line-opacity": 0.9 }, layout: { "line-cap": "round", "line-join": "round" } });
+          map.addLayer({ id: "plan-route", type: "line", source: "plan-route", paint: { "line-color": "#FF2E88", "line-width": 4, "line-dasharray": [1.5, 1.2] }, layout: { "line-cap": "round", "line-join": "round" } });
+        }
+        // кадр: маршрут целиком, иначе — точка выезда и ближайшие места
+        const bounds = new ml.LngLatBounds([start.lng, start.lat], [start.lng, start.lat]);
+        const near = planPlaces.length
+          ? planPlaces
+          : [...poolRef.current].sort((a, b) => travelToPlace(start, a, "car").minutes - travelToPlace(start, b, "car").minutes).slice(0, 12);
+        near.forEach((p) => bounds.extend([p.longitude, p.latitude]));
+        if (planPlaces.length) bounds.extend([start.lng, start.lat]);
+        map.fitBounds(bounds, { padding: { top: 150, bottom: 300, left: 30, right: 30 }, duration: 0, maxZoom: 14 });
+        setZoom(map.getZoom());
+        setMode("map");
+        setMapReady(true);
+      };
+      if (map.isStyleLoaded()) ready();
+      else map.once("load", ready);
+      map.on("zoomend", () => setZoom(map.getZoom()));
+      map.on("moveend", () => setViewTick((t) => t + 1));
+      map.on("click", (e) => {
+        if ((e.originalEvent.target as HTMLElement).closest(".kg-marker")) return;
+        setSelected(null);
+      });
+    })().catch((err) => {
+      console.warn("[map] ошибка инициализации", err);
+      if (!flag.cancelled) setMode("fallback");
+    });
     return () => {
-      cancelled = true;
-      clearTimeout(fallbackTimer);
+      flag.cancelled = true;
       mapRef.current?.remove();
       mapRef.current = null;
+      userMarkerRef.current = null;
       markersRef.current.clear();
+      mlRef.current = null;
+      setMapReady(false);
+      setEls({});
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [start]);
+
+  /* Маркеры мест: добавляем/убираем при смене набора (места рядом подгружаются позже карты) */
+  useEffect(() => {
+    const map = mapRef.current;
+    const ml = mlRef.current;
+    if (!map || !ml || !mapReady) return;
+    const have = markersRef.current;
+    const want = new Set(pool.map((p) => p.slug));
+    const gone: string[] = [];
+    for (const [slug, m] of have) {
+      if (!want.has(slug)) {
+        m.remove();
+        have.delete(slug);
+        gone.push(slug);
+      }
+    }
+    const created: Record<string, HTMLElement> = {};
+    for (const p of pool) {
+      if (have.has(p.slug)) continue;
+      const el = document.createElement("div");
+      el.className = "kg-marker";
+      created[p.slug] = el;
+      have.set(p.slug, new ml.Marker({ element: el, anchor: "bottom" }).setLngLat([p.longitude, p.latitude]).addTo(map));
+    }
+    if (gone.length || Object.keys(created).length)
+      setEls((prev) => {
+        const n = { ...prev, ...created };
+        for (const g of gone) delete n[g];
+        return n;
+      });
+  }, [pool, mapReady]);
+
+  /* Точка выезда («я») — всегда на карте */
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || mode !== "map" || origin.source === "default") return;
+    (async () => {
+      const ml = (await import("maplibre-gl")).default;
+      if (!userMarkerRef.current) {
+        const el = document.createElement("div");
+        el.innerHTML = '<span class="kg-user-dot"></span>';
+        userMarkerRef.current = new ml.Marker({ element: el }).setLngLat([origin.lng, origin.lat]).addTo(map);
+      } else userMarkerRef.current.setLngLat([origin.lng, origin.lat]);
+    })();
+  }, [mode, origin]);
 
   /* раскладка без наложений: пересчёт при фильтрах, выборе, зуме и сдвиге карты */
   useEffect(() => {
@@ -212,8 +282,8 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
         const pt2 = map.project([p.longitude, p.latitude]);
         return { place: p, x: pt2.x, y: pt2.y };
       }
-      const { x, y } = project(p.latitude, p.longitude);
-      return { place: p, x: x * fz, y: y * fz };
+      const { x, y } = fbProject(p.latitude, p.longitude);
+      return { place: p, x: x + 200, y: y + 330 };
     });
     const z = mode === "map" ? zoom : fz >= 2.2 ? 13.3 : fz >= 1.5 ? 12.4 : 11.8;
     setLayout(
@@ -222,6 +292,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
         cardsAllowed: (p) => z >= 13.2 || (z >= 11.4 && !!p.is_hit),
       })
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, selected, zoom, viewTick, mode, fz]);
 
   useEffect(() => {
@@ -236,7 +307,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   const select = useCallback((slug: string) => {
     setSelected(slug);
     track("map_marker_click", { slug });
-    const p = allPlaces.find((x) => x.slug === slug);
+    const p = poolRef.current.find((x) => x.slug === slug) ?? getPlaceSync(slug);
     const map = mapRef.current;
     if (p && map) map.easeTo({ center: [p.longitude, p.latitude], zoom: Math.max(map.getZoom(), 12.4), offset: [0, -90], duration: 500 });
   }, []);
@@ -251,23 +322,12 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
         const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-        // вне Москвы — оставляем центр города, чтобы демо-база оставалась рядом
-        const inCity = haversineKm(loc, DEFAULT_LOCATION) < 40;
-        const target = inCity ? loc : DEFAULT_LOCATION;
-        setUser(target);
+        setUser(loc);
         setGeo("ok");
-        if (inCity) setOrigin({ ...loc, label: nearestAreaLabel(loc), source: "gps" });
+        setOrigin({ ...loc, label: nearestAreaLabel(loc), source: "gps" });
         const map = mapRef.current;
-        if (map) {
-          const ml = (await import("maplibre-gl")).default;
-          if (!userMarkerRef.current) {
-            const el = document.createElement("div");
-            el.innerHTML = '<span class="kg-user-dot"></span>';
-            userMarkerRef.current = new ml.Marker({ element: el }).setLngLat([target.lng, target.lat]).addTo(map);
-          } else userMarkerRef.current.setLngLat([target.lng, target.lat]);
-          map.flyTo({ center: [target.lng, target.lat], zoom: 13, offset: [0, -60] });
-        }
-        track("map_locate", { inCity });
+        if (map) map.flyTo({ center: [loc.lng, loc.lat], zoom: 13, offset: [0, -60] });
+        track("map_locate", {});
       },
       () => setGeo("denied"),
       { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 }
@@ -299,15 +359,16 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       style={{ ["--sheet-h" as string]: `calc(${sheetH}px + env(safe-area-inset-bottom))` }}
     >
       {/* карта */}
-      <div ref={containerRef} className={cn("absolute inset-0", mode === "fallback" && "invisible")} />
+      {/* position задан inline: maplibre-gl.css (без @layer) иначе перебивает tailwind-класс и карта схлопывается до 300px */}
+      <div ref={containerRef} style={{ position: "absolute", inset: 0 }} className={cn(mode === "fallback" && "invisible")} />
       {mode === "fallback" && (
-        <StylizedMap zoom={fz}>
+        <StylizedMap center={fbCenter} zoom={fz} origin={origin.source !== "default" ? origin : undefined}>
           {visible.map((p) => {
             const l = layout[p.slug];
             if (!l || l.hidden) return null;
-            const { x, y } = project(p.latitude, p.longitude);
+            const { x, y } = fbProject(p.latitude, p.longitude);
             return (
-              <div key={p.slug} className="absolute -translate-x-1/2 -translate-y-full" style={{ left: x * fz, top: y * fz, zIndex: p.slug === selected ? 10 : l.variant === "card" ? 3 : 1 }}>
+              <div key={p.slug} className="absolute -translate-x-1/2 -translate-y-full" style={{ left: x, top: y, zIndex: p.slug === selected ? 10 : l.variant === "card" ? 3 : 1 }}>
                 <MapMarker
                   place={p}
                   variant={l.variant}
@@ -315,7 +376,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
                   selected={p.slug === selected}
                   onClick={() => {
                     setSelected(p.slug);
-                    if (l.extra > 0) setFz((z) => Math.min(3, z * 1.6));
+                    if (l.extra > 0) setFz((z) => Math.min(4, z * 1.6));
                   }}
                 />
               </div>
@@ -324,7 +385,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
           {planPlaces.length > 1 && (
             <svg className="pointer-events-none absolute left-0 top-0 overflow-visible" width="1" height="1" aria-hidden>
               <polyline
-                points={planPlaces.map((p) => `${project(p.latitude, p.longitude).x * fz},${project(p.latitude, p.longitude).y * fz}`).join(" ")}
+                points={planPlaces.map((p) => `${fbProject(p.latitude, p.longitude).x},${fbProject(p.latitude, p.longitude).y}`).join(" ")}
                 fill="none"
                 stroke="#FF2E88"
                 strokeWidth={4}
@@ -333,12 +394,13 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
               />
             </svg>
           )}
-          <span className="kg-user-dot absolute" style={{ left: project(user.lat, user.lng).x * fz, top: project(user.lat, user.lng).y * fz }} />
+          <span className="kg-user-dot absolute" style={{ left: fbProject(user.lat, user.lng).x, top: fbProject(user.lat, user.lng).y }} />
         </StylizedMap>
       )}
       {mode === "loading" && <div className="absolute inset-0 skeleton opacity-60" />}
       {Object.entries(els).map(([slug, el]) => {
-        const p = allPlaces.find((x) => x.slug === slug)!;
+        const p = poolBySlug.get(slug);
+        if (!p) return null;
         const l = layout[slug];
         return createPortal(
           <MapMarker place={p} variant={l?.variant ?? "dot"} extra={l?.extra ?? 0} selected={slug === selected} onClick={() => select(slug)} />,
@@ -397,7 +459,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
         {geo === "denied" && (
           <div className="mx-4 mt-1 flex items-center gap-2 rounded-[16px] bg-white/95 px-3 py-2 text-[13px] shadow-card animate-rise">
             <LocateOff size={16} className="shrink-0 text-red" />
-            <span className="flex-1">Геолокация выключена — считаем дорогу от «{origin.source === "default" ? "центр" : origin.label}». Точку можно выбрать в шапке главной</span>
+            <span className="flex-1">Геолокация выключена — считаем дорогу от «{origin.source === "default" ? "центр" : origin.label}». Точку можно поменять в шапке главной</span>
             <button onClick={() => setGeo("idle")} aria-label="Скрыть" className="text-muted">
               <X size={15} />
             </button>
@@ -407,10 +469,10 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
 
       {mode === "fallback" && (
         <div className="absolute right-4 z-20 flex flex-col overflow-hidden rounded-[18px] bg-white shadow-float" style={{ bottom: "calc(var(--sheet-h) + 80px)" }}>
-          <button onClick={() => setFz((z) => Math.min(3, z * 1.5))} aria-label="Приблизить" className="press grid h-11 w-[52px] place-items-center border-b border-line">
+          <button onClick={() => setFz((z) => Math.min(4, z * 1.5))} aria-label="Приблизить" className="press grid h-11 w-[52px] place-items-center border-b border-line">
             <Plus size={20} />
           </button>
-          <button onClick={() => setFz((z) => Math.max(1, z / 1.5))} aria-label="Отдалить" className="press grid h-11 w-[52px] place-items-center">
+          <button onClick={() => setFz((z) => Math.max(0.5, z / 1.5))} aria-label="Отдалить" className="press grid h-11 w-[52px] place-items-center">
             <Minus size={20} />
           </button>
         </div>
@@ -441,7 +503,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
           <>
             <div className="flex items-end justify-between px-4 pt-3">
               <h2 className="tight text-[23px] font-[800]">
-                {planSlugs.length ? "Маршрут дня" : visible.length === allPlaces.length ? "Рядом с вами" : `Нашли ${visible.length}`}
+                {planSlugs.length ? "Маршрут дня" : activeCount === 0 && !query.trim() ? "Рядом с вами" : `Нашли ${visible.length}`}
               </h2>
               <Link href="/search" className="press flex items-center gap-1 text-[16px] font-medium text-blue">
                 Все <ArrowRight size={18} />
@@ -526,29 +588,4 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       </BottomSheet>
     </main>
   );
-}
-
-/** Перекрашиваем стиль в тёплую палитру референса: бежевая земля, зелёные парки, жёлтые магистрали. */
-function applyKidStyle(map: MLMap) {
-  const layers = map.getStyle()?.layers ?? [];
-  for (const l of layers) {
-    try {
-      const id = l.id.toLowerCase();
-      const src = "source-layer" in l ? String(l["source-layer"] ?? "") : "";
-      if (l.type === "background") map.setPaintProperty(l.id, "background-color", "#F4EFE6");
-      else if (l.type === "fill" && (src === "water" || id.includes("water"))) map.setPaintProperty(l.id, "fill-color", "#BFE1F6");
-      else if (l.type === "fill" && (src === "park" || id.includes("park") || id.includes("wood") || id.includes("grass") || id.includes("forest")))
-        map.setPaintProperty(l.id, "fill-color", "#D3ECC3");
-      else if (l.type === "fill" && (src === "landuse" || src === "landcover")) map.setPaintProperty(l.id, "fill-color", "#EDE8DC");
-      else if (l.type === "fill" && src === "building") map.setPaintProperty(l.id, "fill-color", "#E9E3D6");
-      else if (l.type === "line" && src === "transportation") {
-        const major = /motorway|trunk|primary|major/.test(id);
-        map.setPaintProperty(l.id, "line-color", major ? "#FCE3A6" : "#FFFFFF");
-      } else if (l.type === "line" && src === "waterway") map.setPaintProperty(l.id, "line-color", "#BFE1F6");
-      else if (l.type === "symbol" && /poi/.test(id)) map.setLayoutProperty(l.id, "visibility", "none");
-      else if (l.type === "symbol") map.setPaintProperty(l.id, "text-color", "#8A8F9C");
-    } catch {
-      /* слой без такого свойства — пропускаем */
-    }
-  }
 }

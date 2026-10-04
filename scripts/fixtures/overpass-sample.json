@@ -1,0 +1,317 @@
+{
+ "elements": [
+  {
+   "type": "way",
+   "id": 1001,
+   "tags": {
+    "leisure": "park",
+    "name": "Центральный парк"
+   },
+   "center": {
+    "lat": 56.070198346250734,
+    "lon": 36.98660348356224
+   }
+  },
+  {
+   "type": "way",
+   "id": 1002,
+   "tags": {
+    "leisure": "park",
+    "name": "Лесопарк «Берёзовая роща»",
+    "opening_hours": "24/7"
+   },
+   "center": {
+    "lat": 56.03025482343538,
+    "lon": 36.96073983961013
+   }
+  },
+  {
+   "type": "way",
+   "id": 1003,
+   "tags": {
+    "leisure": "garden",
+    "name": "Сад у пруда"
+   },
+   "center": {
+    "lat": 56.0871321334901,
+    "lon": 36.896396963307964
+   }
+  },
+  {
+   "type": "node",
+   "id": 1004,
+   "tags": {
+    "leisure": "playground"
+   },
+   "lat": 56.06,
+   "lon": 36.986435764765226
+  },
+  {
+   "type": "way",
+   "id": 1005,
+   "tags": {
+    "leisure": "playground"
+   },
+   "center": {
+    "lat": 56.053764673972985,
+    "lon": 36.989307867162374
+   }
+  },
+  {
+   "type": "node",
+   "id": 1006,
+   "tags": {
+    "leisure": "playground"
+   },
+   "lat": 56.0573301808625,
+   "lon": 36.953063538091214
+  },
+  {
+   "type": "way",
+   "id": 1007,
+   "tags": {
+    "leisure": "playground"
+   },
+   "center": {
+    "lat": 56.08315727736124,
+    "lon": 36.98726413235193
+   }
+  },
+  {
+   "type": "node",
+   "id": 1008,
+   "tags": {
+    "leisure": "playground"
+   },
+   "lat": 56.084280354090005,
+   "lon": 36.955061411534736
+  },
+  {
+   "type": "way",
+   "id": 1009,
+   "tags": {
+    "leisure": "playground"
+   },
+   "center": {
+    "lat": 56.06863765015075,
+    "lon": 37.06714737676369
+   }
+  },
+  {
+   "type": "way",
+   "id": 1010,
+   "tags": {
+    "tourism": "museum",
+    "name": "Краеведческий музей",
+    "opening_hours": "Tu-Su 10:00-17:00; Mo off"
+   },
+   "center": {
+    "lat": 56.07406923142453,
+    "lon": 37.005029250991875
+   }
+  },
+  {
+   "type": "way",
+   "id": 1011,
+   "tags": {
+    "tourism": "museum",
+    "name": "Детский музей игрушки",
+    "opening_hours": "Mo-Fr 09:00-18:00; Sa,Su 10:00-16:00"
+   },
+   "center": {
+    "lat": 56.02608483313738,
+    "lon": 37.08450379586503
+   }
+  },
+  {
+   "type": "way",
+   "id": 1012,
+   "tags": {
+    "tourism": "zoo",
+    "name": "Контактный зоопарк «Ферма»",
+    "opening_hours": "Mo-Su 10:00-19:00; PH off"
+   },
+   "center": {
+    "lat": 55.97860359952971,
+    "lon": 36.98
+   }
+  },
+  {
+   "type": "way",
+   "id": 1013,
+   "tags": {
+    "amenity": "library",
+    "name": "Детская библиотека №2",
+    "opening_hours": "Mo-Fr 10:00-19:00; Sa 10:00-17:00"
+   },
+   "center": {
+    "lat": 56.06678303337252,
+    "lon": 36.95909924082699
+   }
+  },
+  {
+   "type": "way",
+   "id": 1014,
+   "tags": {
+    "amenity": "theatre",
+    "name": "Театр кукол"
+   },
+   "center": {
+    "lat": 56.072991630659025,
+    "lon": 37.04350022691949
+   }
+  },
+  {
+   "type": "way",
+   "id": 1015,
+   "tags": {
+    "leisure": "ice_rink",
+    "name": "Ледовый дворец"
+   },
+   "center": {
+    "lat": 56.03023698530903,
+    "lon": 37.01056988263483
+   }
+  },
+  {
+   "type": "way",
+   "id": 1016,
+   "tags": {
+    "leisure": "water_park",
+    "name": "Аквапарк «Волна»",
+    "opening_hours": "Mo-Su 10:00-22:00"
+   },
+   "center": {
+    "lat": 56.034635387760964,
+    "lon": 36.85602336649051
+   }
+  },
+  {
+   "type": "way",
+   "id": 1017,
+   "tags": {
+    "leisure": "trampoline_park",
+    "name": "Батутный центр «Прыг»"
+   },
+   "center": {
+    "lat": 56.035353996560744,
+    "lon": 36.96404158139125
+   }
+  },
+  {
+   "type": "node",
+   "id": 1018,
+   "tags": {
+    "shop": "toys",
+    "name": "Мир игрушек"
+   },
+   "lat": 56.06497422447319,
+   "lon": 36.99532722339354
+  },
+  {
+   "type": "node",
+   "id": 1019,
+   "tags": {
+    "shop": "books",
+    "name": "Книжный уголок"
+   },
+   "lat": 56.06496883187359,
+   "lon": 36.99895654709735
+  },
+  {
+   "type": "node",
+   "id": 1020,
+   "tags": {
+    "amenity": "cafe",
+    "name": "Кафе «Лето»"
+   },
+   "lat": 56.06548266060097,
+   "lon": 36.98563129416957
+  },
+  {
+   "type": "node",
+   "id": 1021,
+   "tags": {
+    "amenity": "restaurant",
+    "name": "Пиццерия «Пицца-мама»",
+    "cuisine": "pizza"
+   },
+   "lat": 56.05842951815441,
+   "lon": 36.9958449775934
+  },
+  {
+   "type": "node",
+   "id": 1022,
+   "tags": {
+    "amenity": "ice_cream",
+    "name": "Мороженое «Пломбир»"
+   },
+   "lat": 56.048101929374155,
+   "lon": 36.98770406415594
+  },
+  {
+   "type": "node",
+   "id": 1023,
+   "tags": {
+    "amenity": "fast_food",
+    "name": "Столовая №1"
+   },
+   "lat": 56.04614371993997,
+   "lon": 36.959315850750265
+  },
+  {
+   "type": "node",
+   "id": 1024,
+   "tags": {
+    "amenity": "cafe",
+    "name": "Кофейня «Зерно»"
+   },
+   "lat": 56.063769156429416,
+   "lon": 36.941972053775835
+  },
+  {
+   "type": "node",
+   "id": 1025,
+   "tags": {
+    "amenity": "cafe",
+    "name": "Блинная"
+   },
+   "lat": 56.085495865626825,
+   "lon": 36.96349129109439
+  },
+  {
+   "type": "way",
+   "id": 1026,
+   "tags": {
+    "leisure": "playground",
+    "access": "private"
+   },
+   "center": {
+    "lat": 56.06445332256947,
+    "lon": 36.981396948529216
+   }
+  },
+  {
+   "type": "way",
+   "id": 1027,
+   "tags": {
+    "leisure": "park"
+   },
+   "center": {
+    "lat": 56.06509917312537,
+    "lon": 36.98330174178112
+   }
+  },
+  {
+   "type": "node",
+   "id": 1028,
+   "tags": {
+    "shop": "toys",
+    "name": "Игрушки",
+    "opening_hours": "странный формат"
+   },
+   "lat": 56.06626589782968,
+   "lon": 36.986435764765226
+  }
+ ]
+}

@@ -72,6 +72,6 @@ def run():
     print("   results:", p2.inner_text("h1"), p2.locator("a[href*='/day?']").count(), "plans; url kids:", re.search(r"kids=([^&]+)", p2.url).group(1))
     b.close()
 run()
-real=[e for e in errs if "ERR_FAILED" not in e[1]]
+real=[e for e in errs if "ERR_FAILED" not in e[1] and "ERR_TUNNEL" not in e[1]]
 print("ERRORS:", real[:10])
 sys.exit(1 if real else 0)

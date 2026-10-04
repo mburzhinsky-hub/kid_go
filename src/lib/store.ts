@@ -3,7 +3,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { BudgetId, Child, FamilySignals, TransportId } from "@/lib/types";
-import { DEFAULT_ORIGIN, type Origin } from "@/lib/location";
+import { DEFAULT_ORIGIN, suggestedTransport, type Origin } from "@/lib/location";
 
 /**
  * Клиентское состояние семьи. Сейчас живёт в localStorage;
@@ -36,6 +36,8 @@ interface FamilyState {
   children: Child[];
   budget: BudgetId;
   transport: TransportId;
+  /** Транспорт подбирается по точке выезда, пока семья не выбрала сама. */
+  transportAuto: boolean;
   maxDistanceKm: number;
   /** Готовы ехать до N минут. */
   maxTravelMin: number;
@@ -94,6 +96,7 @@ export const useFamily = create<FamilyState>()(
       children: [],
       budget: "5000",
       transport: "transit",
+      transportAuto: true,
       maxDistanceKm: 10,
       maxTravelMin: 40,
       onboarded: false,
@@ -150,9 +153,14 @@ export const useFamily = create<FamilyState>()(
             : [...s.children, c],
         })),
       removeChild: (id) => set((s) => ({ children: s.children.filter((c) => c.id !== id) })),
-      setPrefs: (p) => set(p),
+      setPrefs: (p) => set(p.transport ? { ...p, transportAuto: false } : p),
       completeOnboarding: () => set({ onboarded: true }),
-      setOrigin: (o) => set({ origin: { ...o, updatedAt: Date.now() } }),
+      setOrigin: (o) =>
+        set((s) => ({
+          origin: { ...o, updatedAt: Date.now() },
+          // за МКАД ездят на машине — пока семья не выбрала транспорт сама
+          transport: s.transportAuto ? suggestedTransport(o) : s.transport,
+        })),
       setHome: (o) => set({ home: o ? { ...o, source: "home", label: o.label === "Рядом со мной" ? "Дом" : o.label } : undefined }),
       markSeen: (slugs) => set((s) => ({ seen: [...slugs, ...s.seen.filter((x) => !slugs.includes(x))].slice(0, 12) })),
       addTrip: (t) => set((s) => ({ trips: [{ ...t, goAt: Date.now() }, ...s.trips.filter((x) => x.key !== t.key)].slice(0, 30) })),
@@ -173,7 +181,7 @@ export const useFamily = create<FamilyState>()(
     }),
     {
       name: "kidgo-family",
-      version: 2,
+      version: 3,
       // v1 подставлял демо-детей Мишу и Аню всем подряд — убираем их, если семья их не меняла
       migrate: (state, version) => {
         const st = state as Partial<FamilyState>;
@@ -185,10 +193,12 @@ export const useFamily = create<FamilyState>()(
           return {
             ...st,
             children: kids,
+            transportAuto: (st.transport ?? "transit") === "transit",
             wantPlaces: (st.wantPlaces ?? []).filter((x) => !["moskovsky-zoopark", "eksperimentanium"].includes(x) || kids.length > 0),
             visitedPlaces: (st.visitedPlaces ?? []).filter((x) => x !== "park-gorkogo" || kids.length > 0),
           } as FamilyState;
         }
+        if (version < 3) return { ...st, transportAuto: (st.transport ?? "transit") === "transit" } as FamilyState;
         return st as FamilyState;
       },
       storage: createJSONStorage(() => localStorage),
@@ -204,7 +214,8 @@ export function rehydrateFamily() {
   Promise.resolve(p).finally(() => {
     // возраст считается от даты рождения — растёт вместе с ребёнком
     const kids = useFamily.getState().children.map((c) => (c.birthDate ? { ...c, age: ageFromBirth(c.birthDate) } : c));
-    useFamily.setState({ hydrated: true, children: kids });
+    const st = useFamily.getState();
+    useFamily.setState({ hydrated: true, children: kids, transport: st.transportAuto ? suggestedTransport(st.origin) : st.transport });
   });
 }
 

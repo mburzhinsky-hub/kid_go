@@ -1,0 +1,692 @@
+[
+  {
+    "title": "Усадьба «Архангельское»",
+    "slug": "arkhangelskoe",
+    "town": "Красногорск",
+    "region": "mo",
+    "address": "Московская область, Красногорск, п. Архангельское",
+    "lat": 55.785,
+    "lng": 37.284,
+    "category": "park",
+    "subtitle": "Усадьба-музей и парк на высоком берегу Москвы-реки",
+    "description": "Большой регулярный парк XVIII–XIX веков с длинными аллеями, скульптурами и павильонами: есть где побегать и устроить прогулку с коляской. Школьникам интересны павильоны Колоннада и «Каприз» и театр Гонзаго, а малышам хватает аллей и открытых лужаек. Главный дворец сейчас на реставрации, поэтому основная часть визита — парк.",
+    "price": [
+      0,
+      150
+    ],
+    "family_budget": 800,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature",
+      "drawing"
+    ],
+    "experience": [
+      "walk",
+      "picnic"
+    ],
+    "tags": [
+      "Усадьба",
+      "Парк",
+      "С коляской",
+      "Парковка",
+      "Дети до 18 бесплатно"
+    ],
+    "hit": true,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://arhangelskoe.su/for_visitor/working_hours/",
+    "confidence": "medium"
+  },
+  {
+    "title": "Верёвочный парк Norway Park Красногорск",
+    "slug": "norway-park-krasnogorsk",
+    "town": "Красногорск",
+    "region": "mo",
+    "address": "Московская область, Красногорск, ул. Ленина, 11А (детский городок «Сказочный»)",
+    "lat": 55.8285,
+    "lng": 37.321,
+    "category": "active",
+    "subtitle": "Трассы и зиплайны в сосновом лесу",
+    "description": "Верёвочный парк с шестью-семью трассами разной сложности, зиплайнами и сетчатым лабиринтом NetPark для самых маленьких участников. Перед выходом на трассу проводят инструктаж, дальше дети лезут сами, а родители страхуют снизу или идут рядом по своим трассам. Одевайтесь в закрытую удобную одежду и приходите заранее: на полный круг уходит несколько часов.",
+    "price": [
+      1500,
+      2700
+    ],
+    "family_budget": 8000,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 180,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 3,
+    "noise": 2,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": true,
+    "hours": [
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "sport",
+      "nature"
+    ],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "Верёвочный парк",
+      "Зиплайны",
+      "От 4 лет",
+      "Парковка"
+    ],
+    "hit": false,
+    "photoSet": "ropes",
+    "rating": 5,
+    "reviews": 3181,
+    "source": "https://norwaypark.ru/krasnogorsk",
+    "confidence": "medium"
+  },
+  {
+    "title": "Контактный зоопарк «Зооландия»",
+    "slug": "zoolandia-kryuchkovo",
+    "town": "Истра",
+    "region": "mo",
+    "address": "Московская область, Истринский район, д. Крючково, 38",
+    "lat": 55.8798,
+    "lng": 36.7952,
+    "category": "animals",
+    "subtitle": "Семейный зооклуб на природе в Крючково",
+    "description": "Небольшой контактный зоопарк под открытым небом: можно зайти в вольеры, покормить из стаканчика с овощами осликов, оленей, альпак, кроликов и коз, погладить енота. Есть детская площадка, беседки и семейное кафе с домашней выпечкой. Дети до 3 лет проходят бесплатно, по понедельникам закрыто.",
+    "price": [
+      0,
+      600
+    ],
+    "family_budget": 2200,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 120,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      null,
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "animals",
+      "nature"
+    ],
+    "experience": [
+      "cafe",
+      "toddlers"
+    ],
+    "tags": [
+      "Контактный зоопарк",
+      "От 1 года",
+      "Детская площадка",
+      "Парковка"
+    ],
+    "hit": true,
+    "photoSet": "farm",
+    "rating": 4.6,
+    "reviews": 1439,
+    "source": "https://zoolandia-istra.ru/",
+    "confidence": "high"
+  },
+  {
+    "title": "Музей «Новый Иерусалим»",
+    "slug": "muzey-novy-ierusalim",
+    "town": "Истра",
+    "region": "mo",
+    "address": "Московская область, Истра, Ново-Иерусалимская наб., 1",
+    "lat": 55.9267,
+    "lng": 36.8434,
+    "category": "museum",
+    "subtitle": "Музей у стен монастыря и деревянное зодчество под открытым небом",
+    "description": "Крупный историко-художественный музей рядом с Новоиерусалимским монастырём. Для детей интереснее всего музей деревянного зодчества в парке: часовня, крестьянская усадьба XIX века и ветряная мельница — можно погулять между постройками и заглянуть внутрь. В музее есть и детский интерактивный центр «Экспонариум».",
+    "price": [
+      0,
+      600
+    ],
+    "family_budget": 2000,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 180,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      null,
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "any"
+    ],
+    "interests": [
+      "construction",
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "unusual"
+    ],
+    "tags": [
+      "Музей",
+      "Деревянное зодчество",
+      "Монастырь",
+      "Парковка"
+    ],
+    "hit": true,
+    "photoSet": "museum",
+    "rating": 5,
+    "reviews": 23697,
+    "source": "https://njerusalem.ru/posetitelyam/rezhim-raboty/",
+    "confidence": "medium"
+  },
+  {
+    "title": "Air Arena — батутный парк в «РигаМолле»",
+    "slug": "air-arena-rigamoll",
+    "town": "Красногорск",
+    "region": "mo",
+    "address": "Московская область, Красногорск, Новорижское шоссе, 23 км, вл2с2 (ТРЦ «РигаМолл», 4 этаж)",
+    "lat": 55.8005,
+    "lng": 37.2766,
+    "category": "play",
+    "subtitle": "Батуты, ниндзя-трасса и скалодромные стенки",
+    "description": "Батутный парк примерно с 20 батутами, ниндзя-трассами, скалодромными стенками и лабиринтом для малышей. Прыгать нужно в носках с прорезиненной подошвой — их можно взять на месте. Есть кафе, а после прыжков можно перекусить или зайти в торговый центр.",
+    "price": [
+      700,
+      1100
+    ],
+    "family_budget": 3000,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 120,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 3,
+    "noise": 3,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "sport"
+    ],
+    "experience": [
+      "playzone",
+      "cafe"
+    ],
+    "tags": [
+      "Батуты",
+      "Ниндзя-трасса",
+      "От 3 лет",
+      "Парковка"
+    ],
+    "hit": false,
+    "photoSet": "trampoline",
+    "rating": 5,
+    "reviews": 1713,
+    "source": "https://airarena.ru/batutnyy-park",
+    "confidence": "high"
+  },
+  {
+    "title": "Музей техники Вадима Задорожного",
+    "slug": "muzey-tekhniki-zadorozhnogo",
+    "town": "Красногорск",
+    "region": "mo",
+    "address": "Московская область, Красногорск, п. Архангельское, Ильинское шоссе, 4 км, с8",
+    "lat": 55.796,
+    "lng": 37.2971,
+    "category": "museum",
+    "subtitle": "Автомобили, танки, самолёты и поезда на 3,5 гектарах",
+    "description": "Огромная коллекция ретро-автомобилей и мотоциклов, военной техники, самолётов, вертолётов и паровозов, часть которой стоит на открытой площадке. Для детей на территории есть игровая площадка и железнодорожный вагон с походной кухней. Можно взять экскурсию или просто ходить между машинами: любителям техники хватит на полдня.",
+    "price": [
+      650,
+      1300
+    ],
+    "family_budget": 3500,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 180,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      null,
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-20:00",
+      "10:00-20:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "any"
+    ],
+    "interests": [
+      "transport",
+      "construction"
+    ],
+    "experience": [
+      "unusual",
+      "walk"
+    ],
+    "tags": [
+      "Техника",
+      "Танки и самолёты",
+      "Площадка",
+      "Парковка"
+    ],
+    "hit": true,
+    "photoSet": "museum",
+    "rating": 5,
+    "reviews": 39283,
+    "source": "https://tmuseum.ru/kontakty/",
+    "confidence": "high"
+  },
+  {
+    "title": "Музей материнства и младенчества",
+    "slug": "muzey-materinstva-ilinskoe",
+    "town": "Красногорск",
+    "region": "mo",
+    "address": "Московская область, Красногорск, с. Ильинское, ул. Ленина, 3, стр. 1",
+    "lat": 55.7773,
+    "lng": 37.203,
+    "category": "museum",
+    "subtitle": "Небольшой музей в бывшей усадьбе Ильинское",
+    "description": "Небольшой музей в бывшей усадьбе Ильинское, посвящённый истории приюта для матерей и младенцев. Хорошо сочетается с прогулкой по селу и Ильинской церковью рядом. Подойдёт детям постарше: это тихий, камерный формат без аттракционов.",
+    "price": [
+      50,
+      150
+    ],
+    "family_budget": 400,
+    "age": [
+      6,
+      12
+    ],
+    "duration": 60,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      null,
+      "11:00-17:00",
+      "11:00-17:00",
+      "11:00-17:00",
+      "11:00-17:00",
+      "11:00-17:00",
+      "11:00-17:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "Музей",
+      "Усадьба Ильинское",
+      "Тихо",
+      "Недорого"
+    ],
+    "hit": false,
+    "photoSet": "museum",
+    "rating": null,
+    "reviews": null,
+    "source": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+    "confidence": "medium"
+  },
+  {
+    "title": "Каток «На Пойме»",
+    "slug": "katok-na-poyme-pavshino",
+    "town": "Красногорск",
+    "region": "mo",
+    "address": "Московская область, Красногорск, Красногорский бульвар, 30 (Павшинская пойма)",
+    "lat": 55.8192,
+    "lng": 37.3742,
+    "category": "active",
+    "subtitle": "Сезонный каток с зонами для взрослых и детей",
+    "description": "Сезонный каток на набережной Павшинской поймы площадью около 1500 кв. м, с отдельными зонами для взрослых и детей и искусственным льдом. Вход бесплатный, платный только прокат коньков и защиты; катание идёт часовыми сеансами. Работает зимой, обычно открывается во второй половине декабря.",
+    "price": [
+      0,
+      300
+    ],
+    "family_budget": 1200,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 3,
+    "noise": 2,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00"
+    ],
+    "season": [
+      "winter"
+    ],
+    "weather": [
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "sport"
+    ],
+    "experience": [
+      "free"
+    ],
+    "tags": [
+      "Каток",
+      "Бесплатный вход",
+      "Прокат коньков",
+      "Зима"
+    ],
+    "hit": false,
+    "photoSet": "ice",
+    "rating": null,
+    "reviews": null,
+    "source": "https://detinform.ru/katok-na-poyme-v-pavshinskoy-poyme.html",
+    "confidence": "medium"
+  },
+  {
+    "title": "Истринский парк культуры и отдыха",
+    "slug": "istrinsky-park-kultury",
+    "town": "Истра",
+    "region": "mo",
+    "address": "Московская область, Истра, Истринский центральный парк культуры и отдыха",
+    "lat": 55.9181,
+    "lng": 36.8569,
+    "category": "park",
+    "subtitle": "Городской парк с детскими площадками и аттракционами",
+    "description": "Городской парк в центре Истры с детскими площадками, батутами и каруселями. Хороший вариант для ровной прогулки с коляской и часа-двух игры на воздухе; в парке есть мемориал с самолётом Ил-2 для любителей техники.",
+    "price": [
+      0,
+      300
+    ],
+    "family_budget": 600,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature",
+      "transport"
+    ],
+    "experience": [
+      "walk",
+      "playzone"
+    ],
+    "tags": [
+      "Городской парк",
+      "Детские площадки",
+      "Карусели",
+      "С коляской"
+    ],
+    "hit": false,
+    "photoSet": "playground",
+    "rating": 4.8,
+    "reviews": 2127,
+    "source": "https://2gis.ru/istra/firm/70000001060278185",
+    "confidence": "medium"
+  },
+  {
+    "title": "Парк развлечений «Лаки Лама»",
+    "slug": "lucky-llama-istra",
+    "town": "Истра",
+    "region": "mo",
+    "address": "Московская область, Истра, пл. Революции, 6, ТОЦ «Бриз», 2 этаж",
+    "lat": 55.9151,
+    "lng": 36.8578,
+    "category": "play",
+    "subtitle": "Лабиринты, батуты и горки в центре Истры",
+    "description": "Семейный развлекательный центр на втором этаже торгового центра: лабиринты, батуты, горки и отдельная зона для малышей. Удобно зайти в дождь или холод, когда на улице не погуляешь. Работает ежедневно до 22:00, здесь же отмечают дни рождения.",
+    "price": [
+      400,
+      900
+    ],
+    "family_budget": 1800,
+    "age": [
+      1,
+      10
+    ],
+    "duration": 120,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 3,
+    "noise": 3,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [],
+    "experience": [
+      "playzone",
+      "toddlers"
+    ],
+    "tags": [
+      "Игровой центр",
+      "Зона для малышей",
+      "Лабиринты",
+      "Дни рождения"
+    ],
+    "hit": false,
+    "photoSet": "play",
+    "rating": 5,
+    "reviews": 197,
+    "source": "https://2gis.ru/istra/firm/70000001101893486",
+    "confidence": "medium"
+  }
+]

@@ -7,6 +7,7 @@ import { formatKm } from "@/lib/geo";
 import { TravelBadge } from "@/components/ui/TravelBadge";
 
 import { cn } from "@/lib/cn";
+import { placeHref } from "@/lib/place-href";
 
 export function PlaceCard({
   place,
@@ -25,7 +26,7 @@ export function PlaceCard({
 }) {
   return (
     <Link
-      href={`/places/${place.slug}`}
+      href={placeHref(place)}
       className={cn("press group block shrink-0 snap-start overflow-hidden rounded-[18px] bg-surface shadow-card", width, className)}
     >
       <div className="relative">
@@ -68,7 +69,7 @@ export function PlaceCarousel({ places, caption }: { places: Place[]; caption?: 
 /** Широкая строка для списков (поиск, избранное). */
 export function PlaceRow({ place, km, aside }: { place: Place; km?: number; aside?: React.ReactNode }) {
   return (
-    <Link href={`/places/${place.slug}`} className="press flex gap-3 rounded-[20px] bg-surface p-2.5 shadow-card">
+    <Link href={placeHref(place)} className="press flex gap-3 rounded-[20px] bg-surface p-2.5 shadow-card">
       <div className="relative shrink-0">
         <SmartImage photo={place.photos[0]} tint={place.tint} emoji={place.emoji} sizes="112px" className="h-[96px] w-[108px] rounded-[14px]" />
         <FavoriteButton slug={place.slug} className="absolute right-1.5 top-1.5 h-8 w-8" />

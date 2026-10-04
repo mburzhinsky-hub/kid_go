@@ -5,6 +5,12 @@ import { formatCount } from "@/lib/format";
 const AVATAR_BG = ["#FFE3E8", "#E2EEFF", "#E4F4DD", "#FFF3D6", "#EEE5FE"];
 
 export function Reviews({ place }: { place: Place }) {
+  if (place.review_count === 0)
+    return (
+      <p className="rounded-[20px] bg-fill-2 px-4 py-3.5 text-[14.5px] leading-snug text-muted ring-1 ring-line">
+        Отзывов пока нет. Были здесь? Отметьте «Были» — это поможет подобрать похожие места.
+      </p>
+    );
   const dist = [0.78, 0.15, 0.04, 0.02, 0.01];
   return (
     <div>

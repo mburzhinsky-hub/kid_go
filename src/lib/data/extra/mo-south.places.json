@@ -1,0 +1,768 @@
+[
+  {
+    "title": "Музей-заповедник А. П. Чехова «Мелихово»",
+    "slug": "melikhovo-chekhov",
+    "town": "Чехов",
+    "region": "mo",
+    "address": "Московская область, Чеховский р-н, с. Мелихово, 1",
+    "lat": 55.1148,
+    "lng": 37.6489,
+    "category": "park",
+    "subtitle": "Усадьба-музей Чехова с аллеями, холмом и колокольней",
+    "description": "В усадьбе, где Чехов жил и работал в 1890-х, сохранились главный дом, флигель, где написана «Чайка», кухня, баня и школа. С детьми удобно гулять по Аллее Любви и Сиреневой аллее и подниматься на холм Левиафан. Для школьников проходят интерактивные программы и мастер-классы про крестьянский быт и народные промыслы.",
+    "price": [
+      0,
+      100
+    ],
+    "family_budget": 500,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 150,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      null,
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "workshop",
+      "show"
+    ],
+    "tags": [
+      "Усадьба",
+      "Мастер-классы",
+      "Прогулка",
+      "Дошкольникам бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://tonkosti.ru/Усадьба_Мелихово",
+    "confidence": "medium"
+  },
+  {
+    "title": "Музей-усадьба «Остафьево» — «Русский Парнас»",
+    "slug": "ostafyevo-russky-parnas",
+    "town": "Щербинка",
+    "region": "msk",
+    "address": "Москва, Щербинка, с. Остафьево, ул. Троицкая, 1а",
+    "lat": 55.4961,
+    "lng": 37.5014,
+    "category": "park",
+    "subtitle": "Усадьба князей Вяземских с парком и прудом",
+    "description": "Усадьба, куда приезжали Пушкин, Карамзин и Гоголь: ровные дорожки старого парка, пруд и белки, за которыми интересно наблюдать с детьми. Можно заглянуть в дом-музей и Троицкую церковь, но главное здесь спокойная прогулка на пару часов. В музей с коляской не пускают, в залах дети до 12 лет только со взрослыми; в понедельник музей закрыт, парк работает.",
+    "price": [
+      0,
+      350
+    ],
+    "family_budget": 600,
+    "age": [
+      2,
+      12
+    ],
+    "duration": 120,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-21:00",
+      "10:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk"
+    ],
+    "tags": [
+      "Усадьба",
+      "Парк",
+      "Пруд",
+      "Тихая прогулка"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": 4.8,
+    "reviews": 280,
+    "source": "https://2gis.ru/moscow/firm/70000001018325589",
+    "confidence": "high"
+  },
+  {
+    "title": "Усадьба Дубровицы и церковь Знамения",
+    "slug": "dubrovitsy-znamenskaya-cerkov",
+    "town": "Подольск",
+    "region": "mo",
+    "address": "Московская область, г.о. Подольск, пос. Дубровицы, усадьба Дубровицы",
+    "lat": 55.4414,
+    "lng": 37.4946,
+    "category": "park",
+    "subtitle": "Белокаменная церковь с короной и липовый парк над двумя реками",
+    "description": "Белокаменная церковь Знамения с короной вместо купола — одна из самых необычных в Подмосковье: на фасадах множество скульптур, которые интересно разглядывать. Рядом старый липовый парк и смотровая площадка над слиянием Десны и Пахры. Музея в усадьбе сейчас нет, поэтому это короткая прогулка на час-полтора, которую удобно объединить с парком в Подольске.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 200,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "06:30-17:30",
+      "06:30-17:30",
+      "06:30-17:30",
+      "06:30-17:30",
+      "06:30-17:30",
+      "06:30-17:30",
+      "06:30-17:30"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "free",
+      "unusual"
+    ],
+    "tags": [
+      "Усадьба",
+      "Бесплатно",
+      "Река",
+      "Смотровая площадка"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": 5,
+    "reviews": 243,
+    "source": "https://2gis.ru/moscow/firm/4504127916750444",
+    "confidence": "high"
+  },
+  {
+    "title": "Парк культуры и отдыха им. В. Талалихина",
+    "slug": "park-talalikhina-podolsk",
+    "town": "Подольск",
+    "region": "mo",
+    "address": "Московская область, Подольск, ул. Рабочая, 5г",
+    "lat": 55.4371,
+    "lng": 37.5602,
+    "category": "park",
+    "subtitle": "Городской парк с площадками, аттракционами и колесом обозрения",
+    "description": "Большой городской парк Подольска: детские площадки, велодорожки, колесо обозрения и платные аттракционы для малышей и школьников, летом — пляж. Вход свободный, платите только за карусели и батуты. Хорошее место на полдня, особенно с детьми 2–8 лет.",
+    "price": [
+      0,
+      300
+    ],
+    "family_budget": 600,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "07:00-23:00",
+      "07:00-23:00",
+      "07:00-23:00",
+      "07:00-23:00",
+      "07:00-23:00",
+      "07:00-23:00",
+      "07:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature",
+      "sport"
+    ],
+    "experience": [
+      "playzone",
+      "walk",
+      "free"
+    ],
+    "tags": [
+      "Парк",
+      "Аттракционы",
+      "Колесо обозрения",
+      "Площадки"
+    ],
+    "hit": false,
+    "photoSet": "ferris",
+    "rating": 4.9,
+    "reviews": 592,
+    "source": "https://2gis.ru/podolsk/firm/70000001006489201",
+    "confidence": "high"
+  },
+  {
+    "title": "Ледовый дворец «Витязь»",
+    "slug": "ledovy-dvorec-vityaz-podolsk",
+    "town": "Подольск",
+    "region": "mo",
+    "address": "Московская область, Подольск, ул. Кирова, 63а",
+    "lat": 55.4202,
+    "lng": 37.5162,
+    "category": "active",
+    "subtitle": "Крытый каток с массовым катанием и прокатом коньков",
+    "description": "Крытая арена с сеансами массового катания по расписанию, есть прокат коньков и семейные сеансы. Подойдёт и тем, кто делает первые шаги на льду, и школьникам, которые уже уверенно катаются. Сеанс идёт час, на переодевание закладывайте по 15 минут до и после.",
+    "price": [
+      300,
+      600
+    ],
+    "family_budget": 2300,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 100,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 3,
+    "noise": 2,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "sport"
+    ],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "Каток",
+      "Прокат коньков",
+      "От 4 лет",
+      "В помещении"
+    ],
+    "hit": false,
+    "photoSet": "ice",
+    "rating": 4.8,
+    "reviews": 134,
+    "source": "https://2gis.ru/podolsk/firm/4504127912990222",
+    "confidence": "high"
+  },
+  {
+    "title": "Музей-заповедник «Горки Ленинские»",
+    "slug": "gorki-leninskie",
+    "town": "Горки Ленинские",
+    "region": "mo",
+    "address": "Московская область, Ленинский г.о., пгт Горки Ленинские, 1",
+    "lat": 55.5046,
+    "lng": 37.7651,
+    "category": "park",
+    "subtitle": "Старая усадьба с большим парком и музеем крестьянского быта",
+    "description": "Большая территория бывшей усадьбы Морозовых с парком — места хватает для долгой прогулки. Для школьников есть дом-усадьба с сохранившимися интерьерами и экспозиция крестьянского быта. Скорее спокойная прогулка на полдня, чем активный день.",
+    "price": [
+      0,
+      400
+    ],
+    "family_budget": 600,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 150,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "picnic"
+    ],
+    "tags": [
+      "Усадьба",
+      "Парк",
+      "Музей",
+      "Прогулка"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": 4.9,
+    "reviews": 241,
+    "source": "https://2gis.ru/moscow/firm/4504128908501846",
+    "confidence": "medium"
+  },
+  {
+    "title": "Музей истории «Коломенская пастила»",
+    "slug": "kolomna-pastila-muzey",
+    "town": "Коломна",
+    "region": "mo",
+    "address": "Московская область, Коломна, ул. Посадская, 13а",
+    "lat": 55.1046,
+    "lng": 38.7699,
+    "category": "museum",
+    "subtitle": "Театрализованная экскурсия с дегустацией пастилы",
+    "description": "Музей-фабрика, где актёры в костюмах рассказывают и показывают, как делали знаменитую коломенскую пастилу, а дети участвуют в процессе и пробуют результат за чаем. Посещение только группами по записи, поэтому собирайте друзей или присоединяйтесь к готовой группе. Коломна — поездка на день (около 100 км), музей удобно сочетать с кремлём и Музеем игрушки рядом.",
+    "price": [
+      400,
+      500
+    ],
+    "family_budget": 1800,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 2,
+    "noise": 2,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": true,
+    "hours": [
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "workshop",
+      "show",
+      "food"
+    ],
+    "tags": [
+      "Поездка на день",
+      "Дегустация",
+      "Мастер-класс",
+      "По записи"
+    ],
+    "hit": false,
+    "photoSet": "museum",
+    "rating": 5,
+    "reviews": 198,
+    "source": "https://2gis.ru/kolomna/firm/70000001023964852",
+    "confidence": "medium"
+  },
+  {
+    "title": "Коломенский кремль",
+    "slug": "kolomna-kreml",
+    "town": "Коломна",
+    "region": "mo",
+    "address": "Московская область, Коломна, Коломенский кремль, ул. Лажечникова, 5",
+    "lat": 55.1036,
+    "lng": 38.7547,
+    "category": "park",
+    "subtitle": "Крепость XVI века с башнями, соборной площадью и музеями",
+    "description": "Древняя крепость с белокаменными стенами и башнями, внутри — соборная площадь, действующие храмы и музеи; детям интересно искать бойницы и разглядывать старинные башни. В старой части города рядом стоят деревянные дома с резными наличниками. Коломна — поездка на день (около 100 км от МКАД), на кремль и ещё один музей хватит полдня.",
+    "price": [
+      0,
+      300
+    ],
+    "family_budget": 600,
+    "age": [
+      5,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "fairy"
+    ],
+    "experience": [
+      "walk",
+      "unusual"
+    ],
+    "tags": [
+      "Поездка на день",
+      "Крепость",
+      "Башни",
+      "История"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://2gis.ru/kolomna/firm/70000001034360438",
+    "confidence": "medium"
+  },
+  {
+    "title": "Музей любимой игрушки",
+    "slug": "kolomna-muzey-lyubimoy-igrushki",
+    "town": "Коломна",
+    "region": "mo",
+    "address": "Московская область, Коломна, ул. Москворецкая, 20",
+    "lat": 55.1066,
+    "lng": 38.7694,
+    "category": "museum",
+    "subtitle": "Небольшой частный музей игрушек в Старой Коломне",
+    "description": "Небольшая частная галерея, где собраны любимые игрушки разных лет: ребёнку интересно сравнить их со своими, а родителям — вспомнить своё детство. Заходит в одну прогулку с Музеем пастилы, они в соседних кварталах Старой Коломны. Визит короткий, на 40–60 минут.",
+    "price": [
+      150,
+      250
+    ],
+    "family_budget": 700,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 60,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "fairy"
+    ],
+    "experience": [
+      "toys"
+    ],
+    "tags": [
+      "Поездка на день",
+      "Игрушки",
+      "Музей",
+      "Старая Коломна"
+    ],
+    "hit": false,
+    "photoSet": "toys",
+    "rating": 4.8,
+    "reviews": 22,
+    "source": "https://2gis.ru/kolomna/firm/70000001023926045",
+    "confidence": "medium"
+  },
+  {
+    "title": "Зона отдыха «Заречье»",
+    "slug": "troitsk-zarechye",
+    "town": "Троицк",
+    "region": "msk",
+    "address": "Москва, Троицк, зона отдыха «Заречье», ул. Прибрежная, 7",
+    "lat": 55.4973,
+    "lng": 37.3022,
+    "category": "park",
+    "subtitle": "Парк у пруда с деревянными площадками и прокатом лодок",
+    "description": "Парк-лес у пруда в Троицке: деревянные детские площадки, беседки для пикников, прокат лодок и сапбордов, пасека. Можно взять с собой плед и еду и устроить пикник у воды. Хорошее место на полдня в тёплую погоду.",
+    "price": [
+      0,
+      500
+    ],
+    "family_budget": 600,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "08:00-23:00",
+      "08:00-23:00",
+      "08:00-23:00",
+      "08:00-23:00",
+      "08:00-23:00",
+      "08:00-23:00",
+      "08:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "picnic",
+      "playzone"
+    ],
+    "tags": [
+      "Парк у пруда",
+      "Площадки",
+      "Пикник",
+      "Прокат лодок"
+    ],
+    "hit": false,
+    "photoSet": "picnic",
+    "rating": 4.7,
+    "reviews": 3449,
+    "source": "https://yandex.com/maps/org/zona_otdykha_zarechye/163370592762/",
+    "confidence": "high"
+  },
+  {
+    "title": "Наташинский парк (Наташинские пруды)",
+    "slug": "natashinsky-park-lyubertsy",
+    "town": "Люберцы",
+    "region": "mo",
+    "address": "Московская область, Люберцы, Наташинский парк",
+    "lat": 55.6958,
+    "lng": 37.8849,
+    "category": "park",
+    "subtitle": "Парк у прудов с площадками, колесом обозрения и картингом",
+    "description": "Парк у прудов с множеством площадок для детей, каруселями, батутами, колесом обозрения и картингом, есть прокат велосипедов, скейт-парк и воркаут. Есть беседки для пикника. Вход свободный, платные только аттракционы и прокат.",
+    "price": [
+      0,
+      400
+    ],
+    "family_budget": 800,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "09:00-23:00",
+      "09:00-23:00",
+      "09:00-23:00",
+      "09:00-23:00",
+      "09:00-23:00",
+      "09:00-23:00",
+      "09:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "sport",
+      "nature"
+    ],
+    "experience": [
+      "playzone",
+      "walk",
+      "picnic"
+    ],
+    "tags": [
+      "Парк",
+      "Аттракционы",
+      "Картинг",
+      "Колесо обозрения"
+    ],
+    "hit": false,
+    "photoSet": "ferris",
+    "rating": 4.9,
+    "reviews": 531,
+    "source": "https://2gis.ru/lyubertsy/firm/70000001022981485",
+    "confidence": "high"
+  }
+]

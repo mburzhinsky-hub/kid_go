@@ -1,5 +1,6 @@
 import type { Place, OpeningHours, Review, CategoryId } from "@/lib/types";
 import { PH, ph } from "./photos";
+import { buildPlaces } from "./extra";
 
 /**
  * Демо-база мест (Москва). Названия известных мест реальные, часть заведений
@@ -82,7 +83,7 @@ function place(s: Seed): Place {
   } as Place;
 }
 
-export const places: Place[] = [
+const SEED_PLACES: Place[] = [
   /* ───────────── Игровые пространства ───────────── */
   place({
     title: "Сказочный лес",
@@ -260,6 +261,7 @@ export const places: Place[] = [
   place({
     title: "Пиратская площадка в Нескучном саду",
     slug: "piratskaya-ploshchadka",
+    season_tags: ["spring", "summer", "autumn"],
     subtitle: "Большая деревянная площадка",
     description:
       "Деревянный пиратский корабль с мачтами, канатами и горками посреди старого парка. Рядом песочница, качели-гнёзда и площадка для малышей. Бесплатно и в любую погоду, кроме ливня.",
@@ -922,6 +924,7 @@ export const places: Place[] = [
   place({
     title: "Пони-клуб «Подкова»",
     slug: "poni-klub-podkova",
+    season_tags: ["spring", "summer", "autumn"],
     subtitle: "Катание на пони в Битцевском лесу",
     description:
       "Прогулки на пони и лошадях по лесным тропинкам с инструктором. Малышей водят под уздцы, старшие проходят мини-тренировку в манеже. После — чай из самовара и угощение для лошадок.",
@@ -1089,6 +1092,7 @@ export const places: Place[] = [
   place({
     title: "Ледовый каток «Снежинка»",
     slug: "katok-snezhinka",
+    season_tags: ["autumn", "winter", "spring"],
     subtitle: "Крытый каток круглый год",
     description:
       "Крытый каток с прокатом коньков всех размеров, «пингвинами» для начинающих и школой катания. По выходным — дискотеки на льду с мультяшными песнями.",
@@ -1657,6 +1661,9 @@ export const places: Place[] = [
     tags: ["Творчество", "Мастер-класс", "От 3 лет", "По записи"],
   }),
 ];
+
+/** Редакторские места из `extra/*.json` (Подмосковье и районы Москвы) идут вслед за демо-набором. */
+export const places: Place[] = [...SEED_PLACES, ...buildPlaces(SEED_PLACES.length, new Set(SEED_PLACES.map((p) => p.slug)))];
 
 export const placeById = new Map(places.map((p) => [p.id, p]));
 export const placeBySlug = new Map(places.map((p) => [p.slug, p]));

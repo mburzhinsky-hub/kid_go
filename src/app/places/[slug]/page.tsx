@@ -62,7 +62,7 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
     image: place.photos.map((p) => p.src),
     address: { "@type": "PostalAddress", streetAddress: place.address, addressLocality: "Москва", addressCountry: "RU" },
     geo: { "@type": "GeoCoordinates", latitude: place.latitude, longitude: place.longitude },
-    aggregateRating: { "@type": "AggregateRating", ratingValue: place.rating, reviewCount: place.review_count },
+    ...(place.review_count > 0 ? { aggregateRating: { "@type": "AggregateRating", ratingValue: place.rating, reviewCount: place.review_count } } : {}),
     isAccessibleForFree: place.price_max === 0,
     priceRange: place.price_max === 0 ? "Бесплатно" : `${formatPrice(place.price_min)}–${formatPrice(place.price_max)}`,
   };

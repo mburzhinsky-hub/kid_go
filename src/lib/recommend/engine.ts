@@ -1,10 +1,11 @@
 import type { Place, Plan, PlannerInput, MoodId, BudgetId, DurationId, StopWeather, CategoryId } from "@/lib/types";
-import { places as ALL_PLACES } from "@/lib/data/places";
+import { places as STATIC_PLACES } from "@/lib/data/places";
 import { buildPlan, chainLabel } from "@/lib/plan";
 import { pt } from "@/lib/geo";
 import { ceilTo, fromMinutes, isOpenDuring, moscowNow } from "@/lib/format";
 import { travelBetween, travelToPlace, type Travel } from "@/lib/location";
 import { bringList, daySummary, moscowDateISO, outdoorVerdict, weekdayOf, windowWx, type Forecast } from "@/lib/forecast";
+import { isSuburban } from "@/lib/location";
 import { explainPlan } from "./explain";
 
 /**
@@ -39,6 +40,20 @@ export interface ScoredPlace {
 
 /* ───────── 1. Контекст ───────── */
 
+export type Season = "winter" | "spring" | "summer" | "autumn";
+export const seasonOf = (month: number): Season => (month === 12 || month <= 2 ? "winter" : month <= 5 ? "spring" : month <= 8 ? "summer" : "autumn");
+
+/** Погода дня одним взглядом — от неё зависят вес «улицы» и «под крышей». */
+export interface DayCond {
+  wet: "all" | "later" | "none";
+  cold: boolean;
+  hot: boolean;
+  snow: boolean;
+  sunny: boolean;
+  warm: boolean;
+  temp: number;
+}
+
 export interface DayCtx {
   dateISO: string;
   weekday: number;
@@ -49,11 +64,18 @@ export interface DayCtx {
   tomorrow: boolean;
   forecast?: Forecast;
   youngest: number;
+  oldest: number;
   reach: number;
   rainFrom?: string;
+  /** Минуты с полуночи сейчас (только если планируем на сегодня). */
+  nowMin: number | null;
+  month: number;
+  season: Season;
+  weekend: boolean;
+  cond: DayCond;
 }
 
-export function dayContext(input: PlannerInput): DayCtx {
+export function dayContext(input: PlannerInput, reachMul = 1): DayCtx {
   const now = moscowNow(input.now);
   const want = DURATION_MIN[input.duration];
   const c = input.constraints ?? {};
@@ -73,11 +95,34 @@ export function dayContext(input: PlannerInput): DayCtx {
   const dateISO = moscowDateISO(offset, input.now);
   const ages = input.children.map((k) => k.age);
   const reachBase = c.maxTravelMin ?? DEFAULT_REACH[input.transport];
-  const reach = input.maxDistanceKm ? Math.min(reachBase, 20) : reachBase;
+  const reach = Math.min(150, (input.maxDistanceKm ? Math.min(reachBase, 20) : reachBase) * reachMul);
   const sum = input.forecast ? daySummary(input.forecast, dateISO) : undefined;
+  const month = Number(dateISO.slice(5, 7));
+  const weekday = offset === 0 ? now.weekday : weekdayOf(dateISO);
+  const w = sum?.window;
+  const legacy = input.weather;
+  const cond: DayCond = sum && w
+    ? {
+        wet: sum.allWet ? "all" : sum.rainFrom ? "later" : "none",
+        cold: w.feelsMax < -5,
+        hot: w.feelsMax >= 27,
+        snow: w.condition === "snow",
+        sunny: w.condition === "sun" && !sum.allWet,
+        warm: w.tempMax >= 16,
+        temp: sum.weather.temp,
+      }
+    : {
+        wet: legacy.condition === "rain" || legacy.condition === "snow" ? "all" : "none",
+        cold: legacy.temp < -8,
+        hot: legacy.temp >= 28,
+        snow: legacy.condition === "snow",
+        sunny: legacy.condition === "sun",
+        warm: legacy.temp >= 16,
+        temp: legacy.temp,
+      };
   return {
     dateISO,
-    weekday: offset === 0 ? now.weekday : weekdayOf(dateISO),
+    weekday,
     dayOffset: offset,
     start,
     end: start + total,
@@ -85,8 +130,14 @@ export function dayContext(input: PlannerInput): DayCtx {
     tomorrow: offset > 0,
     forecast: input.forecast,
     youngest: ages.length ? Math.min(...ages) : 5,
+    oldest: ages.length ? Math.max(...ages) : 5,
     reach,
     rainFrom: sum?.rainFrom,
+    nowMin: offset === 0 ? now.minutes : null,
+    month,
+    season: seasonOf(month),
+    weekend: weekday >= 5,
+    cond,
   };
 }
 
@@ -163,32 +214,98 @@ export function scorePlace(
 
   const kidInterests = input.children.map((k) => k.interests);
   const interestKids = kidInterests.filter((ints) => ints.some((i) => p.interest_tags.includes(i))).length;
-  const interest = kidInterests.some((x) => x.length) ? interestKids / kidInterests.length : 0.35;
-  const scenarioInterest = c.interests?.some((i) => p.interest_tags.includes(i)) ? 1.5 : 0;
-  // «лучший возраст»: середина диапазона интереснее краёв
-  const sweet = ages.length ? ages.reduce((s, a) => s + (a >= p.age_min + 1 && a <= p.age_max - 1 ? 1 : 0.6), 0) / ages.length : 0.8;
+  const interest = kidInterests.some((x) => x.length) ? interestKids / kidInterests.length : 0.3;
+  const scenarioInterest = c.interests?.some((i) => p.interest_tags.includes(i)) ? 2 : 0;
+  // «лучший возраст»: ближе к середине диапазона места — интереснее, чем у краёв
+  const mid = (p.age_min + p.age_max) / 2;
+  const half = Math.max(1.5, (p.age_max - p.age_min) / 2 + 0.5);
+  const sweet = ages.length ? ages.reduce((acc, a) => acc + Math.exp(-(((a - mid) / half) ** 2) * 0.9), 0) / ages.length : 0.7;
 
   const parts: Record<string, number> = {
-    age: fit * 2 + sweet,
-    distance: Math.max(0, 1 - travel.minutes / ctx.reach) * 2,
-    interest: interest * 3 + scenarioInterest,
-    rating: (p.rating - 4) * 1,
-    mood: moodFit(p, input.mood) * 4,
+    age: fit * 2 + sweet * 2 + ageNeeds(p, ctx),
+    distance: Math.max(0, 1 - travel.minutes / ctx.reach) ** 1.3 * (input.transport === "walk" ? 10 : 8.5),
+    interest: interest * 8 + scenarioInterest,
+    rating: (p.rating - 4) * (p.review_count > 0 ? 1 : 0.4),
+    mood: moodFit(p, input.mood) * 7.5,
     activity: input.activity ? 1 - Math.abs(p.activity_level - input.activity) / 2 : 0.5,
+    // данные OpenStreetMap не проверены редакцией — при прочих равных отдаём предпочтение каталогу
+    trust: p.confidence === "osm" ? -0.7 : 0,
     popularity: (p.is_hit ? 0.4 : 0) + Math.min(0.4, p.review_count / 10000),
-    weather: p.indoor && !p.outdoor ? (outdoorDay < 0.5 ? 2.5 : 1.2) : p.outdoor && !p.indoor ? outdoorDay * 2.5 : 1.8,
-    prefer: (c.preferCategories?.includes(p.category) ? 2.2 : 0) + (c.outdoorPreferred && p.outdoor ? 1.5 : 0),
+    weather: weatherFit(p, ctx, outdoorDay, input),
+    season: seasonFit(p, ctx),
+    crowd: crowdFit(p, ctx, input),
+    transport: transportFit(p, input),
+    prefer: (c.preferCategories?.includes(p.category) ? 2.6 : 0) + (c.outdoorPreferred && p.outdoor ? 2 : 0),
     family:
       (fam?.want.includes(p.slug) ? 2.5 : 0) +
       (fam?.loved.includes(p.slug) ? 1 : 0) -
       (fam?.visited.includes(p.slug) && !fam?.loved.includes(p.slug) ? 2 : 0) -
       (fam?.seen?.includes(p.slug) ? 0.8 : 0),
     rotation: hash(`${input.seed ?? ""}:${p.id}`) * 0.9,
-    // при скромном бюджете дорогой якорь «съедает» весь день — предпочитаем то, что оставит место для обеда
-    price: Number.isFinite(budgetMax) && budgetMax > 0 ? -(p.family_budget / budgetMax) * 1.5 : 0,
+    // при скромном бюджете дорогой якорь «съедает» весь день — предпочитаем то, что оставит место для обеда;
+    // при щедром — тянемся к «событию»
+    price: Number.isFinite(budgetMax) && budgetMax > 0 ? -((p.family_budget / budgetMax) ** 1.3) * (input.budget === "2000" ? 3.4 : 1.4) : budgetMax === Infinity ? (p.price_level >= 2 && p.rating >= 4.6 ? 0.6 : 0) : 0,
   };
   const score = Object.values(parts).reduce((a, b) => a + b, 0);
   return { place: p, score, km: travel.km, minutes: travel.minutes, parts };
+}
+
+/** Потребности возраста: малышу — коляска и тишина, старшему — «не малышовое». */
+function ageNeeds(p: Place, ctx: DayCtx): number {
+  let v = 0;
+  if (ctx.youngest <= 3) {
+    v += (p.stroller_friendly ? 0.9 : -0.6) + (p.baby_room ? 0.7 : 0) + (p.activity_level === 3 ? -1.6 : 0) + (p.noise_level === 3 ? -1.2 : 0) + (p.experience_tags.includes("toddlers") ? 1.2 : 0);
+  } else if (ctx.youngest <= 5) {
+    v += (p.kids_menu ? 0.3 : 0) + (p.age_min <= 3 ? 0.4 : 0);
+  }
+  if (ctx.oldest >= 9) {
+    v += (p.age_min >= 6 ? 1.1 : p.age_min <= 2 && p.age_max <= 8 ? -1.4 : 0) + (p.activity_level === 3 ? 0.5 : 0) + (p.experience_tags.includes("toddlers") ? -1.2 : 0);
+  }
+  return v;
+}
+
+/** Погода дня: улица или крыша, в зависимости от того, что реально лучше. */
+function weatherFit(p: Place, ctx: DayCtx, outdoorDay: number, input: PlannerInput): number {
+  const { cond } = ctx;
+  const indoorOnly = p.indoor && !p.outdoor;
+  const outdoorOnly = p.outdoor && !p.indoor;
+  const prefersIn = input.mood === "learn" || input.mood === "creative";
+  let v: number;
+  if (cond.wet === "all") v = indoorOnly ? 3.8 : outdoorOnly ? 0 : 1.3;
+  else if (cond.wet === "later") v = indoorOnly ? 1.4 : outdoorOnly ? outdoorDay * 2.6 : 1.8;
+  else if (cond.cold) v = indoorOnly ? 3.2 : outdoorOnly ? outdoorDay * 1.0 - 1 : 1.2;
+  else if (cond.hot) v = indoorOnly ? 2.4 : outdoorOnly ? outdoorDay * 1.4 : 1.6;
+  else if (cond.sunny && cond.warm) v = outdoorOnly ? outdoorDay * 3.2 * (prefersIn ? 0.4 : 1) : indoorOnly ? (prefersIn ? 0.6 : -0.9) : 2.2;
+  else v = outdoorOnly ? outdoorDay * 2.4 * (prefersIn ? 0.5 : 1) : indoorOnly ? 1.5 : 1.9;
+  // метки места «когда оно хорошо»: дождь, солнце, холод, жара
+  const tag = cond.wet === "all" ? "rain" : cond.hot ? "heat" : cond.cold || cond.snow ? "cold" : cond.sunny ? "sun" : "any";
+  if (tag !== "any" && p.weather_tags.includes(tag)) v += tag === "sun" && prefersIn ? 0.4 : 1.3;
+  if (cond.snow && !cond.wet && p.category === "active" && p.outdoor) v += 0.8;
+  return v;
+}
+
+/** Сезон: уличное не по сезону — минус, «своё» время — плюс. */
+function seasonFit(p: Place, ctx: DayCtx): number {
+  if (p.season_tags.length >= 4) return 0;
+  const inSeason = p.season_tags.includes(ctx.season);
+  return inSeason ? 0.5 : p.outdoor ? -3 : -0.8;
+}
+
+/** День недели и толпа: в выходные хиты переполнены, в будни — спокойнее. */
+function crowdFit(p: Place, ctx: DayCtx, input: PlannerInput): number {
+  const calm = input.mood === "calm" || input.constraints?.quiet;
+  let v = 0;
+  if (ctx.weekend && p.is_hit && p.noise_level === 3) v -= calm ? 1.4 : 0.5;
+  if (!ctx.weekend && (p.category === "museum" || p.category === "animals")) v += 0.5;
+  if (ctx.weekend && p.category === "play" && p.price_min > 0) v += 0.2;
+  return v;
+}
+
+/** Как добираемся: на машине важна парковка, на метро — станция рядом. */
+function transportFit(p: Place, input: PlannerInput): number {
+  if (input.transport === "car") return p.parking ? 1.2 : -1.2;
+  if (input.transport === "transit") return p.metro ? 0.7 : -0.3;
+  return p.stroller_friendly ? 0.2 : 0;
 }
 
 /* ───────── 4–5. Сборка дня и порядок шагов ───────── */
@@ -225,16 +342,29 @@ interface Ordered {
   picks: Pick[];
   cost: number;
   weather: (StopWeather | undefined)[];
+  startClock: number;
   end: number;
 }
 
 function simulate(order: Pick[], ctx: DayCtx, input: PlannerInput, ignoreWeather = false): Ordered | null {
   let clock = ctx.start;
+  // сегодня выезжаем не раньше «сейчас + сборы + дорога до первого места»
+  if (ctx.nowMin !== null) {
+    const first = travelToPlace(input.location, order[0].place, input.transport).minutes;
+    clock = Math.max(clock, ceilTo(ctx.nowMin + 25 + first, 5));
+  }
+  const startClock = clock;
   let cost = 0;
   const weather: (StopWeather | undefined)[] = [];
   for (let i = 0; i < order.length; i++) {
     const { place, duration, slot } = order[i];
     if (!isOpenDuring(place.opening_hours, ctx.weekday, clock, duration)) return null;
+    // малыш и тихий час: 13–15 лучше провести спокойно или дома
+    if (ctx.youngest <= 3) {
+      const overlap = Math.max(0, Math.min(clock + duration, 15 * 60) - Math.max(clock, 13 * 60));
+      if (overlap > 0) cost += (overlap / 60) * (place.indoor && place.activity_level === 1 ? 0.6 : 2.2);
+    }
+    if (ctx.youngest <= 5 && clock + duration > 19 * 60) cost += 1.2;
     const wx = wxFor(place, clock, duration, ctx, input);
     if (!wx.ok && !ignoreWeather) return null;
     weather.push(wx.w);
@@ -253,7 +383,7 @@ function simulate(order: Pick[], ctx: DayCtx, input: PlannerInput, ignoreWeather
   const endBy = input.constraints?.endBy;
   if (endBy && clock + backHome > endBy + 10) return null;
   if (clock > 21 * 60) return null;
-  return { picks: order, cost, weather, end: clock };
+  return { picks: order, cost, weather, startClock, end: clock };
 }
 
 function permutations<T>(arr: T[]): T[][] {
@@ -424,6 +554,10 @@ export interface PlannerResult {
   suggestions: Relaxation[];
   /** Пришлось допустить места, подходящие не всем детям. */
   partialAge: boolean;
+  /** Рядом почти ничего нет — радиус автоматически расширен. */
+  relaxed?: { from: number; to: number; nearest?: number };
+  /** Сколько мест-якорей нашлось в заданном радиусе. */
+  anchorsNear: number;
 }
 
 export interface Relaxation {
@@ -438,10 +572,49 @@ const anchorsOf = (pool: ScoredPlace[], input: PlannerInput) =>
       (input.constraints?.parentBreak && s.place.category === "cafe" && s.place.experience_tags.includes("playzone"))
   );
 
+const poolOf = (input: Pick2<PlannerInput, "extraPlaces">): Place[] => (input.extraPlaces?.length ? [...STATIC_PLACES, ...input.extraPlaces] : STATIC_PLACES);
+
+/** Минуты до ближайшего подходящего по возрасту места-якоря (для честного «ближайшее — в N минутах»). */
+function nearestAnchorMin(input: PlannerInput): number | undefined {
+  const ages = input.children.map((c) => c.age);
+  let best: number | undefined;
+  for (const p of poolOf(input)) {
+    if (!ACTIVITY.includes(p.category)) continue;
+    if (ages.length && !ages.some((a) => a >= p.age_min && a <= p.age_max)) continue;
+    const m = travelToPlace(input.location, p, input.transport).minutes;
+    if (best === undefined || m < best) best = m;
+  }
+  return best;
+}
+
+/**
+ * Планы с автоматическим расширением радиуса: если рядом пусто (за МКАД, окраина, узкие рамки),
+ * не показываем «ничего не нашлось», а честно расширяем до тех пор, пока не появятся варианты.
+ */
 export function generatePlans(input: PlannerInput, count = 3, offset = 0): PlannerResult {
-  const ctx = dayContext(input);
+  const base = dayContext(input).reach;
+  const first = generateOnce(input, count, offset, 1);
+  const sparse = first.anchorsNear < 6 && isSuburban(input.location);
+  if (first.plans.length >= (sparse ? count : 1)) return first;
+  let best = first;
+  let lastEff = base;
+  for (const k of [1.5, 2.2, 3.2]) {
+    const eff = Math.min(150, base * k);
+    if (eff <= lastEff + 1) break;
+    lastEff = eff;
+    const r = generateOnce(input, count, offset, k);
+    if (r.plans.length > best.plans.length) best = { ...r, relaxed: { from: Math.round(base), to: Math.min(150, Math.round(base * k)) } };
+    if (best.plans.length >= count) break;
+  }
+  if (best.relaxed) best.relaxed.nearest = nearestAnchorMin(input);
+  return best.plans.length ? best : { ...first, relaxed: undefined };
+}
+
+function generateOnce(input: PlannerInput, count: number, offset: number, reachMul: number): PlannerResult {
+  const ctx = dayContext(input, reachMul);
   const ages = input.children.map((c) => c.age);
   const outdoorDay = dayOutdoorScore(ctx);
+  const ALL_PLACES = poolOf(input);
 
   let partialAge = false;
   let scored = ALL_PLACES.map((p) => scorePlace(p, input, ages, ctx, outdoorDay)).filter(Boolean) as ScoredPlace[];
@@ -450,6 +623,7 @@ export function generatePlans(input: PlannerInput, count = 3, offset = 0): Plann
     partialAge = true;
     scored = ALL_PLACES.map((p) => scorePlace(p, input, ages, ctx, outdoorDay, true)).filter(Boolean) as ScoredPlace[];
   }
+  const anchorsNear = anchorsOf(scored, input).length;
 
   const kidsInterests = input.children.map((c) => [...c.interests, ...(input.constraints?.interests ?? [])] as string[]);
   const candidates = anchorsOf(scored, input).sort((a, b) => b.score - a.score);
@@ -504,6 +678,7 @@ export function generatePlans(input: PlannerInput, count = 3, offset = 0): Plann
     considered: scored.length,
     suggestions: plans.length ? [] : diagnose(input),
     partialAge,
+    anchorsNear,
   };
 }
 
@@ -516,7 +691,7 @@ function toPlan(a: Assembled, input: PlannerInput, ctx: DayCtx, pool: ScoredPlac
       key: picks.map((p) => p.place.slug).join("+"),
       title,
       emoji,
-      start: fromMinutes(ctx.start),
+      start: fromMinutes(a.ordered.startClock),
       transport: input.transport,
       description: chainLabel(picks.map((p) => p.place)),
     }
@@ -529,7 +704,7 @@ function toPlan(a: Assembled, input: PlannerInput, ctx: DayCtx, pool: ScoredPlac
   draft.fromHome = travelToPlace(input.location, picks[0].place, input.transport);
   draft.dayOffset = ctx.dayOffset;
   const hasOutdoor = picks.some((p) => p.place.outdoor);
-  if (ctx.forecast) draft.bring = bringList(windowWx(ctx.forecast, ctx.dateISO, ctx.start, a.ordered.end), ctx.youngest, hasOutdoor);
+  if (ctx.forecast) draft.bring = bringList(windowWx(ctx.forecast, ctx.dateISO, a.ordered.startClock, a.ordered.end), ctx.youngest, hasOutdoor);
 
   const notes: string[] = [];
   let weatherNote: string | undefined;
@@ -581,18 +756,26 @@ function diagnose(input: PlannerInput): Relaxation[] {
     const ctx = dayContext(next);
     const ages = next.children.map((c) => c.age);
     const od = dayOutdoorScore(ctx);
-    return ALL_PLACES.filter((p) => ACTIVITY.includes(p.category)).some((p) => scorePlace(p, next, ages, ctx, od, true));
+    return poolOf(next).filter((p) => ACTIVITY.includes(p.category)).some((p) => scorePlace(p, next, ages, ctx, od, true));
   });
 }
 
 /* ───────── Персональные рекомендации мест (главная, «Что потом?») ───────── */
 
-export function rankPlaces(input: PlannerInput, filter?: (p: Place) => boolean): ScoredPlace[] {
+export function rankPlaces(input: PlannerInput, filter?: (p: Place) => boolean, minCount = 0): ScoredPlace[] {
   const ages = input.children.map((c) => c.age);
-  const ctx = dayContext(input);
-  const od = dayOutdoorScore(ctx);
-  return ALL_PLACES.filter((p) => !filter || filter(p))
-    .map((p) => scorePlace(p, input, ages, ctx, od, true))
-    .filter(Boolean)
-    .sort((a, b) => b!.score - a!.score) as ScoredPlace[];
+  const pool = poolOf(input).filter((p) => !filter || filter(p));
+  let best: ScoredPlace[] = [];
+  // как и в планах: если рядом мало, расширяем радиус, чтобы подборка не пропадала (за МКАД, окраины)
+  for (const k of [1, 1.5, 2.2, 3.2]) {
+    const ctx = dayContext(input, k);
+    const od = dayOutdoorScore(ctx);
+    const r = pool
+      .map((p) => scorePlace(p, input, ages, ctx, od, true))
+      .filter(Boolean)
+      .sort((a, b) => b!.score - a!.score) as ScoredPlace[];
+    if (r.length > best.length) best = r;
+    if (best.length >= minCount) break;
+  }
+  return best;
 }

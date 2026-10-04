@@ -8,6 +8,7 @@ import { categoryDef } from "@/lib/catalog";
 import { formatDuration, plural } from "@/lib/format";
 import { formatKm } from "@/lib/geo";
 import { cn } from "@/lib/cn";
+import { placeHref } from "@/lib/place-href";
 
 const STOP_COLORS = ["#FF2E88", "#8B3DF0", "#1FA9F5", "#1FAE47", "#FF7A2E", "#FFC21A"];
 
@@ -84,7 +85,7 @@ function StopRow({
         {!last && <span aria-hidden className="mt-1 w-[3px] flex-1 rounded-full" style={{ background: `linear-gradient(${color}, #e8e6e1)` }} />}
       </div>
       <div className="mb-1 min-w-0 flex-1 overflow-hidden rounded-[22px] bg-surface shadow-card">
-        <Link href={`/places/${p.slug}`} className="flex gap-3 p-2.5">
+        <Link href={placeHref(p)} className="flex gap-3 p-2.5">
           <SmartImage photo={p.photos[0]} tint={p.tint} emoji={p.emoji} sizes="96px" className="h-[84px] w-[84px] shrink-0 rounded-[16px]" />
           <div className="min-w-0 flex-1 py-0.5">
             <span className="inline-flex items-center gap-1 text-[12.5px] font-semibold" style={{ color: cat.fg }}>

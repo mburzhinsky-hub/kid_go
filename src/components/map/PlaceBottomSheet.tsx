@@ -10,6 +10,7 @@ import { OpenStatus } from "@/components/place/OpenStatus";
 import { categoryDef } from "@/lib/catalog";
 import { formatAgeRange, placePriceShort } from "@/lib/format";
 import { routeUrl } from "@/lib/route-url";
+import { placeHref } from "@/lib/place-href";
 
 /** Карточка выбранного маркера, выезжающая снизу. */
 export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; minutes: number; onClose: () => void }) {
@@ -17,7 +18,7 @@ export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; mi
   return (
     <div className="animate-sheet">
       <div className="flex gap-3">
-        <Link href={`/places/${place.slug}`} className="shrink-0">
+        <Link href={placeHref(place)} className="shrink-0">
           <SmartImage photo={place.photos[0]} tint={place.tint} emoji={place.emoji} sizes="120px" className="h-[104px] w-[112px] rounded-[18px]" />
         </Link>
         <div className="min-w-0 flex-1">
@@ -29,7 +30,7 @@ export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; mi
               <X size={16} strokeWidth={2.4} />
             </button>
           </div>
-          <Link href={`/places/${place.slug}`}>
+          <Link href={placeHref(place)}>
             <h3 className="mt-0.5 text-[18px] font-bold leading-tight">{place.title}</h3>
           </Link>
           <div className="mt-1 flex items-center gap-3">
@@ -55,7 +56,7 @@ export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; mi
         >
           <Navigation size={17} /> Маршрут
         </a>
-        <Link href={`/places/${place.slug}`} className="press flex h-12 flex-[1.3] items-center justify-center gap-1.5 rounded-full bg-pink text-[15px] font-semibold text-white shadow-pink">
+        <Link href={placeHref(place)} className="press flex h-12 flex-[1.3] items-center justify-center gap-1.5 rounded-full bg-pink text-[15px] font-semibold text-white shadow-pink">
           Подробнее <ArrowRight size={17} />
         </Link>
       </div>

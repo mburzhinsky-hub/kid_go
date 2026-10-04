@@ -7,6 +7,7 @@ import { PlannerResults } from "@/components/planner/PlannerResults";
 import { SearchScreen } from "@/components/search/SearchScreen";
 import { MapScreen } from "@/components/map/MapScreen";
 import { FavoritesScreen } from "@/components/favorites/FavoritesScreen";
+import { NearbyPlaceView } from "@/components/place/NearbyPlaceView";
 import type { CategoryId } from "@/lib/types";
 
 /** Экраны, зависящие от query-параметров. Читаем их на клиенте — страницы остаются статическими
@@ -57,6 +58,10 @@ function FavoritesRoute() {
   return <FavoritesScreen initialTab={t === "plans" || t === "visited" ? t : "want"} />;
 }
 
+function NearbyRoute() {
+  return <NearbyPlaceView id={useSearchParams().get("id") ?? undefined} />;
+}
+
 const wrap = (C: React.ComponentType) =>
   function Wrapped() {
     return (
@@ -71,3 +76,4 @@ export const ResultsPageClient = wrap(ResultsRoute);
 export const SearchPageClient = wrap(SearchRoute);
 export const MapPageClient = wrap(MapRoute);
 export const FavoritesPageClient = wrap(FavoritesRoute);
+export const NearbyPageClient = wrap(NearbyRoute);

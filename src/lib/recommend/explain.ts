@@ -22,6 +22,12 @@ export const INTEREST_LABEL: Record<InterestId, { label: string; emoji: string; 
   fairy: { label: "Сказки", emoji: "🧚", love: "сказки" },
 };
 
+const toMin = (hhmm: string) => {
+  const [h, m] = hhmm.split(":").map(Number);
+  return h * 60 + (m || 0);
+};
+const ages0 = (input: PlannerInput) => (input.children.length ? Math.min(...input.children.map((c) => c.age)) : null);
+
 export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = []): { why: string[]; explanation: string } {
   const why: string[] = [...notes];
   let head: string | null = null;
@@ -36,6 +42,23 @@ export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = [
     why.push("☀️ Погода в плюс");
     head = "Отличный вариант для солнечного дня";
   }
+
+  // условия дня, повлиявшие на выбор: показываем, чтобы было видно, что план не «усреднённый»
+  const temp = input.weather.temp;
+  const outdoorShare = plan.stops.filter((s) => s.place.outdoor && !s.place.indoor).length / plan.stops.length;
+  const youngest = ages0(input);
+  const cond: string[] = [];
+  if (!rain && temp <= -3) cond.push(outdoorShare > 0.5 ? "🧤 Мороз — одевайтесь теплее" : "🧣 Мороз — в основном в тепле");
+  else if (!rain && temp >= 27) cond.push(plan.stops.some((s) => s.place.indoor || s.place.tags.some((t) => /вода|аквапарк|фонтан/i.test(t))) ? "🌡 Жара — есть тень или вода" : "🌡 Жара — берите воду и панамку");
+  else if (input.weather.condition === "snow" && outdoorShare > 0) cond.push("❄️ Снег — для зимних забав");
+  if (youngest != null && youngest <= 3) {
+    const startMin = toMin(first.start);
+    if (startMin >= 15 * 60 || startMin + first.duration <= 13 * 60) cond.push("😴 Учли дневной сон");
+  }
+  if (input.transport === "car" && plan.stops.some((s) => s.place.parking)) cond.push("🚗 Есть парковка");
+  if (first.place.confidence === "osm" || (plan.fromHome && plan.fromHome.minutes <= 12 && plan.fromHome.mode === "walk")) cond.push("🏡 Рядом с домом");
+  else if (plan.fromHome && plan.fromHome.minutes >= 35) cond.push(`🛣 Выезд: ${plan.fromHome.minutes} мин`);
+  why.push(...cond.slice(0, 2));
 
   if (first.place.activity_level === 3) sentences.push("детям будет где выплеснуть энергию");
   else if (first.place.activity_level === 1 && input.mood === "calm") sentences.push("спокойный темп без толп и шума");

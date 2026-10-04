@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { useFamily, familySignals } from "@/lib/store";
 import { rankPlaces } from "@/lib/recommend/engine";
 import { useForecast } from "@/lib/use-context";
+import { useNearbyExtras } from "@/lib/nearby";
 import { daySummary, moscowDateISO } from "@/lib/forecast";
 import { getWeather } from "@/lib/weather";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -16,6 +17,7 @@ export function ForYou() {
   const s = useFamily();
   const { forecast } = useForecast();
   const kids = s.children;
+  const nearby = useNearbyExtras();
 
   const ranked = useMemo(() => {
     if (!kids.length) return [];
@@ -27,16 +29,18 @@ export function ForYou() {
         budget: "any",
         transport: s.transport,
         location: s.origin,
+        extraPlaces: nearby.places.length ? nearby.places : undefined,
         weather: forecast ? daySummary(forecast, moscowDateISO(0)).weather : getWeather(),
         forecast,
         now: new Date(),
         family: familySignals(s),
         constraints: { maxTravelMin: s.maxTravelMin + 15 },
       },
-      (p) => p.category !== "cafe"
+      (p) => p.category !== "cafe",
+      6
     ).slice(0, 8);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [kids, forecast, s.origin, s.transport, s.maxTravelMin, s.wantPlaces, s.visitedPlaces, s.loved, s.disliked]);
+  }, [kids, forecast, s.origin, s.transport, s.maxTravelMin, s.wantPlaces, s.visitedPlaces, s.loved, s.disliked, nearby.places]);
 
   if (!s.hydrated) return null;
   if (!kids.length)

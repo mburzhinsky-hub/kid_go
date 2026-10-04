@@ -1,0 +1,1773 @@
+[
+  {
+    "title": "Парк «Патриот»",
+    "slug": "park-patriot-kubinka",
+    "town": "Кубинка",
+    "region": "mo",
+    "address": "Московская область, Одинцовский округ, территория парка «Патриот», д. 1 (Минское шоссе, 55 км, у Кубинки)",
+    "lat": 55.566,
+    "lng": 36.7156,
+    "category": "park",
+    "subtitle": "Военно-патриотический парк с выставкой техники",
+    "description": "Большой военно-патриотический парк у Кубинки с выставкой военной техники, которую интересно рассматривать детям, увлечённым машинами. Для ребят есть игровой центр и верёвочный городок, а постарше могут попробовать лазертаг и страйкбол. На визит лучше заложить полдня и одеться по погоде.",
+    "price": [
+      0,
+      1000
+    ],
+    "family_budget": 3000,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 240,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      null,
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-19:00",
+      "10:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "any",
+      "sun",
+      "rain"
+    ],
+    "interests": [
+      "transport",
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "playzone",
+      "unusual"
+    ],
+    "tags": [
+      "Военная техника",
+      "Верёвочный городок",
+      "Игровой центр",
+      "Лазертаг"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://parkpatriot.ru/",
+    "confidence": "medium"
+  },
+  {
+    "title": "Детский парк «Малыш»",
+    "slug": "detsky-park-malysh-odincovo",
+    "town": "Одинцово",
+    "region": "mo",
+    "address": "Московская область, Одинцово, Красногорское шоссе, 11 (1 этаж)",
+    "lat": 55.67965,
+    "lng": 37.272885,
+    "category": "play",
+    "subtitle": "Небольшой детский парк с батутами и каруселями",
+    "description": "Небольшой детский парк развлечений на первом этаже здания в центре Одинцова. Есть батуты и карусели — удобно заглянуть на час-полтора с малышом или дошкольником в дождь или мороз.",
+    "price": [
+      250,
+      600
+    ],
+    "family_budget": 1500,
+    "age": [
+      2,
+      8
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 3,
+    "noise": 3,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "11:00-20:00",
+      "11:00-20:00",
+      "11:00-20:00",
+      "11:00-20:00",
+      "11:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "sport"
+    ],
+    "experience": [
+      "playzone",
+      "toddlers"
+    ],
+    "tags": [
+      "Батуты",
+      "Карусели",
+      "Для малышей",
+      "В любую погоду"
+    ],
+    "hit": false,
+    "photoSet": "trampoline",
+    "rating": 3.8,
+    "reviews": 31,
+    "source": "https://2gis.ru/odintsovo/firm/70000001029426020",
+    "confidence": "medium"
+  },
+  {
+    "title": "Мисти Парк Одинцово",
+    "slug": "misti-park-odintsovo",
+    "town": "Одинцово",
+    "region": "mo",
+    "address": "Московская область, Одинцово, с. Юдино, 55Е, ТРЦ «Одипарк»",
+    "lat": 55.6541,
+    "lng": 37.1807,
+    "category": "play",
+    "subtitle": "Батуты, горки и лабиринты на 2600 м²",
+    "description": "Большой крытый парк приключений в торгово-развлекательном центре: батуты, горки, лабиринты, сухие бассейны и скалодромы. Для малышей есть отдельная игровая площадка, так что можно прийти и с годовалым, и со школьником. Взрослые по информации парка проходят бесплатно, рядом работает семейное кафе.",
+    "price": [
+      900,
+      1500
+    ],
+    "family_budget": 2200,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 150,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 3,
+    "noise": 3,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "sport"
+    ],
+    "experience": [
+      "playzone",
+      "toddlers",
+      "cafe"
+    ],
+    "tags": [
+      "Батуты",
+      "Скалодромы",
+      "Для малышей",
+      "Кафе"
+    ],
+    "hit": false,
+    "photoSet": "trampoline",
+    "rating": null,
+    "reviews": null,
+    "source": "https://mistyparkodi.ru/",
+    "confidence": "medium"
+  },
+  {
+    "title": "HIPPO Land Одинцово",
+    "slug": "hippo-land-odintsovo",
+    "town": "Одинцово",
+    "region": "mo",
+    "address": "Московская область, Одинцовский район, п. ВНИИССОК, ул. Кленовая, вл. 1, ТРЦ «Атлас», 3 этаж",
+    "lat": 55.6594,
+    "lng": 37.1993,
+    "category": "play",
+    "subtitle": "Семейный развлекательный центр на 2000 м²",
+    "description": "Многоэтажный лабиринт, батутный парк, игровые зоны и квесты в торговом центре «Атлас». Есть лазертаг (от 8 лет) и «прятки в темноте» — хорошо для школьников; малышам отведены свои зоны. Билет действует на весь центр, в будни дешевле, чем в выходные.",
+    "price": [
+      1300,
+      2400
+    ],
+    "family_budget": 4500,
+    "age": [
+      2,
+      12
+    ],
+    "duration": 180,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 3,
+    "noise": 3,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "sport",
+      "construction"
+    ],
+    "experience": [
+      "playzone",
+      "cafe",
+      "toddlers"
+    ],
+    "tags": [
+      "Лабиринт",
+      "Батуты",
+      "Лазертаг от 8 лет",
+      "Кафе"
+    ],
+    "hit": false,
+    "photoSet": "play",
+    "rating": null,
+    "reviews": null,
+    "source": "https://www.hippo-land.ru/",
+    "confidence": "high"
+  },
+  {
+    "title": "Юнабум",
+    "slug": "unaboom-odintsovo",
+    "town": "Одинцово",
+    "region": "mo",
+    "address": "Московская область, Одинцово, Школьный проезд, 6 (в здании кинотеатра «Юность»)",
+    "lat": 55.6783,
+    "lng": 37.263,
+    "category": "play",
+    "subtitle": "Игровой центр с лабиринтом и тюбинг-треком",
+    "description": "Крупный игровой центр в центре Одинцова: большой лабиринт, батутный комплекс, тюбинг-трек, скалодром и полоса препятствий. Для малышей 2–7 лет выделена отдельная зона, остальные аттракционы рассчитаны на 5–6 лет и старше. Можно взять билет на час или на весь день.",
+    "price": [
+      900,
+      1900
+    ],
+    "family_budget": 2800,
+    "age": [
+      2,
+      12
+    ],
+    "duration": 150,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 3,
+    "noise": 3,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "sport"
+    ],
+    "experience": [
+      "playzone",
+      "toddlers",
+      "cafe"
+    ],
+    "tags": [
+      "Лабиринт",
+      "Тюбинг-трек",
+      "Скалодром",
+      "Для малышей"
+    ],
+    "hit": false,
+    "photoSet": "play",
+    "rating": null,
+    "reviews": null,
+    "source": "https://unaboom.ru/",
+    "confidence": "high"
+  },
+  {
+    "title": "Термы Одинцово",
+    "slug": "termy-odintsovo",
+    "town": "Одинцово",
+    "region": "mo",
+    "address": "Московская область, Одинцово, Молодёжная ул., 11",
+    "lat": 55.6754,
+    "lng": 37.2626,
+    "category": "active",
+    "subtitle": "Бассейны, горки и зона для малышей круглый год",
+    "description": "Термальный комплекс с бассейнами внутри и на улице, горками, батутным бассейном и зоной для маленьких детей. Семьи с малышами обычно приходят с 2,5–3 лет; для детей предусмотрены льготные тарифы. Хорошая замена пляжу в холодную погоду.",
+    "price": [
+      600,
+      2500
+    ],
+    "family_budget": 4500,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 240,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 3,
+    "noise": 3,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "08:00-24:00",
+      "08:00-24:00",
+      "08:00-24:00",
+      "08:00-24:00",
+      "08:00-24:00",
+      "08:00-24:00",
+      "08:00-24:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "heat",
+      "any"
+    ],
+    "interests": [
+      "sport"
+    ],
+    "experience": [
+      "playzone",
+      "food"
+    ],
+    "tags": [
+      "Бассейны",
+      "Горки",
+      "Баня и сауны",
+      "Парковка"
+    ],
+    "hit": false,
+    "photoSet": "waterpark",
+    "rating": null,
+    "reviews": null,
+    "source": "https://therms.ru/odincovo",
+    "confidence": "medium"
+  },
+  {
+    "title": "ПандаПарк Мещерский",
+    "slug": "pandapark-meshchersky",
+    "town": "Одинцово",
+    "region": "mo",
+    "address": "Московская область, Одинцовский городской округ, Мещерский парк",
+    "lat": 55.6731,
+    "lng": 37.3702,
+    "category": "active",
+    "subtitle": "Верёвочный парк в лесу, 8 маршрутов",
+    "description": "Верёвочный парк на открытом воздухе в лесу: 8 маршрутов от 1 до 7,5 м высоты с двойной страховкой, у каждого гостя шлем и ремни. Для самых маленьких есть детская зона с троллеем, гигантской сетью, лазалками и лабиринтом. Допускаются дети ростом от 90 см.",
+    "price": [
+      1500,
+      3000
+    ],
+    "family_budget": 5000,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 180,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 3,
+    "noise": 2,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "sport",
+      "nature"
+    ],
+    "experience": [
+      "playzone",
+      "unusual"
+    ],
+    "tags": [
+      "Верёвочный парк",
+      "От 90 см",
+      "В лесу",
+      "Детская зона"
+    ],
+    "hit": false,
+    "photoSet": "ropes",
+    "rating": null,
+    "reviews": null,
+    "source": "https://pandapark.org/pandapark-mescherskiy/",
+    "confidence": "medium"
+  },
+  {
+    "title": "Этнопарк «Хаски Лэнд»",
+    "slug": "huskyland-nazarevo",
+    "town": "Назарьево",
+    "region": "mo",
+    "address": "Московская область, Одинцовский городской округ, пос. Назарьево",
+    "lat": 55.6742,
+    "lng": 37.0391,
+    "category": "animals",
+    "subtitle": "Питомник хаски, катание на упряжках и игровая зона",
+    "description": "Парк-питомник хаски: можно познакомиться с собаками, пройти экскурсию по питомнику и прокатиться на упряжке. Для детей есть игровая зона с батутами и качелями, зимой — ледяные горки. Ездить имеет смысл, когда ребёнок не боится больших собак.",
+    "price": [
+      900,
+      1900
+    ],
+    "family_budget": 4500,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 180,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 2,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      null,
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "10:00-20:00",
+      "10:00-20:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "animals",
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "unusual"
+    ],
+    "tags": [
+      "Хаски",
+      "Катание на упряжках",
+      "Игровая зона",
+      "Парковка"
+    ],
+    "hit": false,
+    "photoSet": "zoo",
+    "rating": null,
+    "reviews": null,
+    "source": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
+    "confidence": "medium"
+  },
+  {
+    "title": "Музей LEt’s GO",
+    "slug": "muzey-lego-lets-go-zvenigorod",
+    "town": "Звенигород",
+    "region": "mo",
+    "address": "Московская область, Звенигород, Ратехинское шоссе, 1С (территория «Таёжные дачи»)",
+    "lat": 55.7336,
+    "lng": 36.8249,
+    "category": "museum",
+    "subtitle": "Музей LEGO с интерактивным городом",
+    "description": "Музей LEGO примерно на 350–400 м²: редкие наборы разных лет, интерактивный город с работающей электрикой и большие авторские постройки, в том числе готический храм из 22 000 деталей. Подойдёт и дошкольникам, и школьникам — особенно тем, кто собирает конструкторы. Лучше записаться на экскурсию заранее.",
+    "price": [
+      450,
+      700
+    ],
+    "family_budget": 2000,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": true,
+    "hours": [
+      null,
+      null,
+      null,
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "construction"
+    ],
+    "experience": [
+      "toys",
+      "workshop",
+      "unusual"
+    ],
+    "tags": [
+      "LEGO",
+      "Интерактивный город",
+      "Выставка"
+    ],
+    "hit": false,
+    "photoSet": "lego",
+    "rating": null,
+    "reviews": null,
+    "source": "https://letsgo-museum.ru/",
+    "confidence": "high"
+  },
+  {
+    "title": "Музей русского десерта",
+    "slug": "muzey-russkogo-deserta-zvenigorod",
+    "town": "Звенигород",
+    "region": "mo",
+    "address": "Московская область, Звенигород, ул. Фрунзе, 23/2",
+    "lat": 55.7309,
+    "lng": 36.8482,
+    "category": "museum",
+    "subtitle": "Чаепитие, печь и мастер-классы по пряникам",
+    "description": "Небольшой музей крестьянского чайного стола: чайная комната, горница с русской печью, рассказ о традициях и дегустация. Детям можно расписать пряник или слепить сахарный цветок на коротком мастер-классе. Лучше всего подходит детям от 4 лет.",
+    "price": [
+      200,
+      800
+    ],
+    "family_budget": 1800,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "booking": true,
+    "hours": [
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "cooking",
+      "drawing"
+    ],
+    "experience": [
+      "workshop",
+      "food",
+      "cafe"
+    ],
+    "tags": [
+      "Мастер-класс",
+      "Пряники",
+      "Чаепитие",
+      "От 4 лет"
+    ],
+    "hit": false,
+    "photoSet": "pancakes",
+    "rating": 3.9,
+    "reviews": 73,
+    "source": "https://rusdessertmuseum.ru/",
+    "confidence": "high"
+  },
+  {
+    "title": "Музей «Назад в СССР»",
+    "slug": "muzey-nazad-v-sssr-zvenigorod",
+    "town": "Звенигород",
+    "region": "mo",
+    "address": "Московская область, Звенигород, ул. Московская, 7/9 (вход с ул. Пролетарской, 2 этаж)",
+    "lat": 55.7306,
+    "lng": 36.8525,
+    "category": "museum",
+    "subtitle": "Интерактивный музей советского детства",
+    "description": "Музей бытовых вещей и игрушек советской эпохи в центре Звенигорода: с экскурсоводом можно потрогать экспонаты и рассказать детям, как жили бабушки и дедушки. Есть кафе в советском стиле и сувенирная лавка. Школьникам обычно интереснее всего.",
+    "price": [
+      600,
+      800
+    ],
+    "family_budget": 2200,
+    "age": [
+      5,
+      12
+    ],
+    "duration": 75,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "science"
+    ],
+    "experience": [
+      "unusual",
+      "toys",
+      "cafe"
+    ],
+    "tags": [
+      "СССР",
+      "Экскурсия",
+      "Центр города",
+      "Кафе"
+    ],
+    "hit": false,
+    "photoSet": "museum",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ussrmuseum.ru/",
+    "confidence": "medium"
+  },
+  {
+    "title": "Усадьба Вяземы (музей-заповедник Пушкина)",
+    "slug": "usadba-vyazemy-pushkin",
+    "town": "Большие Вязёмы",
+    "region": "mo",
+    "address": "Московская область, Одинцовский округ, пгт Большие Вязёмы, ул. Институт, 1Б",
+    "lat": 55.6285,
+    "lng": 36.9915,
+    "category": "park",
+    "subtitle": "Старинная усадьба с парком и детскими программами",
+    "description": "Усадьба в Больших Вяземах — часть музея-заповедника Пушкина, где можно погулять по территории и сходить на экскурсию. Для детей музей проводит образовательные программы по темам детства поэта и его сказок. Хорошее место для спокойной прогулки выходного дня.",
+    "price": [
+      100,
+      400
+    ],
+    "family_budget": 1200,
+    "age": [
+      5,
+      12
+    ],
+    "duration": 150,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      null,
+      null,
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "fairy",
+      "drawing"
+    ],
+    "experience": [
+      "walk",
+      "workshop"
+    ],
+    "tags": [
+      "Усадьба",
+      "Прогулка",
+      "Детские программы"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": 4.4,
+    "reviews": 30,
+    "source": "https://museum-gol.ru/visitors/",
+    "confidence": "medium"
+  },
+  {
+    "title": "Парк Малевича",
+    "slug": "park-malevicha-razdory",
+    "town": "Раздоры",
+    "region": "mo",
+    "address": "Московская область, Одинцовский городской округ, близ д. Раздоры, Рублёвский проезд",
+    "lat": 55.7373,
+    "lng": 37.3007,
+    "category": "park",
+    "subtitle": "Парк с арт-объектами, катком и спортплощадками",
+    "description": "Большой бесплатный парк с пешеходными и велодорожками, арт-объектами, спортивными площадками и зоной воркаута. Зимой работает каток с прокатом коньков, перед Новым годом бывает катание на пони. Рядом находится парк «Раздолье».",
+    "price": [
+      0,
+      450
+    ],
+    "family_budget": 700,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 120,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature",
+      "sport",
+      "drawing"
+    ],
+    "experience": [
+      "walk",
+      "picnic",
+      "free"
+    ],
+    "tags": [
+      "Бесплатно",
+      "Арт-объекты",
+      "Каток зимой",
+      "Велодорожки"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/",
+    "confidence": "medium"
+  },
+  {
+    "title": "Парк «Раздолье»",
+    "slug": "park-razdolye-razdory",
+    "town": "Раздоры",
+    "region": "mo",
+    "address": "Московская область, Одинцовский городской округ, д. Раздоры, Рублёвский проезд (парк «Раздолье»)",
+    "lat": 55.7357,
+    "lng": 37.2927,
+    "category": "park",
+    "subtitle": "Сосновый парк на 47 га с верёвочным городком и зоотеррарием",
+    "description": "Большой сосновый парк между Шульгином и Раздорами: детские площадки, прокат велосипедов и картинг, верёвочный парк, избушка Бабы-Яги и зоотеррарий. Много спортплощадок и кафе; зимой заливают каток и работает тюбинг. Проще и дешевле, чем платные парки развлечений.",
+    "price": [
+      0,
+      1000
+    ],
+    "family_budget": 1500,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 180,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "08:00-22:00",
+      "08:00-22:00",
+      "08:00-22:00",
+      "08:00-22:00",
+      "08:00-22:00",
+      "08:00-22:00",
+      "08:00-22:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature",
+      "sport",
+      "animals"
+    ],
+    "experience": [
+      "walk",
+      "playzone",
+      "picnic"
+    ],
+    "tags": [
+      "Верёвочный парк",
+      "Детские площадки",
+      "Прокат",
+      "Каток зимой"
+    ],
+    "hit": false,
+    "photoSet": "playground",
+    "rating": null,
+    "reviews": null,
+    "source": "https://odinparki.ru/parks/?id=2991",
+    "confidence": "medium"
+  },
+  {
+    "title": "Дом-музей М. М. Пришвина в Дунине",
+    "slug": "dom-muzey-prishvina-dunino",
+    "town": "Дунино",
+    "region": "mo",
+    "address": "Московская область, Одинцовский городской округ, д. Дунино, 2",
+    "lat": 55.722,
+    "lng": 36.9366,
+    "category": "museum",
+    "subtitle": "Усадьба писателя-натуралиста с яблоневым садом",
+    "description": "Дом, где жил писатель Михаил Пришвин, — с садом, рекой неподалёку и часовней рядом. Детям, которые читали «Кладовую солнца» или рассказы о природе, будет интересно увидеть его вещи и погулять по окрестностям. На выходных билеты лучше купить онлайн.",
+    "price": [
+      200,
+      300
+    ],
+    "family_budget": 900,
+    "age": [
+      6,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": true,
+    "hours": [
+      null,
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature",
+      "animals"
+    ],
+    "experience": [
+      "walk",
+      "books"
+    ],
+    "tags": [
+      "Усадьба",
+      "Писатель Пришвин",
+      "Яблоневый сад"
+    ],
+    "hit": false,
+    "photoSet": "museum",
+    "rating": null,
+    "reviews": null,
+    "source": "https://yandex.com/maps/org/dom_muzey_m_m_prishvina/1044608995/",
+    "confidence": "medium"
+  },
+  {
+    "title": "Лунный Кот",
+    "slug": "lunny-kot-zelenograd",
+    "town": "Зеленоград",
+    "region": "msk",
+    "address": "Москва, Зеленоград, Савёлкинский проезд, 4 к1, ТЦ «Савёлки», 2 этаж",
+    "lat": 55.9912,
+    "lng": 37.2162,
+    "category": "play",
+    "subtitle": "Парк развлечений в космическом стиле",
+    "description": "Крытый детский парк развлечений в стилистике космоса: батуты, горки и лабиринты, есть семейный ресторан с роботом-официантом. Рассчитан на детей от 1 до 14 лет, так что подойдёт и малышу, и школьнику.",
+    "price": [
+      800,
+      1800
+    ],
+    "family_budget": 2500,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 150,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 3,
+    "noise": 3,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "space",
+      "sport"
+    ],
+    "experience": [
+      "playzone",
+      "toddlers",
+      "cafe"
+    ],
+    "tags": [
+      "Космос",
+      "Батуты",
+      "Горки",
+      "Ресторан"
+    ],
+    "hit": false,
+    "photoSet": "space",
+    "rating": null,
+    "reviews": null,
+    "source": "https://mooncatpark.ru/",
+    "confidence": "medium"
+  },
+  {
+    "title": "Музей «Ложки»",
+    "slug": "muzey-lozhki-solnechnogorsk",
+    "town": "Ложки",
+    "region": "mo",
+    "address": "Московская область, городской округ Солнечногорск, д. Ложки, Центральная ул., 9 (Дом культуры «Ложки»)",
+    "lat": 56.0933,
+    "lng": 37.1138,
+    "category": "museum",
+    "subtitle": "Музей, где ложки можно трогать и играть на них",
+    "description": "Небольшой частный музей с коллекцией из более 650 ложек разных веков — все экспонаты разрешено трогать. Для детей есть обзорные экскурсии (от 5 лет), чаепитие с игровой программой (7+) и мастер-классы по росписи ложек (10+), а также игровой уголок с настольными играми и раскрасками.",
+    "price": [
+      100,
+      350
+    ],
+    "family_budget": 900,
+    "age": [
+      5,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": true,
+    "hours": [
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "11:00-19:00",
+      "11:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "drawing",
+      "fairy"
+    ],
+    "experience": [
+      "workshop",
+      "unusual",
+      "toys"
+    ],
+    "tags": [
+      "Можно трогать",
+      "Мастер-класс",
+      "Чаепитие",
+      "От 5 лет"
+    ],
+    "hit": false,
+    "photoSet": "museum",
+    "rating": null,
+    "reviews": null,
+    "source": "https://welcome.mosreg.ru/ideas/muzej-lozki",
+    "confidence": "medium"
+  },
+  {
+    "title": "Долгопрудненский историко-художественный музей",
+    "slug": "dolgoprudnensky-muzey",
+    "town": "Долгопрудный",
+    "region": "mo",
+    "address": "Московская область, Долгопрудный, ул. Циолковского, 34",
+    "lat": 55.9407,
+    "lng": 37.5129,
+    "category": "museum",
+    "subtitle": "История дирижаблестроения и города, интерактивные экскурсии",
+    "description": "Городской музей с постоянными выставками о дирижаблестроении и истории Долгопрудного — города, связанного с авиацией. Для детей проводят интерактивные экскурсии и мастер-классы. Недорогой и спокойный вариант на пару часов, особенно для школьников, интересующихся техникой.",
+    "price": [
+      100,
+      200
+    ],
+    "family_budget": 500,
+    "age": [
+      6,
+      12
+    ],
+    "duration": 75,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      null,
+      null,
+      "10:00-19:00",
+      "12:00-21:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "transport",
+      "science"
+    ],
+    "experience": [
+      "workshop",
+      "unusual"
+    ],
+    "tags": [
+      "Дирижабли",
+      "Интерактивные экскурсии",
+      "Недорого"
+    ],
+    "hit": false,
+    "photoSet": "museum",
+    "rating": null,
+    "reviews": null,
+    "source": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei",
+    "confidence": "medium"
+  },
+  {
+    "title": "КидБург Зеленопарк",
+    "slug": "kidburg-zelenopark",
+    "town": "Ржавки (рядом с Зеленоградом)",
+    "region": "mo",
+    "address": "Московская область, Ржавки, 2-й микрорайон, с20, ТРЦ «Zеленопарк» (18 км Ленинградского шоссе)",
+    "lat": 55.998,
+    "lng": 37.2612,
+    "category": "museum",
+    "subtitle": "Город профессий для детей от 1,5 до 14 лет",
+    "description": "Детский город на 2000 м², где ребёнок «работает» в банке, больнице, на радио, в пожарной части и на других площадках, получает зарплату и тратит её в городе. Для малышей 1,5–4 лет есть отдельные развивающие зоны, школьники занимаются полноценными профессиями. Подойдёт на 2–3 часа, билет дорогой, зато ребёнок занят самостоятельным делом.",
+    "price": [
+      2450,
+      3500
+    ],
+    "family_budget": 6000,
+    "age": [
+      2,
+      12
+    ],
+    "duration": 180,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 2,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "booking": true,
+    "hours": [
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-20:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "science",
+      "construction"
+    ],
+    "experience": [
+      "playzone",
+      "workshop",
+      "toddlers"
+    ],
+    "tags": [
+      "Город профессий",
+      "От 1,5 лет",
+      "Зеленоград",
+      "Парковка"
+    ],
+    "hit": false,
+    "photoSet": "play",
+    "rating": null,
+    "reviews": null,
+    "source": "https://www.kidsreview.ru/msk/catalog/kidburg-gorod-professiy-dlya-detey-ot-15-do-14-let-v-tc-zelenopark-v-zelenograde-podmoskove",
+    "confidence": "medium"
+  },
+  {
+    "title": "Пешки Парк",
+    "slug": "peshki-park",
+    "town": "Пешки",
+    "region": "mo",
+    "address": "Московская область, городской округ Солнечногорск, д. Пешки, вл. 3А",
+    "lat": 56.1301,
+    "lng": 37.0718,
+    "category": "active",
+    "subtitle": "Один из крупнейших верёвочных парков, работает круглый год",
+    "description": "Большой верёвочный парк в лесу в 41 км от МКАД: высотные трассы, скалодром, троллей, качели и аттракционы. Детский билет для 5–9 лет почти вдвое дешевле взрослого, есть скидки онлайн и после 18:00. Лучше ехать на целый день и одеться по погоде.",
+    "price": [
+      700,
+      2000
+    ],
+    "family_budget": 5500,
+    "age": [
+      5,
+      12
+    ],
+    "duration": 240,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 3,
+    "noise": 2,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "sport",
+      "nature"
+    ],
+    "experience": [
+      "playzone",
+      "unusual"
+    ],
+    "tags": [
+      "Верёвочный парк",
+      "Скалодром",
+      "Круглый год",
+      "Скидка онлайн"
+    ],
+    "hit": false,
+    "photoSet": "ropes",
+    "rating": null,
+    "reviews": null,
+    "source": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii",
+    "confidence": "medium"
+  },
+  {
+    "title": "Театр «Наш дом»",
+    "slug": "teatr-nash-dom-khimki",
+    "town": "Химки",
+    "region": "mo",
+    "address": "Московская область, Химки, ул. Калинина, 2 (большая сцена); ул. Маяковского, 22 (малая сцена)",
+    "lat": 55.8863,
+    "lng": 37.452,
+    "category": "museum",
+    "subtitle": "Драматический театр со спектаклями для малышей и школьников",
+    "description": "Химкинский драматический театр: в афише есть спектакли для малышей («Кошкин дом», «Снежный цветок») и для младших школьников («Алиса в стране чудес», «Карлик Нос»). Перед походом лучше свериться с афишей и возрастной маркировкой спектакля.",
+    "price": [
+      450,
+      1500
+    ],
+    "family_budget": 2000,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": true,
+    "hours": [
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "music",
+      "fairy"
+    ],
+    "experience": [
+      "show"
+    ],
+    "tags": [
+      "Театр",
+      "Спектакли для детей",
+      "Сказки"
+    ],
+    "hit": false,
+    "photoSet": "theatre",
+    "rating": null,
+    "reviews": null,
+    "source": "https://welcome.mosreg.ru/ideas/teatr-nash-dom",
+    "confidence": "medium"
+  },
+  {
+    "title": "Парк им. Л. Н. Толстого",
+    "slug": "park-tolstogo-himki",
+    "town": "Химки",
+    "region": "mo",
+    "address": "Московская область, Химки, Ленинский проспект, 2Б",
+    "lat": 55.8948,
+    "lng": 37.458,
+    "category": "park",
+    "subtitle": "Парк у канала с детским городком «Сказочный бор»",
+    "description": "Бесплатный парк на 26 га у канала имени Москвы: детский городок «Сказочный бор» с каруселями, верёвочный парк, скейт-парк, прогулочные и велодорожки. Вход свободный, аттракционы платные (в сезоне ориентировочно 100–300 ₽), зимой работает каток и часть аттракционов закрыта.",
+    "price": [
+      0,
+      300
+    ],
+    "family_budget": 800,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature",
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "playzone",
+      "picnic",
+      "free"
+    ],
+    "tags": [
+      "Аттракционы",
+      "Бесплатный вход",
+      "Верёвочный парк",
+      "Каток зимой"
+    ],
+    "hit": false,
+    "photoSet": "ferris",
+    "rating": null,
+    "reviews": null,
+    "source": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
+    "confidence": "medium"
+  },
+  {
+    "title": "Парк «Экоберег»",
+    "slug": "park-ekobereg-himki",
+    "town": "Химки",
+    "region": "mo",
+    "address": "Московская область, Химки, микрорайон Левобережный",
+    "lat": 55.902,
+    "lng": 37.4752,
+    "category": "park",
+    "subtitle": "Эко-парк у воды с игровыми зонами и велодорожками",
+    "description": "Современный парк в Левобережном: игровые зоны с экологичным оборудованием, велодорожки, скейт-парк. Хорошо подходит для спокойной прогулки с коляской или самокатом без трат.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 0,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature",
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "free",
+      "toddlers"
+    ],
+    "tags": [
+      "Бесплатно",
+      "Игровые зоны",
+      "Велодорожки",
+      "С коляской"
+    ],
+    "hit": false,
+    "photoSet": "playground",
+    "rating": null,
+    "reviews": null,
+    "source": "https://www.putevka.com/blog/luchshie-parki-khimok",
+    "confidence": "medium"
+  },
+  {
+    "title": "Мега Химки: детские зоны",
+    "slug": "mega-himki-detskie-zony",
+    "town": "Химки",
+    "region": "mo",
+    "address": "Московская область, Химки, микрорайон ИКЕА, к1 (Ленинградское шоссе, 5 км от МКАД)",
+    "lat": 55.9109,
+    "lng": 37.3961,
+    "category": "play",
+    "subtitle": "Бесплатная игровая площадка, верёвочный парк и детские центры",
+    "description": "Крупный торговый центр, где для семей есть бесплатная крытая детская игровая площадка, платные детские центры (Yu Kids Island, CitYkids для малышей до 7 лет), верёвочный парк MEGA FunParks, кинотеатр и фудкорт. Зимой на улице заливают каток. Удобный вариант на непогоду.",
+    "price": [
+      0,
+      1500
+    ],
+    "family_budget": 2500,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 180,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 2,
+    "noise": 3,
+    "stroller": true,
+    "baby_room": true,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "sport"
+    ],
+    "experience": [
+      "playzone",
+      "cafe",
+      "toddlers",
+      "free"
+    ],
+    "tags": [
+      "Бесплатная площадка",
+      "Верёвочный парк",
+      "Кинотеатр",
+      "Парковка"
+    ],
+    "hit": false,
+    "photoSet": "play",
+    "rating": null,
+    "reviews": null,
+    "source": "https://www.kidsreview.ru/msk/catalog/mega-khimki-torgovo-razvlekatelnyi-tsentr-dlya-vesi-semi-na-severe-moskvy",
+    "confidence": "medium"
+  },
+  {
+    "title": "Детский мир в МЕГА Химки",
+    "slug": "detmir-mega-himki",
+    "town": "Химки",
+    "region": "mo",
+    "address": "Московская область, Химки, ТРЦ «МЕГА-Химки», 2 этаж",
+    "lat": 55.9109,
+    "lng": 37.3961,
+    "category": "shop",
+    "subtitle": "Большой магазин игрушек и детских товаров",
+    "description": "Магазин сети «Детский мир» на втором этаже МЕГИ: игрушки, конструкторы, детская одежда и товары для малышей. Удобно совместить с походом на детские площадки торгового центра.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 2000,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 60,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": true,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "construction"
+    ],
+    "experience": [
+      "toys"
+    ],
+    "tags": [
+      "Игрушки",
+      "Детская одежда",
+      "Для малышей"
+    ],
+    "hit": false,
+    "photoSet": "toys",
+    "rating": null,
+    "reviews": null,
+    "source": "https://www.detmir.ru/shops/item/id/176/",
+    "confidence": "medium"
+  }
+]

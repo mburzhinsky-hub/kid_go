@@ -3,6 +3,7 @@ import { places, placeById, placeBySlug } from "./places";
 import { adventures, adventureBySlug } from "./adventures";
 import { getEventsSeed } from "./events";
 import { haversineKm, pt } from "@/lib/geo";
+import { getDynamic } from "./dynamic";
 
 /**
  * Data access layer. Сейчас — in-memory seed, интерфейс асинхронный,
@@ -55,7 +56,7 @@ export const repo: DataRepository = mockRepository;
 
 export const allPlaces = places;
 export const allAdventures = adventures;
-export const getPlaceSync = (slug: string) => placeBySlug.get(slug) ?? null;
+export const getPlaceSync = (slug: string) => placeBySlug.get(slug) ?? getDynamic(slug);
 
 export { distanceFromUser } from "@/lib/geo";
 

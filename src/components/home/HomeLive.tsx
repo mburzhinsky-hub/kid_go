@@ -14,6 +14,7 @@ import { ScenarioGrid } from "./QuickScenarioCard";
 import { HeroBanner, type HeroSlide } from "./HeroBanner";
 import { PlaceCarousel } from "@/components/cards/PlaceCard";
 import { travelToPlace } from "@/lib/location";
+import { useNearbyExtras } from "@/lib/nearby";
 import { GlyphRain, GlyphSun } from "@/components/icons/brand-icons";
 
 /* ───────── контекст «сейчас» для главной ───────── */
@@ -161,7 +162,9 @@ export function HomeWeather() {
 }
 
 /** «Популярное рядом» — с учётом точки выезда семьи. */
-export function NearbyPopular({ places }: { places: Place[] }) {
+export function NearbyPopular({ places: seed }: { places: Place[] }) {
+  const { places: extra } = useNearbyExtras();
+  const places = useMemo(() => (extra.length ? [...seed, ...extra] : seed), [seed, extra]);
   const origin = useFamily((s) => s.origin);
   const transport = useFamily((s) => s.transport);
   const mounted = useMounted();
@@ -170,7 +173,7 @@ export function NearbyPopular({ places }: { places: Place[] }) {
       .filter((p) => p.category !== "cafe")
       .map((p) => {
         const t = travelToPlace(origin, p, transport);
-        return { p, s: p.rating * 2 + Math.log10(p.review_count) - (mounted ? t.minutes / 12 : 0) };
+        return { p, s: p.rating * 2 + Math.log10(p.review_count + 1) - (mounted ? t.minutes / 12 : 0) };
       })
       .sort((a, b) => b.s - a.s)
       .map((x) => x.p)

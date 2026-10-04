@@ -2,12 +2,13 @@ import Link from "next/link";
 import type { KidEvent, Place } from "@/lib/types";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { formatAgeRange, formatPrice } from "@/lib/format";
+import { placeHref } from "@/lib/place-href";
 
 const time = (iso: string) => iso.slice(11, 16);
 
 export function EventCard({ event, place, isToday }: { event: KidEvent; place: Place; isToday: boolean }) {
   return (
-    <Link href={`/places/${place.slug}`} className="press block w-[260px] shrink-0 snap-start overflow-hidden rounded-[20px] bg-surface shadow-card">
+    <Link href={placeHref(place)} className="press block w-[260px] shrink-0 snap-start overflow-hidden rounded-[20px] bg-surface shadow-card">
       <div className="relative">
         <SmartImage photo={event.image} tint={place.tint} emoji={place.emoji} sizes="280px" className="aspect-[16/9] w-full" />
         <span className="absolute left-2.5 top-2.5 inline-flex h-8 items-center gap-1.5 rounded-full bg-white px-3 text-[13px] font-bold shadow-card">

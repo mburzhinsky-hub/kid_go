@@ -1,6 +1,7 @@
 import type { KidEvent } from "@/lib/types";
 import { placeBySlug } from "./places";
 import { PH, ph } from "./photos";
+import { buildEvents } from "./extra";
 
 /**
  * Демо-афиша. Даты строятся относительно «сегодня» (по Москве),
@@ -26,6 +27,10 @@ function moscowDateISO(dayOffset: number, hhmm: string) {
 }
 
 export function getEventsSeed(): KidEvent[] {
+  return [...seedEvents(), ...buildEvents(placeBySlug)];
+}
+
+function seedEvents(): KidEvent[] {
   return seeds.map((s, i) => {
     const place = placeBySlug.get(s.slug)!;
     return {

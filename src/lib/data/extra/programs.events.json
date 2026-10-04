@@ -1,0 +1,171 @@
+[
+  {
+    "venue": "moskovsky-zoopark",
+    "title": "Открытая тренировка дальневосточного леопарда Мизера",
+    "description": "Сотрудники детского зоопарка приучают леопарда к ветеринарным процедурам, а зрители наблюдают за тренировкой у его вольера. Занятие короткое — около 15–20 минут.",
+    "schedule": {
+      "days": [
+        2,
+        4
+      ],
+      "from": "15:00",
+      "to": "15:20"
+    },
+    "age": [
+      3,
+      12
+    ],
+    "price": 0,
+    "photoSet": "zoo",
+    "source": "https://t.me/s/Moscowzoo_official",
+    "confidence": "medium"
+  },
+  {
+    "venue": "moskovsky-zoopark",
+    "title": "Показательное кормление летучих мышей",
+    "description": "Кормление нескольких видов летучих мышей проходит в инфоцентре на территории Детского зоопарка (второй этаж, вход через кафе «Пчёлы»). Дети видят, как зверьки едят насекомых.",
+    "schedule": {
+      "days": [
+        2,
+        4
+      ],
+      "from": "13:30",
+      "to": "14:00"
+    },
+    "age": [
+      3,
+      12
+    ],
+    "price": 0,
+    "photoSet": "zoo",
+    "source": "https://t.me/s/Moscowzoo_official/5331",
+    "confidence": "medium"
+  },
+  {
+    "venue": "moskovsky-zoopark",
+    "title": "Детский лекторий: «Жизнь без позвоночных»",
+    "description": "Цикл лекций зоологов для школьников 6–12 лет с демонстрацией животных и интерактивом; осенью — о моллюсках и морских пауках. В субботу также сеанс в 14:00, запись по телефону лектория.",
+    "schedule": {
+      "days": [
+        6
+      ],
+      "from": "12:00",
+      "to": "13:00"
+    },
+    "age": [
+      6,
+      12
+    ],
+    "price": 500,
+    "photoSet": "zoo",
+    "source": "https://moscowzoo.ru/education/detskij-lektorij/",
+    "confidence": "high"
+  },
+  {
+    "venue": "darvinovsky-muzey",
+    "title": "Тематические экскурсии для родителей с детьми",
+    "description": "По выходным музей проводит 45–60-минутные экскурсии для сборных групп до 20 человек: «Животный мир Земли», «В мире древних животных» и другие темы. Стоимость экскурсии не включает входной билет.",
+    "schedule": {
+      "days": [
+        6,
+        7
+      ],
+      "from": "11:00",
+      "to": "12:00"
+    },
+    "age": [
+      6,
+      12
+    ],
+    "price": 400,
+    "photoSet": "museum",
+    "source": "https://www.darwinmuseum.ru/projects/event/ekskursii-vyhodnogo-dnya",
+    "confidence": "high"
+  },
+  {
+    "venue": "darvinovsky-muzey",
+    "title": "Дошкольная академия: разовое занятие для малышей",
+    "description": "45-минутные интерактивные занятия для дошкольников с играми и физкультминутками — например «Ура, динозавры!» или «Пернатые москвичи». Стоимость в будни; в выходные дороже.",
+    "schedule": {
+      "days": [
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "from": "10:15",
+      "to": "11:00"
+    },
+    "age": [
+      3,
+      7
+    ],
+    "price": 1350,
+    "photoSet": "museum",
+    "source": "https://www.darwinmuseum.ru/projects/constant-exp/akademia",
+    "confidence": "medium"
+  },
+  {
+    "venue": "moskovsky-planetariy",
+    "title": "Занятие для детей в зале обсерватории",
+    "description": "45-минутные занятия для детей 5–8 лет в зале обсерватории Планетария — осенью про созвездия и звёзды («Звёздные медведицы», «Персей — звёздный герой»). Темы меняются, точное расписание смотрите на сайте.",
+    "schedule": {
+      "days": [
+        7
+      ],
+      "from": "14:10",
+      "to": "14:55"
+    },
+    "age": [
+      5,
+      8
+    ],
+    "price": 600,
+    "photoSet": "space",
+    "source": "https://planetarium-moscow.ru/schedule",
+    "confidence": "medium"
+  },
+  {
+    "venue": "moskovsky-planetariy",
+    "title": "Лунариум: интерактивное космическое путешествие",
+    "description": "Двухчасовая интерактивная программа Лунариума по выходным, рассчитана на детей от 4 лет. Есть несколько сеансов в день.",
+    "schedule": {
+      "days": [
+        6,
+        7
+      ],
+      "from": "14:30",
+      "to": "16:30"
+    },
+    "age": [
+      4,
+      12
+    ],
+    "price": 1100,
+    "photoSet": "space",
+    "source": "https://planetarium-moscow.ru/schedule",
+    "confidence": "medium"
+  },
+  {
+    "venue": "eksperimentanium",
+    "title": "Научное шоу «Тесла»",
+    "description": "40-минутное электрическое шоу: дуговой разряд, плазма и пушка Гаусса. Научные шоу в музее идут по выходным, праздникам и в каникулы; в другие часы — дополнительные сеансы.",
+    "schedule": {
+      "days": [
+        6,
+        7
+      ],
+      "from": "12:00",
+      "to": "12:40"
+    },
+    "age": [
+      6,
+      12
+    ],
+    "price": 750,
+    "photoSet": "science",
+    "source": "https://experimentanium.ru/show/tesla/",
+    "confidence": "medium"
+  }
+]

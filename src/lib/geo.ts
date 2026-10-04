@@ -20,14 +20,27 @@ export const pt = (p: { latitude: number; longitude: number }): GeoPoint => ({
 
 /**
  * Оценка времени в пути (MVP без routing API).
- * Коэффициент 1.3 — поправка на реальную уличную сеть.
+ * В городе — коэффициент 1.3 к прямой; за городом дороги прямее и быстрее
+ * (шоссе), поэтому длинные поездки считаем отдельно.
  */
+export function roadKm(km: number): number {
+  return Math.min(km, 6) * 1.3 + Math.max(0, km - 6) * 1.2;
+}
+
 export function travelMinutes(km: number, mode: TransportId): number {
-  const road = km * 1.3;
+  const road = roadKm(km);
   if (mode === "walk") return Math.max(2, Math.round((road / 4.3) * 60));
-  if (mode === "car") return Math.max(6, Math.round((road / 25) * 60 + 6)); // + парковка
-  // метро + наземный: ~30 км/ч по сети и 10 минут на дойти/подождать/пересесть
-  return Math.max(10, Math.round((road / 32) * 60 + 10));
+  if (mode === "car") {
+    // первые ~8 км — город (25 км/ч), дальше шоссе (55 км/ч) + парковка
+    const city = Math.min(road, 8);
+    const hw = Math.max(0, road - 8);
+    return Math.max(6, Math.round((city / 25) * 60 + (hw / 55) * 60 + 6));
+  }
+  // метро + наземный ~30 км/ч и 10 минут на «дойти/подождать/пересесть»;
+  // за городом — электричка/автобус: медленнее и ещё одна пересадка
+  const city = Math.min(road, 12);
+  const out = Math.max(0, road - 12);
+  return Math.max(10, Math.round((city / 32) * 60 + (out / 38) * 60 + 10 + (road > 25 ? 12 : 0)));
 }
 
 /** Пешком — если близко; иначе — выбранный транспорт. */

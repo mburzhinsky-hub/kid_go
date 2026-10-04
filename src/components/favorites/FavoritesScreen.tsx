@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { ArrowRight, CheckCircle2, Trash2 } from "lucide-react";
 import { useFamily } from "@/lib/store";
 import { getPlaceSync, allAdventures } from "@/lib/data/repository";
+import { useResolveDynamic } from "@/lib/nearby";
 import { adventureCardData } from "@/lib/cards";
 import { PlaceRow } from "@/components/cards/PlaceCard";
 import { AdventureCard } from "@/components/cards/AdventureCard";
@@ -19,6 +20,7 @@ type Tab = "want" | "plans" | "visited";
 export function FavoritesScreen({ initialTab = "want" }: { initialTab?: Tab }) {
   const [tab, setTab] = useState<Tab>(initialTab);
   const s = useFamily();
+  useResolveDynamic([...s.wantPlaces, ...s.visitedPlaces, ...s.day]); // места рядом (OSM), которых нет в кэше
   const want = s.wantPlaces.map(getPlaceSync).filter(Boolean) as Place[];
   const visited = s.visitedPlaces.map(getPlaceSync).filter(Boolean) as Place[];
   const dayPlaces = s.day.map(getPlaceSync).filter(Boolean) as Place[];

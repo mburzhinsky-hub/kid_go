@@ -1,0 +1,936 @@
+[
+  {
+    "title": "Парк Дружбы",
+    "slug": "park-druzhby",
+    "town": "Левобережный (САО)",
+    "region": "msk",
+    "address": "Москва, район Левобережный, между Ленинградским шоссе, Фестивальной и Флотской улицами",
+    "metro": "Речной вокзал",
+    "lat": 55.853,
+    "lng": 37.4806,
+    "category": "park",
+    "subtitle": "Фестивальные пруды, пять детских площадок и круговые качели",
+    "description": "В парке пять детских площадок, среди них большая с деревянным игровым пандусом, и круговые качели на 20 человек. Вокруг Фестивальных прудов с Утиным островом хорошо гулять с коляской, а для старших детей есть футбольное поле, баскетбольная и воркаут-площадки.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature",
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "picnic",
+      "free"
+    ],
+    "tags": [
+      "Парк",
+      "Пруды",
+      "5 площадок",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "playground",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Парк_Дружбы",
+    "confidence": "medium"
+  },
+  {
+    "title": "Филёвский парк",
+    "slug": "park-fili",
+    "town": "Фили-Давыдково (ЗАО)",
+    "region": "msk",
+    "address": "Москва, Филёвский парк (между Новозаводской и Большой Филёвской улицами)",
+    "metro": "Филёвский парк",
+    "lat": 55.74,
+    "lng": 37.462,
+    "category": "park",
+    "subtitle": "Большой парк с детским городком, лодочной станцией и верёвочным городком",
+    "description": "Длинный парк на 280 гектаров с детским городком и аттракционами, площадками (есть и для детей с ограниченными возможностями), лодочной станцией и прокатом спортинвентаря. Для старших детей работает верёвочный городок, есть комната матери и ребёнка, а зимой заливают каток.",
+    "price": [
+      0,
+      500
+    ],
+    "family_budget": 800,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 180,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": true,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature",
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "picnic",
+      "playzone"
+    ],
+    "tags": [
+      "Парк",
+      "Аттракционы",
+      "Лодки",
+      "Каток зимой",
+      "Комната матери"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Филёвский_парк",
+    "confidence": "medium"
+  },
+  {
+    "title": "ПандаПарк Фили",
+    "slug": "pandapark-fili",
+    "town": "Фили-Давыдково (ЗАО)",
+    "region": "msk",
+    "address": "Москва, парк культуры и отдыха «Фили»",
+    "metro": "Филёвский парк",
+    "lat": 55.741,
+    "lng": 37.466,
+    "category": "active",
+    "subtitle": "Верёвочный парк среди деревьев: от детских трасс до семейных маршрутов",
+    "description": "Открытый верёвочный парк в Филёвском парке: детские трассы на высоте около метра, семейные маршруты на четырёх метрах и взрослые трассы повыше. Есть троллейные спуски, кафе и камеры хранения. Работает в тёплый сезон и закрывается в дождь.",
+    "price": [
+      800,
+      2500
+    ],
+    "family_budget": 4500,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 3,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn"
+    ],
+    "weather": [
+      "sun",
+      "heat"
+    ],
+    "interests": [
+      "sport",
+      "nature"
+    ],
+    "experience": [
+      "unusual",
+      "cafe"
+    ],
+    "tags": [
+      "Верёвочный парк",
+      "От 90 см роста",
+      "Открытый воздух",
+      "Только тёплый сезон"
+    ],
+    "hit": false,
+    "photoSet": "ropes",
+    "rating": null,
+    "reviews": null,
+    "source": "https://pandapark.org/pandapark-fili/",
+    "confidence": "medium"
+  },
+  {
+    "title": "Парк «Крылатские холмы»",
+    "slug": "krylatskie-kholmy",
+    "town": "Крылатское (ЗАО)",
+    "region": "msk",
+    "address": "Москва, район Крылатское, Крылатские холмы",
+    "metro": "Крылатское",
+    "lat": 55.7606,
+    "lng": 37.4247,
+    "category": "park",
+    "subtitle": "Холмистый парк с кольцевой велотрассой времён Олимпиады-80",
+    "description": "Холмистая зелёная зона на западе Москвы с кольцевой велотрассой, построенной к Олимпиаде-80. Здесь удобно кататься на велосипеде, самокате и роликах, гулять по холмам и устраивать пикник, а зимой на склонах работают горнолыжные спуски.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature",
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "picnic",
+      "free"
+    ],
+    "tags": [
+      "Холмы",
+      "Велотрасса",
+      "Самокаты и ролики",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Крылатские_холмы",
+    "confidence": "medium"
+  },
+  {
+    "title": "Парк Победы на Поклонной горе",
+    "slug": "park-pobedy-poklonnaya-gora",
+    "town": "Дорогомилово (ЗАО)",
+    "region": "msk",
+    "address": "Москва, площадь Победы, 3Г",
+    "metro": "Парк Победы",
+    "lat": 55.7305,
+    "lng": 37.5055,
+    "category": "park",
+    "subtitle": "Фонтаны «Годы войны» и открытая экспозиция военной техники",
+    "description": "Парк на 135 гектаров с зелёными аллеями и большим фонтанным комплексом «Годы войны» (225 струй). Детям обычно нравится открытая экспозиция: танки, самолёты и другая военная техника, на которую можно смотреть вблизи. Широкие аллеи подходят для коляски, самоката и велосипеда.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 400,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 120,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "transport",
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "free",
+      "unusual"
+    ],
+    "tags": [
+      "Парк",
+      "Фонтаны",
+      "Военная техника",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Парк_Победы_(Москва)",
+    "confidence": "medium"
+  },
+  {
+    "title": "Парк «Ходынское поле»",
+    "slug": "park-hodynskoe-pole",
+    "town": "Хорошёвский (САО)",
+    "region": "msk",
+    "address": "Москва, между Ленинградским проспектом, Беговой улицей и Хорошёвским шоссе",
+    "metro": "ЦСКА",
+    "lat": 55.7858,
+    "lng": 37.5336,
+    "category": "park",
+    "subtitle": "Парк на месте аэродрома: сухой фонтан, скейт- и роликовые дорожки",
+    "description": "Современный парк, открытый в 2018 году на месте бывшего аэродрома: центральная аллея идёт по старой взлётной полосе. Есть детский центр, сухой фонтан на 778 кв. м с вечерней музыкой, дорожки для роликов и скейтбордов, баскетбольные и теннисные площадки.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 400,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 120,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "sport",
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "playzone",
+      "free"
+    ],
+    "tags": [
+      "Парк",
+      "Сухой фонтан",
+      "Скейт и ролики",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "playground",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Ходынское_поле_(парк)",
+    "confidence": "medium"
+  },
+  {
+    "title": "Парк «Северное Тушино»",
+    "slug": "park-severnoe-tushino",
+    "town": "Северное Тушино (СЗАО)",
+    "region": "msk",
+    "address": "Москва, ул. Свободы, 56, стр. 1 (главный вход)",
+    "metro": "Сходненская",
+    "lat": 55.8542,
+    "lng": 37.4539,
+    "category": "park",
+    "subtitle": "Парк у Химкинского водохранилища: аттракционы, площадки, Музей ВМФ",
+    "description": "Парк на берегу Химкинского водохранилища с детским парком аттракционов, тематическими и спортивными площадками в Захарковском заливе, яблоневым садом и набережной. Музей истории ВМФ показывает под открытым небом подводную лодку, экраноплан и десантно-штурмовой катер, что нравится школьникам.",
+    "price": [
+      0,
+      500
+    ],
+    "family_budget": 700,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 180,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "transport",
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "playzone",
+      "unusual"
+    ],
+    "tags": [
+      "Парк",
+      "Аттракционы",
+      "Набережная",
+      "Музей ВМФ"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://mosparks.ru/about/park-severnoe-tushino",
+    "confidence": "medium"
+  },
+  {
+    "title": "Музей-заповедник «Царицыно» (парк)",
+    "slug": "tsaritsyno-park",
+    "town": "Царицыно (ЮАО)",
+    "region": "msk",
+    "address": "Москва, ул. Дольская, 1",
+    "metro": "Царицыно",
+    "lat": 55.6153,
+    "lng": 37.687,
+    "category": "park",
+    "subtitle": "Дворцовый парк с прудами, катамаранами, веломобилями и четырьмя площадками",
+    "description": "Огромный парк вокруг дворцового ансамбля: четыре детские площадки, прокат велосипедов, веломобилей и катамаранов на прудах, летом — электромобили. Вечером работает светодинамический фонтан, а круглогодично открыт детский музей. На территории три комнаты матери и ребёнка.",
+    "price": [
+      0,
+      500
+    ],
+    "family_budget": 1200,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 240,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": true,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "06:00-24:00",
+      "06:00-24:00",
+      "06:00-24:00",
+      "06:00-24:00",
+      "06:00-24:00",
+      "06:00-24:00",
+      "06:00-24:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature",
+      "fairy"
+    ],
+    "experience": [
+      "walk",
+      "picnic",
+      "show"
+    ],
+    "tags": [
+      "Усадьба-парк",
+      "Катамараны",
+      "Веломобили",
+      "4 площадки",
+      "Комната матери"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://tsaritsyno-museum.ru/kids-2/kids-infrastructure/",
+    "confidence": "high"
+  },
+  {
+    "title": "Верёвочный парк в Царицыно",
+    "slug": "tsaritsyno-verevochny-park",
+    "town": "Царицыно (ЮАО)",
+    "region": "msk",
+    "address": "Москва, музей-заповедник «Царицыно», ул. Дольская, 1",
+    "metro": "Царицыно",
+    "lat": 55.614,
+    "lng": 37.683,
+    "category": "active",
+    "subtitle": "Верёвочный парк на высоте 10 м: первый маршрут для малышей от 3 лет",
+    "description": "Трёхуровневый верёвочный парк на территории Царицына: 75 мостов и препятствий на высоте до 10 метров. Первый маршрут рассчитан на детей от 3 до 8 лет ростом до 140 см, верхние — для подготовленных. Работает в тёплый сезон, в дождь закрыт.",
+    "price": [
+      1000,
+      2000
+    ],
+    "family_budget": 4000,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 120,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 3,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00",
+      "10:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn"
+    ],
+    "weather": [
+      "sun",
+      "heat"
+    ],
+    "interests": [
+      "sport",
+      "nature"
+    ],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "Верёвочный парк",
+      "От 3 лет",
+      "Тёплый сезон",
+      "Рядом дворец"
+    ],
+    "hit": false,
+    "photoSet": "ropes",
+    "rating": null,
+    "reviews": null,
+    "source": "https://tsaritsyno-museum.ru/park/sport/verevochnyj-park/",
+    "confidence": "high"
+  },
+  {
+    "title": "Парк развлечений «Остров мечты»",
+    "slug": "ostrov-mechty",
+    "town": "Нагатинский Затон (ЮАО)",
+    "region": "msk",
+    "address": "Москва, проспект Андропова, 1",
+    "metro": "Технопарк",
+    "lat": 55.6889,
+    "lng": 37.6625,
+    "category": "play",
+    "subtitle": "Крупнейший тематический парк: 15 зон и 65 аттракционов",
+    "description": "Огромный тематический парк с 15 зонами и десятками аттракционов: есть и спокойные карусели для малышей, и скоростные горки для подростков. Основная часть под крышей, поэтому подходит и в дождь; на открытой территории добавляются новые уличные аттракционы. Закладывайте на визит целый день и проверяйте ограничения по росту.",
+    "price": [
+      2800,
+      4500
+    ],
+    "family_budget": 12000,
+    "age": [
+      2,
+      12
+    ],
+    "duration": 360,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 3,
+    "noise": 3,
+    "stroller": true,
+    "baby_room": true,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "fairy",
+      "sport"
+    ],
+    "experience": [
+      "playzone",
+      "show",
+      "food"
+    ],
+    "tags": [
+      "Парк аттракционов",
+      "Под крышей",
+      "65 аттракционов",
+      "Весь день"
+    ],
+    "hit": true,
+    "photoSet": "ferris",
+    "rating": null,
+    "reviews": null,
+    "source": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
+    "confidence": "medium"
+  },
+  {
+    "title": "Парк «Покровское-Стрешнево»",
+    "slug": "pokrovskoe-streshnevo",
+    "town": "Покровское-Стрешнево (СЗАО)",
+    "region": "msk",
+    "address": "Москва, район Покровское-Стрешнево, 5-й Войковский проезд, 2 (усадьба и лесопарк)",
+    "metro": "Тушинская",
+    "lat": 55.8158,
+    "lng": 37.4714,
+    "category": "park",
+    "subtitle": "Усадьба XVIII–XIX веков с каскадом прудов и прокатом",
+    "description": "Лесопарк с исторической усадьбой, каскадом прудов и смотровыми площадками. Есть детские площадки, а в сезон можно взять напрокат велосипеды, самокаты и лодки. Спокойное место для длинной прогулки с коляской или пикника.",
+    "price": [
+      0,
+      500
+    ],
+    "family_budget": 600,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "picnic",
+      "free"
+    ],
+    "tags": [
+      "Лесопарк",
+      "Усадьба",
+      "Пруды",
+      "Прокат"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://www.sputnik8.com/ru/moscow/sights/park-pokrovskoe-streshnevo/info",
+    "confidence": "medium"
+  },
+  {
+    "title": "Аквапарк «Мореон»",
+    "slug": "akvapark-moreon",
+    "town": "Ясенево (ЮЗАО)",
+    "region": "msk",
+    "address": "Москва, ул. Голубинская, 16",
+    "metro": "Ясенево",
+    "lat": 55.6021,
+    "lng": 37.529,
+    "category": "active",
+    "subtitle": "Крупный крытый аквапарк с тремя детскими зонами",
+    "description": "Самый большой крытый аквапарк Москвы: 37 бассейнов и 11 горок на 64 000 кв. м. Для малышей есть три детские зоны, а при аквапарке работает «Детский клуб Мореон» для детей от 3 месяцев до 13 лет. Подходит в любую погоду.",
+    "price": [
+      1950,
+      4250
+    ],
+    "family_budget": 9000,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 240,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 3,
+    "noise": 3,
+    "stroller": true,
+    "baby_room": true,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "heat",
+      "any"
+    ],
+    "interests": [
+      "sport"
+    ],
+    "experience": [
+      "playzone",
+      "cafe",
+      "toddlers"
+    ],
+    "tags": [
+      "Аквапарк",
+      "3 детские зоны",
+      "Круглый год",
+      "Парковка"
+    ],
+    "hit": false,
+    "photoSet": "waterpark",
+    "rating": null,
+    "reviews": null,
+    "source": "https://more-on.ru/",
+    "confidence": "medium"
+  },
+  {
+    "title": "Битцевский лес (Битцевский парк)",
+    "slug": "bitsevsky-les",
+    "town": "Ясенево (ЮЗАО)",
+    "region": "msk",
+    "address": "Москва, природно-исторический парк «Битцевский лес» (район Ясенево, ЮЗАО и ЮАО)",
+    "metro": "Битцевский парк",
+    "lat": 55.601,
+    "lng": 37.557,
+    "category": "park",
+    "subtitle": "Огромный лесной массив на юго-западе с тропами и курганами",
+    "description": "Лесной массив около 2200 гектаров и длиной около 10 км: тропы для прогулок, лыжная трасса зимой, «Лысая гора» с деревянными скульптурами славянских богов и курганы вятичей. Хорошо для семейной прогулки и ориентирования на природе; отдельные входы расположены у станций «Битцевский парк» и «Новоясеневская».",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 180,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "sun",
+      "any"
+    ],
+    "interests": [
+      "nature",
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "picnic",
+      "free"
+    ],
+    "tags": [
+      "Лес",
+      "Тропы",
+      "Бесплатно",
+      "Лыжи зимой"
+    ],
+    "hit": false,
+    "photoSet": "autumn",
+    "rating": null,
+    "reviews": null,
+    "source": "https://um.mos.ru/places/prirodno-istoricheskiy-park-bittsevskiy-les/",
+    "confidence": "medium"
+  }
+]

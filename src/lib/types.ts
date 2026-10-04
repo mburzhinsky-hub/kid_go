@@ -66,6 +66,14 @@ export interface Place {
   longitude: number;
   address: string;
   metro?: string;
+  /** Город / посёлок (для Подмосковья и окраин). */
+  town?: string;
+  /** msk — в границах Москвы, mo — Московская область. */
+  region?: "msk" | "mo";
+  /** Откуда взяты сведения (для редакторской проверки). */
+  source?: string;
+  /** Насколько данные подтверждены: high — сайт/карты, medium — ориентир, demo — демо-запись. */
+  confidence?: "high" | "medium" | "demo" | "osm";
   category: CategoryId;
   photos: Photo[];
   /** Фирменный цвет-подложка под фото (пока грузится / если не загрузилось). */
@@ -235,6 +243,8 @@ export interface PlannerInput {
   seed?: string;
   /** Подпись точки выезда для объяснений. */
   originLabel?: string;
+  /** Места рядом из открытых данных (OpenStreetMap) — дополняют каталог там, где он редок. */
+  extraPlaces?: Place[];
 }
 
 /** Собранный маршрут: и готовые, и сгенерированные приключения приводятся к нему. */

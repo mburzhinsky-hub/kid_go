@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useResolveDynamic } from "@/lib/nearby";
 import { useFamily } from "@/lib/store";
 import { getPlaceSync } from "@/lib/data/repository";
 import { AdventureView } from "./AdventureView";
@@ -40,16 +41,23 @@ export function DayView({
   const fromUrl = !!steps?.length;
   const slugs = fromUrl ? steps! : day;
 
+  // места из OpenStreetMap лежат в браузерном кэше — читаем их только после монтирования (иначе рассинхрон с серверной разметкой)
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const ver = useResolveDynamic(slugs);
+  const hasDyn = slugs.some((s) => s.startsWith("osm-"));
+
   const stops = useMemo(
     () =>
       slugs
         .map((s) => getPlaceSync(s))
         .filter((p): p is Place => !!p)
         .map((place, i) => ({ place, duration: durations?.[i] })),
-    [slugs, durations]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [slugs, durations, mounted, ver]
   );
 
-  if (!fromUrl && !hydrated) return <div className="h-dvh skeleton" />;
+  if ((!fromUrl && !hydrated) || (hasDyn && !mounted)) return <div className="h-dvh skeleton" />;
 
   if (!stops.length)
     return (

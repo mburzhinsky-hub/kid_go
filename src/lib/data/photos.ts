@@ -182,3 +182,51 @@ export const PH = {
 } as const;
 
 export const ph = (src: string, alt: string): Photo => ({ src, alt });
+
+/** Тематические наборы стоковых фото для записей из JSON (иллюстрации, не фото самого места). */
+export const PHOTO_SETS: Record<string, { keys: (keyof typeof PH)[]; alt: string }> = {
+  park: { keys: ["parkPath", "parkSun", "parkWalk", "parkLawn", "parkBench", "parkGreen", "fatherChildPark", "familyLake", "familyWalk"], alt: "Парковая аллея" },
+  autumn: { keys: ["autumnPath", "childRunsAutumn", "parkPath", "familyWalk"], alt: "Осенняя прогулка" },
+  playground: { keys: ["woodenPlayground", "colorfulPlayground", "redSlide", "boySwing", "girlSwing", "playgroundPark", "childClimbPlayground"], alt: "Детская площадка" },
+  picnic: { keys: ["picnicFamily", "picnicBlanket", "childrenCircle", "girlGrass"], alt: "Пикник на траве" },
+  farm: { keys: ["goatKid", "girlBabyGoat", "childPetsGoat", "goatsNoses", "whiteGoat"], alt: "Контактная ферма" },
+  pony: { keys: ["girlHorse", "girlWhiteHorse", "ponyStable", "boyPony"], alt: "Лошади и пони" },
+  zoo: { keys: ["giraffe", "giraffeTree", "giraffes", "giraffeSky", "redPanda", "redPandaClimb", "redPandaLog"], alt: "Животные" },
+  aquarium: { keys: ["aquariumTunnel", "aquariumTunnel2", "dolphins", "aquariumFish", "fishSchool", "sharks"], alt: "Аквариум" },
+  dino: { keys: ["dinoPeople", "dinoDisplay", "dinoSkeleton", "dinoCrowd", "dinoSkylight", "dinoHall", "childDinoSkull"], alt: "Музей динозавров" },
+  space: { keys: ["rocketWarehouse", "rocketStatue", "shuttle", "spacecraft", "orangeRocket"], alt: "Космос и ракеты" },
+  science: { keys: ["plasmaBall", "whaleMuseum", "dinoHall"], alt: "Научный музей" },
+  museum: { keys: ["dinoHall", "whaleMuseum", "dinoSkylight", "plasmaBall", "childDinoSkull"], alt: "Музей" },
+  play: { keys: ["balls", "slidesBallpit", "indoorPlay", "inflatableMall", "multicolorSlides", "playAreaSlide", "bounceHouse", "rubberDucks"], alt: "Игровая зона" },
+  trampoline: { keys: ["trampolineIndoor", "obstacleFoam", "trampolines", "trampolineStations", "bungeeTrampoline"], alt: "Батутный парк" },
+  climbing: { keys: ["climbingWall", "childClimbing", "kidsClimb", "childrenClimbing", "childrenClimbingTall"], alt: "Скалодром" },
+  ropes: { keys: ["ropeBridge", "treehouseBridge", "ropesCourse", "forestBridge"], alt: "Верёвочный парк" },
+  waterpark: { keys: ["waterpark", "waterparkFamily", "waterparkSlides", "waterPlayground", "girlPool", "kidsPool"], alt: "Аквапарк" },
+  ice: { keys: ["kidsSkating", "kidsHockey", "skatingPeople", "iceRink"], alt: "Каток" },
+  art: { keys: ["girlPainting", "boyWatercolor", "paintPlates", "paintbrush"], alt: "Творческая студия" },
+  theatre: { keys: ["frogPuppets", "marionette", "childrenReading"], alt: "Кукольный театр" },
+  cafe: { keys: ["cafeChildWindow", "cafeMomChild", "cafeStroller", "cafeBearHat", "cafeWood", "cafePlants", "cafeWarm", "cafeBooks", "girlFruitBowl"], alt: "Уютное кафе" },
+  pancakes: { keys: ["pancakeBlueberry", "pancakesBerries", "pancakes", "pancakesStrawberry"], alt: "Блины" },
+  pizza: { keys: ["pizza", "pizzaLeaves", "pizzaTwo", "pizzaHand"], alt: "Пицца" },
+  icecream: { keys: ["icecreamSprinkles", "icecreamThree", "icecreamCones", "icecreamPink", "icecreamHand", "icecreamStrawberry"], alt: "Мороженое" },
+  toys: { keys: ["toyWindow", "toyShelves", "toyBoats", "plushPastries", "toyStorePeople", "toyCloseup", "teddyBow"], alt: "Магазин игрушек" },
+  lego: { keys: ["lego", "legoMany", "legoStack", "legoAssorted"], alt: "Конструкторы" },
+  books: { keys: ["kidsBooks", "childrenReading", "libraryMomChild", "boyReading"], alt: "Детские книги" },
+  ferris: { keys: ["ferrisBlue", "ferrisWhite", "ferrisRed", "amusementNight"], alt: "Колесо обозрения" },
+  greenhouse: { keys: ["greenhouse", "tropicalWaterfall", "greenhouseGlass", "bananaTrees"], alt: "Оранжерея" },
+  rain: { keys: ["toddlerRainboots", "redBoots", "girlUmbrella", "childPinkRaincoat", "childYellowRaincoat", "childPuddle"], alt: "Дождливый день" },
+};
+
+const hash = (s: string) => {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619);
+  return h >>> 0;
+};
+
+export function photosFor(setKey: string, slug: string, title: string) {
+  const set = PHOTO_SETS[setKey] ?? PHOTO_SETS.park;
+  const start = hash(slug) % set.keys.length;
+  const n = Math.min(4, set.keys.length);
+  return Array.from({ length: n }, (_, i) => ph(PH[set.keys[(start + i) % set.keys.length]], `${set.alt} — иллюстрация к «${title}»`));
+}
+
