@@ -1,1 +1,143 @@
-[]
+[
+  {
+    "title": "Музей игрушки в Сергиевом Посаде",
+    "slug": "muzey-igrushki-sergiev-posad",
+    "town": "Сергиев Посад",
+    "region": "mo",
+    "address": "Московская область, Сергиев Посад, проспект Красной Армии, 123",
+    "lat": 56.3105,
+    "lng": 38.1316,
+    "category": "museum",
+    "subtitle": "Русские игрушки: матрёшки, деревянные забавы, мастерские",
+    "description": "Музей русской народной игрушки в центре города игрушек: матрёшки, деревянные забавы и мастер-классы. Хорошо совместить с Троице-Сергиевой лаврой.",
+    "price": [
+      250,
+      500
+    ],
+    "family_budget": 1800,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      null,
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "fairy",
+      "drawing"
+    ],
+    "experience": [
+      "toys",
+      "workshop",
+      "unusual"
+    ],
+    "tags": [
+      "Игрушки",
+      "Матрёшки",
+      "Мастер-класс"
+    ],
+    "hit": false,
+    "photoSet": "toys",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Музей_игрушки_(Сергиев_Посад)",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Музей-заповедник «Абрамцево»",
+    "slug": "abramtsevo",
+    "town": "Абрамцево",
+    "region": "mo",
+    "address": "Московская область, Сергиево-Посадский округ, Абрамцево",
+    "lat": 56.2297,
+    "lng": 37.9669,
+    "category": "park",
+    "subtitle": "Усадьба с парком, «избушка на курьих ножках» и мастерские",
+    "description": "Усадьба художников с парком у реки Воря и сказочными постройками, включая «избушку на курьих ножках». Много простора для прогулки, особенно красиво осенью.",
+    "price": [
+      0,
+      500
+    ],
+    "family_budget": 2000,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 180,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      null,
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "fairy",
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "unusual",
+      "picnic"
+    ],
+    "tags": [
+      "Усадьба",
+      "Сказки",
+      "Парк"
+    ],
+    "hit": false,
+    "photoSet": "autumn",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Абрамцево_(музей-заповедник)",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  }
+]

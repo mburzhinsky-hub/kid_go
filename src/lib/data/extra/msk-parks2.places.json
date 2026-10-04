@@ -1,0 +1,774 @@
+[
+  {
+    "title": "Измайловский парк",
+    "slug": "izmailovsky-park",
+    "town": "Измайлово (ВАО)",
+    "region": "msk",
+    "address": "Москва, район Измайлово, Измайловское шоссе",
+    "metro": "Партизанская",
+    "lat": 55.7935,
+    "lng": 37.7585,
+    "category": "park",
+    "subtitle": "Огромный лесопарк с прудами, аллеями и площадками",
+    "description": "Лесопарк с прудами, велодорожками и детскими площадками — места хватает на целый день. Подойдёт для самокатов, прогулки с коляской и пикника.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 400,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature",
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "picnic",
+      "free"
+    ],
+    "tags": [
+      "Парк",
+      "Пруды",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Измайловский_парк",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Усадьба «Кусково»",
+    "slug": "kuskovo",
+    "town": "Вешняки (ВАО)",
+    "region": "msk",
+    "address": "Москва, ул. Юности, 2",
+    "metro": "Рязанский проспект",
+    "lat": 55.7172,
+    "lng": 37.8061,
+    "category": "park",
+    "subtitle": "Усадьба XVIII века с прудом и регулярным парком",
+    "description": "Просторный парк с прямыми аллеями, большим прудом и павильонами усадьбы. Можно гулять, кататься на самокатах и устроить пикник; залы дворца интереснее школьникам.",
+    "price": [
+      0,
+      500
+    ],
+    "family_budget": 900,
+    "age": [
+      2,
+      12
+    ],
+    "duration": 150,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature",
+      "fairy"
+    ],
+    "experience": [
+      "walk",
+      "picnic"
+    ],
+    "tags": [
+      "Усадьба",
+      "Пруд",
+      "Парк"
+    ],
+    "hit": false,
+    "photoSet": "autumn",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Кусково",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Нескучный сад",
+    "slug": "neskuchny-sad",
+    "town": "Хамовники / Донской",
+    "region": "msk",
+    "address": "Москва, Ленинский проспект, вдоль Москвы-реки",
+    "metro": "Октябрьская",
+    "lat": 55.7125,
+    "lng": 37.5882,
+    "category": "park",
+    "subtitle": "Старинный парк над рекой рядом с парком Горького",
+    "description": "Тенистые аллеи, обрыв над рекой и зелёный театр. Удобно соединить с парком Горького и Музеоном; для малышей хватит спокойной прогулки, для старших — самоката.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 120,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "picnic",
+      "free"
+    ],
+    "tags": [
+      "Парк",
+      "Река",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "autumn",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Нескучный_сад",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Парк искусств «Музеон»",
+    "slug": "muzeon",
+    "town": "Якиманка",
+    "region": "msk",
+    "address": "Москва, Крымский Вал, 2",
+    "metro": "Парк культуры",
+    "lat": 55.7341,
+    "lng": 37.6055,
+    "category": "park",
+    "subtitle": "Скульптуры под открытым небом у набережной",
+    "description": "Парк со скульптурами советской эпохи и современными работами, детской площадкой и выходом на набережную. Спокойная прогулка, самокаты, фото среди «памятников».",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "drawing",
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "unusual",
+      "free"
+    ],
+    "tags": [
+      "Скульптуры",
+      "Набережная",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Музеон",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Сад «Эрмитаж»",
+    "slug": "sad-ermitazh",
+    "town": "Тверской",
+    "region": "msk",
+    "address": "Москва, Каретный Ряд, 3",
+    "metro": "Чеховская",
+    "lat": 55.7712,
+    "lng": 37.6078,
+    "category": "park",
+    "subtitle": "Небольшой сад в центре: сцена, фонтан и детские программы",
+    "description": "Уютный сад в центре с летней сценой, кафе и детскими программами по афише. Короткая остановка между музеями и театрами центра.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 500,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 75,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "08:00-22:00",
+      "08:00-22:00",
+      "08:00-22:00",
+      "08:00-22:00",
+      "08:00-22:00",
+      "08:00-22:00",
+      "08:00-22:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "music",
+      "fairy"
+    ],
+    "experience": [
+      "walk",
+      "show",
+      "free"
+    ],
+    "tags": [
+      "Сад",
+      "Центр",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Эрмитаж_(сад)",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Таганский парк",
+    "slug": "taganskiy-park",
+    "town": "Таганский",
+    "region": "msk",
+    "address": "Москва, Таганская ул., Таганский парк",
+    "metro": "Марксистская",
+    "lat": 55.7392,
+    "lng": 37.6526,
+    "category": "park",
+    "subtitle": "Центральный парк с площадками и прудом",
+    "description": "Небольшой благоустроенный парк в центре с детскими площадками и прудом. Подойдёт для короткой прогулки с малышом и перекуса рядом.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      10
+    ],
+    "duration": 75,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "free"
+    ],
+    "tags": [
+      "Парк",
+      "Площадки",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "playground",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Таганский_парк",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Главный ботанический сад РАН",
+    "slug": "gbs-ran",
+    "town": "Останкинский",
+    "region": "msk",
+    "address": "Москва, Ботаническая ул., 4",
+    "metro": "Ботанический сад",
+    "lat": 55.8394,
+    "lng": 37.5944,
+    "category": "park",
+    "subtitle": "Огромный ботанический сад: розарий, японский сад, пруды",
+    "description": "Аллеи, пруды, розарий и японский сад — осенью здесь особенно красиво. Оранжереи работают по расписанию. Хорош для долгой спокойной прогулки.",
+    "price": [
+      0,
+      400
+    ],
+    "family_budget": 900,
+    "age": [
+      2,
+      12
+    ],
+    "duration": 150,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature",
+      "science"
+    ],
+    "experience": [
+      "walk",
+      "unusual"
+    ],
+    "tags": [
+      "Ботанический сад",
+      "Оранжереи",
+      "Парк"
+    ],
+    "hit": false,
+    "photoSet": "greenhouse",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Главный_ботанический_сад_имени_Н._В._Цицина",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Воробьёвы горы: смотровая и набережная",
+    "slug": "vorobyovy-gory",
+    "town": "Раменки / Хамовники",
+    "region": "msk",
+    "address": "Москва, Воробьёвское шоссе, смотровая площадка",
+    "metro": "Воробьёвы горы",
+    "lat": 55.7107,
+    "lng": 37.5426,
+    "category": "park",
+    "subtitle": "Панорама Москвы, лесные тропы и канатная дорога",
+    "description": "Смотровая площадка с видом на город и Лужники, лесные тропы заповедника и набережная. Для малышей — спокойная прогулка, для школьников — канатная дорога (если работает).",
+    "price": [
+      0,
+      400
+    ],
+    "family_budget": 700,
+    "age": [
+      2,
+      12
+    ],
+    "duration": 120,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "unusual"
+    ],
+    "tags": [
+      "Панорама",
+      "Прогулка",
+      "Лес"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Воробьёвы_горы_(Москва)",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Парк «Кузьминки»",
+    "slug": "kuzminki-park",
+    "town": "Кузьминки (ЮВАО)",
+    "region": "msk",
+    "address": "Москва, район Кузьминки, Кузьминский лесопарк",
+    "metro": "Кузьминки",
+    "lat": 55.6905,
+    "lng": 37.7785,
+    "category": "park",
+    "subtitle": "Большой лесопарк с прудами и дорожками",
+    "description": "Лесопарк с прудами, велодорожками и спортивными площадками. Много тени и места для самокатов, летом — пикники у воды.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 350,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature",
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "picnic",
+      "free"
+    ],
+    "tags": [
+      "Лесопарк",
+      "Пруды",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Кузьминки_(парк)",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any",
+      "heat"
+    ]
+  },
+  {
+    "title": "Воронцовский парк",
+    "slug": "vorontsovsky-park",
+    "town": "Обручевский (ЮЗАО)",
+    "region": "msk",
+    "address": "Москва, ул. Воронцовские Пруды",
+    "metro": "Калужская",
+    "lat": 55.6537,
+    "lng": 37.5488,
+    "category": "park",
+    "subtitle": "Парк с прудами и усадьбой на юго-западе",
+    "description": "Парк с каскадом прудов, усадьбой и детскими площадками. Тихая прогулка, летом можно кормить уток.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 120,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature",
+      "animals"
+    ],
+    "experience": [
+      "walk",
+      "free"
+    ],
+    "tags": [
+      "Парк",
+      "Пруды",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Воронцовский_парк",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Парк «Лужники»",
+    "slug": "park-luzhniki",
+    "town": "Хамовники",
+    "region": "msk",
+    "address": "Москва, Лужнецкая наб., 24",
+    "metro": "Спортивная",
+    "lat": 55.7155,
+    "lng": 37.5549,
+    "category": "park",
+    "subtitle": "Набережная, спортивные площадки и прокат у реки",
+    "description": "Широкая набережная, воркаут и спортивные площадки, детские зоны. Хорошо для самокатов, велосипедов и больших компаний.",
+    "price": [
+      0,
+      300
+    ],
+    "family_budget": 500,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 120,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 3,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "free"
+    ],
+    "tags": [
+      "Спорт",
+      "Набережная",
+      "Площадки"
+    ],
+    "hit": false,
+    "photoSet": "playground",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Лужники_(спортивный_комплекс)",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  }
+]

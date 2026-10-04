@@ -16,7 +16,7 @@ def run():
     with sync_playwright() as p:
         b = p.chromium.launch(args=["--use-angle=swiftshader", "--enable-unsafe-swiftshader"])
         ctx = b.new_context(viewport={"width": 390, "height": 844}, service_workers="block")
-        ctx.route(re.compile(r"https://(api\.open-meteo|tiles\.openfreemap|images\.unsplash|[abcd]\.basemaps|tile\.openstreetmap).*"), lambda r: r.abort())
+        ctx.route(re.compile(r"https://(api\.open-meteo|tiles\.openfreemap|images\.unsplash|server\.arcgisonline|tile\.openstreetmap).*"), lambda r: r.abort())
         ctx.route(re.compile(r"https://nominatim\.openstreetmap\.org/.*"), lambda r: r.fulfill(status=200, content_type="application/json", headers={"access-control-allow-origin": "*"}, body=json.dumps(HIT)))
         def overpass(r):
             overpass_calls.append(r.request.url)

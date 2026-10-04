@@ -239,8 +239,11 @@ export function scorePlace(
     crowd: crowdFit(p, ctx, input),
     transport: transportFit(p, input),
     prefer:
-      (c.preferCategories?.includes(p.category) ? 3.4 : 0) +
+      // сценарий про одну категорию («к животным», «на каток») тянет к ней сильнее, чем про несколько
+      (c.preferCategories?.includes(p.category) ? (c.preferCategories.length === 1 ? 4.6 : 3.4) : 0) +
       (c.outdoorPreferred && p.outdoor ? 2 : 0) +
+      // формат сценария: «спектакль», «мастер-класс», «книги»…
+      (c.experiences?.some((e) => p.experience_tags.includes(e)) ? 2.4 : 0) +
       // компания / праздник: места, где принимают брони и есть игровая зона
       (c.bookingOk && (p.booking_required || p.experience_tags.includes("playzone")) ? 1.6 : 0),
     family:

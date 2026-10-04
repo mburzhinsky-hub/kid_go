@@ -13,6 +13,7 @@ import placesN from "./extra/mo-north-east.places.json";
 import placesS from "./extra/mo-south.places.json";
 import placesMskCulture from "./extra/msk-culture.places.json";
 import placesMskOutdoor from "./extra/msk-outdoor.places.json";
+import placesMskParks2 from "./extra/msk-parks2.places.json";
 import placesEvents from "./extra/programs.places.json";
 import eventsAll from "./extra/programs.events.json";
 
@@ -74,6 +75,7 @@ export const RAW_PLACES: RawPlace[] = [
   ...(placesS as RawPlace[]),
   ...(placesMskCulture as RawPlace[]),
   ...(placesMskOutdoor as RawPlace[]),
+  ...(placesMskParks2 as RawPlace[]),
   ...(placesEvents as RawPlace[]),
 ];
 export const RAW_EVENTS = eventsAll as RawEvent[];

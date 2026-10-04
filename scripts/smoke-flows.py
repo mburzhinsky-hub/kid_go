@@ -14,7 +14,7 @@ def run():
     pg=ctx.new_page()
     pg.on("pageerror", lambda e: errs.append(("pageerror", str(e))))
     pg.on("console", lambda m: m.type=="error" and errs.append(("console", m.text[:200])))
-    pg.goto(B+"/"); pg.wait_for_url("**/onboarding", timeout=8000); print("1 redirected to onboarding")
+    pg.goto(B+"/"); pg.wait_for_url(re.compile(r".*/onboarding/?$"), timeout=8000); print("1 redirected to onboarding")
     pg.click("text=Начнём")
     pg.get_by_role("radio", name="5").click()
     pg.fill("input[placeholder='Имя — если хотите']","Тёма")
@@ -23,21 +23,21 @@ def run():
     pg.get_by_role("button", name="ВАО", exact=True).click()
     pg.wait_for_timeout(300)
     assert "Ищем рядом: ВАО" in pg.inner_text("main"), "origin not shown"
-    pg.click("text=Поехали! 🚀"); pg.wait_for_url(B+"/"); pg.wait_for_timeout(1500)
+    pg.click("text=Поехали! 🚀"); pg.wait_for_url(re.compile(r".*/kid_go/?$|.*:3000/?$")); pg.wait_for_timeout(1500)
     body=pg.inner_text("body")
     assert "Миша" not in body and "Аня" not in body, "demo kids visible"
     print("2 home ok; chip:", pg.locator("header button[aria-label^='Где ищем']").inner_text())
     print("   weather:", pg.locator("a:has-text('Сегодня')").first.inner_text().replace("\n"," | ")[:160])
     print("   for you title present:", "Для Тёмы" in body)
     # scenarios grid
-    print("   scenario cards:", pg.locator("section:has-text('Что хочется сегодня?') a[href*='planner/results?s=']").count())
+    print("   scenario cards:", pg.locator("section:has-text('Что хочется сегодня?') a[href*='planner/results'][href*='?s=']").count())
     # results with rain from 15
     pg.goto(B+"/planner/results?s=before-rain&wx=rain15"); pg.wait_for_selector("h1"); pg.wait_for_timeout(800)
     print("3 results h1:", pg.inner_text("h1"))
     print("   sub:", pg.locator("h1 + p").inner_text()[:200])
-    cards=pg.locator("a[href*='/day?']"); print("   plans:", cards.count())
-    print("   first explanation:", pg.locator("a[href*='/day?'] p").nth(1).inner_text()[:220])
-    cards.first.click(); pg.wait_for_url("**/day?**"); pg.wait_for_timeout(800)
+    cards=pg.locator("a[href*='/day'][href*='?']"); print("   plans:", cards.count())
+    print("   first explanation:", pg.locator("a[href*='/day'][href*='?'] p").nth(1).inner_text()[:220])
+    cards.first.click(); pg.wait_for_url(re.compile(r".*/day/?\?.*")); pg.wait_for_timeout(800)
     tl=pg.inner_text("ol"); print("4 day timeline:", tl.replace("\n"," | ")[:400])
     assert "Тёма" not in pg.url, "name leaked in url"
     # replace a step
@@ -52,8 +52,8 @@ def run():
         pg.click("text=В календарь")
     print("   ics:", dl.value.suggested_filename)
     # rain all day: indoor only
-    pg.goto(B+"/planner/results?s=rain&wx=rain"); pg.wait_for_selector("a[href*='/day?']"); 
-    hrefs=[pg.locator("a[href*='/day?']").nth(i).get_attribute("href") for i in range(pg.locator("a[href*='/day?']").count())]
+    pg.goto(B+"/planner/results?s=rain&wx=rain"); pg.wait_for_selector("a[href*='/day'][href*='?']"); 
+    hrefs=[pg.locator("a[href*='/day'][href*='?']").nth(i).get_attribute("href") for i in range(pg.locator("a[href*='/day'][href*='?']").count())]
     print("5 rain plans:", [re.search(r"steps=([^&]+)", h).group(1) for h in hrefs])
     pg.goto(B+"/scenarios"); print("6 scenarios:", pg.locator("a[href*='?s=']").count())
     pg.goto(B+"/map?plan=paleontologichesky-muzey,kafe-ponchik"); pg.wait_for_timeout(2500); print("7 map:", pg.locator("h2").first.inner_text())
@@ -67,8 +67,8 @@ def run():
     p2.get_by_role("radio", name="7").click(); p2.click("text=Дальше")
     p2.click("text=3–4 часа"); p2.wait_for_timeout(400); p2.click("text=Выплеснуть энергию"); p2.wait_for_timeout(400)
     p2.click("text=до 5 000 ₽"); p2.wait_for_timeout(400); p2.click("text=Общественный транспорт"); p2.click("text=Придумать день ✨")
-    p2.wait_for_url("**/planner/results**", timeout=10000); p2.wait_for_timeout(1000)
-    print("   results:", p2.inner_text("h1"), p2.locator("a[href*='/day?']").count(), "plans; url kids:", re.search(r"kids=([^&]+)", p2.url).group(1))
+    p2.wait_for_url(re.compile(r".*/planner/results.*"), timeout=10000); p2.wait_for_timeout(1000)
+    print("   results:", p2.inner_text("h1"), p2.locator("a[href*='/day'][href*='?']").count(), "plans; url kids:", re.search(r"kids=([^&]+)", p2.url).group(1))
     b.close()
 run()
 real=[e for e in errs if "ERR_FAILED" not in e[1] and "ERR_TUNNEL" not in e[1]]

@@ -10,7 +10,7 @@ import type { Map as MLMap, StyleSpecification } from "maplibre-gl";
  *  4) если не работает ничего — вызывающий код показывает схему без подложки.
  */
 
-export type ProviderId = "ofm" | "carto" | "osm" | "osmfr";
+export type ProviderId = "ofm" | "osm" | "osmde" | "osmfr" | "esri";
 
 interface Provider {
   id: ProviderId;
@@ -37,6 +37,23 @@ async function fetchOk(url: string, ms: number, json = false): Promise<unknown |
   }
 }
 
+/**
+ * Проба растрового источника: берём ДВА разных тайла Москвы. Настоящие тайлы различаются; если сервер вместо карты
+ * отдаёт одну и ту же картинку-заглушку («API KEY REQUIRED», «blocked»), байты совпадут — источник не годится.
+ * (Так вела себя CARTO: отвечала 200 OK и рисовала водяной знак поверх всей карты.)
+ */
+async function probeRaster(tpl: string, ms: number): Promise<boolean> {
+  const [a, b] = await Promise.all([fetchOk(tileUrl(tpl, 0, 0), ms), fetchOk(tileUrl(tpl, 1, 1), ms)]);
+  if (!(a instanceof Blob) || !(b instanceof Blob) || a.size < 200 || b.size < 200) return false;
+  if (a.type && !a.type.startsWith("image/")) return false;
+  if (a.size !== b.size) return true;
+  const [x, y] = await Promise.all([a.arrayBuffer(), b.arrayBuffer()]);
+  const u = new Uint8Array(x);
+  const v = new Uint8Array(y);
+  for (let i = 0; i < u.length; i++) if (u[i] !== v[i]) return true;
+  return false;
+}
+
 const rasterStyle = (tiles: string[], attribution: string, maxzoom = 19): StyleSpecification => ({
   version: 8,
   sources: { base: { type: "raster", tiles, tileSize: 256, maxzoom, attribution } },
@@ -46,11 +63,14 @@ const rasterStyle = (tiles: string[], attribution: string, maxzoom = 19): StyleS
   ],
 });
 
-const tileUrl = (tpl: string) => tpl.replace("{z}", String(Z9.z)).replace("{x}", String(Z9.x)).replace("{y}", String(Z9.y));
+const tileUrl = (tpl: string, dx = 0, dy = 0) =>
+  tpl.replace("{z}", String(Z9.z)).replace("{x}", String(Z9.x + dx)).replace("{y}", String(Z9.y + dy));
 
-const CARTO = ["a", "b", "c", "d"].map((s) => `https://${s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png`);
 const OSM = ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"];
+const OSMDE = ["https://tile.openstreetmap.de/{z}/{x}/{y}.png"];
 const OSMFR = ["https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"];
+/** Esri World Street Map: порядок {z}/{y}/{x}. */
+const ESRI = ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"];
 
 export const PROVIDERS: Provider[] = [
   {
@@ -67,22 +87,28 @@ export const PROVIDERS: Provider[] = [
     },
   },
   {
-    id: "carto",
-    vector: false,
-    style: () => rasterStyle(CARTO, "© OpenStreetMap, © CARTO"),
-    probe: async (ms) => !!(await fetchOk(tileUrl(CARTO[0]), ms)),
-  },
-  {
     id: "osm",
     vector: false,
     style: () => rasterStyle(OSM, "© OpenStreetMap", 19),
-    probe: async (ms) => !!(await fetchOk(tileUrl(OSM[0]), ms)),
+    probe: (ms) => probeRaster(OSM[0], ms),
+  },
+  {
+    id: "osmde",
+    vector: false,
+    style: () => rasterStyle(OSMDE, "© OpenStreetMap", 19),
+    probe: (ms) => probeRaster(OSMDE[0], ms),
   },
   {
     id: "osmfr",
     vector: false,
     style: () => rasterStyle(OSMFR, "© OpenStreetMap, HOT", 19),
-    probe: async (ms) => !!(await fetchOk(tileUrl(OSMFR[0]), ms)),
+    probe: (ms) => probeRaster(OSMFR[0], ms),
+  },
+  {
+    id: "esri",
+    vector: false,
+    style: () => rasterStyle(ESRI, "© Esri, HERE, Garmin, OpenStreetMap", 19),
+    probe: (ms) => probeRaster(ESRI[0], ms),
   },
 ];
 
@@ -116,9 +142,11 @@ const PATIENCE_MS = 3500;
 /** Сколько ждём первый отрисованный тайл у выбранного источника. */
 const TILES_MS = 11000;
 
-const PREF_KEY = "kidgo-map-ok";
+/** v2: старый ключ мог хранить CARTO (заглушка «API KEY REQUIRED») — начинаем с чистого листа. */
+const PREF_KEY = "kidgo-map-ok2";
 const readPref = (): ProviderId | null => {
   try {
+    localStorage.removeItem("kidgo-map-ok");
     const v = JSON.parse(localStorage.getItem(PREF_KEY) ?? "null") as { id: ProviderId; at: number } | null;
     return v && PROVIDERS.some((p) => p.id === v.id) && Date.now() - v.at < 14 * 86400_000 ? v.id : null;
   } catch {
@@ -225,12 +253,17 @@ export async function createBaseMap(opts: BaseMapOptions): Promise<BaseMapResult
     return null;
   };
 
-  // 1) то, что уже работало на этом устройстве, — без ожидания проб
+  // 1) то, что уже работало на этом устройстве (и не «заглушка»), — без ожидания проб
   const pref = readPref();
   if (pref) {
-    const p = PROVIDERS.find((x) => x.id === pref)!;
-    const r = await attempt(p);
-    if (r || cancelled()) return r;
+    const idx = PROVIDERS.findIndex((x) => x.id === pref);
+    // его проба идёт параллельно с остальными; ждём её (не дольше PROBE_MS): сервер мог начать отдавать заглушки
+    while (results[idx] === undefined && Date.now() - t0 < PROBE_MS + 500 && !cancelled()) await sleep(60);
+    if (results[idx] === false) writePref(null);
+    else if (!cancelled()) {
+      const r = await attempt(PROVIDERS[idx]);
+      if (r || cancelled()) return r;
+    }
   }
 
   // 2) остальные — по приоритету из ответивших

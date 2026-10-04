@@ -1,1 +1,1537 @@
-[]
+[
+  {
+    "title": "Политехнический музей",
+    "slug": "politehnichesky-muzey",
+    "town": "Тверской",
+    "region": "msk",
+    "address": "Москва, Новая площадь, 3/4, стр. 1",
+    "metro": "Лубянка",
+    "lat": 55.7581,
+    "lng": 37.6264,
+    "category": "museum",
+    "subtitle": "Изобретения, роботы и интерактивные залы",
+    "description": "Музей науки и техники с залами про механизмы, энергию, космос и роботов. Много интерактивных экспонатов — хорошо школьникам и любопытным дошкольникам.",
+    "price": [
+      300,
+      800
+    ],
+    "family_budget": 2600,
+    "age": [
+      5,
+      12
+    ],
+    "duration": 150,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 2,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "science",
+      "transport",
+      "space"
+    ],
+    "experience": [
+      "unusual",
+      "workshop"
+    ],
+    "tags": [
+      "Наука",
+      "Интерактив",
+      "Роботы"
+    ],
+    "hit": true,
+    "photoSet": "science",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Политехнический_музей",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Музей Москвы",
+    "slug": "muzey-moskvy",
+    "town": "Хамовники",
+    "region": "msk",
+    "address": "Москва, Зубовский бульвар, 2",
+    "metro": "Парк культуры",
+    "lat": 55.7356,
+    "lng": 37.5944,
+    "category": "museum",
+    "subtitle": "История города в интерактивных залах",
+    "description": "Музей истории Москвы: макеты, археология и интерактивные зоны. Есть программы для школьников и семейные экскурсии.",
+    "price": [
+      250,
+      600
+    ],
+    "family_budget": 1900,
+    "age": [
+      5,
+      12
+    ],
+    "duration": 120,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      null,
+      "11:00-20:00",
+      "11:00-20:00",
+      "11:00-20:00",
+      "11:00-20:00",
+      "11:00-20:00",
+      "11:00-20:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "science"
+    ],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "История",
+      "Город",
+      "Интерактив"
+    ],
+    "hit": false,
+    "photoSet": "museum",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Музей_Москвы",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Музей Победы",
+    "slug": "muzey-pobedy",
+    "town": "Дорогомилово",
+    "region": "msk",
+    "address": "Москва, площадь Победы, 3",
+    "metro": "Парк Победы",
+    "lat": 55.7305,
+    "lng": 37.5059,
+    "category": "museum",
+    "subtitle": "Диорамы, залы и военная техника",
+    "description": "Большой мемориальный комплекс: диорамы, залы и техника под открытым небом в тёплое время. С детьми от 7 лет — серьёзно и очень познавательно.",
+    "price": [
+      0,
+      500
+    ],
+    "family_budget": 1500,
+    "age": [
+      7,
+      12
+    ],
+    "duration": 150,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      null,
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "transport",
+      "science"
+    ],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "История",
+      "Техника",
+      "Диорамы"
+    ],
+    "hit": false,
+    "photoSet": "museum",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Центральный_музей_Великой_Отечественной_войны",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Зоологический музей МГУ",
+    "slug": "zoomuzey-msu",
+    "town": "Тверской",
+    "region": "msk",
+    "address": "Москва, Большая Никитская ул., 2",
+    "metro": "Охотный ряд",
+    "lat": 55.7569,
+    "lng": 37.6124,
+    "category": "museum",
+    "subtitle": "Скелеты китов, чучела и коллекции животных",
+    "description": "Один из старейших зоологических музеев: огромные скелеты, чучела животных со всего мира, коллекции насекомых. Дети обычно задерживаются у залов с крупными животными.",
+    "price": [
+      200,
+      500
+    ],
+    "family_budget": 1500,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      null,
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "animals",
+      "nature",
+      "dinosaurs"
+    ],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "Животные",
+      "Скелеты",
+      "Центр"
+    ],
+    "hit": false,
+    "photoSet": "museum",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Зоологический_музей_МГУ",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Государственный исторический музей",
+    "slug": "gim",
+    "town": "Тверской",
+    "region": "msk",
+    "address": "Москва, Красная площадь, 1",
+    "metro": "Площадь Революции",
+    "lat": 55.7552,
+    "lng": 37.6177,
+    "category": "museum",
+    "subtitle": "От мамонтов до императоров на Красной площади",
+    "description": "Главный исторический музей страны: археология, древности и залы империи. Подойдёт школьникам, лучше выбрать 2–3 зала вместо целого музея.",
+    "price": [
+      300,
+      700
+    ],
+    "family_budget": 2400,
+    "age": [
+      7,
+      12
+    ],
+    "duration": 120,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "10:00-18:00",
+      null,
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "science"
+    ],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "История",
+      "Красная площадь",
+      "Центр"
+    ],
+    "hit": false,
+    "photoSet": "museum",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Государственный_исторический_музей",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Третьяковская галерея (Лаврушинский)",
+    "slug": "tretyakovka-lavrushinsky",
+    "town": "Замоскворечье",
+    "region": "msk",
+    "address": "Москва, Лаврушинский пер., 10",
+    "metro": "Третьяковская",
+    "lat": 55.7414,
+    "lng": 37.6208,
+    "category": "museum",
+    "subtitle": "Русская живопись и семейные программы",
+    "description": "Классическая русская живопись; для детей проходят семейные экскурсии и творческие занятия. Лучше выбрать один-два зала по сказочным сюжетам.",
+    "price": [
+      400,
+      700
+    ],
+    "family_budget": 2200,
+    "age": [
+      6,
+      12
+    ],
+    "duration": 100,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      null,
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "drawing",
+      "fairy"
+    ],
+    "experience": [
+      "workshop",
+      "unusual"
+    ],
+    "tags": [
+      "Живопись",
+      "Искусство"
+    ],
+    "hit": false,
+    "photoSet": "art",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Государственная_Третьяковская_галерея",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Пушкинский музей (главное здание)",
+    "slug": "pushkinsky-muzey",
+    "town": "Хамовники",
+    "region": "msk",
+    "address": "Москва, ул. Волхонка, 12",
+    "metro": "Кропоткинская",
+    "lat": 55.7474,
+    "lng": 37.6053,
+    "category": "museum",
+    "subtitle": "Античные слепки, Египет и детские программы",
+    "description": "Залы античности и Древнего Египта, мумии и слепки статуй — это обычно нравится детям. Для школьников есть семейные программы.",
+    "price": [
+      300,
+      600
+    ],
+    "family_budget": 2000,
+    "age": [
+      6,
+      12
+    ],
+    "duration": 100,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      null,
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "drawing"
+    ],
+    "experience": [
+      "workshop",
+      "unusual"
+    ],
+    "tags": [
+      "Искусство",
+      "Египет",
+      "Центр"
+    ],
+    "hit": false,
+    "photoSet": "art",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Государственный_музей_изобразительных_искусств_имени_А._С._Пушкина",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Театр кукол имени Образцова",
+    "slug": "teatr-obrazcova",
+    "town": "Мещанский",
+    "region": "msk",
+    "address": "Москва, Садовая-Самотёчная ул., 3",
+    "metro": "Цветной бульвар",
+    "lat": 55.7743,
+    "lng": 37.6186,
+    "category": "museum",
+    "subtitle": "Кукольные спектакли и музей кукол",
+    "description": "Один из главных кукольных театров страны: спектакли для малышей и школьников и музей кукол. Билеты лучше брать заранее — по афише.",
+    "price": [
+      500,
+      1500
+    ],
+    "family_budget": 3200,
+    "age": [
+      2,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": true,
+    "hours": [
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "fairy",
+      "music"
+    ],
+    "experience": [
+      "show",
+      "toddlers"
+    ],
+    "tags": [
+      "Театр",
+      "Куклы",
+      "Спектакль"
+    ],
+    "hit": true,
+    "photoSet": "theatre",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Центральный_театр_кукол_имени_С._В._Образцова",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Цирк Никулина на Цветном бульваре",
+    "slug": "cirk-nikulina",
+    "town": "Мещанский",
+    "region": "msk",
+    "address": "Москва, Цветной бульвар, 13",
+    "metro": "Цветной бульвар",
+    "lat": 55.7712,
+    "lng": 37.6196,
+    "category": "museum",
+    "subtitle": "Цирковое представление для всей семьи",
+    "description": "Старый московский цирк: акробаты, клоуны, шоу для всей семьи. Расписание и цены зависят от программы, билеты лучше брать заранее.",
+    "price": [
+      800,
+      3000
+    ],
+    "family_budget": 6500,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 150,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 3,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": true,
+    "hours": [
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "music",
+      "fairy"
+    ],
+    "experience": [
+      "show"
+    ],
+    "tags": [
+      "Цирк",
+      "Шоу",
+      "Центр"
+    ],
+    "hit": true,
+    "photoSet": "theatre",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Цирк_Никулина_на_Цветном_бульваре",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Большой Московский государственный цирк",
+    "slug": "bolshoy-moscow-cirk",
+    "town": "Раменки (ЗАО)",
+    "region": "msk",
+    "address": "Москва, проспект Вернадского, 7",
+    "metro": "Университет",
+    "lat": 55.6961,
+    "lng": 37.5331,
+    "category": "museum",
+    "subtitle": "Цирковые программы на Воробьёвых горах",
+    "description": "Крупнейший цирк города: большие программы с акробатами, воздушными гимнастами и аттракционами. Билеты лучше брать заранее.",
+    "price": [
+      800,
+      3500
+    ],
+    "family_budget": 7000,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 150,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 3,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": true,
+    "hours": [
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "music",
+      "fairy"
+    ],
+    "experience": [
+      "show"
+    ],
+    "tags": [
+      "Цирк",
+      "Шоу"
+    ],
+    "hit": false,
+    "photoSet": "theatre",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Большой_Московский_государственный_цирк",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Музыкальный театр имени Наталии Сац",
+    "slug": "teatr-sats",
+    "town": "Раменки (ЗАО)",
+    "region": "msk",
+    "address": "Москва, проспект Вернадского, 5",
+    "metro": "Университет",
+    "lat": 55.6955,
+    "lng": 37.5287,
+    "category": "museum",
+    "subtitle": "Детский оперный и балетный театр",
+    "description": "Первый в мире детский музыкальный театр: оперы и балеты для детей разных возрастов. Подойдёт для первого знакомства с театром.",
+    "price": [
+      600,
+      2500
+    ],
+    "family_budget": 5500,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 120,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": true,
+    "hours": [
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "music",
+      "fairy"
+    ],
+    "experience": [
+      "show"
+    ],
+    "tags": [
+      "Театр",
+      "Опера",
+      "Балет"
+    ],
+    "hit": false,
+    "photoSet": "theatre",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Российский_академический_Молодёжный_театр",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Театр зверей имени Дурова («Уголок Дурова»)",
+    "slug": "ugolok-durova",
+    "town": "Мещанский",
+    "region": "msk",
+    "address": "Москва, ул. Дурова, 4",
+    "metro": "Цветной бульвар",
+    "lat": 55.7812,
+    "lng": 37.6299,
+    "category": "animals",
+    "subtitle": "Спектакль с дрессированными животными и мини-музей",
+    "description": "Старейший театр животных в мире: спектакли с дрессированными животными и маленький музей. Короткое представление хорошо подходит младшим школьникам и дошкольникам.",
+    "price": [
+      700,
+      2200
+    ],
+    "family_budget": 4500,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": true,
+    "hours": [
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00",
+      "11:00-19:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "animals",
+      "fairy"
+    ],
+    "experience": [
+      "show"
+    ],
+    "tags": [
+      "Театр зверей",
+      "Животные",
+      "Спектакль"
+    ],
+    "hit": false,
+    "photoSet": "zoo",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Театр_зверей_имени_В._Л._Дурова",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Дом-музей В. М. Васнецова",
+    "slug": "dom-muzey-vasnecova",
+    "town": "Мещанский",
+    "region": "msk",
+    "address": "Москва, переулок Васнецова, 13",
+    "metro": "Проспект Мира",
+    "lat": 55.7843,
+    "lng": 37.6317,
+    "category": "museum",
+    "subtitle": "Сказочный терем художника",
+    "description": "Деревянный дом-терем художника, автора сказочных картин. Небольшой музей — хорошо для короткого визита и сказок.",
+    "price": [
+      150,
+      400
+    ],
+    "family_budget": 1100,
+    "age": [
+      5,
+      12
+    ],
+    "duration": 60,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      null,
+      null,
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "fairy",
+      "drawing"
+    ],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "Сказки",
+      "Терем",
+      "Музей"
+    ],
+    "hit": false,
+    "photoSet": "art",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Дом-музей_В._М._Васнецова",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Останкинская башня: смотровая площадка",
+    "slug": "ostankino-tower",
+    "town": "Останкинский",
+    "region": "msk",
+    "address": "Москва, ул. Академика Королёва, 15",
+    "metro": "ВДНХ",
+    "lat": 55.8197,
+    "lng": 37.6116,
+    "category": "museum",
+    "subtitle": "Панорама Москвы с высоты 337 метров",
+    "description": "Экскурсия на смотровую площадку Останкинской башни: быстрый лифт и вид на весь город. Проходит по записи, подойдёт школьникам и любителям высоты.",
+    "price": [
+      1000,
+      1700
+    ],
+    "family_budget": 5500,
+    "age": [
+      6,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": true,
+    "hours": [
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "science",
+      "space"
+    ],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "Панорама",
+      "Башня",
+      "Запись"
+    ],
+    "hit": false,
+    "photoSet": "space",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Останкинская_телебашня",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any",
+      "sun"
+    ]
+  },
+  {
+    "title": "«Панорама360» в башне «Федерация»",
+    "slug": "panorama360-federation",
+    "town": "Пресненский",
+    "region": "msk",
+    "address": "Москва, Пресненская наб., 12",
+    "metro": "Деловой центр",
+    "lat": 55.7498,
+    "lng": 37.5381,
+    "category": "museum",
+    "subtitle": "Смотровая площадка на 89 этаже Москвы-Сити",
+    "description": "Самая высокая смотровая площадка Европы в Москве-Сити. Подойдёт, чтобы показать детям город сверху — лучше выбирать ясный день.",
+    "price": [
+      900,
+      1700
+    ],
+    "family_budget": 4500,
+    "age": [
+      5,
+      12
+    ],
+    "duration": 75,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": true,
+    "hours": [
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "science"
+    ],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "Панорама",
+      "Москва-Сити"
+    ],
+    "hit": false,
+    "photoSet": "space",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Башня_Федерация",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any",
+      "sun"
+    ]
+  },
+  {
+    "title": "КидБург в «Авиапарке»",
+    "slug": "kidburg-aviapark",
+    "town": "Хорошёвский",
+    "region": "msk",
+    "address": "Москва, Ходынский бульвар, 4 (ТРЦ «Авиапарк»)",
+    "metro": "ЦСКА",
+    "lat": 55.7907,
+    "lng": 37.5309,
+    "category": "play",
+    "subtitle": "Город профессий: дети «работают» и получают зарплату",
+    "description": "Интерактивный город, где дети пробуют профессии: пожарный, повар, врач и другие, получают игровую зарплату и тратят её. Родители ждут рядом; нужна запись на сеанс.",
+    "price": [
+      1500,
+      2800
+    ],
+    "family_budget": 5500,
+    "age": [
+      4,
+      12
+    ],
+    "duration": 180,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 2,
+    "noise": 3,
+    "stroller": true,
+    "baby_room": true,
+    "kids_menu": true,
+    "parking": true,
+    "booking": true,
+    "hours": [
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "cooking",
+      "science",
+      "construction"
+    ],
+    "experience": [
+      "playzone",
+      "workshop",
+      "food"
+    ],
+    "tags": [
+      "Профессии",
+      "ТРЦ",
+      "Запись"
+    ],
+    "hit": true,
+    "photoSet": "play",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/КидБург",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Каток на ВДНХ",
+    "slug": "katok-vdnh",
+    "town": "Алексеевский",
+    "region": "msk",
+    "address": "Москва, проспект Мира, 119 (ВДНХ)",
+    "metro": "ВДНХ",
+    "lat": 55.8294,
+    "lng": 37.6355,
+    "category": "active",
+    "subtitle": "Один из самых больших катков Москвы",
+    "description": "Огромный каток на главной аллее ВДНХ с прокатом коньков и тёплыми зонами. Работает зимой; лучше брать заранее билеты в выходные.",
+    "price": [
+      400,
+      900
+    ],
+    "family_budget": 3000,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 120,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 3,
+    "noise": 2,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00"
+    ],
+    "season": [
+      "winter"
+    ],
+    "interests": [
+      "sport"
+    ],
+    "experience": [
+      "playzone",
+      "unusual"
+    ],
+    "tags": [
+      "Каток",
+      "Коньки",
+      "Зима"
+    ],
+    "hit": true,
+    "photoSet": "ice",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/ВДНХ",
+    "confidence": "medium",
+    "weather": [
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Каток в парке Горького",
+    "slug": "katok-park-gorkogo",
+    "town": "Якиманка",
+    "region": "msk",
+    "address": "Москва, Крымский Вал, 9 (парк Горького)",
+    "metro": "Парк культуры",
+    "lat": 55.7295,
+    "lng": 37.6038,
+    "category": "active",
+    "subtitle": "Зимний каток в самом известном парке города",
+    "description": "Каток в парке Горького с прокатом, зоной отдыха и горячим чаем. Работает зимой; удобно сочетать с прогулкой по парку и Музеоном.",
+    "price": [
+      400,
+      900
+    ],
+    "family_budget": 3000,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 120,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 3,
+    "noise": 2,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00"
+    ],
+    "season": [
+      "winter"
+    ],
+    "interests": [
+      "sport"
+    ],
+    "experience": [
+      "playzone",
+      "unusual"
+    ],
+    "tags": [
+      "Каток",
+      "Коньки",
+      "Зима"
+    ],
+    "hit": false,
+    "photoSet": "ice",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Центральный_парк_культуры_и_отдыха_имени_Горького",
+    "confidence": "medium",
+    "weather": [
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Фуд-холл «Депо»",
+    "slug": "depo-food-hall",
+    "town": "Беговой",
+    "region": "msk",
+    "address": "Москва, Лесная ул., 20",
+    "metro": "Белорусская",
+    "lat": 55.779,
+    "lng": 37.5877,
+    "category": "cafe",
+    "subtitle": "Огромный фуд-холл: каждому своё",
+    "description": "Большой фуд-холл с десятками кухонь — каждый найдёт своё. Много места и столов, удобно с коляской и большой компанией.",
+    "price": [
+      300,
+      800
+    ],
+    "family_budget": 2000,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 75,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "food",
+      "cafe"
+    ],
+    "tags": [
+      "Фуд-холл",
+      "Разная кухня"
+    ],
+    "hit": false,
+    "photoSet": "cafe",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Депо_(фудмолл)",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Даниловский рынок",
+    "slug": "danilovsky-rynok",
+    "town": "Даниловский",
+    "region": "msk",
+    "address": "Москва, ул. Мытная, 74",
+    "metro": "Тульская",
+    "lat": 55.7118,
+    "lng": 37.6247,
+    "category": "cafe",
+    "subtitle": "Рынок с фуд-кортом и фермерскими продуктами",
+    "description": "Просторный рынок с фуд-кортом: фермерские продукты, выпечка и горячая еда. Можно пообедать и купить продукты, много места для коляски.",
+    "price": [
+      250,
+      700
+    ],
+    "family_budget": 1700,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 75,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "food",
+      "cafe"
+    ],
+    "tags": [
+      "Рынок",
+      "Фуд-корт"
+    ],
+    "hit": false,
+    "photoSet": "cafe",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Даниловский_рынок",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Московский дом книги на Новом Арбате",
+    "slug": "dom-knigi-arbat",
+    "town": "Арбат",
+    "region": "msk",
+    "address": "Москва, Новый Арбат, 8",
+    "metro": "Арбатская",
+    "lat": 55.7525,
+    "lng": 37.5886,
+    "category": "shop",
+    "subtitle": "Большой книжный магазин с детским отделом",
+    "description": "Один из самых больших книжных магазинов города с отдельным детским отделом: книги, раскраски и игры. Хорошее место, чтобы выбрать подарок.",
+    "price": [
+      0,
+      1500
+    ],
+    "family_budget": 1000,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 60,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "fairy",
+      "drawing"
+    ],
+    "experience": [
+      "books",
+      "toys"
+    ],
+    "tags": [
+      "Книги",
+      "Раскраски",
+      "Подарки"
+    ],
+    "hit": false,
+    "photoSet": "books",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Московский_дом_книги",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "«Библио-Глобус»",
+    "slug": "biblio-globus",
+    "town": "Мещанский",
+    "region": "msk",
+    "address": "Москва, ул. Мясницкая, 6/3, стр. 3",
+    "metro": "Лубянка",
+    "lat": 55.7606,
+    "lng": 37.6358,
+    "category": "shop",
+    "subtitle": "Огромный книжный с детскими этажами",
+    "description": "Огромный книжный магазин рядом с центром: детские книги, раскраски, развивающие игры. Можно выбрать подарок и провести в магазине час.",
+    "price": [
+      0,
+      1500
+    ],
+    "family_budget": 1000,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 60,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "fairy",
+      "drawing"
+    ],
+    "experience": [
+      "books",
+      "toys"
+    ],
+    "tags": [
+      "Книги",
+      "Подарки"
+    ],
+    "hit": false,
+    "photoSet": "books",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Библио-Глобус",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  }
+]

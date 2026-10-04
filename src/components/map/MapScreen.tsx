@@ -4,7 +4,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Search, SlidersHorizontal, Navigation, ArrowRight, X, ChevronDown, LocateOff, Plus, Minus, RefreshCw, ExternalLink, Loader2 } from "lucide-react";
+import { Search, SlidersHorizontal, Navigation, ArrowRight, X, ChevronDown, LocateOff, Plus, Minus, RefreshCw, ExternalLink, Loader2, Layers } from "lucide-react";
 import type { Map as MLMap, Marker as MLMarker } from "maplibre-gl";
 import type { CategoryId, GeoPoint, Place } from "@/lib/types";
 import { allPlaces, getPlaceSync } from "@/lib/data/repository";
@@ -59,6 +59,8 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   const [attempt, setAttempt] = useState(0);
   const [status, setStatus] = useState("Загружаем карту…");
   const [slow, setSlow] = useState(false);
+  /** Пользователь сам переключился на другой вид карты (основная при этом остаётся живой под ним). */
+  const [manual, setManual] = useState(false);
   const [provider, setProvider] = useState<ProviderId | null>(null);
   const [zoom, setZoom] = useState(11);
   const [layout, setLayout] = useState<Record<string, MarkerLayout>>({});
@@ -268,6 +270,11 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
     return () => clearTimeout(t);
   }, [mode, attempt]);
   const retry = useCallback(() => {
+    setManual(false);
+    if (mapRef.current) {
+      setMode("map");
+      return;
+    }
     setMode("loading");
     setStatus("Загружаем карту…");
     setAttempt((n) => n + 1);
@@ -547,18 +554,29 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
         {(mode === "fallback" || mode === "yandex" || (mode === "loading" && slow)) && (
           <div className="mx-4 mt-1 rounded-[16px] bg-white/95 p-2 shadow-card animate-rise" role="status">
             <p className="px-1.5 text-[13px] leading-snug text-ink-2">
-              {mode === "loading" ? "Карта грузится дольше обычного." : "Подложка карты недоступна (связь или блокировка серверов тайлов)."}
+              {mode === "loading"
+                ? "Карта грузится дольше обычного."
+                : manual
+                  ? "Другой вид карты. Места — в списке ниже; вернуться к основной карте — «Основная»."
+                  : "Подложка карты недоступна (связь или блокировка серверов тайлов)."}
             </p>
             <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {manual && (
+                <button onClick={retry} className="press h-9 rounded-full bg-ink px-3.5 text-[13.5px] font-semibold text-white">
+                  Основная
+                </button>
+              )}
               <button onClick={() => setMode("yandex")} className={cn("press h-9 rounded-full px-3.5 text-[13.5px] font-semibold", mode === "yandex" ? "bg-ink text-white" : "bg-fill")}>
                 Карта Яндекса
               </button>
               <button onClick={() => setMode("fallback")} className={cn("press h-9 rounded-full px-3.5 text-[13.5px] font-semibold", mode === "fallback" ? "bg-ink text-white" : "bg-fill")}>
                 Схема
               </button>
-              <button onClick={retry} className="press inline-flex h-9 items-center gap-1.5 rounded-full bg-fill px-3.5 text-[13.5px] font-semibold">
-                <RefreshCw size={14} /> Повторить
-              </button>
+              {!manual && (
+                <button onClick={retry} className="press inline-flex h-9 items-center gap-1.5 rounded-full bg-fill px-3.5 text-[13.5px] font-semibold">
+                  <RefreshCw size={14} /> Повторить
+                </button>
+              )}
               <a href={yLink} target="_blank" rel="noopener noreferrer" className="press inline-flex h-9 items-center gap-1.5 rounded-full bg-fill px-3.5 text-[13.5px] font-semibold text-blue">
                 <ExternalLink size={14} /> В приложении
               </a>
@@ -585,6 +603,21 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
             <Minus size={20} />
           </button>
         </div>
+      )}
+
+      {/* другой вид карты: если подложка выглядит странно или не открывается */}
+      {mode === "map" && (
+        <button
+          onClick={() => {
+            setManual(true);
+            setMode("yandex");
+          }}
+          aria-label="Сменить карту"
+          className="press absolute right-4 z-20 grid h-11 w-11 place-items-center rounded-full bg-white text-ink-2 shadow-float"
+          style={{ bottom: "calc(var(--sheet-h) + 78px)" }}
+        >
+          <Layers size={19} strokeWidth={2.1} />
+        </button>
       )}
 
       {/* моя геопозиция */}

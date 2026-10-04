@@ -215,6 +215,8 @@ export interface ScenarioConstraints {
   preferCategories?: CategoryId[];
   avoidCategories?: CategoryId[];
   interests?: InterestId[];
+  /** Предпочесть места с таким форматом (спектакль, мастер-класс, книги…). */
+  experiences?: ExperienceTag[];
   /** Шаг-«передышка» для родителя: кафе с игровой зоной. */
   parentBreak?: boolean;
   bookingOk?: boolean;

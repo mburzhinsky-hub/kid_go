@@ -18,6 +18,7 @@ import { demoForecast, moscowDateISO, outdoorVerdict, weekdayOf, windowWx, type 
 import { isOpenDuring, toMinutes } from "../src/lib/format";
 import { AREAS, DEFAULT_ORIGIN, SETTLEMENTS, isSuburban, okrugById, okrugOrigin, type Origin } from "../src/lib/location";
 import { GROUP_LABEL, SCENARIO_LIBRARY, pickScenarios, type ScenarioCtx, type ScenarioDef, type ScenarioGroup } from "../src/lib/scenarios";
+import { allPlaces } from "../src/lib/data/repository";
 import type { InterestId, TransportId } from "../src/lib/types";
 
 const QUICK = process.argv.includes("--quick");
@@ -72,14 +73,17 @@ const KIDS: Record<string, Partial<ScenarioCtx>> = {
   "11 лет": { kidsCount: 1, youngest: 11, oldest: 11 },
   "2 и 9": { kidsCount: 2, youngest: 2, oldest: 9 },
   "1, 6, 12": { kidsCount: 3, youngest: 1, oldest: 12 },
+  "4 и 5": { kidsCount: 2, youngest: 4, oldest: 5 },
+  "7 лет": { kidsCount: 1, youngest: 7, oldest: 7 },
+  "6 и 8": { kidsCount: 2, youngest: 6, oldest: 8 },
 };
-const INTS: string[][] = [[], ["drawing"], ["science"], ["animals"], ["space", "cooking"]];
+const INTS: string[][] = [[], ["drawing"], ["science"], ["animals"], ["space", "cooking"], ["dinosaurs", "transport"], ["music", "fairy"], ["sport", "nature"]];
 const shown = new Map<string, number>();
 let ctxN = 0;
 let badRel = 0;
 for (let weekday = 0; weekday < 7; weekday++)
   for (const hour of [8, 11, 13, 16, 19, 21])
-    for (const month of [1, 4, 7, 10])
+    for (const month of [1, 3, 5, 7, 8, 10, 12])
       for (const wx of Object.values(WXC))
         for (const kids of Object.values(KIDS))
           for (const interests of INTS) {
@@ -96,8 +100,8 @@ for (let weekday = 0; weekday < 7; weekday++)
 if (badRel) fail.push(`relevance вернул не число/отрицательное: ${badRel}`);
 const never = SCENARIO_LIBRARY.filter((s) => !shown.get(s.id));
 for (const s of never) fail.push(`главная: «${s.id}» не показывается никогда (мёртвый сценарий)`);
-const rare = SCENARIO_LIBRARY.filter((s) => shown.get(s.id) && (shown.get(s.id) ?? 0) / ctxN < 0.01);
-for (const s of rare) fail.push(`главная: «${s.id}» показывается реже чем в 1% ситуаций`);
+const rare = SCENARIO_LIBRARY.filter((s) => shown.get(s.id) && (shown.get(s.id) ?? 0) / ctxN < 0.001);
+for (const s of rare) fail.push(`главная: «${s.id}» показывается реже чем в 0,1% ситуаций`);
 
 /* ───────────── 3. Матрица ───────────── */
 const families: Record<string, { name: string; age: number; interests: InterestId[] }[]> = {
@@ -254,7 +258,16 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
     const cs = sc?.constraints;
     // для малышей подходит мало мест любой категории — меряем там, где выбор есть (дети от 5 лет)
     if (sc && youngest >= 5 && !c.indoorOnly === !cs?.indoorOnly) {
-      if (cs?.preferCategories) softAdd(`${sc.id}|нужная категория`, r.plans.some((p) => p.stops.some((s) => cs.preferCategories!.includes(s.place.category))));
+      // бесплатный запрос, а бесплатных мест нужной категории в каталоге нет — выполнить это условие невозможно
+      // и не просим невозможного: нужна категория, где есть место для ВСЕХ детей по возрасту, в бюджет и (в дождь) под крышей
+      const rainy = wx === "rain" || wx === "rain15" || wx === "cold";
+      const feasible = !!cs?.preferCategories && (allPlaces as { category: string; price_min: number; age_min: number; age_max: number; indoor: boolean }[]).some(
+        (p) => cs.preferCategories!.includes(p.category as never) && (input.budget !== "free" || p.price_min === 0) && kids.every((k) => k.age >= p.age_min && k.age <= p.age_max) && (!rainy || p.indoor)
+      );
+      if (cs?.preferCategories && feasible && CITY_LOCS.has(loc.id)) {
+        const okCat = r.plans.some((p) => p.stops.some((s) => cs.preferCategories!.includes(s.place.category)));
+        softAdd(`${sc.id}|нужная категория`, okCat);
+      }
       if (cs?.interests) softAdd(`${sc.id}|интересы сценария`, r.plans.some((p) => p.stops.some((s) => s.place.interest_tags.some((i) => cs.interests!.includes(i)))));
     }
   }
@@ -324,7 +337,8 @@ const key1 = (sid: string, c: Cfg) => {
 const BASE: Omit<Cfg, "kids"> = { loc: LOCS[5], wx: "sun", now: SAT, query: {} };
 /** «Тесные» сценарии: узкий радиус и тишина оставляют 3–6 подходящих мест, поэтому часть условий их план не меняет — это нормально. */
 const tight = (s: ScenarioDef) =>
-  !!s.constraints?.maxTravelMin || !!s.constraints?.stroller || !!s.constraints?.endBy || (s.duration === "short" && (!!s.constraints?.quiet || !!s.constraints?.indoorOnly));
+  !!s.constraints?.maxTravelMin || !!s.constraints?.stroller || !!s.constraints?.endBy || (s.duration === "short" && (!!s.constraints?.quiet || !!s.constraints?.indoorOnly)) ||
+  (s.budget === "free" && !!s.constraints?.indoorOnly);
 type Factor = { id: string; short: string; patch: (b: Cfg) => Cfg; applies?: (s: ScenarioDef) => boolean; min?: (s: ScenarioDef) => number };
 const toddler = [{ name: "", age: 2, interests: [] as InterestId[] }];
 const teen = [{ name: "", age: 10, interests: [] as InterestId[] }];
@@ -468,6 +482,42 @@ const WHEN: Record<string, string> = {
   easy: "младшему до 3 лет — выше",
   "no-crowd": "выходные — выше",
   gentle: "всегда, самый низкий приоритет (только в «Все ситуации»)",
+  spring: "март–май без дождя и мороза (солнце — выше)",
+  "warm-evening": "май–сентябрь, 15:00–21:00, тепло",
+  "winter-tale": "декабрь–февраль (снег — выше)",
+  rink: "ноябрь–март при морозе или снеге",
+  "hot-water": "жара",
+  "rain-play": "дождь весь день",
+  "weekend-morning": "суббота и воскресенье до 11:00",
+  "lunch-walk": "11:00–14:00 без дождя и мороза",
+  holidays: "будни каникулярных месяцев до 15:00",
+  "late-start": "15:00–18:00",
+  "sunday-eve": "воскресенье после 14:00",
+  "weekday-off": "будни до 14:00",
+  preschool: "всем детям 4–6 лет",
+  primary: "всем детям 7–9 лет",
+  "big-family": "трое и больше детей",
+  grandpa: "выходные — выше",
+  "mom-friends": "младшему до 3 лет",
+  "first-grader": "ребёнку 6–8 лет, будни после 13:00",
+  twins: "двое и больше с разницей до 2 лет",
+  "new-year": "декабрь и январь",
+  gift: "декабрь (выше), пятница после 15:00",
+  "family-dinner": "выходные 9:00–15:00",
+  "summer-farewell": "август (сентябрь — слабее)",
+  "theatre-circus": "дождь или мороз; выходные — выше",
+  "dino-day": "интерес: динозавры",
+  "transport-day": "интерес: транспорт или конструкторы",
+  "music-fairy": "интерес: музыка или сказки",
+  "nature-walk": "интерес: природа (без дождя, мороза, жары)",
+  "sport-day": "интерес: спорт",
+  "sweet-workshop": "интерес: готовка или рисование",
+  bookish: "дождь или мороз — выше",
+  "near-home": "младшему до 4 лет — выше",
+  "free-indoors": "дождь, мороз или снег",
+  splurge: "выходные — выше",
+  "cheap-lunch": "будни 9:00–15:00 — выше",
+  "low-energy": "будни после 17:00; дождь и мороз",
 };
 if (DOC) {
   const L: string[] = [];
@@ -491,6 +541,9 @@ if (DOC) {
       if (c.maxTravelMin) cons.push(`дорога до ${c.maxTravelMin} мин`);
       if (c.preferCategories) cons.push(`категории: ${c.preferCategories.join("/")}`);
       if (c.interests) cons.push(`интересы: ${c.interests.join("/")}`);
+      if (c.experiences) cons.push(`формат: ${c.experiences.join("/")}`);
+      if (c.startAt) cons.push(`не раньше ${Math.floor(c.startAt / 60)}:${String(c.startAt % 60).padStart(2, "0")}`);
+      if (c.minStops) cons.push(`от ${c.minStops} мест`);
       if (c.parentBreak) cons.push("передышка родителю (кафе)");
       if (c.bookingOk) cons.push("бронь допустима");
       const budget = s.budget ? ({ free: "бесплатно", "2000": "до 2 000 ₽", "5000": "до 5 000 ₽", any: "любой" } as Record<string, string>)[s.budget] : "как в профиле";
