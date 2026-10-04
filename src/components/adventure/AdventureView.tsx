@@ -16,7 +16,7 @@ import { bringList, daySummary, moscowDateISO, weekdayOf, windowWx } from "@/lib
 import { wxFor } from "@/lib/recommend/engine";
 import { alternativesFor, type Alternative } from "@/lib/alternatives";
 import { downloadICS } from "@/lib/calendar";
-import { travelToPlace, formatTravel } from "@/lib/location";
+import { travelToPlace, formatTravel, locationMode } from "@/lib/location";
 import { getPlaceSync } from "@/lib/data/repository";
 import { BottomSheet } from "@/components/ui/BottomSheet";
 import { useToast, ToastHost } from "@/components/ui/Toast";
@@ -99,7 +99,7 @@ export function AdventureView(props: AdventureViewProps) {
   const places = plan.stops.map((s) => s.place);
   const cover = props.cover ?? places[0]?.photos[0];
   const startOptions = START_OPTIONS.includes(props.start) ? START_OPTIONS : [props.start, ...START_OPTIONS].sort((a, b) => toMinutes(a) - toMinutes(b));
-  const fromHome = fam.hydrated && places[0] && fam.origin.source !== "default" ? travelToPlace(fam.origin, places[0], fam.transport) : null;
+  const fromHome = fam.hydrated && places[0] && locationMode(fam.origin) === "exact" ? travelToPlace(fam.origin, places[0], fam.transport) : null;
   const endMin = plan.stops.length ? toMinutes(plan.stops[plan.stops.length - 1].start) + plan.stops[plan.stops.length - 1].duration : toMinutes(start);
   const bring = forecast ? bringList(windowWx(forecast, dateISO, toMinutes(start), endMin), youngest, places.some((p) => p.outdoor)) : [];
   const badIndex = plan.stops.findIndex((s) => s.weather?.bad && s.place.outdoor && !s.place.indoor);

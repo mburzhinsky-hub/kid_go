@@ -4,13 +4,13 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Search, SlidersHorizontal, Navigation, ArrowRight, X, ChevronDown, LocateOff, Plus, Minus } from "lucide-react";
+import { Search, SlidersHorizontal, Navigation, ArrowRight, X, ChevronDown, LocateOff, Plus, Minus, RefreshCw, ExternalLink, Loader2 } from "lucide-react";
 import type { Map as MLMap, Marker as MLMarker } from "maplibre-gl";
 import type { CategoryId, GeoPoint, Place } from "@/lib/types";
 import { allPlaces, getPlaceSync } from "@/lib/data/repository";
 import { useNearbyExtras } from "@/lib/nearby";
 import { DEFAULT_LOCATION } from "@/lib/geo";
-import { travelToPlace, nearestAreaLabel } from "@/lib/location";
+import { travelToPlace, nearestAreaLabel, locationMode } from "@/lib/location";
 import { openState } from "@/lib/format";
 import { categoryDef } from "@/lib/catalog";
 import { useFamily } from "@/lib/store";
@@ -19,6 +19,7 @@ import { declutter, type MarkerLayout } from "./declutter";
 import { PlaceBottomSheet } from "./PlaceBottomSheet";
 import { StylizedMap, makeProjector } from "./StylizedMap";
 import { createBaseMap, applyKidStyle, type ProviderId } from "./base-map";
+import { frameOf, yandexMapsUrl, yandexWidgetUrl } from "./map-links";
 import { PlaceCard } from "@/components/cards/PlaceCard";
 import { FilterChip } from "@/components/ui/FilterChip";
 import { BottomSheet } from "@/components/ui/BottomSheet";
@@ -54,7 +55,10 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   const markersRef = useRef<Map<string, MLMarker>>(new Map());
   const userMarkerRef = useRef<MLMarker | null>(null);
   const [els, setEls] = useState<Record<string, HTMLElement>>({});
-  const [mode, setMode] = useState<"loading" | "map" | "fallback">("loading");
+  const [mode, setMode] = useState<"loading" | "map" | "fallback" | "yandex">("loading");
+  const [attempt, setAttempt] = useState(0);
+  const [status, setStatus] = useState("Загружаем карту…");
+  const [slow, setSlow] = useState(false);
   const [provider, setProvider] = useState<ProviderId | null>(null);
   const [zoom, setZoom] = useState(11);
   const [layout, setLayout] = useState<Record<string, MarkerLayout>>({});
@@ -84,7 +88,10 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   const planPlaces = useMemo(() => (initialPlan ?? []).map((x) => poolBySlug.get(x) ?? getPlaceSync(x)).filter(Boolean) as Place[], [initialPlan, poolBySlug]);
   const planSlugs = useMemo(() => planPlaces.map((p) => p.slug), [planPlaces]);
   const mlRef = useRef<typeof import("maplibre-gl") | null>(null);
+  const anywhereRef = useRef(false);
+  anywhereRef.current = hydrated && locationMode(origin) === "any";
   const [mapReady, setMapReady] = useState(false);
+  const anywhere = hydrated && locationMode(origin) === "any";
   // точка выезда семьи — она же «я» на карте
   useEffect(() => {
     if (hydrated && origin.source !== "default") setUser({ lat: origin.lat, lng: origin.lng });
@@ -92,6 +99,8 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   // схема без подложки: кадр = точка выезда + ближайшие места (влезают в экран)
   const fbFrame = useMemo(() => {
     const me: GeoPoint = origin.source !== "default" ? { lat: origin.lat, lng: origin.lng } : DEFAULT_LOCATION;
+    // «вся Москва»: кадр — город целиком, без привязки к точке
+    if (origin.source === "default" && !planPlaces.length) return { center: DEFAULT_LOCATION as GeoPoint, zoom: 1.15 };
     const near = planPlaces.length
       ? planPlaces
       : [...pool].sort((a, b) => travelToPlace(me, a, "car").minutes - travelToPlace(me, b, "car").minutes).slice(0, 8);
@@ -152,9 +161,22 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
     () =>
       planSlugs.length
         ? visible.map((p) => ({ p, min: 0 }))
-        : visible.map((p) => ({ p, min: travelToPlace(user, p, transport).minutes })).sort((a, b) => a.min - b.min),
-    [visible, user, transport, planSlugs]
+        : anywhere
+          ? // без точки «рядом» не считаем: лучшее по городу
+            visible.map((p) => ({ p, min: 0, s: p.rating * 2 + Math.log10(p.review_count + 1) + (p.is_hit ? 1 : 0) })).sort((a, b) => b.s - a.s)
+          : visible.map((p) => ({ p, min: travelToPlace(user, p, transport).minutes })).sort((a, b) => a.min - b.min),
+    [visible, user, transport, planSlugs, anywhere]
   );
+  // ссылки на Яндекс Карты: рамка — по лучшим местам выдачи (или точке выезда)
+  const yFrame = useMemo(() => {
+    const top = nearby.slice(0, 30).map(({ p }) => ({ lat: p.latitude, lng: p.longitude }));
+    if (planPlaces.length) return { ...frameOf(top.length ? top : [DEFAULT_LOCATION]), pins: planPlaces.map((p, i) => ({ lat: p.latitude, lng: p.longitude, n: i + 1 })) };
+    if (anywhere) return { center: DEFAULT_LOCATION as GeoPoint, zoom: 10, pins: top.slice(0, 20) };
+    const pts = [{ lat: user.lat, lng: user.lng }, ...top.slice(0, 8)];
+    return { ...frameOf(pts), pins: [...top.slice(0, 15)] };
+  }, [nearby, planPlaces, anywhere, user]);
+  const ySrc = useMemo(() => yandexWidgetUrl(yFrame.center, yFrame.zoom, yFrame.pins), [yFrame]);
+  const yLink = useMemo(() => yandexMapsUrl(yFrame.center, yFrame.zoom, yFrame.pins), [yFrame]);
   const selectedPlace = selected ? poolBySlug.get(selected) ?? getPlaceSync(selected) : null;
 
   /* ───── инициализация карты ───── */
@@ -166,10 +188,11 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
     if (!start || !containerRef.current) return;
     const flag = { cancelled: false };
     (async () => {
-      const res = await createBaseMap({ container: containerRef.current!, center: [start.lng, start.lat], zoom: 10.6, signal: flag });
+      const res = await createBaseMap({ container: containerRef.current!, center: [start.lng, start.lat], zoom: anywhereRef.current ? 10 : 10.6, signal: flag, onStatus: setStatus });
       if (flag.cancelled) return;
       if (!res) {
-        setMode("fallback");
+        // нет подложки: онлайн → карта Яндекса (открывается там, где иностранные тайлы — нет), офлайн → схема
+        setMode(typeof navigator !== "undefined" && navigator.onLine === false ? "fallback" : "yandex");
         return;
       }
       const { map } = res;
@@ -192,7 +215,13 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
           map.addLayer({ id: "plan-route-casing", type: "line", source: "plan-route", paint: { "line-color": "#ffffff", "line-width": 8, "line-opacity": 0.9 }, layout: { "line-cap": "round", "line-join": "round" } });
           map.addLayer({ id: "plan-route", type: "line", source: "plan-route", paint: { "line-color": "#FF2E88", "line-width": 4, "line-dasharray": [1.5, 1.2] }, layout: { "line-cap": "round", "line-join": "round" } });
         }
-        // кадр: маршрут целиком, иначе — точка выезда и ближайшие места
+        // кадр: маршрут целиком; «вся Москва» — город как есть; иначе — точка выезда и ближайшие места
+        if (!planPlaces.length && anywhereRef.current) {
+          setZoom(map.getZoom());
+          setMode("map");
+          setMapReady(true);
+          return;
+        }
         const bounds = new ml.LngLatBounds([start.lng, start.lat], [start.lng, start.lat]);
         const near = planPlaces.length
           ? planPlaces
@@ -214,7 +243,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       });
     })().catch((err) => {
       console.warn("[map] ошибка инициализации", err);
-      if (!flag.cancelled) setMode("fallback");
+      if (!flag.cancelled) setMode(typeof navigator !== "undefined" && navigator.onLine === false ? "fallback" : "yandex");
     });
     return () => {
       flag.cancelled = true;
@@ -227,7 +256,27 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       setEls({});
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [start]);
+  }, [start, attempt]);
+
+  // «Долго грузится» — через 6 секунд предлагаем не ждать; вернулась сеть — пробуем снова сами
+  useEffect(() => {
+    if (mode !== "loading") {
+      setSlow(false);
+      return;
+    }
+    const t = setTimeout(() => setSlow(true), 6000);
+    return () => clearTimeout(t);
+  }, [mode, attempt]);
+  const retry = useCallback(() => {
+    setMode("loading");
+    setStatus("Загружаем карту…");
+    setAttempt((n) => n + 1);
+  }, []);
+  useEffect(() => {
+    const on = () => mode !== "map" && retry();
+    window.addEventListener("online", on);
+    return () => window.removeEventListener("online", on);
+  }, [mode, retry]);
 
   /* Маркеры мест: добавляем/убираем при смене набора (места рядом подгружаются позже карты) */
   useEffect(() => {
@@ -263,7 +312,13 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   /* Точка выезда («я») — всегда на карте */
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || mode !== "map" || origin.source === "default") return;
+    if (!map || mode !== "map") return;
+    // «я» рисуем только для точного места (GPS, адрес, «Дом»): центр округа — условность, а не геопозиция
+    if (locationMode(origin) !== "exact") {
+      userMarkerRef.current?.remove();
+      userMarkerRef.current = null;
+      return;
+    }
     (async () => {
       const ml = (await import("maplibre-gl")).default;
       if (!userMarkerRef.current) {
@@ -273,6 +328,19 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       } else userMarkerRef.current.setLngLat([origin.lng, origin.lat]);
     })();
   }, [mode, origin]);
+
+  /* сменили «где ищем» при открытой карте — летим туда */
+  const seenOrigin = useRef<string | null>(null);
+  useEffect(() => {
+    if (!hydrated) return;
+    const key = `${origin.source}:${origin.lat.toFixed(3)}:${origin.lng.toFixed(3)}`;
+    const prev = seenOrigin.current;
+    seenOrigin.current = key;
+    const map = mapRef.current;
+    if (!prev || prev === key || !map || mode !== "map" || planSlugs.length) return;
+    const m = locationMode(origin);
+    map.flyTo({ center: [origin.lng, origin.lat], zoom: m === "any" ? 10 : m === "area" ? 11.2 : 12.8, offset: [0, -60] });
+  }, [origin, hydrated, mode, planSlugs.length]);
 
   /* раскладка без наложений: пересчёт при фильтрах, выборе, зуме и сдвиге карты */
   useEffect(() => {
@@ -317,13 +385,14 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   }, [initialFocus, mode, select]);
 
   /* геолокация */
-  const locate = () => {
+  const locate = (thenNear = false) => {
     if (!navigator.geolocation) return setGeo("denied");
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
         const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
         setUser(loc);
         setGeo("ok");
+        if (thenNear) setToggles((t) => new Set(t).add("near"));
         setOrigin({ ...loc, label: nearestAreaLabel(loc), source: "gps" });
         const map = mapRef.current;
         if (map) map.flyTo({ center: [loc.lng, loc.lat], zoom: 13, offset: [0, -60] });
@@ -334,7 +403,9 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
     );
   };
 
-  const toggle = (t: Toggle) =>
+  const toggle = (t: Toggle) => {
+    // «Рядом сейчас» нужна точка: пока выбрана вся Москва — спрашиваем геопозицию и только потом включаем фильтр
+    if (t === "near" && anywhere && !toggles.has("near")) return locate(true);
     setToggles((s) => {
       const n = new Set(s);
       if (n.has(t)) n.delete(t);
@@ -343,6 +414,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       if (t === "outdoor") n.delete("indoor");
       return n;
     });
+  };
 
   const activeCount = toggles.size + (age ? 1 : 0) + (price ? 1 : 0) + (category ? 1 : 0);
   const reset = () => {
@@ -362,7 +434,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       {/* position задан inline: maplibre-gl.css (без @layer) иначе перебивает tailwind-класс и карта схлопывается до 300px */}
       <div ref={containerRef} style={{ position: "absolute", inset: 0 }} className={cn(mode === "fallback" && "invisible")} />
       {mode === "fallback" && (
-        <StylizedMap center={fbCenter} zoom={fz} origin={origin.source !== "default" ? origin : undefined}>
+        <StylizedMap center={fbCenter} zoom={fz} origin={locationMode(origin) === "exact" ? origin : undefined}>
           {visible.map((p) => {
             const l = layout[p.slug];
             if (!l || l.hidden) return null;
@@ -394,10 +466,26 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
               />
             </svg>
           )}
-          <span className="kg-user-dot absolute" style={{ left: fbProject(user.lat, user.lng).x, top: fbProject(user.lat, user.lng).y }} />
+          {locationMode(origin) === "exact" && <span className="kg-user-dot absolute" style={{ left: fbProject(user.lat, user.lng).x, top: fbProject(user.lat, user.lng).y }} />}
         </StylizedMap>
       )}
-      {mode === "loading" && <div className="absolute inset-0 skeleton opacity-60" />}
+      {mode === "yandex" && (
+        <iframe
+          key={ySrc}
+          src={ySrc}
+          title="Карта (Яндекс)"
+          className="absolute inset-0 h-full w-full border-0 bg-[#efebe3]"
+          referrerPolicy="no-referrer-when-downgrade"
+          allow="geolocation"
+        />
+      )}
+      {mode === "loading" && (
+        <div className="absolute inset-0 skeleton opacity-60">
+          <span className="absolute left-1/2 top-[38%] flex -translate-x-1/2 items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-[14px] font-medium text-ink-2 shadow-card">
+            <Loader2 size={16} className="animate-spin" /> {status}
+          </span>
+        </div>
+      )}
       {Object.entries(els).map(([slug, el]) => {
         const p = poolBySlug.get(slug);
         if (!p) return null;
@@ -456,10 +544,31 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
             </FilterChip>
           ))}
         </div>
+        {(mode === "fallback" || mode === "yandex" || (mode === "loading" && slow)) && (
+          <div className="mx-4 mt-1 rounded-[16px] bg-white/95 p-2 shadow-card animate-rise" role="status">
+            <p className="px-1.5 text-[13px] leading-snug text-ink-2">
+              {mode === "loading" ? "Карта грузится дольше обычного." : "Подложка карты недоступна (связь или блокировка серверов тайлов)."}
+            </p>
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              <button onClick={() => setMode("yandex")} className={cn("press h-9 rounded-full px-3.5 text-[13.5px] font-semibold", mode === "yandex" ? "bg-ink text-white" : "bg-fill")}>
+                Карта Яндекса
+              </button>
+              <button onClick={() => setMode("fallback")} className={cn("press h-9 rounded-full px-3.5 text-[13.5px] font-semibold", mode === "fallback" ? "bg-ink text-white" : "bg-fill")}>
+                Схема
+              </button>
+              <button onClick={retry} className="press inline-flex h-9 items-center gap-1.5 rounded-full bg-fill px-3.5 text-[13.5px] font-semibold">
+                <RefreshCw size={14} /> Повторить
+              </button>
+              <a href={yLink} target="_blank" rel="noopener noreferrer" className="press inline-flex h-9 items-center gap-1.5 rounded-full bg-fill px-3.5 text-[13.5px] font-semibold text-blue">
+                <ExternalLink size={14} /> В приложении
+              </a>
+            </div>
+          </div>
+        )}
         {geo === "denied" && (
           <div className="mx-4 mt-1 flex items-center gap-2 rounded-[16px] bg-white/95 px-3 py-2 text-[13px] shadow-card animate-rise">
             <LocateOff size={16} className="shrink-0 text-red" />
-            <span className="flex-1">Геолокация выключена — считаем дорогу от «{origin.source === "default" ? "центр" : origin.label}». Точку можно поменять в шапке главной</span>
+            <span className="flex-1">Геолокация выключена. {origin.source === "default" ? "Показываем всю Москву — округ можно выбрать в шапке главной." : `Считаем дорогу от «${origin.label}».`}</span>
             <button onClick={() => setGeo("idle")} aria-label="Скрыть" className="text-muted">
               <X size={15} />
             </button>
@@ -480,7 +589,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
 
       {/* моя геопозиция */}
       <button
-        onClick={locate}
+        onClick={() => locate()}
         aria-label="Где я"
         className="press absolute right-4 z-20 grid h-[52px] w-[52px] place-items-center rounded-full bg-white text-blue shadow-float"
         style={{ bottom: "calc(var(--sheet-h) + 16px)" }}
@@ -497,13 +606,13 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
         <div className="mx-auto h-[5px] w-10 rounded-full bg-[#dcdad4]" />
         {selectedPlace ? (
           <div className="px-4 pt-3">
-            <PlaceBottomSheet key={selectedPlace.slug} place={selectedPlace} minutes={travelToPlace(user, selectedPlace, transport).minutes} onClose={() => setSelected(null)} />
+            <PlaceBottomSheet key={selectedPlace.slug} place={selectedPlace} minutes={anywhere ? undefined : travelToPlace(user, selectedPlace, transport).minutes} onClose={() => setSelected(null)} />
           </div>
         ) : (
           <>
             <div className="flex items-end justify-between px-4 pt-3">
               <h2 className="tight text-[23px] font-[800]">
-                {planSlugs.length ? "Маршрут дня" : activeCount === 0 && !query.trim() ? "Рядом с вами" : `Нашли ${visible.length}`}
+                {planSlugs.length ? "Маршрут дня" : activeCount === 0 && !query.trim() ? (anywhere ? "Лучшее в Москве" : "Рядом с вами") : `Нашли ${visible.length}`}
               </h2>
               <Link href="/search" className="press flex items-center gap-1 text-[16px] font-medium text-blue">
                 Все <ArrowRight size={18} />

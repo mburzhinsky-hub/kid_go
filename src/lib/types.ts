@@ -245,6 +245,8 @@ export interface PlannerInput {
   originLabel?: string;
   /** Места рядом из открытых данных (OpenStreetMap) — дополняют каталог там, где он редок. */
   extraPlaces?: Place[];
+  /** any — «вся Москва» (без привязки к точке), area — округ/город, exact — точный адрес. По умолчанию exact. */
+  locationMode?: "any" | "area" | "exact";
 }
 
 /** Собранный маршрут: и готовые, и сгенерированные приключения приводятся к нему. */
@@ -287,7 +289,7 @@ export interface Plan {
   score?: number;
   adventureSlug?: string;
   /** Дорога от точки выезда до первого шага. */
-  fromHome?: { minutes: number; km: number; mode: TransportId };
+  fromHome?: { minutes: number; km: number; mode: TransportId; /** оценка от центра округа, а не от двери */ approx?: boolean };
   /** Что взять с собой. */
   bring?: string[];
   /** Почему порядок/состав такие из-за погоды. */

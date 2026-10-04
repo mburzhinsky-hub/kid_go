@@ -21,6 +21,8 @@ export async function POST(req: Request) {
     budget: parsed?.budget ?? body.budget ?? "any",
     transport: parsed?.transport ?? body.transport ?? "transit",
     location: body.location ?? DEFAULT_LOCATION,
+    // без точки в запросе — «вся Москва»: дорогу от дома не считаем
+    locationMode: body.location ? "exact" : "any",
     weather: getWeather(now, parsed?.indoor ? "rain" : undefined),
     now,
     foodAfter: parsed?.foodAfter,

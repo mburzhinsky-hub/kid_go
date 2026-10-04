@@ -1,15 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, RefreshCw, SlidersHorizontal } from "lucide-react";
 import type { BudgetId, Child, DurationId, InterestId, MoodId, Plan, PlannerInput, ScenarioConstraints, TransportId } from "@/lib/types";
 import { useFamily, familySignals } from "@/lib/store";
 import { generatePlans } from "@/lib/recommend/engine";
+import { buildPlannerInput, type ResultsQuery } from "@/lib/recommend/build-input";
 import { useForecast } from "@/lib/use-context";
 import { useNearbyExtras } from "@/lib/nearby";
-import { isSuburban } from "@/lib/location";
+import { DEFAULT_ORIGIN, isSuburban, locationMode } from "@/lib/location";
 import { daySummary, moscowDateISO, weekdayOf, type Forecast } from "@/lib/forecast";
 import { plural } from "@/lib/format";
 import { MOODS, DURATIONS, BUDGETS, TRANSPORTS } from "@/lib/catalog";
@@ -18,11 +19,12 @@ import { planCardData } from "@/lib/cards";
 import { AdventureCard } from "@/components/cards/AdventureCard";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { LocationChip } from "@/components/location/LocationChip";
+import { LocationSheet } from "@/components/location/LocationSheet";
 import { AgePicker } from "@/components/ui/AgePicker";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 
-export type ResultsQuery = Record<string, string | undefined>;
+export type { ResultsQuery };
 
 /** В ссылке — только возраст и интересы, без имён детей. */
 export function encodeKids(kids: Pick<Child, "age" | "interests">[]) {
@@ -40,7 +42,7 @@ export function decodeKids(raw?: string): Pick<Child, "name" | "age" | "interest
       const [a, i] = p.length >= 3 ? [p[1], p[2]] : [p[0], p[1]];
       return { name: "", age: Number(a), interests: (i ? i.split(".").filter(Boolean) : []) as InterestId[] };
     })
-    .filter((k) => Number.isFinite(k.age));
+    .filter((k) => Number.isFinite(k.age) && k.age >= 0 && k.age <= 17);
 }
 
 /** Ссылка на «Наш день» по плану: шаги и время, без имён детей. */
@@ -64,47 +66,30 @@ const DAY_SHORT = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 export function PlannerResults({ query }: { query: ResultsQuery }) {
   const router = useRouter();
+  const [locOpen, setLocOpen] = useState(false);
   const fam = useFamily();
   const { forecast, loading } = useForecast();
   const nearby = useNearbyExtras();
   const scenario = scenarioById(query.s);
   const urlKids = decodeKids(query.kids);
   const kids = urlKids ?? fam.children;
-  const offset = Number(query.offset ?? 0);
-  const dayOffset = Math.max(0, Math.min(6, Number(query.day ?? 0)));
+  const offset = Math.max(0, Math.min(60, Math.trunc(Number(query.offset ?? 0)) || 0));
+  const dayOffset = Math.max(0, Math.min(6, Math.trunc(Number(query.day ?? 0)) || 0));
   // «уже показывали» берём на момент открытия, иначе выдача поедет сама от себя
   const seenRef = useRef<string[] | null>(null);
   if (fam.hydrated && seenRef.current === null) seenRef.current = fam.seen;
 
   const input = useMemo<PlannerInput | null>(() => {
     if (!fam.hydrated || !forecast) return null;
-    const now = new Date();
-    const constraints: ScenarioConstraints = { ...(scenario?.constraints ?? {}) };
-    if (query.weather === "rain") constraints.indoorOnly = true;
-    if (query.weather === "sun") constraints.outdoorPreferred = true;
-    const travel = Number(query.travel) || undefined;
-    constraints.maxTravelMin = travel ?? Math.min(constraints.maxTravelMin ?? 999, Math.max(fam.maxTravelMin, 20));
-    if (constraints.maxTravelMin >= 999) delete constraints.maxTravelMin;
-    const dateISO = moscowDateISO(dayOffset);
-    const ages = kids.map((k) => k.age).join(".");
-    return {
-      children: kids,
-      duration: (query.duration ?? scenario?.duration ?? "mid") as DurationId,
-      mood: (query.mood ?? scenario?.mood ?? "surprise") as MoodId,
-      budget: (query.budget ?? scenario?.budget ?? fam.budget) as BudgetId,
-      transport: (query.transport ?? fam.transport) as TransportId,
-      location: fam.origin,
-      extraPlaces: nearby.places.length ? nearby.places : undefined,
-      weather: daySummary(forecast, dateISO).weather,
+    return buildPlannerInput({
+      query,
+      kids,
+      origin: fam.origin,
+      prefs: { budget: fam.budget, transport: fam.transport, maxTravelMin: fam.maxTravelMin },
       forecast,
-      dayOffset,
-      now,
-      foodAfter: query.food === "1" || !!scenario?.food,
-      maxDistanceKm: query.near === "1" ? 5 : undefined,
+      extraPlaces: nearby.places,
       family: { ...familySignals(fam), seen: seenRef.current ?? [] },
-      constraints,
-      seed: `${dateISO}:${ages}`,
-    };
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fam.hydrated, forecast, JSON.stringify(query), JSON.stringify(kids), fam.origin, fam.budget, fam.transport, fam.maxTravelMin, fam.wantPlaces, fam.visitedPlaces, fam.loved, fam.disliked, nearby.places]);
 
@@ -190,6 +175,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
           </Chip>
           <Chip>{label(BUDGETS, input.budget)}</Chip>
           <Chip>{label(TRANSPORTS, input.transport)}</Chip>
+          <Chip>📍 {input.locationMode === "any" ? "Вся Москва" : fam.origin.source === "home" ? "Дом" : fam.origin.label}</Chip>
           {input.constraints?.maxTravelMin && <Chip>до {input.constraints.maxTravelMin} мин в пути</Chip>}
         </div>
         {!kids.length && (
@@ -198,13 +184,21 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
             <AgePicker className="mt-2.5" onPick={(age) => fam.upsertChild({ id: `c${Date.now()}`, name: "", age, interests: [], emoji: "🦁" })} />
           </div>
         )}
+        {input.locationMode === "any" && (!!scenario?.constraints?.maxTravelMin || query.near === "1" || !!query.travel) && (
+          <div className="mt-3 flex items-center gap-3 rounded-[14px] bg-blue-50 px-3 py-2.5 text-[13.5px] leading-snug text-blue">
+            <span className="flex-1">Эта ситуация про «рядом», а место не выбрано — ищем по всей Москве. Выберите округ или точку, и подберём недалеко от вас.</span>
+            <button onClick={() => setLocOpen(true)} className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[13.5px] font-semibold">
+              Выбрать
+            </button>
+          </div>
+        )}
         {result.relaxed && (
           <p className="mt-3 rounded-[14px] bg-yellow-50 px-3 py-2 text-[13.5px] leading-snug text-[#7a5600]">
             📍 Рядом с вами подходящих мест немного, поэтому мы расширили поиск до {result.relaxed.to} мин в пути
-            {result.relaxed.nearest ? ` (ближайшее подходящее — в ${result.relaxed.nearest} мин)` : ""}. Если хочется ближе — смените точку выезда или условия.
+            {result.relaxed.nearest ? ` (ближайшее подходящее — в ${result.relaxed.nearest} мин)` : ""}. Если хочется ближе — смените место поиска или условия.
           </p>
         )}
-        {!result.relaxed && nearby.status === "error" && isSuburban(fam.origin) && (
+        {!result.relaxed && nearby.status === "error" && locationMode(fam.origin) !== "any" && isSuburban(fam.origin) && (
           <p className="mt-3 rounded-[14px] bg-fill-2 px-3 py-2 text-[13px] leading-snug text-muted">
             Не удалось подгрузить места рядом с вами (нет связи с картой). Показываем то, что есть в нашем каталоге.
           </p>
@@ -242,7 +236,16 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
             action={offset > 0 ? { href: withQuery({ offset: undefined }), label: "К лучшим вариантам" } : undefined}
           />
           <div className="space-y-2">
-            {result.suggestions.map((s) => (
+            {result.suggestions.map((s) =>
+              s.patch.anywhere ? (
+                <button
+                  key={s.label}
+                  onClick={() => fam.setOrigin(DEFAULT_ORIGIN)}
+                  className="press flex w-full items-center justify-between rounded-[20px] bg-surface px-4 py-4 text-left text-[16px] font-semibold shadow-card"
+                >
+                  {s.label} <span className="text-pink">→</span>
+                </button>
+              ) : (
               <Link
                 key={s.label}
                 href={withQuery({ ...(Object.fromEntries(Object.entries(s.patch).map(([k, v]) => [k, String(v)])) as Record<string, string>), offset: undefined })}
@@ -250,13 +253,15 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
               >
                 {s.label} <span className="text-pink">→</span>
               </Link>
-            ))}
+              )
+            )}
             <Link href="/scenarios" className="press flex items-center justify-between rounded-[20px] bg-pink-50 px-4 py-4 text-[16px] font-semibold text-pink">
               Выбрать другую ситуацию <span>→</span>
             </Link>
           </div>
         </div>
       )}
+      <LocationSheet open={locOpen} onClose={() => setLocOpen(false)} />
     </main>
   );
 }

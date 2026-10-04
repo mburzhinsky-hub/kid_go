@@ -2,12 +2,12 @@
 
 import { useRef, useState } from "react";
 import type { GeoPoint } from "@/lib/types";
-import { CITY_CENTER } from "@/lib/location";
+import { CITY_CENTER, OKRUGS } from "@/lib/location";
 
 /**
  * Схема без подложки — запасной вариант, когда тайлы недоступны (офлайн, блокировка, нет WebGL).
- * Честно рисуем только то, что знаем точно: расстояния от точки выезда (кольца 5/10/20/40 км),
- * условную границу МКАД и центр Москвы. Места стоят на правильных направлениях и расстояниях.
+ * Честно рисуем только то, что знаем точно: условную границу МКАД, центр Москвы, подписи округов на опорных
+ * точках и — для точного места — расстояния от него (кольца 5/10/20/40 км). Места стоят на верных направлениях и расстояниях.
  */
 const BASE_PX_PER_KM = 9;
 
@@ -72,6 +72,15 @@ export function StylizedMap({ children, center, zoom = 1, origin }: { children: 
           <text x={moscow.x} y={moscow.y - 17.5 * pxPerKm - 8} textAnchor="middle" fontSize="11" fill="#B3B6BF" fontFamily="system-ui">
             МКАД (условно)
           </text>
+          {/* округа — подписи на опорных точках (ориентир, не границы) */}
+          {OKRUGS.filter((o) => o.id !== "cao").map((o) => {
+            const q = project(o.lat, o.lng);
+            return (
+              <text key={o.id} x={q.x} y={q.y} textAnchor="middle" fontSize="11" fontWeight="700" fill="#C2BDB0" fontFamily="system-ui" letterSpacing="0.5">
+                {o.short}
+              </text>
+            );
+          })}
           {/* кольца расстояний от точки выезда */}
           {origin &&
             RINGS.map((km) => (
@@ -85,7 +94,7 @@ export function StylizedMap({ children, center, zoom = 1, origin }: { children: 
         </svg>
         {children}
       </div>
-      <span className="absolute bottom-[calc(var(--sheet-h,300px)+8px)] left-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-muted">Схема расстояний · карта не загрузилась</span>
+      <span className="absolute bottom-[calc(var(--sheet-h,300px)+8px)] left-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-muted">Схема округов и расстояний · без подложки</span>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { AdventureCard } from "@/components/cards/AdventureCard";
 import { adventureCardData } from "@/lib/cards";
 import { PlaceCarousel } from "@/components/cards/PlaceCard";
 import { EventCard } from "@/components/cards/EventCard";
-import { HomeHero, HomeScenarios, HomeWeather, NearbyPopular } from "@/components/home/HomeLive";
+import { HomeHero, HomeScenarios, HomeWeather, NearbyPopular, NearbyPopularHeader } from "@/components/home/HomeLive";
 import { TripFeedback } from "@/components/home/TripFeedback";
 import { PlannerPromo } from "@/components/home/PlannerPromo";
 import { ForYou } from "@/components/home/ForYou";
@@ -113,7 +113,7 @@ export default async function HomePage() {
       </div>
 
       <section className="mt-7">
-        <SectionHeader title="Популярное рядом" href="/search?sort=popular" />
+        <NearbyPopularHeader />
         <div className="mt-3">
           <NearbyPopular places={places} />
         </div>

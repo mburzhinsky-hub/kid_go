@@ -11,6 +11,7 @@ import { Logo } from "@/components/ui/Logo";
 import { AgePicker } from "@/components/ui/AgePicker";
 import { LocationSheet } from "@/components/location/LocationSheet";
 import { requestGpsOrigin } from "@/lib/use-context";
+import { DEFAULT_ORIGIN, OKRUGS, okrugOrigin } from "@/lib/location";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 
@@ -117,15 +118,30 @@ export function Onboarding() {
 
       {step === 2 && (
         <section className="flex-1 animate-rise">
-          <h1 className="tight mt-8 text-[30px] font-[850] leading-[1.08]">Откуда обычно выезжаете? 📍</h1>
-          <p className="mt-2 text-[16px] text-muted">«Рядом» считаем в минутах от этой точки. Точный адрес не нужен и никуда не уходит.</p>
-          <button onClick={gps} disabled={gpsBusy} className="press mt-6 flex w-full items-center gap-3 rounded-[22px] bg-blue-50 p-4 text-left">
+          <h1 className="tight mt-8 text-[30px] font-[850] leading-[1.08]">Где ищем? 📍</h1>
+          <p className="mt-2 text-[16px] text-muted">Можно ничего не выбирать — покажем лучшее по всей Москве. Хотите ближе к дому — отметьте свой округ.</p>
+          <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Округ Москвы">
+            {OKRUGS.map((o) => {
+              const on = s.origin.source === "area" && s.origin.label === o.short;
+              return (
+                <button
+                  key={o.id}
+                  aria-pressed={on}
+                  onClick={() => (on ? s.setOrigin(DEFAULT_ORIGIN) : s.setOrigin(okrugOrigin(o)))}
+                  className={cn("press inline-flex h-11 items-center rounded-full px-4 text-[15.5px] font-semibold", on ? "bg-ink text-white" : "bg-surface text-ink shadow-card")}
+                >
+                  {o.short}
+                </button>
+              );
+            })}
+          </div>
+          <button onClick={gps} disabled={gpsBusy} className="press mt-5 flex w-full items-center gap-3 rounded-[22px] bg-blue-50 p-4 text-left">
             <span className="grid h-12 w-12 place-items-center rounded-full bg-white text-blue">
               {gpsBusy ? <Loader2 size={22} className="animate-spin" /> : <LocateFixed size={22} />}
             </span>
             <span className="flex-1">
               <span className="block text-[17px] font-bold text-blue">Определить, где я</span>
-              <span className="text-[13.5px] text-ink-2">и запомнить как «Дом»</span>
+              <span className="text-[13.5px] text-ink-2">и запомнить как «Дом» — минуты от двери</span>
             </span>
             {s.origin.source === "gps" && <Check size={22} className="text-blue" />}
           </button>
@@ -134,15 +150,15 @@ export function Onboarding() {
               <MapPin size={22} />
             </span>
             <span className="flex-1">
-              <span className="block text-[17px] font-bold">Выбрать район</span>
-              <span className="text-[13.5px] text-muted">Сокольники, Тушино, Марьино…</span>
+              <span className="block text-[17px] font-bold">Подмосковье или адрес</span>
+              <span className="text-[13.5px] text-muted">Красногорск, Химки, свой посёлок…</span>
             </span>
-            {(s.origin.source === "area" || s.origin.source === "home") && <Check size={22} className="text-pink" />}
+            {(s.origin.source === "custom" || s.origin.source === "home") && <Check size={22} className="text-pink" />}
           </button>
-          {s.origin.source !== "default" && (
-            <p className="mt-4 rounded-[16px] bg-green-50 px-3.5 py-2.5 text-[15px] font-semibold text-green animate-fade">Отлично: считаем от «{s.origin.source === "home" ? "Дом" : s.origin.label}»</p>
-          )}
-          {gpsError && <p className="mt-3 text-[14px] text-[#8a4a00]">Геопозиция недоступна — выберите район, это даже точнее для планов.</p>}
+          <p className="mt-4 rounded-[16px] bg-green-50 px-3.5 py-2.5 text-[15px] font-semibold text-green animate-fade">
+            {s.origin.source === "default" ? "Ищем по всей Москве" : `Ищем рядом: ${s.origin.source === "home" ? "Дом" : s.origin.label}`}
+          </p>
+          {gpsError && <p className="mt-3 text-[14px] text-[#8a4a00]">Геопозиция недоступна — выберите округ, этого достаточно.</p>}
           <LocationSheet open={locOpen} onClose={() => setLocOpen(false)} />
         </section>
       )}
@@ -158,7 +174,7 @@ export function Onboarding() {
           disabled={!canNext}
           className="press ml-auto h-14 flex-1 rounded-full bg-pink text-[17px] font-bold text-white shadow-pink disabled:opacity-40 disabled:shadow-none"
         >
-          {step === 0 ? "Начнём" : step === 1 ? "Дальше" : s.origin.source === "default" ? "Позже" : "Поехали! 🚀"}
+          {step === 0 ? "Начнём" : step === 1 ? "Дальше" : "Поехали! 🚀"}
         </button>
       </div>
     </main>

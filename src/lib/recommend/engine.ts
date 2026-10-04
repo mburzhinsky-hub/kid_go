@@ -190,9 +190,12 @@ export function scorePlace(
 ): ScoredPlace | null {
   const c = input.constraints ?? {};
   const fam = input.family;
-  const travel = travelToPlace(input.location, p, input.transport);
+  const mode = input.locationMode ?? "exact";
+  const travel = legHome(input, p);
   const reach = ACTIVITY.includes(p.category) ? ctx.reach : ctx.reach * 1.35;
-  if (travel.minutes > reach) return null;
+  if (mode !== "any" && travel.minutes > reach) return null;
+  // «вся Москва» — это город (в пределах МКАД и рядом), а не вся область
+  if (mode === "any" && isSuburban(pt(p))) return null;
 
   // возраст: по умолчанию место должно подходить всем детям
   const fit = ages.length ? ages.filter((a) => a >= p.age_min && a <= p.age_max).length / ages.length : 1;
@@ -223,7 +226,7 @@ export function scorePlace(
 
   const parts: Record<string, number> = {
     age: fit * 2 + sweet * 2 + ageNeeds(p, ctx),
-    distance: Math.max(0, 1 - travel.minutes / ctx.reach) ** 1.3 * (input.transport === "walk" ? 10 : 8.5),
+    distance: mode === "any" ? 0 : Math.max(0, 1 - travel.minutes / ctx.reach) ** 1.3 * (input.transport === "walk" ? 10 : 8.5) * (mode === "area" ? 0.7 : 1),
     interest: interest * 8 + scenarioInterest,
     rating: (p.rating - 4) * (p.review_count > 0 ? 1 : 0.4),
     mood: moodFit(p, input.mood) * 7.5,
@@ -235,7 +238,11 @@ export function scorePlace(
     season: seasonFit(p, ctx),
     crowd: crowdFit(p, ctx, input),
     transport: transportFit(p, input),
-    prefer: (c.preferCategories?.includes(p.category) ? 2.6 : 0) + (c.outdoorPreferred && p.outdoor ? 2 : 0),
+    prefer:
+      (c.preferCategories?.includes(p.category) ? 3.4 : 0) +
+      (c.outdoorPreferred && p.outdoor ? 2 : 0) +
+      // компания / праздник: места, где принимают брони и есть игровая зона
+      (c.bookingOk && (p.booking_required || p.experience_tags.includes("playzone")) ? 1.6 : 0),
     family:
       (fam?.want.includes(p.slug) ? 2.5 : 0) +
       (fam?.loved.includes(p.slug) ? 1 : 0) -
@@ -350,7 +357,7 @@ function simulate(order: Pick[], ctx: DayCtx, input: PlannerInput, ignoreWeather
   let clock = ctx.start;
   // сегодня выезжаем не раньше «сейчас + сборы + дорога до первого места»
   if (ctx.nowMin !== null) {
-    const first = travelToPlace(input.location, order[0].place, input.transport).minutes;
+    const first = legHome(input, order[0].place).minutes;
     clock = Math.max(clock, ceilTo(ctx.nowMin + 25 + first, 5));
   }
   const startClock = clock;
@@ -379,7 +386,7 @@ function simulate(order: Pick[], ctx: DayCtx, input: PlannerInput, ignoreWeather
       clock = ceilTo(clock + duration + leg.minutes + BUFFER, 5);
     } else clock += duration;
   }
-  const backHome = travelToPlace(input.location, order[order.length - 1].place, input.transport).minutes;
+  const backHome = legHome(input, order[order.length - 1].place).minutes;
   const endBy = input.constraints?.endBy;
   if (endBy && clock + backHome > endBy + 10) return null;
   if (clock > 21 * 60) return null;
@@ -423,7 +430,12 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
   const legMax = LEG_MAX[input.transport];
 
   const picks: Pick[] = [];
-  const anchorDur = Math.max(45, Math.min(anchor.place.average_duration, Math.round(total * (total <= 120 ? 0.75 : total <= 240 ? 0.5 : 0.4))));
+  // если еду просили прямо («с обедом», передышка родителю), оставляем ей время даже в коротком дне
+  const mustFood = input.budget !== "free" && !!(input.foodAfter || c.parentBreak);
+  // «подарок за пятёрку» и т.п.: магазин игрушек — обязательный шаг, а не случайность
+  const mustShop = !!c.preferCategories?.includes("shop");
+  const anchorCap = total >= 90 && (mustFood || mustShop) ? Math.max(45, total - (mustFood && mustShop ? 100 : 55)) : Infinity;
+  const anchorDur = Math.max(45, Math.min(anchor.place.average_duration, anchorCap, Math.round(total * (total <= 120 ? 0.75 : total <= 240 ? 0.5 : 0.4))));
   picks.push({ place: anchor.place, duration: ceilTo(anchorDur, 5), slot: "anchor" });
   let remaining = total - anchorDur;
   let spent = anchor.place.family_budget;
@@ -444,13 +456,19 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
   while (picks.length < maxStops) {
     let slot: Slot | null = null;
     if (wantFood && !hasFood() && remaining >= 50) slot = "food";
+    else if (mustShop && !picks.some((q) => q.place.category === "shop") && remaining >= 40) slot = "extra";
     else if (activities() < (total >= 330 ? 2 : 1) && remaining >= 75) slot = "activity";
     else if (remaining >= 35) slot = "extra";
     if (!slot) break;
 
+    // кафе ищем рядом с ЛЮБЫМ из уже выбранных мест (порядок шагов потом подберёт bestOrder), остальное — рядом с последним
+    const legTo = (s: ScoredPlace): Travel =>
+      slot === "food"
+        ? picks.map((q) => travelBetween(pt(q.place), pt(s.place), input.transport)).reduce((a, b) => (a.minutes <= b.minutes ? a : b))
+        : travelBetween(pt(last()), pt(s.place), input.transport);
     const near = pool
       .filter((s) => !used().has(s.place.id))
-      .map((s) => ({ s, leg: travelBetween(pt(last()), pt(s.place), input.transport) }))
+      .map((s) => ({ s, leg: legTo(s) }))
       .filter(({ leg }) => leg.minutes <= legMax)
       .filter(({ s }) => input.budget === "free" || spent + s.place.family_budget <= budgetMax * 1.1);
 
@@ -463,12 +481,15 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
     let chosen: { s: ScoredPlace; leg: Travel } | undefined;
     let dur = 0;
     if (slot === "food") {
-      chosen = pickFrom(
-        (s) => s.place.category === "cafe" && (!s.place.experience_tags.includes("icecream") || total <= 120),
-        // голодный ребёнок далеко не уедет: кафе — как можно ближе
-        (s, legMin) => (s.place.kids_menu ? 1 : 0) + (c.parentBreak && s.place.experience_tags.includes("playzone") ? 2.5 : 0) - Math.max(0, legMin - 10) * 0.25
-      );
+      // голодный ребёнок далеко не уедет: кафе — как можно ближе
+      const foodBonus = (s: ScoredPlace, legMin: number) => (s.place.kids_menu ? 1 : 0) + (c.parentBreak && s.place.experience_tags.includes("playzone") ? 2.5 : 0) - Math.max(0, legMin - 10) * 0.25;
+      chosen = pickFrom((s) => s.place.category === "cafe" && (!s.place.experience_tags.includes("icecream") || total <= 120), foodBonus);
       dur = total <= 120 ? 40 : 55;
+      // еду просили прямо, а рядом только кафе-мороженое — лучше перекус, чем ничего
+      if (!chosen && mustFood) {
+        chosen = pickFrom((s) => s.place.category === "cafe", foodBonus);
+        dur = 30;
+      }
       if (!chosen) slot = remaining >= 75 && activities() < 2 ? "activity" : remaining >= 35 ? "extra" : null;
     }
     if (!chosen && slot === "activity") {
@@ -488,7 +509,7 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
             (s.place.price_min === 0 && s.place.category !== "cafe" && !cats().has(s.place.category)) ||
             (s.place.experience_tags.includes("icecream") && !hasFood()) ||
             (s.place.category === "play" && !cats().has("play"))),
-        (s) => (s.place.category === "shop" && s.place.experience_tags.includes("toys") ? 1 : 0) + (s.place.category === "park" && sunny ? 1 : 0)
+        (s) => (s.place.category === "shop" ? (mustShop ? 3 : s.place.experience_tags.includes("toys") ? 1 : 0) : 0) + (s.place.category === "park" && sunny ? 1 : 0)
       );
       if (chosen) dur = Math.max(25, Math.min(45, chosen.s.place.average_duration, remaining - 15));
     }
@@ -562,7 +583,7 @@ export interface PlannerResult {
 
 export interface Relaxation {
   label: string;
-  patch: Partial<Pick2<PlannerInput, "budget" | "transport" | "duration" | "mood">> & { travel?: number };
+  patch: Partial<Pick2<PlannerInput, "budget" | "transport" | "duration" | "mood">> & { travel?: number; anywhere?: boolean };
 }
 
 const anchorsOf = (pool: ScoredPlace[], input: PlannerInput) =>
@@ -571,6 +592,17 @@ const anchorsOf = (pool: ScoredPlace[], input: PlannerInput) =>
       ACTIVITY.includes(s.place.category) ||
       (input.constraints?.parentBreak && s.place.category === "cafe" && s.place.experience_tags.includes("playzone"))
   );
+
+/** Первое плечо «от дома до места» с учётом режима: вся Москва — без дороги, округ — с запасом, точка — как есть. */
+export function legHome(input: Pick2<PlannerInput, "location" | "transport" | "locationMode">, p: Pick2<Place, "latitude" | "longitude">): Travel {
+  const mode = input.locationMode ?? "exact";
+  const t = travelToPlace(input.location, p as Place, input.transport);
+  if (mode === "any") return { km: 0, minutes: 0, mode: t.mode };
+  if (mode === "area") return { ...t, minutes: Math.max(5, t.minutes - AREA_SOFTEN) };
+  return t;
+}
+/** В режиме «округ» условный центр уже в нескольких километрах от двери — вычитаем типичный путь внутри округа. */
+const AREA_SOFTEN = 10;
 
 const poolOf = (input: Pick2<PlannerInput, "extraPlaces">): Place[] => (input.extraPlaces?.length ? [...STATIC_PLACES, ...input.extraPlaces] : STATIC_PLACES);
 
@@ -581,7 +613,7 @@ function nearestAnchorMin(input: PlannerInput): number | undefined {
   for (const p of poolOf(input)) {
     if (!ACTIVITY.includes(p.category)) continue;
     if (ages.length && !ages.some((a) => a >= p.age_min && a <= p.age_max)) continue;
-    const m = travelToPlace(input.location, p, input.transport).minutes;
+    const m = legHome(input, p).minutes;
     if (best === undefined || m < best) best = m;
   }
   return best;
@@ -594,6 +626,7 @@ function nearestAnchorMin(input: PlannerInput): number | undefined {
 export function generatePlans(input: PlannerInput, count = 3, offset = 0): PlannerResult {
   const base = dayContext(input).reach;
   const first = generateOnce(input, count, offset, 1);
+  if (input.locationMode === "any") return first; // без привязки к точке радиус не причём
   const sparse = first.anchorsNear < 6 && isSuburban(input.location);
   if (first.plans.length >= (sparse ? count : 1)) return first;
   let best = first;
@@ -701,7 +734,8 @@ function toPlan(a: Assembled, input: PlannerInput, ctx: DayCtx, pool: ScoredPlac
     s.weather = a.ordered.weather[i];
     if (s.place.outdoor && !s.place.indoor) s.backup = findBackup(s.place, picks.map((p) => p.place.id), pool, input)?.slug;
   });
-  draft.fromHome = travelToPlace(input.location, picks[0].place, input.transport);
+  const mode0 = input.locationMode ?? "exact";
+  draft.fromHome = mode0 === "any" ? undefined : { ...legHome(input, picks[0].place), approx: mode0 === "area" || undefined };
   draft.dayOffset = ctx.dayOffset;
   const hasOutdoor = picks.some((p) => p.place.outdoor);
   if (ctx.forecast) draft.bring = bringList(windowWx(ctx.forecast, ctx.dateISO, a.ordered.startClock, a.ordered.end), ctx.youngest, hasOutdoor);
@@ -747,12 +781,19 @@ function diagnose(input: PlannerInput): Relaxation[] {
     { label: "Выделить 3–4 часа", patch: { duration: "mid" } },
     { label: "Положиться на нас — «Удивите нас»", patch: { mood: "surprise" } },
   ];
+  // привязка к округу/адресу сужает выбор — «вся Москва» снимает её целиком
+  if (input.locationMode && input.locationMode !== "any") tries.unshift({ label: "Искать по всей Москве", patch: { anywhere: true } });
   return tries.filter((t) => {
-    const { travel, ...rest } = t.patch;
+    const { travel, anywhere, ...rest } = t.patch;
     const k = Object.keys(rest)[0] as keyof typeof rest | undefined;
     if (k && input[k] === rest[k]) return false;
+    if (travel && input.locationMode === "any") return false; // без точки «время в пути» не ограничивается — предлагать нечего
     if (travel && (input.constraints?.maxTravelMin ?? DEFAULT_REACH[input.transport]) >= travel) return false;
-    const next: PlannerInput = { ...input, ...rest, constraints: travel ? { ...input.constraints, maxTravelMin: travel } : input.constraints };
+    let next: PlannerInput = { ...input, ...rest, constraints: travel ? { ...input.constraints, maxTravelMin: travel } : input.constraints };
+    if (anywhere) {
+      const { maxTravelMin: _drop, ...keep } = input.constraints ?? {};
+      next = { ...input, locationMode: "any", constraints: keep, maxDistanceKm: undefined };
+    }
     const ctx = dayContext(next);
     const ages = next.children.map((c) => c.age);
     const od = dayOutdoorScore(ctx);
@@ -767,7 +808,7 @@ export function rankPlaces(input: PlannerInput, filter?: (p: Place) => boolean, 
   const pool = poolOf(input).filter((p) => !filter || filter(p));
   let best: ScoredPlace[] = [];
   // как и в планах: если рядом мало, расширяем радиус, чтобы подборка не пропадала (за МКАД, окраины)
-  for (const k of [1, 1.5, 2.2, 3.2]) {
+  for (const k of input.locationMode === "any" ? [1] : [1, 1.5, 2.2, 3.2]) {
     const ctx = dayContext(input, k);
     const od = dayOutdoorScore(ctx);
     const r = pool

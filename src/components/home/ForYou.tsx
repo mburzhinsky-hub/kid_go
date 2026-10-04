@@ -5,6 +5,7 @@ import { useFamily, familySignals } from "@/lib/store";
 import { rankPlaces } from "@/lib/recommend/engine";
 import { useForecast } from "@/lib/use-context";
 import { useNearbyExtras } from "@/lib/nearby";
+import { locationMode } from "@/lib/location";
 import { daySummary, moscowDateISO } from "@/lib/forecast";
 import { getWeather } from "@/lib/weather";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -21,6 +22,7 @@ export function ForYou() {
 
   const ranked = useMemo(() => {
     if (!kids.length) return [];
+    const mode = locationMode(s.origin);
     return rankPlaces(
       {
         children: kids,
@@ -29,12 +31,13 @@ export function ForYou() {
         budget: "any",
         transport: s.transport,
         location: s.origin,
+        locationMode: mode,
         extraPlaces: nearby.places.length ? nearby.places : undefined,
         weather: forecast ? daySummary(forecast, moscowDateISO(0)).weather : getWeather(),
         forecast,
         now: new Date(),
         family: familySignals(s),
-        constraints: { maxTravelMin: s.maxTravelMin + 15 },
+        constraints: mode === "any" ? {} : { maxTravelMin: s.maxTravelMin + 15 },
       },
       (p) => p.category !== "cafe",
       6

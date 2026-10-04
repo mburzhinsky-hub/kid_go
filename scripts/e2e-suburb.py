@@ -32,7 +32,7 @@ def run():
         # онбординг → возраст → точка выезда поиском
         pg.goto(B + "/"); pg.wait_for_url(re.compile(r".*/onboarding/?$"), timeout=8000)
         pg.click("text=Начнём"); pg.get_by_role("radio", name="5").click(); pg.click("text=Дальше")
-        pg.click("text=Выбрать район")
+        pg.click("text=Подмосковье или адрес")
         dlg = pg.get_by_role("dialog")
         dlg.get_by_placeholder("Город, посёлок или улица").fill("Тестовый посёлок")
         dlg.locator("ul button").first.wait_for(timeout=8000)
@@ -78,9 +78,12 @@ def run():
         print("   unknown id handled")
 
         # карта: тайлов нет → схема; места из OSM на ней
-        pg.goto(B + "/map"); pg.wait_for_timeout(11500)
+        pg.goto(B + "/map"); pg.wait_for_timeout(9000)
+        # онлайн, но серверов тайлов нет → автоматически карта Яндекса; «Схема» — интерактивный запасной вариант с местами
+        assert pg.locator("iframe[title^='Карта (Яндекс)']").count() == 1, "нет запасной карты Яндекса"
+        pg.get_by_role("button", name="Схема").click(); pg.wait_for_timeout(800)
         print("6 map heading:", pg.locator("h2").first.inner_text(), "| markers:", pg.locator("main button[aria-label]").count())
-        assert "Схема расстояний" in pg.inner_text("main") or pg.locator("canvas").count() > 0
+        assert "Схема округов и расстояний" in pg.inner_text("main") or pg.locator("canvas").count() > 0
         pg.screenshot(path="/tmp/e2e-suburb-map.png")
 
         # поиск «в инкогнито»: нашли и место OSM
@@ -100,10 +103,10 @@ def run():
 
         # «Указать на карте»: тайлов нет → честное сообщение, поиск остаётся рабочим
         pg.goto(B + "/"); pg.wait_for_timeout(800)
-        pg.locator("header button[aria-label^='Точка выезда']").first.click()
+        pg.locator("header button[aria-label^='Где ищем']").first.click()
         pg.get_by_role("dialog").get_by_text("Указать на карте").click(); pg.wait_for_timeout(12000)
         assert pg.get_by_text("Карта не загрузилась").count() > 0, "нет сообщения, что карта не загрузилась"
-        pg.get_by_text("Вернуться к поиску").click(); pg.wait_for_timeout(300)
+        pg.get_by_text("Выбрать без карты").click(); pg.wait_for_timeout(300)
         assert pg.get_by_placeholder("Город, посёлок или улица").count() > 0
         print("9 map picker fallback ok")
         b.close()

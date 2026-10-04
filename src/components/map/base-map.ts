@@ -15,7 +15,7 @@ export type ProviderId = "ofm" | "carto" | "osm" | "osmfr";
 interface Provider {
   id: ProviderId;
   vector: boolean;
-  probe: () => Promise<boolean>;
+  probe: (ms: number) => Promise<boolean>;
   style: () => string | StyleSpecification;
 }
 
@@ -57,12 +57,12 @@ export const PROVIDERS: Provider[] = [
     id: "ofm",
     vector: true,
     style: () => OFM_STYLE,
-    probe: async () => {
-      const style = (await fetchOk(OFM_STYLE, 4500, true)) as { sources?: Record<string, { url?: string; tiles?: string[] }> } | null;
+    probe: async (ms) => {
+      const style = (await fetchOk(OFM_STYLE, ms, true)) as { sources?: Record<string, { url?: string; tiles?: string[] }> } | null;
       if (!style?.sources) return false;
       const src = Object.values(style.sources).find((s) => s.url || s.tiles);
-      if (src?.url) return !!(await fetchOk(src.url, 4500, true));
-      if (src?.tiles?.[0]) return !!(await fetchOk(tileUrl(src.tiles[0]), 4500));
+      if (src?.url) return !!(await fetchOk(src.url, ms, true));
+      if (src?.tiles?.[0]) return !!(await fetchOk(tileUrl(src.tiles[0]), ms));
       return true;
     },
   },
@@ -70,19 +70,19 @@ export const PROVIDERS: Provider[] = [
     id: "carto",
     vector: false,
     style: () => rasterStyle(CARTO, "© OpenStreetMap, © CARTO"),
-    probe: async () => !!(await fetchOk(tileUrl(CARTO[0]), 4500)),
+    probe: async (ms) => !!(await fetchOk(tileUrl(CARTO[0]), ms)),
   },
   {
     id: "osm",
     vector: false,
     style: () => rasterStyle(OSM, "© OpenStreetMap", 19),
-    probe: async () => !!(await fetchOk(tileUrl(OSM[0]), 4500)),
+    probe: async (ms) => !!(await fetchOk(tileUrl(OSM[0]), ms)),
   },
   {
     id: "osmfr",
     vector: false,
     style: () => rasterStyle(OSMFR, "© OpenStreetMap, HOT", 19),
-    probe: async () => !!(await fetchOk(tileUrl(OSMFR[0]), 4500)),
+    probe: async (ms) => !!(await fetchOk(tileUrl(OSMFR[0]), ms)),
   },
 ];
 
@@ -96,8 +96,8 @@ export interface BaseMapOptions {
   container: HTMLElement;
   center: [number, number];
   zoom: number;
-  /** Вызывается после создания, до загрузки — чтобы подписаться на события. */
-  onProvider?: (id: ProviderId) => void;
+  /** Человекочитаемый статус для экрана загрузки. */
+  onStatus?: (text: string) => void;
   signal?: { cancelled: boolean };
 }
 
@@ -105,11 +105,38 @@ export interface BaseMapResult {
   map: MLMap;
   provider: ProviderId;
   vector: boolean;
-  /** Сколько провайдеров пробовали (для диагностики). */
+  /** Какие провайдеры пробовали (для диагностики). */
   tried: ProviderId[];
 }
 
-/** Ждём первый отрисованный тайл; false — нет тайлов за отведённое время. */
+/** Сколько ждём ответа пробы: мобильная сеть бывает медленной — «долго» не значит «недоступно». */
+const PROBE_MS = 8000;
+/** Столько ждём более приоритетный источник, если менее приоритетный уже ответил. */
+const PATIENCE_MS = 3500;
+/** Сколько ждём первый отрисованный тайл у выбранного источника. */
+const TILES_MS = 11000;
+
+const PREF_KEY = "kidgo-map-ok";
+const readPref = (): ProviderId | null => {
+  try {
+    const v = JSON.parse(localStorage.getItem(PREF_KEY) ?? "null") as { id: ProviderId; at: number } | null;
+    return v && PROVIDERS.some((p) => p.id === v.id) && Date.now() - v.at < 14 * 86400_000 ? v.id : null;
+  } catch {
+    return null;
+  }
+};
+const writePref = (id: ProviderId | null) => {
+  try {
+    if (id) localStorage.setItem(PREF_KEY, JSON.stringify({ id, at: Date.now() }));
+    else localStorage.removeItem(PREF_KEY);
+  } catch {
+    /* приватный режим */
+  }
+};
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/** Ждём первый отрисованный тайл; false — нет тайлов за отведённое время (или сплошные ошибки). */
 function waitForTiles(map: MLMap, ms: number): Promise<boolean> {
   return new Promise((resolve) => {
     let ok = 0;
@@ -119,7 +146,7 @@ function waitForTiles(map: MLMap, ms: number): Promise<boolean> {
       if (done) return;
       done = true;
       clearTimeout(timer);
-      map.off("data", onData);
+      map.off("data", onData as never);
       map.off("error", onError);
       resolve(v);
     };
@@ -131,7 +158,7 @@ function waitForTiles(map: MLMap, ms: number): Promise<boolean> {
     };
     const onError = () => {
       bad++;
-      if (bad >= 5 && ok === 0) finish(false);
+      if (bad >= 6 && ok === 0) finish(false);
     };
     const timer = setTimeout(() => finish(ok > 0), ms);
     map.on("data", onData as never);
@@ -141,18 +168,29 @@ function waitForTiles(map: MLMap, ms: number): Promise<boolean> {
 
 /**
  * Создаёт карту на первом рабочем источнике. null — ничего не доступно (или нет WebGL):
- * вызывающий код показывает схему без подложки.
+ * вызывающий код предложит запасной вариант (карта Яндекса или схема).
+ *
+ * Порядок: последний рабочий источник этого устройства → пробы всех источников параллельно →
+ * лучший по приоритету из ответивших (если приоритетный молчит дольше PATIENCE_MS — берём тот, что ответил).
+ * Источник считается рабочим только когда карта реально отрисовала тайл.
  */
 export async function createBaseMap(opts: BaseMapOptions): Promise<BaseMapResult | null> {
   const ml = (await import("maplibre-gl")).default;
-  // пробы идут параллельно, но выбираем строго по приоритету
-  const probes = PROVIDERS.map((p) => p.probe().catch(() => false));
+  const cancelled = () => !!opts.signal?.cancelled;
+  const t0 = Date.now();
   const tried: ProviderId[] = [];
-  for (let i = 0; i < PROVIDERS.length; i++) {
-    const p = PROVIDERS[i];
-    if (!(await probes[i])) continue;
-    if (opts.signal?.cancelled) return null;
+
+  const results: (boolean | undefined)[] = PROVIDERS.map(() => undefined);
+  PROVIDERS.forEach((p, i) => {
+    p.probe(PROBE_MS).then(
+      (ok) => (results[i] = ok),
+      () => (results[i] = false)
+    );
+  });
+
+  const attempt = async (p: Provider): Promise<BaseMapResult | null> => {
     tried.push(p.id);
+    opts.onStatus?.("Загружаем карту…");
     let map: MLMap;
     try {
       map = new ml.Map({
@@ -172,17 +210,44 @@ export async function createBaseMap(opts: BaseMapOptions): Promise<BaseMapResult
       return null;
     }
     map.touchZoomRotate.disableRotation();
-    opts.onProvider?.(p.id);
-    const alive = await waitForTiles(map, 9000);
-    if (opts.signal?.cancelled) {
+    const alive = await waitForTiles(map, TILES_MS);
+    if (cancelled()) {
       map.remove();
       return null;
     }
-    if (alive) return { map, provider: p.id, vector: p.vector, tried };
-    console.warn(`[map] источник ${p.id} не отдал тайлы — пробуем следующий`);
+    if (alive) {
+      writePref(p.id);
+      return { map, provider: p.id, vector: p.vector, tried: [...tried] };
+    }
+    console.warn(`[map] источник ${p.id} не отдал тайлы`);
+    if (readPref() === p.id) writePref(null);
     map.remove();
+    return null;
+  };
+
+  // 1) то, что уже работало на этом устройстве, — без ожидания проб
+  const pref = readPref();
+  if (pref) {
+    const p = PROVIDERS.find((x) => x.id === pref)!;
+    const r = await attempt(p);
+    if (r || cancelled()) return r;
   }
-  return null;
+
+  // 2) остальные — по приоритету из ответивших
+  opts.onStatus?.("Ищем доступный сервер карты…");
+  for (;;) {
+    if (cancelled()) return null;
+    const left = PROVIDERS.map((p, i) => ({ p, i })).filter(({ p, i }) => !tried.includes(p.id) && results[i] !== false);
+    if (!left.length) return null;
+    const firstTrue = left.find(({ i }) => results[i] === true);
+    const higherPending = left.some(({ i }) => results[i] === undefined && (!firstTrue || i < firstTrue.i));
+    if (firstTrue && (!higherPending || Date.now() - t0 > PATIENCE_MS)) {
+      const r = await attempt(firstTrue.p);
+      if (r || cancelled()) return r;
+      continue;
+    }
+    await sleep(80);
+  }
 }
 
 /** Тёплая палитра референса для векторной подложки: бежевая земля, зелёные парки, жёлтые магистрали. */

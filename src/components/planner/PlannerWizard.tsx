@@ -256,8 +256,8 @@ export function PlannerWizard() {
           />
           <div className="mt-5 flex items-center justify-between gap-3 rounded-[22px] bg-surface p-3.5 shadow-card">
             <span className="text-[15px] font-semibold leading-tight">
-              Откуда выезжаем?
-              <span className="block text-[13px] font-medium text-muted">считаем дорогу в минутах</span>
+              Где ищем?
+              <span className="block text-[13px] font-medium text-muted">вся Москва, округ или точка — по желанию</span>
             </span>
             <LocationChip />
           </div>

@@ -13,7 +13,43 @@ export interface Origin extends GeoPoint {
   updatedAt?: number;
 }
 
-export const DEFAULT_ORIGIN: Origin = { ...DEFAULT_LOCATION, label: "Центр", source: "default" };
+export const DEFAULT_ORIGIN: Origin = { ...DEFAULT_LOCATION, label: "Вся Москва", source: "default" };
+
+/**
+ * Насколько жёстко места привязаны к точке:
+ *  - any   — «вся Москва»: ничего не выбрано, дорога от дома не считается, берём лучшее в городе;
+ *  - area  — округ или город области: дорога считается от условного центра с запасом на «внутри округа»;
+ *  - exact — точный адрес / GPS / «Дом»: минуты от двери.
+ */
+export type LocMode = "any" | "area" | "exact";
+export const locationMode = (o?: Pick<Origin, "source">): LocMode => (!o || o.source === "default" ? "any" : o.source === "area" ? "area" : "exact");
+
+/** Округа Москвы: быстрый выбор «условно, где мы». Координата — опорная точка округа, не граница. */
+export interface Okrug {
+  id: string;
+  short: string;
+  label: string;
+  /** Какие районы входят — подсказка в выборе. */
+  hint: string;
+  lat: number;
+  lng: number;
+}
+export const OKRUGS: Okrug[] = [
+  { id: "cao", short: "ЦАО", label: "Центр", hint: "Арбат, Хамовники, Пресня, Тверской", lat: 55.7558, lng: 37.6173 },
+  { id: "sao", short: "САО", label: "Север", hint: "Аэропорт, Сокол, Войковский, Дмитровский", lat: 55.838, lng: 37.525 },
+  { id: "svao", short: "СВАО", label: "Северо-восток", hint: "ВДНХ, Медведково, Отрадное, Бабушкинский", lat: 55.868, lng: 37.655 },
+  { id: "vao", short: "ВАО", label: "Восток", hint: "Сокольники, Измайлово, Перово, Новогиреево", lat: 55.775, lng: 37.805 },
+  { id: "uvao", short: "ЮВАО", label: "Юго-восток", hint: "Люблино, Марьино, Кузьминки, Выхино", lat: 55.69, lng: 37.76 },
+  { id: "uao", short: "ЮАО", label: "Юг", hint: "Коломенское, Царицыно, Чертаново, Бирюлёво", lat: 55.63, lng: 37.65 },
+  { id: "uzao", short: "ЮЗАО", label: "Юго-запад", hint: "Ясенево, Тёплый Стан, Академический, Бутово", lat: 55.655, lng: 37.525 },
+  { id: "zao", short: "ЗАО", label: "Запад", hint: "Кунцево, Крылатское, Раменки, Фили", lat: 55.705, lng: 37.445 },
+  { id: "szao", short: "СЗАО", label: "Северо-запад", hint: "Тушино, Строгино, Митино, Хорошёво", lat: 55.82, lng: 37.4 },
+  { id: "zelao", short: "Зеленоград", label: "Зеленоград", hint: "Крюково, Савёлки, Матушкино", lat: 55.985, lng: 37.195 },
+  { id: "nao", short: "Новая Москва", label: "Новая Москва", hint: "Троицк, Щербинка, Московский, Внуково", lat: 55.53, lng: 37.3 },
+];
+export const okrugById = (id: string) => OKRUGS.find((o) => o.id === id);
+/** Для чипа: «ЗАО», «Красногорск» и т.п. */
+export const okrugOrigin = (o: Okrug): Origin => ({ lat: o.lat, lng: o.lng, label: o.short, source: "area" });
 
 /** Районы Москвы — быстрый выбор без GPS (координаты — центр района, примерно). */
 export const AREAS: { id: string; label: string; lat: number; lng: number }[] = [

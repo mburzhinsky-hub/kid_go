@@ -9,7 +9,7 @@ import { allPlaces } from "@/lib/data/repository";
 import { useNearbyExtras } from "@/lib/nearby";
 import { parseQuery } from "@/lib/recommend/nlu";
 import { CATEGORIES } from "@/lib/catalog";
-import { travelToPlace } from "@/lib/location";
+import { locationMode, travelToPlace } from "@/lib/location";
 import { useFamily } from "@/lib/store";
 import { PlaceRow } from "@/components/cards/PlaceCard";
 import { FilterChip } from "@/components/ui/FilterChip";
@@ -35,6 +35,7 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
   const transport = useFamily((s) => s.transport);
   const { places: extra } = useNearbyExtras();
   const pool = useMemo(() => (extra.length ? [...allPlaces, ...extra] : allPlaces), [extra]);
+  const anywhere = locationMode(origin) === "any";
   const mins = (p: Place) => travelToPlace(origin, p, transport).minutes;
   const parsed = useMemo(() => (q.trim().length > 2 ? parseQuery(q) : null), [q]);
 
@@ -58,7 +59,7 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
           if (parsed.activity && p.activity_level === parsed.activity) score += 1.5;
           score += parsed.interests.filter((i) => p.interest_tags.includes(i)).length * 3;
           if (parsed.category === p.category) score += 2;
-          if (parsed.maxDistanceKm && mins(p) > 20) ok = false;
+          if (parsed.maxDistanceKm && !anywhere && mins(p) > 20) ok = false;
           if (parsed.ageMax == null && kids.length && kids.every((k) => k.age < p.age_min || k.age > p.age_max)) score -= 2;
           const structured = parsed.chips.length > 0;
           if (!structured && words.length && textHits === 0) ok = false;
@@ -69,13 +70,13 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
       })
       .filter((x) => x.ok);
     const sorted = [...scored].sort((a, b) => {
-      if (sort === "near") return mins(a.p) - mins(b.p);
+      if (sort === "near" && !anywhere) return mins(a.p) - mins(b.p);
       if (sort === "cheap") return a.p.price_min - b.p.price_min || b.score - a.score;
       return b.score - a.score;
     });
     return sorted.map((x) => x.p);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [q, category, sort, parsed, origin, transport, kids, pool]);
+  }, [q, category, sort, parsed, origin, transport, kids, pool, anywhere]);
 
   const plannerHref = parsed
     ? `/planner/results?${new URLSearchParams({
@@ -86,7 +87,7 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
         budget: parsed.budget ?? "any",
         transport: parsed.transport ?? "transit",
         ...(parsed.foodAfter ? { food: "1" } : {}),
-        ...(parsed.maxDistanceKm ? { near: "1" } : {}),
+        ...(parsed.maxDistanceKm && !anywhere ? { near: "1" } : {}),
         ...(parsed.indoor ? { weather: "rain" } : {}),
       })}`
     : "/planner";
@@ -182,8 +183,10 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
               ["near", "Ближе"],
               ["cheap", "Дешевле"],
             ] as [Sort, string][]
-          ).map(([id, label]) => (
-            <FilterChip key={id} size="sm" active={sort === id} onClick={() => setSort(id)}>
+          )
+            .filter(([id]) => id !== "near" || !anywhere)
+            .map(([id, label]) => (
+            <FilterChip key={id} size="sm" active={(sort === "near" && anywhere ? "best" : sort) === id} onClick={() => setSort(id)}>
               {label}
             </FilterChip>
           ))}

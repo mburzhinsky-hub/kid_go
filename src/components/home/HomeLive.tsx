@@ -13,6 +13,7 @@ import type { Scenario } from "@/lib/catalog";
 import { ScenarioGrid } from "./QuickScenarioCard";
 import { HeroBanner, type HeroSlide } from "./HeroBanner";
 import { PlaceCarousel } from "@/components/cards/PlaceCard";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { travelToPlace } from "@/lib/location";
 import { useNearbyExtras } from "@/lib/nearby";
 import { GlyphRain, GlyphSun } from "@/components/icons/brand-icons";
@@ -153,12 +154,20 @@ export function HomeWeather() {
         <span className="block text-[15px] font-bold leading-tight">{title}</span>
         <span className="block text-[13px] leading-tight text-ink-2">{text}</span>
         <span className="mt-0.5 block text-[11px] leading-tight text-muted">
-          {forecast.source === "open-meteo" ? `Прогноз Open-Meteo · ${origin.source === "default" ? "центр" : origin.label}` : forecast.scenario ? `Тестовая погода: ${forecast.scenario}` : "Нет связи с прогнозом — примерная погода"}
+          {forecast.source === "open-meteo" ? `Прогноз Open-Meteo · ${origin.source === "default" ? "Москва" : origin.label}` : forecast.scenario ? `Тестовая погода: ${forecast.scenario}` : "Нет связи с прогнозом — примерная погода"}
         </span>
       </span>
       <ArrowRight size={20} className="shrink-0 text-ink-2" />
     </Link>
   );
+}
+
+/** Заголовок: «Популярное в Москве», пока место не выбрано, и «Популярное рядом» — когда выбрано. */
+export function NearbyPopularHeader() {
+  const origin = useFamily((s) => s.origin);
+  const hydrated = useFamily((s) => s.hydrated);
+  const anywhere = !hydrated || origin.source === "default";
+  return <SectionHeader title={anywhere ? "Популярное в Москве" : "Популярное рядом"} href="/search?sort=popular" />;
 }
 
 /** «Популярное рядом» — с учётом точки выезда семьи. */
@@ -172,8 +181,8 @@ export function NearbyPopular({ places: seed }: { places: Place[] }) {
     return places
       .filter((p) => p.category !== "cafe")
       .map((p) => {
-        const t = travelToPlace(origin, p, transport);
-        return { p, s: p.rating * 2 + Math.log10(p.review_count + 1) - (mounted ? t.minutes / 12 : 0) };
+        const near = mounted && origin.source !== "default" ? travelToPlace(origin, p, transport).minutes / 12 : 0;
+        return { p, s: p.rating * 2 + Math.log10(p.review_count + 1) - near };
       })
       .sort((a, b) => b.s - a.s)
       .map((x) => x.p)

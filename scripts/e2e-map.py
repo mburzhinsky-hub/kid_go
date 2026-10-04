@@ -43,7 +43,7 @@ with sync_playwright() as p:
     pg.screenshot(path="/tmp/e2e-map.png")
 
     pg.goto(B + "/"); pg.wait_for_timeout(1000)
-    pg.locator("header button[aria-label^='Точка выезда']").first.click()
+    pg.locator("header button[aria-label^='Где ищем']").first.click()
     pg.get_by_role("dialog").get_by_text("Указать на карте").click(); pg.wait_for_timeout(5000)
     dlg = pg.locator("[aria-label='Указать точку на карте']")
     print("2 picker title before:", dlg.locator("p").first.inner_text())
@@ -55,6 +55,33 @@ with sync_playwright() as p:
     st = json.loads(pg.evaluate("localStorage.getItem('kidgo-family')"))["state"]["origin"]
     print("   saved origin:", st)
     assert st["source"] == "custom" and (abs(st["lat"] - 56.06) > 0.001 or abs(st["lng"] - 36.98) > 0.001), "точка должна сместиться"
+    # 3) «вся Москва» по умолчанию: карта показывается, заголовок «Лучшее в Москве», точки «я» нет
+    ctx2 = br.new_context(viewport={"width": 390, "height": 844}, service_workers="block")
+    ctx2.route(re.compile(r"https://(?!localhost).*"), handler)
+    ctx2.add_init_script("localStorage.setItem('kidgo-family', JSON.stringify({state:{onboarded:true,children:[{id:'c1',name:'',age:5,interests:[],emoji:'🦁'}]},version:3}))")
+    pg2 = ctx2.new_page(); pg2.on("pageerror", lambda e: errs.append(("pageerror", str(e))))
+    pg2.goto(B + "/map"); pg2.wait_for_timeout(9000)
+    c2 = pg2.evaluate("()=>{const c=document.querySelector('canvas.maplibregl-canvas');return c?{ch:c.clientHeight}:null}")
+    print("3 any-mode canvas:", c2, "| title:", pg2.locator("h2").first.inner_text())
+    assert c2 and c2["ch"] > 600
+    assert "Москв" in pg2.locator("h2").first.inner_text()
+    assert pg2.evaluate("()=>document.querySelectorAll('.kg-user-dot').length") == 0, "в режиме «вся Москва» точки «я» быть не должно"
+    pg2.screenshot(path="/tmp/e2e-map-any.png")
+
+    # 4) все тайл-серверы недоступны → баннер с запасными вариантами, схема и Яндекс; «Схема» рисует места
+    ctx3 = br.new_context(viewport={"width": 390, "height": 844}, service_workers="block")
+    ctx3.route(re.compile(r"https://(?!localhost).*"), lambda r: r.abort())
+    ctx3.add_init_script("try{localStorage.setItem('kidgo-family', JSON.stringify({state:{onboarded:true,children:[{id:'c1',name:'',age:5,interests:[],emoji:'🦁'}]},version:3}))}catch(e){}")
+    pg3 = ctx3.new_page(); pg3.on("pageerror", lambda e: errs.append(("pageerror", str(e))))
+    pg3.goto(B + "/map"); pg3.wait_for_timeout(6000)
+    banner = pg3.get_by_role("status").first
+    print("4 offline banner:", banner.inner_text().replace("\n", " | "))
+    assert pg3.locator("iframe[title^='Карта (Яндекс)']").count() == 1, "должна открыться карта Яндекса"
+    src = pg3.locator("iframe").first.get_attribute("src"); print("   yandex src:", src[:140])
+    pg3.get_by_role("button", name="Схема").click(); pg3.wait_for_timeout(800)
+    assert pg3.get_by_text("Схема округов и расстояний").count() == 1
+    print("   schematic markers:", pg3.evaluate("()=>document.querySelectorAll('button').length"))
+    pg3.screenshot(path="/tmp/e2e-map-fallback.png")
     br.close()
 print("ERRORS:", errs[:5])
 sys.exit(1 if errs else 0)

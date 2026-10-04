@@ -69,12 +69,16 @@ export function ProfileScreen() {
             options={TRANSPORTS.map((t) => ({ id: t.id, label: `${t.emoji} ${t.id === "transit" ? "Метро/автобус" : t.label}` }))}
             onChange={(v) => s.setPrefs({ transport: v as typeof s.transport })}
           />
-          <Segmented
-            label="Готовы ехать до"
-            value={String(s.maxTravelMin)}
-            options={TRAVEL_LIMITS.map((m) => ({ id: String(m), label: m === 90 ? "1,5 часа" : m === 60 ? "часа" : `${m} мин` }))}
-            onChange={(v) => s.setPrefs({ maxTravelMin: Number(v) })}
-          />
+          {s.hydrated && s.origin.source !== "default" ? (
+            <Segmented
+              label="Готовы ехать до"
+              value={String(s.maxTravelMin)}
+              options={TRAVEL_LIMITS.map((m) => ({ id: String(m), label: m === 90 ? "1,5 часа" : m === 60 ? "часа" : `${m} мин` }))}
+              onChange={(v) => s.setPrefs({ maxTravelMin: Number(v) })}
+            />
+          ) : (
+            <p className="text-[13.5px] leading-snug text-muted">Ищем по всей Москве. Выберите округ или точку — и можно будет ограничить время в пути.</p>
+          )}
         </div>
       </section>
 
@@ -83,8 +87,8 @@ export function ProfileScreen() {
           <Row
             id="home"
             icon={<Home size={20} className="text-pink" />}
-            label="Откуда выезжаем"
-            value={s.home ? (s.home.label === "Дом" ? "Дом сохранён" : s.home.label) : s.origin.source === "default" ? "не выбрано" : s.origin.label}
+            label="Где ищем"
+            value={!s.hydrated || s.origin.source === "default" ? "Вся Москва" : s.origin.source === "home" ? "Дом" : s.origin.label}
             onClick={() => setLocOpen(true)}
           />
           <Row id="city" icon={<MapPin size={20} className="text-red" />} label="Город" value={s.city} onClick={() => setCityOpen(true)} />

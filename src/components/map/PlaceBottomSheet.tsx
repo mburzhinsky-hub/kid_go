@@ -13,7 +13,7 @@ import { routeUrl } from "@/lib/route-url";
 import { placeHref } from "@/lib/place-href";
 
 /** Карточка выбранного маркера, выезжающая снизу. */
-export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; minutes: number; onClose: () => void }) {
+export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; minutes?: number; onClose: () => void }) {
   const cat = categoryDef(place.category);
   return (
     <div className="animate-sheet">
@@ -35,7 +35,7 @@ export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; mi
           </Link>
           <div className="mt-1 flex items-center gap-3">
             <RatingBadge rating={place.rating} count={place.review_count} />
-            <DistanceBadge km={`${minutes} мин в пути`} />
+            {minutes != null && <DistanceBadge km={`${minutes} мин в пути`} />}
           </div>
           <div className="mt-2 flex flex-wrap gap-1.5">
             <AgeBadge>{formatAgeRange(place.age_min, place.age_max)}</AgeBadge>

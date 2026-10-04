@@ -73,10 +73,10 @@ const H = (h: number) => h * 60;
 export const SCENARIO_LIBRARY: ScenarioDef[] = [
   /* ── погода ── */
   { id: "rain", label: "Если дождь", group: "weather", Glyph: GlyphRain, ...col("blue"), mood: "surprise", duration: "mid", constraints: { indoorOnly: true }, relevance: (c) => (c.rainAllDay ? 12 : c.rainLater ? 6 : 1.5), hint: "Всё под крышей" },
-  { id: "before-rain", label: "Успеть до дождя", group: "weather", emoji: "⛅", ...col("sky"), mood: "outdoor", duration: "mid", constraints: { outdoorPreferred: true }, relevance: (c) => (c.rainLater && !c.rainAllDay ? 11 : 0), hint: "Гуляем, пока сухо, потом — под крышу" },
-  { id: "frost", label: "Мороз — греемся", group: "weather", emoji: "🧣", ...col("purple"), mood: "surprise", duration: "mid", constraints: { indoorOnly: true }, relevance: (c) => (c.cold ? 10 : 0), hint: "Тёплые места и горячий шоколад" },
+  { id: "before-rain", label: "Успеть до дождя", group: "weather", emoji: "⛅", ...col("sky"), mood: "outdoor", duration: "short", constraints: { outdoorPreferred: true }, relevance: (c) => (c.rainLater && !c.rainAllDay ? 11 : 0), hint: "Гуляем, пока сухо, потом — под крышу" },
+  { id: "frost", label: "Мороз — греемся", group: "weather", emoji: "🧣", ...col("purple"), mood: "surprise", duration: "short", food: true, constraints: { indoorOnly: true }, relevance: (c) => (c.cold ? 10 : 0), hint: "Тёплые места и горячий шоколад" },
   { id: "first-snow", label: "Играть в снегу", group: "weather", emoji: "☃️", ...col("sky"), mood: "outdoor", duration: "mid", constraints: { preferCategories: ["park"] }, relevance: (c) => (c.snow ? (c.cold ? 6 : 9) : 0) },
-  { id: "heat", label: "Жара — в тень и прохладу", group: "weather", emoji: "🌊", ...col("sky"), mood: "surprise", duration: "mid", constraints: { indoorOnly: true }, relevance: (c) => (c.hot ? 10 : 0), hint: "Кондиционеры, вода, тень" },
+  { id: "heat", label: "Жара — в тень и прохладу", group: "weather", emoji: "🌊", ...col("sky"), mood: "calm", duration: "mid", constraints: { indoorOnly: true, preferCategories: ["museum", "animals"] }, relevance: (c) => (c.hot ? 10 : 0), hint: "Прохладные музеи и океанариум" },
   { id: "walk", label: "Погулять", group: "weather", Glyph: GlyphTreeWalk, ...col("leaf"), mood: "outdoor", duration: "mid", constraints: { outdoorPreferred: true }, relevance: (c) => (c.rainAllDay || c.cold || c.hot ? 0 : c.sunny ? 8 : 4) },
   { id: "golden-autumn", label: "Золотая осень", group: "weather", emoji: "🍂", ...col("orange"), mood: "outdoor", duration: "mid", constraints: { preferCategories: ["park"], outdoorPreferred: true }, relevance: (c) => ((c.month === 9 || c.month === 10) && !c.rainAllDay && !c.cold && !c.hot ? 7 : 0), hint: "Листья, парки и фотографии" },
   { id: "picnic", label: "Пикник", group: "weather", emoji: "🧺", ...col("green"), mood: "outdoor", duration: "half", constraints: { preferCategories: ["park"], outdoorPreferred: true }, relevance: (c) => (c.sunny && c.warm && !c.hot ? 7 : 0) },
@@ -86,8 +86,8 @@ export const SCENARIO_LIBRARY: ScenarioDef[] = [
   { id: "before-nap", label: "До дневного сна", group: "time", emoji: "😴", ...col("purple"), mood: "calm", duration: "short", constraints: { endBy: H(13), maxTravelMin: 25, quiet: true, stroller: true }, relevance: (c) => (c.kidsCount && c.youngest <= 3 ? (c.hour < 12 ? 11 : 3) : 0), hint: "Дома к 13:00" },
   { id: "morning", label: "Утро до обеда", group: "time", emoji: "🌤", ...col("yellow"), mood: "surprise", duration: "mid", constraints: { endBy: H(14) }, relevance: (c) => (c.hour < 11 ? 6 : 0) },
   { id: "after-school", label: "После садика", group: "time", emoji: "🎒", ...col("orange"), mood: "energy", duration: "short", constraints: { maxTravelMin: 25 }, relevance: (c) => (c.weekday < 5 && c.hour >= 14 && c.hour < 19 ? 9 : 0), hint: "Рядом и недолго" },
-  { id: "weekday-evening", label: "Вечер буднего дня", group: "time", emoji: "🌆", ...col("blue"), mood: "calm", duration: "short", constraints: { maxTravelMin: 25 }, relevance: (c) => (c.weekday < 4 && c.hour >= 17 ? 6 : 0) },
-  { id: "friday", label: "Вечер пятницы", group: "time", emoji: "🎉", ...col("pink"), mood: "surprise", duration: "short", food: true, relevance: (c) => (c.weekday === 4 && c.hour >= 14 ? 10 : 0) },
+  { id: "weekday-evening", label: "Вечер буднего дня", group: "time", emoji: "🌆", ...col("blue"), mood: "calm", duration: "short", constraints: { maxTravelMin: 25, startAt: H(17), endBy: H(20) + 30 }, relevance: (c) => (c.weekday < 4 && c.hour >= 17 ? 6 : 0), hint: "После работы и школы — с 17:00" },
+  { id: "friday", label: "Вечер пятницы", group: "time", emoji: "🎉", ...col("pink"), mood: "surprise", duration: "short", food: true, constraints: { startAt: H(16) + 30 }, relevance: (c) => (c.weekday === 4 && c.hour >= 14 ? 10 : 0), hint: "С 16:30, с ужином" },
   { id: "big-saturday", label: "Большая суббота", group: "time", emoji: "🗓", ...col("pink"), mood: "surprise", duration: "day", relevance: (c) => (c.weekday === 5 ? 8 : c.weekday === 4 ? 6 : 1), hint: "Целый день приключений" },
   { id: "slow-sunday", label: "Воскресенье без спешки", group: "time", emoji: "☕", ...col("yellow"), mood: "calm", duration: "half", constraints: { parentBreak: true }, relevance: (c) => (c.weekday === 6 ? 8 : c.weekday === 5 ? 3 : 1) },
 
@@ -95,15 +95,15 @@ export const SCENARIO_LIBRARY: ScenarioDef[] = [
   { id: "baby", label: "С малышом до года", group: "party", emoji: "🍼", ...col("mint"), mood: "calm", duration: "short", constraints: { stroller: true, quiet: true, maxTravelMin: 25 }, relevance: (c) => (c.kidsCount && c.youngest < 1 ? 10 : 0), hint: "Коляска, пеленальный столик, тишина" },
   { id: "toddler", label: "Малышу 1–3", group: "party", emoji: "🧸", ...col("peach"), mood: "calm", duration: "mid", constraints: { stroller: true }, relevance: (c) => (c.kidsCount && c.youngest >= 1 && c.youngest <= 3 ? 7 : 0) },
   { id: "siblings", label: "Старший и младший", group: "party", emoji: "👧", ...col("purple"), mood: "surprise", duration: "half", relevance: (c) => (c.kidsCount >= 2 && c.oldest - c.youngest >= 4 ? 9 : 0), hint: "Чтобы интересно было обоим" },
-  { id: "grandma", label: "С бабушкой", group: "party", emoji: "👵", ...col("yellow"), mood: "calm", duration: "short", constraints: { quiet: true, maxTravelMin: 30, parentBreak: true }, relevance: () => 3, hint: "Меньше ходьбы, есть где присесть" },
-  { id: "friends", label: "С друзьями ребёнка", group: "party", emoji: "🎈", ...col("pink"), mood: "energy", duration: "mid", food: true, relevance: (c) => (c.oldest >= 5 ? 4 : 1) },
-  { id: "dad-day", label: "Папа-день", group: "party", emoji: "💪", ...col("sky"), mood: "energy", duration: "mid", relevance: () => 2 },
+  { id: "grandma", label: "С бабушкой", group: "party", emoji: "👵", ...col("yellow"), mood: "calm", duration: "short", constraints: { quiet: true, maxTravelMin: 30, parentBreak: true }, relevance: (c) => (c.weekday >= 5 ? 4.5 : 2), hint: "Меньше ходьбы, есть где присесть" },
+  { id: "friends", label: "С друзьями ребёнка", group: "party", emoji: "🎈", ...col("pink"), mood: "energy", duration: "mid", food: true, constraints: { bookingOk: true, preferCategories: ["play", "active"] }, relevance: (c) => (c.oldest >= 5 ? 4 : 1), hint: "Компанией: где можно разгуляться" },
+  { id: "dad-day", label: "Папа-день", group: "party", emoji: "💪", ...col("sky"), mood: "energy", duration: "half", constraints: { preferCategories: ["active"], outdoorPreferred: true }, relevance: (c) => (c.weekday === 5 && c.hour < 14 ? 5 : c.weekday === 6 ? 3.5 : 1.5), hint: "Побегать, полазать, размяться" },
   { id: "tweens", label: "Для 10–12 лет", group: "party", emoji: "🧪", ...col("blue"), mood: "learn", duration: "mid", relevance: (c) => (c.oldest >= 10 ? 9 : 0), hint: "Не «малышовое»" },
 
   /* ── повод ── */
-  { id: "joy", label: "Порадовать ребёнка", group: "occasion", Glyph: GlyphGift, ...col("purple"), mood: "surprise", duration: "half", budget: "any", relevance: () => 3 },
-  { id: "birthday", label: "День рождения", group: "occasion", emoji: "🎂", ...col("pink"), mood: "energy", duration: "half", budget: "any", food: true, constraints: { bookingOk: true }, relevance: () => 2, hint: "Бронируйте заранее" },
-  { id: "guests", label: "Гости из другого города", group: "occasion", emoji: "🏛", ...col("orange"), mood: "learn", duration: "day", constraints: { preferCategories: ["museum", "park", "animals"] }, relevance: () => 2 },
+  { id: "joy", label: "Порадовать ребёнка", group: "occasion", Glyph: GlyphGift, ...col("purple"), mood: "surprise", duration: "half", budget: "any", relevance: (c) => (c.rainAllDay || c.cold || c.snow ? 6 : 3) },
+  { id: "birthday", label: "День рождения", group: "occasion", emoji: "🎂", ...col("pink"), mood: "energy", duration: "half", budget: "any", food: true, constraints: { bookingOk: true }, relevance: (c) => (c.kidsCount && c.weekday >= 5 ? 4.5 : 2), hint: "Бронируйте заранее" },
+  { id: "guests", label: "Гости из другого города", group: "occasion", emoji: "🏛", ...col("orange"), mood: "learn", duration: "day", constraints: { preferCategories: ["museum", "park", "animals"] }, relevance: (c) => ([12, 1, 5, 6, 7, 8].includes(c.month) && c.weekday >= 5 ? 4.5 : 2) },
   { id: "reward", label: "Награда за пятёрку", group: "occasion", emoji: "⭐", ...col("yellow"), mood: "surprise", duration: "short", constraints: { preferCategories: ["shop", "active"] }, relevance: (c) => (c.oldest >= 7 ? 6 : 0) },
   { id: "first-time", label: "Впервые в жизни", group: "occasion", emoji: "✨", ...col("mint"), mood: "surprise", duration: "mid", constraints: { preferCategories: ["animals", "museum"] }, relevance: (c) => (c.kidsCount && c.youngest <= 4 ? 6 : 2), hint: "Зоопарк, океанариум, планетарий" },
 
@@ -114,15 +114,15 @@ export const SCENARIO_LIBRARY: ScenarioDef[] = [
   { id: "creative", label: "Творческий день", group: "mood", emoji: "🎨", ...col("pink"), mood: "creative", duration: "mid", constraints: { interests: ["drawing", "cooking"] }, relevance: (c) => (c.interests.includes("drawing") || c.interests.includes("cooking") ? 7 : 3) },
   { id: "science", label: "Опыты и наука", group: "mood", emoji: "🔬", ...col("blue"), mood: "learn", duration: "mid", constraints: { interests: ["science", "space"] }, relevance: (c) => (c.interests.includes("science") || c.interests.includes("space") ? 7 : 2) },
   { id: "animals", label: "К животным", group: "mood", emoji: "🐾", ...col("orange"), mood: "surprise", duration: "mid", constraints: { preferCategories: ["animals"], interests: ["animals"] }, relevance: (c) => (c.interests.includes("animals") ? 8 : 3) },
-  { id: "calm", label: "Успокоиться и отдохнуть", group: "mood", emoji: "🍃", ...col("leaf"), mood: "calm", duration: "short", constraints: { quiet: true }, relevance: () => 3 },
+  { id: "calm", label: "Успокоиться и отдохнуть", group: "mood", emoji: "🍃", ...col("leaf"), mood: "calm", duration: "short", constraints: { quiet: true }, relevance: (c) => (c.hour >= 16 ? 4.5 : c.rainAllDay ? 4 : 2.5) },
   { id: "coffee", label: "Ребёнок играет, я пью кофе", group: "mood", emoji: "☕", ...col("peach"), mood: "calm", duration: "short", constraints: { parentBreak: true, maxTravelMin: 25 }, relevance: (c) => (c.cold || c.rainAllDay ? 5 : 3) },
 
   /* ── бюджет и силы ── */
   { id: "free", label: "Бесплатно", group: "effort", Glyph: GlyphHeart, ...col("mint"), mood: "outdoor", duration: "mid", budget: "free", relevance: (c) => (c.rainAllDay ? 2 : 4) },
-  { id: "cheap", label: "Недорого", group: "effort", emoji: "👛", ...col("green"), mood: "surprise", duration: "mid", budget: "2000", relevance: () => 3 },
+  { id: "cheap", label: "Недорого", group: "effort", emoji: "👛", ...col("green"), mood: "surprise", duration: "mid", budget: "2000", relevance: (c) => (c.weekday < 5 ? 4.5 : 3) },
   { id: "easy", label: "Без сложностей", group: "effort", Glyph: GlyphSmile, ...col("yellow"), mood: "calm", duration: "short", constraints: { maxTravelMin: 20 }, relevance: (c) => (c.youngest <= 3 ? 6 : 3), hint: "Рядом и без подготовки" },
   { id: "no-crowd", label: "Без толпы", group: "effort", emoji: "🤫", ...col("mint"), mood: "calm", duration: "mid", constraints: { quiet: true }, relevance: (c) => (c.weekday >= 5 ? 5 : 2) },
-  { id: "gentle", label: "Мягкий день после болезни", group: "effort", emoji: "🌱", ...col("leaf"), mood: "calm", duration: "short", constraints: { quiet: true, maxTravelMin: 20 }, relevance: () => 1 },
+  { id: "gentle", label: "Мягкий день после болезни", group: "effort", emoji: "🌱", ...col("leaf"), mood: "calm", duration: "short", constraints: { quiet: true, maxTravelMin: 20, avoidCategories: ["active", "play"] }, relevance: (c) => (c.cold || c.rainAllDay || c.snow ? (c.youngest <= 7 ? 4.5 : 2) : 1), hint: "Тихо, недалеко и без беготни" },
 ];
 
 export const scenarioById = (id?: string | null) => (id ? SCENARIO_LIBRARY.find((s) => s.id === id) : undefined);

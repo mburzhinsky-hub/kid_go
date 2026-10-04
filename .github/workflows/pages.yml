@@ -29,6 +29,8 @@ jobs:
       - run: npm ci
       - name: Engine evaluation (0 нарушений, разнообразие, полнота дня)
         run: npm run eval
+      - name: Audit of scenarios and filters (41 сценарий × условия × режимы места)
+        run: npm run audit:quick
       - name: Build static export
         env:
           GITHUB_PAGES: "true"

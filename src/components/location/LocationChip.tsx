@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, LocateFixed, Home, MapPin } from "lucide-react";
+import { ChevronDown, LocateFixed, Home, MapPin, Globe2 } from "lucide-react";
 import { useFamily } from "@/lib/store";
 import { LocationSheet } from "./LocationSheet";
 import { cn } from "@/lib/cn";
@@ -11,17 +11,17 @@ export function LocationChip({ className, tone = "fill" }: { className?: string;
   const origin = useFamily((s) => s.origin);
   const hydrated = useFamily((s) => s.hydrated);
   const [open, setOpen] = useState(false);
-  const Icon = origin.source === "gps" ? LocateFixed : origin.source === "home" ? Home : MapPin;
-  const label = !hydrated ? "Москва" : origin.source === "default" ? "Откуда едем?" : origin.source === "home" ? "Дом" : origin.label;
+  const any = !hydrated || origin.source === "default";
+  const Icon = any ? Globe2 : origin.source === "gps" ? LocateFixed : origin.source === "home" ? Home : MapPin;
+  const label = any ? "Вся Москва" : origin.source === "home" ? "Дом" : origin.label;
   return (
     <>
       <button
         onClick={() => setOpen(true)}
-        aria-label={`Точка выезда: ${label}. Изменить`}
+        aria-label={`Где ищем: ${label}. Изменить`}
         className={cn(
           "press flex h-10 max-w-[190px] items-center gap-1 rounded-full pl-3 pr-2.5 text-[15px] font-semibold",
           tone === "fill" ? "bg-fill" : "bg-surface shadow-card",
-          hydrated && origin.source === "default" && "text-pink",
           className
         )}
       >

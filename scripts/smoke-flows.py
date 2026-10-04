@@ -20,14 +20,13 @@ def run():
     pg.fill("input[placeholder='Имя — если хотите']","Тёма")
     pg.click("text=Динозавры")
     pg.click("text=Дальше")
-    pg.click("text=Выбрать район")
-    pg.get_by_role("dialog").get_by_text("Сокольники", exact=True).click()
+    pg.get_by_role("button", name="ВАО", exact=True).click()
     pg.wait_for_timeout(300)
-    assert "Сокольники" in pg.inner_text("main"), "origin not shown"
+    assert "Ищем рядом: ВАО" in pg.inner_text("main"), "origin not shown"
     pg.click("text=Поехали! 🚀"); pg.wait_for_url(B+"/"); pg.wait_for_timeout(1500)
     body=pg.inner_text("body")
     assert "Миша" not in body and "Аня" not in body, "demo kids visible"
-    print("2 home ok; chip:", pg.locator("header button[aria-label^='Точка выезда']").inner_text())
+    print("2 home ok; chip:", pg.locator("header button[aria-label^='Где ищем']").inner_text())
     print("   weather:", pg.locator("a:has-text('Сегодня')").first.inner_text().replace("\n"," | ")[:160])
     print("   for you title present:", "Для Тёмы" in body)
     # scenarios grid
