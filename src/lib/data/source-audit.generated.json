@@ -2,7 +2,7 @@
   "_meta": {
     "generated_at": "2026-10-05",
     "records": 131,
-    "completed": 30,
+    "completed": 50,
     "rule": "A public venue is publishable only after source-backed identity confirmation. Price, hours and family amenities are shown as facts only when separately evidenced on the audited source."
   },
   "centralny-detsky-magazin": {
@@ -359,125 +359,191 @@
   },
   "detsky-park-malysh-odincovo": {
     "source": "https://2gis.ru/odintsovo/firm/70000001029426020",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
     "verified_family_fields": []
   },
   "misti-park-odintsovo": {
     "source": "https://mistyparkodi.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "kids_menu"
+    ]
   },
   "hippo-land-odintsovo": {
     "source": "https://www.hippo-land.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
+    "verified_family_fields": [
+      "kids_menu"
+    ]
   },
   "unaboom-odintsovo": {
     "source": "https://unaboom.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [
+      "kids_menu"
+    ]
   },
   "termy-odintsovo": {
     "source": "https://therms.ru/odincovo",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ]
   },
   "pandapark-meshchersky": {
     "source": "https://pandapark.org/pandapark-mescherskiy/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ]
   },
   "huskyland-nazarevo": {
     "source": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ]
   },
   "muzey-lego-lets-go-zvenigorod": {
     "source": "https://letsgo-museum.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [
+      "parking",
+      "booking_required"
+    ]
   },
   "muzey-russkogo-deserta-zvenigorod": {
     "source": "https://rusdessertmuseum.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [
+      "booking_required"
+    ]
   },
   "muzey-nazad-v-sssr-zvenigorod": {
     "source": "https://ussrmuseum.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "usadba-vyazemy-pushkin": {
     "source": "https://museum-gol.ru/visitors/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "park-malevicha-razdory": {
     "source": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ]
   },
   "park-razdolye-razdory": {
     "source": "https://odinparki.ru/parks/?id=2991",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "dom-muzey-prishvina-dunino": {
     "source": "https://yandex.com/maps/org/dom_muzey_m_m_prishvina/1044608995/",
-    "checked_at": null,
-    "status": "pending",
+    "checked_at": "2026-10-05",
+    "status": "needs_source",
     "identity": false,
     "address": false,
     "verified_fields": [],
@@ -485,56 +551,81 @@
   },
   "lunny-kot-zelenograd": {
     "source": "https://mooncatpark.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
     "verified_family_fields": []
   },
   "muzey-lozhki-solnechnogorsk": {
     "source": "https://welcome.mosreg.ru/ideas/muzej-lozki",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "booking_required"
+    ]
   },
   "dolgoprudnensky-muzey": {
     "source": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "kidburg-zelenopark": {
     "source": "https://zelenopark.kidburg.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "booking_required"
+    ]
   },
   "peshki-park": {
     "source": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ]
   },
   "teatr-nash-dom-khimki": {
     "source": "https://welcome.mosreg.ru/ideas/teatr-nash-dom",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "park-tolstogo-himki": {
