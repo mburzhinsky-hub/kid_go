@@ -68,7 +68,7 @@
     "photoSet": "playground",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Парк_Дружбы",
+    "source": "https://walking.sport.mos.ru/parkdruzhby/",
     "confidence": "medium"
   },
   {
@@ -142,7 +142,8 @@
     "rating": null,
     "reviews": null,
     "source": "https://ru.wikipedia.org/wiki/Филёвский_парк",
-    "confidence": "medium"
+    "confidence": "medium",
+    "place_type": "park"
   },
   {
     "title": "ПандаПарк Фили",
@@ -786,7 +787,8 @@
     "rating": null,
     "reviews": null,
     "source": "https://www.sputnik8.com/ru/moscow/sights/park-pokrovskoe-streshnevo/info",
-    "confidence": "medium"
+    "confidence": "medium",
+    "place_type": "park"
   },
   {
     "title": "Аквапарк «Мореон»",
