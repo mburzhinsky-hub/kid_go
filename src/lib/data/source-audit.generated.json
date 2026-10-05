@@ -3,7 +3,10 @@
     "generated_at": "2026-10-05",
     "records": 131,
     "completed": 131,
-    "rule": "A public venue is publishable only after source-backed identity confirmation. Price, hours and family amenities are shown as facts only when separately evidenced on the audited source."
+    "rule": "A public venue is publishable only after source-backed identity confirmation. Price, hours and family amenities are shown as facts only when separately evidenced on the audited source.",
+    "reviewed": 131,
+    "unresolved": 0,
+    "dynamic_fields_policy": "Price/hours are exact only for manually reviewed sources; other stored values remain internal estimates and must not render as verified facts."
   },
   "centralny-detsky-magazin": {
     "source": "https://cdm-moscow.ru/",
@@ -134,10 +137,12 @@
   "vdnh": {
     "source": "https://vdnh.ru/",
     "checked_at": "2026-10-05",
-    "status": "source_unreachable",
-    "identity": false,
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "aptekarsky-ogorod": {
@@ -189,19 +194,24 @@
   "park-sokolniki": {
     "source": "https://parksokolniki.mos.ru/",
     "checked_at": "2026-10-05",
-    "status": "source_unreachable",
-    "identity": false,
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "piratskaya-ploshchadka": {
-    "source": "https://parkgorkogo.ru/",
+    "source": "https://vk.com/@gorkypark-igrovye-ploschadki-v-neskuchnom-sadu-chast-1",
     "checked_at": "2026-10-05",
-    "status": "needs_source",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "joki-joya": {
@@ -223,18 +233,20 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
   "norway-park-krasnogorsk": {
-    "source": "https://norwaypark.ru/krasnogorsk",
+    "source": "https://welcome.mosreg.ru/ideas/progulki-na-vysote-devatietaznogo-doma",
     "checked_at": "2026-10-05",
-    "status": "source_unreachable",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "zoolandia-kryuchkovo": {
@@ -260,8 +272,7 @@
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity",
-      "opening_hours"
+      "identity"
     ],
     "verified_family_fields": [
       "parking"
@@ -287,8 +298,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -300,9 +310,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -314,9 +322,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -340,8 +346,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -365,8 +370,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -392,8 +396,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": [
       "kids_menu"
@@ -407,9 +410,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": [
       "kids_menu"
@@ -437,8 +438,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": [
       "parking"
@@ -466,9 +466,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": [
       "parking",
@@ -483,9 +481,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": [
       "booking_required"
@@ -521,8 +517,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price"
+      "address"
     ],
     "verified_family_fields": [
       "parking"
@@ -541,12 +536,17 @@
     "verified_family_fields": []
   },
   "dom-muzey-prishvina-dunino": {
-    "source": "https://yandex.com/maps/org/dom_muzey_m_m_prishvina/1044608995/",
+    "source": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
     "checked_at": "2026-10-05",
-    "status": "needs_source",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
     "verified_family_fields": []
   },
   "lunny-kot-zelenograd": {
@@ -557,8 +557,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -644,26 +643,28 @@
     ]
   },
   "park-ekobereg-himki": {
-    "source": "https://www.putevka.com/blog/luchshie-parki-khimok",
+    "source": "https://2gis.ru/khimki/gallery/firm/70000001060565637",
     "checked_at": "2026-10-05",
-    "status": "needs_source",
-    "identity": false,
-    "address": true,
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
     "verified_fields": [
-      "address",
-      "price"
+      "identity"
     ],
-    "verified_family_fields": [
-      "parking"
-    ]
+    "verified_family_fields": []
   },
   "mega-himki-detskie-zony": {
-    "source": "https://mega.ru/khimki/",
+    "source": "https://star-lab.org/",
     "checked_at": "2026-10-05",
-    "status": "needs_source",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
     "verified_family_fields": []
   },
   "detmir-mega-himki": {
@@ -674,8 +675,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -704,12 +704,14 @@
     "verified_family_fields": []
   },
   "melikhovo-chekhov": {
-    "source": "https://tonkosti.ru/Усадьба_Мелихово",
+    "source": "https://chekhovmuseum.com/",
     "checked_at": "2026-10-05",
-    "status": "source_unreachable",
-    "identity": false,
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "ostafyevo-russky-parnas": {
@@ -744,8 +746,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": [
       "parking"
@@ -759,8 +760,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": [
       "parking"
@@ -774,8 +774,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -837,9 +836,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -851,8 +848,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price"
+      "address"
     ],
     "verified_family_fields": [
       "stroller_friendly"
@@ -878,8 +874,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -891,8 +886,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -904,8 +898,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -929,8 +922,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -1076,8 +1068,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -1135,8 +1126,7 @@
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity",
-      "price"
+      "identity"
     ],
     "verified_family_fields": [
       "baby_room",
@@ -1151,8 +1141,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -1176,8 +1165,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -1227,9 +1215,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -1241,8 +1227,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -1254,9 +1239,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": [
       "stroller_friendly"
@@ -1379,8 +1362,7 @@
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity",
-      "price"
+      "identity"
     ],
     "verified_family_fields": []
   },
@@ -1410,10 +1392,12 @@
   "park-luzhniki": {
     "source": "https://www.luzhniki.ru/",
     "checked_at": "2026-10-05",
-    "status": "source_unreachable",
-    "identity": false,
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "lefortovsky-park": {
@@ -1472,8 +1456,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -1521,8 +1504,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -1539,12 +1521,15 @@
     "verified_family_fields": []
   },
   "timiryazevsky-park": {
-    "source": "https://ru.wikipedia.org/wiki/Тимирязевский_лес",
+    "source": "https://yandex.ru/maps/org/timiryazevskiy_park/127468965054/",
     "checked_at": "2026-10-05",
-    "status": "source_unreachable",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "park-severny-rechnoy": {
@@ -1567,18 +1552,20 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price"
+      "address"
     ],
     "verified_family_fields": []
   },
   "stroginskaya-poima": {
-    "source": "https://ru.wikipedia.org/wiki/Строгино",
+    "source": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/",
     "checked_at": "2026-10-05",
-    "status": "needs_source",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "mitinsky-park": {
@@ -1601,8 +1588,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "opening_hours"
+      "address"
     ],
     "verified_family_fields": []
   },
@@ -1614,8 +1600,7 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address",
-      "price"
+      "address"
     ],
     "verified_family_fields": [
       "stroller_friendly",
@@ -1629,8 +1614,7 @@
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity",
-      "price"
+      "identity"
     ],
     "verified_family_fields": []
   }
