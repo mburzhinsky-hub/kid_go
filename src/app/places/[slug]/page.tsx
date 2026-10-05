@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: PlacePageProps): Promise<Meta
   };
 }
 
-export default async function PlacePage({ params }: PageProps<"/places/[slug]">) {
+export default async function PlacePage({ params }: PlacePageProps) {
   const { slug } = await params;
   const place = await repo.getPlace(slug);
   if (!place) notFound();
