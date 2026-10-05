@@ -108,9 +108,10 @@ function place(s: Seed): Place {
     confidence: trust.confidence,
     place_type: broadType,
     tags: trustedPlaceTags(s.tags ?? [], verifiedFields, verifiedFamilyFields),
-    // Family-specific удобства в старом seed не имели отдельного подтверждения по полям.
-    // Значения оставляем для движка, но UI обязан показывать их как «не уточнено».
-    unknown_fields: ["stroller_friendly", "baby_room", "kids_menu", "parking", "toilets", "wardrobe", "booking_required"],
+    // Неподтверждённые family-поля не попадают в публичные факты.
+    // Если поле подтверждено source audit, его значение можно показывать как yes/no.
+    unknown_fields: (["stroller_friendly", "baby_room", "kids_menu", "parking", "toilets", "wardrobe", "booking_required"] as const)
+      .filter((field) => !verifiedFamilyFields.includes(field)),
   } as Place;
 }
 
