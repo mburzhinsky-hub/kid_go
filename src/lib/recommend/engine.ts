@@ -216,8 +216,8 @@ export function scorePlace(
   const travel = legHome(input, p);
   const anchorLike = isAnchorLike(p, input);
   const reach = anchorLike ? ctx.reach : ctx.reach * 1.35;
-  // «вся Москва» — это город, а не область: без Красногорска, Мытищ и Истры (и без дальних окраин вроде Зеленограда — они в своих округах)
-  if (mode === "any" && (!inMoscow(p) || isSuburban(pt(p)))) return null;
+  // В общем режиме пользователь явно выбирает географию: Москва или Москва + область.
+  if (mode === "any" && input.geoScope !== "moscow-region" && (!inMoscow(p) || isSuburban(pt(p)))) return null;
   // округ: основное место — только в самом округе, соседние округа годятся для кафе и магазина по пути
   const okr = areaOf(input);
   const strict = !!okr && input.areaScope !== "wide";
@@ -259,6 +259,8 @@ export function scorePlace(
     distance: mode === "any" ? 0 : Math.max(0, 1 - travel.minutes / ctx.reach) ** 1.3 * (input.transport === "walk" ? 10 : 8.5) * (strict ? 0.3 : mode === "area" ? 0.7 : 1),
     // «шире округа»: выбранный округ всё равно впереди соседних
     area: !okr || strict ? 0 : tier === 0 ? 2.4 : tier === 1 ? 0.8 : 0,
+    // При широком поиске область доступна, но Москва остаётся чуть выше при прочих равных.
+    geography: mode === "any" && input.geoScope === "moscow-region" && (p.region === "mo" || isSuburban(pt(p))) ? -1.1 : 0,
     interest: interest * 8 + scenarioInterest,
     rating: p.review_count > 0 && p.rating_source ? p.rating - 4 : 0,
     mood: moodFit(p, input.mood) * 9,
