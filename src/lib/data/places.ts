@@ -282,15 +282,15 @@ const SEED_PLACES: Place[] = [
     tags: ["Профессии", "Мастер-классы", "4–12 лет", "В помещении"],
   }),
   place({
-    title: "Пиратская площадка в Нескучном саду",
+    title: "Площадка «Стройка» в Нескучном саду",
     slug: "piratskaya-ploshchadka",
     season_tags: ["spring", "summer", "autumn"],
-    subtitle: "Большая деревянная площадка",
+    subtitle: "Тематическая площадка с экскаватором и краном",
     description:
-      "Деревянный пиратский корабль с мачтами, канатами и горками посреди старого парка. Рядом песочница, качели-гнёзда и площадка для малышей. Бесплатно и в любую погоду, кроме ливня.",
+      "Игровая площадка «Стройка» в Нескучном саду: экскаватор, подъёмный кран, лазалки, песочница и горки. Официальная публикация Парка Горького подтверждает площадку и ориентир входа между домами 22 и 24 по Ленинскому проспекту.",
     latitude: 55.7192,
     longitude: 37.5935,
-    address: "Ленинский пр-т, 30А, Нескучный сад",
+    address: "Нескучный сад, вход между Ленинским проспектом, 22 и 24",
     metro: "Ленинский проспект",
     category: "play",
     photos: [
@@ -299,7 +299,7 @@ const SEED_PLACES: Place[] = [
       ph(PH.girlSwing, "Качели"),
       ph(PH.childClimbPlayground, "Лазалки"),
     ],
-    emoji: "🏴‍☠️",
+    emoji: "🏗️",
     rating: 4.7,
     review_count: 640,
     price_min: 0,
@@ -320,9 +320,9 @@ const SEED_PLACES: Place[] = [
     opening_hours: always,
     toilets: true,
     wardrobe: false,
-    interest_tags: ["sport", "fairy", "nature"],
-    experience_tags: ["playzone", "free", "walk"],
-    tags: ["Бесплатно", "На улице", "Песочница", "2–10 лет"],
+    interest_tags: ["construction", "sport", "nature"],
+    experience_tags: ["playzone", "walk"],
+    tags: ["Площадка «Стройка»", "На улице", "Песочница", "2–10 лет"],
   }),
 
   /* ───────────── Парки ───────────── */
