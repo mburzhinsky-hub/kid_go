@@ -138,10 +138,8 @@ interface Loc {
 }
 const LOCS: Loc[] = [
   { id: "вся Москва", o: DEFAULT_ORIGIN, transport: "transit" },
-  { id: "ЗАО", o: okrugOrigin(okrugById("zao")!), transport: "transit" },
-  { id: "ЮВАО", o: okrugOrigin(okrugById("uvao")!), transport: "transit" },
-  { id: "Зеленоград", o: okrugOrigin(okrugById("zelao")!), transport: "car" },
-  { id: "Новая Москва", o: okrugOrigin(okrugById("nao")!), transport: "car" },
+  // все 11 округов: правило «округ — граница» должно работать одинаково везде, а не только в паре примеров
+  ...OKRUGS.filter((o) => !["szao"].includes(o.id)).map((o): Loc => ({ id: o.short, o: okrugOrigin(o), transport: o.id === "zelao" || o.id === "nao" ? "car" : "transit" })),
   { id: "центр, адрес", o: here("center"), transport: "transit" },
   { id: "Тушино, адрес", o: here("tushino"), transport: "transit" },
   { id: "Чертаново, адрес", o: here("chertanovo"), transport: "transit" },
@@ -149,7 +147,8 @@ const LOCS: Loc[] = [
   { id: "Красногорск, адрес", o: settle("krasnogorsk", "custom"), transport: "car" },
   { id: "СЗАО", o: okrugOrigin(okrugById("szao")!), transport: "transit" },
 ];
-const CITY_LOCS = new Set(["вся Москва", "ЗАО", "ЮВАО", "СЗАО", "центр, адрес", "Тушино, адрес", "Чертаново, адрес"]);
+const CITY_LOCS = new Set(["вся Москва", ...OKRUGS.filter((o) => o.id !== "zelao" && o.id !== "nao").map((o) => o.short), "центр, адрес", "Тушино, адрес", "Чертаново, адрес"]);
+const L = (id: string) => LOCS.find((l) => l.id === id)!;
 const LOCS_Q = LOCS.filter((l) => ["вся Москва", "ЗАО", "Зеленоград", "центр, адрес", "Красногорск, адрес"].includes(l.id));
 const WXS: WxScenario[] = ["sun", "rain", "rain15", "cold", "heat"];
 
@@ -377,7 +376,7 @@ const key1 = (sid: string, c: Cfg) => {
   const input = buildPlannerInput({ query: { s: sid, ...c.query }, kids: c.kids, origin: c.loc.o, prefs: { budget: "5000", transport: c.loc.transport, maxTravelMin: 40 }, forecast, now: c.now, family: { want: [], visited: [], loved: [], disliked: [], seen: [] } });
   return generatePlans(input).plans[0]?.key;
 };
-const BASE: Omit<Cfg, "kids"> = { loc: LOCS[5], wx: "sun", now: SAT, query: {} };
+const BASE: Omit<Cfg, "kids"> = { loc: L("центр, адрес"), wx: "sun", now: SAT, query: {} };
 /** «Тесные» сценарии: узкий радиус и тишина оставляют 3–6 подходящих мест, поэтому часть условий их план не меняет — это нормально. */
 const tight = (s: ScenarioDef) =>
   !!s.constraints?.maxTravelMin || !!s.constraints?.stroller || !!s.constraints?.endBy || (s.duration === "short" && (!!s.constraints?.quiet || !!s.constraints?.indoorOnly)) ||
@@ -393,9 +392,9 @@ const FACTORS: Factor[] = [
   { id: "бесплатно", short: "бесплатно", patch: (b) => ({ ...b, query: { ...b.query, budget: "free" } }), applies: (s) => s.budget !== "free", min: (s) => (s.duration === "short" || tight(s) ? 0 : 0.5) },
   { id: "до 2 000 ₽", short: "2000", patch: (b) => ({ ...b, query: { ...b.query, budget: "2000" } }), applies: (s) => s.budget !== "2000" && s.budget !== "free" },
   { id: "машина", short: "машина", patch: (b) => ({ ...b, loc: { ...b.loc, transport: "car" }, query: { ...b.query, transport: "car" } }) },
-  { id: "вся Москва ↔ адрес", short: "место:всё", patch: (b) => ({ ...b, loc: LOCS[0] }) },
-  { id: "округ ↔ адрес", short: "место:округ", patch: (b) => ({ ...b, loc: LOCS[1] }) },
-  { id: "другой адрес", short: "место:адрес", patch: (b) => ({ ...b, loc: LOCS[6] }) },
+  { id: "вся Москва ↔ адрес", short: "место:всё", patch: (b) => ({ ...b, loc: L("вся Москва") }) },
+  { id: "округ ↔ адрес", short: "место:округ", patch: (b) => ({ ...b, loc: L("ЗАО") }) },
+  { id: "другой адрес", short: "место:адрес", patch: (b) => ({ ...b, loc: L("Тушино, адрес") }) },
   { id: "вт 17:00 ↔ сб 11:00", short: "время", patch: (b) => ({ ...b, now: TUE_EVE }) },
   { id: "через 3 дня (вт)", short: "+3 дня", patch: (b) => ({ ...b, query: { ...b.query, day: "3" } }) },
   { id: "1–2 часа вместо рецепта", short: "1–2 ч", patch: (b) => ({ ...b, query: { ...b.query, duration: "short" } }), applies: (s) => s.duration !== "short" && !s.constraints?.endBy, min: () => 0.5 },

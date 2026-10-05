@@ -10,6 +10,7 @@
     "eval": "tsx scripts/eval-engine.ts",
     "audit": "tsx scripts/audit-scenarios.ts",
     "audit:quick": "tsx scripts/audit-scenarios.ts --quick",
+    "audit:areas": "tsx scripts/audit-areas.ts",
     "audit:doc": "tsx scripts/audit-scenarios.ts --quick --doc"
   },
   "dependencies": {

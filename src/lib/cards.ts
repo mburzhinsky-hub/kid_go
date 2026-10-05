@@ -3,6 +3,7 @@ import type { AdventureCardData } from "@/components/cards/AdventureCard";
 import { adventurePlaces } from "@/lib/data/repository";
 import { chainLabel } from "@/lib/plan";
 import { formatAgeRange, formatDurationShort, priceLevelLabel } from "@/lib/format";
+import { areasOfPlaces } from "@/lib/area-fit";
 
 const level = (budget: number) => (budget === 0 ? 0 : budget < 2500 ? 1 : budget < 5000 ? 2 : 3);
 
@@ -21,6 +22,7 @@ export function adventureCardData(a: Adventure): AdventureCardData {
     indoor: a.weather_tags.includes("rain"),
     recommend: a.recommend_percent,
     thumbs: places.map((p) => ({ ...p.photos[0], tint: p.tint, emoji: p.emoji })),
+    areas: areasOfPlaces(places),
   };
 }
 

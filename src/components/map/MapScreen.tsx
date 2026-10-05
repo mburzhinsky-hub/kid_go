@@ -12,6 +12,7 @@ import { useNearbyExtras } from "@/lib/nearby";
 import { DEFAULT_LOCATION, pt } from "@/lib/geo";
 import { travelToPlace, nearestAreaLabel, locationMode, isSuburban } from "@/lib/location";
 import { inMoscow, okrugOfOrigin, tierOf } from "@/lib/moscow";
+import { orderByArea } from "@/lib/area-fit";
 import { openState } from "@/lib/format";
 import { categoryDef } from "@/lib/catalog";
 import { useFamily } from "@/lib/store";
@@ -180,16 +181,12 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
     const quality = (p: Place) => p.rating * 2 + Math.log10(p.review_count + 1) + (p.is_hit ? 1 : 0);
     // без точки «рядом» не считаем: лучшее по городу
     if (anywhere) return visible.map((p) => ({ p, min: 0, s: quality(p) })).sort((a, b) => b.s - a.s);
-    const byDistance = () => visible.map((p) => ({ p, min: travelToPlace(user, p, transport).minutes })).sort((a, b) => a.min - b.min);
+    const minOf = (p: Place) => travelToPlace(user, p, transport).minutes;
     if (okrug) {
-      // выбран округ: сначала лучшее в нём самом, затем у соседей; места из других концов города в список не лезут
-      const inArea = visible
-        .map((p) => ({ p, min: travelToPlace(user, p, transport).minutes, t: tierOf(p, okrug.id), s: quality(p) }))
-        .filter((x) => x.t <= 1)
-        .sort((a, b) => a.t - b.t || b.s - a.s);
-      if (inArea.length) return inArea;
+      // выбран округ: сначала лучшее в нём самом, затем у соседей; из других концов города — только если рядом почти ничего нет
+      return orderByArea(visible, (p) => p, okrug, quality, { enough: 3, fallback: (a, b) => minOf(a) - minOf(b) }).list.map((p) => ({ p, min: minOf(p) }));
     }
-    return byDistance();
+    return visible.map((p) => ({ p, min: minOf(p) })).sort((a, b) => a.min - b.min);
   }, [visible, user, transport, planSlugs, anywhere, okrug]);
   // ссылки на Яндекс Карты: рамка — по лучшим местам выдачи (или точке выезда)
   const yFrame = useMemo(() => {

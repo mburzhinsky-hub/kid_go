@@ -5,6 +5,8 @@ import { AdventureCard, type AdventureCardData } from "@/components/cards/Advent
 import { FilterChip } from "@/components/ui/FilterChip";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useFamily } from "@/lib/store";
+import { areaNote, fitOfAreas } from "@/lib/area-fit";
+import { useAreaOrder } from "@/components/cards/AreaAdventureCards";
 
 export interface AdventureItem {
   card: AdventureCardData;
@@ -25,14 +27,20 @@ const FILTERS = [
   { id: "energy", label: "⚡ Активно" },
   { id: "learn", label: "🔬 Познавательно" },
 ] as const;
+type FilterId = (typeof FILTERS)[number]["id"] | "area";
 
 export function AdventuresBrowser({ items }: { items: AdventureItem[] }) {
-  const [f, setF] = useState<(typeof FILTERS)[number]["id"]>("all");
+  const [f, setF] = useState<FilterId>("all");
   const kids = useFamily((s) => s.children);
+  // выбран округ: сначала приключения в нём, у каждого — подпись, где это
+  const ordered = useAreaOrder(items.map((x) => ({ ...x, areas: x.card.areas })));
+  const okrug = ordered.okrug;
   const list = useMemo(
     () =>
-      items.filter((a) => {
+      ordered.list.filter((a) => {
         switch (f) {
+          case "area":
+            return !!okrug && fitOfAreas(a.card.areas, okrug.id) === 0;
           case "kids":
             return kids.every((k) => k.age >= a.ageMin - 1 && k.age <= a.ageMax + 1);
           case "rain":
@@ -51,11 +59,16 @@ export function AdventuresBrowser({ items }: { items: AdventureItem[] }) {
             return true;
         }
       }),
-    [items, f, kids]
+    [ordered.list, f, kids, okrug]
   );
   return (
     <>
       <div className="no-scrollbar sticky top-0 z-20 -mt-1 flex gap-2 overflow-x-auto bg-bg/95 px-4 pb-3 pt-2">
+        {okrug && (
+          <FilterChip active={f === "area"} onClick={() => setF(f === "area" ? "all" : "area")} size="sm">
+            📍 В {okrug.short}
+          </FilterChip>
+        )}
         {FILTERS.map((x) => (
           <FilterChip key={x.id} active={f === x.id} onClick={() => setF(x.id)} size="sm">
             {x.label}
@@ -64,13 +77,13 @@ export function AdventuresBrowser({ items }: { items: AdventureItem[] }) {
       </div>
       <div className="space-y-4 px-4">
         {list.map((a, i) => (
-          <AdventureCard key={a.card.href} data={a.card} variant="full" priority={i === 0} />
+          <AdventureCard key={a.card.href} data={a.card} variant="full" priority={i === 0} note={okrug ? areaNote(a.card.areas, okrug.id) : null} />
         ))}
         {list.length === 0 && (
           <EmptyState
             art="search"
-            title="Таких приключений пока нет"
-            text="Попробуйте другой фильтр — или соберите день под себя в планировщике."
+            title={f === "area" && okrug ? `В ${okrug.short} готовых приключений пока нет` : "Таких приключений пока нет"}
+            text={f === "area" ? "Снимите фильтр — покажем и ближайшие округа, или соберите день под себя в планировщике: он подберёт места именно там." : "Попробуйте другой фильтр — или соберите день под себя в планировщике."}
             action={{ href: "/planner", label: "Собрать свой день" }}
           />
         )}

@@ -10,6 +10,8 @@ import { useNearbyExtras } from "@/lib/nearby";
 import { parseQuery } from "@/lib/recommend/nlu";
 import { CATEGORIES } from "@/lib/catalog";
 import { locationMode, travelToPlace } from "@/lib/location";
+import { tierOf } from "@/lib/moscow";
+import { useOkrug } from "@/lib/use-okrug";
 import { useFamily } from "@/lib/store";
 import { goBack } from "@/lib/nav";
 import { PlaceRow } from "@/components/cards/PlaceCard";
@@ -37,6 +39,7 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
   const { places: extra } = useNearbyExtras();
   const pool = useMemo(() => (extra.length ? [...allPlaces, ...extra] : allPlaces), [extra]);
   const anywhere = locationMode(origin) === "any";
+  const okrug = useOkrug();
   const mins = (p: Place) => travelToPlace(origin, p, transport).minutes;
   const parsed = useMemo(() => (q.trim().length > 2 ? parseQuery(q) : null), [q]);
 
@@ -67,6 +70,8 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
           if (structured && words.length && textHits === 0 && score < p.rating + 1) ok = false;
         }
         score += textHits * 3;
+        // выбран округ: места из него — первыми, соседние — следом (если в запросе нет названия, это решает порядок)
+        if (okrug) score += [4, 1.2, 0][tierOf(p, okrug.id)];
         return { p, score, ok };
       })
       .filter((x) => x.ok);
@@ -77,7 +82,7 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
     });
     return sorted.map((x) => x.p);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [q, category, sort, parsed, origin, transport, kids, pool, anywhere]);
+  }, [q, category, sort, parsed, origin, transport, kids, pool, anywhere, okrug]);
 
   const plannerHref = parsed
     ? `/planner/results?${new URLSearchParams({

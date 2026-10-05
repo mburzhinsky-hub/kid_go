@@ -144,7 +144,8 @@ export function nearestOkrug(p: GeoPoint): Okrug {
 /** Если точка выезда — выбранный округ, вернёт его (иначе точка — город области, адрес, GPS). */
 export function okrugOfOrigin(o?: Pick<Origin, "source" | "label" | "lat" | "lng">): Okrug | undefined {
   if (!o || o.source !== "area") return undefined;
-  return OKRUGS.find((k) => k.short === o.label && Math.abs(k.lat - o.lat) < 1e-4 && Math.abs(k.lng - o.lng) < 1e-4);
+  // по названию, а не по координатам: сохранённая раньше точка округа могла быть чуть другой, но это всё тот же округ
+  return OKRUGS.find((k) => k.short === o.label);
 }
 
 /** Соседние округа: «рядом» — можно зайти за кафе или на соседнюю улицу, но не за основным занятием. */
@@ -165,6 +166,13 @@ export const ADJACENT: Record<string, string[]> = {
 /** Зеленоград и Новая Москва окружены Подмосковьем: ближайшие города области считаем «соседями». */
 const OUTER = new Set(["zelao", "nao"]);
 const OUTER_NEAR_KM = 14;
+
+/** То же для уже известного округа места (null — не Москва). Для Зеленограда и Новой Москвы Подмосковье «рядом» тут не считается. */
+export function tierOfArea(area: string | null | undefined, okrugId: string): Tier {
+  if (area === okrugId) return 0;
+  if (area && ADJACENT[okrugId]?.includes(area)) return 1;
+  return 2;
+}
 
 /** 0 — место в самом округе, 1 — в соседнем (или рядом, для Зеленограда и Новой Москвы), 2 — дальше. */
 export type Tier = 0 | 1 | 2;

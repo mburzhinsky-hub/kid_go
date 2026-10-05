@@ -223,6 +223,7 @@ export function scorePlace(
   const strict = !!okr && input.areaScope !== "wide";
   const tier = okr ? tierOf(p, okr) : undefined;
   if (strict && tier !== undefined && (tier === 2 || (tier === 1 && anchorLike))) return null;
+  if (okr && input.areaScope === "adjacent" && tier === 2) return null;
   if (mode !== "any" && travel.minutes > reach && !(strict && tier === 0)) return null;
 
   // возраст: по умолчанию место должно подходить всем детям
@@ -849,7 +850,7 @@ function diagnose(input: PlannerInput): Relaxation[] {
   ];
   // привязка к округу/адресу сужает выбор — «вся Москва» снимает её целиком
   if (input.locationMode && input.locationMode !== "any") tries.unshift({ label: "Искать по всей Москве", patch: { anywhere: true } });
-  if (areaOf(input) && input.areaScope !== "wide") tries.unshift({ label: "Добавить соседние округа", patch: { wide: true } });
+  if (areaOf(input) && input.areaScope !== "wide") tries.unshift({ label: "Добавить ближайшие округа", patch: { wide: true } });
   return tries.filter((t) => {
     const { travel, anywhere, wide, ...rest } = t.patch;
     const k = Object.keys(rest)[0] as keyof typeof rest | undefined;
@@ -876,12 +877,13 @@ export function rankPlaces(input: PlannerInput, filter?: (p: Place) => boolean, 
   const ages = input.children.map((c) => c.age);
   const pool = poolOf(input).filter((p) => !filter || filter(p));
   const okr = areaOf(input);
-  // округ: сначала только он, а если мест мало — и соседние (свои — первыми), чтобы подборка не пропадала
-  const attempts: { scope?: "strict" | "wide"; mul: number }[] =
+  // округ: сначала только он, а если мест мало — и соседние (свои — первыми); дальше соседних подборка не уходит
+  // (лучше показать меньше карточек, чем «для вас» из другого конца города)
+  const attempts: { scope?: "strict" | "adjacent" | "wide"; mul: number }[] =
     input.locationMode === "any"
       ? [{ mul: 1 }]
       : okr && input.areaScope !== "wide"
-        ? [{ scope: "strict", mul: 1 }, ...[1, 1.5, 2.2, 3.2].map((mul) => ({ scope: "wide" as const, mul }))]
+        ? [{ scope: "strict", mul: 1 }, ...[1, 1.5].map((mul) => ({ scope: "adjacent" as const, mul }))]
         : [1, 1.5, 2.2, 3.2].map((mul) => ({ mul }));
   let best: ScoredPlace[] = [];
   for (const a of attempts) {

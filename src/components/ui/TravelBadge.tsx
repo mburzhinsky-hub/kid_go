@@ -3,7 +3,8 @@
 import { Footprints, TramFront, Car, MapPin } from "lucide-react";
 import type { Place } from "@/lib/types";
 import { useFamily } from "@/lib/store";
-import { locationMode, travelToPlace, type LocMode } from "@/lib/location";
+import { locationMode, okrugById, travelToPlace, type LocMode } from "@/lib/location";
+import { okrugOf, okrugOfOrigin } from "@/lib/moscow";
 import { formatKm } from "@/lib/geo";
 import { cn } from "@/lib/cn";
 
@@ -27,7 +28,7 @@ export function whereLabel(place: Pick<Place, "metro" | "town" | "address">): st
 }
 
 export function TravelBadge({ place, className, long }: { place: Place; className?: string; long?: boolean }) {
-  const { travel, hydrated, mode } = useTravel(place);
+  const { travel, hydrated, mode, origin } = useTravel(place);
   if (mode === "any")
     return (
       <span className={cn("inline-flex min-w-0 items-center gap-1 text-[13px] text-muted", className)}>
@@ -35,6 +36,10 @@ export function TravelBadge({ place, className, long }: { place: Place; classNam
       </span>
     );
   const Icon = travel.mode === "walk" ? Footprints : travel.mode === "car" ? Car : TramFront;
+  // округ выбран, а место в другом — говорим, в каком («ЦАО · ≈ 38 мин»), чтобы не казалось, что это «рядом»
+  const chosen = mode === "area" ? okrugOfOrigin(origin) : undefined;
+  const placeOkrug = chosen ? okrugOf(place) : null;
+  const elsewhere = chosen && placeOkrug && placeOkrug !== chosen.id ? okrugById(placeOkrug)?.short : undefined;
   if (!hydrated)
     return (
       <span className={cn("inline-flex items-center gap-1 text-[13px] text-muted", className)}>
@@ -43,7 +48,7 @@ export function TravelBadge({ place, className, long }: { place: Place; classNam
     );
   return (
     <span className={cn("inline-flex items-center gap-1 text-[13px] text-muted", className)} title={mode === "area" ? "Примерно, от центра выбранного округа" : `${formatKm(travel.km)} от точки выезда`}>
-      <Icon size={14} strokeWidth={2.2} /> {mode === "area" ? "≈ " : ""}{travel.minutes} мин{long ? ` · ${formatKm(travel.km)}` : ""}
+      <Icon size={14} strokeWidth={2.2} /> {elsewhere ? <b className="font-semibold text-[#9a6b00]">{elsewhere} ·</b> : null} {mode === "area" ? "≈ " : ""}{travel.minutes} мин{long ? ` · ${formatKm(travel.km)}` : ""}
     </span>
   );
 }

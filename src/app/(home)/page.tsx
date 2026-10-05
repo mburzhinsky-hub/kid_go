@@ -3,7 +3,7 @@ import { SearchBar } from "@/components/home/SearchBar";
 import { CategoryScroller } from "@/components/home/CategoryScroller";
 import { type HeroSlide } from "@/components/home/HeroBanner";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { AdventureCard } from "@/components/cards/AdventureCard";
+import { HomeAdventureCards } from "@/components/cards/AreaAdventureCards";
 import { adventureCardData } from "@/lib/cards";
 import { PlaceCarousel } from "@/components/cards/PlaceCard";
 import { EventCard } from "@/components/cards/EventCard";
@@ -102,9 +102,7 @@ export default async function HomePage() {
       <section className="mt-7">
         <SectionHeader title="Готовые приключения" href="/adventures" />
         <div className="no-scrollbar snap-x-pad mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-4 pt-1">
-          {adv.slice(0, 6).map((a, i) => (
-            <AdventureCard key={a.id} data={adventureCardData(a)} priority={i === 0} />
-          ))}
+          <HomeAdventureCards items={adv.map(adventureCardData)} limit={6} />
         </div>
       </section>
 

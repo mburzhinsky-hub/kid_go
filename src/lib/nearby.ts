@@ -5,6 +5,8 @@ import { create } from "zustand";
 import type { GeoPoint, Place } from "@/lib/types";
 import { useFamily } from "@/lib/store";
 import { haversineKm } from "@/lib/geo";
+import { okrugOf, okrugOfOrigin } from "@/lib/moscow";
+import type { Origin } from "@/lib/location";
 import { places as STATIC } from "@/lib/data/places";
 import { CACHE_TTL, cellOf, getDynamic, loadCell, pinElements, registerDynamic, saveCell } from "@/lib/data/dynamic";
 import { fetchOsmByIds, fetchOverpass, placesFromOsm, type OsmElement } from "@/lib/osm";
@@ -37,13 +39,28 @@ export function staticCoverage(p: GeoPoint, km = 8): number {
   return n;
 }
 
-export const needsOsm = (p: GeoPoint) => staticCoverage(p) < DENSE_ENOUGH;
+/**
+ * Выбран округ: ему нужно своё покрытие, а не «в 8 км от центра округа что-то есть» — иначе при строгом правиле «округ — граница»
+ * в ЮВАО, СЗАО или Зеленограде остаются 2–5 мест каталога, и на большинство ситуаций честно отвечается «здесь нет».
+ */
+const OKRUG_ENOUGH = 14;
+const ANCHOR_CATS = ["park", "play", "museum", "active", "animals"];
+export function okrugCoverage(okrugId: string): number {
+  let n = 0;
+  for (const s of STATIC) if (ANCHOR_CATS.includes(s.category) && okrugOf(s) === okrugId) n++;
+  return n;
+}
+
+export const needsOsm = (p: GeoPoint & Partial<Pick<Origin, "source" | "label">>) => {
+  const okrug = p.source === "area" ? okrugOfOrigin({ source: "area", label: p.label ?? "", lat: p.lat, lng: p.lng }) : undefined;
+  return okrug ? okrugCoverage(okrug.id) < OKRUG_ENOUGH : staticCoverage(p) < DENSE_ENOUGH;
+};
 
 let inflight: AbortController | null = null;
 /** После неудачи не долбим серверы при каждом открытии экрана — пробуем снова не чаще раза в 90 секунд. */
 const failedAt = new Map<string, number>();
 
-export async function ensureNearby(origin: GeoPoint, force = false) {
+export async function ensureNearby(origin: GeoPoint & Partial<Pick<Origin, "source" | "label">>, force = false) {
   if (!needsOsm(origin)) {
     useNearbyStore.setState({ key: undefined, els: undefined, status: "skipped" });
     return;

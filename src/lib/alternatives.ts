@@ -2,7 +2,8 @@ import type { CategoryId, Child, Place, PlanStop, TransportId } from "@/lib/type
 import { places as ALL } from "@/lib/data/places";
 import { pt } from "@/lib/geo";
 import { isOpenDuring, toMinutes } from "@/lib/format";
-import { travelBetween } from "@/lib/location";
+import { travelBetween, isSuburban } from "@/lib/location";
+import { inMoscow, okrugOf, tierOf } from "@/lib/moscow";
 import { outdoorVerdict, windowWx, type Forecast } from "@/lib/forecast";
 
 /** Роль шага в дне: заменяем «как на как» — занятие на занятие, кафе на кафе. */
@@ -29,7 +30,16 @@ export interface Alternative {
 export function alternativesFor(
   stops: PlanStop[],
   index: number,
-  opts: { kids: Pick<Child, "age" | "interests">[]; transport: TransportId; weekday: number; forecast?: Forecast; dateISO?: string; indoorOnly?: boolean }
+  opts: {
+    kids: Pick<Child, "age" | "interests">[];
+    transport: TransportId;
+    weekday: number;
+    forecast?: Forecast;
+    dateISO?: string;
+    indoorOnly?: boolean;
+    /** Округ, выбранный как «где ищем»: замена не должна увозить из него. */
+    area?: string;
+  }
 ): Alternative[] {
   const stop = stops[index];
   const prev = stops[index - 1]?.place;
@@ -40,7 +50,16 @@ export function alternativesFor(
   const ages = opts.kids.map((k) => k.age);
   const youngest = ages.length ? Math.min(...ages) : 5;
   const interests = new Set(opts.kids.flatMap((k) => k.interests));
-  return ALL.filter((p) => !used.has(p.id) && ROLE[p.category] === role)
+  // Где «держим» день: в выбранном округе (если шаг в нём или рядом), иначе — в округе самого шага.
+  // Занятие меняем на занятие из того же округа, кафе и магазин — из него или соседнего. Подмосковье остаётся Подмосковьем.
+  const stopArea = okrugOf(stop.place);
+  const home = opts.area && (stopArea === opts.area || (stopArea && tierOf(stop.place, opts.area) <= (role === "activity" ? 0 : 1))) ? opts.area : stopArea;
+  const inScope = (p: Place) => {
+    if (!home) return !inMoscow(p) || isSuburban(pt(p)) === isSuburban(pt(stop.place)); // шаг за МКАД — замена тоже за городом
+    const t = tierOf(p, home);
+    return role === "activity" ? t === 0 : t <= 1;
+  };
+  return ALL.filter((p) => !used.has(p.id) && ROLE[p.category] === role && inScope(p))
     .filter((p) => ages.every((a) => a >= p.age_min && a <= p.age_max))
     .filter((p) => isOpenDuring(p.opening_hours, opts.weekday, at, stop.duration))
     .filter((p) => !opts.indoorOnly || p.indoor)
@@ -57,7 +76,7 @@ export function alternativesFor(
       const reason = hit ? "по интересам" : p.indoor && !stop.place.indoor ? "под крышей" : near <= 15 ? "совсем рядом" : `★ ${p.rating.toFixed(1)}`;
       return { place: p, minutesFromPrev: fromPrev, reason, score, near };
     })
-    .filter((x) => x.near <= 45)
+    .filter((x) => x.near <= (home ? 60 : 45))
     .sort((a, b) => b.score - a.score)
     .slice(0, 4)
     .map(({ place, minutesFromPrev, reason }) => ({ place, minutesFromPrev, reason }));

@@ -211,7 +211,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
         )}
         {here && result.area?.scope === "wide" && (
           <div className="mt-3 flex items-center gap-3 rounded-[14px] bg-blue-50 px-3 py-2.5 text-[13.5px] leading-snug text-blue">
-            <span className="flex-1">Ищем {here.prep} и в соседних округах — места из {here.short} идут первыми.</span>
+            <span className="flex-1">Ищем {here.prep} и в ближайших округах — места из {here.short} идут первыми.</span>
             <Link href={withQuery({ wide: undefined, offset: undefined })} replace className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[13.5px] font-semibold">
               Только {here.short}
             </Link>
@@ -231,9 +231,9 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
             {result.relaxed.nearest ? ` (ближайшее подходящее — в ${result.relaxed.nearest} мин)` : ""}. Если хочется ближе — смените место поиска или условия.
           </p>
         )}
-        {!result.relaxed && nearby.status === "error" && locationMode(fam.origin) !== "any" && isSuburban(fam.origin) && (
+        {!result.relaxed && nearby.status === "error" && locationMode(fam.origin) !== "any" && (isSuburban(fam.origin) || input?.locationMode === "area") && (
           <p className="mt-3 rounded-[14px] bg-fill-2 px-3 py-2 text-[13px] leading-snug text-muted">
-            Не удалось подгрузить места рядом с вами (нет связи с картой). Показываем то, что есть в нашем каталоге.
+            Не удалось подгрузить дополнительные места {result.area ? `в ${okrugById(result.area.id)?.short ?? "округе"}` : "рядом с вами"} (нет связи с картой). Показываем то, что есть в нашем каталоге.
           </p>
         )}
         {result.partialAge && (
@@ -388,7 +388,7 @@ function AreaGap({
         </div>
       )}
 
-      {nothing && <p className="text-[14px] leading-snug text-muted">{cap(here.prep)} каталог пока небогат. Можно искать по всей Москве или добавить соседние округа.</p>}
+      {nothing && <p className="text-[14px] leading-snug text-muted">{cap(here.prep)} каталог пока небогат. Можно искать по всей Москве или добавить ближайшие округа.</p>}
 
       {offType > 0 && (
         <Link href={withQuery({ loose: "1", offset: undefined })} className="press flex min-h-12 items-center justify-center rounded-full bg-fill-2 px-4 py-2 text-center text-[15px] font-semibold">
@@ -396,7 +396,7 @@ function AreaGap({
         </Link>
       )}
       <Link href={withQuery({ wide: "1", offset: undefined })} className="press flex h-12 items-center justify-center rounded-full bg-fill-2 text-[15px] font-semibold">
-        Показать и соседние округа
+        Показать и ближайшие округа
       </Link>
     </section>
   );

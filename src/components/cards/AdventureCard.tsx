@@ -21,7 +21,11 @@ export interface AdventureCardData {
   explanation?: string;
   /** «25 мин от вас» */
   fromHome?: string;
+  /** Округа основных мест маршрута (id или "mo") — чтобы сказать, где это относительно выбранного округа. */
+  areas?: string[];
 }
+
+export type AreaNote = { text: string; tone: "here" | "near" | "far" };
 
 /**
  * Карточка приключения должна «продавать день»: большое фото, эмоциональный
@@ -31,10 +35,13 @@ export function AdventureCard({
   data,
   variant = "carousel",
   priority,
+  note,
 }: {
   data: AdventureCardData;
   variant?: "carousel" | "full";
   priority?: boolean;
+  /** Где это относительно выбранного округа. */
+  note?: AreaNote | null;
 }) {
   return (
     <Link
@@ -92,6 +99,9 @@ export function AdventureCard({
           <p className="min-w-0 flex-1 text-[14px] font-semibold leading-tight text-ink-2">{data.chain}</p>
         </div>
 
+        {note && (
+          <p className={cn("mt-2 text-[13px] font-semibold leading-snug", note.tone === "here" ? "text-green" : note.tone === "near" ? "text-[#9a6b00]" : "text-red")}>{note.text}</p>
+        )}
         {data.explanation && <p className="mt-2.5 text-[13.5px] leading-snug text-muted">{data.explanation}</p>}
 
         <div className="mt-3 flex flex-wrap items-center gap-1.5">

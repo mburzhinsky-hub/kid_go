@@ -15,6 +15,7 @@ import { useForecast } from "@/lib/use-context";
 import { bringList, daySummary, moscowDateISO, weekdayOf, windowWx } from "@/lib/forecast";
 import { wxFor } from "@/lib/recommend/engine";
 import { alternativesFor, type Alternative } from "@/lib/alternatives";
+import { useOkrug } from "@/lib/use-okrug";
 import { downloadICS } from "@/lib/calendar";
 import { travelToPlace, formatTravel, locationMode } from "@/lib/location";
 import { getPlaceSync } from "@/lib/data/repository";
@@ -69,6 +70,7 @@ export function AdventureView(props: AdventureViewProps) {
   }, [props.stops]);
 
   const fam = useFamily();
+  const okrug = useOkrug();
   const { forecast } = useForecast();
   const dayOffset = props.dayOffset ?? 0;
   const dateISO = moscowDateISO(dayOffset);
@@ -84,12 +86,12 @@ export function AdventureView(props: AdventureViewProps) {
         const r = wxFor(s.place, toMinutes(s.start), s.duration, { forecast, dateISO, youngest }, { weather: summary, mood: "surprise", constraints: undefined });
         s.weather = r.w;
         if (r.w?.bad && s.place.outdoor && !s.place.indoor) {
-          s.backup = alternativesFor(p.stops, i, { kids, transport: fam.transport, weekday, forecast, dateISO, indoorOnly: true })[0]?.place.slug;
+          s.backup = alternativesFor(p.stops, i, { kids, transport: fam.transport, weekday, forecast, dateISO, indoorOnly: true, area: okrug?.id })[0]?.place.slug;
         }
       });
     }
     return p;
-  }, [stopsIn, props.planKey, props.title, start, fam.transport, forecast, dateISO, youngest, kids, weekday]);
+  }, [stopsIn, props.planKey, props.title, start, fam.transport, forecast, dateISO, youngest, kids, weekday, okrug]);
 
   const saveKey = modified ? `custom:${plan.stops.map((s) => s.place.slug).join("+")}` : props.planKey;
   const saved = fam.savedPlans.some((p) => p.key === saveKey);
@@ -305,7 +307,7 @@ export function AdventureView(props: AdventureViewProps) {
         stops={plan.stops}
         onClose={() => setReplacing(null)}
         onPick={(i, p, why) => replaceStop(i, p, why)}
-        opts={{ kids, transport: fam.transport, weekday, forecast, dateISO }}
+        opts={{ kids, transport: fam.transport, weekday, forecast, dateISO, area: okrug?.id }}
       />
 
       <StickyCTA

@@ -14,8 +14,13 @@ import { ScenarioGrid } from "./QuickScenarioCard";
 import { HeroBanner, type HeroSlide } from "./HeroBanner";
 import { PlaceCarousel } from "@/components/cards/PlaceCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { travelToPlace } from "@/lib/location";
+import { travelToPlace, isSuburban } from "@/lib/location";
 import { useNearbyExtras } from "@/lib/nearby";
+import { allPlaces } from "@/lib/data/repository";
+import { pt } from "@/lib/geo";
+import { inMoscow } from "@/lib/moscow";
+import { orderByArea } from "@/lib/area-fit";
+import { useOkrug } from "@/lib/use-okrug";
 import { GlyphRain, GlyphSun } from "@/components/icons/brand-icons";
 
 /* ───────── контекст «сейчас» для главной ───────── */
@@ -162,31 +167,43 @@ export function HomeWeather() {
   );
 }
 
-/** Заголовок: «Популярное в Москве», пока место не выбрано, и «Популярное рядом» — когда выбрано. */
+/** Заголовок: «Популярное в Москве», пока место не выбрано, «Популярное в СЗАО» — для округа, «Популярное рядом» — для адреса. */
 export function NearbyPopularHeader() {
   const origin = useFamily((s) => s.origin);
   const hydrated = useFamily((s) => s.hydrated);
+  const okrug = useOkrug();
   const anywhere = !hydrated || origin.source === "default";
-  return <SectionHeader title={anywhere ? "Популярное в Москве" : "Популярное рядом"} href="/search?sort=popular" />;
+  const { places: extra } = useNearbyExtras();
+  const own = useAreaPopular([], extra);
+  return <SectionHeader title={anywhere ? "Популярное в Москве" : okrug ? (own.inArea ? `Популярное ${okrug.prep}` : `Популярное рядом с ${okrug.short}`) : "Популярное рядом"} href="/search?sort=popular" />;
+}
+
+/** Популярное с учётом выбора: округ — сначала места из него, затем соседние; адрес — по близости; вся Москва — по рейтингу. */
+function useAreaPopular(seed: Place[], extra: Place[]) {
+  const origin = useFamily((s) => s.origin);
+  const transport = useFamily((s) => s.transport);
+  const mounted = useMounted();
+  const okrug = useOkrug();
+  return useMemo(() => {
+    const places = (seed.length ? seed : allPlaces).concat(extra.length ? extra : []);
+    const pool = places.filter((p) => p.category !== "cafe" && p.category !== "shop");
+    const quality = (p: Place) => p.rating * 2 + Math.log10(p.review_count + 1) + (p.is_hit ? 1 : 0);
+    if (okrug) {
+      const mins = (p: Place) => travelToPlace(origin, p, transport).minutes;
+      const r = orderByArea(pool, (p) => p, okrug, quality, { enough: 4, fallback: (a, b) => mins(a) - mins(b) });
+      return { list: r.list.slice(0, 8), inArea: r.inArea };
+    }
+    if (!mounted || origin.source === "default") {
+      // «вся Москва» — только Москва
+      return { list: pool.filter((p) => inMoscow(p) && !isSuburban(pt(p))).sort((a, b) => quality(b) - quality(a)).slice(0, 8), inArea: false };
+    }
+    return { list: pool.map((p) => ({ p, s: quality(p) - travelToPlace(origin, p, transport).minutes / 12 })).sort((a, b) => b.s - a.s).map((x) => x.p).slice(0, 8), inArea: false };
+  }, [seed, extra, origin, transport, mounted, okrug]);
 }
 
 /** «Популярное рядом» — с учётом точки выезда семьи. */
 export function NearbyPopular({ places: seed }: { places: Place[] }) {
   const { places: extra } = useNearbyExtras();
-  const places = useMemo(() => (extra.length ? [...seed, ...extra] : seed), [seed, extra]);
-  const origin = useFamily((s) => s.origin);
-  const transport = useFamily((s) => s.transport);
-  const mounted = useMounted();
-  const list = useMemo(() => {
-    return places
-      .filter((p) => p.category !== "cafe")
-      .map((p) => {
-        const near = mounted && origin.source !== "default" ? travelToPlace(origin, p, transport).minutes / 12 : 0;
-        return { p, s: p.rating * 2 + Math.log10(p.review_count + 1) - near };
-      })
-      .sort((a, b) => b.s - a.s)
-      .map((x) => x.p)
-      .slice(0, 8);
-  }, [places, origin, transport, mounted]);
+  const { list } = useAreaPopular(seed, extra);
   return <PlaceCarousel places={list} />;
 }
