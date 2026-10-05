@@ -699,14 +699,14 @@
     ]
   },
   {
-    "title": "Тимирязевский лесопарк",
+    "title": "Тимирязевский парк",
     "slug": "timiryazevsky-park",
     "town": "Тимирязевский (САО)",
     "region": "msk",
-    "address": "Москва, Тимирязевский лесопарк, Дмитровское шоссе",
+    "address": "Москва, Тимирязевская улица, 49",
     "metro": "Петровско-Разумовская",
-    "lat": 55.8337,
-    "lng": 37.5617,
+    "lat": 55.819861,
+    "lng": 37.547275,
     "category": "park",
     "subtitle": "Лесопарк с прудами, тропами и пикниками",
     "description": "Большой лесопарк с прудами, тропами и открытыми лужайками. Хорош для прогулки, самоката, пикника и подкормки птиц.",
@@ -762,7 +762,7 @@
     "photoSet": "autumn",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Тимирязевский_лес",
+    "source": "https://yandex.ru/maps/org/timiryazevskiy_park/127468965054/",
     "confidence": "medium",
     "weather": [
       "sun",
@@ -911,14 +911,14 @@
     ]
   },
   {
-    "title": "Парк «Строгинская пойма»",
+    "title": "Строгинская пойма",
     "slug": "stroginskaya-poima",
     "town": "Строгино (СЗАО)",
     "region": "msk",
-    "address": "Москва, Строгинский бульвар, Строгинская пойма",
+    "address": "Москва, ул. Маршала Катукова, напротив д. 26",
     "metro": "Строгино",
-    "lat": 55.803,
-    "lng": 37.392,
+    "lat": 55.80261,
+    "lng": 37.41991,
     "category": "park",
     "subtitle": "Пойма у реки с дорожками и площадками",
     "description": "Пойма Москвы-реки с дорожками, площадками и видом на воду. Подойдёт для самокатов, велосипедов и спокойной прогулки.",
@@ -973,8 +973,8 @@
     "photoSet": "park",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Строгино",
-    "confidence": "medium",
+    "source": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/",
+    "confidence": "high",
     "weather": [
       "sun",
       "any"
