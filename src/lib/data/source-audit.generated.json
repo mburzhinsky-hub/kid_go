@@ -120,13 +120,19 @@
     "checked_at": "2026-10-05",
     "status": "reviewed",
     "identity": true,
-    "address": false,
+    "address": true,
     "verified_fields": [
-      "identity"
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://planetarium-moscow.ru/"
+      "identity": "https://planetarium-moscow.ru/",
+      "address": "https://planetarium-moscow.ru/contacts",
+      "price": "https://planetarium-moscow.ru/visitors/prices",
+      "opening_hours": "https://planetarium-moscow.ru/contacts"
     }
   },
   "eksperimentanium": {
@@ -137,12 +143,14 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://experimentanium.ru/",
-      "address": "https://experimentanium.ru/"
+      "address": "https://experimentanium.ru/visitors/",
+      "opening_hours": "https://experimentanium.ru/visitors/"
     }
   },
   "darvinovsky-muzey": {
@@ -210,11 +218,15 @@
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity"
+      "identity",
+      "price",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://vdnh.ru/"
+      "identity": "https://vdnh.ru/",
+      "price": "https://vdnh.ru/visitors/about/",
+      "opening_hours": "https://vdnh.ru/visitors/about/"
     }
   },
   "aptekarsky-ogorod": {
@@ -225,12 +237,16 @@
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "price",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://hortus.msu.ru/",
-      "address": "https://hortus.msu.ru/"
+      "address": "https://hortus.msu.ru/",
+      "price": "https://hortus.msu.ru/ticketprice.html",
+      "opening_hours": "https://hortus.msu.ru/"
     }
   },
   "kolomenskoe": {
@@ -270,11 +286,13 @@
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity"
+      "identity",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://parkgorkogo.ru/"
+      "identity": "https://parkgorkogo.ru/",
+      "opening_hours": "https://parkgorkogo.ru/faq/"
     }
   },
   "park-sokolniki": {
