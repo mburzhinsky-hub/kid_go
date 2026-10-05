@@ -27,6 +27,10 @@ jobs:
         with:
           enablement: true
       - run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Content trust validation
+        run: npm run validate:data
       - name: Engine evaluation (0 нарушений, разнообразие, полнота дня)
         run: npm run eval
       - name: Audit of scenarios and filters (77 сценариев × условия × режимы места)
