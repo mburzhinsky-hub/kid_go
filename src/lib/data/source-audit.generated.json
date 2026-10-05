@@ -2,7 +2,7 @@
   "_meta": {
     "generated_at": "2026-10-05",
     "records": 131,
-    "completed": 110,
+    "completed": 130,
     "rule": "A public venue is publishable only after source-backed identity confirmation. Price, hours and family amenities are shown as facts only when separately evidenced on the audited source."
   },
   "centralny-detsky-magazin": {
@@ -1386,26 +1386,31 @@
   },
   "kuzminki-park": {
     "source": "https://ru.wikipedia.org/wiki/Кузьминки_(парк)",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "vorontsovsky-park": {
     "source": "https://ru.wikipedia.org/wiki/Воронцовский_парк",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "park-luzhniki": {
     "source": "https://www.luzhniki.ru/",
-    "checked_at": null,
-    "status": "pending",
+    "checked_at": "2026-10-05",
+    "status": "source_unreachable",
     "identity": false,
     "address": false,
     "verified_fields": [],
@@ -1413,98 +1418,130 @@
   },
   "lefortovsky-park": {
     "source": "https://ru.wikipedia.org/wiki/Лефортовский_парк",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "lyublino-usadba": {
     "source": "https://ru.wikipedia.org/wiki/Люблино_(усадьба)",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "park-850-moscow": {
     "source": "https://ru.wikipedia.org/wiki/Парк_850-летия_Москвы",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "borisovskie-prudy": {
     "source": "https://ru.wikipedia.org/wiki/Борисовские_пруды",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "izmailovsky-kreml": {
     "source": "https://ru.wikipedia.org/wiki/Измайловский_кремль",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price"
+    ],
     "verified_family_fields": []
   },
   "terletsky-park": {
     "source": "https://ru.wikipedia.org/wiki/Терлецкий_парк",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "muzey-zhd-tehniki": {
     "source": "https://museum.cpm.moscow/museums/430",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "losiny-ostrov": {
     "source": "https://losinyiostrov.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "lianozovsky-park": {
     "source": "https://ru.wikipedia.org/wiki/Лианозовский_парк",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price"
+    ],
     "verified_family_fields": []
   },
   "ostankino-usadba": {
     "source": "https://ru.wikipedia.org/wiki/Останкино_(усадьба)",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "timiryazevsky-park": {
     "source": "https://ru.wikipedia.org/wiki/Тимирязевский_лес",
-    "checked_at": null,
-    "status": "pending",
+    "checked_at": "2026-10-05",
+    "status": "source_unreachable",
     "identity": false,
     "address": false,
     "verified_fields": [],
@@ -1512,26 +1549,33 @@
   },
   "park-severny-rechnoy": {
     "source": "https://ru.wikipedia.org/wiki/Северный_речной_вокзал",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "serebryany-bor": {
     "source": "https://xn--90ah2agcb.xn--p1ai/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price"
+    ],
     "verified_family_fields": []
   },
   "stroginskaya-poima": {
     "source": "https://ru.wikipedia.org/wiki/Строгино",
-    "checked_at": null,
-    "status": "pending",
+    "checked_at": "2026-10-05",
+    "status": "needs_source",
     "identity": false,
     "address": false,
     "verified_fields": [],
@@ -1539,30 +1583,44 @@
   },
   "mitinsky-park": {
     "source": "https://ru.wikipedia.org/wiki/Митино",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "borodinskaya-panorama": {
     "source": "https://www.1812panorama.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
     "verified_family_fields": []
   },
   "mosfilm-excursion": {
     "source": "https://www.mosfilm.ru/excursions/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price"
+    ],
+    "verified_family_fields": [
+      "stroller_friendly",
+      "booking_required"
+    ]
   },
   "shkolnoe-ozero-zelenograd": {
     "source": "https://ru.wikipedia.org/wiki/Зеленоград",
