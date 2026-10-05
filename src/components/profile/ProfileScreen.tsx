@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Plus, Pencil, Trash2, ChevronRight, MapPin, Settings2, Sparkles, Check, Home, Users } from "lucide-react";
+import { Plus, Pencil, Trash2, ChevronRight, MapPin, Sparkles, Check, Home, Users } from "lucide-react";
 import type { Child, InterestId } from "@/lib/types";
 import { useFamily, ageFromBirth, childLabel } from "@/lib/store";
 import { TRAVEL_LIMITS } from "@/lib/location";
