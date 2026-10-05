@@ -19,7 +19,7 @@ import { adventureCardData } from "@/lib/cards";
 import { ToastHost } from "@/components/ui/Toast";
 import { whatNextGroups } from "@/lib/what-next";
 import { TravelBadge } from "@/components/ui/TravelBadge";
-import { categoryDef } from "@/lib/catalog";
+import { categoryDef, placeTypeName } from "@/lib/catalog";
 import { formatAgeRange, formatPrice } from "@/lib/format";
 
 export function generateStaticParams() {
@@ -53,6 +53,7 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
   const inAdventures = adventures.filter((a) => a.steps.some((s) => s.place_id === place.id));
   const placeEvents = events.filter((e) => e.place_id === place.id);
   const cat = categoryDef(place.category);
+  const typeLabel = placeTypeName(place.place_type) ?? cat.name;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -62,7 +63,7 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
     image: place.photos.map((p) => p.src),
     address: { "@type": "PostalAddress", streetAddress: place.address, addressLocality: "Москва", addressCountry: "RU" },
     geo: { "@type": "GeoCoordinates", latitude: place.latitude, longitude: place.longitude },
-    ...(place.review_count > 0 ? { aggregateRating: { "@type": "AggregateRating", ratingValue: place.rating, reviewCount: place.review_count } } : {}),
+    ...(place.review_count > 0 && place.rating_source ? { aggregateRating: { "@type": "AggregateRating", ratingValue: place.rating, reviewCount: place.review_count } } : {}),
     isAccessibleForFree: place.price_max === 0,
     priceRange: place.price_max === 0 ? "Бесплатно" : `${formatPrice(place.price_min)}–${formatPrice(place.price_max)}`,
   };
@@ -84,7 +85,7 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
         <header className="pt-5">
           <div className="flex items-center gap-2">
             <span className="inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold" style={{ background: cat.bg, color: cat.fg }}>
-              <cat.Icon width={14} height={14} /> {cat.name}
+              <cat.Icon width={14} height={14} /> {typeLabel}
             </span>
             <OpenStatus hours={place.opening_hours} />
           </div>
@@ -144,8 +145,13 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
                   <div className="min-w-0 flex-1">
                     <p className="text-[15px] font-semibold leading-tight">{e.title}</p>
                     <p className="text-[13px] text-ink-2">
-                      {e.start_at.slice(11, 16)}–{e.end_at.slice(11, 16)} · {e.price ? formatPrice(e.price) : "бесплатно"} · {formatAgeRange(e.age_min, e.age_max)}
+                      {new Date(e.start_at).toLocaleDateString("ru-RU", { day: "numeric", month: "short", timeZone: "Europe/Moscow" })} · {e.start_at.slice(11, 16)}–{e.end_at.slice(11, 16)} · {e.price ? formatPrice(e.price) : "бесплатно"} · {formatAgeRange(e.age_min, e.age_max)}
                     </p>
+                    {e.source && (
+                      <a href={e.source} target="_blank" rel="noreferrer" className="mt-0.5 inline-block text-[12px] font-semibold text-muted underline underline-offset-2">
+                        источник программы
+                      </a>
+                    )}
                   </div>
                 </li>
               ))}
@@ -182,12 +188,14 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
           </section>
         )}
 
-        <section className="mt-9">
-          <h2 className="tight text-[24px] font-[800]">Отзывы родителей</h2>
-          <div className="mt-3.5">
-            <Reviews place={place} />
-          </div>
-        </section>
+        {(place.review_count > 0 || place.reviews.length > 0) && (
+          <section className="mt-9">
+            <h2 className="tight text-[24px] font-[800]">Отзывы</h2>
+            <div className="mt-3.5">
+              <Reviews place={place} />
+            </div>
+          </section>
+        )}
       </article>
 
       {nearby.length > 0 && (
