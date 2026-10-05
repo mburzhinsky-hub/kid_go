@@ -2,7 +2,7 @@
   "_meta": {
     "generated_at": "2026-10-05",
     "records": 131,
-    "completed": 50,
+    "completed": 70,
     "rule": "A public venue is publishable only after source-backed identity confirmation. Price, hours and family amenities are shown as facts only when separately evidenced on the audited source."
   },
   "centralny-detsky-magazin": {
@@ -630,26 +630,37 @@
   },
   "park-tolstogo-himki": {
     "source": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "stroller_friendly",
+      "parking"
+    ]
   },
   "park-ekobereg-himki": {
     "source": "https://www.putevka.com/blog/luchshie-parki-khimok",
-    "checked_at": null,
-    "status": "pending",
+    "checked_at": "2026-10-05",
+    "status": "needs_source",
     "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "address": true,
+    "verified_fields": [
+      "address",
+      "price"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ]
   },
   "mega-himki-detskie-zony": {
     "source": "https://mega.ru/khimki/",
-    "checked_at": null,
-    "status": "pending",
+    "checked_at": "2026-10-05",
+    "status": "needs_source",
     "identity": false,
     "address": false,
     "verified_fields": [],
@@ -657,35 +668,45 @@
   },
   "detmir-mega-himki": {
     "source": "https://www.detmir.ru/shops/item/id/176/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
     "verified_family_fields": []
   },
   "muzey-igrushki-sergiev-posad": {
     "source": "https://ru.wikipedia.org/wiki/Музей_игрушки_(Сергиев_Посад)",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "abramtsevo": {
     "source": "https://ru.wikipedia.org/wiki/Абрамцево_(музей-заповедник)",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "melikhovo-chekhov": {
     "source": "https://tonkosti.ru/Усадьба_Мелихово",
-    "checked_at": null,
-    "status": "pending",
+    "checked_at": "2026-10-05",
+    "status": "source_unreachable",
     "identity": false,
     "address": false,
     "verified_fields": [],
@@ -693,119 +714,173 @@
   },
   "ostafyevo-russky-parnas": {
     "source": "https://2gis.ru/moscow/firm/70000001018325589",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "dubrovitsy-znamenskaya-cerkov": {
     "source": "https://2gis.ru/moscow/firm/4504127916750444",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "park-talalikhina-podolsk": {
     "source": "https://2gis.ru/podolsk/firm/70000001006489201",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ]
   },
   "ledovy-dvorec-vityaz-podolsk": {
     "source": "https://2gis.ru/podolsk/firm/4504127912990222",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ]
   },
   "gorki-leninskie": {
     "source": "https://2gis.ru/moscow/firm/4504128908501846",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
     "verified_family_fields": []
   },
   "kolomna-pastila-muzey": {
     "source": "https://2gis.ru/kolomna/firm/70000001023964852",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "booking_required"
+    ]
   },
   "kolomna-kreml": {
     "source": "https://2gis.ru/kolomna/firm/70000001034360438",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "kolomna-muzey-lyubimoy-igrushki": {
     "source": "https://2gis.ru/kolomna/firm/70000001023926045",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "troitsk-zarechye": {
     "source": "https://yandex.ru/maps/org/zarechye/163370592762/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "natashinsky-park-lyubertsy": {
     "source": "https://2gis.ru/lyubertsy/firm/70000001022981485",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
     "verified_family_fields": []
   },
   "politehnichesky-muzey": {
     "source": "https://ru.wikipedia.org/wiki/Политехнический_музей",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price"
+    ],
+    "verified_family_fields": [
+      "stroller_friendly"
+    ]
   },
   "muzey-moskvy": {
     "source": "https://ru.wikipedia.org/wiki/Музей_Москвы",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "muzey-pobedy": {
     "source": "https://ru.wikipedia.org/wiki/Центральный_музей_Великой_Отечественной_войны",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price"
+    ],
     "verified_family_fields": []
   },
   "zoomuzey-msu": {
