@@ -31,7 +31,7 @@ jobs:
         run: npm run eval
       - name: Audit of scenarios and filters (77 сценариев × условия × режимы места)
         run: npm run audit:quick
-      - name: Audit of districts (все 11 округов × все экраны: подбор, «для вас», замена шага, приключения)
+      - name: Audit of districts (все 11 округов, все экраны - подбор дня, «для вас», замена шага, приключения)
         run: npm run audit:areas
       - name: Build static export
         env:
