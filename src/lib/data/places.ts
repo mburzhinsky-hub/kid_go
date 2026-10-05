@@ -1,6 +1,7 @@
 import type { Place, OpeningHours, Review, CategoryId } from "@/lib/types";
 import { PH, ph } from "./photos";
 import { buildPlaces } from "./extra";
+import { isPublishableBasePlace, trustForBasePlace } from "./trust";
 
 /**
  * Демо-база мест (Москва). Названия известных мест реальные, часть заведений
@@ -70,16 +71,38 @@ function place(s: Seed): Place {
   counter += 1;
   const level = s.price_max === 0 ? 0 : s.price_max <= 600 ? 1 : s.price_max <= 1500 ? 2 : 3;
   const weather = s.weather_tags ?? (s.indoor && !s.outdoor ? ["rain", "cold", "any"] : s.indoor ? ["any", "rain", "sun"] : ["sun", "any"]);
+  const trust = trustForBasePlace(s.slug);
+  const broadType: Place["place_type"] =
+    s.category === "play" ? "play_center" :
+    s.category === "active" ? "active" :
+    s.category === "animals" ? (s.slug === "moskvarium" ? "aquarium" : "zoo") :
+    s.category === "cafe" ? "cafe" :
+    s.category === "shop" ? "shop" :
+    s.category;
   return {
     id: `p${String(counter).padStart(2, "0")}`,
     price_level: (s.price_level ?? level) as Place["price_level"],
     tint: s.tint ?? TINTS[s.category],
-    toilets: s.toilets ?? true,
-    wardrobe: s.wardrobe ?? s.indoor,
+    toilets: s.toilets ?? false,
+    wardrobe: s.wardrobe ?? false,
     weather_tags: weather,
     season_tags: s.season_tags ?? ["spring", "summer", "autumn", "winter"],
-    reviews: s.reviews ?? REVIEW_POOL[s.category],
     ...s,
+    // Старый seed содержал демонстрационные рейтинги/отзывы. Не выдаём их за реальный social proof.
+    rating: 0,
+    review_count: 0,
+    rating_source: undefined,
+    reviews: [],
+    source: trust.source,
+    source_name: trust.sourceName,
+    verified_at: trust.verifiedAt,
+    verification_status: trust.confidence === "high" ? "verified" : trust.confidence === "demo" ? "demo" : "partial",
+    verification_note: trust.note,
+    confidence: trust.confidence,
+    place_type: broadType,
+    // Family-specific удобства в старом seed не имели отдельного подтверждения по полям.
+    // Значения оставляем для движка, но UI обязан показывать их как «не уточнено».
+    unknown_fields: ["stroller_friendly", "baby_room", "kids_menu", "parking", "toilets", "wardrobe", "booking_required"],
   } as Place;
 }
 
@@ -1662,8 +1685,14 @@ const SEED_PLACES: Place[] = [
   }),
 ];
 
-/** Редакторские места из `extra/*.json` (Подмосковье и районы Москвы) идут вслед за демо-набором. */
-export const places: Place[] = [...SEED_PLACES, ...buildPlaces(SEED_PLACES.length, new Set(SEED_PLACES.map((p) => p.slug)))];
+/** В production публикуем только базовые места, прошедшие редакторскую проверку; demo-записи остаются в истории кода, но не попадают в каталог. */
+const PUBLISHABLE_SEED_PLACES = SEED_PLACES.filter((p) => isPublishableBasePlace(p.slug));
+
+/** Редакторские места из `extra/*.json` (Подмосковье и районы Москвы) идут вслед за проверенным базовым набором. */
+export const places: Place[] = [
+  ...PUBLISHABLE_SEED_PLACES,
+  ...buildPlaces(PUBLISHABLE_SEED_PLACES.length, new Set(PUBLISHABLE_SEED_PLACES.map((p) => p.slug))),
+];
 
 export const placeById = new Map(places.map((p) => [p.id, p]));
 export const placeBySlug = new Map(places.map((p) => [p.slug, p]));
