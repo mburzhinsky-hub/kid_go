@@ -136,8 +136,8 @@
     ],
     "hit": false,
     "photoSet": "trampoline",
-    "rating": 3.8,
-    "reviews": 31,
+    "rating": null,
+    "reviews": null,
     "source": "https://2gis.ru/odintsovo/firm/70000001029426020",
     "confidence": "medium"
   },
@@ -704,8 +704,8 @@
     ],
     "hit": false,
     "photoSet": "pancakes",
-    "rating": 3.9,
-    "reviews": 73,
+    "rating": null,
+    "reviews": null,
     "source": "https://rusdessertmuseum.ru/",
     "confidence": "high"
   },
@@ -844,8 +844,8 @@
     ],
     "hit": false,
     "photoSet": "park",
-    "rating": 4.4,
-    "reviews": 30,
+    "rating": null,
+    "reviews": null,
     "source": "https://museum-gol.ru/visitors/",
     "confidence": "medium"
   },
