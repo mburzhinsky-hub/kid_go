@@ -87,7 +87,11 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
             <span className="inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold" style={{ background: cat.bg, color: cat.fg }}>
               <cat.Icon width={14} height={14} /> {typeLabel}
             </span>
-            <OpenStatus hours={place.opening_hours} />
+            {place.verification_status === "verified" && place.verified_at ? (
+              <OpenStatus hours={place.opening_hours} />
+            ) : (
+              <span className="inline-flex h-7 items-center rounded-full bg-fill px-2.5 text-[13px] font-semibold text-muted">Режим уточните</span>
+            )}
           </div>
           <h1 className="tight mt-2.5 text-[31px] font-[850] leading-[1.08]">{place.title}</h1>
           <p className="mt-1 text-[18px] text-[#6b6f7c]">{place.subtitle}</p>
