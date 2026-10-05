@@ -2,7 +2,7 @@
   "_meta": {
     "generated_at": "2026-10-05",
     "records": 131,
-    "completed": 20,
+    "completed": 30,
     "rule": "A public venue is publishable only after source-backed identity confirmation. Price, hours and family amenities are shown as facts only when separately evidenced on the audited source."
   },
   "centralny-detsky-magazin": {
@@ -230,8 +230,8 @@
   },
   "norway-park-krasnogorsk": {
     "source": "https://norwaypark.ru/krasnogorsk",
-    "checked_at": null,
-    "status": "pending",
+    "checked_at": "2026-10-05",
+    "status": "source_unreachable",
     "identity": false,
     "address": false,
     "verified_fields": [],
@@ -239,83 +239,122 @@
   },
   "zoolandia-kryuchkovo": {
     "source": "https://zoolandia-istra.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ]
   },
   "muzey-novy-ierusalim": {
     "source": "https://njerusalem.ru/posetitelyam/rezhim-raboty/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
-    "verified_family_fields": []
+    "verified_fields": [
+      "identity",
+      "opening_hours"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ]
   },
   "air-arena-rigamoll": {
     "source": "https://airarena.ru/batutnyy-park",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity",
+      "price"
+    ],
     "verified_family_fields": []
   },
   "muzey-tekhniki-zadorozhnogo": {
     "source": "https://tmuseum.ru/kontakty/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
     "verified_family_fields": []
   },
   "muzey-materinstva-ilinskoe": {
     "source": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
     "verified_family_fields": []
   },
   "katok-na-poyme-pavshino": {
     "source": "https://detinform.ru/katok-na-poyme-v-pavshinskoy-poyme.html",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
     "verified_family_fields": []
   },
   "istrinsky-park-kultury": {
     "source": "https://2gis.ru/istra/firm/70000001060278185",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "lucky-llama-istra": {
     "source": "https://2gis.ru/istra/firm/70000001101893486",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
     "verified_family_fields": []
   },
   "park-patriot-kubinka": {
     "source": "https://parkpatriot.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "detsky-park-malysh-odincovo": {
