@@ -1,4 +1,5 @@
 import type { CategoryId, ExperienceTag, InterestId, KidEvent, OpeningHours, ParentInfoField, Place, PlaceType, SeasonTag, WeatherTag } from "@/lib/types";
+import { auditForPlace, isAuditedPublicPlace, trustedPlaceTags } from "./source-audit";
 import { PH, PHOTO_SETS, ph, photosFor } from "./photos";
 export { photosFor };
 
@@ -112,10 +113,13 @@ export function buildPlace(r: RawPlace, index: number): Place {
   const level = r.price[1] === 0 ? 0 : r.price[1] <= 600 ? 1 : r.price[1] <= 1500 ? 2 : 3;
   const indoorOnly = r.indoor && !r.outdoor;
   const weather: WeatherTag[] = r.weather?.length ? r.weather : indoorOnly ? ["rain", "cold", "any"] : r.indoor ? ["any", "rain", "sun"] : ["sun", "any"];
+  const audit = auditForPlace(r.slug);
+  const verifiedFields = audit?.verified_fields ?? [];
+  const verifiedFamilyFields = audit?.verified_family_fields ?? [];
+  const verifiedFamilySet = new Set<ParentInfoField>(verifiedFamilyFields);
   const unknown_fields: ParentInfoField[] = [];
-  const familyFieldsTrusted = r.confidence === "high";
   const bool = (field: ParentInfoField, value: boolean | undefined, fallback = false) => {
-    if (!familyFieldsTrusted || value == null) unknown_fields.push(field);
+    if (!verifiedFamilySet.has(field)) unknown_fields.push(field);
     return value ?? fallback;
   };
   const hasRatingSource = !!r.rating_source && r.rating != null && (r.reviews ?? 0) > 0;
@@ -145,10 +149,16 @@ export function buildPlace(r: RawPlace, index: number): Place {
     region: r.region ?? "mo",
     source: r.source,
     source_name: sourceName,
-    verification_status: r.confidence === "high" ? "verified" : "partial",
-    verification_note: r.confidence === "high"
-      ? "Место и основные сведения подтверждены указанным источником."
-      : "Место подтверждено источником; цена, режим и family-specific детали могут быть ориентировочными.",
+    verified_at: audit?.checked_at ?? undefined,
+    verification_status:
+      audit?.status === "reviewed" && audit.identity && verifiedFields.includes("price") && verifiedFields.includes("opening_hours")
+        ? "verified"
+        : "partial",
+    verification_note:
+      audit?.status === "reviewed" && audit.identity
+        ? "Существование места проверено по публичному источнику. Точные поля отмечаются отдельно."
+        : "Источник места требует повторной проверки.",
+    verified_fields: verifiedFields,
     confidence: r.confidence === "high" ? "high" : "medium",
     category: r.category,
     place_type: broadType,
@@ -183,7 +193,7 @@ export function buildPlace(r: RawPlace, index: number): Place {
     season_tags: r.season?.length ? r.season : ["spring", "summer", "autumn", "winter"],
     interest_tags: r.interests ?? [],
     experience_tags: r.experience ?? [],
-    tags: r.tags ?? [],
+    tags: trustedPlaceTags(r.tags ?? [], verifiedFields, verifiedFamilyFields),
     is_hit: r.hit,
     reviews: [],
   };
@@ -193,7 +203,7 @@ export function buildPlaces(startIndex: number, existingSlugs: Set<string>): Pla
   const seen = new Set(existingSlugs);
   const res: Place[] = [];
   for (const r of RAW_PLACES) {
-    if (r.confidence === "low" || seen.has(r.slug)) continue;
+    if (r.confidence === "low" || seen.has(r.slug) || !isAuditedPublicPlace(r.slug)) continue;
     seen.add(r.slug);
     res.push(buildPlace(r, startIndex + res.length));
   }
