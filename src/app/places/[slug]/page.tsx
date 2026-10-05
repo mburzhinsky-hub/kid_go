@@ -22,11 +22,13 @@ import { TravelBadge } from "@/components/ui/TravelBadge";
 import { categoryDef, placeTypeName } from "@/lib/catalog";
 import { formatAgeRange, formatPrice } from "@/lib/format";
 
+type PlacePageProps = { params: Promise<{ slug: string }> };
+
 export function generateStaticParams() {
   return allPlaces.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/places/[slug]">): Promise<Metadata> {
+export async function generateMetadata({ params }: PlacePageProps): Promise<Metadata> {
   const { slug } = await params;
   const place = await repo.getPlace(slug);
   if (!place) return {};
