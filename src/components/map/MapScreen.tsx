@@ -123,8 +123,11 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   // схема без подложки: кадр = точка выезда + ближайшие места (влезают в экран)
   const fbFrame = useMemo(() => {
     const me: GeoPoint = origin.source !== "default" ? { lat: origin.lat, lng: origin.lng } : DEFAULT_LOCATION;
-    // «вся Москва»: кадр — город целиком, без привязки к точке
-    if (origin.source === "default" && !planPlaces.length) return { center: DEFAULT_LOCATION as GeoPoint, zoom: 1.15 };
+    // Общий режим: Москва или расширенный кадр Москвы и области.
+    if (origin.source === "default" && !planPlaces.length)
+      return withRegion
+        ? { center: { lat: 55.72, lng: 37.74 } as GeoPoint, zoom: 0.48 }
+        : { center: DEFAULT_LOCATION as GeoPoint, zoom: 1.15 };
     const near = planPlaces.length
       ? planPlaces
       : [...pool].sort((a, b) => travelToPlace(me, a, "car").minutes - travelToPlace(me, b, "car").minutes).slice(0, 8);
@@ -135,7 +138,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
     const kmX = (Math.max(...pts.map((q) => q.lng)) - Math.min(...pts.map((q) => q.lng))) * 111.32 * Math.cos((lat * Math.PI) / 180);
     const extent = Math.max(kmX / 300, kmY / 360, 0.01);
     return { center: { lat, lng } as GeoPoint, zoom: Math.max(0.35, Math.min(3, (1 / (extent * 9)) * 0.72)) };
-  }, [origin, planPlaces, pool]);
+  }, [origin, planPlaces, pool, withRegion]);
   const fbCenter = fbFrame.center;
   useEffect(() => {
     if (mode === "fallback") setFz(fbFrame.zoom);
@@ -189,23 +192,35 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   const nearby = useMemo(() => {
     if (planSlugs.length) return visible.map((p) => ({ p, min: 0 }));
     const quality = (p: Place) => p.rating * 2 + Math.log10(p.review_count + 1) + (p.is_hit ? 1 : 0);
-    // без точки «рядом» не считаем: лучшее по городу
-    if (anywhere) return visible.map((p) => ({ p, min: 0, s: quality(p) })).sort((a, b) => b.s - a.s);
+    // Без точки «рядом» не считаем. В широком охвате намеренно показываем
+    // несколько подмосковных вариантов в первой ленте, чтобы они не терялись среди Москвы.
+    if (anywhere) {
+      const ranked = visible.map((p) => ({ p, min: 0, s: quality(p) })).sort((a, b) => b.s - a.s);
+      if (!withRegion) return ranked;
+      const city = ranked.filter(({ p }) => inMoscow(p) && !isSuburban(pt(p)));
+      const region = ranked.filter(({ p }) => !inMoscow(p) || isSuburban(pt(p)));
+      const first = [...city.slice(0, 8), ...region.slice(0, 6)];
+      const used = new Set(first.map(({ p }) => p.slug));
+      return [...first, ...ranked.filter(({ p }) => !used.has(p.slug))];
+    }
     const minOf = (p: Place) => travelToPlace(user, p, transport).minutes;
     if (okrug) {
       // выбран округ: сначала лучшее в нём самом, затем у соседей; из других концов города — только если рядом почти ничего нет
       return orderByArea(visible, (p) => p, okrug, quality, { enough: 3, fallback: (a, b) => minOf(a) - minOf(b) }).list.map((p) => ({ p, min: minOf(p) }));
     }
     return visible.map((p) => ({ p, min: minOf(p) })).sort((a, b) => a.min - b.min);
-  }, [visible, user, transport, planSlugs, anywhere, okrug]);
+  }, [visible, user, transport, planSlugs, anywhere, okrug, withRegion]);
   // ссылки на Яндекс Карты: рамка — по лучшим местам выдачи (или точке выезда)
   const yFrame = useMemo(() => {
     const top = nearby.slice(0, 30).map(({ p }) => ({ lat: p.latitude, lng: p.longitude }));
     if (planPlaces.length) return { ...frameOf(top.length ? top : [DEFAULT_LOCATION]), pins: planPlaces.map((p, i) => ({ lat: p.latitude, lng: p.longitude, n: i + 1 })) };
-    if (anywhere) return { center: DEFAULT_LOCATION as GeoPoint, zoom: 10, pins: top.slice(0, 20) };
+    if (anywhere)
+      return withRegion
+        ? { center: { lat: 55.72, lng: 37.74 } as GeoPoint, zoom: 8, pins: top.slice(0, 20) }
+        : { center: DEFAULT_LOCATION as GeoPoint, zoom: 10, pins: top.slice(0, 20) };
     const pts = [{ lat: user.lat, lng: user.lng }, ...top.slice(0, 8)];
     return { ...frameOf(pts), pins: [...top.slice(0, 15)] };
-  }, [nearby, planPlaces, anywhere, user]);
+  }, [nearby, planPlaces, anywhere, user, withRegion]);
   const ySrc = useMemo(() => yandexWidgetUrl(yFrame.center, yFrame.zoom, yFrame.pins), [yFrame]);
   const yLink = useMemo(() => yandexMapsUrl(yFrame.center, yFrame.zoom, yFrame.pins), [yFrame]);
   const selectedPlace = selected ? poolBySlug.get(selected) ?? getPlaceSync(selected) : null;
