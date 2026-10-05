@@ -101,7 +101,7 @@ const EMOJI: Record<CategoryId, string> = { park: "🌳", play: "🎈", museum: 
 export function parseHours(h: (string | null)[]): OpeningHours {
   const out: OpeningHours = [];
   for (let i = 0; i < 7; i++) {
-    const v = h[i] ?? h[h.length - 1] ?? null;
+    const v = h[i] ?? null; // Выходной нельзя подменять расписанием воскресенья.
     const m = typeof v === "string" ? /^(\d{1,2}:\d{2})-(\d{1,2}:\d{2})$/.exec(v) : null;
     out.push(m ? [m[1].padStart(5, "0"), m[2].padStart(5, "0")] : null);
   }
@@ -211,16 +211,19 @@ export function buildEvents(placeBySlug: Map<string, Place>, now = new Date()): 
   RAW_EVENTS.forEach((e, i) => {
     const place = placeBySlug.get(e.venue);
     if (!place || e.confidence === "low" || !e.source) return;
-    for (let off = 0; off < 7; off++) {
+    for (let off = 0; off <= 7; off++) {
       const d = new Date(now.getTime() + off * 86400000);
       if (!e.schedule.days.includes(weekdayOf(d))) continue;
+      const startAt = `${ymd(d)}T${e.schedule.from}:00+03:00`;
+      const endAt = `${ymd(d)}T${e.schedule.to}:00+03:00`;
+      if (new Date(endAt).getTime() <= now.getTime()) continue;
       out.push({
         id: `r${i + 1}`,
         place_id: place.id,
         title: e.title,
         description: e.description,
-        start_at: `${ymd(d)}T${e.schedule.from}:00+03:00`,
-        end_at: `${ymd(d)}T${e.schedule.to}:00+03:00`,
+        start_at: startAt,
+        end_at: endAt,
         age_min: e.age[0],
         age_max: e.age[1],
         price: e.price,
