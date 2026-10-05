@@ -96,7 +96,7 @@ function place(s: Seed): Place {
     source: trust.source,
     source_name: trust.sourceName,
     verified_at: trust.verifiedAt,
-    verification_status: trust.confidence === "high" ? "verified" : trust.confidence === "demo" ? "demo" : "partial",
+    verification_status: trust.confidence === "demo" ? "demo" : "partial",
     verification_note: trust.note,
     confidence: trust.confidence,
     place_type: broadType,
