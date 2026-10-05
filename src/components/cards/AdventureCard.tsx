@@ -13,7 +13,7 @@ export interface AdventureCardData {
   emoji: string;
   age: string;
   duration: string;
-  price: string;
+  price?: string;
   indoor: boolean;
   recommend?: number;
   thumbs: { src: string; alt: string; tint: string; emoji: string }[];
@@ -111,7 +111,7 @@ export function AdventureCard({
           <Meta icon={<Clock size={13} strokeWidth={2.4} />} className="bg-blue-50 text-blue">
             {data.duration}
           </Meta>
-          <Meta className="bg-green-50 text-green">{data.price}</Meta>
+          {data.price && <Meta className="bg-green-50 text-green">{data.price}</Meta>}
           {data.why?.slice(0, variant === "full" ? 3 : 1).map((w) => (
             <Meta key={w} className="bg-yellow-50 text-[#9a6b00]">
               {w}
