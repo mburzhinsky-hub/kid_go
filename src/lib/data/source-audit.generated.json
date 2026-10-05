@@ -2,7 +2,7 @@
   "_meta": {
     "generated_at": "2026-10-05",
     "records": 131,
-    "completed": 130,
+    "completed": 131,
     "rule": "A public venue is publishable only after source-backed identity confirmation. Price, hours and family amenities are shown as facts only when separately evidenced on the audited source."
   },
   "centralny-detsky-magazin": {
@@ -1624,11 +1624,14 @@
   },
   "shkolnoe-ozero-zelenograd": {
     "source": "https://ru.wikipedia.org/wiki/Зеленоград",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity",
+      "price"
+    ],
     "verified_family_fields": []
   }
 }
