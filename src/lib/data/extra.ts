@@ -113,8 +113,9 @@ export function buildPlace(r: RawPlace, index: number): Place {
   const indoorOnly = r.indoor && !r.outdoor;
   const weather: WeatherTag[] = r.weather?.length ? r.weather : indoorOnly ? ["rain", "cold", "any"] : r.indoor ? ["any", "rain", "sun"] : ["sun", "any"];
   const unknown_fields: ParentInfoField[] = [];
+  const familyFieldsTrusted = r.confidence === "high";
   const bool = (field: ParentInfoField, value: boolean | undefined, fallback = false) => {
-    if (value == null) unknown_fields.push(field);
+    if (!familyFieldsTrusted || value == null) unknown_fields.push(field);
     return value ?? fallback;
   };
   const hasRatingSource = !!r.rating_source && r.rating != null && (r.reviews ?? 0) > 0;
