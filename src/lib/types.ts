@@ -38,6 +38,7 @@ export type PlaceType =
   | "other";
 
 export type VerificationStatus = "verified" | "partial" | "demo" | "osm";
+export type PlaceVerifiedField = "identity" | "address" | "price" | "opening_hours";
 export type PhotoKind = "official" | "partner" | "creator" | "ugc" | "stock" | "demo";
 export type ParentInfoField =
   | "stroller_friendly"
@@ -112,6 +113,8 @@ export interface Place {
   verified_at?: string;
   verification_status?: VerificationStatus;
   verification_note?: string;
+  /** Поля, которые отдельно подтверждены в source audit. */
+  verified_fields?: PlaceVerifiedField[];
   /** Legacy confidence сохраняем для импортированных наборов. */
   confidence?: "high" | "medium" | "demo" | "osm";
   category: CategoryId;
