@@ -11,7 +11,8 @@
     "audit": "tsx scripts/audit-scenarios.ts",
     "audit:quick": "tsx scripts/audit-scenarios.ts --quick",
     "audit:areas": "tsx scripts/audit-areas.ts",
-    "audit:doc": "tsx scripts/audit-scenarios.ts --quick --doc"
+    "audit:doc": "tsx scripts/audit-scenarios.ts --quick --doc",
+    "validate:data": "tsx scripts/validate-content.ts"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",
