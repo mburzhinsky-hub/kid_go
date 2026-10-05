@@ -59,6 +59,9 @@ for (const p of places) {
   if (!(p.verified_fields ?? []).includes("identity")) fail(`${prefix}: identity must be a verified field`);
   if ((p.verified_fields ?? []).includes("price") && !p.verified_at) fail(`${prefix}: verified price has no check date`);
   if ((p.verified_fields ?? []).includes("opening_hours") && !p.verified_at) fail(`${prefix}: verified hours have no check date`);
+  for (const field of p.verified_fields ?? []) {
+    if (!validUrl(audit?.field_sources?.[field])) fail(`${prefix}: verified ${field} has no field-level evidence URL`);
+  }
   if (p.review_count > 0 && !validUrl(p.rating_source)) fail(`${prefix}: rating/reviews without rating_source`);
   if (p.review_count === 0 && p.rating !== 0) fail(`${prefix}: rating must be 0 when review_count is 0`);
   if (p.rating < 0 || p.rating > 5) fail(`${prefix}: invalid rating ${p.rating}`);
