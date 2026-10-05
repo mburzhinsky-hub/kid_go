@@ -6,6 +6,7 @@ import { places } from "../src/lib/data/places";
 import { adventures } from "../src/lib/data/adventures";
 import { RAW_EVENTS, RAW_PLACES } from "../src/lib/data/extra";
 import { SCENARIO_LIBRARY } from "../src/lib/scenarios";
+import { auditForPlace } from "../src/lib/data/source-audit";
 
 const errors: string[] = [];
 const warnings: string[] = [];
@@ -51,9 +52,25 @@ for (const p of places) {
   if (!validUrl(p.source)) fail(`${prefix}: missing/invalid source`);
   if (!p.verification_status) fail(`${prefix}: missing verification_status`);
   if (p.verification_status === "demo") fail(`${prefix}: demo record leaked into public catalog`);
+  const audit = auditForPlace(p.slug);
+  if (!audit || audit.status !== "reviewed" || !audit.identity) fail(`${prefix}: source audit is not complete`);
+  if (audit && p.source !== audit.source) fail(`${prefix}: runtime source differs from audited source`);
+  if (!p.verified_at) fail(`${prefix}: missing source-audit date`);
+  if (!(p.verified_fields ?? []).includes("identity")) fail(`${prefix}: identity must be a verified field`);
+  if ((p.verified_fields ?? []).includes("price") && !p.verified_at) fail(`${prefix}: verified price has no check date`);
+  if ((p.verified_fields ?? []).includes("opening_hours") && !p.verified_at) fail(`${prefix}: verified hours have no check date`);
   if (p.review_count > 0 && !validUrl(p.rating_source)) fail(`${prefix}: rating/reviews without rating_source`);
   if (p.review_count === 0 && p.rating !== 0) fail(`${prefix}: rating must be 0 when review_count is 0`);
   if (p.rating < 0 || p.rating > 5) fail(`${prefix}: invalid rating ${p.rating}`);
+  const tags = p.tags.join(" ").toLowerCase();
+  const verified = new Set(p.verified_fields ?? []);
+  const unknown = new Set(p.unknown_fields ?? []);
+  if (!verified.has("price") && /бесплат|₽|руб\.?/.test(tags)) fail(`${prefix}: unverified price claim leaked into tags`);
+  if (unknown.has("parking") && /парков/.test(tags)) fail(`${prefix}: unverified parking claim leaked into tags`);
+  if (unknown.has("stroller_friendly") && /коляск/.test(tags)) fail(`${prefix}: unverified stroller claim leaked into tags`);
+  if (unknown.has("baby_room") && /пелен|комнат.{0,10}матер/.test(tags)) fail(`${prefix}: unverified baby-room claim leaked into tags`);
+  if (unknown.has("kids_menu") && /детск.{0,10}меню/.test(tags)) fail(`${prefix}: unverified kids-menu claim leaked into tags`);
+  if (unknown.has("booking_required") && /по записи|нужна запись|запись/.test(tags)) fail(`${prefix}: unverified booking claim leaked into tags`);
   for (const photo of p.photos) {
     if (!photo.src || !photo.alt) fail(`${prefix}: photo without src/alt`);
     if (!photo.kind) warn(`${prefix}: photo kind is unknown`);
@@ -68,6 +85,9 @@ for (const r of RAW_PLACES) {
   if (r.price[0] < 0 || r.price[1] < 0 || r.price[0] > r.price[1]) fail(`${prefix}: invalid price range`);
   if (!Array.isArray(r.hours) || r.hours.length !== 7) fail(`${prefix}: hours must have 7 entries`);
   if ((r.rating != null || r.reviews != null) && !validUrl(r.rating_source)) fail(`${prefix}: raw rating requires rating_source`);
+  const audit = auditForPlace(r.slug);
+  if (!audit || audit.status !== "reviewed" || !audit.identity) fail(`${prefix}: source audit missing or unresolved`);
+  if (audit && r.source !== audit.source) fail(`${prefix}: source differs from source audit`);
 }
 
 const publicIds = new Set(places.map((p) => p.id));
@@ -93,9 +113,11 @@ for (const e of RAW_EVENTS) {
   eventKeys.add(key);
   if (!publicSlugs.has(e.venue)) fail(`event ${e.title}: venue ${e.venue} is missing/unpublished`);
   if (!validUrl(e.source)) fail(`event ${e.title}: missing/invalid source`);
-  if (e.confidence === "low") fail(`event ${e.title}: low confidence`);
+  if (e.confidence !== "high") fail(`event ${e.title}: only high-confidence recurring schedules may be published`);
   if (e.age[0] < 0 || e.age[1] > 12 || e.age[0] > e.age[1]) fail(`event ${e.title}: invalid age range`);
   if (e.price < 0) fail(`event ${e.title}: negative price`);
+  if (e.valid_from && e.valid_until && e.valid_from > e.valid_until) fail(`event ${e.title}: invalid validity window`);
+  if (!e.valid_until) fail(`event ${e.title}: recurring event must have a validity end date`);
 }
 
 if (SCENARIO_LIBRARY.length !== 77) {
@@ -111,6 +133,7 @@ console.log(`  sourced JSON places: ${RAW_PLACES.length}`);
 console.log(`  adventures: ${adventures.length}`);
 console.log(`  recurring event definitions: ${RAW_EVENTS.length}`);
 console.log(`  scenarios: ${SCENARIO_LIBRARY.length}`);
+console.log(`  source-audited places: ${places.filter((p) => auditForPlace(p.slug)?.status === "reviewed").length}`);
 
 for (const w of warnings.slice(0, 30)) console.warn("  ⚠", w);
 if (warnings.length > 30) console.warn(`  ⚠ ... +${warnings.length - 30} warnings`);
