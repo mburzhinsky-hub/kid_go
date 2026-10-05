@@ -11,6 +11,18 @@ permissions:
   contents: read
 
 jobs:
+  dependencies:
+    name: Dependency advisory report
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Audit installed production dependency versions
+        run: npm audit --omit=dev --json
   quality:
     runs-on: ubuntu-latest
     steps:
