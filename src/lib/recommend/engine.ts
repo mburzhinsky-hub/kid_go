@@ -260,8 +260,8 @@ export function scorePlace(
     // «шире округа»: выбранный округ всё равно впереди соседних
     area: !okr || strict ? 0 : tier === 0 ? 2.4 : tier === 1 ? 0.8 : 0,
     interest: interest * 8 + scenarioInterest,
-    rating: (p.rating - 4) * (p.review_count > 0 ? 1 : 0.4),
-    mood: moodFit(p, input.mood) * 7.5,
+    rating: p.review_count > 0 && p.rating_source ? p.rating - 4 : 0,
+    mood: moodFit(p, input.mood) * 9,
     activity: input.activity ? 1 - Math.abs(p.activity_level - input.activity) / 2 : 0.5,
     // данные OpenStreetMap не проверены редакцией — при прочих равных отдаём предпочтение каталогу
     trust: p.confidence === "osm" ? -0.7 : 0,
