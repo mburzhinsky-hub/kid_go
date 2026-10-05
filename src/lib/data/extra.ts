@@ -68,6 +68,8 @@ export interface RawEvent {
   title: string;
   description: string;
   schedule: { days: number[]; from: string; to: string };
+  valid_from?: string;
+  valid_until?: string;
   age: [number, number];
   price: number;
   photoSet: string;
@@ -223,9 +225,12 @@ export function buildEvents(placeBySlug: Map<string, Place>, now = new Date()): 
     if (!place || e.confidence === "low" || !e.source) return;
     for (let off = 0; off <= 7; off++) {
       const d = new Date(now.getTime() + off * 86400000);
+      const date = ymd(d);
       if (!e.schedule.days.includes(weekdayOf(d))) continue;
-      const startAt = `${ymd(d)}T${e.schedule.from}:00+03:00`;
-      const endAt = `${ymd(d)}T${e.schedule.to}:00+03:00`;
+      if (e.valid_from && date < e.valid_from) continue;
+      if (e.valid_until && date > e.valid_until) continue;
+      const startAt = `${date}T${e.schedule.from}:00+03:00`;
+      const endAt = `${date}T${e.schedule.to}:00+03:00`;
       if (new Date(endAt).getTime() <= now.getTime()) continue;
       out.push({
         id: `r${i + 1}`,
