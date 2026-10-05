@@ -1,4 +1,4 @@
-import type { BudgetId, Child, DurationId, MoodId, Place, PlannerInput, ScenarioConstraints, TransportId } from "@/lib/types";
+import type { BudgetId, Child, DurationId, GeoScope, MoodId, Place, PlannerInput, ScenarioConstraints, TransportId } from "@/lib/types";
 import type { Forecast } from "@/lib/forecast";
 import { daySummary, moscowDateISO } from "@/lib/forecast";
 import { locationMode, type Origin } from "@/lib/location";
@@ -15,7 +15,7 @@ export interface BuildArgs {
   query: ResultsQuery;
   kids: Pick<Child, "name" | "age" | "interests">[];
   origin: Origin;
-  prefs: { budget: BudgetId; transport: TransportId; maxTravelMin: number };
+  prefs: { budget: BudgetId; transport: TransportId; maxTravelMin: number; geoScope?: GeoScope };
   forecast: Forecast;
   extraPlaces?: Place[];
   family?: PlannerInput["family"];
@@ -62,6 +62,7 @@ export function buildPlannerInput(a: BuildArgs): PlannerInput {
     transport: (pick(TRANSPORTS, query.transport) ?? prefs.transport) as TransportId,
     location: origin,
     locationMode: mode,
+    geoScope: mode === "any" ? (prefs.geoScope ?? "moscow") : undefined,
     extraPlaces: a.extraPlaces?.length ? a.extraPlaces : undefined,
     weather: daySummary(forecast, dateISO).weather,
     forecast,

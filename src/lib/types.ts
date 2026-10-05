@@ -221,6 +221,7 @@ export type DurationId = "short" | "mid" | "half" | "day";
 export type MoodId = "energy" | "creative" | "learn" | "outdoor" | "calm" | "surprise";
 export type BudgetId = "free" | "2000" | "5000" | "any";
 export type TransportId = "walk" | "car" | "transit";
+export type GeoScope = "moscow" | "moscow-region";
 
 export interface Child {
   id: string;
@@ -299,8 +300,10 @@ export interface PlannerInput {
   originLabel?: string;
   /** Места рядом из открытых данных (OpenStreetMap) — дополняют каталог там, где он редок. */
   extraPlaces?: Place[];
-  /** any — «вся Москва» (без привязки к точке), area — округ/город, exact — точный адрес. По умолчанию exact. */
+  /** any — общий поиск без привязки к точке, area — округ/город, exact — точный адрес. По умолчанию exact. */
   locationMode?: "any" | "area" | "exact";
+  /** В режиме any: только Москва или Москва вместе с Подмосковьем. */
+  geoScope?: GeoScope;
   /**
    * Для округа: strict (по умолчанию) — основные места только в самом округе; adjacent — и в соседних (без дальних);
    * wide — и дальше, в пределах дороги (с предпочтением выбранного). Для «вся Москва», адреса и городов области не используется.

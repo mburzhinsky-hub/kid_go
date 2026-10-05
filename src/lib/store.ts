@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { BudgetId, Child, FamilySignals, TransportId } from "@/lib/types";
+import type { BudgetId, Child, FamilySignals, GeoScope, TransportId } from "@/lib/types";
 import { DEFAULT_ORIGIN, suggestedTransport, type Origin } from "@/lib/location";
 
 /**
@@ -41,6 +41,8 @@ interface FamilyState {
   maxDistanceKm: number;
   /** Готовы ехать до N минут. */
   maxTravelMin: number;
+  /** Общая география, когда точка выезда не выбрана. */
+  geoScope: GeoScope;
   onboarded: boolean;
   origin: Origin;
   home?: Origin;
@@ -70,7 +72,7 @@ interface FamilyState {
   setDayStart: (t: string) => void;
   upsertChild: (c: Child) => void;
   removeChild: (id: string) => void;
-  setPrefs: (p: Partial<Pick<FamilyState, "budget" | "transport" | "maxDistanceKm" | "maxTravelMin" | "city">>) => void;
+  setPrefs: (p: Partial<Pick<FamilyState, "budget" | "transport" | "maxDistanceKm" | "maxTravelMin" | "geoScope" | "city">>) => void;
   completeOnboarding: () => void;
   setOrigin: (o: Origin) => void;
   setHome: (o: Origin | undefined) => void;
@@ -99,6 +101,7 @@ export const useFamily = create<FamilyState>()(
       transportAuto: true,
       maxDistanceKm: 10,
       maxTravelMin: 40,
+      geoScope: "moscow",
       onboarded: false,
       origin: DEFAULT_ORIGIN,
       home: undefined,
@@ -181,7 +184,7 @@ export const useFamily = create<FamilyState>()(
     }),
     {
       name: "kidgo-family",
-      version: 3,
+      version: 4,
       // v1 подставлял демо-детей Мишу и Аню всем подряд — убираем их, если семья их не меняла
       migrate: (state, version) => {
         const st = state as Partial<FamilyState>;
@@ -198,7 +201,8 @@ export const useFamily = create<FamilyState>()(
             visitedPlaces: (st.visitedPlaces ?? []).filter((x) => x !== "park-gorkogo" || kids.length > 0),
           } as FamilyState;
         }
-        if (version < 3) return { ...st, transportAuto: (st.transport ?? "transit") === "transit" } as FamilyState;
+        if (version < 3) return { ...st, transportAuto: (st.transport ?? "transit") === "transit", geoScope: "moscow" } as FamilyState;
+        if (version < 4) return { ...st, geoScope: st.geoScope ?? "moscow" } as FamilyState;
         return st as FamilyState;
       },
       storage: createJSONStorage(() => localStorage),

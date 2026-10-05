@@ -87,13 +87,13 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
       query,
       kids,
       origin: fam.origin,
-      prefs: { budget: fam.budget, transport: fam.transport, maxTravelMin: fam.maxTravelMin },
+      prefs: { budget: fam.budget, transport: fam.transport, maxTravelMin: fam.maxTravelMin, geoScope: fam.geoScope },
       forecast,
       extraPlaces: nearby.places,
       family: { ...familySignals(fam), seen: seenRef.current ?? [] },
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fam.hydrated, forecast, JSON.stringify(query), JSON.stringify(kids), fam.origin, fam.budget, fam.transport, fam.maxTravelMin, fam.wantPlaces, fam.visitedPlaces, fam.loved, fam.disliked, nearby.places]);
+  }, [fam.hydrated, forecast, JSON.stringify(query), JSON.stringify(kids), fam.origin, fam.budget, fam.transport, fam.maxTravelMin, fam.geoScope, fam.wantPlaces, fam.visitedPlaces, fam.loved, fam.disliked, nearby.places]);
   const input = useMemo<PlannerInput | null>(() => (args ? buildPlannerInput(args) : null), [args]);
 
   const result = useMemo(() => (input ? generatePlans(input, 3, offset) : null), [input, offset]);
@@ -192,13 +192,29 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
           </Chip>
           <Chip>{label(BUDGETS, input.budget)}</Chip>
           <Chip>{label(TRANSPORTS, input.transport)}</Chip>
-          <Chip>📍 {input.locationMode === "any" ? "Вся Москва" : fam.origin.source === "home" ? "Дом" : result.area?.scope === "wide" ? `${fam.origin.label} + соседние` : fam.origin.label}</Chip>
+          <Chip>📍 {input.locationMode === "any" ? (input.geoScope === "moscow-region" ? "Москва + область" : "Москва") : fam.origin.source === "home" ? "Дом" : result.area?.scope === "wide" ? `${fam.origin.label} + соседние` : fam.origin.label}</Chip>
           {input.constraints?.maxTravelMin && <Chip>до {input.constraints.maxTravelMin} мин в пути</Chip>}
         </div>
         {!kids.length && (
           <div className="mt-4 rounded-[22px] bg-surface p-3.5 shadow-card">
             <p className="text-[15px] font-bold">Сколько лет ребёнку? Подберём точнее</p>
             <AgePicker className="mt-2.5" onPick={(age) => fam.upsertChild({ id: `c${Date.now()}`, name: "", age, interests: [], emoji: "🦁" })} />
+          </div>
+        )}
+        {input.locationMode === "any" && input.geoScope === "moscow" && (
+          <div className="mt-3 flex items-center gap-3 rounded-[16px] bg-green-50 px-3 py-2.5 text-[13.5px] leading-snug text-[#35643d]">
+            <span className="flex-1"><strong>Есть ещё Подмосковье.</strong> Можно добавить Красногорск, Одинцово, Истру, Химки и другие направления.</span>
+            <button onClick={() => fam.setPrefs({ geoScope: "moscow-region" })} className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[13.5px] font-semibold">
+              + Область
+            </button>
+          </div>
+        )}
+        {input.locationMode === "any" && input.geoScope === "moscow-region" && (
+          <div className="mt-3 flex items-center gap-3 rounded-[16px] bg-purple-50 px-3 py-2.5 text-[13.5px] leading-snug text-purple">
+            <span className="flex-1">Ищем по Москве и Подмосковью. Подмосковные варианты тоже могут попасть в готовый день.</span>
+            <button onClick={() => fam.setPrefs({ geoScope: "moscow" })} className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[13.5px] font-semibold">
+              Только Москва
+            </button>
           </div>
         )}
         {input.locationMode === "any" && (!!scenario?.constraints?.maxTravelMin || query.near === "1" || !!query.travel) && (
