@@ -98,7 +98,6 @@ export function ProfileScreen() {
           {s.hydrated && !s.children.length && (
             <Row icon={<Users size={20} className="text-green" />} label="Посмотреть на демо-семье" value="Миша и Аня" onClick={() => s.loadDemoFamily()} />
           )}
-          <Row href="/admin" icon={<Settings2 size={20} className="text-blue" />} label="Кабинет контента" value="для команды" />
         </div>
         <p className="mt-4 text-center text-[12.5px] text-muted">КидГоу · данные семьи хранятся только на этом устройстве</p>
       </section>
