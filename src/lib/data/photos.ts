@@ -181,7 +181,7 @@ export const PH = {
   childPuddle: U("photo-1735990685776-f1f661dc806f"),
 } as const;
 
-export const ph = (src: string, alt: string): Photo => ({ src, alt, kind: "stock" });
+export const ph = (src: string, alt: string): Photo => ({ src, alt });
 
 /** Тематические наборы стоковых фото для записей из JSON (иллюстрации, не фото самого места). */
 export const PHOTO_SETS: Record<string, { keys: (keyof typeof PH)[]; alt: string }> = {

@@ -6,13 +6,11 @@ import { AdventureCard } from "@/components/cards/AdventureCard";
 import { adventureCardData } from "@/lib/cards";
 import { formatAgeRange, formatDuration, formatBudget } from "@/lib/format";
 
-type AdventurePageProps = { params: Promise<{ slug: string }> };
-
 export function generateStaticParams() {
   return allAdventures.map((a) => ({ slug: a.slug }));
 }
 
-export async function generateMetadata({ params }: AdventurePageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/adventures/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const a = await repo.getAdventure(slug);
   if (!a) return {};
@@ -29,7 +27,7 @@ export async function generateMetadata({ params }: AdventurePageProps): Promise<
   };
 }
 
-export default async function AdventurePage({ params }: AdventurePageProps) {
+export default async function AdventurePage({ params }: PageProps<"/adventures/[slug]">) {
   const { slug } = await params;
   const a = await repo.getAdventure(slug);
   if (!a) notFound();

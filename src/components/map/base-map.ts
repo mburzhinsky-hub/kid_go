@@ -1,4 +1,3 @@
-import { loadMapLibre } from "@/lib/maplibre-runtime";
 import type { Map as MLMap, StyleSpecification } from "maplibre-gl";
 
 /**
@@ -204,7 +203,7 @@ function waitForTiles(map: MLMap, ms: number): Promise<boolean> {
  * Источник считается рабочим только когда карта реально отрисовала тайл.
  */
 export async function createBaseMap(opts: BaseMapOptions): Promise<BaseMapResult | null> {
-  const ml = await loadMapLibre();
+  const ml = (await import("maplibre-gl")).default;
   const cancelled = () => !!opts.signal?.cancelled;
   const t0 = Date.now();
   const tried: ProviderId[] = [];
@@ -389,7 +388,7 @@ export function applyKidStyle(map: MLMap) {
       if (!map.getLayer(id)) continue;
       for (const [prop, v] of Object.entries(paint)) {
         try {
-          map.setPaintProperty(id, prop as Parameters<MLMap["setPaintProperty"]>[1], v as never);
+          map.setPaintProperty(id, prop, v as never);
         } catch {
           /* у слоя нет такого свойства */
         }

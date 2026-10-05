@@ -7,20 +7,14 @@ import { TravelLabel, TravelValue } from "./TravelValue";
 /** Четыре ключевых параметра в строку — как в референсе. */
 export function InfoGrid({ place }: { place: Place }) {
   const sched = scheduleSummary(place.opening_hours);
-  const verified = new Set(place.verified_fields ?? []);
-  const priceVerified = verified.has("price");
-  const hoursVerified = verified.has("opening_hours");
-  const basePrice =
+  const price =
     place.price_max === 0 ? "Бесплатно" : place.price_min === 0 ? `до ${formatPrice(place.price_max)}` : `от ${formatPrice(place.price_min)}`;
-  const price = priceVerified ? basePrice : "Уточнить";
-  const priceLabel = priceVerified
-    ? place.category === "cafe" ? "чек на ребёнка" : place.category === "shop" ? "покупки" : "вход"
-    : "стоимость";
+  const priceLabel = place.category === "cafe" ? "чек на ребёнка" : place.category === "shop" ? "покупки" : "вход";
   const items = [
     { Icon: Wallet, color: "#1FAE47", value: price, label: priceLabel },
     { Icon: Users, color: "#1FAE47", value: formatAgeRange(place.age_min, place.age_max), label: "возраст" },
     { Icon: MapPin, color: "#FF3B4E", value: <TravelValue place={place} />, label: <TravelLabel place={place} /> },
-    { Icon: Clock, color: "#2F7BFF", value: hoursVerified ? sched.days : "Уточнить", label: hoursVerified ? sched.time : "режим работы" },
+    { Icon: Clock, color: "#2F7BFF", value: sched.days, label: sched.time },
   ];
   return (
     <div className="grid grid-cols-4">

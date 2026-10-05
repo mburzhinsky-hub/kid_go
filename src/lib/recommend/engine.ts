@@ -260,9 +260,8 @@ export function scorePlace(
     // «шире округа»: выбранный округ всё равно впереди соседних
     area: !okr || strict ? 0 : tier === 0 ? 2.4 : tier === 1 ? 0.8 : 0,
     interest: interest * 8 + scenarioInterest,
-    rating: p.review_count > 0 && p.rating_source ? p.rating - 4 : 0,
-    mood: moodFit(p, input.mood) * 9,
-    shelter: c.indoorOnly && p.outdoor ? -3 : 0,
+    rating: (p.rating - 4) * (p.review_count > 0 ? 1 : 0.4),
+    mood: moodFit(p, input.mood) * 7.5,
     activity: input.activity ? 1 - Math.abs(p.activity_level - input.activity) / 2 : 0.5,
     // данные OpenStreetMap не проверены редакцией — при прочих равных отдаём предпочтение каталогу
     trust: p.confidence === "osm" ? -0.7 : 0,
@@ -764,12 +763,6 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
     results.push({ a, plan: toPlan(a, input, ctx, scored, partialAge) });
   }
 
-  const wantsFood = input.budget !== "free" && !!(input.foodAfter || input.constraints?.parentBreak);
-  const wantsOutdoor = !!input.constraints?.outdoorPreferred && ctx.cond.wet !== "all" && !ctx.cond.cold;
-  const fulfillment = (plan: Plan) =>
-    (wantsFood && plan.stops.some((s) => s.place.category === "cafe") ? 4 : 0) +
-    (wantsOutdoor && plan.stops.some((s) => s.place.outdoor) ? 2 : 0);
-  results.sort((a, b) => fulfillment(b.plan) - fulfillment(a.plan));
   const plans = results.map((r) => r.plan);
   return {
     plans: plans.slice(offset),

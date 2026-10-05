@@ -345,13 +345,12 @@
     "photoSet": "park",
     "rating": null,
     "reviews": null,
-    "source": "https://www.mosgorsad.ru/",
+    "source": "https://ru.wikipedia.org/wiki/Эрмитаж_(сад)",
     "confidence": "medium",
     "weather": [
       "sun",
       "any"
-    ],
-    "place_type": "park"
+    ]
   },
   {
     "title": "Таганский парк",
@@ -485,13 +484,12 @@
     "photoSet": "greenhouse",
     "rating": null,
     "reviews": null,
-    "source": "https://gbsad.ru/",
+    "source": "https://ru.wikipedia.org/wiki/Главный_ботанический_сад_имени_Н._В._Цицина",
     "confidence": "medium",
     "weather": [
       "sun",
       "any"
-    ],
-    "place_type": "park"
+    ]
   },
   {
     "title": "Воробьёвы горы: смотровая и набережная",
@@ -766,12 +764,11 @@
     "photoSet": "playground",
     "rating": null,
     "reviews": null,
-    "source": "https://www.luzhniki.ru/",
+    "source": "https://ru.wikipedia.org/wiki/Лужники_(спортивный_комплекс)",
     "confidence": "medium",
     "weather": [
       "sun",
       "any"
-    ],
-    "place_type": "park"
+    ]
   }
 ]
