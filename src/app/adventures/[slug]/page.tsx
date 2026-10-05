@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: AdventurePageProps): Promise<
   };
 }
 
-export default async function AdventurePage({ params }: PageProps<"/adventures/[slug]">) {
+export default async function AdventurePage({ params }: AdventurePageProps) {
   const { slug } = await params;
   const a = await repo.getAdventure(slug);
   if (!a) notFound();
