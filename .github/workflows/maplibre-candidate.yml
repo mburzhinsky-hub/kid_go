@@ -23,14 +23,15 @@ jobs:
           cache: npm
       - name: Resolve the first patched version without publishing changes
         run: npm install --save-exact --ignore-scripts maplibre-gl@6.4.1
-      - name: Export generated manifests for review
+      - name: Prepare offline integration workspace
+        run: tar --exclude=.git --exclude=.next --exclude=out --exclude='*.tsbuildinfo' -czf /tmp/kidgo-candidate.tar.gz .
+      - name: Export generated manifests and test workspace
         uses: actions/upload-artifact@v4
         with:
-          name: patched-maplibre-manifests
-          path: |
-            package.json
-            package-lock.json
-          retention-days: 7
+          name: kidgo-patched-candidate
+          path: /tmp/kidgo-candidate.tar.gz
+          retention-days: 1
+          compression-level: 0
       - name: Audit the candidate dependency tree
         run: npm audit --omit=dev --json
       - name: Check integration types
