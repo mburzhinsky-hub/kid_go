@@ -2,7 +2,7 @@
   "_meta": {
     "generated_at": "2026-10-05",
     "records": 131,
-    "completed": 10,
+    "completed": 20,
     "rule": "A public venue is publishable only after source-backed identity confirmation. Price, hours and family amenities are shown as facts only when separately evidenced on the audited source."
   },
   "centralny-detsky-magazin": {
@@ -122,17 +122,19 @@
   },
   "paleontologichesky-muzey": {
     "source": "https://www.paleo.ru/museum/visitors/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "vdnh": {
     "source": "https://vdnh.ru/",
-    "checked_at": null,
-    "status": "pending",
+    "checked_at": "2026-10-05",
+    "status": "source_unreachable",
     "identity": false,
     "address": false,
     "verified_fields": [],
@@ -140,44 +142,54 @@
   },
   "aptekarsky-ogorod": {
     "source": "https://hortus.msu.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "kolomenskoe": {
     "source": "https://mgomz.ru/kolomenskoe",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "park-zaryadye": {
     "source": "https://welcome.zaryadyepark.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "park-gorkogo": {
     "source": "https://parkgorkogo.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "park-sokolniki": {
     "source": "https://parksokolniki.mos.ru/",
-    "checked_at": null,
-    "status": "pending",
+    "checked_at": "2026-10-05",
+    "status": "source_unreachable",
     "identity": false,
     "address": false,
     "verified_fields": [],
@@ -185,8 +197,8 @@
   },
   "piratskaya-ploshchadka": {
     "source": "https://parkgorkogo.ru/",
-    "checked_at": null,
-    "status": "pending",
+    "checked_at": "2026-10-05",
+    "status": "needs_source",
     "identity": false,
     "address": false,
     "verified_fields": [],
@@ -194,20 +206,26 @@
   },
   "joki-joya": {
     "source": "https://joki-joya.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "arkhangelskoe": {
     "source": "https://arhangelskoe.su/for_visitor/working_hours/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
     "verified_family_fields": []
   },
   "norway-park-krasnogorsk": {
