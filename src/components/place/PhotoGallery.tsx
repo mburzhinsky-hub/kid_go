@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { ArrowLeft, Share, X } from "lucide-react";
+import { Share, X } from "lucide-react";
+import { BackButton as SharedBackButton } from "@/components/ui/BackButton";
 import type { Photo } from "@/lib/types";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { FavoriteButton } from "@/components/ui/FavoriteButton";
@@ -30,7 +30,6 @@ export function HeroGallery({
   const ref = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState<number | null>(null);
-  const router = useRouter();
 
   useEffect(() => {
     const el = ref.current;
@@ -42,7 +41,7 @@ export function HeroGallery({
 
   return (
     <div className="relative">
-      <div ref={ref} className="no-scrollbar flex h-[340px] snap-x snap-mandatory overflow-x-auto rounded-b-[30px]">
+      <div ref={ref} className="no-scrollbar flex h-[340px] [@media(max-height:760px)]:h-[260px] snap-x snap-mandatory overflow-x-auto rounded-b-[30px]">
         {photos.map((p, i) => (
           <button key={i} onClick={() => setOpen(i)} className="relative h-full w-full shrink-0 snap-center" aria-label={`Фото ${i + 1}: ${p.alt}`}>
             <SmartImage photo={p} tint={tint} emoji={emoji} sizes="(max-width: 480px) 100vw, 480px" priority={i === 0} quality={75} className="absolute inset-0" />
@@ -51,7 +50,7 @@ export function HeroGallery({
       </div>
       <div className="pointer-events-none absolute inset-x-0 top-0 h-28 rounded-t-none bg-gradient-to-b from-black/30 to-transparent" />
       <div className="absolute inset-x-4 top-[max(14px,env(safe-area-inset-top))] flex items-center justify-between">
-        <BackButton onClick={() => (history.length > 1 ? router.back() : router.push("/"))} />
+        <BackButton />
         <div className="flex gap-2.5">
           {favoriteSlug && <FavoriteButton slug={favoriteSlug} variant="overlay" />}
           <ShareButton title={shareTitle} />
@@ -67,16 +66,7 @@ export function HeroGallery({
 }
 
 export function BackButton({ onClick, light }: { onClick?: () => void; light?: boolean }) {
-  const router = useRouter();
-  return (
-    <button
-      onClick={onClick ?? (() => (history.length > 1 ? router.back() : router.push("/")))}
-      aria-label="Назад"
-      className={light ? "press grid h-11 w-11 place-items-center rounded-full bg-white text-ink shadow-card" : "press grid h-11 w-11 place-items-center rounded-full bg-black/35 text-white"}
-    >
-      <ArrowLeft size={24} strokeWidth={2.2} />
-    </button>
-  );
+  return <SharedBackButton tone={light ? "light" : "photo"} onClick={onClick} />;
 }
 
 export function ShareButton({ title, light }: { title: string; light?: boolean }) {

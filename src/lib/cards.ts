@@ -26,7 +26,7 @@ export function adventureCardData(a: Adventure): AdventureCardData {
 
 
 /** Сгенерированный план → данные карточки. */
-export function planCardData(plan: Plan, href: string): AdventureCardData {
+export function planCardData(plan: Plan, href: string, fromLabel?: string): AdventureCardData {
   const places = plan.stops.map((s) => s.place);
   return {
     href,
@@ -42,6 +42,6 @@ export function planCardData(plan: Plan, href: string): AdventureCardData {
     thumbs: places.map((p) => ({ ...p.photos[0], tint: p.tint, emoji: p.emoji })),
     why: plan.why,
     explanation: plan.explanation,
-    fromHome: plan.fromHome ? `📍 ${plan.fromHome.minutes} мин от вас · старт ${plan.stops[0]?.start}` : undefined,
+    fromHome: plan.fromHome ? `📍 ${plan.fromHome.approx ? "≈ " : ""}${plan.fromHome.minutes} мин ${fromLabel ?? "от вас"} · старт ${plan.stops[0]?.start}` : undefined,
   };
 }

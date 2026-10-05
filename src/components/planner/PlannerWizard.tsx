@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { X, ArrowLeft, Plus, Minus, Check, Wand2 } from "lucide-react";
 import type { BudgetId, DurationId, MoodId, TransportId, Child } from "@/lib/types";
 import { useFamily } from "@/lib/store";
+import { goBack } from "@/lib/nav";
 import { MOODS, DURATIONS, BUDGETS, TRANSPORTS } from "@/lib/catalog";
 import { parseQuery } from "@/lib/recommend/nlu";
 import { plural } from "@/lib/format";
@@ -83,7 +84,7 @@ export function PlannerWizard() {
       <header className="sticky top-0 z-20 bg-bg/95 px-4 pb-3 pt-[max(14px,env(safe-area-inset-top))]">
         <div className="flex items-center justify-between">
           <button
-            onClick={() => (step > 0 ? setStep(step - 1) : router.back())}
+            onClick={() => (step > 0 ? setStep(step - 1) : goBack(router, "/"))}
             aria-label={step > 0 ? "Назад" : "Закрыть"}
             className="press grid h-11 w-11 place-items-center rounded-full bg-surface shadow-card"
           >

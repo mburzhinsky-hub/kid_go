@@ -1,0 +1,1263 @@
+[
+  {
+    "title": "Лефортовский парк",
+    "slug": "lefortovsky-park",
+    "town": "Лефортово (ЮВАО)",
+    "region": "msk",
+    "address": "Москва, Лефортовский парк, Красноказарменная ул.",
+    "metro": "Авиамоторная",
+    "lat": 55.76,
+    "lng": 37.702,
+    "category": "park",
+    "subtitle": "Старинный парк с прудами и аллеями у Лефортовского дворца",
+    "description": "Один из старейших парков Москвы: пруды, широкие аллеи и детские площадки. Подойдёт для спокойной прогулки, самокатов и коляски.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "free"
+    ],
+    "tags": [
+      "Парк",
+      "Пруды",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "autumn",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Лефортовский_парк",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Усадьба Люблино",
+    "slug": "lyublino-usadba",
+    "town": "Люблино (ЮВАО)",
+    "region": "msk",
+    "address": "Москва, Люблино, ул. Летняя / Люблинский парк",
+    "metro": "Люблино",
+    "lat": 55.6765,
+    "lng": 37.76,
+    "category": "park",
+    "subtitle": "Усадьба Дурасова с прудом и парком",
+    "description": "Парк вокруг старинной усадьбы с прудом и аллеями. Хорошо для неспешной прогулки, кормления уток и самокатов; рядом много зелени.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature",
+      "fairy"
+    ],
+    "experience": [
+      "walk",
+      "free",
+      "picnic"
+    ],
+    "tags": [
+      "Усадьба",
+      "Пруд",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Люблино_(усадьба)",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Парк 850-летия Москвы",
+    "slug": "park-850-moscow",
+    "town": "Марьино (ЮВАО)",
+    "region": "msk",
+    "address": "Москва, район Марьино, Братиславская ул.",
+    "metro": "Братиславская",
+    "lat": 55.654,
+    "lng": 37.748,
+    "category": "park",
+    "subtitle": "Большой парк в Марьине с площадками и прудами",
+    "description": "Просторный парк с детскими площадками, дорожками и прудами. Подойдёт для самокатов, велосипедов и пикника в тёплое время.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature",
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "free",
+      "picnic"
+    ],
+    "tags": [
+      "Парк",
+      "Площадки",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "playground",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Парк_850-летия_Москвы",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Борисовские пруды",
+    "slug": "borisovskie-prudy",
+    "town": "Орехово-Борисово (ЮАО)",
+    "region": "msk",
+    "address": "Москва, Борисовские пруды, Борисовский проезд",
+    "metro": "Орехово",
+    "lat": 55.631,
+    "lng": 37.7,
+    "category": "park",
+    "subtitle": "Пруды с набережной и лесопарком на юге Москвы",
+    "description": "Каскад прудов с набережной и лесопарком. Спокойная прогулка у воды, кормление уток, самокаты; зимой — каток по сезону.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "free"
+    ],
+    "tags": [
+      "Пруды",
+      "Прогулка",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Борисовские_пруды",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Измайловский кремль",
+    "slug": "izmailovsky-kreml",
+    "town": "Измайлово (ВАО)",
+    "region": "msk",
+    "address": "Москва, Измайловское шоссе, 73ж",
+    "metro": "Партизанская",
+    "lat": 55.7945,
+    "lng": 37.842,
+    "category": "museum",
+    "subtitle": "Сказочные терема, музеи и мастер-классы",
+    "description": "Яркий деревянный комплекс с музеями игрушки и хлеба, мастерскими и сувенирным рынком. Дети могут слепить, расписать, посмотреть кукол — хороший выбор на выходные.",
+    "price": [
+      0,
+      500
+    ],
+    "family_budget": 1800,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 120,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00",
+      "10:00-20:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "fairy",
+      "drawing"
+    ],
+    "experience": [
+      "toys",
+      "workshop",
+      "unusual"
+    ],
+    "tags": [
+      "Терем",
+      "Мастер-класс",
+      "Игрушки"
+    ],
+    "hit": false,
+    "photoSet": "toys",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Измайловский_кремль",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "rain",
+      "any"
+    ]
+  },
+  {
+    "title": "Терлецкий лесопарк",
+    "slug": "terletsky-park",
+    "town": "Перово / Новогиреево (ВАО)",
+    "region": "msk",
+    "address": "Москва, Терлецкий лесопарк, ул. Мартеновская",
+    "metro": "Перово",
+    "lat": 55.758,
+    "lng": 37.817,
+    "category": "park",
+    "subtitle": "Лесопарк с прудами и тропами на востоке",
+    "description": "Тихий лесопарк с прудами и тропами. Хорош для осенней прогулки, самокатов и пикника; рядом много жилых кварталов.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "free",
+      "picnic"
+    ],
+    "tags": [
+      "Лесопарк",
+      "Пруды",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "autumn",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Терлецкий_парк",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Музей железнодорожной техники на Рижском",
+    "slug": "muzey-zhd-tehniki",
+    "town": "Алексеевский (СВАО)",
+    "region": "msk",
+    "address": "Москва, Рижская площадь, 3 (у Рижского вокзала)",
+    "metro": "Рижская",
+    "lat": 55.7925,
+    "lng": 37.6363,
+    "category": "museum",
+    "subtitle": "Паровозы и вагоны под открытым небом",
+    "description": "Настоящие паровозы, тепловозы и вагоны, на которые можно посмотреть вблизи. Нравится любителям транспорта: от дошкольников до школьников.",
+    "price": [
+      0,
+      300
+    ],
+    "family_budget": 900,
+    "age": [
+      3,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      null,
+      null,
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn"
+    ],
+    "interests": [
+      "transport",
+      "science"
+    ],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "Паровозы",
+      "Транспорт",
+      "Музей"
+    ],
+    "hit": false,
+    "photoSet": "museum",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Музей_железнодорожной_техники_на_Рижском_вокзале",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Национальный парк «Лосиный остров»",
+    "slug": "losiny-ostrov",
+    "town": "Лосиноостровский (СВАО)",
+    "region": "msk",
+    "address": "Москва, национальный парк «Лосиный остров», Лосиноостровская",
+    "metro": "Бабушкинская",
+    "lat": 55.862,
+    "lng": 37.73,
+    "category": "park",
+    "subtitle": "Огромный лесной парк с тропами и подкормкой птиц",
+    "description": "Большой национальный парк с лесными тропами; осенью — шуршащие листья и белки. Лучше брать удобную обувь и воду.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 400,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature",
+      "animals"
+    ],
+    "experience": [
+      "walk",
+      "free",
+      "picnic"
+    ],
+    "tags": [
+      "Лес",
+      "Белки",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "autumn",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Лосиный_Остров_(национальный_парк)",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Лианозовский парк",
+    "slug": "lianozovsky-park",
+    "town": "Лианозово (СВАО)",
+    "region": "msk",
+    "address": "Москва, Лианозовский парк, ул. Малая Ново-Алексеевская",
+    "metro": "Дегунино",
+    "lat": 55.9013,
+    "lng": 37.5663,
+    "category": "park",
+    "subtitle": "Парк с прудами и площадками на севере Москвы",
+    "description": "Парк с прудами, площадками и дорожками. Неспешная прогулка для всей семьи и самокаты.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "free"
+    ],
+    "tags": [
+      "Парк",
+      "Пруды",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "playground",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Лианозовский_парк",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Останкинская усадьба Шереметевых",
+    "slug": "ostankino-usadba",
+    "town": "Останкинский (СВАО)",
+    "region": "msk",
+    "address": "Москва, 1-я Останкинская ул., 5",
+    "metro": "ВДНХ",
+    "lat": 55.8205,
+    "lng": 37.611,
+    "category": "museum",
+    "subtitle": "Театр-дворец и парк рядом с ВДНХ",
+    "description": "Дворец-театр с парком и прудом рядом с ВДНХ. Весной и осенью — приятная прогулка, внутри — экскурсии по расписанию, лучше для школьников.",
+    "price": [
+      0,
+      600
+    ],
+    "family_budget": 1700,
+    "age": [
+      5,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      null,
+      null,
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "music",
+      "fairy"
+    ],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "Дворец",
+      "Усадьба",
+      "Парк"
+    ],
+    "hit": false,
+    "photoSet": "art",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Останкино_(усадьба)",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Тимирязевский лесопарк",
+    "slug": "timiryazevsky-park",
+    "town": "Тимирязевский (САО)",
+    "region": "msk",
+    "address": "Москва, Тимирязевский лесопарк, Дмитровское шоссе",
+    "metro": "Петровско-Разумовская",
+    "lat": 55.8337,
+    "lng": 37.5617,
+    "category": "park",
+    "subtitle": "Лесопарк с прудами, тропами и пикниками",
+    "description": "Большой лесопарк с прудами, тропами и открытыми лужайками. Хорош для прогулки, самоката, пикника и подкормки птиц.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 120,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature",
+      "animals"
+    ],
+    "experience": [
+      "walk",
+      "free",
+      "picnic"
+    ],
+    "tags": [
+      "Лесопарк",
+      "Пруды",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "autumn",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Тимирязевский_лес",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Парк Северного речного вокзала",
+    "slug": "park-severny-rechnoy",
+    "town": "Левобережный (САО)",
+    "region": "msk",
+    "address": "Москва, Ленинградское шоссе, 51",
+    "metro": "Речной вокзал",
+    "lat": 55.8513,
+    "lng": 37.4723,
+    "category": "park",
+    "subtitle": "Парк у воды: набережная, площадки и прогулочные дорожки",
+    "description": "Набережная Химкинского водохранилища, детские площадки и открытые лужайки. Ветер у воды, поэтому одеваться лучше теплее.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature",
+      "transport"
+    ],
+    "experience": [
+      "walk",
+      "free"
+    ],
+    "tags": [
+      "Набережная",
+      "Площадки",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Северный_речной_вокзал",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Серебряный Бор",
+    "slug": "serebryany-bor",
+    "town": "Хорошёво-Мнёвники (СЗАО)",
+    "region": "msk",
+    "address": "Москва, Серебряный Бор, Таманская ул.",
+    "metro": "Хорошёво",
+    "lat": 55.7712,
+    "lng": 37.4233,
+    "category": "park",
+    "subtitle": "Сосновый лес на берегу Москвы-реки",
+    "description": "Сосновый лес, пляжи и тропы у реки: летом — купание и пикники, осенью и зимой — прогулки среди сосен.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 400,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 150,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature",
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "free",
+      "picnic"
+    ],
+    "tags": [
+      "Сосны",
+      "Река",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Серебряный_Бор_(Москва)",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Парк «Строгинская пойма»",
+    "slug": "stroginskaya-poima",
+    "town": "Строгино (СЗАО)",
+    "region": "msk",
+    "address": "Москва, Строгинский бульвар, Строгинская пойма",
+    "metro": "Строгино",
+    "lat": 55.803,
+    "lng": 37.392,
+    "category": "park",
+    "subtitle": "Пойма у реки с дорожками и площадками",
+    "description": "Пойма Москвы-реки с дорожками, площадками и видом на воду. Подойдёт для самокатов, велосипедов и спокойной прогулки.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature",
+      "sport"
+    ],
+    "experience": [
+      "walk",
+      "free"
+    ],
+    "tags": [
+      "Река",
+      "Площадки",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Строгино",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Митинский ландшафтный парк",
+    "slug": "mitinsky-park",
+    "town": "Митино (СЗАО)",
+    "region": "msk",
+    "address": "Москва, Митино, Митинский ландшафтный парк",
+    "metro": "Митино",
+    "lat": 55.845,
+    "lng": 37.35,
+    "category": "park",
+    "subtitle": "Ландшафтный парк с прудами и тропами",
+    "description": "Большой ландшафтный парк с прудами, тропами и холмами — удобно для прогулок, самокатов и пикника.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 90,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 2,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "free",
+      "picnic"
+    ],
+    "tags": [
+      "Парк",
+      "Пруды",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Митино",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  },
+  {
+    "title": "Музей-панорама «Бородинская битва»",
+    "slug": "borodinskaya-panorama",
+    "town": "Дорогомилово (ЗАО)",
+    "region": "msk",
+    "address": "Москва, Кутузовский проспект, 38",
+    "metro": "Кутузовская",
+    "lat": 55.7385,
+    "lng": 37.514,
+    "category": "museum",
+    "subtitle": "Огромная панорама Бородинского сражения",
+    "description": "Круговая панорама сражения с предметным планом — вся картина вокруг тебя. Интереснее школьникам, особенно любителям истории.",
+    "price": [
+      200,
+      500
+    ],
+    "family_budget": 1400,
+    "age": [
+      6,
+      12
+    ],
+    "duration": 60,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      null,
+      "10:00-18:00",
+      "10:00-18:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "science"
+    ],
+    "experience": [
+      "unusual"
+    ],
+    "tags": [
+      "Панорама",
+      "История",
+      "Музей"
+    ],
+    "hit": false,
+    "photoSet": "museum",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Бородинская_панорама",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ]
+  },
+  {
+    "title": "Киностудия «Мосфильм»: экскурсия",
+    "slug": "mosfilm-excursion",
+    "town": "Раменки (ЗАО)",
+    "region": "msk",
+    "address": "Москва, ул. Мосфильмовская, 1",
+    "metro": "Киевская",
+    "lat": 55.7217,
+    "lng": 37.5088,
+    "category": "museum",
+    "subtitle": "Павильоны, костюмы и декорации знаменитых фильмов",
+    "description": "Экскурсия по киностудии: павильоны, декорации, костюмы и реквизит. Нужна запись, лучше для детей постарше.",
+    "price": [
+      700,
+      1500
+    ],
+    "family_budget": 4000,
+    "age": [
+      7,
+      12
+    ],
+    "duration": 120,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": true,
+    "hours": [
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      "10:00-18:00",
+      null,
+      null
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "drawing",
+      "music",
+      "fairy"
+    ],
+    "experience": [
+      "unusual",
+      "show"
+    ],
+    "tags": [
+      "Кино",
+      "Экскурсия",
+      "Запись"
+    ],
+    "hit": false,
+    "photoSet": "theatre",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Мосфильм",
+    "confidence": "medium",
+    "weather": [
+      "rain",
+      "cold",
+      "any",
+      "sun"
+    ]
+  },
+  {
+    "title": "Парк «Школьное озеро»",
+    "slug": "shkolnoe-ozero-zelenograd",
+    "town": "Зеленоград",
+    "region": "msk",
+    "address": "Москва, Зеленоград, Школьное озеро",
+    "lat": 55.996,
+    "lng": 37.206,
+    "category": "park",
+    "subtitle": "Озеро и парк в центре Зеленограда",
+    "description": "Озеро с дорожками и площадками посреди района: подойдёт для неспешной прогулки, самокатов и кормления уток.",
+    "price": [
+      0,
+      0
+    ],
+    "family_budget": 300,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 75,
+    "indoor": false,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "booking": false,
+    "hours": [
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00",
+      "06:00-23:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "interests": [
+      "nature"
+    ],
+    "experience": [
+      "walk",
+      "free"
+    ],
+    "tags": [
+      "Озеро",
+      "Парк",
+      "Бесплатно"
+    ],
+    "hit": false,
+    "photoSet": "park",
+    "rating": null,
+    "reviews": null,
+    "source": "https://ru.wikipedia.org/wiki/Зеленоград",
+    "confidence": "medium",
+    "weather": [
+      "sun",
+      "any"
+    ]
+  }
+]

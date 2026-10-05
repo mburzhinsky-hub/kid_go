@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { WifiOff } from "lucide-react";
 import { rehydrateFamily, useFamily } from "@/lib/store";
+import { useNavTracker } from "@/lib/nav";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [offline, setOffline] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  useNavTracker();
   const needsOnboarding = useFamily((s) => s.hydrated && !s.onboarded && s.children.length === 0);
 
   // первый запуск (в том числе с экрана «Домой»): знакомимся, а не показываем чужую семью

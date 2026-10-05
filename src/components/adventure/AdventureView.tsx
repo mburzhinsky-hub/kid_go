@@ -136,7 +136,7 @@ export function AdventureView(props: AdventureViewProps) {
     <main className="pb-36">
       <div className="relative">
         {cover && (
-          <SmartImage photo={cover} tint={props.tint} emoji={props.emoji} sizes="(max-width: 480px) 100vw, 480px" priority quality={75} className="h-[310px] w-full rounded-b-[30px]" />
+          <SmartImage photo={cover} tint={props.tint} emoji={props.emoji} sizes="(max-width: 480px) 100vw, 480px" priority quality={75} className="h-[310px] w-full rounded-b-[30px] [@media(max-height:760px)]:h-[240px]" />
         )}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/30 to-transparent" />
         <div className="absolute inset-x-4 top-[max(14px,env(safe-area-inset-top))] flex items-center justify-between">

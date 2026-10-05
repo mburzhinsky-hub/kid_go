@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Home, Map, Sparkles, Heart, UserRound } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useFamily } from "@/lib/store";
+import { markTabSwitch } from "@/lib/nav";
 
 const ITEMS = [
   { href: "/", label: "Главная", Icon: Home, fillable: true },
@@ -33,6 +34,7 @@ export function BottomNavigation() {
             <li key={href}>
               <Link
                 href={href}
+                onClick={() => markTabSwitch()}
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "press relative flex flex-col items-center gap-0.5 pb-1.5 pt-1 text-[10.5px] font-medium tracking-[-0.01em]",

@@ -69,6 +69,9 @@ export function buildPlannerInput(a: BuildArgs): PlannerInput {
     now,
     foodAfter: query.food === "1" || !!scenario?.food,
     maxDistanceKm: query.near === "1" && mode !== "any" ? 5 : undefined,
+    // округ: по умолчанию только он; «и соседние» — по явной просьбе в ссылке
+    areaScope: query.wide === "1" || query.wide === "true" ? "wide" : "strict",
+    looseFit: query.loose === "1" ? true : undefined,
     family: a.family,
     constraints,
     seed: `${dateISO}:${ages}`,

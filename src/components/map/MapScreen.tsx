@@ -9,8 +9,9 @@ import type { Map as MLMap, Marker as MLMarker } from "maplibre-gl";
 import type { CategoryId, GeoPoint, Place } from "@/lib/types";
 import { allPlaces, getPlaceSync } from "@/lib/data/repository";
 import { useNearbyExtras } from "@/lib/nearby";
-import { DEFAULT_LOCATION } from "@/lib/geo";
-import { travelToPlace, nearestAreaLabel, locationMode } from "@/lib/location";
+import { DEFAULT_LOCATION, pt } from "@/lib/geo";
+import { travelToPlace, nearestAreaLabel, locationMode, isSuburban } from "@/lib/location";
+import { inMoscow, okrugOfOrigin, tierOf } from "@/lib/moscow";
 import { openState } from "@/lib/format";
 import { categoryDef } from "@/lib/catalog";
 import { useFamily } from "@/lib/store";
@@ -20,12 +21,19 @@ import { PlaceBottomSheet } from "./PlaceBottomSheet";
 import { StylizedMap, makeProjector } from "./StylizedMap";
 import { createBaseMap, applyKidStyle, type ProviderId } from "./base-map";
 import { frameOf, yandexMapsUrl, yandexWidgetUrl } from "./map-links";
-import { PlaceCard } from "@/components/cards/PlaceCard";
+import { MapPlaceChip } from "./MapPlaceChip";
 import { FilterChip } from "@/components/ui/FilterChip";
 import { BottomSheet } from "@/components/ui/BottomSheet";
+import { TabBackButton } from "@/components/ui/BackButton";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
+
+/** Москва в пределах МКАД: [запад, юг], [восток, север]. */
+const MKAD_BOX: [[number, number], [number, number]] = [
+  [37.37, 55.57],
+  [37.87, 55.915],
+];
 
 type Toggle = "near" | "open" | "indoor" | "outdoor" | "cafe" | "parking" | "free";
 const TOGGLES: { id: Toggle; label: string }[] = [
@@ -92,8 +100,11 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   const mlRef = useRef<typeof import("maplibre-gl") | null>(null);
   const anywhereRef = useRef(false);
   anywhereRef.current = hydrated && locationMode(origin) === "any";
+  const okrugRef = useRef<string | undefined>(undefined);
   const [mapReady, setMapReady] = useState(false);
   const anywhere = hydrated && locationMode(origin) === "any";
+  const okrug = useMemo(() => (hydrated ? okrugOfOrigin(origin) : undefined), [hydrated, origin]);
+  okrugRef.current = okrug?.id;
   // точка выезда семьи — она же «я» на карте
   useEffect(() => {
     if (hydrated && origin.source !== "default") setUser({ lat: origin.lat, lng: origin.lng });
@@ -121,14 +132,17 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   }, [mode]);
   const fbProject = useMemo(() => makeProjector(fbCenter, fz).project, [fbCenter, fz]);
   const sheetRef = useRef<HTMLElement>(null);
-  const [sheetH, setSheetH] = useState(300);
+  const [sheetH, setSheetH] = useState(236);
+  // панель уходит под нижнюю навигацию (padding), поэтому под ней не остаётся полоски карты
   useEffect(() => {
     const el = sheetRef.current;
     if (!el) return;
-    const ro = new ResizeObserver(() => setSheetH(el.offsetHeight + 66));
+    const ro = new ResizeObserver(() => setSheetH(el.offsetHeight));
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+  // список можно свернуть, чтобы видеть карту целиком
+  const [collapsed, setCollapsed] = useState(false);
 
   /* ───── фильтрация ───── */
   const visible = useMemo(() => {
@@ -136,6 +150,8 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
     const now = new Date();
     if (planSlugs.length) return planPlaces;
     return pool.filter((p) => {
+      // «вся Москва» — только Москва: ни Подмосковье, ни дальние города в «Лучшем в Москве» не нужны
+      if (anywhere && (!inMoscow(p) || isSuburban(pt(p)))) return false;
       if (category && p.category !== category) return false;
       // кафе и магазины из OSM — только по запросу, иначе они заслоняют места, куда стоит ехать
       if (p.confidence === "osm" && (p.category === "cafe" || p.category === "shop") && !(toggles.has("cafe") || category === "cafe" || category === "shop" || q)) return false;
@@ -157,18 +173,24 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       }
       return true;
     });
-  }, [query, toggles, age, price, category, user, transport, maxTravelMin, planSlugs, planPlaces, pool]);
+  }, [query, toggles, age, price, category, user, transport, maxTravelMin, planSlugs, planPlaces, pool, anywhere]);
   const visibleIds = useMemo(() => new Set(visible.map((p) => p.slug)), [visible]);
-  const nearby = useMemo(
-    () =>
-      planSlugs.length
-        ? visible.map((p) => ({ p, min: 0 }))
-        : anywhere
-          ? // без точки «рядом» не считаем: лучшее по городу
-            visible.map((p) => ({ p, min: 0, s: p.rating * 2 + Math.log10(p.review_count + 1) + (p.is_hit ? 1 : 0) })).sort((a, b) => b.s - a.s)
-          : visible.map((p) => ({ p, min: travelToPlace(user, p, transport).minutes })).sort((a, b) => a.min - b.min),
-    [visible, user, transport, planSlugs, anywhere]
-  );
+  const nearby = useMemo(() => {
+    if (planSlugs.length) return visible.map((p) => ({ p, min: 0 }));
+    const quality = (p: Place) => p.rating * 2 + Math.log10(p.review_count + 1) + (p.is_hit ? 1 : 0);
+    // без точки «рядом» не считаем: лучшее по городу
+    if (anywhere) return visible.map((p) => ({ p, min: 0, s: quality(p) })).sort((a, b) => b.s - a.s);
+    const byDistance = () => visible.map((p) => ({ p, min: travelToPlace(user, p, transport).minutes })).sort((a, b) => a.min - b.min);
+    if (okrug) {
+      // выбран округ: сначала лучшее в нём самом, затем у соседей; места из других концов города в список не лезут
+      const inArea = visible
+        .map((p) => ({ p, min: travelToPlace(user, p, transport).minutes, t: tierOf(p, okrug.id), s: quality(p) }))
+        .filter((x) => x.t <= 1)
+        .sort((a, b) => a.t - b.t || b.s - a.s);
+      if (inArea.length) return inArea;
+    }
+    return byDistance();
+  }, [visible, user, transport, planSlugs, anywhere, okrug]);
   // ссылки на Яндекс Карты: рамка — по лучшим местам выдачи (или точке выезда)
   const yFrame = useMemo(() => {
     const top = nearby.slice(0, 30).map(({ p }) => ({ lat: p.latitude, lng: p.longitude }));
@@ -190,7 +212,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
     if (!start || !containerRef.current) return;
     const flag = { cancelled: false };
     (async () => {
-      const res = await createBaseMap({ container: containerRef.current!, center: [start.lng, start.lat], zoom: anywhereRef.current ? 10 : 10.6, signal: flag, onStatus: setStatus });
+      const res = await createBaseMap({ container: containerRef.current!, center: [start.lng, start.lat], zoom: anywhereRef.current ? 9.9 : 10.6, signal: flag, onStatus: setStatus });
       if (flag.cancelled) return;
       if (!res) {
         // нет подложки: онлайн → карта Яндекса (открывается там, где иностранные тайлы — нет), офлайн → схема
@@ -217,8 +239,10 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
           map.addLayer({ id: "plan-route-casing", type: "line", source: "plan-route", paint: { "line-color": "#ffffff", "line-width": 8, "line-opacity": 0.9 }, layout: { "line-cap": "round", "line-join": "round" } });
           map.addLayer({ id: "plan-route", type: "line", source: "plan-route", paint: { "line-color": "#FF2E88", "line-width": 4, "line-dasharray": [1.5, 1.2] }, layout: { "line-cap": "round", "line-join": "round" } });
         }
-        // кадр: маршрут целиком; «вся Москва» — город как есть; иначе — точка выезда и ближайшие места
+        // кадр: маршрут целиком; «вся Москва» — город в пределах МКАД над панелью; иначе — точка выезда и ближайшие места
+        const pad = { top: 150, bottom: (sheetRef.current?.offsetHeight ?? 236) + 24, left: 28, right: 28 };
         if (!planPlaces.length && anywhereRef.current) {
+          map.fitBounds(MKAD_BOX, { padding: pad, duration: 0, maxZoom: 11 });
           setZoom(map.getZoom());
           setMode("map");
           setMapReady(true);
@@ -227,10 +251,13 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
         const bounds = new ml.LngLatBounds([start.lng, start.lat], [start.lng, start.lat]);
         const near = planPlaces.length
           ? planPlaces
-          : [...poolRef.current].sort((a, b) => travelToPlace(start, a, "car").minutes - travelToPlace(start, b, "car").minutes).slice(0, 12);
+          : [...poolRef.current]
+              .filter((p) => !okrugRef.current || tierOf(p, okrugRef.current) <= 1)
+              .sort((a, b) => travelToPlace(start, a, "car").minutes - travelToPlace(start, b, "car").minutes)
+              .slice(0, 12);
         near.forEach((p) => bounds.extend([p.longitude, p.latitude]));
         if (planPlaces.length) bounds.extend([start.lng, start.lat]);
-        map.fitBounds(bounds, { padding: { top: 150, bottom: 300, left: 30, right: 30 }, duration: 0, maxZoom: 14 });
+        map.fitBounds(bounds, { padding: pad, duration: 0, maxZoom: 14 });
         setZoom(map.getZoom());
         setMode("map");
         setMapReady(true);
@@ -346,7 +373,8 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
     const map = mapRef.current;
     if (!prev || prev === key || !map || mode !== "map" || planSlugs.length) return;
     const m = locationMode(origin);
-    map.flyTo({ center: [origin.lng, origin.lat], zoom: m === "any" ? 10 : m === "area" ? 11.2 : 12.8, offset: [0, -60] });
+    if (m === "any") map.fitBounds(MKAD_BOX, { padding: { top: 150, bottom: (sheetRef.current?.offsetHeight ?? 236) + 24, left: 28, right: 28 }, maxZoom: 11, duration: 700 });
+    else map.flyTo({ center: [origin.lng, origin.lat], zoom: m === "area" ? 11.2 : 12.8, offset: [0, -(sheetRef.current?.offsetHeight ?? 236) / 3] });
   }, [origin, hydrated, mode, planSlugs.length]);
 
   /* раскладка без наложений: пересчёт при фильтрах, выборе, зуме и сдвиге карты */
@@ -435,7 +463,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   return (
     <main
       className="fixed inset-0 mx-auto max-w-[480px] overflow-hidden bg-[#efebe3]"
-      style={{ ["--sheet-h" as string]: `calc(${sheetH}px + env(safe-area-inset-bottom))` }}
+      style={{ ["--sheet-h" as string]: `${sheetH}px` }}
     >
       {/* карта */}
       {/* position задан inline: maplibre-gl.css (без @layer) иначе перебивает tailwind-класс и карта схлопывается до 300px */}
@@ -507,6 +535,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       {/* поиск и фильтры */}
       <div className="absolute inset-x-0 top-0 z-20 pt-[max(12px,env(safe-area-inset-top))]">
         <div className="flex items-center gap-2.5 px-4">
+          <TabBackButton tone="float" />
           <label className="flex h-[52px] min-w-0 flex-1 items-center gap-2.5 rounded-full bg-white px-4 shadow-float">
             <Search size={22} strokeWidth={2.1} className="text-ink-2" />
             <input
@@ -633,28 +662,44 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       {/* нижняя панель */}
       <section
         ref={sheetRef}
-        className="absolute inset-x-0 z-20 rounded-t-[28px] bg-white pb-3 pt-2 shadow-[0_-10px_30px_rgba(17,18,26,0.08)]"
-        style={{ bottom: "calc(66px + env(safe-area-inset-bottom))" }}
+        className="absolute inset-x-0 bottom-0 z-20 rounded-t-[28px] bg-white pt-1 shadow-[0_-10px_30px_rgba(17,18,26,0.08)]"
+        style={{ paddingBottom: "calc(70px + env(safe-area-inset-bottom))" }}
       >
-        <div className="mx-auto h-[5px] w-10 rounded-full bg-[#dcdad4]" />
+        <button
+          type="button"
+          onClick={() => setCollapsed((c) => !c)}
+          aria-label={collapsed ? "Показать список мест" : "Свернуть список, чтобы видеть карту"}
+          aria-expanded={!collapsed}
+          className="mx-auto grid h-6 w-24 place-items-center"
+        >
+          <span className="h-[5px] w-10 rounded-full bg-[#dcdad4]" />
+        </button>
         {selectedPlace ? (
           <div className="px-4 pt-3">
             <PlaceBottomSheet key={selectedPlace.slug} place={selectedPlace} minutes={anywhere ? undefined : travelToPlace(user, selectedPlace, transport).minutes} onClose={() => setSelected(null)} />
           </div>
         ) : (
           <>
-            <div className="flex items-end justify-between px-4 pt-3">
-              <h2 className="tight text-[23px] font-[800]">
-                {planSlugs.length ? "Маршрут дня" : activeCount === 0 && !query.trim() ? (anywhere ? "Лучшее в Москве" : "Рядом с вами") : `Нашли ${visible.length}`}
+            <div className="flex items-end justify-between px-4 pt-1">
+              <h2 className="tight text-[21px] font-[800]">
+                {planSlugs.length
+                  ? "Маршрут дня"
+                  : activeCount === 0 && !query.trim()
+                    ? anywhere
+                      ? "Лучшее в Москве"
+                      : okrug
+                        ? `Лучшее ${okrug.prep}`
+                        : "Рядом с вами"
+                    : `Нашли ${nearby.length}`}
               </h2>
               <Link href="/search" className="press flex items-center gap-1 text-[16px] font-medium text-blue">
                 Все <ArrowRight size={18} />
               </Link>
             </div>
-            {nearby.length ? (
-              <div className="no-scrollbar snap-x-pad mt-2.5 flex snap-x gap-3 overflow-x-auto px-4 pb-1 pt-1">
-                {nearby.slice(0, 12).map(({ p }, i) => (
-                  <PlaceCard key={p.id} place={p} width="w-[196px]" caption={planSlugs.length ? `Шаг ${i + 1}` : undefined} />
+            {collapsed ? null : nearby.length ? (
+              <div className="no-scrollbar snap-x-pad mt-2 flex snap-x gap-2.5 overflow-x-auto px-4 pb-2 pt-1">
+                {nearby.slice(0, 14).map(({ p }, i) => (
+                  <MapPlaceChip key={p.id} place={p} caption={planSlugs.length ? `Шаг ${i + 1}` : undefined} />
                 ))}
               </div>
             ) : (

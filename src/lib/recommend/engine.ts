@@ -6,6 +6,7 @@ import { ceilTo, fromMinutes, isOpenDuring, moscowNow } from "@/lib/format";
 import { travelBetween, travelToPlace, type Travel } from "@/lib/location";
 import { bringList, daySummary, moscowDateISO, outdoorVerdict, weekdayOf, windowWx, type Forecast } from "@/lib/forecast";
 import { isSuburban } from "@/lib/location";
+import { inMoscow, okrugOfOrigin, tierOf, type Tier } from "@/lib/moscow";
 import { explainPlan } from "./explain";
 
 /**
@@ -36,6 +37,8 @@ export interface ScoredPlace {
   km: number;
   minutes: number;
   parts: Record<string, number>;
+  /** Для округа: 0 — в самом округе, 1 — в соседнем, 2 — дальше. */
+  tier?: Tier;
 }
 
 /* ───────── 1. Контекст ───────── */
@@ -169,6 +172,25 @@ function moodFit(p: Place, mood: MoodId): number {
   }
 }
 
+/**
+ * «Тип» ситуации: развивающая — это музеи и наука, прогулка — парки и улица, спорт — активные места.
+ * Нужен, чтобы в строгом режиме округа честно сказать «здесь такого нет», а не подсунуть парк под «развивающее».
+ */
+export function coreFit(p: Place, input: Pick2<PlannerInput, "mood" | "constraints">): boolean {
+  const c = input.constraints ?? {};
+  if (input.mood === "learn" && moodFit(p, "learn") < 0.7) return false;
+  if (input.mood === "creative" && moodFit(p, "creative") < 0.5) return false;
+  if (input.mood === "energy" && moodFit(p, "energy") < 0.35) return false;
+  if (input.mood === "outdoor" && !p.outdoor) return false;
+  const cats = c.preferCategories;
+  // сценарий про конкретные занятия («к животным», «на каток», «в театр»): основное место — из них или нужного формата
+  if (cats?.length && cats.every((k) => ACTIVITY.includes(k))) {
+    const byFormat = c.experiences?.some((e) => p.experience_tags.includes(e));
+    if (!cats.includes(p.category) && !byFormat) return false;
+  }
+  return true;
+}
+
 /** Насколько улица подходит хоть когда-то в окне дня (для предварительного отбора). */
 export function dayOutdoorScore(ctx: DayCtx): number {
   if (!ctx.forecast) return 0.8;
@@ -192,10 +214,16 @@ export function scorePlace(
   const fam = input.family;
   const mode = input.locationMode ?? "exact";
   const travel = legHome(input, p);
-  const reach = ACTIVITY.includes(p.category) ? ctx.reach : ctx.reach * 1.35;
-  if (mode !== "any" && travel.minutes > reach) return null;
-  // «вся Москва» — это город (в пределах МКАД и рядом), а не вся область
-  if (mode === "any" && isSuburban(pt(p))) return null;
+  const anchorLike = isAnchorLike(p, input);
+  const reach = anchorLike ? ctx.reach : ctx.reach * 1.35;
+  // «вся Москва» — это город, а не область: без Красногорска, Мытищ и Истры (и без дальних окраин вроде Зеленограда — они в своих округах)
+  if (mode === "any" && (!inMoscow(p) || isSuburban(pt(p)))) return null;
+  // округ: основное место — только в самом округе, соседние округа годятся для кафе и магазина по пути
+  const okr = areaOf(input);
+  const strict = !!okr && input.areaScope !== "wide";
+  const tier = okr ? tierOf(p, okr) : undefined;
+  if (strict && tier !== undefined && (tier === 2 || (tier === 1 && anchorLike))) return null;
+  if (mode !== "any" && travel.minutes > reach && !(strict && tier === 0)) return null;
 
   // возраст: по умолчанию место должно подходить всем детям
   const fit = ages.length ? ages.filter((a) => a >= p.age_min && a <= p.age_max).length / ages.length : 1;
@@ -226,7 +254,10 @@ export function scorePlace(
 
   const parts: Record<string, number> = {
     age: fit * 2 + sweet * 2 + ageNeeds(p, ctx),
-    distance: mode === "any" ? 0 : Math.max(0, 1 - travel.minutes / ctx.reach) ** 1.3 * (input.transport === "walk" ? 10 : 8.5) * (mode === "area" ? 0.7 : 1),
+    // «центр округа» — условная точка, внутри округа расстояние от неё почти ничего не значит
+    distance: mode === "any" ? 0 : Math.max(0, 1 - travel.minutes / ctx.reach) ** 1.3 * (input.transport === "walk" ? 10 : 8.5) * (strict ? 0.3 : mode === "area" ? 0.7 : 1),
+    // «шире округа»: выбранный округ всё равно впереди соседних
+    area: !okr || strict ? 0 : tier === 0 ? 2.4 : tier === 1 ? 0.8 : 0,
     interest: interest * 8 + scenarioInterest,
     rating: (p.rating - 4) * (p.review_count > 0 ? 1 : 0.4),
     mood: moodFit(p, input.mood) * 7.5,
@@ -257,7 +288,19 @@ export function scorePlace(
     price: Number.isFinite(budgetMax) && budgetMax > 0 ? -((p.family_budget / budgetMax) ** 1.3) * (input.budget === "2000" ? 3.4 : 1.4) : budgetMax === Infinity ? (p.price_level >= 2 && p.rating >= 4.6 ? 0.6 : 0) : 0,
   };
   const score = Object.values(parts).reduce((a, b) => a + b, 0);
-  return { place: p, score, km: travel.km, minutes: travel.minutes, parts };
+  return { place: p, score, km: travel.km, minutes: travel.minutes, parts, tier };
+}
+
+/** Основное занятие дня (якорь): парк, игра, музей, актив, животные — и кафе с игровой, если нужна передышка. */
+function isAnchorLike(p: Pick2<Place, "category" | "experience_tags">, input: Pick2<PlannerInput, "constraints">): boolean {
+  return ACTIVITY.includes(p.category) || !!(input.constraints?.parentBreak && p.category === "cafe" && p.experience_tags.includes("playzone"));
+}
+
+/** Округ, в котором ищем (если выбран округ Москвы, а не адрес, точка или город области). */
+export function areaOf(input: Pick2<PlannerInput, "location" | "locationMode">): string | undefined {
+  if (input.locationMode !== "area") return undefined;
+  const o = input.location as PlannerInput["location"] & { label?: string; source?: "area" };
+  return okrugOfOrigin({ source: "area", label: o.label ?? "", lat: o.lat, lng: o.lng })?.id;
 }
 
 /** Потребности возраста: малышу — коляска и тишина, старшему — «не малышовое». */
@@ -425,7 +468,7 @@ interface Assembled {
   anchor: ScoredPlace;
 }
 
-function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: PlannerInput, kidsInterests: string[][], outdoorDay: number): Assembled | null {
+function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: PlannerInput, kidsInterests: string[][], outdoorDay: number, avoid?: Set<string>): Assembled | null {
   const total = ctx.total;
   const c = input.constraints ?? {};
   const budgetMax = BUDGET_MAX[input.budget];
@@ -478,7 +521,8 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
     const pickFrom = (filter: (s: ScoredPlace) => boolean, bonus: (s: ScoredPlace, legMin: number) => number) =>
       near
         .filter(({ s }) => filter(s))
-        .map(({ s, leg }) => ({ s, leg, v: s.score + bonus(s, leg.minutes) - leg.minutes * 0.08 }))
+        // места из предыдущих вариантов — только если лучшего нет: иначе все три плана «сходят» в одно кафе
+        .map(({ s, leg }) => ({ s, leg, v: s.score + bonus(s, leg.minutes) - leg.minutes * 0.08 - (avoid?.has(s.place.id) ? 4.5 : 0) }))
         .sort((a, b) => b.v - a.v)[0];
 
     let chosen: { s: ScoredPlace; leg: Travel } | undefined;
@@ -582,11 +626,13 @@ export interface PlannerResult {
   relaxed?: { from: number; to: number; nearest?: number };
   /** Сколько мест-якорей нашлось в заданном радиусе. */
   anchorsNear: number;
+  /** Поиск по округу: где ищем и насколько строго. */
+  area?: { id: string; scope: "strict" | "wide"; anchors: number; /** мест в округе, подходящих по условиям, но не «по теме» ситуации */ offType: number; loose: boolean };
 }
 
 export interface Relaxation {
   label: string;
-  patch: Partial<Pick2<PlannerInput, "budget" | "transport" | "duration" | "mood">> & { travel?: number; anywhere?: boolean };
+  patch: Partial<Pick2<PlannerInput, "budget" | "transport" | "duration" | "mood">> & { travel?: number; anywhere?: boolean; wide?: boolean };
 }
 
 const anchorsOf = (pool: ScoredPlace[], input: PlannerInput) =>
@@ -630,6 +676,8 @@ export function generatePlans(input: PlannerInput, count = 3, offset = 0): Plann
   const base = dayContext(input).reach;
   const first = generateOnce(input, count, offset, 1);
   if (input.locationMode === "any") return first; // без привязки к точке радиус не причём
+  // строго по округу: радиус не расширяем — «в округе мало» честнее, чем тихо уехать в соседний (см. recommend/area.ts)
+  if (first.area?.scope === "strict") return first;
   const sparse = first.anchorsNear < 6 && isSuburban(input.location);
   if (first.plans.length >= (sparse ? count : 1)) return first;
   let best = first;
@@ -659,10 +707,19 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
     partialAge = true;
     scored = ALL_PLACES.map((p) => scorePlace(p, input, ages, ctx, outdoorDay, true)).filter(Boolean) as ScoredPlace[];
   }
-  const anchorsNear = anchorsOf(scored, input).length;
+  // строго по округу: основное место должно быть «по теме» ситуации (иначе — честное «здесь такого нет»)
+  const strictArea = !!areaOf(input) && input.areaScope !== "wide";
+  let anchors = anchorsOf(scored, input);
+  let offType = 0;
+  if (strictArea && !input.looseFit) {
+    const core = anchors.filter((s) => coreFit(s.place, input));
+    offType = anchors.length - core.length;
+    anchors = core;
+  }
+  const anchorsNear = anchors.length;
 
   const kidsInterests = input.children.map((c) => [...c.interests, ...(input.constraints?.interests ?? [])] as string[]);
-  const candidates = anchorsOf(scored, input).sort((a, b) => b.score - a.score);
+  const candidates = anchors.sort((a, b) => b.score - a.score);
   const results: { a: Assembled; plan: Plan }[] = [];
   const tried = new Set<string>();
   const minStops = Math.min(input.constraints?.minStops ?? MIN_STOPS[input.duration], MAX_STOPS[input.duration]);
@@ -687,7 +744,7 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
     if (!next) break;
     tried.add(next.c.place.id);
 
-    const a = assemble(next.c, scored, ctx, input, kidsInterests.map((x) => [...x]), outdoorDay);
+    const a = assemble(next.c, scored, ctx, input, kidsInterests.map((x) => [...x]), outdoorDay, new Set(results.flatMap((r) => r.a.ordered.picks.map((p) => p.place.id))));
     if (!a) continue;
     if (a.ordered.picks.length < minStops) {
       fallback.push(a);
@@ -715,7 +772,13 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
     suggestions: plans.length ? [] : diagnose(input),
     partialAge,
     anchorsNear,
+    area: areaInfo(input, anchorsNear, offType),
   };
+}
+
+function areaInfo(input: PlannerInput, anchors: number, offType: number): PlannerResult["area"] {
+  const id = areaOf(input);
+  return id ? { id, scope: input.areaScope === "wide" ? "wide" : "strict", anchors, offType, loose: !!input.looseFit } : undefined;
 }
 
 function toPlan(a: Assembled, input: PlannerInput, ctx: DayCtx, pool: ScoredPlace[], partialAge: boolean): Plan {
@@ -786,13 +849,16 @@ function diagnose(input: PlannerInput): Relaxation[] {
   ];
   // привязка к округу/адресу сужает выбор — «вся Москва» снимает её целиком
   if (input.locationMode && input.locationMode !== "any") tries.unshift({ label: "Искать по всей Москве", patch: { anywhere: true } });
+  if (areaOf(input) && input.areaScope !== "wide") tries.unshift({ label: "Добавить соседние округа", patch: { wide: true } });
   return tries.filter((t) => {
-    const { travel, anywhere, ...rest } = t.patch;
+    const { travel, anywhere, wide, ...rest } = t.patch;
     const k = Object.keys(rest)[0] as keyof typeof rest | undefined;
     if (k && input[k] === rest[k]) return false;
     if (travel && input.locationMode === "any") return false; // без точки «время в пути» не ограничивается — предлагать нечего
+    if (travel && areaOf(input) && input.areaScope !== "wide") return false; // внутри округа дорога не ограничивает
     if (travel && (input.constraints?.maxTravelMin ?? DEFAULT_REACH[input.transport]) >= travel) return false;
     let next: PlannerInput = { ...input, ...rest, constraints: travel ? { ...input.constraints, maxTravelMin: travel } : input.constraints };
+    if (wide) next = { ...input, areaScope: "wide" };
     if (anywhere) {
       const { maxTravelMin: _drop, ...keep } = input.constraints ?? {};
       next = { ...input, locationMode: "any", constraints: keep, maxDistanceKm: undefined };
@@ -809,15 +875,23 @@ function diagnose(input: PlannerInput): Relaxation[] {
 export function rankPlaces(input: PlannerInput, filter?: (p: Place) => boolean, minCount = 0): ScoredPlace[] {
   const ages = input.children.map((c) => c.age);
   const pool = poolOf(input).filter((p) => !filter || filter(p));
+  const okr = areaOf(input);
+  // округ: сначала только он, а если мест мало — и соседние (свои — первыми), чтобы подборка не пропадала
+  const attempts: { scope?: "strict" | "wide"; mul: number }[] =
+    input.locationMode === "any"
+      ? [{ mul: 1 }]
+      : okr && input.areaScope !== "wide"
+        ? [{ scope: "strict", mul: 1 }, ...[1, 1.5, 2.2, 3.2].map((mul) => ({ scope: "wide" as const, mul }))]
+        : [1, 1.5, 2.2, 3.2].map((mul) => ({ mul }));
   let best: ScoredPlace[] = [];
-  // как и в планах: если рядом мало, расширяем радиус, чтобы подборка не пропадала (за МКАД, окраины)
-  for (const k of input.locationMode === "any" ? [1] : [1, 1.5, 2.2, 3.2]) {
-    const ctx = dayContext(input, k);
+  for (const a of attempts) {
+    const next = a.scope ? { ...input, areaScope: a.scope } : input;
+    const ctx = dayContext(next, a.mul);
     const od = dayOutdoorScore(ctx);
     const r = pool
-      .map((p) => scorePlace(p, input, ages, ctx, od, true))
+      .map((p) => scorePlace(p, next, ages, ctx, od, true))
       .filter(Boolean)
-      .sort((a, b) => b!.score - a!.score) as ScoredPlace[];
+      .sort((x, y) => (okr ? (x!.tier ?? 2) - (y!.tier ?? 2) || y!.score - x!.score : y!.score - x!.score)) as ScoredPlace[];
     if (r.length > best.length) best = r;
     if (best.length >= minCount) break;
   }

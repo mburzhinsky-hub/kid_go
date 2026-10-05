@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { BackButton } from "@/components/ui/BackButton";
 import { GROUP_LABEL, SCENARIO_LIBRARY, scenarioHref, type ScenarioGroup } from "@/lib/scenarios";
 import { ScenarioGrid } from "@/components/home/QuickScenarioCard";
 
@@ -15,9 +14,7 @@ export default function ScenariosPage() {
   return (
     <main className="pb-28">
       <header className="flex items-center gap-3 px-4 pb-2 pt-[max(14px,env(safe-area-inset-top))]">
-        <Link href="/" aria-label="На главную" className="press grid h-11 w-11 place-items-center rounded-full bg-surface shadow-card">
-          <ArrowLeft size={22} />
-        </Link>
+        <BackButton fallback="/" />
       </header>
       <section className="px-4">
         <h1 className="tight text-[31px] font-[850] leading-[1.06]">Что у вас за ситуация?</h1>

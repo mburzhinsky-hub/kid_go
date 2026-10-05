@@ -52,7 +52,7 @@ export function HeroBanner({ slides }: { slides: HeroSlide[] }) {
           <Link
             key={s.id}
             href={s.href}
-            className="relative block aspect-[16/10.4] w-full shrink-0 snap-center overflow-hidden"
+            className="relative block aspect-[16/10.4] w-full shrink-0 snap-center overflow-hidden [@media(max-height:760px)]:aspect-[16/8.4]"
             aria-roledescription="slide"
             aria-label={`${i + 1} из ${slides.length}: ${s.title}`}
           >

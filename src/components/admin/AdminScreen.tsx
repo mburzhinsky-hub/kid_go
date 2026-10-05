@@ -2,10 +2,11 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Search, Plus, Pencil, MapPin, Sparkles, CalendarDays, Database } from "lucide-react";
+import { Search, Plus, Pencil, MapPin, Sparkles, CalendarDays, Database } from "lucide-react";
 import type { Adventure, CategoryId, KidEvent, Place } from "@/lib/types";
 import { CATEGORIES, categoryDef } from "@/lib/catalog";
 import { SmartImage } from "@/components/ui/SmartImage";
+import { BackButton } from "@/components/ui/BackButton";
 import { BottomSheet } from "@/components/ui/BottomSheet";
 import { formatAgeRange, formatPrice } from "@/lib/format";
 import { useToast, ToastHost } from "@/components/ui/Toast";
@@ -32,9 +33,7 @@ export function AdminScreen({ places: initial, adventures, events }: { places: P
   return (
     <main className="min-h-dvh pb-16">
       <header className="flex items-center gap-3 px-4 pb-2 pt-[max(14px,env(safe-area-inset-top))]">
-        <Link href="/profile" aria-label="Назад" className="press grid h-11 w-11 place-items-center rounded-full bg-surface shadow-card">
-          <ArrowLeft size={22} />
-        </Link>
+        <BackButton fallback="/profile" />
         <div>
           <h1 className="tight text-[24px] font-[850] leading-tight">Кабинет контента</h1>
           <p className="text-[13px] text-muted">Демо · изменения сохраняются локально</p>

@@ -56,6 +56,13 @@ def run():
     hrefs=[pg.locator("a[href*='/day'][href*='?']").nth(i).get_attribute("href") for i in range(pg.locator("a[href*='/day'][href*='?']").count())]
     print("5 rain plans:", [re.search(r"steps=([^&]+)", h).group(1) for h in hrefs])
     pg.goto(B+"/scenarios"); print("6 scenarios:", pg.locator("a[href*='?s=']").count())
+    # стрелка «назад»: вкладка → карточка → «Назад» возвращает на вкладку (а не выбрасывает из приложения)
+    pg.goto(B+"/"); pg.wait_for_timeout(600)
+    pg.get_by_role("link", name="Приключения").last.click(); pg.wait_for_url(re.compile(r".*/adventures/?$")); pg.wait_for_timeout(500)
+    pg.locator("a[href*='/adventures/']").first.click(); pg.wait_for_url(re.compile(r".*/adventures/[^/]+/?$")); pg.wait_for_timeout(500)
+    assert pg.get_by_role("button", name="Назад").count() + pg.get_by_role("link", name="Назад").count() >= 1, "нет стрелки «назад» в приключении"
+    (pg.get_by_role("button", name="Назад") if pg.get_by_role("button", name="Назад").count() else pg.get_by_role("link", name="Назад")).first.click()
+    pg.wait_for_url(re.compile(r".*/adventures/?$")); print("6b back arrow ok")
     pg.goto(B+"/map?plan=paleontologichesky-muzey,kafe-ponchik"); pg.wait_for_timeout(2500); print("7 map:", pg.locator("h2").first.inner_text())
     pg.goto(B+"/profile"); print("8 profile has minutes:", "40 мин" in pg.inner_text("main"))
     pg.goto(B+"/places/skazochny-les"); pg.wait_for_timeout(500); print("9 place travel:", pg.locator("text=/\\d+ мин/").first.inner_text())

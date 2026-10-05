@@ -11,6 +11,7 @@ import { parseQuery } from "@/lib/recommend/nlu";
 import { CATEGORIES } from "@/lib/catalog";
 import { locationMode, travelToPlace } from "@/lib/location";
 import { useFamily } from "@/lib/store";
+import { goBack } from "@/lib/nav";
 import { PlaceRow } from "@/components/cards/PlaceCard";
 import { FilterChip } from "@/components/ui/FilterChip";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -96,7 +97,7 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
     <main className="pb-28">
       <div className="sticky top-0 z-20 bg-bg/95 pb-2 pt-[max(12px,env(safe-area-inset-top))]">
         <div className="flex items-center gap-2 px-4">
-          <button onClick={() => router.back()} aria-label="Назад" className="press grid h-[50px] w-10 shrink-0 place-items-center">
+          <button onClick={() => goBack(router, "/")} aria-label="Назад" className="press grid h-[50px] w-10 shrink-0 place-items-center">
             <ArrowLeft size={24} />
           </button>
           <label className="flex h-[50px] min-w-0 flex-1 items-center gap-2.5 rounded-full bg-fill px-4">

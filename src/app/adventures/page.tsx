@@ -4,6 +4,7 @@ import { Sparkles, ArrowRight } from "lucide-react";
 import { repo } from "@/lib/data/repository";
 import { adventureCardData } from "@/lib/cards";
 import { AdventuresBrowser } from "@/components/adventure/AdventuresBrowser";
+import { TabBackButton } from "@/components/ui/BackButton";
 
 export const metadata: Metadata = {
   title: "Готовые приключения с детьми",
@@ -26,6 +27,7 @@ export default async function AdventuresPage() {
   return (
     <main className="pb-28">
       <header className="px-4 pb-3 pt-[max(18px,env(safe-area-inset-top))]">
+        <TabBackButton className="mb-2" />
         <h1 className="tight text-[32px] font-[850] leading-tight">Приключения</h1>
         <p className="mt-0.5 text-[15.5px] text-muted">Готовые дни: места рядом, время и бюджет уже посчитаны</p>
       </header>

@@ -61,18 +61,20 @@ export function Onboarding() {
   const canNext = step !== 1 || age != null;
 
   return (
-    <main className="flex min-h-dvh flex-col px-5 pb-[max(20px,env(safe-area-inset-bottom))] pt-[max(18px,env(safe-area-inset-top))]">
-      <div className="flex items-center justify-between">
+    // высота ровно в экран: шаг прокручивается внутри, а кнопка «Дальше» всегда видна — не надо отдалять страницу
+    <main className="flex h-dvh flex-col px-5 pt-[max(14px,env(safe-area-inset-top))]">
+      <div className="flex shrink-0 items-center justify-between">
         <Logo size={28} />
         <button onClick={finish} className="press text-[15px] font-semibold text-muted">
           Пропустить
         </button>
       </div>
 
+      <div className="no-scrollbar -mx-5 flex min-h-0 flex-1 flex-col overflow-y-auto px-5 pb-4">
       {step === 0 && (
         <section className="flex flex-1 flex-col animate-rise">
-          <div className="relative mt-8 grid aspect-square w-full place-items-center rounded-[40px]" style={{ background: "linear-gradient(160deg,#FFE9F3,#FFF5D6)" }}>
-            <span className="text-[120px] animate-bob">🎈</span>
+          <div className="relative mt-5 grid aspect-square max-h-[38dvh] w-full place-items-center rounded-[40px]" style={{ background: "linear-gradient(160deg,#FFE9F3,#FFF5D6)" }}>
+            <span className="text-[104px] animate-bob [@media(max-height:700px)]:text-[84px]">🎈</span>
             <span className="absolute left-8 top-10 text-[52px] animate-bob" style={{ animationDelay: ".4s" }}>
               ⛅
             </span>
@@ -80,7 +82,7 @@ export function Onboarding() {
               🦖
             </span>
           </div>
-          <h1 className="tight mt-8 text-[30px] font-[850] leading-[1.08]">Куда пойти с детьми — решим за вас</h1>
+          <h1 className="tight mt-6 text-[30px] font-[850] leading-[1.08]">Куда пойти с детьми — решим за вас</h1>
           <p className="mt-3 text-[17px] leading-snug text-muted">
             Готовый день из нескольких мест рядом: время, дорога, бюджет. Прогулку поставим в сухое окно, а если дождь — найдём, где под крышей.
           </p>
@@ -89,7 +91,7 @@ export function Onboarding() {
 
       {step === 1 && (
         <section className="flex-1 animate-rise">
-          <h1 className="tight mt-8 text-[30px] font-[850] leading-[1.08]">Сколько лет ребёнку? 💛</h1>
+          <h1 className="tight mt-5 text-[30px] font-[850] leading-[1.08]">Сколько лет ребёнку? 💛</h1>
           <p className="mt-2 text-[16px] text-muted">Покажем только то, что подходит по возрасту. Остальных детей добавите в профиле.</p>
           <AgePicker className="mt-5" value={age} onPick={setAge} />
           {age != null && (
@@ -118,7 +120,7 @@ export function Onboarding() {
 
       {step === 2 && (
         <section className="flex-1 animate-rise">
-          <h1 className="tight mt-8 text-[30px] font-[850] leading-[1.08]">Где ищем? 📍</h1>
+          <h1 className="tight mt-5 text-[30px] font-[850] leading-[1.08]">Где ищем? 📍</h1>
           <p className="mt-2 text-[16px] text-muted">Можно ничего не выбирать — покажем лучшее по всей Москве. Хотите ближе к дому — отметьте свой округ.</p>
           <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Округ Москвы">
             {OKRUGS.map((o) => {
@@ -163,7 +165,10 @@ export function Onboarding() {
         </section>
       )}
 
-      <div className="mt-6 flex items-center gap-4">
+      </div>
+
+      <div className="relative flex shrink-0 items-center gap-4 pb-[max(16px,env(safe-area-inset-bottom))] pt-2">
+        <span aria-hidden className="pointer-events-none absolute inset-x-0 -top-5 h-5 bg-gradient-to-t from-bg to-transparent" />
         <div className="flex gap-1.5">
           {[0, 1, 2].map((i) => (
             <span key={i} className={cn("h-2 rounded-full transition-all", i === step ? "w-6 bg-pink" : "w-2 bg-[#e3e0da]")} />

@@ -10,6 +10,7 @@ import { adventureCardData } from "@/lib/cards";
 import { PlaceRow } from "@/components/cards/PlaceCard";
 import { AdventureCard } from "@/components/cards/AdventureCard";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { TabBackButton } from "@/components/ui/BackButton";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { haversineKm, pt } from "@/lib/geo";
 import type { Place } from "@/lib/types";
@@ -44,6 +45,7 @@ export function FavoritesScreen({ initialTab = "want" }: { initialTab?: Tab }) {
   return (
     <main className="pb-28">
       <header className="px-4 pb-2 pt-[max(18px,env(safe-area-inset-top))]">
+        <TabBackButton className="mb-2" />
         <h1 className="tight text-[32px] font-[850] leading-tight">Наши хотелки ❤️</h1>
         <p className="mt-0.5 text-[15.5px] text-muted">Всё, куда хочется — в одном месте</p>
       </header>

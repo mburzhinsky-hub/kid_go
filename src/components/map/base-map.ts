@@ -228,7 +228,7 @@ export async function createBaseMap(opts: BaseMapOptions): Promise<BaseMapResult
         zoom: opts.zoom,
         minZoom: 6.5,
         maxBounds: REGION_BOUNDS,
-        attributionControl: { compact: true },
+        attributionControl: false,
         dragRotate: false,
         pitchWithRotate: false,
         fadeDuration: 120,
@@ -238,6 +238,8 @@ export async function createBaseMap(opts: BaseMapOptions): Promise<BaseMapResult
       return null;
     }
     map.touchZoomRotate.disableRotation();
+    // подпись источника — слева над панелью: справа стоят кнопки «где я» и «сменить карту»
+    map.addControl(new ml.AttributionControl({ compact: true }), "bottom-left");
     const alive = await waitForTiles(map, TILES_MS);
     if (cancelled()) {
       map.remove();
@@ -283,25 +285,141 @@ export async function createBaseMap(opts: BaseMapOptions): Promise<BaseMapResult
   }
 }
 
-/** Тёплая палитра референса для векторной подложки: бежевая земля, зелёные парки, жёлтые магистрали. */
+/**
+ * Тёплая «детская» палитра для векторной подложки (OpenFreeMap / OpenMapTiles).
+ * Цвета заданы по настоящим id слоёв стиля positron — без угадывания по подстрокам, поэтому дороги не «слипаются» в жёлтые полосы,
+ * а у магистралей есть обводка. Для чужого стиля (NEXT_PUBLIC_MAP_STYLE_URL) работает прежняя эвристика.
+ */
+const BG = "#F5F1E8";
+const WATER = "#A9D8F0";
+const KID_PAINT: Record<string, Record<string, unknown>> = {
+  background: { "background-color": BG },
+  park: { "fill-color": "#CBE8B5", "fill-opacity": 1 },
+  water: { "fill-color": WATER },
+  landuse_residential: { "fill-color": "#EEE8DA", "fill-opacity": 0.9 },
+  landcover_wood: { "fill-color": "#BEDFA7", "fill-opacity": 0.75 },
+  waterway: { "line-color": WATER },
+  building: { "fill-color": "#E9E0CE", "fill-outline-color": "#DDD2BB", "fill-opacity": 0.95 },
+  "aeroway-area": { "fill-color": "#E9E2D3" },
+  "aeroway-taxiway": { "line-color": "#FFFFFF" },
+  "aeroway-runway-casing": { "line-color": "#E2D8C2" },
+  "aeroway-runway": { "line-color": "#FFFFFF" },
+  highway_path: { "line-color": "#D9CFB8" },
+  highway_minor: { "line-color": "#FFFFFF" },
+  highway_major_casing: { "line-color": "#E7D9B2" },
+  highway_major_inner: { "line-color": "#FFF6D9" },
+  highway_major_subtle: { "line-color": "#EADFC2" },
+  highway_motorway_casing: { "line-color": "#E3BE6B" },
+  highway_motorway_inner: { "line-color": "#FFE39B" },
+  highway_motorway_subtle: { "line-color": "#F1D48C" },
+  highway_motorway_bridge_casing: { "line-color": "#E3BE6B" },
+  highway_motorway_bridge_inner: { "line-color": "#FFE39B" },
+  tunnel_motorway_casing: { "line-color": "#E7D9B2" },
+  tunnel_motorway_inner: { "line-color": "#FFF1C9" },
+  railway: { "line-color": "#D3C9B5" },
+  railway_dashline: { "line-color": BG },
+  railway_service: { "line-color": "#D8CFBC" },
+  railway_service_dashline: { "line-color": BG },
+  railway_transit: { "line-color": "#D3C9B5" },
+  railway_transit_dashline: { "line-color": BG },
+  boundary_3: { "line-color": "#C8B3C8", "line-opacity": 0.8 },
+  boundary_2: { "line-color": "#B49AB6" },
+  waterway_line_label: { "text-color": "#5A9AC6", "text-halo-color": "#EAF6FD" },
+  water_name_point_label: { "text-color": "#5A9AC6", "text-halo-color": "#EAF6FD" },
+  water_name_line_label: { "text-color": "#5A9AC6", "text-halo-color": "#EAF6FD" },
+  "highway-name-path": { "text-color": "#8B8F9C", "text-halo-color": "#FFFFFF" },
+  "highway-name-minor": { "text-color": "#7A7F8E", "text-halo-color": "#FFFFFF" },
+  "highway-name-major": { "text-color": "#6B7080", "text-halo-color": "#FFFFFF" },
+  airport: { "text-color": "#7A7F8E" },
+};
+const KID_LABELS = ["label_other", "label_village", "label_town", "label_state", "label_city", "label_city_capital"];
+const KID_HIDE = ["highway-shield-non-us", "highway-shield-us-interstate", "road_shield_us", "road_area_pier", "road_pier", "label_country_1", "label_country_2", "label_country_3"];
+
+/** Зелень и «детские» зоны, которых нет в минималистичном стиле: луга, детские и спортивные площадки, зоопарки, парки аттракционов. */
+function addKidLanduse(map: MLMap) {
+  if (!map.getSource("openmaptiles")) return;
+  const before = map.getLayer("park") ? "park" : map.getLayer("water") ? "water" : undefined;
+  const add = (layer: Parameters<MLMap["addLayer"]>[0]) => {
+    try {
+      if (!map.getLayer(layer.id)) map.addLayer(layer, before);
+    } catch {
+      /* стиль без такого источника — не страшно */
+    }
+  };
+  add({
+    id: "kg-landcover",
+    type: "fill",
+    source: "openmaptiles",
+    "source-layer": "landcover",
+    minzoom: 8,
+    filter: ["in", ["get", "class"], ["literal", ["grass", "farmland", "wetland", "sand"]]],
+    paint: { "fill-color": ["match", ["get", "class"], "grass", "#DCEFC8", "farmland", "#EFEBD4", "wetland", "#D6EAD3", "sand", "#F3E8C7", BG] },
+  });
+  add({
+    id: "kg-landuse",
+    type: "fill",
+    source: "openmaptiles",
+    "source-layer": "landuse",
+    minzoom: 11,
+    filter: ["in", ["get", "class"], ["literal", ["playground", "pitch", "stadium", "track", "cemetery", "zoo", "theme_park", "garden"]]],
+    paint: {
+      "fill-color": [
+        "match",
+        ["get", "class"],
+        "playground", "#FBE1B2",
+        "pitch", "#D6EDC1",
+        "stadium", "#EBE4D2",
+        "track", "#EBE4D2",
+        "cemetery", "#D2E6C5",
+        "zoo", "#F8D9C9",
+        "theme_park", "#F8D9C9",
+        "garden", "#D6EDC1",
+        BG,
+      ],
+    },
+  });
+}
+
 export function applyKidStyle(map: MLMap) {
   const layers = map.getStyle()?.layers ?? [];
+  const known = layers.some((l) => l.id === "highway_major_casing");
+  if (known) {
+    for (const [id, paint] of Object.entries(KID_PAINT)) {
+      if (!map.getLayer(id)) continue;
+      for (const [prop, v] of Object.entries(paint)) {
+        try {
+          map.setPaintProperty(id, prop, v as never);
+        } catch {
+          /* у слоя нет такого свойства */
+        }
+      }
+    }
+    for (const id of KID_LABELS) {
+      if (!map.getLayer(id)) continue;
+      try {
+        map.setPaintProperty(id, "text-color", id === "label_city" || id === "label_city_capital" || id === "label_state" ? "#3E4352" : "#5B6070");
+        map.setPaintProperty(id, "text-halo-color", BG);
+        map.setPaintProperty(id, "text-halo-width", 1.6);
+      } catch {
+        /* пропускаем */
+      }
+    }
+    for (const id of KID_HIDE) if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", "none");
+    addKidLanduse(map);
+    return;
+  }
   for (const l of layers) {
     try {
       const id = l.id.toLowerCase();
       const src = "source-layer" in l ? String(l["source-layer"] ?? "") : "";
-      if (l.type === "background") map.setPaintProperty(l.id, "background-color", "#F4EFE6");
-      else if (l.type === "fill" && (src === "water" || id.includes("water"))) map.setPaintProperty(l.id, "fill-color", "#BFE1F6");
+      if (l.type === "background") map.setPaintProperty(l.id, "background-color", BG);
+      else if (l.type === "fill" && (src === "water" || id.includes("water"))) map.setPaintProperty(l.id, "fill-color", WATER);
       else if (l.type === "fill" && (src === "park" || id.includes("park") || id.includes("wood") || id.includes("grass") || id.includes("forest")))
-        map.setPaintProperty(l.id, "fill-color", "#D3ECC3");
-      else if (l.type === "fill" && (src === "landuse" || src === "landcover")) map.setPaintProperty(l.id, "fill-color", "#EDE8DC");
-      else if (l.type === "fill" && src === "building") map.setPaintProperty(l.id, "fill-color", "#E9E3D6");
-      else if (l.type === "line" && src === "transportation") {
-        const major = /motorway|trunk|primary|major/.test(id);
-        map.setPaintProperty(l.id, "line-color", major ? "#FCE3A6" : "#FFFFFF");
-      } else if (l.type === "line" && src === "waterway") map.setPaintProperty(l.id, "line-color", "#BFE1F6");
+        map.setPaintProperty(l.id, "fill-color", "#CBE8B5");
+      else if (l.type === "fill" && (src === "landuse" || src === "landcover")) map.setPaintProperty(l.id, "fill-color", "#EEE8DA");
+      else if (l.type === "fill" && src === "building") map.setPaintProperty(l.id, "fill-color", "#E9E0CE");
+      else if (l.type === "line" && src === "waterway") map.setPaintProperty(l.id, "line-color", WATER);
       else if (l.type === "symbol" && /poi/.test(id)) map.setLayoutProperty(l.id, "visibility", "none");
-      else if (l.type === "symbol") map.setPaintProperty(l.id, "text-color", "#8A8F9C");
     } catch {
       /* слой без такого свойства — пропускаем */
     }

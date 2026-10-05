@@ -9,6 +9,7 @@ import { TRAVEL_LIMITS } from "@/lib/location";
 import { LocationSheet } from "@/components/location/LocationSheet";
 import { INTERESTS, interestDef, BUDGETS, TRANSPORTS } from "@/lib/catalog";
 import { BottomSheet } from "@/components/ui/BottomSheet";
+import { TabBackButton } from "@/components/ui/BackButton";
 import { plural } from "@/lib/format";
 import { cn } from "@/lib/cn";
 
@@ -29,6 +30,7 @@ export function ProfileScreen() {
   return (
     <main className="pb-28">
       <header className="px-4 pb-1 pt-[max(18px,env(safe-area-inset-top))]">
+        <TabBackButton className="mb-2" />
         <h1 className="tight text-[32px] font-[850] leading-tight">Наша семья</h1>
         <p className="mt-0.5 text-[15.5px] text-muted">Чем точнее профиль — тем точнее идеи</p>
       </header>

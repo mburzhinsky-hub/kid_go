@@ -3,14 +3,16 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, RefreshCw, SlidersHorizontal } from "lucide-react";
+import { RefreshCw, SlidersHorizontal } from "lucide-react";
+import { BackButton } from "@/components/ui/BackButton";
 import type { BudgetId, Child, DurationId, InterestId, MoodId, Plan, PlannerInput, ScenarioConstraints, TransportId } from "@/lib/types";
 import { useFamily, familySignals } from "@/lib/store";
 import { generatePlans } from "@/lib/recommend/engine";
-import { buildPlannerInput, type ResultsQuery } from "@/lib/recommend/build-input";
+import { buildPlannerInput, type BuildArgs, type ResultsQuery } from "@/lib/recommend/build-input";
+import { altQuery, areaAlternatives, type AreaAlt } from "@/lib/recommend/area";
 import { useForecast } from "@/lib/use-context";
 import { useNearbyExtras } from "@/lib/nearby";
-import { DEFAULT_ORIGIN, isSuburban, locationMode } from "@/lib/location";
+import { DEFAULT_ORIGIN, isSuburban, locationMode, okrugById, type Origin } from "@/lib/location";
 import { daySummary, moscowDateISO, weekdayOf, type Forecast } from "@/lib/forecast";
 import { plural } from "@/lib/format";
 import { MOODS, DURATIONS, BUDGETS, TRANSPORTS } from "@/lib/catalog";
@@ -79,9 +81,9 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
   const seenRef = useRef<string[] | null>(null);
   if (fam.hydrated && seenRef.current === null) seenRef.current = fam.seen;
 
-  const input = useMemo<PlannerInput | null>(() => {
+  const args = useMemo<BuildArgs | null>(() => {
     if (!fam.hydrated || !forecast) return null;
-    return buildPlannerInput({
+    return {
       query,
       kids,
       origin: fam.origin,
@@ -89,11 +91,17 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
       forecast,
       extraPlaces: nearby.places,
       family: { ...familySignals(fam), seen: seenRef.current ?? [] },
-    });
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fam.hydrated, forecast, JSON.stringify(query), JSON.stringify(kids), fam.origin, fam.budget, fam.transport, fam.maxTravelMin, fam.wantPlaces, fam.visitedPlaces, fam.loved, fam.disliked, nearby.places]);
+  const input = useMemo<PlannerInput | null>(() => (args ? buildPlannerInput(args) : null), [args]);
 
   const result = useMemo(() => (input ? generatePlans(input, 3, offset) : null), [input, offset]);
+  // «в округе мало или нет»: что предложить вместо пустоты — другой округ и другие ситуации, которые здесь работают
+  const alt = useMemo<AreaAlt | null>(
+    () => (args && input && result && offset === 0 && result.area?.scope === "strict" && result.plans.length < 3 ? areaAlternatives(args, input) : null),
+    [args, input, result, offset]
+  );
 
   const markSeen = fam.markSeen;
   const shownKey = result?.plans.map((p) => p.key).join("|");
@@ -122,13 +130,18 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
   const wxLine = sum.allWet ? `${t(sum.weather.temp)}, дождь весь день` : sum.rainFrom ? `${t(sum.weather.temp)}, с ${sum.rainFrom} дождь` : `${t(sum.weather.temp)}, ${sum.weather.label}`;
   const label = <T extends { id: string; label: string }>(arr: readonly T[], id: string) => arr.find((x) => x.id === id)?.label;
   const kidNames = fam.children.map((k) => k.name).filter(Boolean);
+  const here = result.area ? okrugById(result.area.id) : undefined;
+  const areaEmpty = !!here && result.area?.scope === "strict" && result.plans.length === 0;
+  const pickOrigin = (o: Origin) => {
+    track("area_switch", { from: here?.id ?? "", to: o.label });
+    fam.setOrigin(o);
+    router.replace(withQuery({ offset: undefined, wide: undefined }));
+  };
 
   return (
     <main className="pb-16">
       <header className="flex items-center justify-between gap-2 px-4 pb-1 pt-[max(14px,env(safe-area-inset-top))]">
-        <button onClick={() => router.push("/")} aria-label="На главную" className="press grid h-11 w-11 shrink-0 place-items-center rounded-full bg-surface shadow-card">
-          <ArrowLeft size={22} />
-        </button>
+        <BackButton fallback="/" />
         <div className="flex min-w-0 items-center gap-2">
           <LocationChip tone="card" className="h-11" />
           <Link href="/planner" aria-label="Изменить условия" className="press grid h-11 w-11 shrink-0 place-items-center rounded-full bg-surface shadow-card">
@@ -149,6 +162,8 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
         <h1 className="tight text-[31px] font-[850] leading-[1.06]">
           {result.plans.length ? (
             <>Мы придумали вам {dayAcc} 💛</>
+          ) : areaEmpty && here ? (
+            <>{cap(here.prep)} под это ничего нет</>
           ) : (
             <>Хм, ничего не нашлось</>
           )}
@@ -156,7 +171,9 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
         <p className="mt-1.5 text-[15.5px] leading-snug text-muted">
           {result.plans.length
             ? `Старт ${dayWord} около ${result.startLabel}. Погода ${wxLine} — проверили прогноз на каждый шаг, часы работы и дорогу.`
-            : "Под такие условия мы не смогли собрать день без компромиссов."}
+            : areaEmpty && here
+              ? `${scenario ? `Для «${scenario.label}»` : "Под такие условия"} ${here.prep} не нашлось ни одного подходящего места: смотрели возраст детей, бюджет, погоду и часы работы. Вот что можно сделать.`
+              : "Под такие условия мы не смогли собрать день без компромиссов."}
         </p>
         {realDay !== dayOffset && result.plans.length > 0 && (
           <p className="mt-2 rounded-[14px] bg-yellow-50 px-3 py-2 text-[13.5px] text-[#7a5600]">Сегодня уже поздно для такого дня — собрали на завтра.</p>
@@ -175,7 +192,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
           </Chip>
           <Chip>{label(BUDGETS, input.budget)}</Chip>
           <Chip>{label(TRANSPORTS, input.transport)}</Chip>
-          <Chip>📍 {input.locationMode === "any" ? "Вся Москва" : fam.origin.source === "home" ? "Дом" : fam.origin.label}</Chip>
+          <Chip>📍 {input.locationMode === "any" ? "Вся Москва" : fam.origin.source === "home" ? "Дом" : result.area?.scope === "wide" ? `${fam.origin.label} + соседние` : fam.origin.label}</Chip>
           {input.constraints?.maxTravelMin && <Chip>до {input.constraints.maxTravelMin} мин в пути</Chip>}
         </div>
         {!kids.length && (
@@ -190,6 +207,22 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
             <button onClick={() => setLocOpen(true)} className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[13.5px] font-semibold">
               Выбрать
             </button>
+          </div>
+        )}
+        {here && result.area?.scope === "wide" && (
+          <div className="mt-3 flex items-center gap-3 rounded-[14px] bg-blue-50 px-3 py-2.5 text-[13.5px] leading-snug text-blue">
+            <span className="flex-1">Ищем {here.prep} и в соседних округах — места из {here.short} идут первыми.</span>
+            <Link href={withQuery({ wide: undefined, offset: undefined })} replace className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[13.5px] font-semibold">
+              Только {here.short}
+            </Link>
+          </div>
+        )}
+        {here && result.area?.scope === "strict" && result.area.loose && result.plans.length > 0 && (
+          <div className="mt-3 flex items-center gap-3 rounded-[14px] bg-yellow-50 px-3 py-2.5 text-[13.5px] leading-snug text-[#7a5600]">
+            <span className="flex-1">Показываем всё, что есть {here.prep}: по теме {scenario ? `«${scenario.label}»` : "ситуации"} здесь почти ничего нет.</span>
+            <Link href={withQuery({ loose: undefined, offset: undefined })} replace className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[13.5px] font-semibold">
+              Только по теме
+            </Link>
           </div>
         )}
         {result.relaxed && (
@@ -226,15 +259,23 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
           >
             <RefreshCw size={18} /> Показать другие варианты
           </Link>
+          {alt && here && (
+            <AreaGap alt={alt} mode="few" offType={result.area?.offType ?? 0} scenarioLabel={scenario?.label} kidNames={kidNames} query={query} withQuery={withQuery} onPick={pickOrigin} />
+          )}
         </div>
       ) : (
         <div className="px-4">
-          <EmptyState
-            art="plan"
-            title={offset > 0 ? "Варианты закончились" : "Давайте чуть ослабим условия"}
-            text={offset > 0 ? "Мы показали всё, что подходит. Вернуться к лучшим?" : "Вот что поможет найти отличный день:"}
-            action={offset > 0 ? { href: withQuery({ offset: undefined }), label: "К лучшим вариантам" } : undefined}
-          />
+          {areaEmpty && alt && here ? (
+            <AreaGap alt={alt} mode="none" offType={result.area?.offType ?? 0} scenarioLabel={scenario?.label} kidNames={kidNames} query={query} withQuery={withQuery} onPick={pickOrigin} />
+          ) : (
+            <EmptyState
+              art="plan"
+              title={offset > 0 ? "Варианты закончились" : "Давайте чуть ослабим условия"}
+              text={offset > 0 ? "Мы показали всё, что подходит. Вернуться к лучшим?" : "Вот что поможет найти отличный день:"}
+              action={offset > 0 ? { href: withQuery({ offset: undefined }), label: "К лучшим вариантам" } : undefined}
+            />
+          )}
+          {areaEmpty && <p className="mb-2 mt-6 px-1 text-[13px] font-bold uppercase tracking-wide text-muted">Или ослабить условия</p>}
           <div className="space-y-2">
             {result.suggestions.map((s) =>
               s.patch.anywhere ? (
@@ -265,6 +306,103 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
     </main>
   );
 }
+
+/**
+ * «В округе подходящего нет / мало»: честно говорим об этом и даём два выхода —
+ * то же самое в ближайшем округе и другие ситуации, которые в этом округе реально работают.
+ */
+function AreaGap({
+  alt,
+  mode,
+  offType,
+  scenarioLabel,
+  kidNames,
+  query,
+  withQuery,
+  onPick,
+}: {
+  alt: AreaAlt;
+  mode: "none" | "few";
+  /** Сколько мест в округе подходят по условиям, но не «по теме» ситуации. */
+  offType: number;
+  scenarioLabel?: string;
+  kidNames: string[];
+  query: ResultsQuery;
+  withQuery: (patch: Record<string, string | undefined>) => string;
+  onPick: (o: Origin) => void;
+}) {
+  const { here, others, scenarios } = alt;
+  const hrefFor = (id: string) => `/planner/results?${new URLSearchParams(altQuery(query, id))}`;
+  const nothing = !others.length && !scenarios.length;
+  return (
+    <section className={cn("space-y-6", mode === "none" ? "mt-5" : "mt-2 rounded-[24px] bg-surface p-4 shadow-card")} aria-label={`Что делать, если ${here.prep} мало мест`}>
+      {mode === "few" && (
+        <div>
+          <h2 className="tight text-[19px] font-[800] leading-tight">{cap(here.prep)} это всё, что подошло</h2>
+          <p className="mt-1 text-[14px] leading-snug text-muted">
+            {scenarioLabel ? `Для «${scenarioLabel}»` : "Под ваши условия"} {here.prep} больше вариантов нет. Можно заглянуть в другой округ или выбрать другую ситуацию.
+          </p>
+        </div>
+      )}
+
+      {others.length > 0 && (
+        <div>
+          {mode === "none" && <h2 className="tight text-[21px] font-[800] leading-tight">То же самое — в другом округе</h2>}
+          {mode === "none" && <p className="mt-1 text-[14px] leading-snug text-muted">Ближайшее подходящее — {others[0].label}, это ≈ {others[0].minutes} мин от {here.short}.</p>}
+          <div className={cn("space-y-5", mode === "none" ? "mt-3" : "mt-0")}>
+            {others.map((o, oi) => (
+              <div key={o.key}>
+                <div className="flex items-center justify-between gap-2 px-1 pb-2">
+                  <p className="min-w-0 text-[13px] font-bold uppercase tracking-wide text-muted">
+                    {o.label} · ≈ {o.minutes} мин от {here.short}
+                  </p>
+                  <button onClick={() => onPick(o.origin)} className="press h-9 shrink-0 rounded-full bg-ink px-3.5 text-[13.5px] font-semibold text-white">
+                    Искать в {o.label}
+                  </button>
+                </div>
+                {mode === "none" &&
+                  o.plans.slice(0, oi === 0 ? 2 : 1).map((p) => (
+                    <div key={p.key} className="mb-3">
+                      <AdventureCard data={planCardData(p, planHref(p, kidNames), `от ${here.short}`)} variant="full" />
+                    </div>
+                  ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {scenarios.length > 0 && (
+        <div>
+          <h2 className="tight text-[19px] font-[800] leading-tight">Что подойдёт {here.prep}</h2>
+          <p className="mt-1 text-[14px] leading-snug text-muted">Для этих ситуаций {here.prep} места есть — например, прогулка вместо музея.</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {scenarios.map(({ def, plans }) => (
+              <Link key={def.id} href={hrefFor(def.id)} className="press inline-flex min-h-11 items-center gap-1.5 rounded-full bg-pink-50 px-3.5 py-2 text-[14.5px] font-semibold text-pink">
+                <span aria-hidden>{def.emoji ?? "✨"}</span>
+                {def.label}
+                <span className="text-[12px] font-semibold opacity-70">{plans} {plural(plans, "вариант", "варианта", "вариантов")}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {nothing && <p className="text-[14px] leading-snug text-muted">{cap(here.prep)} каталог пока небогат. Можно искать по всей Москве или добавить соседние округа.</p>}
+
+      {offType > 0 && (
+        <Link href={withQuery({ loose: "1", offset: undefined })} className="press flex min-h-12 items-center justify-center rounded-full bg-fill-2 px-4 py-2 text-center text-[15px] font-semibold">
+          Показать, что есть {here.prep} (не совсем по теме)
+        </Link>
+      )}
+      <Link href={withQuery({ wide: "1", offset: undefined })} className="press flex h-12 items-center justify-center rounded-full bg-fill-2 text-[15px] font-semibold">
+        Показать и соседние округа
+      </Link>
+    </section>
+  );
+}
+
+const cap = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
 
 /** Сегодня / завтра / выходные — с мини-прогнозом на день. */
 function DayPicker({ forecast, value, hrefFor }: { forecast: Forecast; value: number; hrefFor: (d: number) => string }) {
