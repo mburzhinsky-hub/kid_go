@@ -286,7 +286,8 @@
     "address": false,
     "verified_fields": [
       "identity",
-      "price"
+      "price",
+      "opening_hours"
     ],
     "verified_family_fields": []
   },
