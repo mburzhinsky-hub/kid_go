@@ -37,10 +37,18 @@ model Place {
   /// Точка для гео-запросов: ST_DWithin / сортировка по <->
   geom              Unsupported("geography(Point, 4326)")?
   category          Category
+  /// Точный тип поверх широкой продуктовой категории: theatre/circus/bookstore/...
+  placeType          String?  @map("place_type")
+  source             String?
+  sourceName         String?  @map("source_name")
+  verifiedAt         DateTime? @map("verified_at")
+  verificationStatus String?  @map("verification_status")
+  verificationNote   String?  @map("verification_note")
   tint              String   @default("#FFE3EE")
   emoji             String   @default("✨")
   rating            Float    @default(0)
   reviewCount       Int      @default(0) @map("review_count")
+  ratingSource      String?  @map("rating_source")
   priceMin          Int      @default(0) @map("price_min")
   priceMax          Int      @default(0) @map("price_max")
   priceLevel        Int      @default(0) @map("price_level")
@@ -59,6 +67,8 @@ model Place {
   toilets           Boolean
   wardrobe          Boolean
   bookingRequired   Boolean  @map("booking_required")
+  /// Family-specific поля, где значение пока неизвестно и не должно интерпретироваться как false.
+  unknownFields     String[] @default([]) @map("unknown_fields")
   /// [["10:00","22:00"], null, ...] — индекс 0 = понедельник
   openingHours      Json     @map("opening_hours")
   weatherTags       String[] @map("weather_tags")
@@ -86,6 +96,7 @@ model Photo {
   /// ключ в Supabase Storage / S3
   src      String
   alt      String
+  kind     String?
   position Int    @default(0)
 
   @@map("photos")
@@ -122,7 +133,7 @@ model Adventure {
   interestTags      String[]        @map("interest_tags")
   moods             String[]
   startTime         String          @map("start_time")
-  recommendPercent  Int             @default(90) @map("recommend_percent")
+  recommendPercent  Int?            @map("recommend_percent")
   published         Boolean         @default(true)
   steps             AdventureStep[]
 
@@ -156,6 +167,8 @@ model Event {
   ageMax     Int      @map("age_max")
   price      Int      @default(0)
   ticketsUrl String?  @map("tickets_url")
+  source     String?
+  verificationStatus String? @map("verification_status")
 
   @@index([startAt])
   @@map("events")
