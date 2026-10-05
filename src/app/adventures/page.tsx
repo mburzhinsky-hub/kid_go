@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default async function AdventuresPage() {
   const adventures = await repo.listAdventures();
   const items = [...adventures]
-    .sort((a, b) => b.recommend_percent - a.recommend_percent)
+    .sort((a, b) => (b.recommend_percent ?? 0) - (a.recommend_percent ?? 0))
     .map((a) => ({
       card: adventureCardData(a),
       indoor: a.weather_tags.includes("rain"),

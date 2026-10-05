@@ -482,7 +482,7 @@
     "photoSet": "museum",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Музей_железнодорожной_техники_на_Рижском_вокзале",
+    "source": "https://museum.cpm.moscow/museums/430",
     "confidence": "medium",
     "weather": [
       "sun",
@@ -553,7 +553,7 @@
     "photoSet": "autumn",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Лосиный_Остров_(национальный_парк)",
+    "source": "https://losinyiostrov.ru/",
     "confidence": "medium",
     "weather": [
       "sun",
@@ -699,14 +699,14 @@
     ]
   },
   {
-    "title": "Тимирязевский лесопарк",
+    "title": "Тимирязевский парк",
     "slug": "timiryazevsky-park",
     "town": "Тимирязевский (САО)",
     "region": "msk",
-    "address": "Москва, Тимирязевский лесопарк, Дмитровское шоссе",
+    "address": "Москва, Тимирязевская улица, 49",
     "metro": "Петровско-Разумовская",
-    "lat": 55.8337,
-    "lng": 37.5617,
+    "lat": 55.819861,
+    "lng": 37.547275,
     "category": "park",
     "subtitle": "Лесопарк с прудами, тропами и пикниками",
     "description": "Большой лесопарк с прудами, тропами и открытыми лужайками. Хорош для прогулки, самоката, пикника и подкормки птиц.",
@@ -762,7 +762,7 @@
     "photoSet": "autumn",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Тимирязевский_лес",
+    "source": "https://yandex.ru/maps/org/timiryazevskiy_park/127468965054/",
     "confidence": "medium",
     "weather": [
       "sun",
@@ -903,7 +903,7 @@
     "photoSet": "park",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Серебряный_Бор_(Москва)",
+    "source": "https://xn--90ah2agcb.xn--p1ai/",
     "confidence": "medium",
     "weather": [
       "sun",
@@ -911,14 +911,14 @@
     ]
   },
   {
-    "title": "Парк «Строгинская пойма»",
+    "title": "Строгинская пойма",
     "slug": "stroginskaya-poima",
     "town": "Строгино (СЗАО)",
     "region": "msk",
-    "address": "Москва, Строгинский бульвар, Строгинская пойма",
+    "address": "Москва, ул. Маршала Катукова, напротив д. 26",
     "metro": "Строгино",
-    "lat": 55.803,
-    "lng": 37.392,
+    "lat": 55.80261,
+    "lng": 37.41991,
     "category": "park",
     "subtitle": "Пойма у реки с дорожками и площадками",
     "description": "Пойма Москвы-реки с дорожками, площадками и видом на воду. Подойдёт для самокатов, велосипедов и спокойной прогулки.",
@@ -973,8 +973,8 @@
     "photoSet": "park",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Строгино",
-    "confidence": "medium",
+    "source": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/",
+    "confidence": "high",
     "weather": [
       "sun",
       "any"
@@ -1111,13 +1111,14 @@
     "photoSet": "museum",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Бородинская_панорама",
+    "source": "https://www.1812panorama.ru/",
     "confidence": "medium",
     "weather": [
       "rain",
       "cold",
       "any"
-    ]
+    ],
+    "place_type": "museum"
   },
   {
     "title": "Киностудия «Мосфильм»: экскурсия",
@@ -1132,12 +1133,12 @@
     "subtitle": "Павильоны, костюмы и декорации знаменитых фильмов",
     "description": "Экскурсия по киностудии: павильоны, декорации, костюмы и реквизит. Нужна запись, лучше для детей постарше.",
     "price": [
-      700,
-      1500
+      780,
+      960
     ],
     "family_budget": 4000,
     "age": [
-      7,
+      12,
       12
     ],
     "duration": 120,
@@ -1183,14 +1184,15 @@
     "photoSet": "theatre",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Мосфильм",
+    "source": "https://www.mosfilm.ru/excursions/",
     "confidence": "medium",
     "weather": [
       "rain",
       "cold",
       "any",
       "sun"
-    ]
+    ],
+    "place_type": "museum"
   },
   {
     "title": "Парк «Школьное озеро»",

@@ -71,7 +71,7 @@ const SLIDES: HeroSlide[] = [
 
 export default async function HomePage() {
   const [places, adventures, events] = await Promise.all([repo.listPlaces(), repo.listAdventures(), repo.listEvents()]);
-  const adv = [...adventures].sort((a, b) => b.recommend_percent - a.recommend_percent);
+  const adv = [...adventures].sort((a, b) => (b.recommend_percent ?? 0) - (a.recommend_percent ?? 0));
 
   const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Moscow" }).format(new Date());
   const placeMap = new Map(places.map((p) => [p.id, p]));
