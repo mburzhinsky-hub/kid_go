@@ -1,5 +1,7 @@
 "use client";
 
+import { loadMapLibre } from "@/lib/maplibre-runtime";
+
 import "maplibre-gl/dist/maplibre-gl.css";
 import Link from "next/link";
 import { createPortal } from "react-dom";
@@ -217,7 +219,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
         return;
       }
       const { map } = res;
-      const ml = (await import("maplibre-gl")).default;
+      const ml = await loadMapLibre();
       if (flag.cancelled) {
         map.remove();
         return;
@@ -351,7 +353,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       return;
     }
     (async () => {
-      const ml = (await import("maplibre-gl")).default;
+      const ml = await loadMapLibre();
       if (!userMarkerRef.current) {
         const el = document.createElement("div");
         el.innerHTML = '<span class="kg-user-dot"></span>';
@@ -625,7 +627,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
           <button onClick={() => setFz((z) => Math.min(4, z * 1.5))} aria-label="Приблизить" className="press grid h-11 w-[52px] place-items-center border-b border-line">
             <Plus size={20} />
           </button>
-          <button onClick={() => setFz((z) => Math.max(0.5, z / 1.5))} aria-label="Отдалить" className="press grid h-11 w-[52px] place-items-center">
+          <button onClick={() => setFz((z) => Math.max(0.5, z / 1.5))} aria-label="Отдалить" className="press grid h-11 w-[52px] place-items-center rounded-[18px]">
             <Minus size={20} />
           </button>
         </div>
@@ -650,7 +652,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       <button
         onClick={() => locate()}
         aria-label="Где я"
-        className="press absolute right-4 z-20 grid h-[52px] w-[52px] place-items-center rounded-full bg-white text-blue shadow-float"
+        className="press absolute right-4 z-20 grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full bg-white text-blue shadow-float"
         style={{ bottom: "calc(var(--sheet-h) + 16px)" }}
       >
         <Navigation size={23} strokeWidth={2.2} className={cn(geo === "ok" && "fill-blue")} />

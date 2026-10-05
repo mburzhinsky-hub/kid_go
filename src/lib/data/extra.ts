@@ -1,4 +1,4 @@
-import type { CategoryId, ExperienceTag, InterestId, KidEvent, OpeningHours, Place, SeasonTag, WeatherTag } from "@/lib/types";
+import type { CategoryId, ExperienceTag, InterestId, KidEvent, OpeningHours, ParentInfoField, Place, PlaceType, SeasonTag, WeatherTag } from "@/lib/types";
 import { PH, PHOTO_SETS, ph, photosFor } from "./photos";
 export { photosFor };
 
@@ -28,6 +28,7 @@ export interface RawPlace {
   lat: number;
   lng: number;
   category: CategoryId;
+  place_type?: PlaceType;
   subtitle: string;
   description: string;
   price: [number, number];
@@ -42,6 +43,8 @@ export interface RawPlace {
   baby_room?: boolean;
   kids_menu?: boolean;
   parking?: boolean;
+  toilets?: boolean;
+  wardrobe?: boolean;
   booking?: boolean;
   hours: (string | null)[];
   season?: SeasonTag[];
@@ -53,6 +56,8 @@ export interface RawPlace {
   photoSet: string;
   rating?: number | null;
   reviews?: number | null;
+  /** Конкретная страница/сервис, откуда взяты rating и review count. Без неё social proof не публикуем. */
+  rating_source?: string | null;
   source?: string;
   confidence?: "high" | "medium" | "low";
 }
@@ -96,7 +101,7 @@ const EMOJI: Record<CategoryId, string> = { park: "🌳", play: "🎈", museum: 
 export function parseHours(h: (string | null)[]): OpeningHours {
   const out: OpeningHours = [];
   for (let i = 0; i < 7; i++) {
-    const v = h[i] ?? h[h.length - 1] ?? null;
+    const v = h[i] ?? null; // Выходной нельзя подменять расписанием воскресенья.
     const m = typeof v === "string" ? /^(\d{1,2}:\d{2})-(\d{1,2}:\d{2})$/.exec(v) : null;
     out.push(m ? [m[1].padStart(5, "0"), m[2].padStart(5, "0")] : null);
   }
@@ -107,7 +112,25 @@ export function buildPlace(r: RawPlace, index: number): Place {
   const level = r.price[1] === 0 ? 0 : r.price[1] <= 600 ? 1 : r.price[1] <= 1500 ? 2 : 3;
   const indoorOnly = r.indoor && !r.outdoor;
   const weather: WeatherTag[] = r.weather?.length ? r.weather : indoorOnly ? ["rain", "cold", "any"] : r.indoor ? ["any", "rain", "sun"] : ["sun", "any"];
-  const reviews = r.reviews ?? 0;
+  const unknown_fields: ParentInfoField[] = [];
+  const familyFieldsTrusted = r.confidence === "high";
+  const bool = (field: ParentInfoField, value: boolean | undefined, fallback = false) => {
+    if (!familyFieldsTrusted || value == null) unknown_fields.push(field);
+    return value ?? fallback;
+  };
+  const hasRatingSource = !!r.rating_source && r.rating != null && (r.reviews ?? 0) > 0;
+  const broadType: PlaceType =
+    r.place_type ??
+    (r.category === "play" ? "play_center" :
+      r.category === "active" ? "active" :
+      r.category === "animals" ? "zoo" :
+      r.category === "cafe" ? "cafe" :
+      r.category === "shop" ? "shop" :
+      r.category);
+  let sourceName: string | undefined;
+  if (r.source) {
+    try { sourceName = new URL(r.source).hostname.replace(/^www\./, ""); } catch { /* invalid source is caught by validation */ }
+  }
   return {
     id: `x${String(index + 1).padStart(3, "0")}`,
     title: r.title,
@@ -121,14 +144,21 @@ export function buildPlace(r: RawPlace, index: number): Place {
     town: r.town,
     region: r.region ?? "mo",
     source: r.source,
+    source_name: sourceName,
+    verification_status: r.confidence === "high" ? "verified" : "partial",
+    verification_note: r.confidence === "high"
+      ? "Место и основные сведения подтверждены указанным источником."
+      : "Место подтверждено источником; цена, режим и family-specific детали могут быть ориентировочными.",
     confidence: r.confidence === "high" ? "high" : "medium",
     category: r.category,
+    place_type: broadType,
     photos: photosFor(r.photoSet, r.slug, r.title),
     tint: TINTS[r.category],
     emoji: EMOJI[r.category],
-    // Если реальных цифр нет — нейтральная оценка и 0 отзывов (интерфейс прячет рейтинг без отзывов).
-    rating: r.rating ?? 4.4,
-    review_count: reviews,
+    // Social proof публикуем только с отдельным, проверяемым источником рейтинга.
+    rating: hasRatingSource ? r.rating! : 0,
+    review_count: hasRatingSource ? (r.reviews ?? 0) : 0,
+    rating_source: hasRatingSource ? r.rating_source! : undefined,
     price_min: r.price[0],
     price_max: r.price[1],
     price_level: level as Place["price_level"],
@@ -140,13 +170,14 @@ export function buildPlace(r: RawPlace, index: number): Place {
     outdoor: r.outdoor,
     activity_level: r.activity,
     noise_level: r.noise,
-    stroller_friendly: r.stroller ?? r.outdoor,
-    baby_room: r.baby_room ?? false,
-    kids_menu: r.kids_menu ?? false,
-    parking: r.parking ?? true,
-    toilets: true,
-    wardrobe: r.indoor,
-    booking_required: r.booking ?? false,
+    stroller_friendly: bool("stroller_friendly", r.stroller),
+    baby_room: bool("baby_room", r.baby_room),
+    kids_menu: bool("kids_menu", r.kids_menu),
+    parking: bool("parking", r.parking),
+    toilets: bool("toilets", r.toilets),
+    wardrobe: bool("wardrobe", r.wardrobe),
+    booking_required: bool("booking_required", r.booking),
+    unknown_fields,
     opening_hours: parseHours(r.hours),
     weather_tags: weather,
     season_tags: r.season?.length ? r.season : ["spring", "summer", "autumn", "winter"],
@@ -169,7 +200,7 @@ export function buildPlaces(startIndex: number, existingSlugs: Set<string>): Pla
   return res;
 }
 
-/** Регулярные программы → ближайшее вхождение по расписанию (от сегодняшнего дня по Москве). */
+/** Регулярные программы → только ближайшее следующее вхождение каждой программы. */
 export function buildEvents(placeBySlug: Map<string, Place>, now = new Date()): KidEvent[] {
   const ymd = (d: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Moscow" }).format(d);
   const weekdayOf = (d: Date) => {
@@ -179,22 +210,28 @@ export function buildEvents(placeBySlug: Map<string, Place>, now = new Date()): 
   const out: KidEvent[] = [];
   RAW_EVENTS.forEach((e, i) => {
     const place = placeBySlug.get(e.venue);
-    if (!place || e.confidence === "low") return;
-    for (let off = 0; off < 7; off++) {
+    if (!place || e.confidence === "low" || !e.source) return;
+    for (let off = 0; off <= 7; off++) {
       const d = new Date(now.getTime() + off * 86400000);
       if (!e.schedule.days.includes(weekdayOf(d))) continue;
+      const startAt = `${ymd(d)}T${e.schedule.from}:00+03:00`;
+      const endAt = `${ymd(d)}T${e.schedule.to}:00+03:00`;
+      if (new Date(endAt).getTime() <= now.getTime()) continue;
       out.push({
-        id: `r${i + 1}-${off}`,
+        id: `r${i + 1}`,
         place_id: place.id,
         title: e.title,
         description: e.description,
-        start_at: `${ymd(d)}T${e.schedule.from}:00+03:00`,
-        end_at: `${ymd(d)}T${e.schedule.to}:00+03:00`,
+        start_at: startAt,
+        end_at: endAt,
         age_min: e.age[0],
         age_max: e.age[1],
         price: e.price,
-        image: ph(PH[(PHOTO_SETS[e.photoSet] ?? PHOTO_SETS.park).keys[0]], e.title),
+        image: ph(PH[(PHOTO_SETS[e.photoSet] ?? PHOTO_SETS.park).keys[0]], `${e.title} — иллюстрация`),
+        source: e.source,
+        verification_status: e.confidence === "high" ? "verified" : "partial",
       });
+      break;
     }
   });
   return out;
