@@ -68,7 +68,7 @@
     "photoSet": "playground",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Парк_Дружбы",
+    "source": "https://walking.sport.mos.ru/parkdruzhby/",
     "confidence": "medium"
   },
   {
@@ -141,8 +141,9 @@
     "photoSet": "park",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Филёвский_парк",
-    "confidence": "medium"
+    "source": "https://parkfili.ru/",
+    "confidence": "medium",
+    "place_type": "park"
   },
   {
     "title": "ПандаПарк Фили",
@@ -731,9 +732,9 @@
     "description": "Лесопарк с исторической усадьбой, каскадом прудов и смотровыми площадками. Есть детские площадки, а в сезон можно взять напрокат велосипеды, самокаты и лодки. Спокойное место для длинной прогулки с коляской или пикника.",
     "price": [
       0,
-      500
+      0
     ],
-    "family_budget": 600,
+    "family_budget": 300,
     "age": [
       1,
       12
@@ -749,13 +750,13 @@
     "parking": false,
     "booking": false,
     "hours": [
-      "06:00-23:00",
-      "06:00-23:00",
-      "06:00-23:00",
-      "06:00-23:00",
-      "06:00-23:00",
-      "06:00-23:00",
-      "06:00-23:00"
+      "07:00-23:00",
+      "07:00-23:00",
+      "07:00-23:00",
+      "07:00-23:00",
+      "07:00-23:00",
+      "07:00-23:00",
+      "07:00-23:00"
     ],
     "season": [
       "spring",
@@ -785,8 +786,9 @@
     "photoSet": "park",
     "rating": null,
     "reviews": null,
-    "source": "https://www.sputnik8.com/ru/moscow/sights/park-pokrovskoe-streshnevo/info",
-    "confidence": "medium"
+    "source": "https://museum.cpm.moscow/museums/278",
+    "confidence": "medium",
+    "place_type": "park"
   },
   {
     "title": "Аквапарк «Мореон»",

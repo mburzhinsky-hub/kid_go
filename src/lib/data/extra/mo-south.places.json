@@ -66,7 +66,7 @@
     "photoSet": "park",
     "rating": null,
     "reviews": null,
-    "source": "https://tonkosti.ru/Усадьба_Мелихово",
+    "source": "https://chekhovmuseum.com/",
     "confidence": "medium"
   },
   {
@@ -132,8 +132,8 @@
     ],
     "hit": false,
     "photoSet": "park",
-    "rating": 4.8,
-    "reviews": 280,
+    "rating": null,
+    "reviews": null,
     "source": "https://2gis.ru/moscow/firm/70000001018325589",
     "confidence": "high"
   },
@@ -202,8 +202,8 @@
     ],
     "hit": false,
     "photoSet": "park",
-    "rating": 5,
-    "reviews": 243,
+    "rating": null,
+    "reviews": null,
     "source": "https://2gis.ru/moscow/firm/4504127916750444",
     "confidence": "high"
   },
@@ -273,8 +273,8 @@
     ],
     "hit": false,
     "photoSet": "ferris",
-    "rating": 4.9,
-    "reviews": 592,
+    "rating": null,
+    "reviews": null,
     "source": "https://2gis.ru/podolsk/firm/70000001006489201",
     "confidence": "high"
   },
@@ -342,8 +342,8 @@
     ],
     "hit": false,
     "photoSet": "ice",
-    "rating": 4.8,
-    "reviews": 134,
+    "rating": null,
+    "reviews": null,
     "source": "https://2gis.ru/podolsk/firm/4504127912990222",
     "confidence": "high"
   },
@@ -411,8 +411,8 @@
     ],
     "hit": false,
     "photoSet": "park",
-    "rating": 4.9,
-    "reviews": 241,
+    "rating": null,
+    "reviews": null,
     "source": "https://2gis.ru/moscow/firm/4504128908501846",
     "confidence": "medium"
   },
@@ -482,8 +482,8 @@
     ],
     "hit": false,
     "photoSet": "museum",
-    "rating": 5,
-    "reviews": 198,
+    "rating": null,
+    "reviews": null,
     "source": "https://2gis.ru/kolomna/firm/70000001023964852",
     "confidence": "medium"
   },
@@ -620,8 +620,8 @@
     ],
     "hit": false,
     "photoSet": "toys",
-    "rating": 4.8,
-    "reviews": 22,
+    "rating": null,
+    "reviews": null,
     "source": "https://2gis.ru/kolomna/firm/70000001023926045",
     "confidence": "medium"
   },
@@ -689,10 +689,10 @@
     ],
     "hit": false,
     "photoSet": "picnic",
-    "rating": 4.7,
-    "reviews": 3449,
-    "source": "https://yandex.com/maps/org/zona_otdykha_zarechye/163370592762/",
-    "confidence": "high"
+    "rating": null,
+    "reviews": null,
+    "source": "https://yandex.ru/maps/org/zarechye/163370592762/",
+    "confidence": "medium"
   },
   {
     "title": "Наташинский парк (Наташинские пруды)",
@@ -760,8 +760,8 @@
     ],
     "hit": false,
     "photoSet": "ferris",
-    "rating": 4.9,
-    "reviews": 531,
+    "rating": null,
+    "reviews": null,
     "source": "https://2gis.ru/lyubertsy/firm/70000001022981485",
     "confidence": "high"
   }

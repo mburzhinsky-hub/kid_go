@@ -553,13 +553,14 @@
     "photoSet": "theatre",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Центральный_театр_кукол_имени_С._В._Образцова",
+    "source": "https://puppet.ru/",
     "confidence": "medium",
     "weather": [
       "rain",
       "cold",
       "any"
-    ]
+    ],
+    "place_type": "theatre"
   },
   {
     "title": "Цирк Никулина на Цветном бульваре",
@@ -623,13 +624,14 @@
     "photoSet": "theatre",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Цирк_Никулина_на_Цветном_бульваре",
+    "source": "https://circusnikulin.ru/",
     "confidence": "medium",
     "weather": [
       "rain",
       "cold",
       "any"
-    ]
+    ],
+    "place_type": "circus"
   },
   {
     "title": "Большой Московский государственный цирк",
@@ -692,13 +694,14 @@
     "photoSet": "theatre",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Большой_Московский_государственный_цирк",
+    "source": "https://bigcirk.moscow/",
     "confidence": "medium",
     "weather": [
       "rain",
       "cold",
       "any"
-    ]
+    ],
+    "place_type": "circus"
   },
   {
     "title": "Музыкальный театр имени Наталии Сац",
@@ -762,13 +765,14 @@
     "photoSet": "theatre",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Российский_академический_Молодёжный_театр",
+    "source": "https://teatr-sats.ru/",
     "confidence": "medium",
     "weather": [
       "rain",
       "cold",
       "any"
-    ]
+    ],
+    "place_type": "theatre"
   },
   {
     "title": "Театр зверей имени Дурова («Уголок Дурова»)",
@@ -832,13 +836,14 @@
     "photoSet": "zoo",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Театр_зверей_имени_В._Л._Дурова",
+    "source": "https://www.ugolokdurova.ru/",
     "confidence": "medium",
     "weather": [
       "rain",
       "cold",
       "any"
-    ]
+    ],
+    "place_type": "theatre"
   },
   {
     "title": "Дом-музей В. М. Васнецова",
@@ -979,7 +984,8 @@
       "cold",
       "any",
       "sun"
-    ]
+    ],
+    "place_type": "landmark"
   },
   {
     "title": "«Панорама360» в башне «Федерация»",
@@ -1048,11 +1054,12 @@
       "cold",
       "any",
       "sun"
-    ]
+    ],
+    "place_type": "landmark"
   },
   {
-    "title": "КидБург в «Авиапарке»",
-    "slug": "kidburg-aviapark",
+    "title": "Кидзания в «Авиапарке»",
+    "slug": "kidzania-aviapark",
     "town": "Хорошёвский",
     "region": "msk",
     "address": "Москва, Ходынский бульвар, 4 (ТРЦ «Авиапарк»)",
@@ -1060,7 +1067,7 @@
     "lat": 55.7907,
     "lng": 37.5309,
     "category": "play",
-    "subtitle": "Город профессий: дети «работают» и получают зарплату",
+    "subtitle": "Город профессий для детей",
     "description": "Интерактивный город, где дети пробуют профессии: пожарный, повар, врач и другие, получают игровую зарплату и тратят её. Родители ждут рядом; нужна запись на сеанс.",
     "price": [
       1500,
@@ -1115,13 +1122,14 @@
     "photoSet": "play",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/КидБург",
+    "source": "https://kidzaniamoscow.ru/",
     "confidence": "medium",
     "weather": [
       "rain",
       "cold",
       "any"
-    ]
+    ],
+    "place_type": "play_center"
   },
   {
     "title": "Каток на ВДНХ",
@@ -1316,13 +1324,14 @@
     "photoSet": "cafe",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Депо_(фудмолл)",
+    "source": "https://depomoscow.ru/",
     "confidence": "medium",
     "weather": [
       "rain",
       "cold",
       "any"
-    ]
+    ],
+    "place_type": "food_hall"
   },
   {
     "title": "Даниловский рынок",
