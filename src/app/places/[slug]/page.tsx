@@ -32,7 +32,8 @@ export async function generateMetadata({ params }: PlacePageProps): Promise<Meta
   const { slug } = await params;
   const place = await repo.getPlace(slug);
   if (!place) return {};
-  const description = `${place.subtitle}. ${formatAgeRange(place.age_min, place.age_max)}, ${place.address}. ${place.description.slice(0, 120)}…`;
+  const addressVerified = place.verified_fields?.includes("address") ?? false;
+  const description = `${place.subtitle}. ${formatAgeRange(place.age_min, place.age_max)}${addressVerified ? `, ${place.address}` : ""}. ${place.description.slice(0, 120)}…`;
   return {
     title: `${place.title} — ${place.subtitle.toLowerCase()}`,
     description,
@@ -56,6 +57,10 @@ export default async function PlacePage({ params }: PlacePageProps) {
   const placeEvents = events.filter((e) => e.place_id === place.id);
   const cat = categoryDef(place.category);
   const typeLabel = placeTypeName(place.place_type) ?? cat.name;
+  const verified = new Set(place.verified_fields ?? []);
+  const addressVerified = verified.has("address");
+  const priceVerified = verified.has("price");
+  const hoursVerified = verified.has("opening_hours");
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -63,11 +68,19 @@ export default async function PlacePage({ params }: PlacePageProps) {
     name: place.title,
     description: place.description,
     image: place.photos.map((p) => p.src),
-    address: { "@type": "PostalAddress", streetAddress: place.address, addressLocality: "Москва", addressCountry: "RU" },
-    geo: { "@type": "GeoCoordinates", latitude: place.latitude, longitude: place.longitude },
+    ...(addressVerified
+      ? {
+          address: { "@type": "PostalAddress", streetAddress: place.address, addressLocality: place.region === "mo" ? place.town ?? "Московская область" : "Москва", addressCountry: "RU" },
+          geo: { "@type": "GeoCoordinates", latitude: place.latitude, longitude: place.longitude },
+        }
+      : {}),
     ...(place.review_count > 0 && place.rating_source ? { aggregateRating: { "@type": "AggregateRating", ratingValue: place.rating, reviewCount: place.review_count } } : {}),
-    isAccessibleForFree: place.price_max === 0,
-    priceRange: place.price_max === 0 ? "Бесплатно" : `${formatPrice(place.price_min)}–${formatPrice(place.price_max)}`,
+    ...(priceVerified
+      ? {
+          isAccessibleForFree: place.price_max === 0,
+          priceRange: place.price_max === 0 ? "Бесплатно" : `${formatPrice(place.price_min)}–${formatPrice(place.price_max)}`,
+        }
+      : {}),
   };
 
   return (
@@ -89,7 +102,7 @@ export default async function PlacePage({ params }: PlacePageProps) {
             <span className="inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold" style={{ background: cat.bg, color: cat.fg }}>
               <cat.Icon width={14} height={14} /> {typeLabel}
             </span>
-            {place.verification_status === "verified" && place.verified_at ? (
+            {hoursVerified ? (
               <OpenStatus hours={place.opening_hours} />
             ) : (
               <span className="inline-flex h-7 items-center rounded-full bg-fill px-2.5 text-[13px] font-semibold text-muted">Режим уточните</span>
@@ -128,6 +141,7 @@ export default async function PlacePage({ params }: PlacePageProps) {
             <p className="mt-0.5 truncate text-[13.5px] text-muted">
               <TravelBadge place={place} long className="text-[13.5px]" />{place.metro ? ` · м. ${place.metro}` : ""}
             </p>
+            {!addressVerified && <p className="mt-0.5 text-[11.5px] text-muted">Адрес из каталога — проверьте источник перед выездом</p>}
           </div>
           <a
             href={routeUrl(place.latitude, place.longitude)}

@@ -26,10 +26,11 @@ export const BASE_PLACE_TRUST: Record<string, PlaceTrust> = {
     note: "Существование сети подтверждено; тарифы и конкретный филиал требуют актуализации перед визитом.",
   },
   "piratskaya-ploshchadka": {
-    source: "https://parkgorkogo.ru/",
+    source: "https://vk.com/@gorkypark-igrovye-ploschadki-v-neskuchnom-sadu-chast-1",
     sourceName: "Парк Горького",
     verifiedAt: VERIFIED_AT,
-    confidence: "medium",
+    confidence: "high",
+    note: "Площадка «Стройка» и ориентир входа подтверждены официальной публикацией Парка Горького.",
   },
   "park-sokolniki": {
     source: "https://parksokolniki.mos.ru/",

@@ -17,6 +17,7 @@ type FactState = "yes" | "no" | "unknown";
 /** Самый важный блок для родителей: удобства, темп и сколько обычно стоит. */
 export function ParentInfo({ place }: { place: Place }) {
   const unknown = new Set<ParentInfoField>(place.unknown_fields ?? []);
+  const verified = new Set(place.verified_fields ?? []);
   const state = (field: ParentInfoField, value: boolean): FactState => unknown.has(field) ? "unknown" : value ? "yes" : "no";
 
   const facts: { label: string; state: FactState; Icon: React.ComponentType<{ size?: number; className?: string }>; hint?: string }[] = [
@@ -43,14 +44,15 @@ export function ParentInfo({ place }: { place: Place }) {
     },
   ];
 
-  const trustText =
-    place.verification_status === "verified"
-      ? place.verified_at
-        ? `Проверено ${new Date(`${place.verified_at}T00:00:00`).toLocaleDateString("ru-RU", { day: "numeric", month: "long" })}`
-        : "Основные сведения подтверждены источником"
-      : place.verification_status === "partial"
-        ? "Часть данных — ориентир: перед поездкой проверьте цену и режим работы"
-        : "Данные требуют дополнительной проверки";
+  const checkedDate = place.verified_at
+    ? new Date(`${place.verified_at}T00:00:00`).toLocaleDateString("ru-RU", { day: "numeric", month: "long" })
+    : null;
+  const exactDynamic = verified.has("price") && verified.has("opening_hours");
+  const trustText = checkedDate
+    ? exactDynamic
+      ? `Источник проверен ${checkedDate}; цена и режим подтверждены.`
+      : `Источник места проверен ${checkedDate}; неподтверждённые поля помечены как «уточнить».`
+    : "Источник места требует дополнительной проверки.";
 
   return (
     <div>
@@ -87,8 +89,8 @@ export function ParentInfo({ place }: { place: Place }) {
       <div className="mt-3 grid grid-cols-2 gap-2">
         <Meter label="Активность" level={place.activity_level} words={["спокойно", "умеренно", "очень активно"]} color="#FF7A2E" />
         <Meter label="Шум" level={place.noise_level} words={["тихо", "умеренно", "шумно"]} color="#8B3DF0" />
-        <Stat Icon={Hourglass} label="Обычно проводят" value={formatDuration(place.average_duration)} />
-        <Stat Icon={Wallet} label="Ориентир на семью" value={formatBudget(place.family_budget)} />
+        <Stat Icon={Hourglass} label="Оценка времени" value={`≈ ${formatDuration(place.average_duration)}`} />
+        <Stat Icon={Wallet} label="Оценка на семью" value={verified.has("price") ? `≈ ${formatBudget(place.family_budget)}` : "Уточнить"} />
       </div>
 
       <div className="mt-2.5 rounded-[14px] bg-fill-2 px-3 py-2.5 text-[12.5px] leading-snug text-muted">
