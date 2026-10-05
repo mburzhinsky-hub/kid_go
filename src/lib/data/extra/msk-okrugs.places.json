@@ -482,7 +482,7 @@
     "photoSet": "museum",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Музей_железнодорожной_техники_на_Рижском_вокзале",
+    "source": "https://museum.cpm.moscow/museums/430",
     "confidence": "medium",
     "weather": [
       "sun",
@@ -553,7 +553,7 @@
     "photoSet": "autumn",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Лосиный_Остров_(национальный_парк)",
+    "source": "https://losinyiostrov.ru/",
     "confidence": "medium",
     "weather": [
       "sun",
@@ -903,7 +903,7 @@
     "photoSet": "park",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Серебряный_Бор_(Москва)",
+    "source": "https://xn--90ah2agcb.xn--p1ai/",
     "confidence": "medium",
     "weather": [
       "sun",
@@ -1111,13 +1111,14 @@
     "photoSet": "museum",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Бородинская_панорама",
+    "source": "https://www.1812panorama.ru/",
     "confidence": "medium",
     "weather": [
       "rain",
       "cold",
       "any"
-    ]
+    ],
+    "place_type": "museum"
   },
   {
     "title": "Киностудия «Мосфильм»: экскурсия",
@@ -1132,12 +1133,12 @@
     "subtitle": "Павильоны, костюмы и декорации знаменитых фильмов",
     "description": "Экскурсия по киностудии: павильоны, декорации, костюмы и реквизит. Нужна запись, лучше для детей постарше.",
     "price": [
-      700,
-      1500
+      780,
+      960
     ],
     "family_budget": 4000,
     "age": [
-      7,
+      12,
       12
     ],
     "duration": 120,
@@ -1183,14 +1184,15 @@
     "photoSet": "theatre",
     "rating": null,
     "reviews": null,
-    "source": "https://ru.wikipedia.org/wiki/Мосфильм",
+    "source": "https://www.mosfilm.ru/excursions/",
     "confidence": "medium",
     "weather": [
       "rain",
       "cold",
       "any",
       "sun"
-    ]
+    ],
+    "place_type": "museum"
   },
   {
     "title": "Парк «Школьное озеро»",
