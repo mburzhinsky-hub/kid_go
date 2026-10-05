@@ -1,6 +1,8 @@
 name: Quality
 
 on:
+  push:
+    branches: [fix/block-1-data-trust]
   pull_request:
     branches: [main]
   workflow_dispatch:
