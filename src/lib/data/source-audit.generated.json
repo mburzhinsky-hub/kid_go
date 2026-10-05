@@ -2,97 +2,122 @@
   "_meta": {
     "generated_at": "2026-10-05",
     "records": 131,
-    "completed": 0,
+    "completed": 10,
     "rule": "A public venue is publishable only after source-backed identity confirmation. Price, hours and family amenities are shown as facts only when separately evidenced on the audited source."
   },
   "centralny-detsky-magazin": {
     "source": "https://cdm-moscow.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "panda-park-sokolniki": {
     "source": "https://pandapark.org/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "skalodrom-skala-siti": {
     "source": "https://www.skala-city.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "moskvarium": {
     "source": "https://moskvarium.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "moskovsky-zoopark": {
     "source": "https://moscowzoo.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "muzey-transporta": {
     "source": "https://mtmuseum.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "moskovsky-planetariy": {
     "source": "https://planetarium-moscow.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "eksperimentanium": {
     "source": "https://experimentanium.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "darvinovsky-muzey": {
     "source": "https://www.darwinmuseum.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
     "address": false,
-    "verified_fields": [],
+    "verified_fields": [
+      "identity"
+    ],
     "verified_family_fields": []
   },
   "muzey-kosmonavtiki": {
     "source": "https://kosmo-museum.ru/",
-    "checked_at": null,
-    "status": "pending",
-    "identity": false,
-    "address": false,
-    "verified_fields": [],
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
     "verified_family_fields": []
   },
   "paleontologichesky-muzey": {
