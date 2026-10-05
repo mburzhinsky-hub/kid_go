@@ -6,5 +6,3 @@ next-env.d.ts
 .env*.local
 .DS_Store
 /screenshots
-
-/public/vendor/maplibre/

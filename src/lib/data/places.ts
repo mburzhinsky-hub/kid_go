@@ -1,8 +1,6 @@
 import type { Place, OpeningHours, Review, CategoryId } from "@/lib/types";
 import { PH, ph } from "./photos";
 import { buildPlaces } from "./extra";
-import { isPublishableBasePlace, trustForBasePlace } from "./trust";
-import { auditForPlace, isAuditedPublicPlace, trustedPlaceTags } from "./source-audit";
 
 /**
  * Демо-база мест (Москва). Названия известных мест реальные, часть заведений
@@ -72,45 +70,16 @@ function place(s: Seed): Place {
   counter += 1;
   const level = s.price_max === 0 ? 0 : s.price_max <= 600 ? 1 : s.price_max <= 1500 ? 2 : 3;
   const weather = s.weather_tags ?? (s.indoor && !s.outdoor ? ["rain", "cold", "any"] : s.indoor ? ["any", "rain", "sun"] : ["sun", "any"]);
-  const trust = trustForBasePlace(s.slug);
-  const audit = auditForPlace(s.slug);
-  const verifiedFields = audit?.verified_fields ?? [];
-  const verifiedFamilyFields = audit?.verified_family_fields ?? [];
-  const broadType: Place["place_type"] =
-    s.category === "play" ? "play_center" :
-    s.category === "active" ? "active" :
-    s.category === "animals" ? (s.slug === "moskvarium" ? "aquarium" : "zoo") :
-    s.category === "cafe" ? "cafe" :
-    s.category === "shop" ? "shop" :
-    s.category;
   return {
     id: `p${String(counter).padStart(2, "0")}`,
     price_level: (s.price_level ?? level) as Place["price_level"],
     tint: s.tint ?? TINTS[s.category],
-    toilets: s.toilets ?? false,
-    wardrobe: s.wardrobe ?? false,
+    toilets: s.toilets ?? true,
+    wardrobe: s.wardrobe ?? s.indoor,
     weather_tags: weather,
     season_tags: s.season_tags ?? ["spring", "summer", "autumn", "winter"],
+    reviews: s.reviews ?? REVIEW_POOL[s.category],
     ...s,
-    // Старый seed содержал демонстрационные рейтинги/отзывы. Не выдаём их за реальный social proof.
-    rating: 0,
-    review_count: 0,
-    rating_source: undefined,
-    reviews: [],
-    source: audit?.source ?? trust.source,
-    source_name: trust.sourceName,
-    verified_at: audit?.checked_at ?? trust.verifiedAt,
-    verification_status: trust.confidence === "demo" ? "demo" : "partial",
-    verification_note: audit?.status === "reviewed" && audit.identity
-      ? "Существование места проверено по публичному источнику. Точные поля отмечаются отдельно."
-      : trust.note,
-    verified_fields: verifiedFields,
-    confidence: trust.confidence,
-    place_type: broadType,
-    tags: trustedPlaceTags(s.tags ?? [], verifiedFields, verifiedFamilyFields),
-    // Family-specific удобства в старом seed не имели отдельного подтверждения по полям.
-    // Значения оставляем для движка, но UI обязан показывать их как «не уточнено».
-    unknown_fields: ["stroller_friendly", "baby_room", "kids_menu", "parking", "toilets", "wardrobe", "booking_required"],
   } as Place;
 }
 
@@ -290,15 +259,15 @@ const SEED_PLACES: Place[] = [
     tags: ["Профессии", "Мастер-классы", "4–12 лет", "В помещении"],
   }),
   place({
-    title: "Площадка «Стройка» в Нескучном саду",
+    title: "Пиратская площадка в Нескучном саду",
     slug: "piratskaya-ploshchadka",
     season_tags: ["spring", "summer", "autumn"],
-    subtitle: "Тематическая площадка с экскаватором и краном",
+    subtitle: "Большая деревянная площадка",
     description:
-      "Игровая площадка «Стройка» в Нескучном саду: экскаватор, подъёмный кран, лазалки, песочница и горки. Официальная публикация Парка Горького подтверждает площадку и ориентир входа между домами 22 и 24 по Ленинскому проспекту.",
+      "Деревянный пиратский корабль с мачтами, канатами и горками посреди старого парка. Рядом песочница, качели-гнёзда и площадка для малышей. Бесплатно и в любую погоду, кроме ливня.",
     latitude: 55.7192,
     longitude: 37.5935,
-    address: "Нескучный сад, вход между Ленинским проспектом, 22 и 24",
+    address: "Ленинский пр-т, 30А, Нескучный сад",
     metro: "Ленинский проспект",
     category: "play",
     photos: [
@@ -307,7 +276,7 @@ const SEED_PLACES: Place[] = [
       ph(PH.girlSwing, "Качели"),
       ph(PH.childClimbPlayground, "Лазалки"),
     ],
-    emoji: "🏗️",
+    emoji: "🏴‍☠️",
     rating: 4.7,
     review_count: 640,
     price_min: 0,
@@ -328,9 +297,9 @@ const SEED_PLACES: Place[] = [
     opening_hours: always,
     toilets: true,
     wardrobe: false,
-    interest_tags: ["construction", "sport", "nature"],
-    experience_tags: ["playzone", "walk"],
-    tags: ["Площадка «Стройка»", "На улице", "Песочница", "2–10 лет"],
+    interest_tags: ["sport", "fairy", "nature"],
+    experience_tags: ["playzone", "free", "walk"],
+    tags: ["Бесплатно", "На улице", "Песочница", "2–10 лет"],
   }),
 
   /* ───────────── Парки ───────────── */
@@ -1693,14 +1662,8 @@ const SEED_PLACES: Place[] = [
   }),
 ];
 
-/** В production публикуем только базовые места, прошедшие редакторскую проверку; demo-записи остаются в истории кода, но не попадают в каталог. */
-const PUBLISHABLE_SEED_PLACES = SEED_PLACES.filter((p) => isPublishableBasePlace(p.slug) && isAuditedPublicPlace(p.slug));
-
-/** Редакторские места из `extra/*.json` (Подмосковье и районы Москвы) идут вслед за проверенным базовым набором. */
-export const places: Place[] = [
-  ...PUBLISHABLE_SEED_PLACES,
-  ...buildPlaces(PUBLISHABLE_SEED_PLACES.length, new Set(PUBLISHABLE_SEED_PLACES.map((p) => p.slug))),
-];
+/** Редакторские места из `extra/*.json` (Подмосковье и районы Москвы) идут вслед за демо-набором. */
+export const places: Place[] = [...SEED_PLACES, ...buildPlaces(SEED_PLACES.length, new Set(SEED_PLACES.map((p) => p.slug)))];
 
 export const placeById = new Map(places.map((p) => [p.id, p]));
 export const placeBySlug = new Map(places.map((p) => [p.slug, p]));

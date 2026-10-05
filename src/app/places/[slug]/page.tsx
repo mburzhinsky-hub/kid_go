@@ -19,21 +19,18 @@ import { adventureCardData } from "@/lib/cards";
 import { ToastHost } from "@/components/ui/Toast";
 import { whatNextGroups } from "@/lib/what-next";
 import { TravelBadge } from "@/components/ui/TravelBadge";
-import { categoryDef, placeTypeName } from "@/lib/catalog";
+import { categoryDef } from "@/lib/catalog";
 import { formatAgeRange, formatPrice } from "@/lib/format";
-
-type PlacePageProps = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
   return allPlaces.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: PlacePageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/places/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const place = await repo.getPlace(slug);
   if (!place) return {};
-  const addressVerified = place.verified_fields?.includes("address") ?? false;
-  const description = `${place.subtitle}. ${formatAgeRange(place.age_min, place.age_max)}${addressVerified ? `, ${place.address}` : ""}. ${place.description.slice(0, 120)}…`;
+  const description = `${place.subtitle}. ${formatAgeRange(place.age_min, place.age_max)}, ${place.address}. ${place.description.slice(0, 120)}…`;
   return {
     title: `${place.title} — ${place.subtitle.toLowerCase()}`,
     description,
@@ -46,7 +43,7 @@ export async function generateMetadata({ params }: PlacePageProps): Promise<Meta
   };
 }
 
-export default async function PlacePage({ params }: PlacePageProps) {
+export default async function PlacePage({ params }: PageProps<"/places/[slug]">) {
   const { slug } = await params;
   const place = await repo.getPlace(slug);
   if (!place) notFound();
@@ -56,11 +53,6 @@ export default async function PlacePage({ params }: PlacePageProps) {
   const inAdventures = adventures.filter((a) => a.steps.some((s) => s.place_id === place.id));
   const placeEvents = events.filter((e) => e.place_id === place.id);
   const cat = categoryDef(place.category);
-  const typeLabel = placeTypeName(place.place_type) ?? cat.name;
-  const verified = new Set(place.verified_fields ?? []);
-  const addressVerified = verified.has("address");
-  const priceVerified = verified.has("price");
-  const hoursVerified = verified.has("opening_hours");
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -68,19 +60,11 @@ export default async function PlacePage({ params }: PlacePageProps) {
     name: place.title,
     description: place.description,
     image: place.photos.map((p) => p.src),
-    ...(addressVerified
-      ? {
-          address: { "@type": "PostalAddress", streetAddress: place.address, addressLocality: place.region === "mo" ? place.town ?? "Московская область" : "Москва", addressCountry: "RU" },
-          geo: { "@type": "GeoCoordinates", latitude: place.latitude, longitude: place.longitude },
-        }
-      : {}),
-    ...(place.review_count > 0 && place.rating_source ? { aggregateRating: { "@type": "AggregateRating", ratingValue: place.rating, reviewCount: place.review_count } } : {}),
-    ...(priceVerified
-      ? {
-          isAccessibleForFree: place.price_max === 0,
-          priceRange: place.price_max === 0 ? "Бесплатно" : `${formatPrice(place.price_min)}–${formatPrice(place.price_max)}`,
-        }
-      : {}),
+    address: { "@type": "PostalAddress", streetAddress: place.address, addressLocality: "Москва", addressCountry: "RU" },
+    geo: { "@type": "GeoCoordinates", latitude: place.latitude, longitude: place.longitude },
+    ...(place.review_count > 0 ? { aggregateRating: { "@type": "AggregateRating", ratingValue: place.rating, reviewCount: place.review_count } } : {}),
+    isAccessibleForFree: place.price_max === 0,
+    priceRange: place.price_max === 0 ? "Бесплатно" : `${formatPrice(place.price_min)}–${formatPrice(place.price_max)}`,
   };
 
   return (
@@ -100,13 +84,9 @@ export default async function PlacePage({ params }: PlacePageProps) {
         <header className="pt-5">
           <div className="flex items-center gap-2">
             <span className="inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold" style={{ background: cat.bg, color: cat.fg }}>
-              <cat.Icon width={14} height={14} /> {typeLabel}
+              <cat.Icon width={14} height={14} /> {cat.name}
             </span>
-            {hoursVerified ? (
-              <OpenStatus hours={place.opening_hours} />
-            ) : (
-              <span className="inline-flex h-7 items-center rounded-full bg-fill px-2.5 text-[13px] font-semibold text-muted">Режим уточните</span>
-            )}
+            <OpenStatus hours={place.opening_hours} />
           </div>
           <h1 className="tight mt-2.5 text-[31px] font-[850] leading-[1.08]">{place.title}</h1>
           <p className="mt-1 text-[18px] text-[#6b6f7c]">{place.subtitle}</p>
@@ -141,7 +121,6 @@ export default async function PlacePage({ params }: PlacePageProps) {
             <p className="mt-0.5 truncate text-[13.5px] text-muted">
               <TravelBadge place={place} long className="text-[13.5px]" />{place.metro ? ` · м. ${place.metro}` : ""}
             </p>
-            {!addressVerified && <p className="mt-0.5 text-[11.5px] text-muted">Адрес из каталога — проверьте источник перед выездом</p>}
           </div>
           <a
             href={routeUrl(place.latitude, place.longitude)}
@@ -165,13 +144,8 @@ export default async function PlacePage({ params }: PlacePageProps) {
                   <div className="min-w-0 flex-1">
                     <p className="text-[15px] font-semibold leading-tight">{e.title}</p>
                     <p className="text-[13px] text-ink-2">
-                      {new Date(e.start_at).toLocaleDateString("ru-RU", { day: "numeric", month: "short", timeZone: "Europe/Moscow" })} · {e.start_at.slice(11, 16)}–{e.end_at.slice(11, 16)} · {e.price ? formatPrice(e.price) : "бесплатно"} · {formatAgeRange(e.age_min, e.age_max)}
+                      {e.start_at.slice(11, 16)}–{e.end_at.slice(11, 16)} · {e.price ? formatPrice(e.price) : "бесплатно"} · {formatAgeRange(e.age_min, e.age_max)}
                     </p>
-                    {e.source && (
-                      <a href={e.source} target="_blank" rel="noreferrer" className="mt-0.5 inline-block text-[12px] font-semibold text-muted underline underline-offset-2">
-                        источник программы
-                      </a>
-                    )}
                   </div>
                 </li>
               ))}
@@ -208,14 +182,12 @@ export default async function PlacePage({ params }: PlacePageProps) {
           </section>
         )}
 
-        {(place.review_count > 0 || place.reviews.length > 0) && (
-          <section className="mt-9">
-            <h2 className="tight text-[24px] font-[800]">Отзывы</h2>
-            <div className="mt-3.5">
-              <Reviews place={place} />
-            </div>
-          </section>
-        )}
+        <section className="mt-9">
+          <h2 className="tight text-[24px] font-[800]">Отзывы родителей</h2>
+          <div className="mt-3.5">
+            <Reviews place={place} />
+          </div>
+        </section>
       </article>
 
       {nearby.length > 0 && (

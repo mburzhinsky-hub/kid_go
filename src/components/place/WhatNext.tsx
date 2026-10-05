@@ -87,8 +87,7 @@ export function WhatNext({ currentSlug, groups }: { currentSlug: string; groups:
                 Через {lead.minutes} {plural(lead.minutes, "минуту", "минуты", "минут")} — {lead.kind}
               </p>
               <p className="mt-0.5 flex items-center gap-1.5 text-[14px] text-muted">
-                {lead.rating > 0 && <><Star size={14} className="fill-star text-star" /> {lead.rating.toFixed(1)} · </>}
-                {lead.title}
+                <Star size={14} className="fill-star text-star" /> {lead.rating.toFixed(1)} · {lead.title}
                 {lead.extra && <> · {lead.extra}</>}
               </p>
               <AddButton added={day.includes(lead.slug)} onAdd={() => add(lead.slug, lead.title)} className="mt-3 w-full" big />

@@ -1,5 +1,5 @@
 import type { ComponentType, SVGProps } from "react";
-import type { CategoryId, InterestId, PlaceType } from "@/lib/types";
+import type { CategoryId, InterestId } from "@/lib/types";
 import {
   IconStar, IconTree, IconSlide, IconMuseum, IconWaves, IconCafe, IconPaw, IconBag,
   GlyphSparkle, GlyphClock, GlyphRain, GlyphTreeWalk, GlyphPizza, GlyphGift, GlyphHeart, GlyphSmile,
@@ -22,7 +22,7 @@ export const CATEGORIES: CategoryDef[] = [
   { id: "all", label: "Все", short: "Все", name: "Все места", bg: "#FFC21A", fg: "#FFFFFF", Icon: IconStar },
   { id: "park", label: "Парки", short: "Парки", name: "Парк", bg: "#E4F4DD", fg: "#22A33C", Icon: IconTree },
   { id: "play", label: "Площадки", short: "Площадки", name: "Игровое пространство", bg: "#FFE3E8", fg: "#F5334F", Icon: IconSlide },
-  { id: "museum", label: "Культура", short: "Культура", name: "Музей", bg: "#EEE5FE", fg: "#7A3DF0", Icon: IconMuseum },
+  { id: "museum", label: "Музеи", short: "Музеи", name: "Музей", bg: "#EEE5FE", fg: "#7A3DF0", Icon: IconMuseum },
   { id: "active", label: "Активный отдых", short: "Активное", name: "Активный отдых", bg: "#DAEEFB", fg: "#1EA3F0", Icon: IconWaves },
   { id: "animals", label: "Животные", short: "Животные", name: "Животные", bg: "#FFEFCF", fg: "#F29A0B", Icon: IconPaw },
   { id: "cafe", label: "Кафе", short: "Кафе", name: "Кафе", bg: "#FFE3D4", fg: "#FF6A2B", Icon: IconCafe },
@@ -30,30 +30,6 @@ export const CATEGORIES: CategoryDef[] = [
 ];
 
 export const categoryDef = (id: string) => CATEGORIES.find((c) => c.id === id) ?? CATEGORIES[0];
-
-const PLACE_TYPE_NAMES: Partial<Record<PlaceType, string>> = {
-  park: "Парк",
-  play_center: "Игровое пространство",
-  museum: "Музей",
-  active: "Активный отдых",
-  zoo: "Зоопарк",
-  aquarium: "Океанариум",
-  cafe: "Кафе",
-  restaurant: "Ресторан",
-  shop: "Магазин",
-  bookstore: "Книжный",
-  theatre: "Театр",
-  circus: "Цирк",
-  workshop: "Мастерская",
-  landmark: "Достопримечательность",
-  heritage: "Усадьба / музей-заповедник",
-  food_hall: "Фуд-холл",
-  ice_rink: "Каток",
-  waterpark: "Аквапарк",
-  other: "Место",
-};
-
-export const placeTypeName = (type?: PlaceType) => type ? PLACE_TYPE_NAMES[type] : undefined;
 
 export interface Scenario {
   id: string;

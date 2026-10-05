@@ -134,9 +134,9 @@
     ],
     "hit": false,
     "photoSet": "ropes",
-    "rating": null,
-    "reviews": null,
-    "source": "https://welcome.mosreg.ru/ideas/progulki-na-vysote-devatietaznogo-doma",
+    "rating": 5,
+    "reviews": 3181,
+    "source": "https://norwaypark.ru/krasnogorsk",
     "confidence": "medium"
   },
   {
@@ -204,8 +204,8 @@
     ],
     "hit": true,
     "photoSet": "farm",
-    "rating": null,
-    "reviews": null,
+    "rating": 4.6,
+    "reviews": 1439,
     "source": "https://zoolandia-istra.ru/",
     "confidence": "high"
   },
@@ -274,8 +274,8 @@
     ],
     "hit": true,
     "photoSet": "museum",
-    "rating": null,
-    "reviews": null,
+    "rating": 5,
+    "reviews": 23697,
     "source": "https://njerusalem.ru/posetitelyam/rezhim-raboty/",
     "confidence": "medium"
   },
@@ -344,8 +344,8 @@
     ],
     "hit": false,
     "photoSet": "trampoline",
-    "rating": null,
-    "reviews": null,
+    "rating": 5,
+    "reviews": 1713,
     "source": "https://airarena.ru/batutnyy-park",
     "confidence": "high"
   },
@@ -414,8 +414,8 @@
     ],
     "hit": true,
     "photoSet": "museum",
-    "rating": null,
-    "reviews": null,
+    "rating": 5,
+    "reviews": 39283,
     "source": "https://tmuseum.ru/kontakty/",
     "confidence": "high"
   },
@@ -616,8 +616,8 @@
     ],
     "hit": false,
     "photoSet": "playground",
-    "rating": null,
-    "reviews": null,
+    "rating": 4.8,
+    "reviews": 2127,
     "source": "https://2gis.ru/istra/firm/70000001060278185",
     "confidence": "medium"
   },
@@ -684,8 +684,8 @@
     ],
     "hit": false,
     "photoSet": "play",
-    "rating": null,
-    "reviews": null,
+    "rating": 5,
+    "reviews": 197,
     "source": "https://2gis.ru/istra/firm/70000001101893486",
     "confidence": "medium"
   }

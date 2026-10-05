@@ -136,8 +136,8 @@
     ],
     "hit": false,
     "photoSet": "trampoline",
-    "rating": null,
-    "reviews": null,
+    "rating": 3.8,
+    "reviews": 31,
     "source": "https://2gis.ru/odintsovo/firm/70000001029426020",
     "confidence": "medium"
   },
@@ -704,8 +704,8 @@
     ],
     "hit": false,
     "photoSet": "pancakes",
-    "rating": null,
-    "reviews": null,
+    "rating": 3.9,
+    "reviews": 73,
     "source": "https://rusdessertmuseum.ru/",
     "confidence": "high"
   },
@@ -844,8 +844,8 @@
     ],
     "hit": false,
     "photoSet": "park",
-    "rating": null,
-    "reviews": null,
+    "rating": 4.4,
+    "reviews": 30,
     "source": "https://museum-gol.ru/visitors/",
     "confidence": "medium"
   },
@@ -998,7 +998,7 @@
     "slug": "dom-muzey-prishvina-dunino",
     "town": "Дунино",
     "region": "mo",
-    "address": "Московская область, Одинцовский район, д. Дунино, д. 2",
+    "address": "Московская область, Одинцовский городской округ, д. Дунино, 2",
     "lat": 55.722,
     "lng": 36.9366,
     "category": "museum",
@@ -1018,14 +1018,19 @@
     "outdoor": true,
     "activity": 1,
     "noise": 1,
+    "stroller": false,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": true,
     "hours": [
       null,
-      "11:00-18:00",
-      "11:00-18:00",
-      "11:00-18:00",
-      "11:00-18:00",
-      "11:00-18:00",
-      "11:00-18:00"
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00",
+      "10:00-17:00"
     ],
     "season": [
       "spring",
@@ -1054,7 +1059,7 @@
     "photoSet": "museum",
     "rating": null,
     "reviews": null,
-    "source": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
+    "source": "https://yandex.com/maps/org/dom_muzey_m_m_prishvina/1044608995/",
     "confidence": "medium"
   },
   {
@@ -1279,7 +1284,7 @@
     "address": "Московская область, Ржавки, 2-й микрорайон, с20, ТРЦ «Zеленопарк» (18 км Ленинградского шоссе)",
     "lat": 55.998,
     "lng": 37.2612,
-    "category": "play",
+    "category": "museum",
     "subtitle": "Город профессий для детей от 1,5 до 14 лет",
     "description": "Детский город на 2000 м², где ребёнок «работает» в банке, больнице, на радио, в пожарной части и на других площадках, получает зарплату и тратит её в городе. Для малышей 1,5–4 лет есть отдельные развивающие зоны, школьники занимаются полноценными профессиями. Подойдёт на 2–3 часа, билет дорогой, зато ребёнок занят самостоятельным делом.",
     "price": [
@@ -1340,9 +1345,8 @@
     "photoSet": "play",
     "rating": null,
     "reviews": null,
-    "source": "https://zelenopark.kidburg.ru/",
-    "confidence": "medium",
-    "place_type": "play_center"
+    "source": "https://www.kidsreview.ru/msk/catalog/kidburg-gorod-professiy-dlya-detey-ot-15-do-14-let-v-tc-zelenopark-v-zelenograde-podmoskove",
+    "confidence": "medium"
   },
   {
     "title": "Пешки Парк",
@@ -1481,8 +1485,7 @@
     "rating": null,
     "reviews": null,
     "source": "https://welcome.mosreg.ru/ideas/teatr-nash-dom",
-    "confidence": "medium",
-    "place_type": "theatre"
+    "confidence": "medium"
   },
   {
     "title": "Парк им. Л. Н. Толстого",
@@ -1624,25 +1627,25 @@
     "photoSet": "playground",
     "rating": null,
     "reviews": null,
-    "source": "https://2gis.ru/khimki/gallery/firm/70000001060565637",
+    "source": "https://www.putevka.com/blog/luchshie-parki-khimok",
     "confidence": "medium"
   },
   {
-    "title": "StarLab в МЕГА Химки",
+    "title": "Мега Химки: детские зоны",
     "slug": "mega-himki-detskie-zony",
     "town": "Химки",
     "region": "mo",
-    "address": "Московская область, Химки, микрорайон ИКЕА, корпус 2, ТЦ «МЕГА Химки»",
+    "address": "Московская область, Химки, микрорайон ИКЕА, к1 (Ленинградское шоссе, 5 км от МКАД)",
     "lat": 55.9109,
     "lng": 37.3961,
     "category": "play",
-    "subtitle": "Семейный развлекательный парк с лабиринтами, батутами и горками",
-    "description": "Семейный развлекательный парк StarLab в МЕГА Химки: лабиринты, батуты, горки, интерактивные зоны и город профессий. Удобный вариант на непогоду; стоимость и режим работы подтверждены официальным сайтом сети.",
+    "subtitle": "Бесплатная игровая площадка, верёвочный парк и детские центры",
+    "description": "Крупный торговый центр, где для семей есть бесплатная крытая детская игровая площадка, платные детские центры (Yu Kids Island, CitYkids для малышей до 7 лет), верёвочный парк MEGA FunParks, кинотеатр и фудкорт. Зимой на улице заливают каток. Удобный вариант на непогоду.",
     "price": [
-      900,
-      1600
+      0,
+      1500
     ],
-    "family_budget": 3200,
+    "family_budget": 2500,
     "age": [
       1,
       12
@@ -1652,12 +1655,17 @@
     "outdoor": false,
     "activity": 2,
     "noise": 3,
+    "stroller": true,
+    "baby_room": true,
+    "kids_menu": true,
+    "parking": true,
+    "booking": false,
     "hours": [
-      "10:00-22:00",
-      "10:00-22:00",
-      "10:00-22:00",
-      "10:00-22:00",
-      "10:00-22:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
       "10:00-23:00",
       "10:00-23:00"
     ],
@@ -1677,20 +1685,22 @@
     ],
     "experience": [
       "playzone",
-      "unusual"
+      "cafe",
+      "toddlers",
+      "free"
     ],
     "tags": [
-      "Лабиринты",
-      "Батуты",
-      "Горки",
-      "В помещении"
+      "Бесплатная площадка",
+      "Верёвочный парк",
+      "Кинотеатр",
+      "Парковка"
     ],
     "hit": false,
     "photoSet": "play",
     "rating": null,
     "reviews": null,
-    "source": "https://star-lab.org/",
-    "confidence": "high"
+    "source": "https://www.kidsreview.ru/msk/catalog/mega-khimki-torgovo-razvlekatelnyi-tsentr-dlya-vesi-semi-na-severe-moskvy",
+    "confidence": "medium"
   },
   {
     "title": "Детский мир в МЕГА Химки",
