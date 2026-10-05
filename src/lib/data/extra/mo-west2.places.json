@@ -998,7 +998,7 @@
     "slug": "dom-muzey-prishvina-dunino",
     "town": "Дунино",
     "region": "mo",
-    "address": "Московская область, Одинцовский городской округ, д. Дунино, 2",
+    "address": "Московская область, Одинцовский район, д. Дунино, д. 2",
     "lat": 55.722,
     "lng": 36.9366,
     "category": "museum",
@@ -1018,19 +1018,14 @@
     "outdoor": true,
     "activity": 1,
     "noise": 1,
-    "stroller": false,
-    "baby_room": false,
-    "kids_menu": false,
-    "parking": true,
-    "booking": true,
     "hours": [
       null,
-      "10:00-17:00",
-      "10:00-17:00",
-      "10:00-17:00",
-      "10:00-17:00",
-      "10:00-17:00",
-      "10:00-17:00"
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00",
+      "11:00-18:00"
     ],
     "season": [
       "spring",
@@ -1059,7 +1054,7 @@
     "photoSet": "museum",
     "rating": null,
     "reviews": null,
-    "source": "https://yandex.com/maps/org/dom_muzey_m_m_prishvina/1044608995/",
+    "source": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
     "confidence": "medium"
   },
   {
@@ -1629,25 +1624,25 @@
     "photoSet": "playground",
     "rating": null,
     "reviews": null,
-    "source": "https://www.putevka.com/blog/luchshie-parki-khimok",
+    "source": "https://2gis.ru/khimki/gallery/firm/70000001060565637",
     "confidence": "medium"
   },
   {
-    "title": "Мега Химки: детские зоны",
+    "title": "StarLab в МЕГА Химки",
     "slug": "mega-himki-detskie-zony",
     "town": "Химки",
     "region": "mo",
-    "address": "Московская область, Химки, микрорайон ИКЕА, к1 (Ленинградское шоссе, 5 км от МКАД)",
+    "address": "Московская область, Химки, микрорайон ИКЕА, корпус 2, ТЦ «МЕГА Химки»",
     "lat": 55.9109,
     "lng": 37.3961,
     "category": "play",
-    "subtitle": "Бесплатная игровая площадка, верёвочный парк и детские центры",
-    "description": "Крупный торговый центр, где для семей есть бесплатная крытая детская игровая площадка, платные детские центры (Yu Kids Island, CitYkids для малышей до 7 лет), верёвочный парк MEGA FunParks, кинотеатр и фудкорт. Зимой на улице заливают каток. Удобный вариант на непогоду.",
+    "subtitle": "Семейный развлекательный парк с лабиринтами, батутами и горками",
+    "description": "Семейный развлекательный парк StarLab в МЕГА Химки: лабиринты, батуты, горки, интерактивные зоны и город профессий. Удобный вариант на непогоду; стоимость и режим работы подтверждены официальным сайтом сети.",
     "price": [
-      0,
-      1500
+      900,
+      1600
     ],
-    "family_budget": 2500,
+    "family_budget": 3200,
     "age": [
       1,
       12
@@ -1657,17 +1652,12 @@
     "outdoor": false,
     "activity": 2,
     "noise": 3,
-    "stroller": true,
-    "baby_room": true,
-    "kids_menu": true,
-    "parking": true,
-    "booking": false,
     "hours": [
-      "10:00-23:00",
-      "10:00-23:00",
-      "10:00-23:00",
-      "10:00-23:00",
-      "10:00-23:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
       "10:00-23:00",
       "10:00-23:00"
     ],
@@ -1687,22 +1677,20 @@
     ],
     "experience": [
       "playzone",
-      "cafe",
-      "toddlers",
-      "free"
+      "unusual"
     ],
     "tags": [
-      "Бесплатная площадка",
-      "Верёвочный парк",
-      "Кинотеатр",
-      "Парковка"
+      "Лабиринты",
+      "Батуты",
+      "Горки",
+      "В помещении"
     ],
     "hit": false,
     "photoSet": "play",
     "rating": null,
     "reviews": null,
-    "source": "https://mega.ru/khimki/",
-    "confidence": "medium"
+    "source": "https://star-lab.org/",
+    "confidence": "high"
   },
   {
     "title": "Детский мир в МЕГА Химки",
