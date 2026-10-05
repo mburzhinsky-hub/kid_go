@@ -22,7 +22,7 @@ export const CATEGORIES: CategoryDef[] = [
   { id: "all", label: "Все", short: "Все", name: "Все места", bg: "#FFC21A", fg: "#FFFFFF", Icon: IconStar },
   { id: "park", label: "Парки", short: "Парки", name: "Парк", bg: "#E4F4DD", fg: "#22A33C", Icon: IconTree },
   { id: "play", label: "Площадки", short: "Площадки", name: "Игровое пространство", bg: "#FFE3E8", fg: "#F5334F", Icon: IconSlide },
-  { id: "museum", label: "Музеи", short: "Музеи", name: "Музей", bg: "#EEE5FE", fg: "#7A3DF0", Icon: IconMuseum },
+  { id: "museum", label: "Культура", short: "Культура", name: "Музей", bg: "#EEE5FE", fg: "#7A3DF0", Icon: IconMuseum },
   { id: "active", label: "Активный отдых", short: "Активное", name: "Активный отдых", bg: "#DAEEFB", fg: "#1EA3F0", Icon: IconWaves },
   { id: "animals", label: "Животные", short: "Животные", name: "Животные", bg: "#FFEFCF", fg: "#F29A0B", Icon: IconPaw },
   { id: "cafe", label: "Кафе", short: "Кафе", name: "Кафе", bg: "#FFE3D4", fg: "#FF6A2B", Icon: IconCafe },
