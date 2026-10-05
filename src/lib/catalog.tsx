@@ -1,5 +1,5 @@
 import type { ComponentType, SVGProps } from "react";
-import type { CategoryId, InterestId } from "@/lib/types";
+import type { CategoryId, InterestId, PlaceType } from "@/lib/types";
 import {
   IconStar, IconTree, IconSlide, IconMuseum, IconWaves, IconCafe, IconPaw, IconBag,
   GlyphSparkle, GlyphClock, GlyphRain, GlyphTreeWalk, GlyphPizza, GlyphGift, GlyphHeart, GlyphSmile,
@@ -30,6 +30,30 @@ export const CATEGORIES: CategoryDef[] = [
 ];
 
 export const categoryDef = (id: string) => CATEGORIES.find((c) => c.id === id) ?? CATEGORIES[0];
+
+const PLACE_TYPE_NAMES: Partial<Record<PlaceType, string>> = {
+  park: "Парк",
+  play_center: "Игровое пространство",
+  museum: "Музей",
+  active: "Активный отдых",
+  zoo: "Зоопарк",
+  aquarium: "Океанариум",
+  cafe: "Кафе",
+  restaurant: "Ресторан",
+  shop: "Магазин",
+  bookstore: "Книжный",
+  theatre: "Театр",
+  circus: "Цирк",
+  workshop: "Мастерская",
+  landmark: "Достопримечательность",
+  heritage: "Усадьба / музей-заповедник",
+  food_hall: "Фуд-холл",
+  ice_rink: "Каток",
+  waterpark: "Аквапарк",
+  other: "Место",
+};
+
+export const placeTypeName = (type?: PlaceType) => type ? PLACE_TYPE_NAMES[type] : undefined;
 
 export interface Scenario {
   id: string;
