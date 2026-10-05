@@ -689,10 +689,10 @@
     ],
     "hit": false,
     "photoSet": "picnic",
-    "rating": 4.7,
-    "reviews": 3449,
-    "source": "https://yandex.com/maps/org/zona_otdykha_zarechye/163370592762/",
-    "confidence": "high"
+    "rating": null,
+    "reviews": null,
+    "source": "https://yandex.ru/maps/org/zarechye/163370592762/",
+    "confidence": "medium"
   },
   {
     "title": "Наташинский парк (Наташинские пруды)",
