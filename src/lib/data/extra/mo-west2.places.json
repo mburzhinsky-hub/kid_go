@@ -1284,7 +1284,7 @@
     "address": "Московская область, Ржавки, 2-й микрорайон, с20, ТРЦ «Zеленопарк» (18 км Ленинградского шоссе)",
     "lat": 55.998,
     "lng": 37.2612,
-    "category": "museum",
+    "category": "play",
     "subtitle": "Город профессий для детей от 1,5 до 14 лет",
     "description": "Детский город на 2000 м², где ребёнок «работает» в банке, больнице, на радио, в пожарной части и на других площадках, получает зарплату и тратит её в городе. Для малышей 1,5–4 лет есть отдельные развивающие зоны, школьники занимаются полноценными профессиями. Подойдёт на 2–3 часа, билет дорогой, зато ребёнок занят самостоятельным делом.",
     "price": [
@@ -1345,8 +1345,9 @@
     "photoSet": "play",
     "rating": null,
     "reviews": null,
-    "source": "https://www.kidsreview.ru/msk/catalog/kidburg-gorod-professiy-dlya-detey-ot-15-do-14-let-v-tc-zelenopark-v-zelenograde-podmoskove",
-    "confidence": "medium"
+    "source": "https://zelenopark.kidburg.ru/",
+    "confidence": "medium",
+    "place_type": "play_center"
   },
   {
     "title": "Пешки Парк",
@@ -1485,7 +1486,8 @@
     "rating": null,
     "reviews": null,
     "source": "https://welcome.mosreg.ru/ideas/teatr-nash-dom",
-    "confidence": "medium"
+    "confidence": "medium",
+    "place_type": "theatre"
   },
   {
     "title": "Парк им. Л. Н. Толстого",
