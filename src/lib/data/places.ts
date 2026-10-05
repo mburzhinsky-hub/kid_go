@@ -2,6 +2,7 @@ import type { Place, OpeningHours, Review, CategoryId } from "@/lib/types";
 import { PH, ph } from "./photos";
 import { buildPlaces } from "./extra";
 import { isPublishableBasePlace, trustForBasePlace } from "./trust";
+import { auditForPlace, isAuditedPublicPlace, trustedPlaceTags } from "./source-audit";
 
 /**
  * Демо-база мест (Москва). Названия известных мест реальные, часть заведений
@@ -72,6 +73,9 @@ function place(s: Seed): Place {
   const level = s.price_max === 0 ? 0 : s.price_max <= 600 ? 1 : s.price_max <= 1500 ? 2 : 3;
   const weather = s.weather_tags ?? (s.indoor && !s.outdoor ? ["rain", "cold", "any"] : s.indoor ? ["any", "rain", "sun"] : ["sun", "any"]);
   const trust = trustForBasePlace(s.slug);
+  const audit = auditForPlace(s.slug);
+  const verifiedFields = audit?.verified_fields ?? [];
+  const verifiedFamilyFields = audit?.verified_family_fields ?? [];
   const broadType: Place["place_type"] =
     s.category === "play" ? "play_center" :
     s.category === "active" ? "active" :
@@ -93,13 +97,17 @@ function place(s: Seed): Place {
     review_count: 0,
     rating_source: undefined,
     reviews: [],
-    source: trust.source,
+    source: audit?.source ?? trust.source,
     source_name: trust.sourceName,
-    verified_at: trust.verifiedAt,
+    verified_at: audit?.checked_at ?? trust.verifiedAt,
     verification_status: trust.confidence === "demo" ? "demo" : "partial",
-    verification_note: trust.note,
+    verification_note: audit?.status === "reviewed" && audit.identity
+      ? "Существование места проверено по публичному источнику. Точные поля отмечаются отдельно."
+      : trust.note,
+    verified_fields: verifiedFields,
     confidence: trust.confidence,
     place_type: broadType,
+    tags: trustedPlaceTags(s.tags ?? [], verifiedFields, verifiedFamilyFields),
     // Family-specific удобства в старом seed не имели отдельного подтверждения по полям.
     // Значения оставляем для движка, но UI обязан показывать их как «не уточнено».
     unknown_fields: ["stroller_friendly", "baby_room", "kids_menu", "parking", "toilets", "wardrobe", "booking_required"],
@@ -1686,7 +1694,7 @@ const SEED_PLACES: Place[] = [
 ];
 
 /** В production публикуем только базовые места, прошедшие редакторскую проверку; demo-записи остаются в истории кода, но не попадают в каталог. */
-const PUBLISHABLE_SEED_PLACES = SEED_PLACES.filter((p) => isPublishableBasePlace(p.slug));
+const PUBLISHABLE_SEED_PLACES = SEED_PLACES.filter((p) => isPublishableBasePlace(p.slug) && isAuditedPublicPlace(p.slug));
 
 /** Редакторские места из `extra/*.json` (Подмосковье и районы Москвы) идут вслед за проверенным базовым набором. */
 export const places: Place[] = [
