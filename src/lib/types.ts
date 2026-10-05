@@ -15,6 +15,39 @@ export type CategoryId =
 
 export type Level = 1 | 2 | 3; // 1 — спокойно, 2 — умеренно, 3 — активно/шумно
 
+/** Уточнённый тип места не ломает широкие продуктовые категории/фильтры. */
+export type PlaceType =
+  | "park"
+  | "play_center"
+  | "museum"
+  | "active"
+  | "zoo"
+  | "aquarium"
+  | "cafe"
+  | "restaurant"
+  | "shop"
+  | "bookstore"
+  | "theatre"
+  | "circus"
+  | "workshop"
+  | "landmark"
+  | "heritage"
+  | "food_hall"
+  | "ice_rink"
+  | "waterpark"
+  | "other";
+
+export type VerificationStatus = "verified" | "partial" | "demo" | "osm";
+export type PhotoKind = "official" | "partner" | "creator" | "ugc" | "stock" | "demo";
+export type ParentInfoField =
+  | "stroller_friendly"
+  | "baby_room"
+  | "kids_menu"
+  | "parking"
+  | "toilets"
+  | "wardrobe"
+  | "booking_required";
+
 export type WeatherTag = "rain" | "sun" | "cold" | "heat" | "any";
 export type SeasonTag = "spring" | "summer" | "autumn" | "winter";
 
@@ -54,6 +87,8 @@ export interface Photo {
   /** id фото на CDN (сейчас Unsplash). */
   src: string;
   alt: string;
+  /** Источник визуала: stock/demo не должен восприниматься как фотография конкретного места. */
+  kind?: PhotoKind;
 }
 
 export interface Place {
@@ -72,15 +107,25 @@ export interface Place {
   region?: "msk" | "mo";
   /** Откуда взяты сведения (для редакторской проверки). */
   source?: string;
-  /** Насколько данные подтверждены: high — сайт/карты, medium — ориентир, demo — демо-запись. */
+  source_name?: string;
+  /** Дата именно редакторской проверки; отсутствие даты не выдаём за свежую проверку. */
+  verified_at?: string;
+  verification_status?: VerificationStatus;
+  verification_note?: string;
+  /** Legacy confidence сохраняем для импортированных наборов. */
   confidence?: "high" | "medium" | "demo" | "osm";
   category: CategoryId;
+  /** Более точный тип места; category остаётся широкой категорией для текущих фильтров. */
+  place_type?: PlaceType;
   photos: Photo[];
   /** Фирменный цвет-подложка под фото (пока грузится / если не загрузилось). */
   tint: string;
   emoji: string;
+  /** 0/0 означает: подтверждённого рейтинга сейчас нет. */
   rating: number;
   review_count: number;
+  /** Рейтинг показываем только когда известен его конкретный источник. */
+  rating_source?: string;
   price_min: number; // ₽ на человека, 0 — бесплатно
   price_max: number;
   price_level: 0 | 1 | 2 | 3;
@@ -100,6 +145,8 @@ export interface Place {
   toilets: boolean;
   wardrobe: boolean;
   booking_required: boolean;
+  /** Какие family-specific поля пока не подтверждены и не должны выглядеть как «нет». */
+  unknown_fields?: ParentInfoField[];
   opening_hours: OpeningHours;
   weather_tags: WeatherTag[];
   season_tags: SeasonTag[];
@@ -145,7 +192,7 @@ export interface Adventure {
   interest_tags: InterestId[];
   moods: MoodId[];
   start_time: string; // "12:30"
-  recommend_percent: number;
+  recommend_percent?: number;
   steps: AdventureStep[];
 }
 
@@ -161,6 +208,8 @@ export interface KidEvent {
   price: number;
   tickets_url?: string;
   image: Photo;
+  source?: string;
+  verification_status?: Exclude<VerificationStatus, "demo" | "osm">;
 }
 
 /* ---------- Planner / рекомендации ---------- */
