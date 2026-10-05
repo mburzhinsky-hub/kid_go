@@ -11,6 +11,8 @@ export interface SourceAuditEntry {
   address: boolean;
   verified_fields: PlaceVerifiedField[];
   verified_family_fields: ParentInfoField[];
+  /** Конкретная страница-доказательство для каждого подтверждённого поля. */
+  field_sources?: Partial<Record<PlaceVerifiedField, string>>;
 }
 
 const AUDIT = rawAudit as unknown as Record<string, SourceAuditEntry>;

@@ -39,7 +39,7 @@ export function planCardData(plan: Plan, href: string, fromLabel?: string): Adve
     emoji: plan.emoji,
     age: formatAgeRange(plan.ageMin, plan.ageMax),
     duration: formatDurationShort(plan.totalMinutes),
-    price: priceLevelLabel(level(plan.budget)),
+    price: places.every((p) => p.verified_fields?.includes("price")) ? priceLevelLabel(level(plan.budget)) : undefined,
     indoor: plan.rainProof,
     thumbs: places.map((p) => ({ ...p.photos[0], tint: p.tint, emoji: p.emoji })),
     why: plan.why,

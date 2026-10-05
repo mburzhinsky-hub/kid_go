@@ -9,10 +9,7 @@ import { useNearbyExtras, useResolveDynamic } from "@/lib/nearby";
 import { categoryDef } from "@/lib/catalog";
 import { routeUrl } from "@/lib/route-url";
 import { HeroGallery } from "@/components/place/PhotoGallery";
-import { InfoGrid } from "@/components/place/InfoGrid";
-import { ParentInfo } from "@/components/place/ParentInfo";
 import { PlaceCTA } from "@/components/place/PlaceCTA";
-import { OpenStatus } from "@/components/place/OpenStatus";
 import { ReadMore } from "@/components/place/ReadMore";
 import { TagChip } from "@/components/ui/badges";
 import { TravelBadge } from "@/components/ui/TravelBadge";
@@ -53,7 +50,6 @@ export function NearbyPlaceView({ id }: { id?: string }) {
             <span className="inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold" style={{ background: cat.bg, color: cat.fg }}>
               <cat.Icon width={14} height={14} /> {cat.name}
             </span>
-            <OpenStatus hours={place.opening_hours} />
           </div>
           <h1 className="tight mt-2.5 text-[31px] font-[850] leading-[1.08]">{place.title}</h1>
           <p className="mt-1 text-[18px] text-[#6b6f7c]">{place.subtitle}</p>
@@ -67,14 +63,10 @@ export function NearbyPlaceView({ id }: { id?: string }) {
           ))}
         </div>
 
-        <div className="mt-6">
-          <InfoGrid place={place} />
-        </div>
-
         <div className="mt-5 flex gap-2.5 rounded-[18px] bg-yellow-50 p-3.5 text-[13.5px] leading-snug text-ink-2">
           <Info size={18} className="mt-0.5 shrink-0 text-[#d79a00]" />
           <p>
-            Место найдено в открытых данных OpenStreetMap. Режим работы, цены и возраст мы не проверяли — это ориентир. Перед выездом лучше уточнить на карте или по телефону.
+            Место загружено из OpenStreetMap. Показываем только сведения, которые пришли из этого источника.
           </p>
         </div>
 
@@ -99,14 +91,6 @@ export function NearbyPlaceView({ id }: { id?: string }) {
             <Navigation size={15} /> Как добраться
           </a>
         </div>
-
-        <section className="mt-8">
-          <h2 className="tight text-[24px] font-[800]">Для родителей</h2>
-          <p className="mt-0.5 text-[14px] text-muted">Ориентировочно, по типу места</p>
-          <div className="mt-3.5">
-            <ParentInfo place={place} />
-          </div>
-        </section>
 
         <p className="mt-8 text-center text-[12px] text-muted">
           © участники OpenStreetMap ·{" "}

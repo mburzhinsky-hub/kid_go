@@ -102,11 +102,7 @@ export default async function PlacePage({ params }: PlacePageProps) {
             <span className="inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold" style={{ background: cat.bg, color: cat.fg }}>
               <cat.Icon width={14} height={14} /> {typeLabel}
             </span>
-            {hoursVerified ? (
-              <OpenStatus hours={place.opening_hours} />
-            ) : (
-              <span className="inline-flex h-7 items-center rounded-full bg-fill px-2.5 text-[13px] font-semibold text-muted">Режим уточните</span>
-            )}
+            {hoursVerified && <OpenStatus hours={place.opening_hours} />}
           </div>
           <h1 className="tight mt-2.5 text-[31px] font-[850] leading-[1.08]">{place.title}</h1>
           <p className="mt-1 text-[18px] text-[#6b6f7c]">{place.subtitle}</p>
@@ -134,24 +130,25 @@ export default async function PlacePage({ params }: PlacePageProps) {
           </div>
         )}
 
-        <div className="mt-3 flex items-center gap-3 rounded-[22px] bg-fill-2 py-3 pl-3.5 pr-3 ring-1 ring-line">
-          <MapPin size={28} strokeWidth={2} className="shrink-0 text-green" />
-          <div className="min-w-0 flex-1">
-            <p className="line-clamp-2 text-[15.5px] font-semibold leading-tight">{place.address}</p>
-            <p className="mt-0.5 truncate text-[13.5px] text-muted">
-              <TravelBadge place={place} long className="text-[13.5px]" />{place.metro ? ` · м. ${place.metro}` : ""}
-            </p>
-            {!addressVerified && <p className="mt-0.5 text-[11.5px] text-muted">Адрес из каталога — проверьте источник перед выездом</p>}
+        {addressVerified && (
+          <div className="mt-3 flex items-center gap-3 rounded-[22px] bg-fill-2 py-3 pl-3.5 pr-3 ring-1 ring-line">
+            <MapPin size={28} strokeWidth={2} className="shrink-0 text-green" />
+            <div className="min-w-0 flex-1">
+              <p className="line-clamp-2 text-[15.5px] font-semibold leading-tight">{place.address}</p>
+              <p className="mt-0.5 truncate text-[13.5px] text-muted">
+                <TravelBadge place={place} long className="text-[13.5px]" />{place.metro ? ` · м. ${place.metro}` : ""}
+              </p>
+            </div>
+            <a
+              href={routeUrl(place.latitude, place.longitude)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="press inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full bg-blue-50 px-3.5 text-[14.5px] font-semibold text-blue"
+            >
+              <Navigation size={15} /> Как добраться
+            </a>
           </div>
-          <a
-            href={routeUrl(place.latitude, place.longitude)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="press inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full bg-blue-50 px-3.5 text-[14.5px] font-semibold text-blue"
-          >
-            <Navigation size={15} /> Как добраться
-          </a>
-        </div>
+        )}
 
         {placeEvents.length > 0 && (
           <section className="mt-8">
