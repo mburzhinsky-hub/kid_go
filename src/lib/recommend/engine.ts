@@ -279,6 +279,8 @@ export function scorePlace(
       (c.outdoorPreferred && p.outdoor ? 2 : 0) +
       // формат сценария: «спектакль», «мастер-класс», «книги»…
       (c.experiences?.some((e) => p.experience_tags.includes(e)) ? 2.4 : 0) +
+      // parentBreak — отдельный intent: ребёнок занят в игровой, взрослый может спокойно посидеть.
+      (c.parentBreak && p.category === "cafe" && p.experience_tags.includes("playzone") ? 4.8 : 0) +
       // компания / праздник: места, где принимают брони и есть игровая зона
       (c.bookingOk && (p.booking_required || p.experience_tags.includes("playzone")) ? 1.6 : 0),
     family:
