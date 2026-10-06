@@ -548,7 +548,7 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
     let dur = 0;
     if (slot === "food") {
       // голодный ребёнок далеко не уедет: кафе — как можно ближе
-      const foodBonus = (s: ScoredPlace, legMin: number) => (s.place.kids_menu ? 1 : 0) + (c.parentBreak && s.place.experience_tags.includes("playzone") ? 2.5 : 0) - Math.max(0, legMin - 10) * 0.25;
+      const foodBonus = (s: ScoredPlace, legMin: number) => ((!s.place.unknown_fields?.includes("kids_menu") && s.place.kids_menu) ? 1 : 0) + (c.parentBreak && s.place.experience_tags.includes("playzone") ? 2.5 : 0) - Math.max(0, legMin - 10) * 0.25;
       chosen = pickFrom((s) => s.place.category === "cafe" && (!c.parentBreak || s.place.experience_tags.includes("playzone")) && (!s.place.experience_tags.includes("icecream") || total <= 120), foodBonus);
       dur = total <= 120 ? 40 : 55;
       // еду просили прямо, а рядом только кафе-мороженое — лучше перекус, чем ничего
