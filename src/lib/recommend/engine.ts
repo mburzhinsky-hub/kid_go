@@ -293,9 +293,9 @@ export function scorePlace(
     // но он заметно слабее intent/возраста/географии и не заставляет тратить деньги любой ценой.
     price:
       input.budget === "free"
-        ? (p.price_max === 0 || p.family_budget === 0 ? 1.6 : 0)
+        ? (p.price_max === 0 || p.family_budget === 0 ? 2.0 : 0)
         : Number.isFinite(budgetMax) && budgetMax > 0
-          ? -((p.family_budget / budgetMax) ** 1.3) * (input.budget === "2000" ? 3.4 : 1.4) + (input.budget === "5000" && p.price_min > 0 ? 1.25 : 0)
+          ? -((p.family_budget / budgetMax) ** 1.3) * (input.budget === "2000" ? 3.4 : 1.4) + (input.budget === "5000" && p.price_min > 0 ? 1.8 : 0)
           : budgetMax === Infinity
             ? (p.price_level >= 2 && p.rating >= 4.6 ? 0.6 : 0)
             : 0,
