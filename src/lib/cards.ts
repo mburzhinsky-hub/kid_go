@@ -4,6 +4,7 @@ import { adventurePlaces } from "@/lib/data/repository";
 import { chainLabel } from "@/lib/plan";
 import { formatAgeRange, formatDurationShort, priceLevelLabel } from "@/lib/format";
 import { areasOfPlaces } from "@/lib/area-fit";
+import { withPlanMeals } from "@/lib/food";
 
 const level = (budget: number) => (budget === 0 ? 0 : budget < 2500 ? 1 : budget < 5000 ? 2 : 3);
 
@@ -18,7 +19,7 @@ export function adventureCardData(a: Adventure): AdventureCardData {
     emoji: a.emoji,
     age: formatAgeRange(a.age_min, a.age_max),
     duration: formatDurationShort(a.estimated_duration),
-    price: priceLevelLabel(level(a.estimated_budget)),
+    price: places.every((p) => p.verified_fields?.includes("price")) ? priceLevelLabel(level(a.estimated_budget)) : undefined,
     indoor: a.weather_tags.includes("rain"),
     recommend: a.recommend_percent,
     thumbs: places.map((p) => ({ ...p.photos[0], tint: p.tint, emoji: p.emoji })),
@@ -26,12 +27,11 @@ export function adventureCardData(a: Adventure): AdventureCardData {
   };
 }
 
-
 /** Сгенерированный план → данные карточки. */
 export function planCardData(plan: Plan, href: string, fromLabel?: string): AdventureCardData {
   const places = plan.stops.map((s) => s.place);
   return {
-    href,
+    href: withPlanMeals(href, plan),
     title: plan.title,
     chain: chainLabel(places),
     cover: plan.cover,

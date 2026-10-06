@@ -45,16 +45,20 @@
   },
   "skalodrom-skala-siti": {
     "source": "https://www.skala-city.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-06",
     "status": "reviewed",
     "identity": true,
-    "address": false,
+    "address": true,
     "verified_fields": [
-      "identity"
+      "identity",
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://www.skala-city.ru/"
+      "identity": "https://www.skala-city.ru/",
+      "address": "https://skala-city.ru/contact",
+      "opening_hours": "https://skala-city.ru/contact"
     }
   },
   "moskvarium": {

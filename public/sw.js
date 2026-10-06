@@ -1,7 +1,7 @@
 /* КидГоу service worker: офлайн-оболочка + кэш просмотренных страниц и фото.
    Стратегии: страницы — network-first (свежие данные, офлайн — из кэша),
    статика и изображения — stale-while-revalidate. */
-const VERSION = "kidgo-v1";
+const VERSION = "kidgo-editorial-20261006-v2";
 const BASE = new URL(self.registration.scope).pathname.replace(/\/$/, "");
 const SHELL = ["/", "/adventures/", "/favorites/", "/offline.html", "/icons/icon-192.png"].map((p) => BASE + p);
 
@@ -11,7 +11,7 @@ self.addEventListener("install", (e) => {
 
 self.addEventListener("activate", (e) => {
   e.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== VERSION).map((k) => caches.delete(k)))).then(() => self.clients.claim())
+    caches.keys().then((keys) => Promise.all(keys.filter((k) => k.startsWith("kidgo-") && k !== VERSION).map((k) => caches.delete(k)))).then(() => self.clients.claim())
   );
 });
 

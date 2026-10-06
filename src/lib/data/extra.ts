@@ -16,6 +16,7 @@ import placesMskCulture from "./extra/msk-culture.places.json";
 import placesMskOutdoor from "./extra/msk-outdoor.places.json";
 import placesMskParks2 from "./extra/msk-parks2.places.json";
 import placesMskOkrugs from "./extra/msk-okrugs.places.json";
+import placesFamilyCafes from "./extra/msk-family-cafes.places.json";
 import placesEvents from "./extra/programs.places.json";
 import eventsAll from "./extra/programs.events.json";
 
@@ -59,6 +60,7 @@ export interface RawPlace {
   reviews?: number | null;
   /** Конкретная страница/сервис, откуда взяты rating и review count. Без неё social proof не публикуем. */
   rating_source?: string | null;
+  menu_url?: string | null;
   source?: string;
   confidence?: "high" | "medium" | "low";
 }
@@ -86,6 +88,7 @@ export const RAW_PLACES: RawPlace[] = [
   ...(placesMskOutdoor as RawPlace[]),
   ...(placesMskParks2 as RawPlace[]),
   ...(placesMskOkrugs as RawPlace[]),
+  ...(placesFamilyCafes as RawPlace[]),
   ...(placesEvents as RawPlace[]),
 ];
 export const RAW_EVENTS = eventsAll as RawEvent[];

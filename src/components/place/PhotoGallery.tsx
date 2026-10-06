@@ -56,8 +56,8 @@ export function HeroGallery({
           <ShareButton title={shareTitle} />
         </div>
       </div>
-      {rating != null && !!count && count > 0 && <RatingBadge rating={rating} count={count} tone="pill" className="absolute bottom-4 left-4" />}
-      {(photos[index]?.kind === "stock" || photos[index]?.kind === "demo") && !(count && count > 0) && (
+      {rating != null && rating > 0 && <RatingBadge rating={rating} count={count && count > 0 ? count : undefined} tone="pill" className="absolute bottom-4 left-4" />}
+      {(photos[index]?.kind === "stock" || photos[index]?.kind === "demo") && (
         <span className="absolute bottom-4 left-4 inline-flex h-8 items-center rounded-full bg-black/45 px-3 text-[12.5px] font-semibold text-white">
           Иллюстрация
         </span>

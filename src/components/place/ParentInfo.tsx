@@ -27,7 +27,6 @@ export function ParentInfo({ place }: { place: Place }) {
       Icon: STROLLER,
       hint: place.stroller_friendly ? "подходит" : "может быть неудобно",
     },
-    { label: "Парковка", state: state("parking", place.parking), Icon: Car },
     { label: "Детское меню", state: state("kids_menu", place.kids_menu), Icon: Utensils },
     { label: "Туалет", state: state("toilets", place.toilets), Icon: Bath },
     { label: "Пеленальная", state: state("baby_room", place.baby_room), Icon: Baby },
@@ -82,6 +81,29 @@ export function ParentInfo({ place }: { place: Place }) {
           );
         })}
       </div>
+
+      {place.parking_info && (
+        <div className={cn(
+          "mt-2 rounded-[16px] px-3 py-3",
+          place.parking_info.status === "yes" ? "bg-green-50" :
+          place.parking_info.status === "partial" ? "bg-yellow-50" : "bg-fill-2"
+        )}>
+          <div className="flex items-start gap-2.5">
+            <Car size={20} className={place.parking_info.status === "yes" ? "mt-0.5 text-green" : "mt-0.5 text-muted"} />
+            <div className="min-w-0 flex-1">
+              <p className="text-[13.5px] font-semibold">
+                {place.parking_info.status === "yes" ? "Парковка" :
+                  place.parking_info.status === "partial" ? "Парковка рядом / с ограничениями" :
+                  place.parking_info.status === "no" ? "Парковки нет" : "Парковка не подтверждена"}
+              </p>
+              <p className="mt-0.5 text-[12.5px] leading-snug text-muted">{place.parking_info.details}</p>
+              <a href={place.parking_info.source} target="_blank" rel="noreferrer" className="mt-1.5 inline-flex items-center gap-1 text-[12px] font-semibold text-ink-2 underline decoration-line underline-offset-2">
+                Источник парковки <ExternalLink size={11} />
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="mt-3 grid grid-cols-2 gap-2">
         <Meter label="Активность" level={place.activity_level} words={["спокойно", "умеренно", "очень активно"]} color="#FF7A2E" />

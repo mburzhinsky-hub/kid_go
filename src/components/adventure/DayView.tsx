@@ -4,24 +4,15 @@ import { useEffect, useMemo, useState } from "react";
 import { useResolveDynamic } from "@/lib/nearby";
 import { useFamily } from "@/lib/store";
 import { getPlaceSync } from "@/lib/data/repository";
+import { mealsFromSearch } from "@/lib/food";
 import { AdventureView } from "./AdventureView";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { BackButton } from "@/components/place/PhotoGallery";
 import type { Place } from "@/lib/types";
 
-/**
- * «Наш день»: либо собранный пользователем через «Что потом?» (живёт в store),
- * либо сгенерированный планировщиком (шаги в URL — им можно поделиться).
- */
+/** A generated day is restored from its shareable link; manual days use the store. */
 export function DayView({
-  steps,
-  title,
-  start,
-  why,
-  explanation,
-  emoji,
-  durations,
-  dayOffset,
+  steps, title, start, why, explanation, emoji, durations, dayOffset,
 }: {
   steps?: string[];
   title?: string;
@@ -41,37 +32,35 @@ export function DayView({
   const fromUrl = !!steps?.length;
   const slugs = fromUrl ? steps! : day;
 
-  // места из OpenStreetMap лежат в браузерном кэше — читаем их только после монтирования (иначе рассинхрон с серверной разметкой)
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const ver = useResolveDynamic(slugs);
-  const hasDyn = slugs.some((s) => s.startsWith("osm-"));
-
-  const stops = useMemo(
-    () =>
-      slugs
-        .map((s) => getPlaceSync(s))
-        .filter((p): p is Place => !!p)
-        .map((place, i) => ({ place, duration: durations?.[i] })),
+  const search = mounted && fromUrl ? window.location.search : "";
+  const stops = useMemo(() => {
+    const meals = fromUrl ? mealsFromSearch(search) : null;
+    return slugs.flatMap((slug, i) => {
+      const place: Place | undefined = getPlaceSync(slug) ?? undefined;
+      if (!place) return [];
+      return [{ place, duration: durations?.[i], foodOption: meals === null ? undefined : meals.has(slug) }];
+    });
+    // Dynamic places become available after useResolveDynamic updates ver.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [slugs, durations, mounted, ver]
+  }, [slugs, durations, mounted, ver, fromUrl, search]);
+
+  if (!mounted || (!fromUrl && !hydrated)) return <div className="h-dvh skeleton" />;
+
+  if (!stops.length) return (
+    <main className="min-h-dvh px-4 pt-[max(14px,env(safe-area-inset-top))]">
+      <BackButton light />
+      <EmptyState
+        className="mt-10"
+        art="day"
+        title="Ваш день пока пуст"
+        text="Откройте любое место и нажмите «Добавить в наш день» в блоке «Что сделать после?» — мы сами посчитаем время и дорогу."
+        action={{ href: "/planner", label: "Или соберём за вас ✨" }}
+      />
+    </main>
   );
-
-  if ((!fromUrl && !hydrated) || (hasDyn && !mounted)) return <div className="h-dvh skeleton" />;
-
-  if (!stops.length)
-    return (
-      <main className="min-h-dvh px-4 pt-[max(14px,env(safe-area-inset-top))]">
-        <BackButton light />
-        <EmptyState
-          className="mt-10"
-          art="day"
-          title="Ваш день пока пуст"
-          text="Откройте любое место и нажмите «Добавить в наш день» в блоке «Что сделать после?» — мы сами посчитаем время и дорогу."
-          action={{ href: "/planner", label: "Или соберём за вас ✨" }}
-        />
-      </main>
-    );
 
   const first = stops[0].place;
   return (
@@ -86,7 +75,7 @@ export function DayView({
       stops={stops}
       why={why}
       explanation={explanation}
-      alternativeHref={fromUrl ? "/planner" : "/planner"}
+      alternativeHref="/planner"
       saveSteps={slugs}
       editable={!fromUrl}
       onMove={moveInDay}

@@ -1,5 +1,6 @@
 import type { ParentInfoField, PlaceVerifiedField } from "@/lib/types";
 import rawAudit from "./source-audit.generated.json";
+import newPlaceAudit from "./editorial/new-place-audit.json";
 
 export type SourceAuditStatus = "pending" | "reviewed" | "needs_source" | "source_unreachable";
 
@@ -15,7 +16,10 @@ export interface SourceAuditEntry {
   field_sources?: Partial<Record<PlaceVerifiedField, string>>;
 }
 
-const AUDIT = rawAudit as unknown as Record<string, SourceAuditEntry>;
+const AUDIT = {
+  ...(rawAudit as unknown as Record<string, SourceAuditEntry>),
+  ...(newPlaceAudit as unknown as Record<string, SourceAuditEntry>),
+};
 
 export function auditForPlace(slug: string): SourceAuditEntry | undefined {
   const item = AUDIT[slug];

@@ -270,12 +270,12 @@ function plan1(b: (typeof baseCfgs)[number], ov: Ov) {
   });
   return r.plans[0];
 }
-const SENS: { name: string; a: Ov; b: Ov; min: number; by?: "key" | "stops" | "anchor"; only?: (b: (typeof baseCfgs)[number]) => boolean }[] = [
+const SENS: { name: string; a: Ov; b: Ov; min: number; by?: "key" | "stops" | "anchor" | "behavior"; only?: (b: (typeof baseCfgs)[number]) => boolean }[] = [
   { name: "солнце → дождь", a: {}, b: { wx: "rain" }, min: 0.85 },
   { name: "солнце → мороз", a: {}, b: { wx: "cold" }, min: 0.55 },
   { name: "солнце → жара", a: {}, b: { wx: "heat" }, min: 0.4 },
   { name: "ребёнок 2 года → 9 лет", a: { kids: [{ name: "", age: 2, interests: [] }] }, b: { kids: [{ name: "", age: 9, interests: [] }] }, min: 0.85 },
-  { name: "бюджет 5 000 → бесплатно", a: {}, b: { budget: "free" }, min: 0.7 },
+  { name: "бюджет 5 000 → бесплатно", a: {}, b: { budget: "free" }, min: 0.7, by: "behavior" },
   { name: "бюджет 5 000 → 2 000", a: {}, b: { budget: "2000" }, min: 0.35 },
   { name: "настроение: энергия → спокойно", a: { mood: "energy" }, b: { mood: "calm" }, min: 0.8 },
   { name: "настроение: узнать → на воздухе", a: { mood: "learn" }, b: { mood: "outdoor" }, min: 0.75 },
@@ -296,7 +296,14 @@ for (const t of SENS) {
     const c = plan1(b, t.b);
     if (!a || !c) continue;
     n++;
-    const differ = t.by === "stops" ? a.stops.length !== c.stops.length || a.totalMinutes !== c.totalMinutes : a.key !== c.key;
+    const differ =
+      t.by === "stops"
+        ? a.stops.length !== c.stops.length || a.totalMinutes !== c.totalMinutes
+        : t.by === "behavior"
+          ? a.key !== c.key ||
+            a.stops.length !== c.stops.length ||
+            a.stops.some((s, i) => s.foodOption !== c.stops[i]?.foodOption)
+          : a.key !== c.key;
     if (differ) ch++;
   }
   sensRes.push({ name: t.name, rate: ch / Math.max(1, n), min: t.min });

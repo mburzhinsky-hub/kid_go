@@ -3,6 +3,7 @@ import { PH, ph } from "./photos";
 import { buildPlaces } from "./extra";
 import { isPublishableBasePlace, trustForBasePlace } from "./trust";
 import { auditForPlace, isAuditedPublicPlace, trustedPlaceTags } from "./source-audit";
+import { applyEditorialFacts } from "./editorial";
 
 /**
  * Демо-база мест (Москва). Названия известных мест реальные, часть заведений
@@ -1045,10 +1046,10 @@ const SEED_PLACES: Place[] = [
     subtitle: "Детские трассы и тренировки",
     description:
       "Детский скалодром с яркими трассами разной сложности, автостраховкой и тренерами. Первое занятие — с инструктором. Ребёнок уходит усталым и очень гордым.",
-    latitude: 55.7071,
-    longitude: 37.6563,
-    address: "ул. Ленинская Слобода, 26",
-    metro: "Автозаводская",
+    latitude: 55.73986,
+    longitude: 37.527045,
+    address: "Кутузовский проспект, 36, стр. 13/14",
+    metro: "Кутузовская",
     category: "active",
     photos: [
       ph(PH.childrenClimbing, "Дети на скалодроме"),
@@ -1074,7 +1075,15 @@ const SEED_PLACES: Place[] = [
     kids_menu: false,
     parking: true,
     booking_required: true,
-    opening_hours: daily("09:00", "22:00"),
+    opening_hours: [
+      ["15:00", "23:00"],
+      ["15:00", "23:00"],
+      ["15:00", "23:00"],
+      ["15:00", "23:00"],
+      ["15:00", "23:00"],
+      ["11:00", "22:00"],
+      ["11:00", "22:00"],
+    ],
     interest_tags: ["sport"],
     experience_tags: ["unusual"],
     tags: ["Скалолазание", "С тренером", "От 5 лет", "В помещении"],
@@ -1694,14 +1703,20 @@ const SEED_PLACES: Place[] = [
   }),
 ];
 
+const REMOVED_EDITORIAL_SLUGS = new Set(["joki-joya", "katok-na-poyme-pavshino"]);
+
 /** В production публикуем только базовые места, прошедшие редакторскую проверку; demo-записи остаются в истории кода, но не попадают в каталог. */
-const PUBLISHABLE_SEED_PLACES = SEED_PLACES.filter((p) => isPublishableBasePlace(p.slug) && isAuditedPublicPlace(p.slug));
+const PUBLISHABLE_SEED_PLACES = SEED_PLACES.filter(
+  (p) => !REMOVED_EDITORIAL_SLUGS.has(p.slug) && isPublishableBasePlace(p.slug) && isAuditedPublicPlace(p.slug)
+);
 
 /** Редакторские места из `extra/*.json` (Подмосковье и районы Москвы) идут вслед за проверенным базовым набором. */
 export const places: Place[] = [
   ...PUBLISHABLE_SEED_PLACES,
   ...buildPlaces(PUBLISHABLE_SEED_PLACES.length, new Set(PUBLISHABLE_SEED_PLACES.map((p) => p.slug))),
-];
+]
+  .filter((p) => !REMOVED_EDITORIAL_SLUGS.has(p.slug))
+  .map(applyEditorialFacts);
 
 export const placeById = new Map(places.map((p) => [p.id, p]));
 export const placeBySlug = new Map(places.map((p) => [p.slug, p]));
