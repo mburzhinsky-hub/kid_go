@@ -134,8 +134,8 @@ for (const e of RAW_EVENTS) {
   if (!e.valid_until) fail(`event ${e.title}: recurring event must have a validity end date`);
 }
 
-if (SCENARIO_LIBRARY.length !== 77) {
-  fail(`scenario library changed: expected the audited 77 scenarios, got ${SCENARIO_LIBRARY.length}`);
+if (SCENARIO_LIBRARY.length !== 78) {
+  fail(`scenario library changed: expected the audited 78 scenarios, got ${SCENARIO_LIBRARY.length}`);
 }
 if (adventures.length !== 12) {
   fail(`adventure library changed unexpectedly: expected 12, got ${adventures.length}`);
