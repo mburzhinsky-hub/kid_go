@@ -254,7 +254,7 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
       if (at + s.duration > 21 * 60) hard.push(`позже 21:00: ${s.place.slug} — ${t}`);
       if (c.indoorOnly && !s.place.indoor) hard.push(`«только под крышей», а ${s.place.slug} на улице — ${t}`);
       if (c.quiet && s.place.noise_level === 3) hard.push(`«тихо», а ${s.place.slug} шумное — ${t}`);
-      if (c.stroller && !s.place.stroller_friendly) hard.push(`«с коляской», а ${s.place.slug} без — ${t}`);
+      if (c.stroller && !(s.place.unknown_fields ?? []).includes("stroller_friendly") && !s.place.stroller_friendly) hard.push(`«с коляской», а ${s.place.slug} подтверждённо без — ${t}`);
       if (c.avoidCategories?.includes(s.place.category)) hard.push(`исключённая категория ${s.place.category}: ${s.place.slug} — ${t}`);
       if (mode === "any" && isSuburban({ lat: s.place.latitude, lng: s.place.longitude })) hard.push(`«вся Москва», а ${s.place.slug} за МКАД — ${t}`);
       if (!s.place.title) hard.push(`у места нет названия: ${s.place.slug} — ${t}`);
