@@ -4,6 +4,7 @@ import { daySummary, moscowDateISO } from "@/lib/forecast";
 import { locationMode, type Origin } from "@/lib/location";
 import { BUDGETS, DURATIONS, MOODS, TRANSPORTS } from "@/lib/catalog";
 import { scenarioById } from "@/lib/scenarios";
+import { softenOnly } from "@/lib/recommend/engine";
 
 /**
  * Ссылка «Подобрать день» → параметры движка. Вынесено из экрана результатов, чтобы правила
@@ -40,7 +41,8 @@ export function buildPlannerInput(a: BuildArgs): PlannerInput {
   const dayOffset = int(query.day, 0, 6, 0);
   const dateISO = moscowDateISO(dayOffset, now);
 
-  const constraints: ScenarioConstraints = { ...(scenario?.constraints ?? {}) };
+  const loose = query.loose === "1" || query.loose === "true";
+  const constraints: ScenarioConstraints = loose ? softenOnly(scenario?.constraints) : { ...(scenario?.constraints ?? {}) };
   if (query.weather === "rain") constraints.indoorOnly = true;
   if (query.weather === "sun") constraints.outdoorPreferred = true;
 
@@ -72,7 +74,7 @@ export function buildPlannerInput(a: BuildArgs): PlannerInput {
     maxDistanceKm: query.near === "1" && mode !== "any" ? 5 : undefined,
     // округ: по умолчанию только он; «и соседние» — по явной просьбе в ссылке
     areaScope: query.wide === "1" || query.wide === "true" ? "wide" : "strict",
-    looseFit: query.loose === "1" ? true : undefined,
+    looseFit: loose ? true : undefined,
     family: a.family,
     constraints,
     seed: `${dateISO}:${ages}`,

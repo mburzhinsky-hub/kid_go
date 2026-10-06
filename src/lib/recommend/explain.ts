@@ -33,14 +33,19 @@ export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = [
   let head: string | null = null;
   const sentences: string[] = [];
   const [first, second] = plan.stops;
-  const rain = input.weather.condition === "rain" || input.weather.condition === "snow";
+  const snow = input.weather.condition === "snow";
+  const rain = input.weather.condition === "rain" || snow;
 
   if (rain && plan.rainProof) {
-    why.push("☔ Всё под крышей");
-    head = "Хороший вариант на дождливый день";
+    why.push(snow ? "❄️ Всё под крышей" : "☔ Всё под крышей");
+    head = snow ? "Хороший вариант на снежный день" : "Хороший вариант на дождливый день";
   } else if (!rain && plan.stops.some((s) => s.place.outdoor) && input.weather.condition === "sun") {
-    why.push("☀️ Погода в плюс");
-    head = "Отличный вариант для солнечного дня";
+    if (input.weather.temp >= 27) head = "Хороший вариант для жаркого дня";
+    else if (input.weather.temp <= -3) head = "Хороший вариант для морозного дня";
+    else {
+      why.push("☀️ Погода в плюс");
+      head = "Отличный вариант для солнечного дня";
+    }
   }
 
   // условия дня, повлиявшие на выбор: показываем, чтобы было видно, что план не «усреднённый»
@@ -73,16 +78,15 @@ export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = [
     const min = prev?.travelToNext?.minutes;
     if (min != null) {
       why.push(`🍽 Кафе в ${min} мин`);
-      const near = min <= 10 ? "всего в " : "в ";
       const verifiedKidsMenu = !food.place.unknown_fields?.includes("kids_menu") && food.place.kids_menu;
-      sentences.push(`а ${verifiedKidsMenu ? "семейное кафе с детским меню" : "кафе"} — ${near}${min} ${plural(min, "минуте", "минутах", "минутах")}`);
+      sentences.push(`а до ${verifiedKidsMenu ? "семейного кафе с детским меню" : "кафе"} — ${min} ${plural(min, "минута", "минуты", "минут")}`);
     } else {
       why.push("🍽 Еда в самом сценарии");
-      sentences.push("семейное кафе уже является основной точкой маршрута");
+      sentences.push("поесть можно прямо на месте — это семейное кафе");
     }
   } else if (foodOnSite) {
     why.push("🍽 Можно поесть на месте");
-    sentences.push("и для еды не нужен отдельный переезд — у места есть детское меню");
+    sentences.push("а поесть можно на месте — у места есть меню");
   }
 
   // интересы конкретных детей
@@ -107,13 +111,13 @@ export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = [
   if (plan.fromHome && plan.fromHome.minutes <= 20) why.push(`📍 ${plan.fromHome.minutes} мин от вас`);
 
   let explanation: string;
-  if (head && sentences.length) explanation = `${head}: ${sentences.join(", ")}.`;
+  if (head && sentences.length) explanation = `${head}: ${sentences.join(", ").replace(/^а /, "")}.`;
   else if (head) explanation = `${head} — всё продумано заранее.`;
   else if (sentences.length) {
     const body = sentences.join(", ").replace(/^а /, "");
     explanation = body[0].toUpperCase() + body.slice(1) + ".";
-  } else
-    explanation = `${plan.stops.length} ${plural(plan.stops.length, "место", "места", "мест")} рядом друг с другом — без лишних переездов.`;
+  } else if (plan.stops.length === 1) explanation = "Всё в одном месте — без лишних переездов.";
+  else explanation = `${plan.stops.length} ${plural(plan.stops.length, "место", "места", "мест")} рядом друг с другом — без лишних переездов.`;
 
   return { why: why.slice(0, 4), explanation };
 }

@@ -281,6 +281,7 @@
   {
     "title": "Ледовый дворец «Витязь»",
     "slug": "ledovy-dvorec-vityaz-podolsk",
+    "place_type": "ice_rink",
     "town": "Подольск",
     "region": "mo",
     "address": "Московская область, Подольск, ул. Кирова, 63а",

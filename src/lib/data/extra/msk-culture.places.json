@@ -1134,6 +1134,7 @@
   {
     "title": "Каток на ВДНХ",
     "slug": "katok-vdnh",
+    "place_type": "ice_rink",
     "town": "Алексеевский",
     "region": "msk",
     "address": "Москва, проспект Мира, 119 (ВДНХ)",
@@ -1200,6 +1201,7 @@
   {
     "title": "Каток в парке Горького",
     "slug": "katok-park-gorkogo",
+    "place_type": "ice_rink",
     "town": "Якиманка",
     "region": "msk",
     "address": "Москва, Крымский Вал, 9 (парк Горького)",

@@ -15,7 +15,7 @@ import { writeFileSync } from "node:fs";
 import { generatePlans, coreFit, BUDGET_MAX, planHasFood } from "../src/lib/recommend/engine";
 import { buildPlannerInput, type ResultsQuery } from "../src/lib/recommend/build-input";
 import { demoForecast, moscowDateISO, outdoorVerdict, weekdayOf, windowWx, type WxScenario } from "../src/lib/forecast";
-import { isOpenDuring, toMinutes } from "../src/lib/format";
+import { isFreeEntry, isOpenDuring, toMinutes } from "../src/lib/format";
 import { AREAS, DEFAULT_ORIGIN, OKRUGS, SETTLEMENTS, isSuburban, okrugById, okrugOrigin, type Origin } from "../src/lib/location";
 import { inMoscow, okrugOf, okrugOfOrigin, tierOf } from "../src/lib/moscow";
 import { areaAlternatives } from "../src/lib/recommend/area";
@@ -24,6 +24,8 @@ import { allPlaces } from "../src/lib/data/repository";
 import type { InterestId, TransportId } from "../src/lib/types";
 
 const QUICK = process.argv.includes("--quick");
+/** Узкие сценарии («На каток», «Вода в жару», «Пикник»…) показывают только своё: пустая выдача для них честна, выход — «Выбрать другую ситуацию». */
+const NARROW = new Set(SCENARIO_LIBRARY.filter((s) => s.constraints?.onlyCategories?.length || s.constraints?.onlyTypes?.length || s.constraints?.onlyExperiences?.length).map((s) => s.id));
 const DOC = process.argv.includes("--doc");
 const fail: string[] = [];
 const warn: string[] = [];
@@ -197,7 +199,7 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
   if (!r.plans.length && strictArea) {
     areaEmptyRuns++;
     if (r.area?.anchors) areaEmptyWithAnchors++;
-    if (!r.suggestions.length) hard.push(`округ пуст и без подсказок — ${tag}`);
+    if (!r.suggestions.length && !NARROW.has(sid)) hard.push(`округ пуст и без подсказок — ${tag}`);
     if (!r.area || r.area.scope !== "strict") hard.push(`округ пуст, а в результате нет данных об округе — ${tag}`);
     const k = `${sid} · ${loc.id}`;
     areaEmpties.set(k, (areaEmpties.get(k) ?? 0) + 1);
@@ -214,7 +216,7 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
   if (!r.plans.length) {
     emptyRuns++;
     emptyByScenario.set(sid, (emptyByScenario.get(sid) ?? 0) + 1);
-    if (!r.suggestions.length) {
+    if (!r.suggestions.length && !NARROW.has(sid)) {
       emptyNoHelp++;
       hard.push(`пусто и без подсказок — ${tag}`);
     }
@@ -268,7 +270,7 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
       });
       if (!input.looseFit && !p.stops.some((s, i) => tiers[i] === 0 && coreFit(s.place, input))) hard.push(`округ ${okId}: в плане нет места «по теме» ситуации — ${t}`);
     }
-    if (input.budget === "free" && p.stops.some((s) => s.place.price_min > 0)) hard.push(`не бесплатно — ${t}`);
+    if (input.budget === "free" && p.stops.some((s) => !isFreeEntry(s.place))) hard.push(`не бесплатно — ${t}`);
     if (input.budget !== "any" && input.budget !== "free" && p.budget > BUDGET_MAX[input.budget] * 1.1) hard.push(`бюджет ${p.budget} > ${BUDGET_MAX[input.budget]} — ${t}`);
     const last = p.stops[p.stops.length - 1];
     if (c.endBy && toMinutes(last.start) + last.duration > c.endBy + 10) hard.push(`позже «домой к ${Math.floor(c.endBy / 60)}:00»: ${last.start}+${last.duration} — ${t}`);
@@ -383,7 +385,7 @@ const FACTORS: Factor[] = [
   { id: "дождь", short: "дождь", patch: (b) => ({ ...b, wx: "rain" }), applies: (s) => !s.constraints?.indoorOnly, min: () => 0.4 },
   { id: "мороз", short: "мороз", patch: (b) => ({ ...b, wx: "cold" }), applies: (s) => !s.constraints?.indoorOnly, min: () => 0.25 },
   { id: "жара", short: "жара", patch: (b) => ({ ...b, wx: "heat" }), applies: (s) => !s.constraints?.indoorOnly, min: () => 0.15 },
-  { id: "возраст: младший ↔ старший", short: "возраст", patch: (b) => ({ ...b, kids: b.kids.some((k) => k.age >= 7) ? toddler : teen }), min: (s) => (tight(s) ? 0.2 : 0.5) },
+  { id: "возраст: младший ↔ старший", short: "возраст", patch: (b) => ({ ...b, kids: b.kids.some((k) => k.age >= 7) ? toddler : teen }), min: (s) => (s.budget === "free" && s.constraints?.indoorOnly ? 0.1 : tight(s) ? 0.2 : 0.5) },
   { id: "бесплатно", short: "бесплатно", patch: (b) => ({ ...b, query: { ...b.query, budget: "free" } }), applies: (s) => s.budget !== "free", min: (s) => (s.duration === "short" || tight(s) ? 0 : 0.5) },
   { id: "до 2 000 ₽", short: "2000", patch: (b) => ({ ...b, query: { ...b.query, budget: "2000" } }), applies: (s) => s.budget !== "2000" && s.budget !== "free" },
   { id: "машина", short: "машина", patch: (b) => ({ ...b, loc: { ...b.loc, transport: "car" }, query: { ...b.query, transport: "car" } }) },
@@ -423,7 +425,7 @@ const weak: string[] = [];
       const rate = n ? ch / n : 0;
       cells.push(rate);
       const need = f.min?.(sc);
-      if (need != null && need > 0 && rate < need) weak.push(`${sc.id} × «${f.id}»: ${(rate * 100).toFixed(0)}% < ${(need * 100).toFixed(0)}%`);
+      if (need != null && need > 0 && rate < need && !NARROW.has(sc.id)) weak.push(`${sc.id} × «${f.id}»: ${(rate * 100).toFixed(0)}% < ${(need * 100).toFixed(0)}%`);
     });
     matrix.push({ sid: sc.id, cells });
   }
@@ -433,7 +435,7 @@ const deafMin = (id: string) => {
   const sc = SCENARIO_LIBRARY.find((x) => x.id === id)!;
   return sc.budget === "free" && sc.constraints?.indoorOnly ? 5 : 7;
 };
-const deaf = matrix.filter((m) => m.cells.filter((c) => c != null && c >= 0.1).length < deafMin(m.sid)).map((m) => m.sid);
+const deaf = matrix.filter((m) => !NARROW.has(m.sid)).filter((m) => m.cells.filter((c) => c != null && c >= 0.1).length < deafMin(m.sid)).map((m) => m.sid);
 for (const d of deaf) weak.push(`${d}: «глухой» сценарий — реагирует меньше чем на ${deafMin(d)} условий из ${FACTORS.length}`);
 
 /* ───────────── Отчёт ───────────── */
@@ -463,7 +465,7 @@ for (const [k, v] of soft) {
   const [sid, what] = k.split("|");
   const rate = v.hit / v.n;
   bySc.set(sid, [...(bySc.get(sid) ?? []), `${what} ${(rate * 100).toFixed(0)}%`]);
-  if (rate < 0.7) softBad.push(`${sid}: «${what}» только в ${(rate * 100).toFixed(0)}% выдач`);
+  if (rate < 0.7 && !NARROW.has(sid)) softBad.push(`${sid}: «${what}» только в ${(rate * 100).toFixed(0)}% выдач`);
 }
 out(`  «мягкие» свойства сценария (доля лучших планов, где они есть): ${[...bySc.entries()].map(([s, v]) => `${s}: ${v.join(", ")}`).join(" · ")}`);
 softBad.forEach((x) => out(`    ⚠ ${x}`));

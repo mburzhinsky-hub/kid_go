@@ -15,7 +15,7 @@ import { DEFAULT_LOCATION, pt } from "@/lib/geo";
 import { travelToPlace, nearestAreaLabel, locationMode, isSuburban } from "@/lib/location";
 import { inMoscow, okrugOfOrigin, tierOf } from "@/lib/moscow";
 import { orderByArea } from "@/lib/area-fit";
-import { openState } from "@/lib/format";
+import { isFreeEntry, openState } from "@/lib/format";
 import { categoryDef } from "@/lib/catalog";
 import { useFamily } from "@/lib/store";
 import { MapMarker } from "./MapMarker";
@@ -187,7 +187,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
       if (toggles.has("outdoor") && !p.outdoor) return false;
       if (toggles.has("cafe") && !(p.category === "cafe" || p.experience_tags.includes("cafe"))) return false;
       if (toggles.has("parking") && !p.parking) return false;
-      if (toggles.has("free") && p.price_min !== 0) return false;
+      if (toggles.has("free") && !isFreeEntry(p)) return false;
       if (age) {
         const [a, b] = AGES.find((x) => x.id === age)!.range;
         if (p.age_max < a || p.age_min > b) return false;

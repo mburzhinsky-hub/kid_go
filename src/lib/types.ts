@@ -281,6 +281,12 @@ export interface ScenarioConstraints {
   minStops?: number;
   preferCategories?: CategoryId[];
   avoidCategories?: CategoryId[];
+  /** Жёстко: все места плана (кроме кафе по пути) — только из этих категорий («Пикник» — только парки). */
+  onlyCategories?: CategoryId[];
+  /** Жёстко: все места плана (кроме кафе по пути) — только этих видов («На каток» — только катки). */
+  onlyTypes?: PlaceType[];
+  /** Жёстко: все места плана (кроме кафе по пути) — только с таким форматом («Книги и тишина» — только книжные). */
+  onlyExperiences?: ExperienceTag[];
   interests?: InterestId[];
   /** Предпочесть места с таким форматом (спектакль, мастер-класс, книги…). */
   experiences?: ExperienceTag[];

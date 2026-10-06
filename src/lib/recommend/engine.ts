@@ -1,8 +1,8 @@
-import type { Place, Plan, PlannerInput, MoodId, BudgetId, DurationId, StopWeather, CategoryId } from "@/lib/types";
+import type { Place, Plan, PlannerInput, MoodId, BudgetId, DurationId, StopWeather, CategoryId, ScenarioConstraints } from "@/lib/types";
 import { places as STATIC_PLACES } from "@/lib/data/places";
 import { buildPlan, chainLabel } from "@/lib/plan";
 import { pt } from "@/lib/geo";
-import { ceilTo, fromMinutes, isOpenDuring, moscowNow } from "@/lib/format";
+import { ceilTo, fromMinutes, isFreeEntry, isOpenDuring, moscowNow } from "@/lib/format";
 import { travelBetween, travelToPlace, type Travel } from "@/lib/location";
 import { bringList, daySummary, moscowDateISO, outdoorVerdict, weekdayOf, windowWx, type Forecast } from "@/lib/forecast";
 import { isSuburban } from "@/lib/location";
@@ -172,12 +172,30 @@ function moodFit(p: Place, mood: MoodId): number {
   }
 }
 
+/** Жёсткие «только эти места» превращаем в мягкое предпочтение (для «показать и похожие места»). */
+export function softenOnly(c: ScenarioConstraints = {}): ScenarioConstraints {
+  const { onlyCategories, onlyTypes, onlyExperiences, ...rest } = c;
+  void onlyTypes;
+  void onlyExperiences;
+  return { ...rest, preferCategories: rest.preferCategories ?? onlyCategories };
+}
+
+/** Сценарии вроде «На каток» или «Пикник» показывают только свои места; кафе по пути остаётся допустимым. */
+export function fitsOnly(p: Place, c: ScenarioConstraints): boolean {
+  if (p.category === "cafe" && !c.onlyExperiences?.length) return true;
+  if (c.onlyExperiences?.length && !c.onlyExperiences.some((e) => p.experience_tags.includes(e))) return p.category === "cafe";
+  if (c.onlyCategories?.length && !c.onlyCategories.includes(p.category)) return false;
+  if (c.onlyTypes?.length && !(p.place_type && c.onlyTypes.includes(p.place_type))) return false;
+  return true;
+}
+
 /**
  * «Тип» ситуации: развивающая — это музеи и наука, прогулка — парки и улица, спорт — активные места.
  * Нужен, чтобы в строгом режиме округа честно сказать «здесь такого нет», а не подсунуть парк под «развивающее».
  */
 export function coreFit(p: Place, input: Pick2<PlannerInput, "mood" | "constraints">): boolean {
   const c = input.constraints ?? {};
+  if (!fitsOnly(p, c)) return false;
   if (input.mood === "learn" && moodFit(p, "learn") < 0.7) return false;
   if (input.mood === "creative" && moodFit(p, "creative") < 0.5) return false;
   if (input.mood === "energy" && moodFit(p, "energy") < 0.35) return false;
@@ -231,12 +249,15 @@ export function scorePlace(
   if (fit === 0 || (!partialAge && fit < 1)) return null;
 
   const budgetMax = BUDGET_MAX[input.budget];
-  if (input.budget === "free" ? p.price_min > 0 : p.family_budget > budgetMax) return null;
+  if (input.budget === "free" ? !isFreeEntry(p) : p.family_budget > budgetMax) return null;
 
   if (c.indoorOnly && !p.indoor) return null;
   if (c.quiet && p.noise_level === 3) return null;
   if (c.stroller && !(p.unknown_fields ?? []).includes("stroller_friendly") && !p.stroller_friendly) return null;
   if (c.avoidCategories?.includes(p.category)) return null;
+  if (!fitsOnly(p, c)) return null;
+  // сезонное место на улице («На каток») вне сезона не предлагаем вовсе, а не просто ставим ниже
+  if (c.onlyTypes?.length && p.outdoor && !p.indoor && p.season_tags.length < 4 && !p.season_tags.includes(ctx.season)) return null;
   if (fam?.disliked.includes(p.slug)) return null;
 
   // погода: место только на улице, а весь день плохо — не берём
@@ -329,7 +350,12 @@ export function scorePlace(
 
 /** Основное занятие дня (якорь): парк, игра, музей, актив, животные — и кафе с игровой, если нужна передышка. */
 function isAnchorLike(p: Pick2<Place, "category" | "experience_tags">, input: Pick2<PlannerInput, "constraints">): boolean {
-  return ACTIVITY.includes(p.category) || !!(input.constraints?.parentBreak && p.category === "cafe" && p.experience_tags.includes("playzone"));
+  return (
+    ACTIVITY.includes(p.category) ||
+    !!input.constraints?.onlyCategories?.includes(p.category) ||
+    !!input.constraints?.onlyExperiences?.some((e) => (p as Pick2<Place, "experience_tags">).experience_tags.includes(e)) ||
+    !!(input.constraints?.parentBreak && p.category === "cafe" && p.experience_tags.includes("playzone"))
+  );
 }
 
 /** Округ, в котором ищем (если выбран округ Москвы, а не адрес, точка или город области). */
@@ -571,6 +597,9 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
       .filter(({ leg }) => leg.minutes <= legMax)
       .filter(({ s }) => input.budget === "free" || spent + s.place.family_budget <= budgetMax * 1.1);
 
+    // «всё под крышей»: парк не добавляем третьим-четвёртым шагом, даже если у него есть крытая часть
+    const parkWhileIndoor = (s: ScoredPlace) => !!c.indoorOnly && s.place.category === "park";
+
     const pickFrom = (filter: (s: ScoredPlace) => boolean, bonus: (s: ScoredPlace, legMin: number) => number) =>
       near
         .filter(({ s }) => filter(s))
@@ -594,7 +623,7 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
     }
     if (!chosen && slot === "activity") {
       chosen = pickFrom(
-        (s) => ACTIVITY.includes(s.place.category) && !cats().has(s.place.category),
+        (s) => ACTIVITY.includes(s.place.category) && !cats().has(s.place.category) && !parkWhileIndoor(s),
         (s) => kidsInterests.filter((ints, i) => !covered.has(i) && ints.some((x) => s.place.interest_tags.includes(x as never))).length * 2.5
       );
       if (chosen) dur = Math.max(45, Math.min(chosen.s.place.average_duration, remaining - 45));
@@ -604,6 +633,7 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
       chosen = pickFrom(
         (s) =>
           s.place.category !== last().category &&
+          !parkWhileIndoor(s) &&
           (s.place.category === "shop" ||
             (s.place.category === "park" && !cats().has("park")) ||
             (s.place.price_min === 0 && s.place.category !== "cafe" && !cats().has(s.place.category)) ||
@@ -649,6 +679,15 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
 
 function titleFor(anchor: Place, input: PlannerInput): { title: string; emoji: string } {
   const t = anchor.interest_tags;
+  if (anchor.place_type === "ice_rink") return { title: "На коньках", emoji: "⛸" };
+  if (anchor.place_type === "waterpark") return { title: "День в воде", emoji: "💦" };
+  if (anchor.place_type === "theatre") return { title: "В театр", emoji: "🎭" };
+  if (anchor.place_type === "circus") return { title: "В цирк", emoji: "🎪" };
+  if (anchor.category === "cafe") return { title: "Кофе и игры", emoji: "☕" };
+  if (anchor.category === "shop") {
+    const ex = [...(input.constraints?.experiences ?? []), ...(input.constraints?.onlyExperiences ?? [])];
+    return ex.includes("books") && !ex.includes("toys") ? { title: "Книжный день", emoji: "📖" } : { title: "Выбираем подарок", emoji: "🎁" };
+  }
   if (t.includes("dinosaurs")) return { title: "День динозавров", emoji: "🦖" };
   if (t.includes("space")) return { title: "Космический день", emoji: "🚀" };
   if (anchor.slug === "moskvarium") return { title: "Подводный мир", emoji: "🐬" };
@@ -657,7 +696,6 @@ function titleFor(anchor: Place, input: PlannerInput): { title: string; emoji: s
   if (anchor.category === "active") return { title: "Энергия на максимум", emoji: "⚡" };
   if (anchor.category === "play" && t.includes("fairy")) return { title: "Сказочный день", emoji: "🧚" };
   if (t.includes("drawing") || t.includes("cooking") || anchor.experience_tags.includes("workshop")) return { title: "Творческий день", emoji: "🎨" };
-  if (anchor.category === "cafe") return { title: "Кофе и игры", emoji: "☕" };
   if (anchor.category === "play") return { title: "Игровой день", emoji: "🎈" };
   if (input.budget === "free") return { title: "Бесплатный день", emoji: "💚" };
   if (anchor.category === "park") return { title: "День на воздухе", emoji: "🌿" };
@@ -685,15 +723,10 @@ export interface PlannerResult {
 
 export interface Relaxation {
   label: string;
-  patch: Partial<Pick2<PlannerInput, "budget" | "transport" | "duration" | "mood">> & { travel?: number; anywhere?: boolean; wide?: boolean };
+  patch: Partial<Pick2<PlannerInput, "budget" | "transport" | "duration" | "mood">> & { travel?: number; anywhere?: boolean; wide?: boolean; loose?: boolean };
 }
 
-const anchorsOf = (pool: ScoredPlace[], input: PlannerInput) =>
-  pool.filter(
-    (s) =>
-      ACTIVITY.includes(s.place.category) ||
-      (input.constraints?.parentBreak && s.place.category === "cafe" && s.place.experience_tags.includes("playzone"))
-  );
+const anchorsOf = (pool: ScoredPlace[], input: PlannerInput) => pool.filter((s) => isAnchorLike(s.place, input));
 
 /** Первое плечо «от дома до места» с учётом режима: вся Москва — без дороги, округ — с запасом, точка — как есть. */
 export function legHome(input: Pick2<PlannerInput, "location" | "transport" | "locationMode">, p: Pick2<Place, "latitude" | "longitude">): Travel {
@@ -858,6 +891,8 @@ function toPlan(a: Assembled, input: PlannerInput, ctx: DayCtx, pool: ScoredPlac
       description: chainLabel(picks.map((p) => p.place)),
     }
   );
+  // «Бесплатно»: в план попадают только места без билета, необязательные траты в сумму не входят
+  if (input.budget === "free") draft.budget = 0;
   // Явно отмечаем, где в этом плане находится еда. Само наличие menu_url в базе
   // не означает, что питание является частью конкретного маршрута.
   const lunchInWindow = ctx.start <= 14 * 60 && ctx.end >= 12 * 60 + 30;
@@ -924,6 +959,7 @@ export function findBackup(p: Place, exclude: string[], pool: ScoredPlace[], inp
 function diagnose(input: PlannerInput): Relaxation[] {
   const tries: Relaxation[] = [
     { label: "Увеличить бюджет до 5 000 ₽", patch: { budget: "5000" } },
+    { label: "Не ограничивать бюджет", patch: { budget: "any" } },
     { label: "Готовы ехать до часа", patch: { travel: 60 } },
     { label: "Разрешить общественный транспорт", patch: { transport: "transit" } },
     { label: "Выделить 3–4 часа", patch: { duration: "mid" } },
@@ -932,8 +968,10 @@ function diagnose(input: PlannerInput): Relaxation[] {
   // привязка к округу/адресу сужает выбор — «вся Москва» снимает её целиком
   if (input.locationMode && input.locationMode !== "any") tries.unshift({ label: "Искать по всей Москве", patch: { anywhere: true } });
   if (areaOf(input) && input.areaScope !== "wide") tries.unshift({ label: "Добавить ближайшие округа", patch: { wide: true } });
+  // сценарий про одно занятие («На каток», «Вода в жару»): если его нет, можно показать похожие идеи
+  if (input.constraints?.onlyCategories?.length || input.constraints?.onlyTypes?.length || input.constraints?.onlyExperiences?.length) tries.push({ label: "Показать и похожие места", patch: { loose: true } });
   return tries.filter((t) => {
-    const { travel, anywhere, wide, ...rest } = t.patch;
+    const { travel, anywhere, wide, loose, ...rest } = t.patch;
     const k = Object.keys(rest)[0] as keyof typeof rest | undefined;
     if (k && input[k] === rest[k]) return false;
     if (travel && input.locationMode === "any") return false; // без точки «время в пути» не ограничивается — предлагать нечего
@@ -941,6 +979,7 @@ function diagnose(input: PlannerInput): Relaxation[] {
     if (travel && (input.constraints?.maxTravelMin ?? DEFAULT_REACH[input.transport]) >= travel) return false;
     let next: PlannerInput = { ...input, ...rest, constraints: travel ? { ...input.constraints, maxTravelMin: travel } : input.constraints };
     if (wide) next = { ...input, areaScope: "wide" };
+    if (loose) next = { ...input, looseFit: true, constraints: softenOnly(input.constraints) };
     if (anywhere) {
       const { maxTravelMin: _drop, ...keep } = input.constraints ?? {};
       next = { ...input, locationMode: "any", constraints: keep, maxDistanceKm: undefined };
@@ -948,7 +987,7 @@ function diagnose(input: PlannerInput): Relaxation[] {
     const ctx = dayContext(next);
     const ages = next.children.map((c) => c.age);
     const od = dayOutdoorScore(ctx);
-    return poolOf(next).filter((p) => ACTIVITY.includes(p.category)).some((p) => scorePlace(p, next, ages, ctx, od, true));
+    return poolOf(next).filter((p) => isAnchorLike(p, next)).some((p) => scorePlace(p, next, ages, ctx, od, true));
   });
 }
 

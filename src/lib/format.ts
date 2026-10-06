@@ -28,7 +28,7 @@ export function formatDurationShort(min: number): string {
 }
 
 export function formatPrice(rub: number): string {
-  return `${rub.toLocaleString("ru-RU").replace(/ /g, " ")} ₽`;
+  return `${rub.toLocaleString("ru-RU").replace(/[\u00a0\u202f ]/g, "\u00a0")}\u00a0₽`;
 }
 
 export function formatBudget(rub: number): string {
@@ -54,6 +54,14 @@ export function formatAgeRange(min: number, max: number): string {
 export function formatCount(n: number): string {
   if (n >= 1000) return `${(n / 1000).toFixed(1).replace(".0", "")}K`;
   return String(n);
+}
+
+/**
+ * Вход без билета: полностью бесплатное место либо парк/магазин, где платны только необязательные аттракционы и покупки.
+ * Музей или зоопарк с «от 0 ₽» (льготы для малышей) бесплатным для семьи не считается.
+ */
+export function isFreeEntry(p: Pick<Place, "price_min" | "price_max" | "category">): boolean {
+  return p.price_max === 0 || (p.price_min === 0 && (p.category === "park" || p.category === "shop"));
 }
 
 export function placePriceShort(p: Place): string {

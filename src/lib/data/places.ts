@@ -332,7 +332,7 @@ const SEED_PLACES: Place[] = [
     wardrobe: false,
     interest_tags: ["construction", "sport", "nature"],
     experience_tags: ["playzone", "walk"],
-    tags: ["Площадка «Стройка»", "На улице", "Песочница", "2–10 лет"],
+    tags: ["Бесплатно", "Площадка «Стройка»", "На улице", "Песочница", "2–10 лет"],
   }),
 
   /* ───────────── Парки ───────────── */

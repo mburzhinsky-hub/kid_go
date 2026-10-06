@@ -20,7 +20,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { encodeKids } from "@/components/planner/PlannerWizard";
 import { cn } from "@/lib/cn";
 import { SourceScope } from "@/components/social/SourceScope";
-import { plural } from "@/lib/format";
+import { isFreeEntry, plural } from "@/lib/format";
 
 const SUGGEST = ["батуты", "динозавры", "бесплатно", "если дождь", "кафе с игровой", "для малышей", "животные", "космос"];
 type Sort = "best" | "near" | "cheap";
@@ -68,7 +68,7 @@ function SearchScreenInner({ initialQ = "", initialCategory, initialSort }: Sear
         let score = p.rating;
         if (parsed) {
           if (parsed.indoor && !p.indoor) ok = false;
-          if (parsed.free && p.price_min > 0) ok = false;
+          if (parsed.free && !isFreeEntry(p)) ok = false;
           if (parsed.ageMax != null && p.age_min > parsed.ageMax) ok = false;
           if (parsed.outdoor && !p.outdoor) score -= 1;
           if (parsed.activity && p.activity_level === parsed.activity) score += 1.5;

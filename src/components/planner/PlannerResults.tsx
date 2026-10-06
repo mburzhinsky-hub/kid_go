@@ -73,6 +73,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
   const { forecast, loading } = useForecast();
   const nearby = useNearbyExtras();
   const scenario = scenarioById(query.s);
+  const narrow = !!(scenario?.constraints?.onlyCategories?.length || scenario?.constraints?.onlyTypes?.length || scenario?.constraints?.onlyExperiences?.length);
   const urlKids = decodeKids(query.kids);
   const kids = urlKids ?? fam.children;
   const offset = Math.max(0, Math.min(60, Math.trunc(Number(query.offset ?? 0)) || 0));
@@ -287,7 +288,13 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
             <EmptyState
               art="plan"
               title={offset > 0 ? "Варианты закончились" : "Давайте чуть ослабим условия"}
-              text={offset > 0 ? "Мы показали всё, что подходит. Вернуться к лучшим?" : "Вот что поможет найти отличный день:"}
+              text={
+                offset > 0
+                  ? "Мы показали всё, что подходит. Вернуться к лучшим?"
+                  : narrow
+                    ? `Под «${scenario?.label}» сейчас ничего не подошло — возможно, сезон ещё не открыт или нет мест для вашего возраста и бюджета. Вот что можно сделать:`
+                    : "Вот что поможет найти отличный день:"
+              }
               action={offset > 0 ? { href: withQuery({ offset: undefined }), label: "К лучшим вариантам" } : undefined}
             />
           )}

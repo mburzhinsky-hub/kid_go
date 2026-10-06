@@ -793,6 +793,7 @@
   {
     "title": "Аквапарк «Мореон»",
     "slug": "akvapark-moreon",
+    "place_type": "waterpark",
     "town": "Ясенево (ЮЗАО)",
     "region": "msk",
     "address": "Москва, ул. Голубинская, 16",

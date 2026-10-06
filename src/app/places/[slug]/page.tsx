@@ -97,7 +97,7 @@ export default async function PlacePage({ params }: PlacePageProps) {
 
       <article className="px-4">
         <header className="pt-5">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold" style={{ background: cat.bg, color: cat.fg }}>
               <cat.Icon width={14} height={14} /> {typeLabel}
             </span>
