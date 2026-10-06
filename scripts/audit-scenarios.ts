@@ -12,7 +12,7 @@
  * 4. Влияние: меняется ли план при смене ОДНОГО условия (погода, возраст, бюджет, транспорт, место, время, день).
  */
 import { writeFileSync } from "node:fs";
-import { generatePlans, coreFit, BUDGET_MAX } from "../src/lib/recommend/engine";
+import { generatePlans, coreFit, BUDGET_MAX, planHasFood } from "../src/lib/recommend/engine";
 import { buildPlannerInput, type ResultsQuery } from "../src/lib/recommend/build-input";
 import { demoForecast, moscowDateISO, outdoorVerdict, weekdayOf, windowWx, type WxScenario } from "../src/lib/forecast";
 import { isOpenDuring, toMinutes } from "../src/lib/format";
@@ -290,8 +290,8 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
     if (sc && pi === 0) {
       const cs = sc.constraints;
       const city = CITY_LOCS.has(loc.id) && mode !== "area"; // кафе в каталоге только в городе; в округе они зависят от соседей — это проверяет отдельный блок
-      if (city && sc.food && input.budget !== "free") softAdd(`${sc.id}|поесть`, p.stops.some((s) => s.place.category === "cafe"));
-      if (city && cs?.parentBreak) softAdd(`${sc.id}|передышка родителю`, p.stops.some((s) => s.place.category === "cafe"));
+      if (city && sc.food && input.budget !== "free") softAdd(`${sc.id}|поесть`, planHasFood(p));
+      if (city && cs?.parentBreak) softAdd(`${sc.id}|передышка родителю`, p.stops.some((s) => s.place.category === "cafe" && s.place.experience_tags.includes("playzone")));
       if (cs?.outdoorPreferred && (wx === "sun" || wx === "rain15")) softAdd(`${sc.id}|есть улица`, p.stops.some((s) => s.place.outdoor));
     }
   });
@@ -504,6 +504,7 @@ const WHEN: Record<string, string> = {
   short: "всегда",
   "before-nap": "в семье ребёнок до 3 лет; утром (до 12:00) — главный",
   morning: "до 11:00",
+  "breakfast-kids": "до 10:00; семейное кафе с игровой",
   "after-school": "будни, 14:00–19:00",
   "weekday-evening": "пн–чт после 17:00",
   friday: "пятница после 14:00",
