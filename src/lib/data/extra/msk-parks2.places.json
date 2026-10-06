@@ -130,7 +130,7 @@
       "Парк"
     ],
     "hit": false,
-    "photoSet": "autumn",
+    "photoSet": "estate",
     "rating": null,
     "reviews": null,
     "source": "https://ru.wikipedia.org/wiki/Кусково",
@@ -763,7 +763,7 @@
       "Площадки"
     ],
     "hit": false,
-    "photoSet": "playground",
+    "photoSet": "park",
     "rating": null,
     "reviews": null,
     "source": "https://www.luzhniki.ru/",

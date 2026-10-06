@@ -21,14 +21,14 @@ export function Reviews({ place }: { place: Place }) {
               </div>
             </div>
             <div className="min-w-0">
-              {place.review_count > 0 ? <p className="text-[14px] font-semibold">{formatCount(place.review_count)} отзывов</p> : <p className="text-[14px] font-semibold">Рейтинг по внешнему источнику</p>}
+              {place.review_count > 0 ? <p className="text-[14px] font-semibold">{formatCount(place.review_count)} отзывов</p> : <p className="text-[14px] font-semibold">Оценка посетителей</p>}
               <a
                 href={place.rating_source}
                 target="_blank"
                 rel="noreferrer"
                 className="mt-1 inline-flex items-center gap-1 text-[12.5px] font-semibold text-muted underline decoration-line underline-offset-2"
               >
-                Источник рейтинга <ExternalLink size={12} />
+                Читать отзывы <ExternalLink size={12} />
               </a>
             </div>
           </div>

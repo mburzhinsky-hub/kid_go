@@ -132,9 +132,6 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
   const kidNames = fam.children.map((k) => k.name).filter(Boolean);
   const here = result.area ? okrugById(result.area.id) : undefined;
   const areaEmpty = !!here && result.area?.scope === "strict" && result.plans.length === 0;
-  const resultPlaces = result.plans.flatMap((plan) => plan.stops.map((stop) => stop.place));
-  const verifiedHoursForAll = resultPlaces.length > 0 && resultPlaces.every((place) => place.verified_fields?.includes("opening_hours"));
-  const verifiedPricesForAll = resultPlaces.length > 0 && resultPlaces.every((place) => place.verified_fields?.includes("price"));
   const pickOrigin = (o: Origin) => {
     track("area_switch", { from: here?.id ?? "", to: o.label });
     fam.setOrigin(o);
@@ -173,7 +170,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
         </h1>
         <p className="mt-1.5 text-[15.5px] leading-snug text-muted">
           {result.plans.length
-            ? `Старт ${dayWord} около ${result.startLabel}. Погода ${wxLine} — учли прогноз и дорогу${verifiedHoursForAll ? "; часы работы подтверждены источниками" : ""}${input.budget !== "any" && verifiedPricesForAll ? "; стоимость подтверждена источниками" : ""}.`
+            ? `Старт ${dayWord} около ${result.startLabel}. Погода ${wxLine} — учли прогноз и дорогу.`
             : areaEmpty && here
               ? `${scenario ? `Для «${scenario.label}»` : "Под такие условия"} ${here.prep} не нашлось ни одного подходящего места: смотрели возраст детей, выбранные условия, погоду и дорогу. Вот что можно сделать.`
               : "Под такие условия мы не смогли собрать день без компромиссов."}

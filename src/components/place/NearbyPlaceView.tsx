@@ -67,7 +67,7 @@ export function NearbyPlaceView({ id }: { id?: string }) {
         <div className="mt-5 flex gap-2.5 rounded-[18px] bg-yellow-50 p-3.5 text-[13.5px] leading-snug text-ink-2">
           <Info size={18} className="mt-0.5 shrink-0 text-[#d79a00]" />
           <p>
-            Место загружено из OpenStreetMap. Показываем только сведения, которые пришли из этого источника.
+            Мы нашли это место рядом с вами. Часы работы и цены лучше уточнить перед выездом.
           </p>
         </div>
 

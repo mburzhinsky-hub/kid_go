@@ -179,15 +179,117 @@ export const PH = {
   childPinkRaincoat: U("photo-1788712424983-c61191832f33"),
   childYellowRaincoat: U("photo-1758535291260-d02ee9ae1ceb"),
   childPuddle: U("photo-1735990685776-f1f661dc806f"),
+  // кафе, еда, детские праздники
+  kidsCorner: U("photo-1780792082841-ced20d44e3e8"),
+  childDrawingCafe: U("photo-1776142519519-8683165acf1f"),
+  childMenu: U("photo-1760267967877-43e9806b023c"),
+  girlPancakes1: U("photo-1762353242703-22c848bf01a9"),
+  girlPancakes2: U("photo-1762353206866-ddca4322718f"),
+  girlPancakes3: U("photo-1762353232634-fa95640ac388"),
+  girlTable: U("photo-1679056058174-63d5f7e35dcf"),
+  girlsTalking: U("photo-1770584848343-31fe3d130dcb"),
+  restaurantLights: U("photo-1759692072092-d109f5a85c61"),
+  roundTable: U("photo-1766812782166-e243111f703d"),
+  foodCourtNight: U("photo-1771574208044-bc8a4836f59b"),
+  foodHallPeople: U("photo-1695182035717-d71ef5b30d84"),
+  foodTables: U("photo-1651449815995-9419a04685aa"),
+  birthdayBalloons: U("photo-1741969494307-55394e3e4071"),
+  birthdayCake: U("photo-1688632107202-7902806ff3d4"),
+  candlesKids: U("photo-1608790672275-309c02d888ff"),
+  toddlerCandles: U("photo-1516668557604-c8e814fdb184"),
+  toddlerBalloons: U("photo-1766770301468-0fff596420b0"),
+  chefHatKid: U("photo-1678285901330-bb80e5432cd5"),
+  doughnutGirl: U("photo-1634393305859-dfb151e2fd54"),
+  bakingKids: U("photo-1713942589752-6c6bb58ca8b6"),
+  doughTable: U("photo-1630464061996-f09350430e86"),
+  muffinKids: U("photo-1703132797372-5540c306436b"),
+  riceMeat: U("photo-1634324092526-91f5e878b72f"),
+  // музеи и галереи
+  artKidStarry: U("photo-1787801004904-55eba5d06dd8"),
+  artKidBench: U("photo-1791192210133-12a9c1170716"),
+  kidsDrawingsWall: U("photo-1761403942462-04b8b97f1fe9"),
+  galleryPeople: U("photo-1759922511738-df4ff12cfd6a"),
+  armoredVehicle: U("photo-1695120972968-21ffead317fb"),
+  fighterJet: U("photo-1695120973813-4b88ceeec938"),
+  wwiDiorama: U("photo-1756507176200-86956fda9e9b"),
+  memorialFlags: U("photo-1746254038350-9632e6ce6002"),
+  museumHallward: U("photo-1696694139314-e0e5962b8dc0"),
+  museumPeople: U("photo-1709144281351-b8068f51541e"),
+  statuesSkylight: U("photo-1649452843752-663493034117"),
+  bigClock: U("photo-1657623876124-e4755969a428"),
+  skeletonAnimal: U("photo-1661108181859-c7932252796b"),
+  crocodileSkeleton: U("photo-1596461290378-fedec9d6f52d"),
+  trainSteam1: U("photo-1543967625-f24827a5fdb8"),
+  trainSteam2: U("photo-1514759815569-dec9934ce933"),
+  // цирк, театр, кино
+  circusTent: U("photo-1678270852355-7f2bbbe8811e"),
+  circusNight: U("photo-1631898721805-899a71dc384a"),
+  acrobat: U("photo-1542732935-0750da3c04b5"),
+  theaterOrnate: U("photo-1651437524278-b37b83a6e6d3"),
+  theaterInterior: U("photo-1539964604210-db87088e0c2c"),
+  theaterEmpty: U("photo-1771911654088-36080143c3bd"),
+  theaterAudience: U("photo-1727416694673-6c8c0d95f2ee"),
+  filmCrew: U("photo-1612544409025-e1f6a56c1152"),
+  filmCamera: U("photo-1471341971476-ae15ff5dd4ea"),
+  clapper: U("photo-1515634928627-2a4e0dae3ddf"),
+  // города и смотровые
+  telescopeCity: U("photo-1743153861132-476606305cbe"),
+  coinTelescope: U("photo-1602817195903-af34694abfb0"),
+  citySkyline: U("photo-1669348139292-6f1c353eac97"),
+  // хаски
+  huskyBlueEyes: U("photo-1568572933382-74d440642117"),
+  huskyPuppy: U("photo-1617895153857-82fe79adfcd4"),
+  huskyAdult: U("photo-1563889362352-b0492c224f62"),
+  huskyDeck: U("photo-1550973078-ce53733d6117"),
+  // парки и усадьбы
+  parkPeople: U("photo-1650126719604-f6bedf3cb633"),
+  parkSteps: U("photo-1684135383432-ae1f28cbd414"),
+  fountainFlowers: U("photo-1671696564906-612750999288"),
+  fountainPeople: U("photo-1671696564807-d0069fa4349d"),
+  autumnSkyline: U("photo-1748324535858-fe0c5671f64b"),
+  carouselHorse: U("photo-1566385658229-28bbe5ceee03"),
+  parkLakeBench: U("photo-1704905833829-97d44101bc0a"),
+  parkLakeTrees: U("photo-1704905833846-935db915cf69"),
+  parkGazebo: U("photo-1704905834675-fed281f6f5bf"),
+  parkAvenue: U("photo-1704905833908-b03323a1a8e8"),
+  forestPath: U("photo-1682190636017-8ff088ae0bda"),
+  forestSun: U("photo-1682190637434-2fca92f69860"),
+  estateRedPalace: U("photo-1674470667758-12b41d204c9d"),
+  estateGreenRoof: U("photo-1674470668058-f75db0b51cb2"),
+  estateLake: U("photo-1674470667583-bca5ab7db04a"),
+  estateClock: U("photo-1674470668117-787aedfb60bb"),
+  churchArch: U("photo-1682190634065-b74789cf96de"),
+  woodenHouse: U("photo-1756731316473-eba212cf0e5a"),
+  parkLawnBuilding: U("photo-1747372685861-aeaaf68f15b2"),
+  parkBenchesRow: U("photo-1668009219418-4ece0d9e36c4"),
+  treesGrass: U("photo-1621661514271-48da9d48580f"),
+  hillSunset: U("photo-1752658801043-bb7ee69073f7"),
+  fieldPeople: U("photo-1561958501-4ef9547c43f9"),
+  benchTrees: U("photo-1623593419606-7f9c8c22d736"),
+  lawnTrees: U("photo-1696079196661-a5cbfb884255"),
+  treeLinedStreet: U("photo-1687951367359-6c269e75c77f"),
+  lawnPeople: U("photo-1723482255177-98b44112b573"),
+  familyWoodsPath: U("photo-1758962036781-c0dc907aea7b"),
+  groupPath: U("photo-1675345771255-733034aff5a2"),
+  benchAlley: U("photo-1728594121610-5967ce03a6ab"),
+  autumnPeoplePath: U("photo-1770346923752-f04a0b20f565"),
+  motherChildRoad: U("photo-1688713658343-68b132822277"),
+  riverbankPath: U("photo-1776586264945-b41b670f0991"),
+  pavedPath: U("photo-1775478950062-fff456082152"),
+  treePath: U("photo-1778069718364-82fb4b2bd610"),
 } as const;
 
 export const ph = (src: string, alt: string): Photo => ({ src, alt, kind: "stock" });
 
 /** Тематические наборы стоковых фото для записей из JSON (иллюстрации, не фото самого места). */
 export const PHOTO_SETS: Record<string, { keys: (keyof typeof PH)[]; alt: string }> = {
-  park: { keys: ["parkPath", "parkSun", "parkWalk", "parkLawn", "parkBench", "parkGreen", "fatherChildPark", "familyLake", "familyWalk"], alt: "Парковая аллея" },
-  autumn: { keys: ["autumnPath", "childRunsAutumn", "parkPath", "familyWalk"], alt: "Осенняя прогулка" },
-  playground: { keys: ["woodenPlayground", "colorfulPlayground", "redSlide", "boySwing", "girlSwing", "playgroundPark", "childClimbPlayground"], alt: "Детская площадка" },
+  park: {
+    keys: ["parkPath", "parkLakeBench", "parkPeople", "parkWalk", "parkAvenue", "parkLawn", "parkSteps", "parkBench", "forestPath", "parkGreen", "fatherChildPark", "parkLakeTrees", "familyLake", "forestSun", "bigTree", "fountainPeople", "greenPond", "parkGazebo", "fountainFlowers", "parkSun", "parkBenchesRow", "treesGrass", "hillSunset", "fieldPeople", "benchTrees", "lawnTrees", "treeLinedStreet", "lawnPeople", "familyWoodsPath", "groupPath", "benchAlley", "motherChildRoad", "riverbankPath", "pavedPath", "treePath"],
+    alt: "Парк",
+  },
+  estate: { keys: ["estateRedPalace", "parkLakeBench", "estateGreenRoof", "parkLakeTrees", "estateLake", "parkGazebo", "churchArch", "estateClock", "parkAvenue", "parkLawnBuilding", "forestSun", "forestPath", "parkLawn", "lawnTrees"], alt: "Усадьба и парк" },
+  autumn: { keys: ["autumnPath", "childRunsAutumn", "autumnSkyline", "autumnPeoplePath", "familyWalk", "parkSun", "parkWalk", "parkBench"], alt: "Осенняя прогулка" },
+  playground: { keys: ["woodenPlayground", "colorfulPlayground", "redSlide", "boySwing", "girlSwing", "playgroundPark", "childClimbPlayground", "emptyPlaygroundRed"], alt: "Детская площадка" },
   picnic: { keys: ["picnicFamily", "picnicBlanket", "childrenCircle", "girlGrass"], alt: "Пикник на траве" },
   farm: { keys: ["goatKid", "girlBabyGoat", "childPetsGoat", "goatsNoses", "whiteGoat"], alt: "Контактная ферма" },
   pony: { keys: ["girlHorse", "girlWhiteHorse", "ponyStable", "boyPony"], alt: "Лошади и пони" },
@@ -200,7 +302,7 @@ export const PHOTO_SETS: Record<string, { keys: (keyof typeof PH)[]; alt: string
   play: { keys: ["balls", "slidesBallpit", "indoorPlay", "inflatableMall", "multicolorSlides", "playAreaSlide", "bounceHouse", "rubberDucks"], alt: "Игровая зона" },
   trampoline: { keys: ["trampolineIndoor", "obstacleFoam", "trampolines", "trampolineStations", "bungeeTrampoline"], alt: "Батутный парк" },
   climbing: { keys: ["climbingWall", "childClimbing", "kidsClimb", "childrenClimbing", "childrenClimbingTall"], alt: "Скалодром" },
-  ropes: { keys: ["ropeBridge", "treehouseBridge", "ropesCourse", "forestBridge"], alt: "Верёвочный парк" },
+  ropes: { keys: ["ropeBridge", "treehouseBridge", "ropesCourse", "forestBridge", "childrenClimbingTall", "kidsClimb"], alt: "Верёвочный парк" },
   waterpark: { keys: ["waterpark", "waterparkFamily", "waterparkSlides", "waterPlayground", "girlPool", "kidsPool"], alt: "Аквапарк" },
   ice: { keys: ["kidsSkating", "kidsHockey", "skatingPeople", "iceRink"], alt: "Каток" },
   art: { keys: ["girlPainting", "boyWatercolor", "paintPlates", "paintbrush"], alt: "Творческая студия" },
@@ -212,7 +314,7 @@ export const PHOTO_SETS: Record<string, { keys: (keyof typeof PH)[]; alt: string
   toys: { keys: ["toyWindow", "toyShelves", "toyBoats", "plushPastries", "toyStorePeople", "toyCloseup", "teddyBow"], alt: "Магазин игрушек" },
   lego: { keys: ["lego", "legoMany", "legoStack", "legoAssorted"], alt: "Конструкторы" },
   books: { keys: ["kidsBooks", "childrenReading", "libraryMomChild", "boyReading"], alt: "Детские книги" },
-  ferris: { keys: ["ferrisBlue", "ferrisWhite", "ferrisRed", "amusementNight"], alt: "Колесо обозрения" },
+  ferris: { keys: ["ferrisBlue", "carouselHorse", "ferrisWhite", "amusementNight", "ferrisRed"], alt: "Парк аттракционов" },
   greenhouse: { keys: ["greenhouse", "tropicalWaterfall", "greenhouseGlass", "bananaTrees"], alt: "Оранжерея" },
   rain: { keys: ["toddlerRainboots", "redBoots", "girlUmbrella", "childPinkRaincoat", "childYellowRaincoat", "childPuddle"], alt: "Дождливый день" },
 };
@@ -223,10 +325,103 @@ const hash = (s: string) => {
   return h >>> 0;
 };
 
-export function photosFor(setKey: string, slug: string, title: string) {
-  const set = PHOTO_SETS[setKey] ?? PHOTO_SETS.park;
-  const start = hash(slug) % set.keys.length;
-  const n = Math.min(4, set.keys.length);
-  return Array.from({ length: n }, (_, i) => ph(PH[set.keys[(start + i) % set.keys.length]], `${set.alt} — иллюстрация к «${title}»`));
-}
+type PhotoKey = keyof typeof PH;
+type PhotoPick = { keys: PhotoKey[]; alt: string };
 
+/**
+ * Подборки для конкретных мест: кафе, музеи, театры и другие места, где общий набор по типу
+ * дал бы одинаковые кадры. Первый кадр у каждого места свой.
+ */
+const KIDS_CAFE = "Детское кафе";
+const FAMILY_CAFE = "Семейное кафе";
+const MUSEUM = "Музей";
+const pick = (alt: string, keys: PhotoKey[]): PhotoPick => ({ alt, keys });
+
+export const PLACE_PHOTOS: Record<string, PhotoPick> = {
+  // кафе и рестораны
+  "depo-food-hall": pick("Фудхолл", ["foodHallPeople", "foodCourtNight", "foodTables", "pizzaTwo"]),
+  "danilovsky-rynok": pick("Рынок и фудкорт", ["foodTables", "girlFruitBowl", "foodHallPeople", "pancakesBerries"]),
+  "dream-kids": pick(KIDS_CAFE, ["indoorPlay", "girlPainting", "chefHatKid", "birthdayBalloons"]),
+  "iyul-detyam": pick(KIDS_CAFE, ["playAreaSlide", "kidsCorner", "toddlerBalloons", "cafeMomChild"]),
+  "russkoe-podvorye": pick(FAMILY_CAFE, ["girlPancakes1", "cafeWarm", "kidsCorner", "roundTable"]),
+  "vasilchuki-chaihona-dmitriya-ulyanova": pick(FAMILY_CAFE, ["riceMeat", "restaurantLights", "balls", "cafeWood"]),
+  "vasilchuki-chaihona-afimall": pick(FAMILY_CAFE, ["roundTable", "riceMeat", "rubberDucks", "cafePlants"]),
+  "vasilchuki-chaihona-metropolis": pick(FAMILY_CAFE, ["restaurantLights", "cafeWarm", "multicolorSlides", "riceMeat"]),
+  "piero-zilart": pick(FAMILY_CAFE, ["girlTable", "childMenu", "bounceHouse", "cafeWood"]),
+  "ribambelle-vremena-goda": pick(KIDS_CAFE, ["multicolorSlides", "balls", "birthdayCake", "cafeStroller"]),
+  "kitchen-khodynka": pick(FAMILY_CAFE, ["inflatableMall", "childDrawingCafe", "doughTable", "cafeWood"]),
+  "anderson-ostrovityanova": pick(KIDS_CAFE, ["cafeChildWindow", "kidsCorner", "childMenu", "cafeBooks"]),
+  "klich-zilart": pick(FAMILY_CAFE, ["slidesBallpit", "cafePlants", "candlesKids", "girlPancakes2"]),
+  "repast-cafe": pick(FAMILY_CAFE, ["cafeMomChild", "roundTable", "rubberDucks", "pizzaHand"]),
+  "local-kids-vnukovo": pick(KIDS_CAFE, ["bounceHouse", "kidsCorner", "cafeStroller", "girlTable"]),
+  "littles-kids-play-cafe": pick(KIDS_CAFE, ["girlsTalking", "childDrawingCafe", "balls", "playAreaSlide", "cafeMomChild"]),
+  "jooie-presnya": pick(KIDS_CAFE, ["birthdayBalloons", "indoorPlay", "cupcake", "girlPainting"]),
+  "tutta-la-vita": pick("Итальянская кухня", ["pizzaLeaves", "pizza", "cafeWood", "childMenu"]),
+  "kids-castle-mitino": pick(KIDS_CAFE, ["kidsCorner", "trampolines", "bounceHouse", "cafeChildWindow"]),
+  // искусство и усадебные музеи
+  "tretyakovka-lavrushinsky": pick("Картинная галерея", ["artKidStarry", "galleryPeople", "kidsDrawingsWall", "artKidBench"]),
+  "pushkinsky-muzey": pick("Картинная галерея", ["artKidBench", "artKidStarry", "kidsDrawingsWall", "girlPainting"]),
+  "dom-muzey-vasnecova": pick("Дом-музей художника", ["kidsDrawingsWall", "boyWatercolor", "paintbrush", "artKidBench"]),
+  "ostankino-usadba": pick("Музей-усадьба", ["museumHallward", "statuesSkylight", "galleryPeople", "parkSun"]),
+  // музеи по теме
+  "kolomna-pastila-muzey": pick("Музей пастилы", ["cupcake", "pancakesBerries", "museumHallward", "cafeWarm"]),
+  "muzey-novy-ierusalim": pick(MUSEUM, ["statuesSkylight", "museumPeople", "bigClock", "museumHallward"]),
+  "muzey-tekhniki-zadorozhnogo": pick("Музей техники", ["armoredVehicle", "fighterJet", "bigClock", "museumPeople"]),
+  "muzey-materinstva-ilinskoe": pick(MUSEUM, ["libraryMomChild", "toyShelves", "teddyPink", "kidsBooks"]),
+  "muzey-nazad-v-sssr-zvenigorod": pick(MUSEUM, ["toyCloseup", "museumHallward", "bigClock", "kidsBooks"]),
+  "dom-muzey-prishvina-dunino": pick("Дом-музей писателя", ["childrenReading", "autumnPath", "boyReading", "parkBench"]),
+  "muzey-lozhki-solnechnogorsk": pick(MUSEUM, ["paintPlates", "museumHallward", "toyShelves", "museumPeople"]),
+  "dolgoprudnensky-muzey": pick(MUSEUM, ["galleryPeople", "museumHallward", "bigClock"]),
+  "muzey-moskvy": pick(MUSEUM, ["museumPeople", "bigClock", "museumHallward", "galleryPeople"]),
+  "muzey-pobedy": pick("Музей Победы", ["memorialFlags", "armoredVehicle", "fighterJet", "wwiDiorama"]),
+  "zoomuzey-msu": pick("Зоологический музей", ["crocodileSkeleton", "skeletonAnimal", "whaleMuseum", "museumPeople"]),
+  gim: pick("Исторический музей", ["bigClock", "statuesSkylight", "museumHallward", "museumPeople"]),
+  "borodinskaya-panorama": pick("Музей-панорама", ["wwiDiorama", "memorialFlags", "armoredVehicle", "museumHallward"]),
+  "muzey-zhd-tehniki": pick("Музей железных дорог", ["trainSteam1", "trainSteam2", "bigClock", "museumPeople"]),
+  "izmailovsky-kreml": pick("Сказочные терема и сувениры", ["woodenHouse", "toyShelves", "churchArch", "toyCloseup"]),
+  "muzey-igrushki-sergiev-posad": pick("Музей игрушки", ["toyShelves", "toyBoats", "teddyBow", "toyCloseup"]),
+  "kolomna-muzey-lyubimoy-igrushki": pick("Музей игрушки", ["teddyPink", "toyCloseup", "plushBasket", "teddies"]),
+  // театры, цирки, кино
+  "teatr-nash-dom-khimki": pick("Театр", ["theaterAudience", "theaterInterior", "frogPuppets", "childrenReading"]),
+  "teatr-obrazcova": pick("Кукольный театр", ["frogPuppets", "marionette", "theaterInterior", "theaterAudience"]),
+  "cirk-nikulina": pick("Цирк", ["circusTent", "acrobat", "circusNight", "theaterInterior"]),
+  "bolshoy-moscow-cirk": pick("Цирк", ["circusNight", "circusTent", "acrobat", "theaterOrnate"]),
+  "teatr-sats": pick("Театр", ["theaterOrnate", "theaterEmpty", "theaterInterior", "theaterAudience"]),
+  "mosfilm-excursion": pick("Киностудия", ["filmCrew", "filmCamera", "clapper"]),
+  "politehnichesky-muzey": pick("Музей науки и техники", ["rocketWarehouse", "spacecraft", "plasmaBall", "bigClock"]),
+  // смотровые площадки
+  "ostankino-tower": pick("Вид на город", ["citySkyline", "telescopeCity", "coinTelescope"]),
+  "panorama360-federation": pick("Вид на город", ["telescopeCity", "citySkyline", "coinTelescope"]),
+  // животные
+  "huskyland-nazarevo": pick("Хаски", ["huskyBlueEyes", "huskyPuppy", "huskyDeck", "huskyAdult"]),
+};
+
+const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a);
+
+/**
+ * Фото места: своя подборка, если она есть, иначе набор по типу.
+ * `idx` — порядковый номер места внутри набора, `avoid` — первые кадры, которые уже заняты другими местами:
+ * первый кадр берём из свободных, чтобы карточки в списках различались.
+ */
+export function photosFor(setKey: string, slug: string, _title?: string, idx?: number, avoid?: ReadonlySet<string>): Photo[] {
+  const own = PLACE_PHOTOS[slug];
+  const set: PhotoPick = own ?? PHOTO_SETS[setKey] ?? PHOTO_SETS.park;
+  const len = set.keys.length;
+  let step = 1;
+  if (idx != null && len > 2) {
+    step = Math.max(2, Math.floor(len / 3));
+    while (gcd(step, len) !== 1) step++;
+  }
+  let start = own ? 0 : idx == null ? hash(slug) % len : (idx * step) % len;
+  if (avoid) {
+    for (let t = 0; t < len; t++) {
+      const s = (start + t) % len;
+      if (!avoid.has(PH[set.keys[s]])) {
+        start = s;
+        break;
+      }
+    }
+  }
+  const n = Math.min(4, len);
+  return Array.from({ length: n }, (_, i) => ph(PH[set.keys[(start + i) % len]], set.alt));
+}

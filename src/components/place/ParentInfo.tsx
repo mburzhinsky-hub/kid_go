@@ -1,4 +1,4 @@
-import { Baby, Car, Utensils, Bath, Shirt, CalendarCheck, House, Trees, Check, X, Hourglass, Wallet, ExternalLink } from "lucide-react";
+import { Baby, Car, Utensils, Bath, Shirt, CalendarCheck, House, Trees, Check, X, Hourglass, Wallet, Users } from "lucide-react";
 import type { ParentInfoField, Place, Level } from "@/lib/types";
 import { formatBudget, formatDuration, formatAgeRange } from "@/lib/format";
 import { cn } from "@/lib/cn";
@@ -44,15 +44,7 @@ export function ParentInfo({ place }: { place: Place }) {
   ];
 
   const visibleFacts = facts.filter((fact) => fact.state !== "unknown");
-  const checkedDate = place.verified_at
-    ? new Date(`${place.verified_at}T00:00:00`).toLocaleDateString("ru-RU", { day: "numeric", month: "long" })
-    : null;
-  const exactDynamic = verified.has("price") && verified.has("opening_hours");
-  const trustText = checkedDate
-    ? exactDynamic
-      ? `Источник проверен ${checkedDate}; цена и режим работы подтверждены`
-      : `Источник места проверен ${checkedDate}. Ниже показаны только подтверждённые сведения`
-    : "Ниже показаны только сведения, подтверждённые указанным источником";
+  const priceKnown = verified.has("price");
 
   return (
     <div>
@@ -82,7 +74,7 @@ export function ParentInfo({ place }: { place: Place }) {
         })}
       </div>
 
-      {place.parking_info && (
+      {place.parking_info && place.parking_info.status !== "unknown" && (
         <div className={cn(
           "mt-2 rounded-[16px] px-3 py-3",
           place.parking_info.status === "yes" ? "bg-green-50" :
@@ -93,13 +85,9 @@ export function ParentInfo({ place }: { place: Place }) {
             <div className="min-w-0 flex-1">
               <p className="text-[13.5px] font-semibold">
                 {place.parking_info.status === "yes" ? "Парковка" :
-                  place.parking_info.status === "partial" ? "Парковка рядом / с ограничениями" :
-                  place.parking_info.status === "no" ? "Парковки нет" : "Парковка не подтверждена"}
+                  place.parking_info.status === "partial" ? "Парковка рядом" : "Парковки нет"}
               </p>
               <p className="mt-0.5 text-[12.5px] leading-snug text-muted">{place.parking_info.details}</p>
-              <a href={place.parking_info.source} target="_blank" rel="noreferrer" className="mt-1.5 inline-flex items-center gap-1 text-[12px] font-semibold text-ink-2 underline decoration-line underline-offset-2">
-                Источник парковки <ExternalLink size={11} />
-              </a>
             </div>
           </div>
         </div>
@@ -109,17 +97,10 @@ export function ParentInfo({ place }: { place: Place }) {
         <Meter label="Активность" level={place.activity_level} words={["спокойно", "умеренно", "очень активно"]} color="#FF7A2E" />
         <Meter label="Шум" level={place.noise_level} words={["тихо", "умеренно", "шумно"]} color="#8B3DF0" />
         <Stat Icon={Hourglass} label="Оценка времени" value={`≈ ${formatDuration(place.average_duration)}`} />
-        {verified.has("price") && <Stat Icon={Wallet} label="Оценка на семью" value={`≈ ${formatBudget(place.family_budget)}`} />}
+        {priceKnown && <Stat Icon={Wallet} label="Оценка на семью" value={`≈ ${formatBudget(place.family_budget)}`} />}
+        <Stat Icon={Users} label="Возраст" value={formatAgeRange(place.age_min, place.age_max)} className={priceKnown ? "col-span-2" : undefined} />
       </div>
 
-      <div className="mt-2.5 rounded-[14px] bg-fill-2 px-3 py-2.5 text-[12.5px] leading-snug text-muted">
-        <p>Возраст: {formatAgeRange(place.age_min, place.age_max)}. {trustText}.</p>
-        {place.source && (
-          <a href={place.source} target="_blank" rel="noreferrer" className="mt-1 inline-flex items-center gap-1 font-semibold text-ink-2 underline decoration-line underline-offset-2">
-            Источник{place.source_name ? `: ${place.source_name}` : ""} <ExternalLink size={12} />
-          </a>
-        )}
-      </div>
     </div>
   );
 }
@@ -138,9 +119,9 @@ function Meter({ label, level, words, color }: { label: string; level: Level; wo
   );
 }
 
-function Stat({ Icon, label, value }: { Icon: React.ComponentType<{ size?: number; className?: string }>; label: string; value: string }) {
+function Stat({ Icon, label, value, className }: { Icon: React.ComponentType<{ size?: number; className?: string }>; label: string; value: string; className?: string }) {
   return (
-    <div className="rounded-[16px] bg-fill-2 px-3 py-2.5 ring-1 ring-line">
+    <div className={cn("rounded-[16px] bg-fill-2 px-3 py-2.5 ring-1 ring-line", className)}>
       <p className="flex items-center gap-1 text-[12.5px] text-muted">
         <Icon size={13} /> {label}
       </p>

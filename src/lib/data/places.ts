@@ -297,7 +297,7 @@ const SEED_PLACES: Place[] = [
     season_tags: ["spring", "summer", "autumn"],
     subtitle: "Тематическая площадка с экскаватором и краном",
     description:
-      "Игровая площадка «Стройка» в Нескучном саду: экскаватор, подъёмный кран, лазалки, песочница и горки. Официальная публикация Парка Горького подтверждает площадку и ориентир входа между домами 22 и 24 по Ленинскому проспекту.",
+      "Игровая площадка «Стройка» в Нескучном саду: экскаватор, подъёмный кран, лазалки, песочница и горки. Вход — между домами 22 и 24 по Ленинскому проспекту.",
     latitude: 55.7192,
     longitude: 37.5935,
     address: "Нескучный сад, вход между Ленинским проспектом, 22 и 24",
@@ -1713,7 +1713,11 @@ const PUBLISHABLE_SEED_PLACES = SEED_PLACES.filter(
 /** Редакторские места из `extra/*.json` (Подмосковье и районы Москвы) идут вслед за проверенным базовым набором. */
 export const places: Place[] = [
   ...PUBLISHABLE_SEED_PLACES,
-  ...buildPlaces(PUBLISHABLE_SEED_PLACES.length, new Set(PUBLISHABLE_SEED_PLACES.map((p) => p.slug))),
+  ...buildPlaces(
+    PUBLISHABLE_SEED_PLACES.length,
+    new Set(PUBLISHABLE_SEED_PLACES.map((p) => p.slug)),
+    PUBLISHABLE_SEED_PLACES.map((p) => p.photos[0]?.src).filter((src): src is string => !!src),
+  ),
 ]
   .filter((p) => !REMOVED_EDITORIAL_SLUGS.has(p.slug))
   .map(applyEditorialFacts);

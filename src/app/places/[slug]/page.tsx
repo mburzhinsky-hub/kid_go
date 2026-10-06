@@ -179,7 +179,7 @@ export default async function PlacePage({ params }: PlacePageProps) {
                     </p>
                     {e.source && (
                       <a href={e.source} target="_blank" rel="noreferrer" className="mt-0.5 inline-block text-[12px] font-semibold text-muted underline underline-offset-2">
-                        источник программы
+                        Подробнее о программе
                       </a>
                     )}
                   </div>

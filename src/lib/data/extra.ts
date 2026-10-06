@@ -122,7 +122,7 @@ export function parseHours(h: (string | null)[]): OpeningHours {
   return out;
 }
 
-export function buildPlace(r: RawPlace, index: number): Place {
+export function buildPlace(r: RawPlace, index: number, photoIdx?: number, usedCovers?: ReadonlySet<string>): Place {
   const level = r.price[1] === 0 ? 0 : r.price[1] <= 600 ? 1 : r.price[1] <= 1500 ? 2 : 3;
   const indoorOnly = r.indoor && !r.outdoor;
   const weather: WeatherTag[] = r.weather?.length ? r.weather : indoorOnly ? ["rain", "cold", "any"] : r.indoor ? ["any", "rain", "sun"] : ["sun", "any"];
@@ -175,7 +175,7 @@ export function buildPlace(r: RawPlace, index: number): Place {
     confidence: r.confidence === "high" ? "high" : "medium",
     category: r.category,
     place_type: broadType,
-    photos: photosFor(r.photoSet, r.slug, r.title),
+    photos: photosFor(r.photoSet, r.slug, r.title, photoIdx, usedCovers),
     tint: TINTS[r.category],
     emoji: EMOJI[r.category],
     // Social proof публикуем только с отдельным, проверяемым источником рейтинга.
@@ -212,13 +212,20 @@ export function buildPlace(r: RawPlace, index: number): Place {
   };
 }
 
-export function buildPlaces(startIndex: number, existingSlugs: Set<string>): Place[] {
+export function buildPlaces(startIndex: number, existingSlugs: Set<string>, usedCovers: Iterable<string> = []): Place[] {
   const seen = new Set(existingSlugs);
+  const covers = new Set(usedCovers);
   const res: Place[] = [];
+  const perSet = new Map<string, number>();
   for (const r of RAW_PLACES) {
     if (r.confidence === "low" || seen.has(r.slug) || !isAuditedPublicPlace(r.slug)) continue;
     seen.add(r.slug);
-    res.push(buildPlace(r, startIndex + res.length));
+    // Порядковый номер внутри набора: соседние места одного типа получают разные первые кадры.
+    const k = perSet.get(r.photoSet) ?? 0;
+    perSet.set(r.photoSet, k + 1);
+    const place = buildPlace(r, startIndex + res.length, k, covers);
+    if (place.photos[0]) covers.add(place.photos[0].src);
+    res.push(place);
   }
   return res;
 }
@@ -253,7 +260,7 @@ export function buildEvents(placeBySlug: Map<string, Place>, now = new Date()): 
         age_min: e.age[0],
         age_max: e.age[1],
         price: e.price,
-        image: ph(PH[(PHOTO_SETS[e.photoSet] ?? PHOTO_SETS.park).keys[0]], `${e.title} — иллюстрация`),
+        image: ph(PH[(PHOTO_SETS[e.photoSet] ?? PHOTO_SETS.park).keys[0]], e.title),
         source: e.source,
         verification_status: e.confidence === "high" ? "verified" : "partial",
       });

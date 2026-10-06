@@ -57,11 +57,6 @@ export function HeroGallery({
         </div>
       </div>
       {rating != null && rating > 0 && <RatingBadge rating={rating} count={count && count > 0 ? count : undefined} tone="pill" className="absolute bottom-4 left-4" />}
-      {(photos[index]?.kind === "stock" || photos[index]?.kind === "demo") && (
-        <span className="absolute bottom-4 left-4 inline-flex h-8 items-center rounded-full bg-black/45 px-3 text-[12.5px] font-semibold text-white">
-          Иллюстрация
-        </span>
-      )}
       <span className="absolute bottom-4 right-4 inline-flex h-9 items-center rounded-full bg-black/45 px-3.5 text-[15px] font-semibold text-white">
         {index + 1}/{photos.length}
       </span>

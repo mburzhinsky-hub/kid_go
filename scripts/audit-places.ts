@@ -310,6 +310,28 @@ for (const e of getEventsSeed()) {
   else if (t < mins(h[0]) || tEnd > (h[1] === "24:00" ? 1440 : mins(h[1]))) W(k, `${e.start_at.slice(11, 16)}–${e.end_at.slice(11, 16)} вне часов работы «${p.title}» (${h[0]}–${h[1]})`);
 }
 
+// ───────────────── фото и служебные слова в публичных текстах ─────────────────
+{
+  const covers = new Map<string, string>();
+  const TECH = /подтвержд|[Сс]татус|источник|проверен|аудит|в карточке|\bdemo\b|демо\b|OSM|OpenStreetMap|в файле|confidence|иллюстраци/i;
+  for (const p of allPlaces) {
+    const cover = p.photos[0]?.src;
+    if (!cover) E(p.slug, "нет фото");
+    else if (covers.has(cover)) E(p.slug, `первое фото совпадает с «${covers.get(cover)}»`);
+    else covers.set(cover, p.slug);
+    for (const ph of p.photos) if (TECH.test(ph.alt)) E(p.slug, `служебное слово в подписи к фото: «${ph.alt}»`);
+    const texts: [string, string | undefined][] = [
+      ["title", p.title],
+      ["subtitle", p.subtitle],
+      ["description", p.description],
+      ["parking", p.parking_info?.details],
+      ["editorial_note", p.editorial_note],
+      ...p.tags.map((t): [string, string] => ["tag", t]),
+    ];
+    for (const [f, v] of texts) if (v && TECH.test(v)) E(p.slug, `служебное слово в тексте для родителей (${f}): «${v.slice(0, 120)}»`);
+  }
+}
+
 // ───────────────────────── итог ─────────────────────────
 const cat = new Map<string, number>();
 for (const p of allPlaces) cat.set(p.category, (cat.get(p.category) ?? 0) + 1);

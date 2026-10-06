@@ -82,7 +82,7 @@ export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = [
     }
   } else if (foodOnSite) {
     why.push("🍽 Можно поесть на месте");
-    sentences.push("и для еды не нужен отдельный переезд — у места есть подтверждённое меню");
+    sentences.push("и для еды не нужен отдельный переезд — у места есть детское меню");
   }
 
   // интересы конкретных детей

@@ -112,7 +112,7 @@ export function ProfileScreen() {
           <Row id="city" icon={<MapPin size={20} className="text-red" />} label="Город" value={s.city} onClick={() => setCityOpen(true)} />
           <Row href="/onboarding" icon={<Sparkles size={20} className="text-purple" />} label="Пройти знакомство заново" />
           {s.hydrated && !s.children.length && (
-            <Row icon={<Users size={20} className="text-green" />} label="Посмотреть на демо-семье" value="Миша и Аня" onClick={() => s.loadDemoFamily()} />
+            <Row icon={<Users size={20} className="text-green" />} label="Показать на примере семьи" value="Миша и Аня" onClick={() => s.loadDemoFamily()} />
           )}
           <Row icon={<Smartphone size={20} className="text-blue" />} label="Перенести на другое устройство" onClick={() => useSocialUi.getState().openTransfer()} />
         </div>
