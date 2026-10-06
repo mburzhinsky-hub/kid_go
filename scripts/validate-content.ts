@@ -102,6 +102,12 @@ for (const r of RAW_PLACES) {
 
 const publicIds = new Set(places.map((p) => p.id));
 const publicSlugs = new Set(places.map((p) => p.slug));
+const parkingFacts = places.filter((p) => !!p.parking_info).length;
+const menuFacts = places.filter((p) => !!p.menu_url).length;
+const sourcedRatings = places.filter((p) => p.rating > 0 && !!p.rating_source).length;
+if (parkingFacts !== 146) fail(`editorial parking coverage mismatch: expected 146, got ${parkingFacts}`);
+if (menuFacts !== 64) fail(`editorial menu coverage mismatch: expected 64, got ${menuFacts}`);
+if (sourcedRatings !== 127) fail(`sourced rating coverage mismatch: expected 127, got ${sourcedRatings}`);
 if (places.length !== 146) fail(`editorial catalog count mismatch: expected 146, got ${places.length}`);
 for (const removed of ["joki-joya", "katok-na-poyme-pavshino"]) {
   if (publicSlugs.has(removed)) fail(`removed place leaked into public catalog: ${removed}`);
