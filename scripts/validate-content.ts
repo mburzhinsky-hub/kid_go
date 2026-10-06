@@ -63,8 +63,15 @@ for (const p of places) {
     if (!validUrl(audit?.field_sources?.[field])) fail(`${prefix}: verified ${field} has no field-level evidence URL`);
   }
   if (p.review_count > 0 && !validUrl(p.rating_source)) fail(`${prefix}: rating/reviews without rating_source`);
-  if (p.review_count === 0 && p.rating !== 0) fail(`${prefix}: rating must be 0 when review_count is 0`);
+  if (p.rating > 0 && !validUrl(p.rating_source)) fail(`${prefix}: public rating requires rating_source`);
   if (p.rating < 0 || p.rating > 5) fail(`${prefix}: invalid rating ${p.rating}`);
+  if (p.menu_url && !validUrl(p.menu_url)) fail(`${prefix}: invalid menu_url`);
+  if (p.parking_info) {
+    if (!["yes", "no", "partial", "unknown"].includes(p.parking_info.status)) fail(`${prefix}: invalid parking status ${p.parking_info.status}`);
+    if (!p.parking_info.details.trim()) fail(`${prefix}: parking details are empty`);
+    if (!validUrl(p.parking_info.source)) fail(`${prefix}: parking source is invalid`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(p.parking_info.checked_at)) fail(`${prefix}: parking checked_at is invalid`);
+  }
   const tags = p.tags.join(" ").toLowerCase();
   const verified = new Set(p.verified_fields ?? []);
   const unknown = new Set(p.unknown_fields ?? []);
@@ -95,6 +102,10 @@ for (const r of RAW_PLACES) {
 
 const publicIds = new Set(places.map((p) => p.id));
 const publicSlugs = new Set(places.map((p) => p.slug));
+if (places.length !== 146) fail(`editorial catalog count mismatch: expected 146, got ${places.length}`);
+for (const removed of ["joki-joya", "katok-na-poyme-pavshino"]) {
+  if (publicSlugs.has(removed)) fail(`removed place leaked into public catalog: ${removed}`);
+}
 for (const a of adventures) {
   if (!a.steps.length) fail(`adventure ${a.slug}: no steps`);
   if (a.age_min < 0 || a.age_max > 12 || a.age_min > a.age_max) fail(`adventure ${a.slug}: invalid age range`);
