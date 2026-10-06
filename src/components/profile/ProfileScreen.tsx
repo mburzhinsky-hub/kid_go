@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Plus, Pencil, Trash2, ChevronRight, MapPin, Settings2, Sparkles, Check, Home, Users } from "lucide-react";
+import { Plus, Pencil, Trash2, ChevronRight, MapPin, Settings2, Sparkles, Check, Home, Users, Smartphone } from "lucide-react";
 import type { Child, InterestId } from "@/lib/types";
 import { useFamily, ageFromBirth, childLabel } from "@/lib/store";
 import { TRAVEL_LIMITS } from "@/lib/location";
@@ -11,6 +11,9 @@ import { INTERESTS, interestDef, BUDGETS, TRANSPORTS } from "@/lib/catalog";
 import { BottomSheet } from "@/components/ui/BottomSheet";
 import { TabBackButton } from "@/components/ui/BackButton";
 import { plural } from "@/lib/format";
+import { useSocial } from "@/lib/social/store";
+import { useMyCollections } from "@/lib/social/repo";
+import { useSocialUi } from "@/lib/social/ui-store";
 import { cn } from "@/lib/cn";
 
 const AVATARS = ["🦁", "🦄", "🐻", "🐰", "🦊", "🐼", "🐯", "🐸"];
@@ -26,6 +29,8 @@ export function ProfileScreen() {
   const [editing, setEditing] = useState<Child | null>(null);
   const [cityOpen, setCityOpen] = useState(false);
   const [locOpen, setLocOpen] = useState(false);
+  const mine = useMyCollections();
+  const socialReady = useSocial((x) => x.hydrated);
 
   return (
     <main className="pb-28">
@@ -40,6 +45,17 @@ export function ProfileScreen() {
         <Stat value={s.hydrated ? s.wantPlaces.length : "–"} label="хотелок" bg="#EEE5FE" />
         <Stat value={s.hydrated ? s.visitedPlaces.length : "–"} label="уже были" bg="#E4F4DD" />
       </div>
+
+      <Link href="/collections/" className="press mx-4 mt-3 flex items-center gap-3 rounded-[22px] p-3.5" style={{ background: "linear-gradient(120deg,#FFE9F3,#F4EAFF)" }}>
+        <span className="text-[30px]">💌</span>
+        <span className="min-w-0 flex-1">
+          <span className="block text-[16px] font-bold">Мои подборки</span>
+          <span className="block text-[13px] leading-snug text-ink-2">
+            {socialReady && mine.length ? `${mine.length} ${plural(mine.length, "подборка", "подборки", "подборок")} · посмотреть, как их открывают` : "Соберите любимые места и отправьте друзьям"}
+          </span>
+        </span>
+        <ChevronRight size={20} className="shrink-0 text-pink" />
+      </Link>
 
       <section className="mt-7 px-4">
         <h2 className="tight text-[22px] font-[800]">Дети</h2>
@@ -98,6 +114,7 @@ export function ProfileScreen() {
           {s.hydrated && !s.children.length && (
             <Row icon={<Users size={20} className="text-green" />} label="Посмотреть на демо-семье" value="Миша и Аня" onClick={() => s.loadDemoFamily()} />
           )}
+          <Row icon={<Smartphone size={20} className="text-blue" />} label="Перенести на другое устройство" onClick={() => useSocialUi.getState().openTransfer()} />
           <Row href="/admin" icon={<Settings2 size={20} className="text-blue" />} label="Кабинет контента" value="для команды" />
         </div>
         <p className="mt-4 text-center text-[12.5px] text-muted">КидГоу · данные семьи хранятся только на этом устройстве</p>

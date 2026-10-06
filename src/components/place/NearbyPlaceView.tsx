@@ -11,13 +11,12 @@ import { routeUrl } from "@/lib/route-url";
 import { HeroGallery } from "@/components/place/PhotoGallery";
 import { InfoGrid } from "@/components/place/InfoGrid";
 import { ParentInfo } from "@/components/place/ParentInfo";
-import { PlaceCTA } from "@/components/place/PlaceCTA";
+import { PlaceCTA, PlaceIntentRow } from "@/components/place/PlaceCTA";
 import { OpenStatus } from "@/components/place/OpenStatus";
 import { ReadMore } from "@/components/place/ReadMore";
 import { TagChip } from "@/components/ui/badges";
 import { TravelBadge } from "@/components/ui/TravelBadge";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { ToastHost } from "@/components/ui/Toast";
 
 /**
  * Карточка места из OpenStreetMap. Такие места подгружаются «на лету» вокруг точки выезда,
@@ -37,7 +36,7 @@ export function NearbyPlaceView({ id }: { id?: string }) {
   if (!id || (place === null && status !== "loading")) {
     return (
       <main className="grid min-h-dvh place-items-center px-4">
-        <EmptyState art="search" title="Это место не нашлось" text="Места рядом подгружаются по вашей точке выезда. Откройте главную — мы найдём их заново." action={{ href: "/", label: "На главную" }} />
+        <EmptyState page art="search" title="Это место не нашлось" text="Места рядом подгружаются по вашей точке выезда. Откройте главную — мы найдём их заново." action={{ href: "/", label: "На главную" }} />
       </main>
     );
   }
@@ -66,6 +65,8 @@ export function NearbyPlaceView({ id }: { id?: string }) {
             </TagChip>
           ))}
         </div>
+
+        <PlaceIntentRow slug={place.slug} title={place.title} subtitle={place.subtitle} photo={place.photos[0]} tint={place.tint} emoji={place.emoji} />
 
         <div className="mt-6">
           <InfoGrid place={place} />
@@ -116,7 +117,6 @@ export function NearbyPlaceView({ id }: { id?: string }) {
         </p>
       </article>
       <PlaceCTA slug={place.slug} title={place.title} lat={place.latitude} lng={place.longitude} />
-      <ToastHost bottom={96} />
     </main>
   );
 }

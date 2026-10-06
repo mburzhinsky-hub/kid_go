@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export default function manifest(): MetadataRoute.Manifest {
-  return {
+  const m: MetadataRoute.Manifest & { launch_handler?: { client_mode: string } } = {
     name: "КидГоу — куда пойти с детьми",
     short_name: "КидГоу",
     description: "Выберите настроение — мы соберём ваш день с ребёнком.",
@@ -24,6 +24,10 @@ export default function manifest(): MetadataRoute.Manifest {
     shortcuts: [
       { name: "Придумать день", url: `${B}/planner/`, icons: [{ src: `${B}/icons/icon-192.png`, sizes: "192x192" }] },
       { name: "Карта", url: `${B}/map/` },
+      { name: "Наши хотелки", url: `${B}/favorites/` },
     ],
+    // ссылка на подборку или место, открытая при уже запущенном приложении, показывается в нём же, а не в новом окне
+    launch_handler: { client_mode: "navigate-existing" },
   };
+  return m;
 }

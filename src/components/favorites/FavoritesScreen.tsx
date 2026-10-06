@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import { ArrowRight, CheckCircle2, Trash2 } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { ArrowRight, CheckCircle2, Plus, Smartphone, Trash2 } from "lucide-react";
 import { useFamily } from "@/lib/store";
 import { getPlaceSync, allAdventures } from "@/lib/data/repository";
 import { useResolveDynamic } from "@/lib/nearby";
@@ -15,12 +15,23 @@ import { SmartImage } from "@/components/ui/SmartImage";
 import { haversineKm, pt } from "@/lib/geo";
 import type { Place } from "@/lib/types";
 import { cn } from "@/lib/cn";
+import { useSocial } from "@/lib/social/store";
+import { useCollectionLookup, usePublicCollections, useSavedCollections } from "@/lib/social/repo";
+import { IntentSourceProvider } from "@/lib/social/intent-source";
+import { useSocialUi } from "@/lib/social/ui-store";
+import { CollectionCard, collectionHref } from "@/components/social/CollectionCard";
+import { FeedbackRow, InviteFriends } from "@/components/social/WantButton";
 
-type Tab = "want" | "plans" | "visited";
+type Tab = "want" | "collections" | "plans" | "visited";
 
 export function FavoritesScreen({ initialTab = "want" }: { initialTab?: Tab }) {
   const [tab, setTab] = useState<Tab>(initialTab);
   const s = useFamily();
+  const savedCollections = useSavedCollections();
+  const socialReady = useSocial((x) => x.hydrated);
+  const lookup = useCollectionLookup();
+  const example = usePublicCollections({ limit: 1 })[0];
+  const tabsRef = useRef<HTMLDivElement>(null);
   useResolveDynamic([...s.wantPlaces, ...s.visitedPlaces, ...s.day]); // места рядом (OSM), которых нет в кэше
   const want = s.wantPlaces.map(getPlaceSync).filter(Boolean) as Place[];
   const visited = s.visitedPlaces.map(getPlaceSync).filter(Boolean) as Place[];
@@ -37,10 +48,17 @@ export function FavoritesScreen({ initialTab = "want" }: { initialTab?: Tab }) {
   }, [want]);
 
   const TABS: { id: Tab; label: string; count: number }[] = [
-    { id: "want", label: "Хотим сходить", count: want.length },
+    { id: "want", label: "Хочу сходить", count: want.length },
+    { id: "collections", label: "Подборки", count: savedCollections.length },
     { id: "plans", label: "Приключения", count: s.savedPlans.length },
     { id: "visited", label: "Уже были", count: visited.length },
   ];
+
+  // активная вкладка всегда в зоне видимости, даже если пришли сразу на «Уже были»
+  useEffect(() => {
+    tabsRef.current?.querySelector<HTMLElement>('[aria-pressed="true"]')?.scrollIntoView({ inline: "center", block: "nearest" });
+  }, [tab]);
+  const hasAnything = want.length + visited.length + savedCollections.length > 0;
 
   return (
     <main className="pb-28">
@@ -66,18 +84,19 @@ export function FavoritesScreen({ initialTab = "want" }: { initialTab?: Tab }) {
       )}
 
       <div className="sticky top-0 z-20 bg-bg/95 px-4 pb-2 pt-3">
-        <div className="grid grid-cols-[1.3fr_1.2fr_0.9fr] gap-1 rounded-full bg-fill p-1">
+        <div ref={tabsRef} className="no-scrollbar flex gap-1 overflow-x-auto rounded-full bg-fill p-1">
           {TABS.map((t) => (
             <button
               key={t.id}
               onClick={() => setTab(t.id)}
               aria-pressed={tab === t.id}
-              className={cn("press h-10 whitespace-nowrap rounded-full px-1 text-[12.5px] font-semibold transition-all", tab === t.id ? "bg-white text-ink shadow-card" : "text-muted")}
+              className={cn("press h-10 shrink-0 whitespace-nowrap rounded-full px-3.5 text-[14px] font-semibold transition-all", tab === t.id ? "bg-white text-ink shadow-card" : "text-muted")}
             >
               {t.label}
-              {s.hydrated && t.count > 0 && <span className={cn("ml-1", tab === t.id ? "text-pink" : "")}>{t.count}</span>}
+              {s.hydrated && socialReady && t.count > 0 && <span className={cn("ml-1", tab === t.id ? "text-pink" : "")}>{t.count}</span>}
             </button>
           ))}
+          <span aria-hidden className="w-1 shrink-0" />
         </div>
       </div>
 
@@ -103,29 +122,77 @@ export function FavoritesScreen({ initialTab = "want" }: { initialTab?: Tab }) {
                   </Link>
                 )}
                 <div className="space-y-2.5">
-                  {want.map((p) => (
-                    <PlaceRow
-                      key={p.id}
-                      place={p}
-                      aside={
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            s.markVisited(p.slug);
-                          }}
-                          aria-label="Уже были"
-                          className="press grid h-9 w-9 place-items-center rounded-full bg-green-50 text-green"
-                        >
-                          <CheckCircle2 size={18} />
-                        </button>
-                      }
-                    />
-                  ))}
+                  {want.map((p) => {
+                    const it = s.intents[p.slug];
+                    const col = lookup(it?.collection_id);
+                    return (
+                      <IntentSourceProvider key={p.id} value={{ source_type: "PLACE", creator_id: it?.creator_id, collection_id: it?.collection_id }}>
+                        <PlaceRow
+                          place={p}
+                          aside={
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                s.markVisited(p.slug);
+                              }}
+                              aria-label="Уже были"
+                              className="press grid h-9 w-9 place-items-center rounded-full bg-green-50 text-green"
+                            >
+                              <CheckCircle2 size={18} />
+                            </button>
+                          }
+                          footer={
+                            <div className="flex items-center gap-2">
+                              {col ? (
+                                <Link href={collectionHref(col)} className="press min-w-0 flex-1 truncate rounded-full bg-purple-50 px-3 py-2 text-[13px] font-semibold text-purple">
+                                  Из подборки «{col.collection.title}»
+                                </Link>
+                              ) : it?.collection_id ? (
+                                <span className="min-w-0 flex-1 truncate rounded-full bg-purple-50 px-3 py-2 text-[13px] font-semibold text-purple">Из подборки</span>
+                              ) : (
+                                <span className="flex-1" />
+                              )}
+                              <InviteFriends place={p} always short className="shrink-0" />
+                            </div>
+                          }
+                        />
+                      </IntentSourceProvider>
+                    );
+                  })}
                 </div>
               </>
             ) : (
-              <EmptyState art="heart" title="Пока пусто" text="Нажимайте ♡ на карточках мест — они появятся здесь." action={{ href: "/", label: "Смотреть места" }} />
+              <EmptyState art="heart" title="Пока пусто" text="Нажимайте «Хочу сюда» на карточках мест — они появятся здесь." action={{ href: "/", label: "Смотреть места" }} />
             ))}
+
+          {tab === "collections" && (
+            <>
+              <div className="mb-3 grid grid-cols-2 gap-2">
+                <Link href="/collections/" className="press flex h-12 items-center justify-center rounded-full bg-fill text-[15px] font-semibold">
+                  Мои подборки
+                </Link>
+                <Link href="/collections/new/?from=favorites" className="press inline-flex h-12 items-center justify-center gap-1.5 rounded-full bg-pink text-[15px] font-bold text-white shadow-pink">
+                  <Plus size={18} strokeWidth={2.6} /> Создать
+                </Link>
+              </div>
+              {!socialReady ? (
+                <div className="h-[260px] rounded-[24px] skeleton" />
+              ) : savedCollections.length ? (
+                <div className="space-y-4">
+                  {savedCollections.map((r) => (
+                    <CollectionCard key={r.collection.id} data={r} variant="full" />
+                  ))}
+                </div>
+              ) : (
+                <EmptyState
+                  art="plan"
+                  title="Сохранённых подборок нет"
+                  text="Нажмите ♡ на подборке другого родителя — она останется здесь. Или соберите свою и отправьте друзьям."
+                  action={example ? { href: collectionHref(example), label: "Посмотреть пример" } : { href: "/collections/new/", label: "Создать подборку" }}
+                />
+              )}
+            </>
+          )}
 
           {tab === "plans" &&
             (s.savedPlans.length ? (
@@ -166,7 +233,7 @@ export function FavoritesScreen({ initialTab = "want" }: { initialTab?: Tab }) {
             (visited.length ? (
               <div className="space-y-2.5">
                 {visited.map((p) => (
-                  <PlaceRow key={p.id} place={p} aside={<span className="rounded-full bg-green-50 px-2 py-1 text-[11.5px] font-bold text-green">были ✓</span>} />
+                  <PlaceRow key={p.id} place={p} aside={<span className="rounded-full bg-green-50 px-2 py-1 text-[11.5px] font-bold text-green">были ✓</span>} footer={<FeedbackRow slug={p.slug} compact />} />
                 ))}
                 <p className="pt-2 text-center text-[13px] text-muted">Учитываем это в рекомендациях — чтобы предлагать новое</p>
               </div>
@@ -174,6 +241,19 @@ export function FavoritesScreen({ initialTab = "want" }: { initialTab?: Tab }) {
               <EmptyState art="map" title="Отмечайте, где уже были" text="Так мы будем предлагать только новое и интересное." />
             ))}
         </div>
+      )}
+
+      {s.hydrated && socialReady && hasAnything && (
+        <button onClick={() => useSocialUi.getState().openTransfer()} className="press mx-4 mt-6 flex w-[calc(100%-2rem)] items-center gap-3 rounded-[20px] bg-fill-2 p-3.5 text-left ring-1 ring-line">
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white text-blue shadow-card">
+            <Smartphone size={19} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-[15px] font-semibold">Перенести на другое устройство</span>
+            <span className="block text-[13px] leading-snug text-muted">Например, из браузера в приложение на «Домой»</span>
+          </span>
+          <ArrowRight size={18} className="shrink-0 text-muted" />
+        </button>
       )}
     </main>
   );

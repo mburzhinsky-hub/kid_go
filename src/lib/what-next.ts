@@ -59,7 +59,7 @@ export function whatNextGroups(place: Place): NextGroup[] {
         photo: p.photos[0],
         tint: p.tint,
         emoji: p.emoji,
-        rating: p.rating,
+        rating: p.review_count > 0 ? p.rating : undefined,
         minutes,
         mode,
         extra: p.kids_menu && g.id === "eat" ? "детское меню" : undefined,

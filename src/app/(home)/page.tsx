@@ -12,6 +12,8 @@ import { TripFeedback } from "@/components/home/TripFeedback";
 import { PlannerPromo } from "@/components/home/PlannerPromo";
 import { ForYou } from "@/components/home/ForYou";
 import { OnboardingNudge } from "@/components/home/OnboardingNudge";
+import { ParentsPicks } from "@/components/home/ParentsPicks";
+import { SourceScope } from "@/components/social/SourceScope";
 import { repo } from "@/lib/data/repository";
 import { PH, ph } from "@/lib/data/photos";
 
@@ -80,67 +82,71 @@ export default async function HomePage() {
   const cafes = places.filter((p) => p.category === "cafe").slice(0, 6);
 
   return (
-    <main className="pb-28">
-      <AppHeader />
-      <SearchBar />
-      <div className="mt-4">
-        <CategoryScroller />
-      </div>
-      <div className="mt-4">
-        <HomeHero slides={SLIDES} />
-      </div>
-
-      <section className="mt-7">
-        <SectionHeader title="Что хочется сегодня?" />
-        <div className="mt-3.5">
-          <HomeScenarios />
+    <SourceScope source="HOME">
+      <main className="pb-28">
+        <AppHeader />
+        <SearchBar />
+        <div className="mt-4">
+          <CategoryScroller />
         </div>
-      </section>
-
-      <TripFeedback />
-
-      <section className="mt-7">
-        <SectionHeader title="Готовые приключения" href="/adventures" />
-        <div className="no-scrollbar snap-x-pad mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-4 pt-1">
-          <HomeAdventureCards items={adv.map(adventureCardData)} limit={6} />
+        <div className="mt-4">
+          <HomeHero slides={SLIDES} />
         </div>
-      </section>
 
-      <div className="mt-3">
-        <HomeWeather />
-      </div>
-
-      <section className="mt-7">
-        <NearbyPopularHeader />
-        <div className="mt-3">
-          <NearbyPopular places={places} />
-        </div>
-      </section>
-
-      <div className="mt-5">
-        <PlannerPromo />
-      </div>
-
-      {upcoming.length > 0 && (
-        <section className="mt-8">
-          <SectionHeader title="Что происходит сегодня" subtitle="Шоу, мастер-классы и чтения" />
-          <div className="no-scrollbar snap-x-pad mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-3 pt-1">
-            {upcoming.map((e) => (
-              <EventCard key={e.id} event={e} place={placeMap.get(e.place_id)!} isToday={e.start_at.slice(0, 10) === today} />
-            ))}
+        <section className="mt-7">
+          <SectionHeader title="Что хочется сегодня?" />
+          <div className="mt-3.5">
+            <HomeScenarios />
           </div>
         </section>
-      )}
 
-      <ForYou />
-      <OnboardingNudge />
+        <TripFeedback />
 
-      <section className="mt-7">
-        <SectionHeader title="Поесть всей семьёй" subtitle="Детское меню и игровые уголки" href="/search?category=cafe" />
+        <section className="mt-7">
+          <SectionHeader title="Готовые приключения" href="/adventures" />
+          <div className="no-scrollbar snap-x-pad mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-4 pt-1">
+            <HomeAdventureCards items={adv.map(adventureCardData)} limit={6} />
+          </div>
+        </section>
+
+        <ParentsPicks />
+
         <div className="mt-3">
-          <PlaceCarousel places={cafes} />
+          <HomeWeather />
         </div>
-      </section>
-    </main>
+
+        <section className="mt-7">
+          <NearbyPopularHeader />
+          <div className="mt-3">
+            <NearbyPopular places={places} />
+          </div>
+        </section>
+
+        <div className="mt-5">
+          <PlannerPromo />
+        </div>
+
+        {upcoming.length > 0 && (
+          <section className="mt-8">
+            <SectionHeader title="Что происходит сегодня" subtitle="Шоу, мастер-классы и чтения" />
+            <div className="no-scrollbar snap-x-pad mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-3 pt-1">
+              {upcoming.map((e) => (
+                <EventCard key={e.id} event={e} place={placeMap.get(e.place_id)!} isToday={e.start_at.slice(0, 10) === today} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        <ForYou />
+        <OnboardingNudge />
+
+        <section className="mt-7">
+          <SectionHeader title="Поесть всей семьёй" subtitle="Детское меню и игровые уголки" href="/search?category=cafe" />
+          <div className="mt-3">
+            <PlaceCarousel places={cafes} />
+          </div>
+        </section>
+      </main>
+    </SourceScope>
   );
 }

@@ -64,6 +64,7 @@ export function DayView({
       <main className="min-h-dvh px-4 pt-[max(14px,env(safe-area-inset-top))]">
         <BackButton light />
         <EmptyState
+          page
           className="mt-10"
           art="day"
           title="Ваш день пока пуст"

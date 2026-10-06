@@ -11,6 +11,8 @@
     "audit": "tsx scripts/audit-scenarios.ts",
     "audit:quick": "tsx scripts/audit-scenarios.ts --quick",
     "audit:areas": "tsx scripts/audit-areas.ts",
+    "audit:places": "tsx scripts/audit-places.ts",
+    "audit:coverage": "tsx scripts/audit-coverage.ts",
     "audit:doc": "tsx scripts/audit-scenarios.ts --quick --doc"
   },
   "dependencies": {

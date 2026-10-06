@@ -1,7 +1,7 @@
 /* КидГоу service worker: офлайн-оболочка + кэш просмотренных страниц и фото.
    Стратегии: страницы — network-first (свежие данные, офлайн — из кэша),
    статика и изображения — stale-while-revalidate. */
-const VERSION = "kidgo-v1";
+const VERSION = "kidgo-v2";
 const BASE = new URL(self.registration.scope).pathname.replace(/\/$/, "");
 const SHELL = ["/", "/adventures/", "/favorites/", "/offline.html", "/icons/icon-192.png"].map((p) => BASE + p);
 
@@ -19,7 +19,8 @@ self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
   const url = new URL(req.url);
-  if (url.pathname.startsWith(BASE + "/api/") || url.pathname.startsWith(BASE + "/admin")) return;
+  // /import несёт в адресе личные хотелки — не кэшируем
+  if (url.pathname.startsWith(BASE + "/api/") || url.pathname.startsWith(BASE + "/admin") || url.pathname.startsWith(BASE + "/import")) return;
 
   if (req.mode === "navigate") {
     e.respondWith(

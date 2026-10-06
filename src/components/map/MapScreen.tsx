@@ -4,7 +4,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Search, SlidersHorizontal, Navigation, ArrowRight, X, ChevronDown, LocateOff, Plus, Minus, RefreshCw, ExternalLink, Loader2, Layers } from "lucide-react";
+import { Search, SlidersHorizontal, Navigation, ArrowRight, X, ChevronDown, LocateOff, Plus, Minus, RefreshCw, ExternalLink, Loader2, Layers, MapPin } from "lucide-react";
 import type { Map as MLMap, Marker as MLMarker } from "maplibre-gl";
 import type { CategoryId, GeoPoint, Place } from "@/lib/types";
 import { allPlaces, getPlaceSync } from "@/lib/data/repository";
@@ -28,6 +28,7 @@ import { BottomSheet } from "@/components/ui/BottomSheet";
 import { TabBackButton } from "@/components/ui/BackButton";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { track } from "@/lib/analytics";
+import { IntentSourceProvider } from "@/lib/social/intent-source";
 import { cn } from "@/lib/cn";
 
 /** Москва в пределах МКАД: [запад, юг], [восток, север]. */
@@ -58,7 +59,17 @@ const PRICES = [
   { id: "2000", label: "до 2 000 ₽", max: 2000 },
 ] as const;
 
-export function MapScreen({ initialCategory, initialFocus, initialPlan }: { initialCategory?: CategoryId; initialFocus?: string; initialPlan?: string[] }) {
+/** Набор мест без маршрута — подборка автора: только её места, без линии «шаг за шагом». */
+export interface MapSet {
+  slugs: string[];
+  title?: string;
+  creator_id?: string;
+  collection_id?: string;
+}
+
+export function MapScreen({ initialCategory, initialFocus, initialPlan, initialSet }: { initialCategory?: CategoryId; initialFocus?: string; initialPlan?: string[]; initialSet?: MapSet }) {
+  const isSet = !!initialSet?.slugs.length;
+  const planInput = isSet ? initialSet!.slugs : initialPlan;
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MLMap | null>(null);
   const markersRef = useRef<Map<string, MLMarker>>(new Map());
@@ -96,7 +107,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   const poolRef = useRef(pool);
   poolRef.current = pool;
   const poolBySlug = useMemo(() => new Map(pool.map((p) => [p.slug, p])), [pool]);
-  const planPlaces = useMemo(() => (initialPlan ?? []).map((x) => poolBySlug.get(x) ?? getPlaceSync(x)).filter(Boolean) as Place[], [initialPlan, poolBySlug]);
+  const planPlaces = useMemo(() => (planInput ?? []).map((x) => poolBySlug.get(x) ?? getPlaceSync(x)).filter(Boolean) as Place[], [planInput, poolBySlug]);
   const planSlugs = useMemo(() => planPlaces.map((p) => p.slug), [planPlaces]);
   const mlRef = useRef<typeof import("maplibre-gl") | null>(null);
   const anywhereRef = useRef(false);
@@ -228,7 +239,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       track("map_ready", { provider: res.provider, tried: res.tried.join(",") });
       const ready = () => {
         if (res.vector) applyKidStyle(map);
-        if (planPlaces.length > 1) {
+        if (planPlaces.length > 1 && !isSet) {
           map.addSource("plan-route", {
             type: "geojson",
             data: { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: planPlaces.map((p) => [p.longitude, p.latitude]) } },
@@ -253,7 +264,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
               .sort((a, b) => travelToPlace(start, a, "car").minutes - travelToPlace(start, b, "car").minutes)
               .slice(0, 12);
         near.forEach((p) => bounds.extend([p.longitude, p.latitude]));
-        if (planPlaces.length) bounds.extend([start.lng, start.lat]);
+        if (planPlaces.length && !isSet) bounds.extend([start.lng, start.lat]);
         map.fitBounds(bounds, { padding: pad, duration: 0, maxZoom: 14 });
         setZoom(map.getZoom());
         setMode("map");
@@ -458,6 +469,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
   };
 
   return (
+    <IntentSourceProvider value={{ source_type: "MAP", creator_id: initialSet?.creator_id, collection_id: initialSet?.collection_id }}>
     <main
       className="fixed inset-0 mx-auto max-w-[480px] overflow-hidden bg-[#efebe3]"
       style={{ ["--sheet-h" as string]: `${sheetH}px` }}
@@ -486,7 +498,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
               </div>
             );
           })}
-          {planPlaces.length > 1 && (
+          {planPlaces.length > 1 && !isSet && (
             <svg className="pointer-events-none absolute left-0 top-0 overflow-visible" width="1" height="1" aria-hidden>
               <polyline
                 points={planPlaces.map((p) => `${fbProject(p.latitude, p.longitude).x},${fbProject(p.latitude, p.longitude).y}`).join(" ")}
@@ -533,6 +545,14 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
       <div className="absolute inset-x-0 top-0 z-20 pt-[max(12px,env(safe-area-inset-top))]">
         <div className="flex items-center gap-2.5 px-4">
           <TabBackButton tone="float" />
+          {planSlugs.length ? (
+            <div className="flex h-[52px] min-w-0 flex-1 items-center gap-2 rounded-full bg-white px-4 shadow-float">
+              <MapPin size={20} className="shrink-0 text-pink" />
+              <span className="truncate text-[16.5px] font-semibold">{isSet ? (initialSet?.title ?? "Подборка") : "Маршрут дня"}</span>
+              <span className="ml-auto shrink-0 text-[13.5px] text-muted">{planSlugs.length}</span>
+            </div>
+          ) : (
+            <>
           <label className="flex h-[52px] min-w-0 flex-1 items-center gap-2.5 rounded-full bg-white px-4 shadow-float">
             <Search size={22} strokeWidth={2.1} className="text-ink-2" />
             <input
@@ -558,7 +578,10 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
               <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-pink px-1 text-[11px] font-bold text-white">{activeCount}</span>
             )}
           </button>
+            </>
+          )}
         </div>
+        {!planSlugs.length && (
         <div className="no-scrollbar mt-2.5 flex gap-2 overflow-x-auto px-4 pb-2">
           {category && (
             <FilterChip active size="sm" onClick={() => setCategory(undefined)}>
@@ -577,6 +600,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
             </FilterChip>
           ))}
         </div>
+        )}
         {(mode === "fallback" || mode === "yandex" || (mode === "loading" && slow)) && (
           <div className="mx-4 mt-1 rounded-[16px] bg-white/95 p-2 shadow-card animate-rise" role="status">
             <p className="px-1.5 text-[13px] leading-snug text-ink-2">
@@ -680,7 +704,9 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
             <div className="flex items-end justify-between px-4 pt-1">
               <h2 className="tight text-[21px] font-[800]">
                 {planSlugs.length
-                  ? "Маршрут дня"
+                  ? isSet
+                    ? (initialSet?.title ?? "Подборка")
+                    : "Маршрут дня"
                   : activeCount === 0 && !query.trim()
                     ? anywhere
                       ? "Лучшее в Москве"
@@ -696,7 +722,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
             {collapsed ? null : nearby.length ? (
               <div className="no-scrollbar snap-x-pad mt-2 flex snap-x gap-2.5 overflow-x-auto px-4 pb-2 pt-1">
                 {nearby.slice(0, 14).map(({ p }, i) => (
-                  <MapPlaceChip key={p.id} place={p} caption={planSlugs.length ? `Шаг ${i + 1}` : undefined} />
+                  <MapPlaceChip key={p.id} place={p} caption={planSlugs.length && !isSet ? `Шаг ${i + 1}` : undefined} />
                 ))}
               </div>
             ) : (
@@ -771,5 +797,6 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan }: { init
         </div>
       </BottomSheet>
     </main>
+    </IntentSourceProvider>
   );
 }

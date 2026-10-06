@@ -19,6 +19,7 @@ import { FilterChip } from "@/components/ui/FilterChip";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { encodeKids } from "@/components/planner/PlannerWizard";
 import { cn } from "@/lib/cn";
+import { SourceScope } from "@/components/social/SourceScope";
 import { plural } from "@/lib/format";
 
 const SUGGEST = ["батуты", "динозавры", "бесплатно", "если дождь", "кафе с игровой", "для малышей", "животные", "космос"];
@@ -28,7 +29,17 @@ function norm(s: string) {
   return s.toLowerCase().replace(/ё/g, "е");
 }
 
-export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { initialQ?: string; initialCategory?: CategoryId; initialSort?: Sort }) {
+type SearchProps = { initialQ?: string; initialCategory?: CategoryId; initialSort?: Sort };
+
+export function SearchScreen(props: SearchProps) {
+  return (
+    <SourceScope source="SEARCH">
+      <SearchScreenInner {...props} />
+    </SourceScope>
+  );
+}
+
+function SearchScreenInner({ initialQ = "", initialCategory, initialSort }: SearchProps) {
   const router = useRouter();
   const [q, setQ] = useState(initialQ);
   const [category, setCategory] = useState<CategoryId | undefined>(initialCategory);
@@ -100,6 +111,7 @@ export function SearchScreen({ initialQ = "", initialCategory, initialSort }: { 
 
   return (
     <main className="pb-28">
+      <h1 className="sr-only">Поиск мест</h1>
       <div className="sticky top-0 z-20 bg-bg/95 pb-2 pt-[max(12px,env(safe-area-inset-top))]">
         <div className="flex items-center gap-2 px-4">
           <button onClick={() => goBack(router, "/")} aria-label="Назад" className="press grid h-[50px] w-10 shrink-0 place-items-center">

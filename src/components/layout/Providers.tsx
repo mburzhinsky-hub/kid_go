@@ -5,6 +5,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { WifiOff } from "lucide-react";
 import { rehydrateFamily, useFamily } from "@/lib/store";
 import { useNavTracker } from "@/lib/nav";
+import { ToastHost } from "@/components/ui/Toast";
+import { GlobalSheets } from "@/components/social/GlobalSheets";
+import { rehydrateSocial } from "@/lib/social/store";
+import { warmEvents } from "@/lib/social/events";
+import { initInstallCapture } from "@/lib/social/app";
+import { registerTouch } from "@/lib/social/attribution";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [offline, setOffline] = useState(false);
@@ -25,8 +31,17 @@ export function Providers({ children }: { children: React.ReactNode }) {
     router.replace("/onboarding");
   }, [needsOnboarding, pathname, router]);
 
+  // метки ссылки (utm_*, cr, col) запоминаем на любой странице входа, кроме страниц автора и подборки: они записывают касание сами
+  useEffect(() => {
+    if (/^\/(@|c\/?$)/.test(pathname)) return;
+    registerTouch({});
+  }, [pathname]);
+
   useEffect(() => {
     rehydrateFamily();
+    rehydrateSocial();
+    warmEvents();
+    initInstallCapture();
     const update = () => setOffline(!navigator.onLine);
     update();
     window.addEventListener("online", update);
@@ -51,6 +66,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
         </div>
       )}
       {children}
+      <ToastHost bottom={104} />
+      <GlobalSheets />
     </>
   );
 }

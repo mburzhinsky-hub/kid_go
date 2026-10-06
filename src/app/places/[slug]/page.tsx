@@ -7,7 +7,7 @@ import { HeroGallery, PhotoGallery } from "@/components/place/PhotoGallery";
 import { InfoGrid } from "@/components/place/InfoGrid";
 import { ParentInfo } from "@/components/place/ParentInfo";
 import { WhatNext } from "@/components/place/WhatNext";
-import { PlaceCTA } from "@/components/place/PlaceCTA";
+import { PlaceCTA, PlaceIntentRow } from "@/components/place/PlaceCTA";
 import { routeUrl } from "@/lib/route-url";
 import { OpenStatus } from "@/components/place/OpenStatus";
 import { ReadMore } from "@/components/place/ReadMore";
@@ -16,7 +16,6 @@ import { TagChip } from "@/components/ui/badges";
 import { PlaceCarousel } from "@/components/cards/PlaceCard";
 import { AdventureCard } from "@/components/cards/AdventureCard";
 import { adventureCardData } from "@/lib/cards";
-import { ToastHost } from "@/components/ui/Toast";
 import { whatNextGroups } from "@/lib/what-next";
 import { TravelBadge } from "@/components/ui/TravelBadge";
 import { categoryDef } from "@/lib/catalog";
@@ -99,6 +98,8 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
             </TagChip>
           ))}
         </div>
+
+        <PlaceIntentRow slug={place.slug} title={place.title} subtitle={place.subtitle} photo={place.photos[0]} tint={place.tint} emoji={place.emoji} />
 
         <div className="mt-6">
           <InfoGrid place={place} />
@@ -200,7 +201,6 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
       )}
 
       <PlaceCTA slug={place.slug} title={place.title} lat={place.latitude} lng={place.longitude} />
-      <ToastHost bottom={96} />
     </main>
   );
 }

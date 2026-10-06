@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
+import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { DayView } from "@/components/adventure/DayView";
 import { PlannerResults } from "@/components/planner/PlannerResults";
@@ -44,18 +45,20 @@ function SearchRoute() {
 
 function MapRoute() {
   const sp = useSearchParams();
-  return (
-    <MapScreen
-      initialCategory={(sp.get("category") as CategoryId) || undefined}
-      initialFocus={sp.get("place") || undefined}
-      initialPlan={sp.get("plan")?.split(",").filter(Boolean)}
-    />
-  );
+  const plan = sp.get("plan");
+  const places = sp.get("places");
+  const title = sp.get("title") ?? undefined;
+  const cr = sp.get("cr") ?? undefined;
+  const col = sp.get("col") ?? undefined;
+  // стабильные ссылки: карта пересоздаётся при смене этих значений
+  const initialPlan = useMemo(() => plan?.split(",").filter(Boolean), [plan]);
+  const initialSet = useMemo(() => (places ? { slugs: places.split(",").filter(Boolean), title, creator_id: cr, collection_id: col } : undefined), [places, title, cr, col]);
+  return <MapScreen initialCategory={(sp.get("category") as CategoryId) || undefined} initialFocus={sp.get("place") || undefined} initialPlan={initialPlan} initialSet={initialSet} />;
 }
 
 function FavoritesRoute() {
   const t = useSearchParams().get("tab");
-  return <FavoritesScreen initialTab={t === "plans" || t === "visited" ? t : "want"} />;
+  return <FavoritesScreen initialTab={t === "plans" || t === "visited" || t === "collections" ? t : "want"} />;
 }
 
 function NearbyRoute() {

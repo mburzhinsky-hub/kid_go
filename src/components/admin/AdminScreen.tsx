@@ -9,10 +9,11 @@ import { SmartImage } from "@/components/ui/SmartImage";
 import { BackButton } from "@/components/ui/BackButton";
 import { BottomSheet } from "@/components/ui/BottomSheet";
 import { formatAgeRange, formatPrice } from "@/lib/format";
-import { useToast, ToastHost } from "@/components/ui/Toast";
+import { useToast } from "@/components/ui/Toast";
 import { cn } from "@/lib/cn";
+import { CreatorsPanel, CollectionsPanel, IntentsPanel } from "./SocialAdmin";
 
-type Tab = "places" | "adventures" | "events";
+type Tab = "places" | "adventures" | "events" | "creators" | "collections" | "intents";
 
 /**
  * Минимальный кабинет контента. Сейчас редактирует локальную копию данных;
@@ -52,15 +53,18 @@ export function AdminScreen({ places: initial, adventures, events }: { places: P
       )}
 
       <div className="sticky top-0 z-20 mt-3 bg-bg/95 px-4 pb-2 pt-2">
-        <div className="grid grid-cols-3 gap-1 rounded-full bg-fill p-1">
+        <div className="no-scrollbar flex gap-1 overflow-x-auto rounded-full bg-fill p-1">
           {(
             [
               ["places", "Места"],
               ["adventures", "Приключения"],
               ["events", "События"],
+              ["creators", "Авторы"],
+              ["collections", "Подборки"],
+              ["intents", "Намерения"],
             ] as [Tab, string][]
           ).map(([id, l]) => (
-            <button key={id} onClick={() => setTab(id)} className={cn("press h-9 rounded-full text-[13.5px] font-semibold", tab === id ? "bg-white shadow-card" : "text-muted")}>
+            <button key={id} onClick={() => setTab(id)} aria-pressed={tab === id} className={cn("press h-9 shrink-0 rounded-full px-3.5 text-[13.5px] font-semibold", tab === id ? "bg-white shadow-card" : "text-muted")}>
               {l}
             </button>
           ))}
@@ -103,7 +107,7 @@ export function AdminScreen({ places: initial, adventures, events }: { places: P
                 <p className="truncate text-[15px] font-semibold">{p.title}</p>
                 <p className="truncate text-[12.5px] text-muted">
                   <span style={{ color: categoryDef(p.category).fg }}>{categoryDef(p.category).name}</span> · {formatAgeRange(p.age_min, p.age_max)} ·{" "}
-                  {p.price_min ? `от ${formatPrice(p.price_min)}` : "бесплатно"} · ★ {p.rating}
+                  {p.price_min ? `от ${formatPrice(p.price_min)}` : "бесплатно"} · {p.review_count > 0 ? `★ ${p.rating}` : "без отзывов"}
                 </p>
               </div>
               <button onClick={() => setEdit(p)} aria-label={`Редактировать ${p.title}`} className="press grid h-9 w-9 place-items-center rounded-full bg-fill">
@@ -124,6 +128,9 @@ export function AdminScreen({ places: initial, adventures, events }: { places: P
               <span className="text-[13px] font-bold text-green">{a.recommend_percent}%</span>
             </Link>
           ))}
+        {tab === "creators" && <CreatorsPanel />}
+        {tab === "collections" && <CollectionsPanel />}
+        {tab === "intents" && <IntentsPanel />}
         {tab === "events" &&
           events.map((e) => (
             <div key={e.id} className="rounded-[18px] bg-surface p-3 shadow-card">
@@ -154,7 +161,6 @@ export function AdminScreen({ places: initial, adventures, events }: { places: P
           }}
         />
       )}
-      <ToastHost bottom={24} />
     </main>
   );
 }

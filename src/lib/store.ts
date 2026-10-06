@@ -4,6 +4,8 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { BudgetId, Child, FamilySignals, TransportId } from "@/lib/types";
 import { DEFAULT_ORIGIN, suggestedTransport, type Origin } from "@/lib/location";
+import type { IntentFeedback, IntentSource, IntentStatus, PlaceIntent } from "@/lib/social/types";
+import { getAnonId, getUserId } from "@/lib/social/identity";
 
 /**
  * Клиентское состояние семьи. Сейчас живёт в localStorage;
@@ -30,6 +32,14 @@ export interface Trip {
   tags?: string[];
 }
 
+/** Откуда пришло намерение «Хочу сюда»: экран, подборка и автор (если человек пришёл по ссылке автора). */
+export interface IntentCtx {
+  source_type?: IntentSource;
+  source_id?: string;
+  creator_id?: string;
+  collection_id?: string;
+}
+
 interface FamilyState {
   hydrated: boolean;
   city: string;
@@ -51,6 +61,8 @@ interface FamilyState {
   seen: string[];
   trips: Trip[];
 
+  /** «Хочу сюда» — единственный источник правды: намерения с источником и автором. wantPlaces/visitedPlaces — их проекция для движка. */
+  intents: Record<string, PlaceIntent>;
   wantPlaces: string[]; // slug
   visitedPlaces: string[];
   savedPlans: SavedPlan[];
@@ -59,8 +71,15 @@ interface FamilyState {
   day: string[];
   dayStart: string;
 
-  toggleWant: (slug: string) => void;
-  markVisited: (slug: string) => void;
+  toggleWant: (slug: string, ctx?: IntentCtx) => void;
+  markVisited: (slug: string, ctx?: IntentCtx) => void;
+  /** Убрать из «Хочу сходить» и «Уже были» (намерение остаётся в истории со статусом REMOVED). */
+  clearIntent: (slug: string) => void;
+  setIntentFeedback: (slug: string, feedback: IntentFeedback | undefined) => void;
+  /** При входе / установке приложения анонимные намерения становятся намерениями пользователя. */
+  claimIntents: (userId: string) => void;
+  /** Слияние намерений с другого устройства: уже известные места не затираем. */
+  importIntents: (items: { slug: string; status: "WANT_TO_GO" | "VISITED"; feedback?: IntentFeedback; ctx?: IntentCtx }[]) => number;
   toggleSavedPlan: (plan: Omit<SavedPlan, "savedAt">) => void;
   addToDay: (slugs: string[]) => void;
   removeFromDay: (slug: string) => void;
@@ -106,21 +125,47 @@ export const useFamily = create<FamilyState>()(
       disliked: [],
       seen: [],
       trips: [],
+      intents: {},
       wantPlaces: [],
       visitedPlaces: [],
       savedPlans: [],
       day: [],
       dayStart: "12:00",
 
-      toggleWant: (slug) =>
-        set((s) => ({
-          wantPlaces: s.wantPlaces.includes(slug) ? s.wantPlaces.filter((x) => x !== slug) : [slug, ...s.wantPlaces],
-        })),
-      markVisited: (slug) =>
-        set((s) => ({
-          visitedPlaces: s.visitedPlaces.includes(slug) ? s.visitedPlaces : [slug, ...s.visitedPlaces],
-          wantPlaces: s.wantPlaces.filter((x) => x !== slug),
-        })),
+      toggleWant: (slug, ctx) => set((s) => applyIntent(s, slug, s.wantPlaces.includes(slug) ? "REMOVED" : "WANT_TO_GO", ctx)),
+      markVisited: (slug, ctx) => set((s) => (s.visitedPlaces.includes(slug) ? s : applyIntent(s, slug, "VISITED", ctx))),
+      clearIntent: (slug) => set((s) => applyIntent(s, slug, "REMOVED")),
+      setIntentFeedback: (slug, feedback) =>
+        set((s) => {
+          const it = s.intents[slug];
+          if (!it) return s;
+          const loved = feedback === "LIKE" ? [...new Set([slug, ...s.loved])] : s.loved.filter((x) => x !== slug);
+          const disliked = feedback === "DISLIKE" ? [...new Set([slug, ...s.disliked])] : s.disliked.filter((x) => x !== slug);
+          return { intents: { ...s.intents, [slug]: { ...it, feedback, updated_at: new Date().toISOString() } }, loved, disliked };
+        }),
+      importIntents: (items) => {
+        let added = 0;
+        set((s) => {
+          let cur: Pick<FamilyState, "intents" | "wantPlaces" | "visitedPlaces"> = s;
+          let loved = s.loved;
+          let disliked = s.disliked;
+          for (const it of items) {
+            const prev = cur.intents[it.slug];
+            if (prev && prev.status !== "REMOVED") continue;
+            cur = applyIntent(cur, it.slug, it.status, it.ctx);
+            added++;
+            if (it.status === "VISITED" && it.feedback) {
+              cur = { ...cur, intents: { ...cur.intents, [it.slug]: { ...cur.intents[it.slug], feedback: it.feedback } } };
+              if (it.feedback === "LIKE") loved = [...new Set([it.slug, ...loved])];
+              if (it.feedback === "DISLIKE") disliked = [...new Set([it.slug, ...disliked])];
+            }
+          }
+          return { ...cur, loved, disliked };
+        });
+        return added;
+      },
+      claimIntents: (userId) =>
+        set((s) => ({ intents: Object.fromEntries(Object.entries(s.intents).map(([k, v]) => [k, v.user_id ? v : { ...v, user_id: userId }])) })),
       toggleSavedPlan: (plan) =>
         set((s) => ({
           savedPlans: s.savedPlans.some((p) => p.key === plan.key)
@@ -169,10 +214,13 @@ export const useFamily = create<FamilyState>()(
           const trip = s.trips.find((t) => t.key === key);
           if (!trip) return s;
           const anchor = trip.steps[0];
+          let cur: FamilyState = s;
+          for (const st of trip.steps) if (!cur.visitedPlaces.includes(st)) cur = { ...cur, ...applyIntent(cur, st, "VISITED", { source_type: "ADVENTURE", source_id: key }) };
           return {
             trips: s.trips.map((t) => (t.key === key ? { ...t, rating, tags } : t)),
-            visitedPlaces: [...trip.steps.filter((x) => !s.visitedPlaces.includes(x)), ...s.visitedPlaces],
-            wantPlaces: s.wantPlaces.filter((x) => !trip.steps.includes(x)),
+            intents: cur.intents,
+            visitedPlaces: cur.visitedPlaces,
+            wantPlaces: cur.wantPlaces,
             loved: rating === 3 ? [...new Set([anchor, ...s.loved])] : s.loved.filter((x) => x !== anchor),
             disliked: rating === 1 ? [...new Set([anchor, ...s.disliked])] : s.disliked.filter((x) => x !== anchor),
           };
@@ -181,25 +229,41 @@ export const useFamily = create<FamilyState>()(
     }),
     {
       name: "kidgo-family",
-      version: 3,
+      version: 4,
       // v1 подставлял демо-детей Мишу и Аню всем подряд — убираем их, если семья их не меняла
       migrate: (state, version) => {
-        const st = state as Partial<FamilyState>;
+        let cur = state as Partial<FamilyState>;
         if (version < 2) {
           const demoIds = new Set(["c1", "c2"]);
-          const kids = (st.children ?? []).filter(
+          const kids = (cur.children ?? []).filter(
             (c) => !(demoIds.has(c.id) && DEMO_CHILDREN.some((d) => d.id === c.id && d.name === c.name && d.age === c.age))
           );
-          return {
-            ...st,
+          cur = {
+            ...cur,
             children: kids,
-            transportAuto: (st.transport ?? "transit") === "transit",
-            wantPlaces: (st.wantPlaces ?? []).filter((x) => !["moskovsky-zoopark", "eksperimentanium"].includes(x) || kids.length > 0),
-            visitedPlaces: (st.visitedPlaces ?? []).filter((x) => x !== "park-gorkogo" || kids.length > 0),
-          } as FamilyState;
+            transportAuto: (cur.transport ?? "transit") === "transit",
+            wantPlaces: (cur.wantPlaces ?? []).filter((x) => !["moskovsky-zoopark", "eksperimentanium"].includes(x) || kids.length > 0),
+            visitedPlaces: (cur.visitedPlaces ?? []).filter((x) => x !== "park-gorkogo" || kids.length > 0),
+          };
         }
-        if (version < 3) return { ...st, transportAuto: (st.transport ?? "transit") === "transit" } as FamilyState;
-        return st as FamilyState;
+        if (version < 3) cur = { ...cur, transportAuto: (cur.transport ?? "transit") === "transit" };
+        if (version < 4) {
+          // v4: «Хочу сюда» стало сущностью с источником — переносим старые хотелки и «уже были»
+          const now = new Date().toISOString();
+          const intents: Record<string, PlaceIntent> = {};
+          const mk = (slug: string, status: IntentStatus): PlaceIntent => ({
+            id: `pi_${slug}`,
+            place_id: slug,
+            status,
+            source_type: "PLACE",
+            created_at: now,
+            updated_at: now,
+          });
+          for (const slug of cur.visitedPlaces ?? []) intents[slug] = mk(slug, "VISITED");
+          for (const slug of cur.wantPlaces ?? []) intents[slug] = mk(slug, "WANT_TO_GO");
+          cur = { ...cur, intents };
+        }
+        return cur as FamilyState;
       },
       storage: createJSONStorage(() => localStorage),
       skipHydration: true,
@@ -207,6 +271,40 @@ export const useFamily = create<FamilyState>()(
     }
   )
 );
+
+/**
+ * Меняет статус намерения и держит проекции wantPlaces / visitedPlaces в той же транзакции.
+ * Источник (экран, подборка, автор) запоминается при первом «хочу» и не затирается, когда «хочу» превращается в «были».
+ */
+function applyIntent(
+  s: Pick<FamilyState, "intents" | "wantPlaces" | "visitedPlaces">,
+  slug: string,
+  status: IntentStatus,
+  ctx: IntentCtx = {}
+): Pick<FamilyState, "intents" | "wantPlaces" | "visitedPlaces"> {
+  const now = new Date().toISOString();
+  const prev = s.intents[slug];
+  const reuse = prev && prev.status !== "REMOVED" && status === "VISITED";
+  const intent: PlaceIntent = {
+    id: prev?.id ?? `pi_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`,
+    user_id: getUserId() ?? prev?.user_id,
+    anonymous_session_id: prev?.anonymous_session_id ?? getAnonId(),
+    place_id: slug,
+    status,
+    source_type: reuse ? prev.source_type : (ctx.source_type ?? "PLACE"),
+    source_id: reuse ? prev.source_id : ctx.source_id,
+    creator_id: reuse ? prev.creator_id : ctx.creator_id,
+    collection_id: reuse ? prev.collection_id : ctx.collection_id,
+    feedback: status === "VISITED" ? prev?.feedback : undefined,
+    created_at: prev && prev.status !== "REMOVED" ? prev.created_at : now,
+    updated_at: now,
+  };
+  return {
+    intents: { ...s.intents, [slug]: intent },
+    wantPlaces: status === "WANT_TO_GO" ? [slug, ...s.wantPlaces.filter((x) => x !== slug)] : s.wantPlaces.filter((x) => x !== slug),
+    visitedPlaces: status === "VISITED" ? [slug, ...s.visitedPlaces.filter((x) => x !== slug)] : s.visitedPlaces.filter((x) => x !== slug),
+  };
+}
 
 /** Вызывается один раз в Providers: подтягиваем localStorage после гидрации React. */
 export function rehydrateFamily() {

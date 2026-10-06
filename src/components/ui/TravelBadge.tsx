@@ -47,7 +47,7 @@ export function TravelBadge({ place, className, long }: { place: Place; classNam
       </span>
     );
   return (
-    <span className={cn("inline-flex items-center gap-1 text-[13px] text-muted", className)} title={mode === "area" ? "Примерно, от центра выбранного округа" : `${formatKm(travel.km)} от точки выезда`}>
+    <span className={cn("inline-flex max-w-full flex-wrap items-center gap-x-1 text-[13px] text-muted", className)} title={mode === "area" ? "Примерно, от центра выбранного округа" : `${formatKm(travel.km)} от точки выезда`}>
       <Icon size={14} strokeWidth={2.2} /> {elsewhere ? <b className="font-semibold text-[#9a6b00]">{elsewhere} ·</b> : null} {mode === "area" ? "≈ " : ""}{travel.minutes} мин{long ? ` · ${formatKm(travel.km)}` : ""}
     </span>
   );

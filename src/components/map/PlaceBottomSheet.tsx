@@ -4,7 +4,7 @@ import Link from "next/link";
 import { X, Navigation, ArrowRight } from "lucide-react";
 import type { Place } from "@/lib/types";
 import { SmartImage } from "@/components/ui/SmartImage";
-import { FavoriteButton } from "@/components/ui/FavoriteButton";
+import { WantButton } from "@/components/social/WantButton";
 import { RatingBadge, DistanceBadge, AgeBadge, PriceBadge } from "@/components/ui/badges";
 import { OpenStatus } from "@/components/place/OpenStatus";
 import { categoryDef } from "@/lib/catalog";
@@ -47,16 +47,17 @@ export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; mi
         <OpenStatus hours={place.opening_hours} />
       </div>
       <div className="mt-3 flex gap-2">
-        <FavoriteButton slug={place.slug} variant="plain" className="h-12 w-12 shrink-0" />
+        <WantButton slug={place.slug} className="min-w-0 flex-1" />
         <a
           href={routeUrl(place.latitude, place.longitude)}
           target="_blank"
           rel="noopener noreferrer"
-          className="press flex h-12 flex-1 items-center justify-center gap-1.5 rounded-full bg-blue-50 text-[15px] font-semibold text-blue"
+          aria-label="Маршрут"
+          className="press grid h-12 w-12 shrink-0 place-items-center rounded-full bg-blue-50 text-blue"
         >
-          <Navigation size={17} /> Маршрут
+          <Navigation size={20} />
         </a>
-        <Link href={placeHref(place)} className="press flex h-12 flex-[1.3] items-center justify-center gap-1.5 rounded-full bg-pink text-[15px] font-semibold text-white shadow-pink">
+        <Link href={placeHref(place)} className="press flex h-12 flex-1 items-center justify-center gap-1.5 rounded-full bg-fill text-[15px] font-semibold text-ink">
           Подробнее <ArrowRight size={17} />
         </Link>
       </div>

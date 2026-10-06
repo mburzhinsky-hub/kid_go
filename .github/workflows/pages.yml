@@ -33,6 +33,8 @@ jobs:
         run: npm run audit:quick
       - name: Audit of districts (все 11 округов, все экраны - подбор дня, «для вас», замена шага, приключения)
         run: npm run audit:areas
+      - name: Audit of places (поля, часы, возраст, координаты, округ, дубли, приключения, афиша)
+        run: npm run audit:places
       - name: Build static export
         env:
           GITHUB_PAGES: "true"

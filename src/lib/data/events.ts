@@ -2,6 +2,7 @@ import type { KidEvent } from "@/lib/types";
 import { placeBySlug } from "./places";
 import { PH, ph } from "./photos";
 import { buildEvents } from "./extra";
+import { isOpenDuring, moscowNow } from "@/lib/format";
 
 /**
  * Демо-афиша. Даты строятся относительно «сегодня» (по Москве),
@@ -30,10 +31,17 @@ export function getEventsSeed(): KidEvent[] {
   return [...seedEvents(), ...buildEvents(placeBySlug)];
 }
 
+const toMin = (hhmm: string) => Number(hhmm.slice(0, 2)) * 60 + Number(hhmm.slice(3, 5));
+
 function seedEvents(): KidEvent[] {
-  return seeds.map((s, i) => {
-    const place = placeBySlug.get(s.slug)!;
-    return {
+  const now = Date.now();
+  return seeds.flatMap((s, i): KidEvent[] => {
+    const place = placeBySlug.get(s.slug);
+    if (!place) return [];
+    // не показываем событие в день, когда место закрыто (например, у музеев выходной в понедельник)
+    const weekday = moscowNow(new Date(now + s.day * 86400000)).weekday;
+    if (!isOpenDuring(place.opening_hours, weekday, toMin(s.from), toMin(s.to) - toMin(s.from))) return [];
+    return [{
       id: `e${i + 1}`,
       place_id: place.id,
       title: s.title,
@@ -45,6 +53,6 @@ function seedEvents(): KidEvent[] {
       price: s.price,
       tickets_url: undefined,
       image: ph(s.image, s.title),
-    };
+    }];
   });
 }

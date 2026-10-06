@@ -20,10 +20,11 @@ import { downloadICS } from "@/lib/calendar";
 import { travelToPlace, formatTravel, locationMode } from "@/lib/location";
 import { getPlaceSync } from "@/lib/data/repository";
 import { BottomSheet } from "@/components/ui/BottomSheet";
-import { useToast, ToastHost } from "@/components/ui/Toast";
+import { useToast } from "@/components/ui/Toast";
 import { formatAgeRange, formatBudget, formatDuration, moscowNow, toMinutes } from "@/lib/format";
 import { formatKm } from "@/lib/geo";
 import { track } from "@/lib/analytics";
+import { SourceScope } from "@/components/social/SourceScope";
 import { cn } from "@/lib/cn";
 
 export interface AdventureViewProps {
@@ -59,7 +60,16 @@ export function multiRouteUrl(places: Place[]) {
   return `https://yandex.ru/maps/?rtext=${places.map((p) => `${p.latitude},${p.longitude}`).join("~")}&rtt=mt`;
 }
 
+/** «Хочу сюда» на шагах приключения запоминает источник — приключение, из которого место попало в хотелки. */
 export function AdventureView(props: AdventureViewProps) {
+  return (
+    <SourceScope source="ADVENTURE" id={props.planKey}>
+      <AdventureViewInner {...props} />
+    </SourceScope>
+  );
+}
+
+function AdventureViewInner(props: AdventureViewProps) {
   const [start, setStart] = useState(props.start);
   const [stopsIn, setStopsIn] = useState(props.stops);
   const [modified, setModified] = useState(false);
@@ -327,7 +337,6 @@ export function AdventureView(props: AdventureViewProps) {
       >
         Поехали!
       </StickyCTA>
-      <ToastHost bottom={96} />
     </main>
   );
 }

@@ -47,7 +47,7 @@ export function PlaceCard({
       </div>
       <div className="px-3 pb-3 pt-2">
         <h3 className="truncate text-[15px] font-semibold leading-snug">{place.title}</h3>
-        <div className="mt-1 flex items-center justify-between gap-2">
+        <div className="mt-1 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5">
           <RatingBadge rating={place.rating} count={place.review_count} />
           {km != null ? <DistanceBadge km={formatKm(km)} /> : <TravelBadge place={place} />}
         </div>
@@ -66,10 +66,10 @@ export function PlaceCarousel({ places, caption }: { places: Place[]; caption?: 
   );
 }
 
-/** Широкая строка для списков (поиск, избранное). */
-export function PlaceRow({ place, km, aside }: { place: Place; km?: number; aside?: React.ReactNode }) {
-  return (
-    <Link href={placeHref(place)} className="press flex gap-3 rounded-[20px] bg-surface p-2.5 shadow-card">
+/** Широкая строка для списков (поиск, избранное). `footer` — доп. строка внутри той же карточки. */
+export function PlaceRow({ place, km, aside, footer }: { place: Place; km?: number; aside?: React.ReactNode; footer?: React.ReactNode }) {
+  const link = (
+    <Link href={placeHref(place)} className={cn("press flex gap-3 p-2.5", !footer && "rounded-[20px] bg-surface shadow-card")}>
       <div className="relative shrink-0">
         <SmartImage photo={place.photos[0]} tint={place.tint} emoji={place.emoji} sizes="112px" className="h-[96px] w-[108px] rounded-[14px]" />
         <FavoriteButton slug={place.slug} className="absolute right-1.5 top-1.5 h-8 w-8" />
@@ -77,12 +77,19 @@ export function PlaceRow({ place, km, aside }: { place: Place; km?: number; asid
       <div className="flex min-w-0 flex-1 flex-col py-0.5">
         <h3 className="line-clamp-2 text-[16px] font-semibold leading-[1.2]">{place.title}</h3>
         <p className="mt-0.5 truncate text-[13.5px] text-muted">{place.subtitle}</p>
-        <div className="mt-auto flex items-center gap-3 pt-1">
+        <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-0.5 pt-1">
           <RatingBadge rating={place.rating} count={place.review_count} />
           {km != null ? <DistanceBadge km={formatKm(km)} /> : <TravelBadge place={place} />}
         </div>
       </div>
       {aside && <div className="flex shrink-0 flex-col items-end justify-end">{aside}</div>}
     </Link>
+  );
+  if (!footer) return link;
+  return (
+    <div className="overflow-hidden rounded-[20px] bg-surface shadow-card">
+      {link}
+      <div className="px-3 pb-3">{footer}</div>
+    </div>
   );
 }

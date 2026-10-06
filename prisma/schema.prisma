@@ -72,6 +72,8 @@ model Place {
   steps             AdventureStep[]
   events            Event[]
   favorites         Favorite[]
+  collectionItems   CollectionItem[]
+  intents           PlaceIntent[]
   createdAt         DateTime @default(now()) @map("created_at")
   updatedAt         DateTime @updatedAt @map("updated_at")
 
@@ -217,4 +219,215 @@ model SavedPlan {
 
   @@unique([familyId, key])
   @@map("saved_plans")
+}
+
+
+// ───────────────────────── Creators & Collections ─────────────────────────
+// Локальный слой данных приложения (src/lib/social/*) отдаёт ровно эти формы:
+// переход на БД меняет только реализацию src/lib/social/repo.ts, UI не трогаем.
+
+enum UserType {
+  USER
+  CREATOR
+  ADMIN
+}
+
+enum CreatorStatus {
+  PENDING
+  APPROVED
+  SUSPENDED
+}
+
+enum Visibility {
+  PUBLIC   // индексируется, попадает на главную и в sitemap
+  UNLISTED // открывается по ссылке, noindex
+  PRIVATE  // видит только автор
+}
+
+enum CollectionStatus {
+  DRAFT
+  PUBLISHED
+  HIDDEN // скрыта модерацией
+}
+
+enum IntentStatus {
+  WANT_TO_GO
+  VISITED
+  REMOVED
+}
+
+enum IntentSource {
+  COLLECTION
+  PLACE
+  MAP
+  ADVENTURE
+  HOME
+  SEARCH
+  CREATOR
+}
+
+enum IntentFeedback {
+  LIKE
+  OK
+  DISLIKE
+}
+
+/// Пользователь. Регистрация не обязательна: до входа действия привязаны к anonymous_id устройства и переезжают на User при входе.
+model User {
+  id         String           @id @default(cuid())
+  name       String
+  username   String           @unique
+  avatar     String           @default("🧸") /// эмодзи или адрес картинки
+  type       UserType         @default(USER)
+  bio        String?
+  creator    CreatorProfile?
+  collections Collection[]
+  saves      CollectionSave[]
+  intents    PlaceIntent[]
+  referrals  Referral[]
+  events     AnalyticsEvent[]
+  createdAt  DateTime         @default(now()) @map("created_at")
+
+  @@map("users")
+}
+
+model CreatorProfile {
+  userId      String        @id @map("user_id")
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  displayName String        @map("display_name")
+  username    String        @unique /// адрес страницы: /@username
+  bio         String        @default("")
+  avatar      String
+  tint        String        @default("#FFE4F1")
+  featured    Boolean       @default(false)
+  status      CreatorStatus @default(PENDING)
+  city        String        @default("Москва")
+  links       Json? /// [{kind: "instagram"|"telegram"|"site", url, label}]
+  createdAt   DateTime      @default(now()) @map("created_at")
+
+  @@map("creator_profiles")
+}
+
+model Collection {
+  id          String           @id @default(cuid())
+  userId      String           @map("user_id")
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  slug        String
+  description String           @default("")
+  /// {kind:"place", slug} | {kind:"collage"}
+  cover       Json
+  city        String           @default("Москва")
+  visibility  Visibility       @default(PUBLIC)
+  status      CollectionStatus @default(DRAFT)
+  ageMin      Int              @map("age_min")
+  ageMax      Int              @map("age_max")
+  items       CollectionItem[]
+  saves       CollectionSave[]
+  intents     PlaceIntent[]
+  referrals   Referral[]
+  events      AnalyticsEvent[]
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
+  publishedAt DateTime?        @map("published_at")
+
+  @@unique([userId, slug])
+  @@index([status, visibility])
+  @@map("collections")
+}
+
+model CollectionItem {
+  id           String     @id @default(cuid())
+  collectionId String     @map("collection_id")
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  placeId      String     @map("place_id")
+  place        Place      @relation(fields: [placeId], references: [id], onDelete: Cascade)
+  position     Int
+  creatorNote  String?    @map("creator_note")
+
+  @@unique([collectionId, placeId])
+  @@index([collectionId, position])
+  @@map("collection_items")
+}
+
+model CollectionSave {
+  id           String     @id @default(cuid())
+  userId       String?    @map("user_id")
+  user         User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anonymousId  String     @map("anonymous_id")
+  collectionId String     @map("collection_id")
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  createdAt    DateTime   @default(now()) @map("created_at")
+
+  @@unique([anonymousId, collectionId])
+  @@index([userId])
+  @@map("collection_saves")
+}
+
+/// «Хочу сюда»: намерение, а не лайк. Помнит, откуда пришло и чья подборка привела человека.
+model PlaceIntent {
+  id                 String         @id @default(cuid())
+  userId             String?        @map("user_id")
+  user               User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anonymousSessionId String?        @map("anonymous_session_id")
+  placeId            String         @map("place_id")
+  place              Place          @relation(fields: [placeId], references: [id], onDelete: Cascade)
+  status             IntentStatus
+  sourceType         IntentSource   @map("source_type")
+  sourceId           String?        @map("source_id")
+  creatorId          String?        @map("creator_id")
+  collectionId       String?        @map("collection_id")
+  collection         Collection?    @relation(fields: [collectionId], references: [id], onDelete: SetNull)
+  feedback           IntentFeedback?
+  createdAt          DateTime       @default(now()) @map("created_at")
+  updatedAt          DateTime       @updatedAt @map("updated_at")
+
+  @@unique([userId, placeId])
+  @@unique([anonymousSessionId, placeId])
+  @@index([placeId, status])
+  @@index([creatorId])
+  @@index([collectionId])
+  @@map("place_intents")
+}
+
+/// Первое касание по ссылке автора (окно атрибуции — 30 дней). Платформенно-независимо: вход, «хочу», установка, сохранение, покупка.
+model Referral {
+  id           String      @id @default(cuid())
+  creatorId    String?     @map("creator_id")
+  collectionId String?     @map("collection_id")
+  collection   Collection? @relation(fields: [collectionId], references: [id], onDelete: SetNull)
+  anonymousId  String      @map("anonymous_id")
+  userId       String?     @map("user_id")
+  user         User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  utmSource    String?     @map("utm_source")
+  utmMedium    String?     @map("utm_medium")
+  utmCampaign  String?     @map("utm_campaign")
+  referrer     String?
+  landingPath  String?     @map("landing_path")
+  createdAt    DateTime    @default(now()) @map("created_at")
+
+  @@index([creatorId, createdAt])
+  @@index([anonymousId])
+  @@map("referrals")
+}
+
+/// Журнал событий (collection_view, place_want_to_go, …; а позже ticket_click, booking_click, purchase, partner_conversion, creator_revenue).
+model AnalyticsEvent {
+  id           String      @id @default(cuid())
+  eventName    String      @map("event_name")
+  userId       String?     @map("user_id")
+  user         User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  anonymousId  String      @map("anonymous_id")
+  creatorId    String?     @map("creator_id")
+  collectionId String?     @map("collection_id")
+  collection   Collection? @relation(fields: [collectionId], references: [id], onDelete: SetNull)
+  placeId      String?     @map("place_id")
+  properties   Json        @default("{}")
+  createdAt    DateTime    @default(now()) @map("created_at")
+
+  @@index([eventName, createdAt])
+  @@index([creatorId, eventName])
+  @@index([collectionId, eventName])
+  @@index([placeId, eventName])
+  @@map("analytics_events")
 }

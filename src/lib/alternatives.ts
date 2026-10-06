@@ -73,7 +73,7 @@ export function alternativesFor(
       const near = (fromPrev ?? travelBetween(pt(stop.place), pt(p), opts.transport).minutes) + toNext;
       const hit = p.interest_tags.some((t) => interests.has(t));
       const score = p.rating * 2 + (hit ? 2 : 0) + (p.indoor && !stop.place.indoor ? 0.5 : 0) - near / 8;
-      const reason = hit ? "по интересам" : p.indoor && !stop.place.indoor ? "под крышей" : near <= 15 ? "совсем рядом" : `★ ${p.rating.toFixed(1)}`;
+      const reason = hit ? "по интересам" : p.indoor && !stop.place.indoor ? "под крышей" : near <= 15 ? "совсем рядом" : p.review_count > 0 ? `★ ${p.rating.toFixed(1)}` : "подходит по времени";
       return { place: p, minutesFromPrev: fromPrev, reason, score, near };
     })
     .filter((x) => x.near <= (home ? 60 : 45))
