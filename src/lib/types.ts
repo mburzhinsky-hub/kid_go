@@ -345,6 +345,8 @@ export interface PlanStop {
   weather?: StopWeather;
   /** Крытая замена рядом для уличного шага. */
   backup?: string;
+  /** Этот шаг выбран как точка питания в конкретном плане. */
+  foodOption?: boolean;
 }
 
 export interface Plan {
