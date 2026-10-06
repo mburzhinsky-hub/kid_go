@@ -235,7 +235,7 @@ export function scorePlace(
 
   if (c.indoorOnly && !p.indoor) return null;
   if (c.quiet && p.noise_level === 3) return null;
-  if (c.stroller && !p.stroller_friendly) return null;
+  if (c.stroller && !(p.unknown_fields ?? []).includes("stroller_friendly") && !p.stroller_friendly) return null;
   if (c.avoidCategories?.includes(p.category)) return null;
   if (fam?.disliked.includes(p.slug)) return null;
 
@@ -320,9 +320,11 @@ export function areaOf(input: Pick2<PlannerInput, "location" | "locationMode">):
 function ageNeeds(p: Place, ctx: DayCtx): number {
   let v = 0;
   if (ctx.youngest <= 3) {
-    v += (p.stroller_friendly ? 0.9 : -0.6) + (p.baby_room ? 0.7 : 0) + (p.activity_level === 3 ? -1.6 : 0) + (p.noise_level === 3 ? -1.2 : 0) + (p.experience_tags.includes("toddlers") ? 1.2 : 0);
+    const strollerKnown = !(p.unknown_fields ?? []).includes("stroller_friendly");
+    const babyKnown = !(p.unknown_fields ?? []).includes("baby_room");
+    v += (strollerKnown ? (p.stroller_friendly ? 0.9 : -0.6) : 0) + (babyKnown && p.baby_room ? 0.7 : 0) + (p.activity_level === 3 ? -1.6 : 0) + (p.noise_level === 3 ? -1.2 : 0) + (p.experience_tags.includes("toddlers") ? 1.2 : 0);
   } else if (ctx.youngest <= 5) {
-    v += (p.kids_menu ? 0.3 : 0) + (p.age_min <= 3 ? 0.4 : 0);
+    v += (!(p.unknown_fields ?? []).includes("kids_menu") && p.kids_menu ? 0.3 : 0) + (p.age_min <= 3 ? 0.4 : 0);
   }
   if (ctx.oldest >= 9) {
     v += (p.age_min >= 6 ? 1.1 : p.age_min <= 2 && p.age_max <= 8 ? -1.4 : 0) + (p.activity_level === 3 ? 0.5 : 0) + (p.experience_tags.includes("toddlers") ? -1.2 : 0);
