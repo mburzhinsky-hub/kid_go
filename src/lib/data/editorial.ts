@@ -44,6 +44,7 @@ export function applyEditorialFacts(place: Place): Place {
     parking: facts.parking.status === "yes",
     menu_url: facts.menu_url || undefined,
     editorial_note: facts.editorial_note || undefined,
+    tags: facts.parking.status === "yes" ? place.tags : place.tags.filter((tag) => !/парков/i.test(tag)),
     rating: ratingVerified ? facts.rating! : place.rating,
     rating_source: ratingVerified ? facts.rating_source! : place.rating_source,
     unknown_fields: facts.parking.status === "unknown" ? [...unknown, "parking"] : unknown,
