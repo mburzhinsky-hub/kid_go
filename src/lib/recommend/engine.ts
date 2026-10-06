@@ -270,6 +270,13 @@ export function scorePlace(
       c.parentBreak && p.category === "cafe" && p.experience_tags.includes("playzone")
         ? 6
         : 0,
+    scenarioBudget:
+      input.budget === "5000" &&
+      c.preferCategories?.includes("park") &&
+      p.category === "park" &&
+      p.price_max > 0
+        ? 1.8
+        : 0,
     // данные OpenStreetMap не проверены редакцией — при прочих равных отдаём предпочтение каталогу
     trust: p.confidence === "osm" ? -0.7 : 0,
     popularity: (p.is_hit ? 0.4 : 0) + (p.review_count > 0 ? Math.min(0.4, p.review_count / 10000) : 0),
@@ -301,7 +308,7 @@ export function scorePlace(
       input.budget === "free"
         ? (p.price_max === 0 || p.family_budget === 0 ? 2.0 : 0)
         : Number.isFinite(budgetMax) && budgetMax > 0
-          ? -((p.family_budget / budgetMax) ** 1.3) * (input.budget === "2000" ? 3.4 : 1.4) + (input.budget === "5000" && p.price_max > 0 ? 1.8 : 0)
+          ? -((p.family_budget / budgetMax) ** 1.3) * (input.budget === "2000" ? 3.4 : 1.4) + (input.budget === "5000" && p.price_min > 0 ? 1.8 : 0)
           : budgetMax === Infinity
             ? (p.price_level >= 2 && p.rating >= 4.6 ? 0.6 : 0)
             : 0,
