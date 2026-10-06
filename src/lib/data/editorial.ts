@@ -45,8 +45,11 @@ export function applyEditorialFacts(place: Place): Place {
     menu_url: facts.menu_url || undefined,
     editorial_note: facts.editorial_note || undefined,
     tags: facts.parking.status === "yes" ? place.tags : place.tags.filter((tag) => !/парков/i.test(tag)),
-    rating: ratingVerified ? facts.rating! : place.rating,
-    rating_source: ratingVerified ? facts.rating_source! : place.rating_source,
+    // Если таблица принесла новый рейтинг без конкретного URL, старый social proof не наследуем:
+    // число остаётся редакторским pending-фактом и не публикуется до подтверждения источника.
+    rating: facts.rating != null ? (ratingVerified ? facts.rating : 0) : place.rating,
+    review_count: facts.rating != null ? 0 : place.review_count,
+    rating_source: facts.rating != null ? (ratingVerified ? facts.rating_source! : undefined) : place.rating_source,
     unknown_fields: facts.parking.status === "unknown" ? [...unknown, "parking"] : unknown,
   };
 }
