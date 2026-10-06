@@ -372,7 +372,7 @@ export function hasFoodOption(p: Pick2<Place, "category" | "menu_url">): boolean
 }
 
 export function planHasFood(plan: Pick2<Plan, "stops">): boolean {
-  return plan.stops.some((s) => hasFoodOption(s.place));
+  return plan.stops.some((s) => s.foodOption === true || (s.foodOption == null && hasFoodOption(s.place)));
 }
 
 /** Как добираемся: на машине важна подтверждённая парковка, на метро — станция рядом. */
@@ -833,6 +833,25 @@ function toPlan(a: Assembled, input: PlannerInput, ctx: DayCtx, pool: ScoredPlac
       description: chainLabel(picks.map((p) => p.place)),
     }
   );
+  // Явно отмечаем, где в этом плане находится еда. Само наличие menu_url в базе
+  // не означает, что питание является частью конкретного маршрута.
+  const lunchInWindow = ctx.start <= 14 * 60 && ctx.end >= 12 * 60 + 30;
+  const wantsFood = input.budget !== "free" && (
+    input.foodAfter ||
+    input.constraints?.parentBreak ||
+    ctx.total >= 240 ||
+    (ctx.total >= 180 && lunchInWindow)
+  );
+  draft.stops.forEach((stop) => { stop.foodOption = false; });
+  if (wantsFood) {
+    let foodIndex = picks.findIndex((p) => p.slot === "food");
+    if (foodIndex < 0 && input.constraints?.parentBreak) {
+      foodIndex = picks.findIndex((p) => p.place.category === "cafe" && p.place.experience_tags.includes("playzone"));
+    }
+    if (foodIndex < 0) foodIndex = picks.findIndex((p) => p.place.category === "cafe");
+    if (foodIndex < 0 && !input.constraints?.parentBreak) foodIndex = picks.findIndex((p) => !!p.place.menu_url);
+    if (foodIndex >= 0) draft.stops[foodIndex].foodOption = true;
+  }
   // погода на шаг и крытая замена для уличных
   draft.stops.forEach((s, i) => {
     s.weather = a.ordered.weather[i];
