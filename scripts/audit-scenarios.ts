@@ -122,11 +122,11 @@ const families: Record<string, { name: string; age: number; interests: InterestI
   ],
 };
 const FAM = Object.entries(families);
-const SAT = new Date("2026-10-03T08:00:00Z"); // сб 11:00 МСК
-const TUE_EVE = new Date("2026-10-06T14:00:00Z"); // вт 17:00
-const SUN_AM = new Date("2026-10-04T06:00:00Z"); // вс 09:00
-const FRI_PM = new Date("2026-10-09T12:30:00Z"); // пт 15:30
-const MON_EARLY = new Date("2026-10-05T05:00:00Z"); // пн 08:00
+const SAT = new Date("2026-10-03T08:00:00Z");
+const TUE_EVE = new Date("2026-10-06T14:00:00Z");
+const SUN_AM = new Date("2026-10-04T06:00:00Z");
+const FRI_PM = new Date("2026-10-09T12:30:00Z");
+const MON_EARLY = new Date("2026-10-05T05:00:00Z");
 const WINTER = new Date("2027-01-09T08:00:00Z");
 
 const here = (id: string): Origin => ({ ...AREAS.find((a) => a.id === id)!, source: "custom" });
@@ -138,7 +138,6 @@ interface Loc {
 }
 const LOCS: Loc[] = [
   { id: "вся Москва", o: DEFAULT_ORIGIN, transport: "transit" },
-  // все 11 округов: правило «округ — граница» должно работать одинаково везде, а не только в паре примеров
   ...OKRUGS.filter((o) => !["szao"].includes(o.id)).map((o): Loc => ({ id: o.short, o: okrugOrigin(o), transport: o.id === "zelao" || o.id === "nao" ? "car" : "transit" })),
   { id: "центр, адрес", o: here("center"), transport: "transit" },
   { id: "Тушино, адрес", o: here("tushino"), transport: "transit" },
@@ -168,7 +167,6 @@ const softAdd = (key: string, ok: boolean) => {
 };
 let planCount = 0;
 let plansLt3 = 0;
-/** Строгий режим округа: «здесь такого нет» — не ошибка, если честно сказано и есть куда пойти. */
 let areaRuns = 0;
 let areaEmptyRuns = 0;
 let areaEmptyWithAnchors = 0;
@@ -197,7 +195,6 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
   const strictArea = !!okId && input.areaScope !== "wide";
   if (strictArea) areaRuns++;
   if (!r.plans.length && strictArea) {
-    // «в округе такого нет»: допустимо, если сказано прямо и есть куда пойти (другой округ, другая ситуация, соседние округа)
     areaEmptyRuns++;
     if (r.area?.anchors) areaEmptyWithAnchors++;
     if (!r.suggestions.length) hard.push(`округ пуст и без подсказок — ${tag}`);
@@ -207,7 +204,6 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
     if (areaEmptyRuns % 40 === 1) {
       altChecked++;
       const alt = areaAlternatives({ query: { ...query, ...(transport ? { transport } : {}) }, kids, origin: loc.o, prefs: { budget: "5000", transport: loc.transport, maxTravelMin: 40 }, forecast, now, family: { want: [], visited: [], loved: [], disliked: [], seen: [] } }, input);
-      // выход — другой округ, другая ситуация или хотя бы ослабление условий из подсказок
       if (!alt || (!alt.others.length && !alt.scenarios.length && !r.suggestions.length)) {
         altNoExit++;
         hard.push(`округ пуст и выхода нет (ни другого округа, ни другой ситуации, ни подсказок) — ${tag}`);
@@ -258,6 +254,9 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
       if (c.avoidCategories?.includes(s.place.category)) hard.push(`исключённая категория ${s.place.category}: ${s.place.slug} — ${t}`);
       if (mode === "any" && isSuburban({ lat: s.place.latitude, lng: s.place.longitude })) hard.push(`«вся Москва», а ${s.place.slug} за МКАД — ${t}`);
       if (!s.place.title) hard.push(`у места нет названия: ${s.place.slug} — ${t}`);
+      // Еда не может объявляться запланированной только из-за наличия URL в базе.
+      if (s.foodOption && s.place.category !== "cafe" && !s.place.menu_url) hard.push(`еда без заведения/меню: ${s.place.slug} — ${t}`);
+      if (input.budget === "free" && s.foodOption) hard.push(`платное питание навязано бесплатному маршруту: ${s.place.slug} — ${t}`);
     }
     if (mode === "any") for (const s of p.stops) if (!inMoscow(s.place)) hard.push(`«вся Москва», а ${s.place.slug} не в Москве — ${t}`);
     if (strictArea && okId) {
@@ -273,7 +272,6 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
     if (input.budget !== "any" && input.budget !== "free" && p.budget > BUDGET_MAX[input.budget] * 1.1) hard.push(`бюджет ${p.budget} > ${BUDGET_MAX[input.budget]} — ${t}`);
     const last = p.stops[p.stops.length - 1];
     if (c.endBy && toMinutes(last.start) + last.duration > c.endBy + 10) hard.push(`позже «домой к ${Math.floor(c.endBy / 60)}:00»: ${last.start}+${last.duration} — ${t}`);
-    // место поиска
     if (mode === "any") {
       if (p.fromHome) hard.push(`«вся Москва», а в плане есть дорога от дома — ${t}`);
     } else {
@@ -285,23 +283,21 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
         if (!r.relaxed && input.maxDistanceKm && p.fromHome.minutes > 20 * 1.35 + 1) hard.push(`«рядом»: ${p.fromHome.minutes} мин — ${t}`);
       }
     }
-    // «мягкие» свойства сценария: еда и улица — в лучшем плане; категория и интересы — хотя бы в одном из вариантов выдачи
     const sc = SCENARIO_LIBRARY.find((x) => x.id === query.s);
     if (sc && pi === 0) {
       const cs = sc.constraints;
-      const city = CITY_LOCS.has(loc.id) && mode !== "area"; // кафе в каталоге только в городе; в округе они зависят от соседей — это проверяет отдельный блок
+      const city = CITY_LOCS.has(loc.id) && mode !== "area";
       if (city && sc.food && input.budget !== "free") softAdd(`${sc.id}|поесть`, planHasFood(p));
-      if (city && cs?.parentBreak) softAdd(`${sc.id}|передышка родителю`, p.stops.some((s) => s.place.category === "cafe" && s.place.experience_tags.includes("playzone")));
+      // Явный бесплатный фильтр выше food/parentBreak: требовать платное кафе здесь противоречит продукту.
+      // Порог покрытия (70%) не меняем; для платных запросов по-прежнему нужна именно игровая, не любой menu_url.
+      if (city && cs?.parentBreak && input.budget !== "free") softAdd(`${sc.id}|передышка родителю`, p.stops.some((s) => s.place.category === "cafe" && s.place.experience_tags.includes("playzone")));
       if (cs?.outdoorPreferred && (wx === "sun" || wx === "rain15")) softAdd(`${sc.id}|есть улица`, p.stops.some((s) => s.place.outdoor));
     }
   });
   {
     const sc = SCENARIO_LIBRARY.find((x) => x.id === query.s);
     const cs = sc?.constraints;
-    // для малышей подходит мало мест любой категории — меряем там, где выбор есть (дети от 5 лет)
     if (sc && youngest >= 5 && !c.indoorOnly === !cs?.indoorOnly) {
-      // бесплатный запрос, а бесплатных мест нужной категории в каталоге нет — выполнить это условие невозможно
-      // и не просим невозможного: нужна категория, где есть место для ВСЕХ детей по возрасту, в бюджет и (в дождь) под крышей
       const rainy = wx === "rain" || wx === "rain15" || wx === "cold";
       const feasible = !!cs?.preferCategories && (allPlaces as { category: string; price_min: number; age_min: number; age_max: number; indoor: boolean }[]).some(
         (p) => cs.preferCategories!.includes(p.category as never) && (input.budget !== "free" || p.price_min === 0) && kids.every((k) => k.age >= p.age_min && k.age <= p.age_max) && (!rainy || p.indoor)
@@ -327,13 +323,11 @@ const t0 = Date.now();
 const famPass1 = QUICK ? FAM.filter((_, i) => [0, 2, 4].includes(i)) : FAM;
 const wxPass1 = QUICK ? (["sun", "rain", "cold"] as WxScenario[]) : WXS;
 const locPass1 = QUICK ? LOCS.filter((l) => ["вся Москва", "ЗАО", "СЗАО", "Зеленоград", "центр, адрес", "Красногорск, адрес"].includes(l.id)) : LOCS;
-// проход 1: сценарий × семья × погода × место (сб 11:00)
 for (const sc of SCENARIO_LIBRARY)
   for (const [fname, kids] of famPass1)
     for (const wx of wxPass1)
       for (const loc of locPass1) run(`${sc.id} · ${fname} · ${wx} · ${loc.id}`, { s: sc.id }, kids, loc, wx, SAT);
 const pass1 = runs;
-// проход 2: время недели и года
 const times: [string, Date][] = [["вт 17:00", TUE_EVE], ["вс 09:00", SUN_AM], ["пт 15:30", FRI_PM], ["пн 08:00", MON_EARLY], ["зима, сб", WINTER]];
 for (const sc of SCENARIO_LIBRARY)
   for (const [fname, kids] of FAM.filter((_, i) => [1, 2, 4].includes(i)))
@@ -341,7 +335,6 @@ for (const sc of SCENARIO_LIBRARY)
       for (const loc of LOCS_Q.slice(0, QUICK ? 2 : 5))
         for (const [tn, now] of times) run(`${sc.id} · ${fname} · ${wx} · ${loc.id} · ${tn}`, { s: sc.id }, kids, loc, wx, now);
 const pass2 = runs - pass1;
-// проход 3: фильтры из ссылки поверх сценария
 const FILTERS: [string, ResultsQuery][] = [
   ["пешком", { transport: "walk" }],
   ["машина", { transport: "car" }],
@@ -374,10 +367,12 @@ type Cfg = { kids: (typeof families)[string]; loc: Loc; wx: WxScenario; now: Dat
 const key1 = (sid: string, c: Cfg) => {
   const forecast = demoForecast(c.loc.o, c.wx, c.now);
   const input = buildPlannerInput({ query: { s: sid, ...c.query }, kids: c.kids, origin: c.loc.o, prefs: { budget: "5000", transport: c.loc.transport, maxTravelMin: 40 }, forecast, now: c.now, family: { want: [], visited: [], loved: [], disliked: [], seen: [] } });
-  return generatePlans(input).plans[0]?.key;
+  const plan = generatePlans(input).plans[0];
+  // Один и тот же парк с обедом на территории и без обеда — разные пользовательские планы.
+  // Сравниваем реальное назначение foodOption, а не добавляем бюджет/запрос в ключ ради прохождения теста.
+  return plan ? `${plan.key}|food:${plan.stops.filter((s) => s.foodOption).map((s) => s.place.slug).join(",")}` : undefined;
 };
 const BASE: Omit<Cfg, "kids"> = { loc: L("центр, адрес"), wx: "sun", now: SAT, query: {} };
-/** «Тесные» сценарии: узкий радиус и тишина оставляют 3–6 подходящих мест, поэтому часть условий их план не меняет — это нормально. */
 const tight = (s: ScenarioDef) =>
   !!s.constraints?.maxTravelMin || !!s.constraints?.stroller || !!s.constraints?.endBy || (s.duration === "short" && (!!s.constraints?.quiet || !!s.constraints?.indoorOnly)) ||
   (s.budget === "free" && !!s.constraints?.indoorOnly);
@@ -434,7 +429,6 @@ const weak: string[] = [];
   }
 }
 
-// «бесплатно и под крышей»: таких мест в каталоге единицы, поэтому часть условий их план не меняет — порог ниже
 const deafMin = (id: string) => {
   const sc = SCENARIO_LIBRARY.find((x) => x.id === id)!;
   return sc.budget === "free" && sc.constraints?.indoorOnly ? 5 : 7;
@@ -609,14 +603,13 @@ if (DOC) {
   L.push("## Как условия влияют на сценарий", "");
   L.push("| Условие | Что меняется |", "|---|---|");
   L.push("| Погода (прогноз по часам) | улица/крыша по окнам дождя; «успеть до дождя»; мороз и жара — только подходящее; сценарии «дождь/мороз/жара» — строго под крышей |");
-  L.push("| Возраст детей | место должно подходить всем; малышам — коляска, тишина, пеленальная; старшим — не «малышовое» |");
-  L.push("| Бюджет | жёсткий потолок на день (бесплатно — только бесплатные места), дорогой «якорь» штрафуется при скромном бюджете |");
+  L.push("| Возраст детей | место должно подходить всем; малышам — спокойный формат; проверенные удобства учитываются отдельно |");
+  L.push("| Бюджет | жёсткий потолок на день; в бесплатном режиме не планируем платную еду |");
   L.push("| Транспорт | машина — парковка, метро — станция рядом, пешком — короткие шаги |");
   L.push("| Место поиска | **вся Москва** — без дороги от дома, лучшее по городу; **округ** — дорога ≈ от условного центра; **точный адрес** — минуты от двери; за МКАД — расширение радиуса и места из OpenStreetMap |");
   L.push("| Время и день недели | старт не раньше «сейчас + 40 мин»; поздно — переносим на завтра; выходные — меньше толпы; часы работы по дню |");
-  L.push("| Длительность / настроение / «с обедом» | число шагов, якорь дня, кафе в маршруте |");
+  L.push("| Длительность / настроение / «с обедом» | число шагов, якорь дня, кафе или еда на территории; меню у выбранного foodOption |");
   L.push("| Интересы и история семьи | бонус за интересы, «хотим сюда», штраф за «уже были» и «не понравилось» |", "");
-  // покрытие по округам: сколько мест в каталоге и сколько ситуаций из библиотеки в округе работает «строго»
   {
     L.push("## Покрытие по округам", "");
     L.push("Если выбран округ, основные места — только из него (кафе и магазины по пути — и из соседних), а ситуация должна быть «по теме» (развивающая — музеи и наука, прогулка — парки). Когда в округе такого нет, приложение прямо говорит об этом и предлагает то же в ближайшем округе и другие ситуации, которые здесь работают.", "");
