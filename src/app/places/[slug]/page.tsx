@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MapPin, Navigation, CalendarDays } from "lucide-react";
+import { MapPin, Navigation, CalendarDays, UtensilsCrossed } from "lucide-react";
 import { repo } from "@/lib/data/repository";
 import { allPlaces } from "@/lib/data/repository";
 import { HeroGallery, PhotoGallery } from "@/components/place/PhotoGallery";
@@ -150,6 +150,18 @@ export default async function PlacePage({ params }: PlacePageProps) {
           </div>
         )}
 
+        {place.menu_url && (
+          <a
+            href={place.menu_url}
+            target="_blank"
+            rel="noreferrer"
+            className="press mt-3 flex h-12 items-center justify-center gap-2 rounded-full bg-orange-50 px-4 text-[14.5px] font-semibold text-[#b45a12]"
+          >
+            <UtensilsCrossed size={17} />
+            {place.category === "cafe" ? "Посмотреть меню" : "Где поесть / меню"}
+          </a>
+        )}
+
         {placeEvents.length > 0 && (
           <section className="mt-8">
             <h2 className="tight text-[22px] font-[800]">Скоро здесь</h2>
@@ -205,7 +217,7 @@ export default async function PlacePage({ params }: PlacePageProps) {
           </section>
         )}
 
-        {(place.review_count > 0 || place.reviews.length > 0) && (
+        {((place.rating > 0 && !!place.rating_source) || place.reviews.length > 0) && (
           <section className="mt-9">
             <h2 className="tight text-[24px] font-[800]">Отзывы</h2>
             <div className="mt-3.5">
