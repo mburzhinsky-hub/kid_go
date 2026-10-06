@@ -60,6 +60,7 @@ export interface RawPlace {
   reviews?: number | null;
   /** Конкретная страница/сервис, откуда взяты rating и review count. Без неё social proof не публикуем. */
   rating_source?: string | null;
+  menu_url?: string | null;
   source?: string;
   confidence?: "high" | "medium" | "low";
 }
