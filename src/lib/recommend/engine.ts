@@ -268,15 +268,25 @@ export function scorePlace(
     activity: input.activity ? 1 - Math.abs(p.activity_level - input.activity) / 2 : 0.5,
     parentBreak:
       c.parentBreak && p.category === "cafe" && p.experience_tags.includes("playzone")
-        ? 6
+        ? 8
         : 0,
     scenarioBudget:
-      input.budget === "5000" &&
-      c.preferCategories?.includes("park") &&
-      p.category === "park" &&
-      p.price_max > 0
-        ? 1.8
-        : 0,
+      input.budget === "any" &&
+      c.preferCategories?.includes(p.category) &&
+      ["animals", "active", "play"].includes(p.category) &&
+      p.price_min > 0
+        ? 3
+        : input.budget === "5000" &&
+            c.experiences?.includes("playzone") &&
+            c.preferCategories?.includes(p.category) &&
+            p.price_min > 0
+          ? 2.2
+          : input.budget === "5000" &&
+              c.preferCategories?.includes("park") &&
+              p.category === "park" &&
+              p.price_max > 0
+            ? 1.8
+            : 0,
     // данные OpenStreetMap не проверены редакцией — при прочих равных отдаём предпочтение каталогу
     trust: p.confidence === "osm" ? -0.7 : 0,
     popularity: (p.is_hit ? 0.4 : 0) + (p.review_count > 0 ? Math.min(0.4, p.review_count / 10000) : 0),
@@ -286,7 +296,7 @@ export function scorePlace(
     transport: transportFit(p, input),
     prefer:
       // сценарий про одну категорию («к животным», «на каток») тянет к ней сильнее, чем про несколько
-      (c.preferCategories?.includes(p.category) ? (c.preferCategories.length === 1 ? 4.6 : 4.0) : 0) +
+      (c.preferCategories?.includes(p.category) ? (c.preferCategories.length === 1 ? 4.8 : 4.8) : 0) +
       (c.outdoorPreferred && p.outdoor ? 2 : 0) +
       // формат сценария: «спектакль», «мастер-класс», «книги»…
       (c.experiences?.some((e) => p.experience_tags.includes(e)) ? 2.4 : 0) +
