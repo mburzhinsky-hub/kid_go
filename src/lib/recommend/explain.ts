@@ -72,7 +72,8 @@ export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = [
     const min = prev.travelToNext?.minutes ?? 5;
     why.push(`🍽 Кафе в ${min} мин`);
     const near = min <= 10 ? "всего в " : "в ";
-    sentences.push(`а ${food.place.kids_menu ? "семейное кафе с детским меню" : "кафе"} — ${near}${min} ${plural(min, "минуте", "минутах", "минутах")}`);
+    const verifiedKidsMenu = !food.place.unknown_fields?.includes("kids_menu") && food.place.kids_menu;
+    sentences.push(`а ${verifiedKidsMenu ? "семейное кафе с детским меню" : "кафе"} — ${near}${min} ${plural(min, "минуте", "минутах", "минутах")}`);
   } else if (foodOnSite) {
     why.push("🍽 Можно поесть на месте");
     sentences.push("и для еды не нужен отдельный переезд — у места есть подтверждённое меню");
