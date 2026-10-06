@@ -17,5 +17,5 @@ export function CreatorAvatar({ author, size = 40, className, ring }: { author: 
 
 /** Метка «Автор подборок» — без галочек «проверено»: доверие строим на содержимом, а не на значке. */
 export function CreatorBadge({ className, label = "Автор подборок" }: { className?: string; label?: string }) {
-  return <span className={cn("inline-flex h-6 items-center rounded-full bg-purple-50 px-2.5 text-[12px] font-semibold text-purple", className)}>{label}</span>;
+  return <span className={cn("inline-flex h-6 items-center rounded-full bg-purple-50 px-2.5 text-[12px] font-semibold text-purple-ink", className)}>{label}</span>;
 }

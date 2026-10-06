@@ -94,7 +94,7 @@ export function HomeScenarios() {
     <>
       <ScenarioGrid items={items} />
       <Link href="/scenarios" className="press mx-4 mt-2.5 flex h-12 items-center justify-center gap-1.5 rounded-full bg-surface text-[15px] font-semibold shadow-card">
-        Все {SCENARIO_LIBRARY.length} {plural(SCENARIO_LIBRARY.length, "ситуация", "ситуации", "ситуаций")} <ArrowRight size={17} />
+        Все {SCENARIO_LIBRARY.length} {plural(SCENARIO_LIBRARY.length, "ситуация", "ситуации", "ситуаций")} <ArrowRight size={16} />
       </Link>
     </>
   );
@@ -158,7 +158,7 @@ export function HomeWeather() {
       <span className="min-w-0 flex-1">
         <span className="block text-[15px] font-bold leading-tight">{title}</span>
         <span className="block text-[13px] leading-tight text-ink-2">{text}</span>
-        <span className="mt-0.5 block text-[11px] leading-tight text-muted">
+        <span className="mt-0.5 block text-[12px] leading-tight text-muted">
           {forecast.source === "open-meteo" ? `Прогноз Open-Meteo · ${origin.source === "default" ? "Москва" : origin.label}` : forecast.scenario ? `Тестовая погода: ${forecast.scenario}` : "Нет связи с прогнозом — примерная погода"}
         </span>
       </span>

@@ -19,15 +19,15 @@ export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; mi
     <div className="animate-sheet">
       <div className="flex gap-3">
         <Link href={placeHref(place)} className="shrink-0">
-          <SmartImage photo={place.photos[0]} tint={place.tint} emoji={place.emoji} sizes="120px" className="h-[104px] w-[112px] rounded-[18px]" />
+          <SmartImage photo={place.photos[0]} tint={place.tint} emoji={place.emoji} sizes="120px" className="h-[104px] w-[112px] rounded-[20px]" />
         </Link>
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
-            <span className="inline-flex items-center gap-1 text-[12.5px] font-semibold" style={{ color: cat.fg }}>
+            <span className="inline-flex items-center gap-1 text-[13px] font-semibold" style={{ color: cat.ink }}>
               <cat.Icon width={13} height={13} /> {cat.name}
             </span>
-            <button onClick={onClose} aria-label="Закрыть" className="press -mr-1 -mt-1 grid h-8 w-8 place-items-center rounded-full bg-fill">
-              <X size={16} strokeWidth={2.4} />
+            <button onClick={onClose} aria-label="Закрыть" className="press hit relative -mr-1 -mt-1 grid h-8 w-8 place-items-center rounded-full bg-fill">
+              <X size={16} strokeWidth={2.5} />
             </button>
           </div>
           <Link href={placeHref(place)}>
@@ -53,12 +53,12 @@ export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; mi
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Маршрут"
-          className="press grid h-12 w-12 shrink-0 place-items-center rounded-full bg-blue-50 text-blue"
+          className="press grid h-12 w-12 shrink-0 place-items-center rounded-full bg-blue-50 text-blue-ink"
         >
           <Navigation size={20} />
         </a>
         <Link href={placeHref(place)} className="press flex h-12 flex-1 items-center justify-center gap-1.5 rounded-full bg-fill text-[15px] font-semibold text-ink">
-          Подробнее <ArrowRight size={17} />
+          Подробнее <ArrowRight size={16} />
         </Link>
       </div>
     </div>

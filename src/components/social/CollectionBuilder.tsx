@@ -187,7 +187,7 @@ export function CollectionBuilder({ editId, asAuthor, from }: { editId?: string;
     return (
       <main className="grid min-h-dvh place-items-center px-6 text-center">
         <div>
-          <p className="text-[19px] font-bold">Подборка не найдена</p>
+          <p className="text-[20px] font-bold">Подборка не найдена</p>
           <p className="mt-1 text-[15px] text-muted">Возможно, её удалили на этом устройстве.</p>
           <Link href="/collections/" className="press mt-4 inline-flex h-12 items-center rounded-full bg-pink px-6 font-semibold text-white shadow-pink">
             Мои подборки
@@ -205,7 +205,7 @@ export function CollectionBuilder({ editId, asAuthor, from }: { editId?: string;
       <div className="flex shrink-0 items-center gap-3">
         <BackButton fallback="/collections/" onClick={step > 0 ? () => setStep(step - 1) : undefined} />
         <div className="min-w-0 flex-1">
-          <p className="text-[12.5px] font-semibold text-muted">Шаг {step + 1} из 3</p>
+          <p className="text-[13px] font-semibold text-muted">Шаг {step + 1} из 3</p>
           <h1 className="tight truncate text-[22px] font-[850] leading-tight">{editId ? "Редактирование · " : ""}{TITLES[step]}</h1>
         </div>
         {asAuthor && <CreatorAvatar author={asAuthor} size={36} />}
@@ -220,9 +220,9 @@ export function CollectionBuilder({ editId, asAuthor, from }: { editId?: string;
                 value={form.title}
                 maxLength={MAX_TITLE}
                 onChange={(e) => patch({ title: e.target.value })}
-                placeholder="Например: 10 мест для дождливого дня"
+                placeholder="Например: 10 мест на дождь"
                 autoFocus
-                className="mt-2 h-14 w-full rounded-[18px] bg-surface px-4 text-[17px] font-semibold shadow-card outline-none focus:ring-2 focus:ring-pink/40"
+                className="mt-2 h-12 w-full rounded-[20px] bg-surface px-4 text-[17px] font-semibold shadow-card outline-none focus:ring-2 focus:ring-pink/40"
               />
               <span className="mt-1 block text-right text-[12px] text-muted">{form.title.length}/{MAX_TITLE}</span>
             </label>
@@ -234,7 +234,7 @@ export function CollectionBuilder({ editId, asAuthor, from }: { editId?: string;
                 rows={4}
                 onChange={(e) => patch({ description: e.target.value })}
                 placeholder="Для кого она и чем хороша: «всё под крышей, везде есть гардероб»"
-                className="mt-2 w-full resize-none rounded-[18px] bg-surface px-4 py-3 text-[16px] leading-snug shadow-card outline-none focus:ring-2 focus:ring-pink/40"
+                className="mt-2 w-full resize-none rounded-[20px] bg-surface px-4 py-3 text-[16px] leading-snug shadow-card outline-none focus:ring-2 focus:ring-pink/40"
               />
             </label>
             <p className="mt-4 rounded-[16px] bg-blue-50 px-3.5 py-3 text-[14px] leading-snug text-ink-2">💡 Хорошая подборка — это 5–10 мест и короткие заметки о том, что важно знать родителю.</p>
@@ -253,11 +253,11 @@ export function CollectionBuilder({ editId, asAuthor, from }: { editId?: string;
               </button>
             ) : (
               <>
-                <p className="mb-2 text-[13.5px] text-muted">Перетаскивайте за ручку ⠿, чтобы поменять порядок. К каждому месту можно добавить заметку.</p>
+                <p className="mb-2 text-[14px] text-muted">Перетаскивайте за ручку ⠿, чтобы поменять порядок. К каждому месту можно добавить заметку.</p>
                 <ReorderList items={form.items} onChange={(items) => patch({ items })} />
                 {form.items.length < MAX_ITEMS ? (
-                  <button onClick={() => setPickerOpen(true)} className="press mt-3 flex h-14 w-full items-center justify-center gap-2 rounded-[20px] border-2 border-dashed border-[#dcd9d2] text-[15.5px] font-semibold text-pink">
-                    <Plus size={19} /> Добавить ещё место
+                  <button onClick={() => setPickerOpen(true)} className="press mt-3 flex h-14 w-full items-center justify-center gap-2 rounded-[20px] border-2 border-dashed border-[#dcd9d2] text-[16px] font-semibold text-pink-ink">
+                    <Plus size={20} /> Добавить ещё место
                   </button>
                 ) : (
                   <p className="mt-3 text-center text-[13px] text-muted">Максимум {MAX_ITEMS} мест</p>
@@ -280,7 +280,7 @@ export function CollectionBuilder({ editId, asAuthor, from }: { editId?: string;
                 </CoverTile>
               ))}
             </div>
-            <p className="mt-1.5 text-[12.5px] text-muted">Фото — из мест подборки. Свою картинку добавить пока нельзя: нужен сервер для файлов.</p>
+            <p className="mt-1.5 text-[13px] text-muted">Фото — из мест подборки. Свою картинку добавить пока нельзя: нужен сервер для файлов.</p>
 
             <h2 className="mt-6 text-[15px] font-bold">Для каких детей</h2>
             <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label="Возраст">
@@ -294,7 +294,7 @@ export function CollectionBuilder({ editId, asAuthor, from }: { editId?: string;
                       setGroupsTouched(true);
                       patch({ groups: on ? (form.groups.length > 1 ? form.groups.filter((x) => x !== g.id) : form.groups) : [...form.groups, g.id] });
                     }}
-                    className={cn("press h-11 rounded-full px-5 text-[15.5px] font-semibold", on ? "bg-ink text-white" : "bg-surface text-ink shadow-card")}
+                    className={cn("press h-11 rounded-full px-5 text-[16px] font-semibold", on ? "bg-ink text-white" : "bg-surface text-ink shadow-card")}
                   >
                     {g.label} лет
                   </button>
@@ -310,16 +310,16 @@ export function CollectionBuilder({ editId, asAuthor, from }: { editId?: string;
                   role="radio"
                   aria-checked={form.visibility === id}
                   onClick={() => patch({ visibility: id })}
-                  className={cn("press flex w-full items-center gap-3 rounded-[20px] p-3 text-left", form.visibility === id ? "bg-pink-50 ring-2 ring-pink/50" : "bg-surface shadow-card")}
+                  className={cn("press flex w-full items-center gap-3 rounded-[20px] p-3 text-left", form.visibility === id ? "bg-pink-50 ring-2 ring-inset ring-pink/50" : "bg-surface shadow-card")}
                 >
-                  <span className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-full", form.visibility === id ? "bg-white text-pink" : "bg-fill text-ink-2")}>
+                  <span className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-full", form.visibility === id ? "bg-white text-pink-ink" : "bg-fill text-ink-2")}>
                     <Icon size={20} />
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[16px] font-semibold leading-tight">{label}</span>
                     <span className="block text-[13px] leading-snug text-muted">{hint}</span>
                   </span>
-                  {form.visibility === id && <Check size={20} className="text-pink" />}
+                  {form.visibility === id && <Check size={20} className="text-pink-ink" />}
                 </button>
               ))}
             </div>
@@ -347,11 +347,11 @@ export function CollectionBuilder({ editId, asAuthor, from }: { editId?: string;
 
       {preview && (
         <div className="fixed inset-0 z-[60] mx-auto max-w-[480px] overflow-y-auto bg-bg">
-          <div className="sticky top-0 z-10 bg-yellow-50 px-4 pb-2 pt-[max(8px,env(safe-area-inset-top))] text-center text-[13px] font-semibold text-[#7a5600]">Так подборку увидят другие</div>
+          <div className="sticky top-0 z-10 bg-yellow-50 px-4 pb-2 pt-[max(8px,env(safe-area-inset-top))] text-center text-[13px] font-semibold text-yellow-ink">Так подборку увидят другие</div>
           <CollectionScreen resolved={previewResolved} preview />
           <div className="sticky bottom-0 z-10 flex gap-2.5 bg-gradient-to-t from-bg from-70% to-transparent px-4 pb-[max(14px,env(safe-area-inset-bottom))] pt-6">
             <button onClick={() => setPreview(false)} className="press inline-flex h-14 items-center gap-1.5 rounded-full bg-surface px-5 text-[16px] font-bold shadow-card">
-              <ArrowLeft size={18} /> Править
+              <ArrowLeft size={20} /> Править
             </button>
             <button onClick={() => finish()} className="press h-14 flex-1 rounded-full bg-pink text-[17px] font-bold text-white shadow-pink">
               {editId ? "Сохранить" : "Опубликовать"}
@@ -393,20 +393,20 @@ function Success({ r, onShare }: { r: ResolvedCollection; onShare: () => void })
     <main className="flex min-h-dvh flex-col items-center justify-center px-6 pb-10 text-center">
       <div className="relative grid h-[132px] w-[160px] place-items-center">
         <div className="absolute inset-x-3 bottom-0 top-3 rounded-[48%_52%_46%_54%/55%_48%_52%_45%] bg-pink-50" />
-        <PartyPopper size={72} className="relative text-pink animate-bob" strokeWidth={1.6} />
+        <PartyPopper size={72} className="relative text-pink-ink animate-bob" strokeWidth={2} />
       </div>
       <h1 className="tight mt-4 text-[30px] font-[850] leading-tight">{priv ? "Подборка сохранена" : "Подборка опубликована 🎉"}</h1>
       <p className="mt-2 max-w-[320px] text-[16px] leading-snug text-muted">{priv ? "Её видите только вы. Откройте доступ в редакторе, когда захотите поделиться." : "Отправьте ссылку друзьям — они откроют подборку без регистрации."}</p>
       <div className="mt-6 w-full max-w-[360px] space-y-2.5">
         {!priv && (
-          <button onClick={onShare} className="press flex h-[58px] w-full items-center justify-center gap-2.5 rounded-full bg-pink text-[19px] font-bold text-white shadow-pink">
-            <Share2 size={21} /> Поделиться
+          <button onClick={onShare} className="press flex h-14 w-full items-center justify-center gap-2.5 rounded-full bg-pink text-[18px] font-bold text-white shadow-pink">
+            <Share2 size={20} /> Поделиться
           </button>
         )}
-        <Link href={`/c/?id=${encodeURIComponent(r.collection.id)}`} className="press flex h-14 w-full items-center justify-center rounded-full bg-surface text-[16.5px] font-bold shadow-card">
+        <Link href={`/c/?id=${encodeURIComponent(r.collection.id)}`} className="press flex h-14 w-full items-center justify-center rounded-full bg-surface text-[17px] font-bold shadow-card">
           Посмотреть подборку
         </Link>
-        <Link href="/collections/" className="press flex h-12 w-full items-center justify-center text-[15.5px] font-semibold text-blue">
+        <Link href="/collections/" className="press flex h-12 w-full items-center justify-center text-[16px] font-semibold text-blue-ink">
           Мои подборки
         </Link>
       </div>
@@ -416,7 +416,7 @@ function Success({ r, onShare }: { r: ResolvedCollection; onShare: () => void })
 
 function CoverTile({ active, onClick, label, children }: { active: boolean; onClick: () => void; label: string; children: React.ReactNode }) {
   return (
-    <button onClick={onClick} aria-pressed={active} aria-label={`Обложка: ${label}`} className={cn("press relative h-[88px] w-[88px] shrink-0 overflow-hidden rounded-[18px]", active ? "ring-[3px] ring-pink ring-offset-2 ring-offset-bg" : "ring-1 ring-line")}>
+    <button onClick={onClick} aria-pressed={active} aria-label={`Обложка: ${label}`} className={cn("press relative h-[88px] w-[88px] shrink-0 overflow-hidden rounded-[20px]", active ? "ring-[3px] ring-pink ring-offset-2 ring-offset-bg" : "ring-1 ring-line")}>
       {children}
       {active && (
         <span className="absolute right-1 top-1 grid h-6 w-6 place-items-center rounded-full bg-pink text-white">
@@ -509,20 +509,20 @@ function ReorderList({ items, onChange }: { items: Item[]; onChange: (items: Ite
                 data-drag-handle
                 className="grid h-12 w-9 shrink-0 cursor-grab touch-none place-items-center rounded-xl text-muted-2 active:cursor-grabbing"
               >
-                <GripVertical size={22} />
+                <GripVertical size={24} />
               </button>
-              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-fill text-[12.5px] font-bold">{i + 1}</span>
-              {p && <SmartImage photo={p.photos[0]} tint={p.tint} emoji={p.emoji} sizes="56px" className="h-14 w-14 shrink-0 rounded-[14px]" />}
+              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-fill text-[13px] font-bold">{i + 1}</span>
+              {p && <SmartImage photo={p.photos[0]} tint={p.tint} emoji={p.emoji} sizes="56px" className="h-14 w-14 shrink-0 rounded-[12px]" />}
               <div className="min-w-0 flex-1">
-                <p className="line-clamp-2 text-[15.5px] font-semibold leading-tight">{p?.title ?? "Место недоступно"}</p>
+                <p className="line-clamp-2 text-[16px] font-semibold leading-tight">{p?.title ?? "Место недоступно"}</p>
                 {cat && (
-                  <p className="mt-0.5 truncate text-[12.5px] font-medium" style={{ color: cat.fg }}>
+                  <p className="mt-0.5 truncate text-[13px] font-medium" style={{ color: cat.ink }}>
                     {cat.name}
                   </p>
                 )}
               </div>
-              <button aria-label={`Убрать: ${p?.title ?? it.place_id}`} onClick={() => onChange(items.filter((x) => x.place_id !== it.place_id))} className="press grid h-10 w-10 shrink-0 place-items-center rounded-full bg-fill text-muted">
-                <Trash2 size={17} />
+              <button aria-label={`Убрать: ${p?.title ?? it.place_id}`} onClick={() => onChange(items.filter((x) => x.place_id !== it.place_id))} className="press hit relative grid h-10 w-10 shrink-0 place-items-center rounded-full bg-fill text-muted">
+                <Trash2 size={16} />
               </button>
             </div>
             {hasNote ? (
@@ -534,13 +534,13 @@ function ReorderList({ items, onChange }: { items: Item[]; onChange: (items: Ite
                   onChange={(e) => onChange(items.map((x) => (x.place_id === it.place_id ? { ...x, creator_note: e.target.value } : x)))}
                   placeholder="Комментарий автора: что важно знать, во сколько приехать, что взять"
                   aria-label={`Заметка к месту ${p?.title ?? ""}`}
-                  className="w-full resize-none rounded-[14px] bg-fill-2 px-3 py-2.5 text-[14.5px] leading-snug outline-none ring-1 ring-line focus:ring-2 focus:ring-pink/40"
+                  className="w-full resize-none rounded-[12px] bg-fill-2 px-3 py-2.5 text-[15px] leading-snug outline-none ring-1 ring-line focus:ring-2 focus:ring-pink/40"
                 />
-                <p className="text-right text-[11.5px] text-muted">{(it.creator_note ?? "").length}/{MAX_NOTE}</p>
+                <p className="text-right text-[12px] text-muted">{(it.creator_note ?? "").length}/{MAX_NOTE}</p>
               </div>
             ) : (
-              <button onClick={() => setNoteOpen((s) => new Set(s).add(it.place_id))} className="press ml-1 mt-1 inline-flex h-9 items-center gap-1.5 rounded-full bg-blue-50 px-3 text-[13.5px] font-semibold text-blue">
-                <MessageSquarePlus size={15} /> Заметка
+              <button onClick={() => setNoteOpen((s) => new Set(s).add(it.place_id))} className="press hit relative ml-1 mt-1 inline-flex h-9 items-center gap-1.5 rounded-full bg-blue-50 px-3 text-[14px] font-semibold text-blue-ink">
+                <MessageSquarePlus size={16} /> Заметка
               </button>
             )}
           </li>
@@ -583,43 +583,43 @@ function PlacePicker({ open, onClose, selected, onToggle }: { open: boolean; onC
   return (
     <BottomSheet open={open} onClose={onClose} title="Добавить места" className="min-h-[70dvh]">
       <label className="flex h-12 items-center gap-2.5 rounded-full bg-fill px-4">
-        <Search size={19} className="text-muted" />
+        <Search size={20} className="text-muted" />
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Название, метро или тема" aria-label="Поиск мест" className="min-w-0 flex-1 bg-transparent text-[16px] outline-none" />
         {q && (
           <button onClick={() => setQ("")} aria-label="Очистить">
-            <X size={17} className="text-muted" />
+            <X size={16} className="text-muted" />
           </button>
         )}
       </label>
       {!q && (
         <div className="no-scrollbar -mx-5 mt-3 flex gap-2 overflow-x-auto px-5">
           {TABS.map((t) => (
-            <button key={t.id} aria-pressed={tab === t.id} onClick={() => setTab(t.id)} className={cn("press h-9 shrink-0 whitespace-nowrap rounded-full px-3.5 text-[13.5px] font-semibold", tab === t.id ? "bg-ink text-white" : "bg-fill")}>
+            <button key={t.id} aria-pressed={tab === t.id} onClick={() => setTab(t.id)} className={cn("press hit relative h-9 shrink-0 whitespace-nowrap rounded-full px-3.5 text-[14px] font-semibold", tab === t.id ? "bg-ink text-white" : "bg-fill")}>
               {t.label}
             </button>
           ))}
         </div>
       )}
       <ul className="mt-3 space-y-1.5 pb-24">
-        {list.length === 0 && <li className="py-8 text-center text-[14.5px] text-muted">{q ? "Ничего не нашлось — попробуйте другое слово" : tab === "want" ? "Пока нет хотелок — нажимайте «Хочу сюда» на местах" : "Здесь пока пусто"}</li>}
+        {list.length === 0 && <li className="py-8 text-center text-[15px] text-muted">{q ? "Ничего не нашлось — попробуйте другое слово" : tab === "want" ? "Пока нет хотелок — нажимайте «Хочу сюда» на местах" : "Здесь пока пусто"}</li>}
         {list.slice(0, 80).map((p) => {
           const on = selected.includes(p.slug);
           return (
             <li key={p.slug}>
-              <button onClick={() => onToggle(p.slug)} aria-pressed={on} className={cn("press flex w-full items-center gap-3 rounded-[18px] p-2 text-left", on ? "bg-pink-50" : "bg-fill-2")}>
-                <SmartImage photo={p.photos[0]} tint={p.tint} emoji={p.emoji} sizes="52px" className="h-[52px] w-[52px] shrink-0 rounded-[13px]" />
+              <button onClick={() => onToggle(p.slug)} aria-pressed={on} className={cn("press flex w-full items-center gap-3 rounded-[20px] p-2 text-left", on ? "bg-pink-50" : "bg-fill-2")}>
+                <SmartImage photo={p.photos[0]} tint={p.tint} emoji={p.emoji} sizes="52px" className="h-[52px] w-[52px] shrink-0 rounded-[12px]" />
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-[15.5px] font-semibold leading-tight">{p.title}</span>
-                  <span className="block truncate text-[12.5px] text-muted">{categoryDef(p.category).name} · {p.subtitle}</span>
+                  <span className="block truncate text-[16px] font-semibold leading-tight">{p.title}</span>
+                  <span className="block truncate text-[13px] text-muted">{categoryDef(p.category).name} · {p.subtitle}</span>
                 </span>
-                <span className={cn("grid h-9 w-9 shrink-0 place-items-center rounded-full", on ? "bg-pink text-white" : "bg-white text-pink shadow-card")}>{on ? <Check size={18} strokeWidth={3} /> : <Plus size={20} />}</span>
+                <span className={cn("grid h-9 w-9 shrink-0 place-items-center rounded-full", on ? "bg-pink text-white" : "bg-white text-pink-ink shadow-card")}>{on ? <Check size={20} strokeWidth={3} /> : <Plus size={20} />}</span>
               </button>
             </li>
           );
         })}
       </ul>
       <div className="sticky bottom-0 -mx-5 bg-gradient-to-t from-surface from-70% to-transparent px-5 pb-1 pt-4">
-        <button onClick={onClose} className="press h-[54px] w-full rounded-full bg-pink text-[17px] font-bold text-white shadow-pink">
+        <button onClick={onClose} className="press h-14 w-full rounded-full bg-pink text-[18px] font-bold text-white shadow-pink">
           Готово{selected.length ? ` · ${placesWord(selected.length)}` : ""}
         </button>
       </div>
@@ -639,13 +639,13 @@ function ProfileSheet({ open, onClose, onSave }: { open: boolean; onClose: () =>
   const err = name.trim().length >= 2 ? validateHandle(handle) : "Введите имя";
   return (
     <BottomSheet open={open} onClose={onClose} title="Как вас подписать?">
-      <p className="-mt-1 text-[14.5px] leading-snug text-muted">Имя увидят те, кому вы отправите подборку. Регистрация не нужна.</p>
+      <p className="-mt-1 text-[15px] leading-snug text-muted">Имя увидят те, кому вы отправите подборку. Регистрация не нужна.</p>
       <div className="mt-4 flex items-center gap-3">
         <CreatorAvatar author={{ avatar, tint, name }} size={64} ring />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap gap-1.5">
             {AVATARS.map((a) => (
-              <button key={a} aria-label={`Аватар ${a}`} aria-pressed={avatar === a} onClick={() => setAvatar(a)} className={cn("press grid h-9 w-9 place-items-center rounded-full text-[19px]", avatar === a ? "bg-ink/10 ring-2 ring-ink" : "bg-fill")}>
+              <button key={a} aria-label={`Аватар ${a}`} aria-pressed={avatar === a} onClick={() => setAvatar(a)} className={cn("press hit relative grid h-9 w-9 place-items-center rounded-full text-[20px]", avatar === a ? "bg-ink/10 ring-2 ring-inset ring-ink" : "bg-fill")}>
                 {a}
               </button>
             ))}
@@ -658,21 +658,21 @@ function ProfileSheet({ open, onClose, onSave }: { open: boolean; onClose: () =>
         </div>
       </div>
       <label className="mt-4 block">
-        <span className="text-[13.5px] font-semibold text-ink-2">Имя</span>
+        <span className="text-[14px] font-semibold text-ink-2">Имя</span>
         <input value={name} maxLength={60} onChange={(e) => setName(e.target.value)} placeholder="Например: Мама Маша" className="mt-1.5 h-12 w-full rounded-[16px] bg-fill px-4 text-[16px] outline-none focus:ring-2 focus:ring-pink/40" />
       </label>
       <label className="mt-3 block">
-        <span className="text-[13.5px] font-semibold text-ink-2">Ник для ссылки</span>
+        <span className="text-[14px] font-semibold text-ink-2">Ник для ссылки</span>
         <div className="mt-1.5 flex h-12 items-center rounded-[16px] bg-fill px-4 focus-within:ring-2 focus-within:ring-pink/40">
           <span className="text-muted">@</span>
           <input value={handle} maxLength={30} onChange={(e) => { setTouched(true); setUsername(e.target.value.toLowerCase()); }} aria-label="Ник" className="min-w-0 flex-1 bg-transparent pl-1 text-[16px] outline-none" />
         </div>
-        {name.trim().length >= 2 && err && <span className="mt-1 block text-[12.5px] text-red">{err}</span>}
+        {name.trim().length >= 2 && err && <span className="mt-1 block text-[13px] text-red-ink">{err}</span>}
       </label>
       <button
         disabled={!!err}
         onClick={() => onSave({ name, username: handle, avatar, tint })}
-        className="press mt-5 h-[54px] w-full rounded-full bg-pink text-[17px] font-bold text-white shadow-pink disabled:opacity-40 disabled:shadow-none"
+        className="press mt-5 h-14 w-full rounded-full bg-pink text-[18px] font-bold text-white shadow-pink disabled:opacity-40 disabled:shadow-none"
       >
         Опубликовать
       </button>

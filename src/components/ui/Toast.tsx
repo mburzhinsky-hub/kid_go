@@ -32,11 +32,11 @@ export function ToastHost({ bottom = 104 }: { bottom?: number }) {
   if (!msg || typeof document === "undefined") return null;
   return createPortal(
     <div className="pointer-events-none fixed inset-x-0 z-[80] mx-auto flex max-w-[480px] justify-center px-4" style={{ bottom }}>
-      <div key={key} role="status" className="pointer-events-auto flex items-center gap-3 rounded-full bg-ink py-2.5 pl-4 pr-2.5 text-[14.5px] font-medium text-white shadow-float animate-rise">
+      <div key={key} role="status" className="pointer-events-auto flex items-center gap-3 rounded-full bg-ink py-2.5 pl-4 pr-2.5 text-[15px] font-medium text-white shadow-float animate-rise">
         <span>{msg}</span>
         {link &&
           (link.href ? (
-            <Link href={link.href} onClick={hide} className="rounded-full bg-white/15 px-3 py-1.5 text-[13.5px] font-semibold text-white">
+            <Link href={link.href} onClick={hide} className="rounded-full bg-white/15 px-3 py-1.5 text-[14px] font-semibold text-white">
               {link.label}
             </Link>
           ) : (
@@ -45,7 +45,7 @@ export function ToastHost({ bottom = 104 }: { bottom?: number }) {
                 hide();
                 link.onClick?.();
               }}
-              className="press rounded-full bg-white/15 px-3 py-1.5 text-[13.5px] font-semibold text-white"
+              className="press rounded-full bg-white/15 px-3 py-1.5 text-[14px] font-semibold text-white"
             >
               {link.label}
             </button>

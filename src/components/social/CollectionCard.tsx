@@ -70,7 +70,7 @@ export function CollectionCard({ data, variant = "carousel", priority }: { data:
           <CollectionCover art={art} sizes={variant === "carousel" ? "320px" : "(max-width: 480px) 100vw, 448px"} priority={priority} className={variant === "carousel" ? "aspect-[16/11] w-full" : "aspect-[16/10] w-full"} />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_40%,rgba(0,0,0,0.62)_100%)]" />
           <div className="absolute left-3 top-3 flex gap-1.5">
-            <span className="inline-flex h-7 items-center rounded-full bg-white/95 px-2.5 text-[12.5px] font-semibold text-ink">{placesWord(placed.length)}</span>
+            <span className="inline-flex h-7 items-center rounded-full bg-white/95 px-2.5 text-[13px] font-semibold text-ink">{placesWord(placed.length)}</span>
           </div>
           <h3 className="tight absolute inset-x-3 bottom-3 line-clamp-3 text-[22px] font-[850] leading-[1.08] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]">{c.title}</h3>
         </div>
@@ -78,23 +78,23 @@ export function CollectionCard({ data, variant = "carousel", priority }: { data:
           <div className="flex items-center gap-2.5">
             <CreatorAvatar author={author} size={32} />
             <div className="min-w-0 flex-1">
-              <p className="truncate text-[14.5px] font-semibold leading-tight">{author.name}</p>
-              <p className="text-[12.5px] leading-tight text-muted">Автор подборки</p>
+              <p className="truncate text-[15px] font-semibold leading-tight">{author.name}</p>
+              <p className="text-[13px] leading-tight text-muted">Автор подборки</p>
             </div>
             <span aria-hidden className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-pink text-white shadow-pink">
-              <ArrowRight size={19} strokeWidth={2.4} />
+              <ArrowRight size={20} strokeWidth={2.5} />
             </span>
           </div>
           <div className="mt-3 flex flex-wrap items-center gap-1.5">
-            <Meta className="bg-purple-50 text-purple" icon={<Users size={13} strokeWidth={2.4} />}>
+            <Meta className="bg-purple-50 text-purple-ink" icon={<Users size={14} strokeWidth={2.5} />}>
               {formatAgeRange(c.age_min, c.age_max)}
             </Meta>
             {setting && (
-              <Meta className="bg-blue-50 text-blue" icon={setting === "На воздухе" ? <Sun size={13} strokeWidth={2.4} /> : <Umbrella size={13} strokeWidth={2.4} />}>
+              <Meta className="bg-blue-50 text-blue-ink" icon={setting === "На воздухе" ? <Sun size={14} strokeWidth={2.5} /> : <Umbrella size={14} strokeWidth={2.5} />}>
                 {setting.toLowerCase()}
               </Meta>
             )}
-            {free > 0 && free === placed.length && <Meta className="bg-green-50 text-green">бесплатно</Meta>}
+            {free > 0 && free === placed.length && <Meta className="bg-green-50 text-green-ink">бесплатно</Meta>}
           </div>
         </div>
       </Link>
@@ -103,16 +103,16 @@ export function CollectionCard({ data, variant = "carousel", priority }: { data:
           type="button"
           aria-label="Поделиться подборкой"
           onClick={() => share(data)}
-          className="press grid h-10 w-10 place-items-center rounded-full bg-white text-ink shadow-card"
+          className="press hit relative grid h-10 w-10 place-items-center rounded-full bg-white text-ink shadow-card"
         >
-          <Share2 size={18} strokeWidth={2.1} />
+          <Share2 size={20} strokeWidth={2} />
         </button>
         <button
           type="button"
           aria-label={saved ? "Убрать подборку из сохранённых" : "Сохранить подборку"}
           aria-pressed={saved}
           onClick={toggle}
-          className="press grid h-10 w-10 place-items-center rounded-full bg-white text-ink shadow-card"
+          className="press hit relative grid h-10 w-10 place-items-center rounded-full bg-white text-ink shadow-card"
         >
           <Heart size={20} strokeWidth={2} className={cn(saved && "animate-pop fill-pink text-pink")} />
         </button>
@@ -123,7 +123,7 @@ export function CollectionCard({ data, variant = "carousel", priority }: { data:
 
 function Meta({ icon, children, className }: { icon?: React.ReactNode; children: React.ReactNode; className?: string }) {
   return (
-    <span className={cn("inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[12.5px] font-semibold", className)}>
+    <span className={cn("inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold", className)}>
       {icon}
       {children}
     </span>

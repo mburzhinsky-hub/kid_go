@@ -146,7 +146,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
         <div className="flex min-w-0 items-center gap-2">
           <LocationChip tone="card" className="h-11" />
           <Link href="/planner" aria-label="Изменить условия" className="press grid h-11 w-11 shrink-0 place-items-center rounded-full bg-surface shadow-card">
-            <SlidersHorizontal size={19} />
+            <SlidersHorizontal size={20} />
           </Link>
         </div>
       </header>
@@ -154,13 +154,13 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
       <section className="px-4 pt-3">
         {scenario && (
           <div className="mb-2">
-            <span className="inline-flex h-8 items-center gap-1.5 rounded-full bg-purple-50 px-3 text-[13.5px] font-bold text-purple">
+            <span className="inline-flex h-8 items-center gap-1.5 rounded-full bg-purple-50 px-3 text-[14px] font-bold text-purple-ink">
               {scenario.emoji ?? "✨"} {scenario.label}
             </span>
-            {scenario.hint && <span className="ml-2 text-[13.5px] font-medium text-muted">{scenario.hint}</span>}
+            {scenario.hint && <span className="ml-2 text-[14px] font-medium text-muted">{scenario.hint}</span>}
           </div>
         )}
-        <h1 className="tight text-[31px] font-[850] leading-[1.06]">
+        <h1 className="tight text-[30px] font-[850] leading-[1.06]">
           {result.plans.length ? (
             <>Мы придумали вам {dayAcc} 💛</>
           ) : areaEmpty && here ? (
@@ -169,7 +169,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
             <>Хм, ничего не нашлось</>
           )}
         </h1>
-        <p className="mt-1.5 text-[15.5px] leading-snug text-muted">
+        <p className="mt-1.5 text-[16px] leading-snug text-muted">
           {result.plans.length
             ? `Старт ${dayWord} около ${result.startLabel}. Погода ${wxLine} — учли прогноз и дорогу.`
             : areaEmpty && here
@@ -177,7 +177,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
               : "Под такие условия мы не смогли собрать день без компромиссов."}
         </p>
         {realDay !== dayOffset && result.plans.length > 0 && (
-          <p className="mt-2 rounded-[14px] bg-yellow-50 px-3 py-2 text-[13.5px] text-[#7a5600]">Сегодня уже поздно для такого дня — собрали на завтра.</p>
+          <p className="mt-2 rounded-[12px] bg-yellow-50 px-3 py-2 text-[14px] text-yellow-ink">Сегодня уже поздно для такого дня — собрали на завтра.</p>
         )}
 
         <DayPicker forecast={forecast!} value={realDay} hrefFor={(d) => withQuery({ day: d ? String(d) : undefined, offset: undefined })} />
@@ -197,64 +197,64 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
           {input.constraints?.maxTravelMin && <Chip>до {input.constraints.maxTravelMin} мин в пути</Chip>}
         </div>
         {!kids.length && (
-          <div className="mt-4 rounded-[22px] bg-surface p-3.5 shadow-card">
+          <div className="mt-4 rounded-[24px] bg-surface p-3.5 shadow-card">
             <p className="text-[15px] font-bold">Сколько лет ребёнку? Подберём точнее</p>
             <AgePicker className="mt-2.5" onPick={(age) => fam.upsertChild({ id: `c${Date.now()}`, name: "", age, interests: [], emoji: "🦁" })} />
           </div>
         )}
         {input.locationMode === "any" && input.geoScope === "moscow" && (
-          <div className="mt-3 flex items-center gap-3 rounded-[16px] bg-green-50 px-3 py-2.5 text-[13.5px] leading-snug text-[#35643d]">
+          <div className="mt-3 flex items-center gap-3 rounded-[16px] bg-green-50 px-3 py-2.5 text-[14px] leading-snug text-green-ink">
             <span className="flex-1"><strong>Есть ещё Подмосковье.</strong> Можно добавить Красногорск, Одинцово, Истру, Химки и другие направления.</span>
-            <button onClick={() => fam.setPrefs({ geoScope: "moscow-region" })} className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[13.5px] font-semibold">
+            <button onClick={() => fam.setPrefs({ geoScope: "moscow-region" })} className="press hit relative h-10 shrink-0 rounded-full bg-white px-4 text-[14px] font-semibold">
               + Область
             </button>
           </div>
         )}
         {input.locationMode === "any" && input.geoScope === "moscow-region" && (
-          <div className="mt-3 flex items-center gap-3 rounded-[16px] bg-purple-50 px-3 py-2.5 text-[13.5px] leading-snug text-purple">
+          <div className="mt-3 flex items-center gap-3 rounded-[16px] bg-purple-50 px-3 py-2.5 text-[14px] leading-snug text-purple-ink">
             <span className="flex-1">Ищем по Москве и Подмосковью. Подмосковные варианты тоже могут попасть в готовый день.</span>
-            <button onClick={() => fam.setPrefs({ geoScope: "moscow" })} className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[13.5px] font-semibold">
+            <button onClick={() => fam.setPrefs({ geoScope: "moscow" })} className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[14px] font-semibold">
               Только Москва
             </button>
           </div>
         )}
         {input.locationMode === "any" && (!!scenario?.constraints?.maxTravelMin || query.near === "1" || !!query.travel) && (
-          <div className="mt-3 flex items-center gap-3 rounded-[14px] bg-blue-50 px-3 py-2.5 text-[13.5px] leading-snug text-blue">
+          <div className="mt-3 flex items-center gap-3 rounded-[12px] bg-blue-50 px-3 py-2.5 text-[14px] leading-snug text-blue-ink">
             <span className="flex-1">Эта ситуация про «рядом», а место не выбрано — ищем по всей Москве. Выберите округ или точку, и подберём недалеко от вас.</span>
-            <button onClick={() => setLocOpen(true)} className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[13.5px] font-semibold">
+            <button onClick={() => setLocOpen(true)} className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[14px] font-semibold">
               Выбрать
             </button>
           </div>
         )}
         {here && result.area?.scope === "wide" && (
-          <div className="mt-3 flex items-center gap-3 rounded-[14px] bg-blue-50 px-3 py-2.5 text-[13.5px] leading-snug text-blue">
+          <div className="mt-3 flex items-center gap-3 rounded-[12px] bg-blue-50 px-3 py-2.5 text-[14px] leading-snug text-blue-ink">
             <span className="flex-1">Ищем {here.prep} и в ближайших округах — места из {here.short} идут первыми.</span>
-            <Link href={withQuery({ wide: undefined, offset: undefined })} replace className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[13.5px] font-semibold">
+            <Link href={withQuery({ wide: undefined, offset: undefined })} replace className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[14px] font-semibold">
               Только {here.short}
             </Link>
           </div>
         )}
         {here && result.area?.scope === "strict" && result.area.loose && result.plans.length > 0 && (
-          <div className="mt-3 flex items-center gap-3 rounded-[14px] bg-yellow-50 px-3 py-2.5 text-[13.5px] leading-snug text-[#7a5600]">
+          <div className="mt-3 flex items-center gap-3 rounded-[12px] bg-yellow-50 px-3 py-2.5 text-[14px] leading-snug text-yellow-ink">
             <span className="flex-1">Показываем всё, что есть {here.prep}: по теме {scenario ? `«${scenario.label}»` : "ситуации"} здесь почти ничего нет.</span>
-            <Link href={withQuery({ loose: undefined, offset: undefined })} replace className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[13.5px] font-semibold">
+            <Link href={withQuery({ loose: undefined, offset: undefined })} replace className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[14px] font-semibold">
               Только по теме
             </Link>
           </div>
         )}
         {result.relaxed && (
-          <p className="mt-3 rounded-[14px] bg-yellow-50 px-3 py-2 text-[13.5px] leading-snug text-[#7a5600]">
+          <p className="mt-3 rounded-[12px] bg-yellow-50 px-3 py-2 text-[14px] leading-snug text-yellow-ink">
             📍 Рядом с вами подходящих мест немного, поэтому мы расширили поиск до {result.relaxed.to} мин в пути
             {result.relaxed.nearest ? ` (ближайшее подходящее — в ${result.relaxed.nearest} мин)` : ""}. Если хочется ближе — смените место поиска или условия.
           </p>
         )}
         {!result.relaxed && nearby.status === "error" && locationMode(fam.origin) !== "any" && (isSuburban(fam.origin) || input?.locationMode === "area") && (
-          <p className="mt-3 rounded-[14px] bg-fill-2 px-3 py-2 text-[13px] leading-snug text-muted">
+          <p className="mt-3 rounded-[12px] bg-fill-2 px-3 py-2 text-[13px] leading-snug text-muted">
             Не удалось подгрузить дополнительные места {result.area ? `в ${okrugById(result.area.id)?.short ?? "округе"}` : "рядом с вами"} (нет связи с картой). Показываем то, что есть в нашем каталоге.
           </p>
         )}
         {result.partialAge && (
-          <p className="mt-3 rounded-[14px] bg-blue-50 px-3 py-2 text-[13.5px] leading-snug text-blue">
+          <p className="mt-3 rounded-[12px] bg-blue-50 px-3 py-2 text-[14px] leading-snug text-blue-ink">
             Мест, интересных сразу всем вашим детям, рядом мало — часть шагов подойдёт кому-то одному. Это отмечено в карточках.
           </p>
         )}
@@ -264,7 +264,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
         <div className="mt-5 space-y-4 px-4">
           {result.plans.map((p, i) => (
             <div key={p.key} className="animate-rise" style={{ animationDelay: `${i * 90}ms` }}>
-              <p className="mb-2 px-1 text-[13px] font-bold uppercase tracking-wide text-muted">
+              <p className="mb-2 text-[13px] font-bold uppercase tracking-wide text-muted">
                 {["Вариант мечты", "Запасной план", "Неожиданная идея"][(i + offset) % 3] ?? "Вариант"}
               </p>
               <AdventureCard data={planCardData(p, planHref(p, kidNames))} variant="full" priority={i === 0} />
@@ -274,7 +274,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
             href={withQuery({ offset: String(offset + 3) })}
             className="press flex h-14 items-center justify-center gap-2 rounded-full bg-surface text-[16px] font-semibold shadow-card"
           >
-            <RefreshCw size={18} /> Показать другие варианты
+            <RefreshCw size={20} /> Показать другие варианты
           </Link>
           {alt && here && (
             <AreaGap alt={alt} mode="few" offType={result.area?.offType ?? 0} scenarioLabel={scenario?.label} kidNames={kidNames} query={query} withQuery={withQuery} onPick={pickOrigin} />
@@ -298,7 +298,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
               action={offset > 0 ? { href: withQuery({ offset: undefined }), label: "К лучшим вариантам" } : undefined}
             />
           )}
-          {areaEmpty && <p className="mb-2 mt-6 px-1 text-[13px] font-bold uppercase tracking-wide text-muted">Или ослабить условия</p>}
+          {areaEmpty && <p className="mb-2 mt-6 text-[13px] font-bold uppercase tracking-wide text-muted">Или ослабить условия</p>}
           <div className="space-y-2">
             {result.suggestions.map((s) =>
               s.patch.anywhere ? (
@@ -307,7 +307,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
                   onClick={() => fam.setOrigin(DEFAULT_ORIGIN)}
                   className="press flex w-full items-center justify-between rounded-[20px] bg-surface px-4 py-4 text-left text-[16px] font-semibold shadow-card"
                 >
-                  {s.label} <span className="text-pink">→</span>
+                  {s.label} <span className="text-pink-ink">→</span>
                 </button>
               ) : (
               <Link
@@ -315,11 +315,11 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
                 href={withQuery({ ...(Object.fromEntries(Object.entries(s.patch).map(([k, v]) => [k, String(v)])) as Record<string, string>), offset: undefined })}
                 className="press flex items-center justify-between rounded-[20px] bg-surface px-4 py-4 text-[16px] font-semibold shadow-card"
               >
-                {s.label} <span className="text-pink">→</span>
+                {s.label} <span className="text-pink-ink">→</span>
               </Link>
               )
             )}
-            <Link href="/scenarios" className="press flex items-center justify-between rounded-[20px] bg-pink-50 px-4 py-4 text-[16px] font-semibold text-pink">
+            <Link href="/scenarios" className="press flex items-center justify-between rounded-[20px] bg-pink-50 px-4 py-4 text-[16px] font-semibold text-pink-ink">
               Выбрать другую ситуацию <span>→</span>
             </Link>
           </div>
@@ -361,7 +361,7 @@ function AreaGap({
     <section className={cn("space-y-6", mode === "none" ? "mt-5" : "mt-2 rounded-[24px] bg-surface p-4 shadow-card")} aria-label={`Что делать, если ${here.prep} мало мест`}>
       {mode === "few" && (
         <div>
-          <h2 className="tight text-[19px] font-[800] leading-tight">{cap(here.prep)} это всё, что подошло</h2>
+          <h2 className="tight text-[20px] font-[800] leading-tight">{cap(here.prep)} это всё, что подошло</h2>
           <p className="mt-1 text-[14px] leading-snug text-muted">
             {scenarioLabel ? `Для «${scenarioLabel}»` : "Под ваши условия"} {here.prep} больше вариантов нет. Можно заглянуть в другой округ или выбрать другую ситуацию.
           </p>
@@ -370,7 +370,7 @@ function AreaGap({
 
       {others.length > 0 && (
         <div>
-          {mode === "none" && <h2 className="tight text-[21px] font-[800] leading-tight">То же самое — в другом округе</h2>}
+          {mode === "none" && <h2 className="tight text-[22px] font-[800] leading-tight">То же самое — в другом округе</h2>}
           {mode === "none" && <p className="mt-1 text-[14px] leading-snug text-muted">Ближайшее подходящее — {others[0].label}, это ≈ {others[0].minutes} мин от {here.short}.</p>}
           <div className={cn("space-y-5", mode === "none" ? "mt-3" : "mt-0")}>
             {others.map((o, oi) => (
@@ -379,7 +379,7 @@ function AreaGap({
                   <p className="min-w-0 text-[13px] font-bold uppercase tracking-wide text-muted">
                     {o.label} · ≈ {o.minutes} мин от {here.short}
                   </p>
-                  <button onClick={() => onPick(o.origin)} className="press h-9 shrink-0 rounded-full bg-ink px-3.5 text-[13.5px] font-semibold text-white">
+                  <button onClick={() => onPick(o.origin)} className="press hit relative h-9 shrink-0 rounded-full bg-ink px-3.5 text-[14px] font-semibold text-white">
                     Искать в {o.label}
                   </button>
                 </div>
@@ -397,11 +397,11 @@ function AreaGap({
 
       {scenarios.length > 0 && (
         <div>
-          <h2 className="tight text-[19px] font-[800] leading-tight">Что подойдёт {here.prep}</h2>
+          <h2 className="tight text-[20px] font-[800] leading-tight">Что подойдёт {here.prep}</h2>
           <p className="mt-1 text-[14px] leading-snug text-muted">Для этих ситуаций {here.prep} места есть — например, прогулка вместо музея.</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {scenarios.map(({ def, plans }) => (
-              <Link key={def.id} href={hrefFor(def.id)} className="press inline-flex min-h-11 items-center gap-1.5 rounded-full bg-pink-50 px-3.5 py-2 text-[14.5px] font-semibold text-pink">
+              <Link key={def.id} href={hrefFor(def.id)} className="press inline-flex min-h-11 items-center gap-1.5 rounded-full bg-pink-50 px-3.5 py-2 text-[15px] font-semibold text-pink-ink">
                 <span aria-hidden>{def.emoji ?? "✨"}</span>
                 {def.label}
                 <span className="text-[12px] font-semibold opacity-70">{plans} {plural(plans, "вариант", "варианта", "вариантов")}</span>
@@ -452,7 +452,7 @@ function DayPicker({ forecast, value, hrefFor }: { forecast: Forecast; value: nu
             role="tab"
             aria-selected={on}
             replace
-            className={cn("press flex h-12 shrink-0 items-center gap-2 rounded-[16px] px-3 text-[14.5px] font-bold", on ? "bg-ink text-white" : "bg-surface text-ink shadow-card")}
+            className={cn("press flex h-12 shrink-0 items-center gap-2 rounded-[16px] px-3 text-[15px] font-bold", on ? "bg-ink text-white" : "bg-surface text-ink shadow-card")}
           >
             <span className="text-[20px] leading-none">{icon}</span>
             <span className="leading-tight">
@@ -471,7 +471,7 @@ function DayPicker({ forecast, value, hrefFor }: { forecast: Forecast; value: nu
 
 function Chip({ children, tone }: { children: React.ReactNode; tone?: "purple" }) {
   return (
-    <span className={tone ? "inline-flex h-8 shrink-0 items-center rounded-full bg-purple-50 px-3 text-[13px] font-semibold text-purple" : "inline-flex h-8 shrink-0 items-center rounded-full bg-surface px-3 text-[13px] font-semibold shadow-card"}>
+    <span className={tone ? "inline-flex h-8 shrink-0 items-center rounded-full bg-purple-50 px-3 text-[13px] font-semibold text-purple-ink" : "inline-flex h-8 shrink-0 items-center rounded-full bg-surface px-3 text-[13px] font-semibold shadow-card"}>
       {children}
     </span>
   );

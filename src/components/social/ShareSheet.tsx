@@ -51,9 +51,9 @@ export function ShareSheet({ target, onClose }: { target: ShareTarget | null; on
   return (
     <BottomSheet open onClose={onClose} title={t.heading}>
       <div className="flex items-center gap-3 rounded-[20px] bg-fill-2 p-2.5 ring-1 ring-line">
-        {t.preview.tile && <SmartImage photo={t.preview.tile.photo} tint={t.preview.tile.tint} emoji={t.preview.tile.emoji} sizes="64px" className="h-16 w-16 shrink-0 rounded-[14px]" />}
+        {t.preview.tile && <SmartImage photo={t.preview.tile.photo} tint={t.preview.tile.tint} emoji={t.preview.tile.emoji} sizes="64px" className="h-16 w-16 shrink-0 rounded-[12px]" />}
         <div className="min-w-0">
-          <p className="line-clamp-2 text-[15.5px] font-semibold leading-tight">{t.preview.title}</p>
+          <p className="line-clamp-2 text-[16px] font-semibold leading-tight">{t.preview.title}</p>
           {t.preview.subtitle && <p className="mt-0.5 truncate text-[13px] text-muted">{t.preview.subtitle}</p>}
         </div>
       </div>
@@ -64,7 +64,7 @@ export function ShareSheet({ target, onClose }: { target: ShareTarget | null; on
             channel("native");
             if (await nativeShare({ title: t.preview.title, text: t.text, url: url("native") })) onClose();
           }}
-          className="press mt-4 flex h-[54px] w-full items-center justify-center gap-2.5 rounded-full bg-pink text-[17px] font-bold text-white shadow-pink"
+          className="press mt-4 flex h-14 w-full items-center justify-center gap-2.5 rounded-full bg-pink text-[18px] font-bold text-white shadow-pink"
         >
           <Share2 size={20} /> Отправить…
         </button>
@@ -76,7 +76,7 @@ export function ShareSheet({ target, onClose }: { target: ShareTarget | null; on
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => channel("telegram")}
-          className="press flex flex-col items-center gap-1.5 rounded-[20px] bg-sky-50 px-2 py-3.5 text-[13.5px] font-semibold text-sky"
+          className="press flex flex-col items-center gap-1.5 rounded-[20px] bg-sky-50 px-2 py-3.5 text-[14px] font-semibold text-sky-ink"
         >
           <Send size={24} /> Telegram
         </a>
@@ -85,7 +85,7 @@ export function ShareSheet({ target, onClose }: { target: ShareTarget | null; on
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => channel("whatsapp")}
-          className="press flex flex-col items-center gap-1.5 rounded-[20px] bg-green-50 px-2 py-3.5 text-[13.5px] font-semibold text-green"
+          className="press flex flex-col items-center gap-1.5 rounded-[20px] bg-green-50 px-2 py-3.5 text-[14px] font-semibold text-green-ink"
         >
           <MessageCircle size={24} /> WhatsApp
         </a>
@@ -96,7 +96,7 @@ export function ShareSheet({ target, onClose }: { target: ShareTarget | null; on
             if (t.kind === "collection") trackEvent("collection_copy_link", { ...t.ids, kind: t.kind });
             toast(ok ? "Ссылка скопирована — вставьте в Instagram, сообщение или Stories 💌" : "Не получилось скопировать — выделите ссылку ниже");
           }}
-          className="press flex flex-col items-center gap-1.5 rounded-[20px] bg-fill px-2 py-3.5 text-[13.5px] font-semibold text-ink"
+          className="press flex flex-col items-center gap-1.5 rounded-[20px] bg-fill px-2 py-3.5 text-[14px] font-semibold text-ink"
         >
           <Link2 size={24} /> Ссылка
         </button>
@@ -104,10 +104,10 @@ export function ShareSheet({ target, onClose }: { target: ShareTarget | null; on
 
       <label className="mt-3.5 flex items-center gap-2 rounded-full bg-fill px-3.5">
         <span className="sr-only">Ссылка</span>
-        <input readOnly value={url("copy")} onFocus={(e) => e.currentTarget.select()} className="h-11 min-w-0 flex-1 bg-transparent text-[13.5px] text-ink-2 outline-none" />
+        <input readOnly value={url("copy")} onFocus={(e) => e.currentTarget.select()} className="h-11 min-w-0 flex-1 bg-transparent text-[14px] text-ink-2 outline-none" />
         <Copy size={16} className="shrink-0 text-muted" />
       </label>
-      <p className="mt-2.5 pb-1 text-center text-[12.5px] text-muted">Для Instagram: скопируйте ссылку и вставьте в сообщение или Stories</p>
+      <p className="mt-2.5 pb-1 text-center text-[13px] text-muted">Для Instagram: скопируйте ссылку и вставьте в сообщение или Stories</p>
     </BottomSheet>
   );
 }

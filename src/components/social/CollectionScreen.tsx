@@ -124,14 +124,14 @@ function CollectionBody({ r, own, preview }: { r: ResolvedCollection; own: boole
           )}
           {canShare && (
             <button onClick={() => share(r)} aria-label="Поделиться подборкой" className="press grid h-11 w-11 shrink-0 place-items-center rounded-full bg-surface shadow-card">
-              <Share2 size={20} strokeWidth={2.1} />
+              <Share2 size={20} strokeWidth={2} />
             </button>
           )}
         </header>
 
         {own && c.visibility === "PRIVATE" && (
-          <p className="mx-4 mb-3 flex items-center gap-2 rounded-[16px] bg-fill px-3.5 py-2.5 text-[13.5px] text-ink-2">
-            <Lock size={15} /> Приватная подборка — видите только вы
+          <p className="mx-4 mb-3 flex items-center gap-2 rounded-[16px] bg-fill px-3.5 py-2.5 text-[14px] text-ink-2">
+            <Lock size={16} /> Приватная подборка — видите только вы
           </p>
         )}
 
@@ -144,15 +144,15 @@ function CollectionBody({ r, own, preview }: { r: ResolvedCollection; own: boole
         </div>
 
         <section className="px-4 pt-5">
-          <h1 className="tight text-balance text-[31px] font-[850] leading-[1.08]">{c.title}</h1>
-          {c.description && <p className="mt-2.5 text-[16.5px] leading-snug text-ink-2">{c.description}</p>}
+          <h1 className="tight text-balance text-[30px] font-[850] leading-[1.08]">{c.title}</h1>
+          {c.description && <p className="mt-2.5 text-[17px] leading-snug text-ink-2">{c.description}</p>}
           <div className="mt-3.5 flex flex-wrap gap-1.5" aria-label={metaLine(c, placed)}>
-            <Chip className="bg-pink-50 text-pink">{placesWord(placed.length)}</Chip>
-            <Chip className="bg-yellow-50 text-[#9a6b00]">{c.city}</Chip>
-            <Chip className="bg-purple-50 text-purple">{formatAgeRange(c.age_min, c.age_max)}</Chip>
+            <Chip className="bg-pink-50 text-pink-ink">{placesWord(placed.length)}</Chip>
+            <Chip className="bg-yellow-50 text-yellow-ink">{c.city}</Chip>
+            <Chip className="bg-purple-50 text-purple-ink">{formatAgeRange(c.age_min, c.age_max)}</Chip>
             {setting && (
-              <Chip className="bg-blue-50 text-blue">
-                {setting === "На воздухе" ? <Sun size={13} strokeWidth={2.4} /> : <Umbrella size={13} strokeWidth={2.4} />} {setting}
+              <Chip className="bg-blue-50 text-blue-ink">
+                {setting === "На воздухе" ? <Sun size={14} strokeWidth={2.5} /> : <Umbrella size={14} strokeWidth={2.5} />} {setting}
               </Chip>
             )}
           </div>
@@ -164,28 +164,28 @@ function CollectionBody({ r, own, preview }: { r: ResolvedCollection; own: boole
                 if (!preview) toggle();
               }}
               aria-pressed={saved}
-              className={cn("press inline-flex h-12 items-center justify-center gap-1.5 rounded-full text-[14.5px] font-semibold shadow-card", saved ? "bg-pink-50 text-pink" : "bg-surface text-ink")}
+              className={cn("press inline-flex h-12 items-center justify-center gap-1.5 rounded-full text-[15px] font-semibold shadow-card", saved ? "bg-pink-50 text-pink-ink" : "bg-surface text-ink")}
             >
-              <Heart size={18} strokeWidth={2.1} className={cn(saved && "animate-pop fill-pink")} /> {saved ? "Сохранено" : "Сохранить"}
+              <Heart size={20} strokeWidth={2} className={cn(saved && "animate-pop fill-pink")} /> {saved ? "Сохранено" : "Сохранить"}
             </button>
             <button
               onClick={() => canShare && share(r)}
               disabled={!canShare}
-              className="press inline-flex h-12 items-center justify-center gap-1.5 rounded-full bg-surface text-[14.5px] font-semibold shadow-card disabled:opacity-50"
+              className="press inline-flex h-12 items-center justify-center gap-1.5 rounded-full bg-surface text-[15px] font-semibold shadow-card disabled:opacity-50"
             >
-              <Share2 size={18} strokeWidth={2.1} /> Поделиться
+              <Share2 size={20} strokeWidth={2} /> Поделиться
             </button>
             <Link
               href={mapHref}
               onClick={() => !preview && trackEvent("collection_map_open", ids)}
               aria-disabled={!placed.length}
-              className="press inline-flex h-12 items-center justify-center gap-1.5 rounded-full bg-surface text-[14.5px] font-semibold shadow-card"
+              className="press inline-flex h-12 items-center justify-center gap-1.5 rounded-full bg-surface text-[15px] font-semibold shadow-card"
             >
-              <MapIcon size={18} strokeWidth={2.1} /> На карте
+              <MapIcon size={20} strokeWidth={2} /> На карте
             </Link>
           </div>
           {own && !preview && (
-            <Link href={`/collections/edit/?id=${encodeURIComponent(c.id)}`} className="press mt-2.5 inline-flex h-10 items-center gap-1.5 rounded-full bg-fill px-3.5 text-[14px] font-semibold">
+            <Link href={`/collections/edit/?id=${encodeURIComponent(c.id)}`} className="press hit relative mt-2.5 inline-flex h-10 items-center gap-1.5 rounded-full bg-fill px-3.5 text-[14px] font-semibold">
               <PencilLine size={16} /> Редактировать подборку
             </Link>
           )}
@@ -199,7 +199,7 @@ function CollectionBody({ r, own, preview }: { r: ResolvedCollection; own: boole
             placed.map((x, i) => <PlaceStop key={x.item.id} x={x} index={i} r={r} preview={preview} />)
           )}
           {missing > 0 && placed.length > 0 && (
-            <p className="rounded-[16px] bg-yellow-50 px-3.5 py-2.5 text-[13.5px] leading-snug text-[#7a5600]">
+            <p className="rounded-[16px] bg-yellow-50 px-3.5 py-2.5 text-[14px] leading-snug text-yellow-ink">
               {missing === 1 ? "Одно место из подборки больше недоступно" : `${missing} места из подборки больше недоступны`} — мы их не показываем.
             </p>
           )}
@@ -210,12 +210,12 @@ function CollectionBody({ r, own, preview }: { r: ResolvedCollection; own: boole
           <section className="mx-4 mt-8 overflow-hidden rounded-[28px] p-5" style={{ background: "linear-gradient(135deg,#FFE9F3,#F4EAFF)" }}>
             <p className="text-[34px] leading-none">💌</p>
             <h2 className="tight mt-2 text-[24px] font-[850] leading-tight">Есть любимые места?</h2>
-            <p className="mt-1 text-[15.5px] leading-snug text-ink-2">Соберите свою подборку и отправьте друзьям — это займёт пару минут.</p>
+            <p className="mt-1 text-[16px] leading-snug text-ink-2">Соберите свою подборку и отправьте друзьям — это займёт пару минут.</p>
             <Link
               href="/collections/new/?from=collection_cta"
-              className="press mt-4 inline-flex h-[54px] w-full items-center justify-center gap-2 rounded-full bg-pink text-[17px] font-bold text-white shadow-pink"
+              className="press mt-4 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-pink text-[18px] font-bold text-white shadow-pink"
             >
-              Создать свою подборку <ArrowRight size={19} />
+              Создать свою подборку <ArrowRight size={20} />
             </Link>
           </section>
         )}
@@ -227,7 +227,7 @@ function CollectionBody({ r, own, preview }: { r: ResolvedCollection; own: boole
 }
 
 const Chip = ({ children, className }: { children: React.ReactNode; className?: string }) => (
-  <span className={cn("inline-flex h-8 items-center gap-1 rounded-full px-3 text-[13.5px] font-semibold", className)}>{children}</span>
+  <span className={cn("inline-flex h-8 items-center gap-1 rounded-full px-3 text-[14px] font-semibold", className)}>{children}</span>
 );
 
 /** Большая карточка места внутри подборки. */
@@ -263,7 +263,7 @@ function PlaceStop({ x, index, r, preview }: { x: PlacedItem; index: number; r: 
       <Link href={href} onClick={open} className="relative block">
         <SmartImage photo={place.photos[0]} tint={place.tint} emoji={place.emoji} sizes="(max-width: 480px) 100vw, 448px" priority={index < 2} className="aspect-[16/10] w-full" />
         <span className="absolute left-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white text-[16px] font-[850] shadow-card">{index + 1}</span>
-        <span className="absolute bottom-3 left-3 inline-flex h-7 items-center gap-1 rounded-full bg-white/95 px-2.5 text-[12.5px] font-semibold" style={{ color: cat.fg }}>
+        <span className="absolute bottom-3 left-3 inline-flex h-7 items-center gap-1 rounded-full bg-white/95 px-2.5 text-[13px] font-semibold" style={{ color: cat.ink }}>
           <cat.Icon width={13} height={13} /> {cat.name}
         </span>
       </Link>
@@ -271,7 +271,7 @@ function PlaceStop({ x, index, r, preview }: { x: PlacedItem; index: number; r: 
         <Link href={href} onClick={open}>
           <h2 className="tight text-[22px] font-[850] leading-[1.12]">{place.title}</h2>
         </Link>
-        <p className="mt-0.5 line-clamp-2 text-[14.5px] text-muted">{place.subtitle}</p>
+        <p className="mt-0.5 line-clamp-2 text-[15px] text-muted">{place.subtitle}</p>
         <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
           <RatingBadge rating={place.rating} count={place.review_count} className="text-[14px]" />
           <TravelBadge place={place} className="text-[14px]" />
@@ -279,17 +279,17 @@ function PlaceStop({ x, index, r, preview }: { x: PlacedItem; index: number; r: 
         <div className="mt-2.5 flex flex-wrap gap-1.5">
           <PriceBadge>{placePriceShort(place)}</PriceBadge>
           <AgeBadge>{formatAgeRange(place.age_min, place.age_max)}</AgeBadge>
-          <span className={cn("inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[12.5px] font-semibold", place.indoor && !place.outdoor ? "bg-blue-50 text-blue" : place.outdoor && !place.indoor ? "bg-orange-50 text-orange" : "bg-yellow-50 text-[#9a6b00]")}>
-            {place.outdoor && !place.indoor ? <Sun size={13} strokeWidth={2.4} /> : <Umbrella size={13} strokeWidth={2.4} />}
+          <span className={cn("inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold", place.indoor && !place.outdoor ? "bg-blue-50 text-blue-ink" : place.outdoor && !place.indoor ? "bg-orange-50 text-orange-ink" : "bg-yellow-50 text-yellow-ink")}>
+            {place.outdoor && !place.indoor ? <Sun size={14} strokeWidth={2.5} /> : <Umbrella size={14} strokeWidth={2.5} />}
             {place.indoor && !place.outdoor ? "в помещении" : place.outdoor && !place.indoor ? "на воздухе" : "и там, и там"}
           </span>
         </div>
 
         {item.creator_note && (
-          <div className="mt-3.5 flex gap-2.5 rounded-[18px] bg-fill-2 p-3 ring-1 ring-line">
+          <div className="mt-3.5 flex gap-2.5 rounded-[20px] bg-fill-2 p-3 ring-1 ring-line">
             <CreatorAvatar author={r.author} size={30} className="mt-0.5" />
             <div className="min-w-0">
-              <p className="text-[12.5px] font-semibold text-pink">Комментарий автора</p>
+              <p className="text-[13px] font-semibold text-pink-ink">Комментарий автора</p>
               <p className="mt-0.5 text-[15px] leading-snug text-ink-2">{item.creator_note}</p>
             </div>
           </div>
@@ -297,8 +297,8 @@ function PlaceStop({ x, index, r, preview }: { x: PlacedItem; index: number; r: 
 
         <WantButton slug={place.slug} className="mt-3.5 w-full" />
         <div className="mt-1.5 flex flex-wrap items-center justify-between gap-x-3">
-          <Link href={href} onClick={open} className="press inline-flex h-11 items-center gap-1.5 text-[16px] font-semibold text-blue">
-            Посмотреть место <ArrowRight size={18} strokeWidth={2.2} />
+          <Link href={href} onClick={open} className="press inline-flex h-11 items-center gap-1.5 text-[16px] font-semibold text-blue-ink">
+            Посмотреть место <ArrowRight size={20} strokeWidth={2} />
           </Link>
           <InviteFriends place={place} />
         </div>
@@ -322,10 +322,10 @@ function OpenInAppBar({ ids, onClose }: { ids: { creator_id: string; collection_
           }}
           className="press inline-flex h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-full bg-pink px-3.5 text-[15px] font-bold text-white shadow-pink"
         >
-          <Smartphone size={18} className="shrink-0" /> <span className="truncate">Открыть в приложении</span>
+          <Smartphone size={20} className="shrink-0" /> <span className="truncate">Открыть в приложении</span>
         </button>
-        <button onClick={onClose} aria-label="Скрыть" className="press grid h-9 w-9 shrink-0 place-items-center rounded-full text-muted">
-          <X size={18} />
+        <button onClick={onClose} aria-label="Скрыть" className="press hit relative grid h-9 w-9 shrink-0 place-items-center rounded-full text-muted">
+          <X size={20} />
         </button>
       </div>
     </div>
@@ -347,7 +347,7 @@ export function Gone({ kind }: { kind: "hidden" | "private" | "broken" | "missin
           <BackButton fallback="/" />
         </div>
         <EmptyState art={copy.art} title={copy.title} text={copy.text} action={{ href: "/", label: "На главную" }} secondary={
-          <Link href="/collections/new/" className="press mt-3 inline-flex h-12 items-center rounded-full bg-pink-50 px-5 text-[15.5px] font-semibold text-pink">
+          <Link href="/collections/new/" className="press mt-3 inline-flex h-12 items-center rounded-full bg-pink-50 px-5 text-[16px] font-semibold text-pink-ink">
             Создать свою подборку
           </Link>
         } />

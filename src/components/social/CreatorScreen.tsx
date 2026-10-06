@@ -65,7 +65,7 @@ export function CreatorScreen({ creator }: { creator: CreatorProfile }) {
         <header className="flex items-center justify-between px-4 pb-1 pt-[max(14px,env(safe-area-inset-top))]">
           <BackButton fallback="/" />
           <button onClick={share} aria-label="Поделиться страницей автора" className="press grid h-11 w-11 place-items-center rounded-full bg-surface shadow-card">
-            <Share2 size={20} strokeWidth={2.1} />
+            <Share2 size={20} strokeWidth={2} />
           </button>
         </header>
 
@@ -73,11 +73,11 @@ export function CreatorScreen({ creator }: { creator: CreatorProfile }) {
           <div className="rounded-[28px] bg-surface p-5 text-center shadow-card">
             <CreatorAvatar author={author} size={96} ring className="mx-auto" />
             <h1 className="tight mt-3 text-[30px] font-[850] leading-[1.08]">{creator.display_name}</h1>
-            <p className="mt-1.5 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1.5 text-[14.5px] text-muted">
+            <p className="mt-1.5 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1.5 text-[15px] text-muted">
               <span className="whitespace-nowrap">@{creator.username}</span>
-              <CreatorBadge label="Автор подборок" className={cn("whitespace-nowrap", featured && "bg-pink-50 text-pink")} />
+              <CreatorBadge label="Автор подборок" className={cn("whitespace-nowrap", featured && "bg-pink-50 text-pink-ink")} />
             </p>
-            {creator.bio && <p className="mt-3 text-[15.5px] leading-snug text-ink-2">{creator.bio}</p>}
+            {creator.bio && <p className="mt-3 text-[16px] leading-snug text-ink-2">{creator.bio}</p>}
             <div className="mt-4 grid grid-cols-2 gap-2">
               <Stat value={collections.length} label={plural(collections.length, "подборка", "подборки", "подборок")} bg="#FFE4F1" />
               <Stat value={placeCount} label={plural(placeCount, "место", "места", "мест")} bg="#E2EEFF" />
@@ -90,7 +90,7 @@ export function CreatorScreen({ creator }: { creator: CreatorProfile }) {
               aria-pressed={following}
               className={cn("press mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full text-[16px] font-bold", following ? "bg-fill text-ink" : "bg-pink text-white shadow-pink")}
             >
-              {following ? <Check size={19} /> : <UserPlus size={19} />} {following ? "Вы подписаны" : "Подписаться"}
+              {following ? <Check size={20} /> : <UserPlus size={20} />} {following ? "Вы подписаны" : "Подписаться"}
             </button>
           </div>
         </section>
@@ -123,12 +123,12 @@ export function CreatorScreen({ creator }: { creator: CreatorProfile }) {
         <section className="mx-4 mt-9 overflow-hidden rounded-[28px] p-5" style={{ background: "linear-gradient(135deg,#FFE9F3,#F4EAFF)" }}>
           <p className="text-[34px] leading-none">💌</p>
           <h2 className="tight mt-2 text-[24px] font-[850] leading-tight">Есть любимые места?</h2>
-          <p className="mt-1 text-[15.5px] leading-snug text-ink-2">Соберите свою подборку и отправьте друзьям.</p>
+          <p className="mt-1 text-[16px] leading-snug text-ink-2">Соберите свою подборку и отправьте друзьям.</p>
           <Link
             href="/collections/new/?from=creator_cta"
-            className="press mt-4 inline-flex h-[54px] w-full items-center justify-center gap-2 rounded-full bg-pink text-[17px] font-bold text-white shadow-pink"
+            className="press mt-4 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-pink text-[18px] font-bold text-white shadow-pink"
           >
-            Создать свою подборку <ArrowRight size={19} />
+            Создать свою подборку <ArrowRight size={20} />
           </Link>
         </section>
       </main>
@@ -139,8 +139,8 @@ export function CreatorScreen({ creator }: { creator: CreatorProfile }) {
 function Stat({ value, label, bg }: { value: number; label: string; bg: string }) {
   return (
     <div className="rounded-[20px] px-3 py-3" style={{ background: bg }}>
-      <p className="tight text-[26px] font-[850] leading-none">{value}</p>
-      <p className="mt-1 text-[12.5px] font-medium text-ink-2">{label}</p>
+      <p className="tight text-[24px] font-[850] leading-none">{value}</p>
+      <p className="mt-1 text-[13px] font-medium text-ink-2">{label}</p>
     </div>
   );
 }

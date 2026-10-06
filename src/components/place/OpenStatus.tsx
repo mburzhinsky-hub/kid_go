@@ -18,7 +18,7 @@ export function OpenStatus({ hours, className }: { hours: OpeningHours; classNam
     <span
       className={cn(
         "inline-flex h-7 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 text-[13px] font-semibold",
-        state.open ? "bg-green-50 text-green" : "bg-red-50 text-red",
+        state.open ? "bg-green-50 text-green-ink" : "bg-red-50 text-red-ink",
         className
       )}
     >

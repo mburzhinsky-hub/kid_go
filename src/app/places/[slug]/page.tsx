@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MapPin, Navigation, CalendarDays, UtensilsCrossed } from "lucide-react";
+import { CalendarDays, UtensilsCrossed } from "lucide-react";
 import { repo } from "@/lib/data/repository";
 import { allPlaces } from "@/lib/data/repository";
 import { HeroGallery, PhotoGallery } from "@/components/place/PhotoGallery";
@@ -8,7 +8,7 @@ import { InfoGrid } from "@/components/place/InfoGrid";
 import { ParentInfo } from "@/components/place/ParentInfo";
 import { WhatNext } from "@/components/place/WhatNext";
 import { PlaceCTA, PlaceIntentRow } from "@/components/place/PlaceCTA";
-import { routeUrl } from "@/lib/route-url";
+import { AddressCard } from "@/components/place/AddressCard";
 import { OpenStatus } from "@/components/place/OpenStatus";
 import { ReadMore } from "@/components/place/ReadMore";
 import { Reviews } from "@/components/place/Reviews";
@@ -17,7 +17,6 @@ import { PlaceCarousel } from "@/components/cards/PlaceCard";
 import { AdventureCard } from "@/components/cards/AdventureCard";
 import { adventureCardData } from "@/lib/cards";
 import { whatNextGroups } from "@/lib/what-next";
-import { TravelBadge } from "@/components/ui/TravelBadge";
 import { categoryDef, placeTypeName } from "@/lib/catalog";
 import { formatAgeRange, formatPrice } from "@/lib/format";
 
@@ -98,13 +97,13 @@ export default async function PlacePage({ params }: PlacePageProps) {
       <article className="px-4">
         <header className="pt-5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold" style={{ background: cat.bg, color: cat.fg }}>
+            <span className="inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold" style={{ background: cat.bg, color: cat.ink }}>
               <cat.Icon width={14} height={14} /> {typeLabel}
             </span>
             {hoursVerified && <OpenStatus hours={place.opening_hours} />}
           </div>
-          <h1 className="tight mt-2.5 text-[31px] font-[850] leading-[1.08]">{place.title}</h1>
-          <p className="mt-1 text-[18px] text-[#6b6f7c]">{place.subtitle}</p>
+          <h1 className="tight mt-2.5 text-[30px] font-[850] leading-[1.08]">{place.title}</h1>
+          <p className="mt-1 text-[18px] text-muted">{place.subtitle}</p>
         </header>
 
         <div className="no-scrollbar -mx-4 mt-4 flex gap-2 overflow-x-auto px-4">
@@ -131,34 +130,16 @@ export default async function PlacePage({ params }: PlacePageProps) {
           </div>
         )}
 
-        {addressVerified && (
-          <div className="mt-3 flex items-center gap-3 rounded-[22px] bg-fill-2 py-3 pl-3.5 pr-3 ring-1 ring-line">
-            <MapPin size={28} strokeWidth={2} className="shrink-0 text-green" />
-            <div className="min-w-0 flex-1">
-              <p className="line-clamp-2 text-[15.5px] font-semibold leading-tight">{place.address}</p>
-              <p className="mt-0.5 truncate text-[13.5px] text-muted">
-                <TravelBadge place={place} long className="text-[13.5px]" />{place.metro ? ` · м. ${place.metro}` : ""}
-              </p>
-            </div>
-            <a
-              href={routeUrl(place.latitude, place.longitude)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="press inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full bg-blue-50 px-3.5 text-[14.5px] font-semibold text-blue"
-            >
-              <Navigation size={15} /> Как добраться
-            </a>
-          </div>
-        )}
+        {addressVerified && <AddressCard place={place} />}
 
         {place.menu_url && (
           <a
             href={place.menu_url}
             target="_blank"
             rel="noreferrer"
-            className="press mt-3 flex h-12 items-center justify-center gap-2 rounded-full bg-orange-50 px-4 text-[14.5px] font-semibold text-[#b45a12]"
+            className="press mt-3 flex h-12 items-center justify-center gap-2 rounded-full bg-orange-50 px-4 text-[15px] font-semibold text-orange-ink"
           >
-            <UtensilsCrossed size={17} />
+            <UtensilsCrossed size={16} />
             {place.category === "cafe" ? "Посмотреть меню" : "Где поесть / меню"}
           </a>
         )}
@@ -168,9 +149,9 @@ export default async function PlacePage({ params }: PlacePageProps) {
             <h2 className="tight text-[22px] font-[800]">Скоро здесь</h2>
             <ul className="mt-3 space-y-2">
               {placeEvents.map((e) => (
-                <li key={e.id} className="flex items-center gap-3 rounded-[18px] bg-yellow-50 p-3">
-                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[14px] bg-white text-yellow">
-                    <CalendarDays size={22} className="text-[#d79a00]" />
+                <li key={e.id} className="flex items-center gap-3 rounded-[20px] bg-yellow-50 p-3">
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[12px] bg-white text-yellow-ink">
+                    <CalendarDays size={24} className="text-[#d79a00]" />
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="text-[15px] font-semibold leading-tight">{e.title}</p>

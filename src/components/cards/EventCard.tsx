@@ -20,7 +20,7 @@ export function EventCard({ event, place, isToday }: { event: KidEvent; place: P
         </span>
       </div>
       <div className="px-3 pb-3 pt-2.5">
-        <h3 className="line-clamp-2 text-[15.5px] font-semibold leading-snug">{event.title}</h3>
+        <h3 className="line-clamp-2 text-[16px] font-semibold leading-snug">{event.title}</h3>
         <p className="mt-1 truncate text-[13px] text-muted">
           {place.emoji} {place.title} · {formatAgeRange(event.age_min, event.age_max)}
         </p>

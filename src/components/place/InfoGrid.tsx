@@ -31,7 +31,7 @@ export function InfoGrid({ place }: { place: Place }) {
       {items.map(({ Icon, color, value, label, wide }, i) => (
         <div key={i} lang="ru" className="relative flex min-w-0 flex-col items-center px-0.5 text-center">
           {i > 0 && <span aria-hidden className="absolute left-0 top-2 h-[78%] w-px bg-line" />}
-          <Icon size={30} strokeWidth={1.9} style={{ color }} />
+          <Icon size={28} strokeWidth={2} style={{ color }} />
           <p className={`mt-2 max-w-full break-words font-semibold leading-tight hyphens-auto ${wide ? "text-[14px]" : "text-[15px]"}`}>{value}</p>
           <p className="mt-0.5 max-w-full break-words text-[13px] leading-tight text-muted hyphens-auto">{label}</p>
         </div>

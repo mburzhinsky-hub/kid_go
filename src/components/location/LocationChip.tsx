@@ -21,14 +21,14 @@ export function LocationChip({ className, tone = "fill" }: { className?: string;
         onClick={() => setOpen(true)}
         aria-label={`Где ищем: ${label}. Изменить`}
         className={cn(
-          "press flex h-10 max-w-[190px] items-center gap-1 rounded-full pl-3 pr-2.5 text-[15px] font-semibold",
+          "press flex h-11 max-w-[220px] items-center gap-1.5 rounded-full pl-3.5 pr-3 text-[15px] font-semibold",
           tone === "fill" ? "bg-fill" : "bg-surface shadow-card",
           className
         )}
       >
-        <Icon size={15} strokeWidth={2.3} className="shrink-0" />
+        <Icon size={16} strokeWidth={2} className="shrink-0" />
         <span className="truncate">{label}</span>
-        <ChevronDown size={17} strokeWidth={2.4} className="shrink-0 text-ink-2" />
+        <ChevronDown size={16} strokeWidth={2.5} className="shrink-0 text-ink-2" />
       </button>
       <LocationSheet open={open} onClose={() => setOpen(false)} />
     </>

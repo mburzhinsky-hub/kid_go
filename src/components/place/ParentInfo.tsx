@@ -49,25 +49,26 @@ export function ParentInfo({ place }: { place: Place }) {
   return (
     <div>
       <div className="grid grid-cols-2 gap-2">
-        {visibleFacts.map(({ label, state: factState, Icon, hint }) => {
+        {visibleFacts.map(({ label, state: factState, Icon, hint }, fi) => {
           const yes = factState === "yes";
           return (
             <div
               key={label}
               className={cn(
                 "flex items-center gap-2.5 rounded-[16px] px-3 py-2.5",
-                yes ? "bg-green-50" : "bg-fill"
+                yes ? "bg-green-50" : "bg-fill",
+                fi === visibleFacts.length - 1 && visibleFacts.length % 2 === 1 && "col-span-2"
               )}
             >
-              <Icon size={20} className={yes ? "text-green" : "text-muted"} />
+              <Icon size={20} className={yes ? "text-green-ink" : "text-muted"} />
               <div className="min-w-0 flex-1">
-                <p className={cn("text-[13.5px] font-semibold leading-tight", !yes && "text-muted")}>{label}</p>
+                <p className={cn("text-[14px] font-semibold leading-tight", !yes && "text-muted")}>{label}</p>
                 {hint && <p className="text-[12px] leading-tight text-muted">{hint}</p>}
               </div>
               {yes ? (
-                <Check size={17} strokeWidth={3} className="shrink-0 text-green" />
+                <Check size={16} strokeWidth={3} className="shrink-0 text-green-ink" />
               ) : (
-                <X size={17} strokeWidth={3} className="shrink-0 text-muted-2" />
+                <X size={16} strokeWidth={3} className="shrink-0 text-muted-2" />
               )}
             </div>
           );
@@ -81,13 +82,13 @@ export function ParentInfo({ place }: { place: Place }) {
           place.parking_info.status === "partial" ? "bg-yellow-50" : "bg-fill-2"
         )}>
           <div className="flex items-start gap-2.5">
-            <Car size={20} className={place.parking_info.status === "yes" ? "mt-0.5 text-green" : "mt-0.5 text-muted"} />
+            <Car size={20} className={place.parking_info.status === "yes" ? "mt-0.5 text-green-ink" : "mt-0.5 text-muted"} />
             <div className="min-w-0 flex-1">
-              <p className="text-[13.5px] font-semibold">
+              <p className="text-[14px] font-semibold">
                 {place.parking_info.status === "yes" ? "Парковка" :
                   place.parking_info.status === "partial" ? "Парковка рядом" : "Парковки нет"}
               </p>
-              <p className="mt-0.5 text-[12.5px] leading-snug text-muted">{place.parking_info.details}</p>
+              <p className="mt-0.5 text-[13px] leading-snug text-muted">{place.parking_info.details}</p>
             </div>
           </div>
         </div>
@@ -97,7 +98,7 @@ export function ParentInfo({ place }: { place: Place }) {
         <Meter label="Активность" level={place.activity_level} words={["спокойно", "умеренно", "очень активно"]} color="#FF7A2E" />
         <Meter label="Шум" level={place.noise_level} words={["тихо", "умеренно", "шумно"]} color="#8B3DF0" />
         <Stat Icon={Hourglass} label="Оценка времени" value={`≈ ${formatDuration(place.average_duration)}`} />
-        {priceKnown && <Stat Icon={Wallet} label="Оценка на семью" value={`≈ ${formatBudget(place.family_budget)}`} />}
+        {priceKnown && <Stat Icon={Wallet} label="Оценка на семью" value={formatBudget(place.family_budget)} />}
         <Stat Icon={Users} label="Возраст" value={formatAgeRange(place.age_min, place.age_max)} className={priceKnown ? "col-span-2" : undefined} />
       </div>
 
@@ -108,7 +109,7 @@ export function ParentInfo({ place }: { place: Place }) {
 function Meter({ label, level, words, color }: { label: string; level: Level; words: string[]; color: string }) {
   return (
     <div className="rounded-[16px] bg-fill-2 px-3 py-2.5 ring-1 ring-line">
-      <p className="text-[12.5px] text-muted">{label}</p>
+      <p className="text-[13px] text-muted">{label}</p>
       <div className="mt-1.5 flex gap-1">
         {[1, 2, 3].map((i) => (
           <span key={i} className="h-2 flex-1 rounded-full" style={{ background: i <= level ? color : "#e9e7e2" }} />
@@ -122,8 +123,8 @@ function Meter({ label, level, words, color }: { label: string; level: Level; wo
 function Stat({ Icon, label, value, className }: { Icon: React.ComponentType<{ size?: number; className?: string }>; label: string; value: string; className?: string }) {
   return (
     <div className={cn("rounded-[16px] bg-fill-2 px-3 py-2.5 ring-1 ring-line", className)}>
-      <p className="flex items-center gap-1 text-[12.5px] text-muted">
-        <Icon size={13} /> {label}
+      <p className="flex items-center gap-1 text-[13px] text-muted">
+        <Icon size={14} /> {label}
       </p>
       <p className="mt-1 text-[16px] font-bold">{value}</p>
     </div>

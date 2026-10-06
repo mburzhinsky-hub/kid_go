@@ -145,3 +145,8 @@ const WEEKDAY_ACC = ["понедельник", "вторник", "среду", "
 export function weekdayAccusative(date = new Date()) {
   return WEEKDAY_ACC[moscowNow(date).weekday];
 }
+
+/** «Название» в русских кавычках; кавычки внутри названия становятся „лапками“. */
+export function quote(s: string): string {
+  return `«${s.replace(/«/g, "„").replace(/»/g, "“")}»`;
+}

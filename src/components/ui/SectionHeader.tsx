@@ -16,14 +16,14 @@ export function SectionHeader({
   subtitle?: string;
 }) {
   return (
-    <div className={cn("flex items-end justify-between gap-3 px-4", className)}>
+    <div className={cn("flex items-start justify-between gap-3 px-4", className)}>
       <div className="min-w-0">
         <h2 className="tight text-[24px] font-[800] leading-[1.15]">{title}</h2>
         {subtitle && <p className="mt-0.5 text-[14px] text-muted">{subtitle}</p>}
       </div>
       {href && (
-        <Link href={href} className="press flex shrink-0 items-center gap-1 pb-0.5 text-[16px] font-medium text-blue">
-          {action} <ArrowRight size={18} strokeWidth={2.2} />
+        <Link href={href} className="press -mr-2 -mt-2 flex h-11 shrink-0 items-center gap-1 px-2 text-[16px] font-medium text-blue-ink">
+          {action} <ArrowRight size={20} strokeWidth={2} />
         </Link>
       )}
     </div>

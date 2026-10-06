@@ -2,7 +2,7 @@ import type { Place, Plan, PlannerInput, MoodId, BudgetId, DurationId, StopWeath
 import { places as STATIC_PLACES } from "@/lib/data/places";
 import { buildPlan, chainLabel } from "@/lib/plan";
 import { pt } from "@/lib/geo";
-import { ceilTo, fromMinutes, isFreeEntry, isOpenDuring, moscowNow } from "@/lib/format";
+import { ceilTo, fromMinutes, isFreeEntry, isOpenDuring, moscowNow, quote } from "@/lib/format";
 import { travelBetween, travelToPlace, type Travel } from "@/lib/location";
 import { bringList, daySummary, moscowDateISO, outdoorVerdict, weekdayOf, windowWx, type Forecast } from "@/lib/forecast";
 import { isSuburban } from "@/lib/location";
@@ -928,7 +928,7 @@ function toPlan(a: Assembled, input: PlannerInput, ctx: DayCtx, pool: ScoredPlac
   if (a.reordered && ctx.rainFrom) {
     const outdoor = picks.find((p) => p.place.outdoor && !p.place.indoor);
     weatherNote = outdoor
-      ? `Сначала «${outdoor.place.title}», пока сухо: с ${ctx.rainFrom} обещают дождь — дальше всё под крышей.`
+      ? `Сначала ${quote(outdoor.place.title)}, пока сухо: с ${ctx.rainFrom} обещают дождь — дальше всё под крышей.`
       : `Порядок подобран под прогноз: с ${ctx.rainFrom} дождь.`;
     notes.push("⛅ Успеваем до дождя");
   }

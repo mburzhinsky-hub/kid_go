@@ -25,7 +25,7 @@ export function InstallSheet({ open, onClose, link, ids }: { open: boolean; onCl
   return (
     <BottomSheet open={open} onClose={onClose} title={env.standalone ? "Вы уже в приложении" : "Приложение КидГоу"}>
       {env.standalone ? (
-        <p className="text-[15.5px] leading-snug text-ink-2">Всё сохранено здесь: хотелки и подборки лежат во вкладке «Избранное».</p>
+        <p className="text-[16px] leading-snug text-ink-2">Всё сохранено здесь: хотелки и подборки лежат во вкладке «Избранное».</p>
       ) : (
         <>
           <p className="-mt-1 text-[15px] leading-snug text-muted">Значок на экране «Домой», быстрый запуск и всё сохранённое — без регистрации и магазина приложений.</p>
@@ -57,7 +57,7 @@ export function InstallSheet({ open, onClose, link, ids }: { open: boolean; onCl
                   toast("Готово — значок КидГоу на вашем экране 🎉");
                 }
               }}
-              className="press mt-4 flex h-[54px] w-full items-center justify-center gap-2.5 rounded-full bg-pink text-[17px] font-bold text-white shadow-pink disabled:opacity-60"
+              className="press mt-4 flex h-14 w-full items-center justify-center gap-2.5 rounded-full bg-pink text-[18px] font-bold text-white shadow-pink disabled:opacity-60"
             >
               {done ? <Check size={20} /> : <Download size={20} />} {done ? "Установлено" : "Установить приложение"}
             </button>
@@ -84,14 +84,14 @@ export function InstallSheet({ open, onClose, link, ids }: { open: boolean; onCl
               Продолжить в браузере
             </button>
           </div>
-          <p className="mt-3 text-center text-[12.5px] leading-snug text-muted">Ваши «Хочу сюда» уже сохранены на этом устройстве.</p>
+          <p className="mt-3 text-center text-[13px] leading-snug text-muted">Ваши «Хочу сюда» уже сохранены на этом устройстве.</p>
           {env.ios && (
             <button
               onClick={() => {
                 onClose();
                 useSocialUi.getState().openTransfer();
               }}
-              className="press mt-2 h-11 w-full rounded-full bg-blue-50 text-[14.5px] font-semibold text-blue"
+              className="press mt-2 h-11 w-full rounded-full bg-blue-50 text-[15px] font-semibold text-blue-ink"
             >
               Перенести хотелки в приложение
             </button>
@@ -107,7 +107,7 @@ function Steps({ items }: { items: [React.ReactNode, React.ReactNode][] }) {
     <ol className="mt-4 space-y-2.5">
       {items.map(([icon, text], i) => (
         <li key={i} className="flex items-center gap-3 rounded-[20px] bg-fill-2 p-3 ring-1 ring-line">
-          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white text-blue shadow-card">{icon}</span>
+          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white text-blue-ink shadow-card">{icon}</span>
           <span className="text-[15px] leading-snug">{text}</span>
         </li>
       ))}

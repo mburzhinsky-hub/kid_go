@@ -9,7 +9,7 @@ import { useFamily } from "@/lib/store";
 import { useToast } from "@/components/ui/Toast";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
-import { plural } from "@/lib/format";
+import { plural, quote } from "@/lib/format";
 import { placeHref } from "@/lib/place-href";
 
 export interface NextItem {
@@ -52,7 +52,7 @@ export function WhatNext({ currentSlug, groups }: { currentSlug: string; groups:
   const add = (slug: string, title: string) => {
     addToDay([currentSlug, slug]);
     track("what_next_add", { from: currentSlug, to: slug });
-    toast(`«${title}» в нашем дне 💛`, { href: "/day", label: "Открыть" });
+    toast(`${quote(title)} в нашем дне 💛`, { href: "/day", label: "Открыть" });
   };
 
   return (
@@ -64,7 +64,7 @@ export function WhatNext({ currentSlug, groups }: { currentSlug: string; groups:
             onClick={() => setActive(g.id)}
             aria-pressed={g.id === group.id}
             className={cn(
-              "press inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full px-3.5 text-[14.5px] font-semibold transition-colors",
+              "press hit relative inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full px-3.5 text-[15px] font-semibold transition-colors",
               g.id === group.id ? "bg-ink text-white" : "text-ink"
             )}
             style={g.id === group.id ? undefined : { background: g.bg }}
@@ -76,10 +76,10 @@ export function WhatNext({ currentSlug, groups }: { currentSlug: string; groups:
 
       <div key={group.id} className="mt-3 animate-rise">
         {lead && (
-          <div className="overflow-hidden rounded-[22px] bg-surface shadow-card">
+          <div className="overflow-hidden rounded-[24px] bg-surface shadow-card">
             <Link href={placeHref(lead)} className="relative block">
               <SmartImage photo={lead.photo} tint={lead.tint} emoji={lead.emoji} sizes="440px" className="aspect-[16/8] w-full" />
-              <span className="absolute left-3 top-3 inline-flex h-8 items-center gap-1.5 rounded-full bg-white px-3 text-[13.5px] font-bold shadow-card">
+              <span className="absolute left-3 top-3 inline-flex h-8 items-center gap-1.5 rounded-full bg-white px-3 text-[14px] font-bold shadow-card">
                 <TravelIcon mode={lead.mode} /> Через {lead.minutes} {plural(lead.minutes, "минуту", "минуты", "минут")}
               </span>
             </Link>
@@ -99,7 +99,7 @@ export function WhatNext({ currentSlug, groups }: { currentSlug: string; groups:
         {others.length > 0 && (
           <ul className="mt-2.5 space-y-2">
             {others.map((it) => (
-              <li key={it.slug} className="flex items-center gap-3 rounded-[18px] bg-surface p-2 shadow-card">
+              <li key={it.slug} className="flex items-center gap-3 rounded-[20px] bg-surface p-2 shadow-card">
                 <Link href={placeHref(it)} className="flex min-w-0 flex-1 items-center gap-3">
                   <SmartImage photo={it.photo} tint={it.tint} emoji={it.emoji} sizes="64px" className="h-14 w-14 shrink-0 rounded-[12px]" />
                   <span className="min-w-0">
@@ -121,7 +121,7 @@ export function WhatNext({ currentSlug, groups }: { currentSlug: string; groups:
 
 function TravelIcon({ mode }: { mode: TransportId }) {
   const { Icon } = MODE[mode];
-  return <Icon size={14} strokeWidth={2.3} className="text-green" />;
+  return <Icon size={14} strokeWidth={2} className="text-green-ink" />;
 }
 
 function AddButton({ added, onAdd, className, big }: { added: boolean; onAdd: () => void; className?: string; big?: boolean }) {
@@ -130,13 +130,13 @@ function AddButton({ added, onAdd, className, big }: { added: boolean; onAdd: ()
       onClick={onAdd}
       disabled={added}
       className={cn(
-        "press inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full font-semibold transition-colors",
-        big ? "h-12 text-[15.5px]" : "h-10 px-3.5 text-[14px]",
-        added ? "bg-green-50 text-green" : big ? "bg-pink-50 text-pink" : "bg-pink text-white",
+        "press hit relative inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full font-semibold transition-colors",
+        big ? "h-12 text-[16px]" : "h-10 px-4 text-[14px]",
+        added ? "bg-green-50 text-green-ink" : big ? "bg-pink-50 text-pink-ink" : "bg-pink text-white",
         className
       )}
     >
-      {added ? <Check size={18} strokeWidth={2.6} /> : <Plus size={18} strokeWidth={2.6} />}
+      {added ? <Check size={20} strokeWidth={2.5} /> : <Plus size={20} strokeWidth={2.5} />}
       {added ? "В нашем дне" : big ? "Добавить в наш день" : "В день"}
     </button>
   );

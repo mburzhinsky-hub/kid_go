@@ -62,8 +62,8 @@ export function AdventureCard({
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_45%,rgba(0,0,0,0.55)_100%)]" />
         <div className="absolute left-3 top-3 flex gap-1.5">
-          <span className="inline-flex h-7 items-center gap-1 rounded-full bg-white/95 px-2.5 text-[12.5px] font-semibold text-ink">
-            {data.indoor ? <Umbrella size={13} strokeWidth={2.4} className="text-blue" /> : <Sun size={13} strokeWidth={2.4} className="text-orange" />}
+          <span className="inline-flex h-7 items-center gap-1 rounded-full bg-white/95 px-2.5 text-[13px] font-semibold text-ink">
+            {data.indoor ? <Umbrella size={14} strokeWidth={2.5} className="text-blue-ink" /> : <Sun size={14} strokeWidth={2.5} className="text-orange-ink" />}
             {data.indoor ? "в помещении" : "на воздухе"}
           </span>
         </div>
@@ -75,8 +75,8 @@ export function AdventureCard({
             {data.title}
           </h3>
           {data.recommend && (
-            <span className="inline-flex h-7 shrink-0 items-center gap-1 rounded-full bg-yellow px-2.5 text-[12.5px] font-bold text-ink">
-              <ThumbsUp size={13} strokeWidth={2.6} /> {data.recommend}%
+            <span className="inline-flex h-7 shrink-0 items-center gap-1 rounded-full bg-yellow px-2.5 text-[13px] font-bold text-ink">
+              <ThumbsUp size={14} strokeWidth={2.5} /> {data.recommend}%
             </span>
           )}
         </div>
@@ -100,20 +100,20 @@ export function AdventureCard({
         </div>
 
         {note && (
-          <p className={cn("mt-2 text-[13px] font-semibold leading-snug", note.tone === "here" ? "text-green" : note.tone === "near" ? "text-[#9a6b00]" : "text-red")}>{note.text}</p>
+          <p className={cn("mt-2 text-[13px] font-semibold leading-snug", note.tone === "here" ? "text-green-ink" : note.tone === "near" ? "text-yellow-ink" : "text-red-ink")}>{note.text}</p>
         )}
-        {data.explanation && <p className="mt-2.5 text-[13.5px] leading-snug text-muted">{data.explanation}</p>}
+        {data.explanation && <p className="mt-2.5 text-[14px] leading-snug text-muted">{data.explanation}</p>}
 
         <div className="mt-3 flex flex-wrap items-center gap-1.5">
-          <Meta icon={<Users size={13} strokeWidth={2.4} />} className="bg-purple-50 text-purple">
+          <Meta icon={<Users size={14} strokeWidth={2.5} />} className="bg-purple-50 text-purple-ink">
             {data.age}
           </Meta>
-          <Meta icon={<Clock size={13} strokeWidth={2.4} />} className="bg-blue-50 text-blue">
+          <Meta icon={<Clock size={14} strokeWidth={2.5} />} className="bg-blue-50 text-blue-ink">
             {data.duration}
           </Meta>
-          {data.price && <Meta className="bg-green-50 text-green">{data.price}</Meta>}
+          {data.price && <Meta className="bg-green-50 text-green-ink">{data.price}</Meta>}
           {data.why?.slice(0, variant === "full" ? 3 : 1).map((w) => (
-            <Meta key={w} className="bg-yellow-50 text-[#9a6b00]">
+            <Meta key={w} className="bg-yellow-50 text-yellow-ink">
               {w}
             </Meta>
           ))}
@@ -128,7 +128,7 @@ export function AdventureCard({
             <span className="text-[13px] font-medium text-muted">{data.fromHome ?? "Собрано под вашу семью"}</span>
           )}
           <span className="inline-flex h-10 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-pink pl-4 pr-3 text-[15px] font-semibold text-white shadow-pink transition-transform group-active:scale-95">
-            Хочу так <ArrowRight size={17} strokeWidth={2.4} />
+            Хочу так <ArrowRight size={16} strokeWidth={2.5} />
           </span>
         </div>
       </div>
@@ -138,7 +138,7 @@ export function AdventureCard({
 
 function Meta({ icon, children, className }: { icon?: React.ReactNode; children: React.ReactNode; className?: string }) {
   return (
-    <span className={cn("inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[12.5px] font-semibold", className)}>
+    <span className={cn("inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold", className)}>
       {icon}
       {children}
     </span>

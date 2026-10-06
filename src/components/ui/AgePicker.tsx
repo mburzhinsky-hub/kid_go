@@ -17,7 +17,7 @@ export function AgePicker({ value, onPick, className }: { value?: number | null;
             aria-checked={on}
             onClick={() => onPick(a)}
             className={cn(
-              "press h-[52px] rounded-[16px] text-[16px] font-bold transition-colors",
+              "press h-12 rounded-[16px] text-[16px] font-bold transition-colors",
               a === 0 && "col-span-2 text-[15px]",
               on ? "bg-pink text-white shadow-pink" : "bg-surface text-ink shadow-card"
             )}

@@ -88,7 +88,7 @@ export function LocationSheet({ open, onClose }: { open: boolean; onClose: () =>
   return (
     <>
     <BottomSheet open={open && !picking} onClose={onClose} title="Где ищем?">
-      <p className="-mt-1 text-[14.5px] leading-snug text-muted">
+      <p className="-mt-1 text-[15px] leading-snug text-muted">
         Сразу выберите охват: только Москва или Москва вместе с Подмосковьем. Для «рядом» можно указать округ, город или точный адрес.
       </p>
 
@@ -99,14 +99,14 @@ export function LocationSheet({ open, onClose }: { open: boolean; onClose: () =>
             setPrefs({ geoScope: "moscow" });
             choose(DEFAULT_ORIGIN, false);
           }}
-          className={cn("press rounded-[18px] p-3.5 text-left", origin.source === "default" && geoScope === "moscow" ? "bg-ink text-white" : "bg-surface shadow-card")}
+          className={cn("press rounded-[20px] p-3.5 text-left", origin.source === "default" && geoScope === "moscow" ? "bg-ink text-white" : "bg-surface shadow-card")}
         >
           <span className={cn("grid h-10 w-10 place-items-center rounded-full", origin.source === "default" && geoScope === "moscow" ? "bg-white/15" : "bg-fill")}>
             <Globe2 size={20} />
           </span>
-          <span className="mt-2 block text-[15.5px] font-bold">Москва</span>
-          <span className={cn("mt-0.5 block text-[12.5px] leading-snug", origin.source === "default" && geoScope === "moscow" ? "text-white/75" : "text-muted")}>лучшие идеи в городе</span>
-          {origin.source === "default" && geoScope === "moscow" && <Check size={18} className="mt-2" />}
+          <span className="mt-2 block text-[16px] font-bold">Москва</span>
+          <span className={cn("mt-0.5 block text-[13px] leading-snug", origin.source === "default" && geoScope === "moscow" ? "text-white/75" : "text-muted")}>лучшие идеи в городе</span>
+          {origin.source === "default" && geoScope === "moscow" && <Check size={20} className="mt-2" />}
         </button>
         <button
           onClick={() => {
@@ -114,14 +114,14 @@ export function LocationSheet({ open, onClose }: { open: boolean; onClose: () =>
             setPrefs({ geoScope: "moscow-region" });
             choose(DEFAULT_ORIGIN, false);
           }}
-          className={cn("press rounded-[18px] p-3.5 text-left", origin.source === "default" && geoScope === "moscow-region" ? "bg-purple text-white" : "bg-purple-50 text-ink shadow-card")}
+          className={cn("press rounded-[20px] p-3.5 text-left", origin.source === "default" && geoScope === "moscow-region" ? "bg-purple-ink text-white" : "bg-purple-50 text-ink shadow-card")}
         >
-          <span className={cn("grid h-10 w-10 place-items-center rounded-full", origin.source === "default" && geoScope === "moscow-region" ? "bg-white/15" : "bg-white text-purple")}>
+          <span className={cn("grid h-10 w-10 place-items-center rounded-full", origin.source === "default" && geoScope === "moscow-region" ? "bg-white/15" : "bg-white text-purple-ink")}>
             <MapPin size={20} />
           </span>
-          <span className="mt-2 block text-[15.5px] font-bold">Москва + область</span>
-          <span className={cn("mt-0.5 block text-[12.5px] leading-snug", origin.source === "default" && geoScope === "moscow-region" ? "text-white/75" : "text-muted")}>Красногорск, Истра, Одинцово и другие</span>
-          {origin.source === "default" && geoScope === "moscow-region" && <Check size={18} className="mt-2" />}
+          <span className="mt-2 block text-[16px] font-bold">Москва + область</span>
+          <span className={cn("mt-0.5 block text-[13px] leading-snug", origin.source === "default" && geoScope === "moscow-region" ? "text-white/75" : "text-muted")}>Красногорск, Истра, Одинцово и другие</span>
+          {origin.source === "default" && geoScope === "moscow-region" && <Check size={20} className="mt-2" />}
         </button>
       </div>
 
@@ -148,11 +148,11 @@ export function LocationSheet({ open, onClose }: { open: boolean; onClose: () =>
           );
         })}
       </div>
-      <p className="mt-2 text-[12.5px] leading-snug text-muted">Дорогу считаем условно — от центра округа, с запасом: «≈ N мин».</p>
+      <p className="mt-2 text-[13px] leading-snug text-muted">Дорогу считаем условно — от центра округа, с запасом: «≈ N мин».</p>
 
       <p className="mt-5 text-[14px] font-bold text-ink-2">Подмосковье и точнее</p>
       <label className="mt-2 flex h-12 items-center gap-2.5 rounded-full bg-fill px-4">
-        <Search size={19} className="shrink-0 text-ink-2" />
+        <Search size={20} className="shrink-0 text-ink-2" />
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
@@ -161,10 +161,10 @@ export function LocationSheet({ open, onClose }: { open: boolean; onClose: () =>
           enterKeyHint="search"
           className="min-w-0 flex-1 bg-transparent text-[16px] outline-none placeholder:text-muted"
         />
-        {searching && <Loader2 size={17} className="shrink-0 animate-spin text-muted" />}
+        {searching && <Loader2 size={16} className="shrink-0 animate-spin text-muted" />}
         {q && !searching && (
           <button onClick={() => setQ("")} aria-label="Очистить" className="shrink-0 text-muted">
-            <X size={18} />
+            <X size={20} />
           </button>
         )}
       </label>
@@ -179,57 +179,57 @@ export function LocationSheet({ open, onClose }: { open: boolean; onClose: () =>
                 }}
                 className="press flex w-full items-center gap-3 rounded-[16px] bg-surface px-3 py-2.5 text-left shadow-card"
               >
-                <MapPin size={18} className="shrink-0 text-pink" />
+                <MapPin size={20} className="shrink-0 text-pink-ink" />
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-[15.5px] font-semibold leading-tight">{h.label}</span>
-                  {h.sub && <span className="block truncate text-[12.5px] leading-tight text-muted">{h.sub}</span>}
+                  <span className="block truncate text-[16px] font-semibold leading-tight">{h.label}</span>
+                  {h.sub && <span className="block truncate text-[13px] leading-tight text-muted">{h.sub}</span>}
                 </span>
               </button>
             </li>
           ))}
           {!results.length && !searching && q.trim().length >= 3 && (
-            <li className="rounded-[14px] bg-fill-2 px-3 py-2.5 text-[13.5px] leading-snug text-muted">Не нашли «{q.trim()}». Попробуйте другое название или укажите точку на карте.</li>
+            <li className="rounded-[12px] bg-fill-2 px-3 py-2.5 text-[14px] leading-snug text-muted">Не нашли «{q.trim()}». Попробуйте другое название или укажите точку на карте.</li>
           )}
         </ul>
       )}
 
       <div className="mt-3 space-y-2">
-        <button onClick={() => setPicking(true)} className="press flex w-full items-center gap-3 rounded-[18px] bg-pink-50 p-3.5 text-left">
-          <span className="grid h-11 w-11 place-items-center rounded-full bg-white text-pink">
-            <Crosshair size={21} />
+        <button onClick={() => setPicking(true)} className="press flex w-full items-center gap-3 rounded-[20px] bg-pink-50 p-3.5 text-left">
+          <span className="grid h-11 w-11 place-items-center rounded-full bg-white text-pink-ink">
+            <Crosshair size={20} />
           </span>
           <span className="flex-1">
-            <span className="block text-[16px] font-bold text-pink">Указать на карте</span>
+            <span className="block text-[16px] font-bold text-pink-ink">Указать на карте</span>
             <span className="text-[13px] text-ink-2">булавка у дома — считаем минуты от двери</span>
           </span>
-          {origin.source === "custom" && <Check size={20} className="text-pink" />}
+          {origin.source === "custom" && <Check size={20} className="text-pink-ink" />}
         </button>
-        <button onClick={gps} disabled={busy} className="press flex w-full items-center gap-3 rounded-[18px] bg-blue-50 p-3.5 text-left">
-          <span className="grid h-11 w-11 place-items-center rounded-full bg-white text-blue">
-            {busy ? <Loader2 size={21} className="animate-spin" /> : <LocateFixed size={21} />}
+        <button onClick={gps} disabled={busy} className="press flex w-full items-center gap-3 rounded-[20px] bg-blue-50 p-3.5 text-left">
+          <span className="grid h-11 w-11 place-items-center rounded-full bg-white text-blue-ink">
+            {busy ? <Loader2 size={20} className="animate-spin" /> : <LocateFixed size={20} />}
           </span>
           <span className="flex-1">
-            <span className="block text-[16px] font-bold text-blue">Где я сейчас</span>
+            <span className="block text-[16px] font-bold text-blue-ink">Где я сейчас</span>
             <span className="text-[13px] text-ink-2">по геопозиции телефона</span>
           </span>
-          {origin.source === "gps" && <Check size={20} className="text-blue" />}
+          {origin.source === "gps" && <Check size={20} className="text-blue-ink" />}
         </button>
         {home && (
-          <button onClick={() => choose(home, false)} className="press flex w-full items-center gap-3 rounded-[18px] bg-surface p-3.5 text-left shadow-card">
-            <span className="grid h-11 w-11 place-items-center rounded-full bg-pink-50 text-pink">
-              <Home size={21} />
+          <button onClick={() => choose(home, false)} className="press flex w-full items-center gap-3 rounded-[20px] bg-surface p-3.5 text-left shadow-card">
+            <span className="grid h-11 w-11 place-items-center rounded-full bg-pink-50 text-pink-ink">
+              <Home size={20} />
             </span>
             <span className="flex-1">
               <span className="block text-[16px] font-bold">Дом</span>
               <span className="text-[13px] text-muted">{home.label === "Дом" ? "сохранённая точка" : home.label}</span>
             </span>
-            {origin.source === "home" && <Check size={20} className="text-pink" />}
+            {origin.source === "home" && <Check size={20} className="text-pink-ink" />}
           </button>
         )}
       </div>
-      {error && <p className="mt-3 rounded-[14px] bg-orange-50 px-3 py-2.5 text-[13.5px] leading-snug text-[#8a4a00]">{error}</p>}
+      {error && <p className="mt-3 rounded-[12px] bg-orange-50 px-3 py-2.5 text-[14px] leading-snug text-orange-ink">{error}</p>}
 
-      <label className="mt-5 flex items-center gap-2.5 text-[14.5px] text-ink-2">
+      <label className="mt-5 flex items-center gap-2.5 text-[15px] text-ink-2">
         <input type="checkbox" checked={saveHome} onChange={(e) => setSaveHome(e.target.checked)} className="h-5 w-5 accent-pink" />
         Точный адрес — запомнить как «Дом»
       </label>

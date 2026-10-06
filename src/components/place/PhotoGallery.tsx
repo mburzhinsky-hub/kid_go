@@ -88,7 +88,7 @@ export function ShareButton({ title, light }: { title: string; light?: boolean }
       }}
       className={light ? "press grid h-11 w-11 place-items-center rounded-full bg-white text-ink shadow-card" : "press grid h-11 w-11 place-items-center rounded-full bg-black/35 text-white"}
     >
-      <Share size={21} strokeWidth={2.2} />
+      <Share size={20} strokeWidth={2} />
     </button>
   );
 }
@@ -102,7 +102,7 @@ export function PhotoGallery({ photos, tint, emoji }: { photos: Photo[]; tint: s
     <>
       <div className="grid grid-cols-[1.45fr_1fr_1fr_1fr] gap-2">
         {thumbs.map((p, i) => (
-          <button key={i} onClick={() => setOpen(i + 1)} className="press relative h-[84px] overflow-hidden rounded-[14px]" aria-label={`Открыть фото: ${p.alt}`}>
+          <button key={i} onClick={() => setOpen(i + 1)} className="press relative h-[84px] overflow-hidden rounded-[12px]" aria-label={`Открыть фото: ${p.alt}`}>
             <SmartImage photo={p} tint={tint} emoji={emoji} sizes="140px" className="absolute inset-0" />
             {i === thumbs.length - 1 && rest > 0 && (
               <span className="absolute inset-0 grid place-items-center bg-black/45 text-[22px] font-semibold text-white">+{rest}</span>
@@ -138,8 +138,8 @@ function Lightbox({ photos, start, tint, emoji, onClose }: { photos: Photo[]; st
         <span className="text-[15px] font-semibold">
           {i + 1} / {photos.length}
         </span>
-        <button onClick={onClose} aria-label="Закрыть" className="press grid h-10 w-10 place-items-center rounded-full bg-white/15">
-          <X size={22} />
+        <button onClick={onClose} aria-label="Закрыть" className="press hit relative grid h-10 w-10 place-items-center rounded-full bg-white/15">
+          <X size={24} />
         </button>
       </div>
       <div ref={ref} className="no-scrollbar flex flex-1 snap-x snap-mandatory overflow-x-auto">

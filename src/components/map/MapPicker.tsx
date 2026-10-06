@@ -74,7 +74,7 @@ export default function MapPicker({ initial, onPick, onClose }: { initial: GeoPo
           <span className="absolute left-0 top-0 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-ink/30 blur-[1px]" />
           <MapPin
             size={46}
-            strokeWidth={1.6}
+            strokeWidth={2}
             className="absolute left-0 top-0 fill-pink text-white drop-shadow-lg transition-transform duration-150"
             style={{ transform: `translate(-50%, ${moving ? -118 : -100}%)` }}
           />
@@ -83,19 +83,19 @@ export default function MapPicker({ initial, onPick, onClose }: { initial: GeoPo
 
       <div className="absolute inset-x-0 top-0 z-20 flex items-center gap-2.5 px-4 pt-[max(12px,env(safe-area-inset-top))]">
         <button onClick={onClose} aria-label="Закрыть" className="press grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white shadow-float">
-          <X size={22} />
+          <X size={24} />
         </button>
         <div className="min-w-0 flex-1 rounded-full bg-white px-4 py-2.5 shadow-float">
-          <p className="truncate text-[15.5px] font-bold leading-tight">{state === "ready" ? label : "Указать на карте"}</p>
+          <p className="truncate text-[16px] font-bold leading-tight">{state === "ready" ? label : "Указать на карте"}</p>
           <p className="truncate text-[12px] leading-tight text-muted">{state === "ready" ? "Двигайте карту — булавка в центре" : "Выберите точку выезда"}</p>
         </div>
       </div>
 
       {state === "failed" && (
         <div className="absolute inset-x-4 top-1/3 z-20 rounded-[24px] bg-white p-5 text-center shadow-float">
-          <Crosshair size={30} className="mx-auto text-muted" />
+          <Crosshair size={28} className="mx-auto text-muted" />
           <p className="mt-2 text-[17px] font-bold">Карта не загрузилась</p>
-          <p className="mt-1 text-[14px] leading-snug text-muted">Нет связи с сервером карт (слабый интернет или блокировка). Можно повторить — или найти город, посёлок или округ без карты.</p>
+          <p className="mt-1 text-[14px] leading-snug text-muted">Не удалось загрузить карту — возможно, слабый интернет. Повторите или найдите город, посёлок или округ без карты.</p>
           <button
             onClick={() => {
               setState("loading");
@@ -104,7 +104,7 @@ export default function MapPicker({ initial, onPick, onClose }: { initial: GeoPo
             }}
             className="press mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-pink text-[16px] font-semibold text-white"
           >
-            <RefreshCw size={18} /> Повторить
+            <RefreshCw size={20} /> Повторить
           </button>
           <button onClick={onClose} className="press mt-2 h-12 w-full rounded-full bg-fill text-[16px] font-semibold">
             Выбрать без карты

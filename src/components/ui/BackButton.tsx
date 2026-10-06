@@ -15,7 +15,7 @@ const TONE: Record<Tone, string> = {
   /** поверх фотографии */
   photo: "h-11 w-11 bg-black/35 text-white",
   /** поверх карты, в одну линию с поиском */
-  float: "h-[52px] w-[52px] bg-white text-ink shadow-float",
+  float: "h-12 w-12 bg-white text-ink shadow-float",
 };
 
 /** Стрелка «назад» для всех внутренних экранов: возвращает на предыдущий экран приложения или на `fallback`. */
@@ -23,7 +23,7 @@ export function BackButton({ fallback = "/", label = "Назад", tone = "card"
   const router = useRouter();
   return (
     <button type="button" onClick={onClick ?? (() => goBack(router, fallback))} aria-label={label} className={cn("press grid shrink-0 place-items-center rounded-full", TONE[tone], className)}>
-      <ArrowLeft size={tone === "float" ? 24 : 22} strokeWidth={2.2} />
+      <ArrowLeft size={24} strokeWidth={2} />
     </button>
   );
 }

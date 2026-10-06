@@ -26,7 +26,7 @@ export function TripFeedback() {
   const [done, setDone] = useState(false);
   if (done)
     return (
-      <div className="mx-4 mt-7 rounded-[22px] bg-green-50 p-4 text-[15px] font-semibold text-green animate-rise">
+      <div className="mx-4 mt-7 rounded-[24px] bg-green-50 p-4 text-[15px] font-semibold text-green-ink animate-rise">
         Спасибо! Учтём это в следующих подборках 💚
       </div>
     );
@@ -47,7 +47,7 @@ export function TripFeedback() {
               setTags([]);
             }}
             aria-pressed={face === f.v}
-            className={cn("press flex flex-col items-center gap-1 rounded-[18px] py-2.5 text-[13px] font-semibold", face === f.v ? "bg-pink-50 ring-2 ring-pink" : "bg-fill")}
+            className={cn("press flex flex-col items-center gap-1 rounded-[20px] py-2.5 text-[13px] font-semibold", face === f.v ? "bg-pink-50 ring-2 ring-inset ring-pink" : "bg-fill")}
           >
             <span className="text-[30px] leading-none">{f.e}</span>
             {f.label}
@@ -64,7 +64,7 @@ export function TripFeedback() {
                   key={t}
                   onClick={() => setTags((x) => (on ? x.filter((y) => y !== t) : [...x, t]))}
                   aria-pressed={on}
-                  className={cn("press h-9 rounded-full px-3 text-[13.5px] font-semibold", on ? "bg-ink text-white" : "bg-fill text-ink")}
+                  className={cn("press hit relative h-9 rounded-full px-3 text-[14px] font-semibold", on ? "bg-ink text-white" : "bg-fill text-ink")}
                 >
                   {t}
                 </button>

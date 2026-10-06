@@ -21,15 +21,15 @@ export function MapPlaceChip({ place, caption, onFocus, className }: { place: Pl
       onMouseEnter={onFocus}
       className={cn("press flex h-[88px] w-[262px] shrink-0 snap-start items-center gap-3 rounded-[20px] bg-surface p-2 shadow-card", className)}
     >
-      <SmartImage photo={place.photos[0]} tint={place.tint} emoji={place.emoji} sizes="72px" className="h-[72px] w-[72px] shrink-0 rounded-[14px]" />
+      <SmartImage photo={place.photos[0]} tint={place.tint} emoji={place.emoji} sizes="72px" className="h-[72px] w-[72px] shrink-0 rounded-[12px]" />
       <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 pr-1">
-        <span className="truncate text-[12px] font-semibold leading-none" style={{ color: cat.fg }}>
+        <span className="truncate text-[12px] font-semibold leading-none" style={{ color: cat.ink }}>
           {caption ?? cat.name}
         </span>
-        <h3 className="line-clamp-2 text-[14.5px] font-semibold leading-[1.2]">{place.title}</h3>
+        <h3 className="line-clamp-2 text-[15px] font-semibold leading-[1.2]">{place.title}</h3>
         <div className="flex min-w-0 items-center gap-2.5">
-          {place.review_count > 0 && <RatingBadge rating={place.rating} className="shrink-0 text-[12.5px]" />}
-          <TravelBadge place={place} className="min-w-0 text-[12.5px]" />
+          {place.review_count > 0 && <RatingBadge rating={place.rating} className="shrink-0 text-[13px]" />}
+          <TravelBadge place={place} className="min-w-0 text-[13px]" />
         </div>
       </div>
     </Link>

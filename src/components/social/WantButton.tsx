@@ -70,13 +70,13 @@ export function WantButton({ slug, size = "md", className, source, label = "Хо
       }}
       className={cn(
         "press inline-flex items-center justify-center gap-2 rounded-full font-bold transition-colors",
-        size === "lg" ? "h-[58px] text-[19px]" : "h-12 text-[15.5px]",
-        want ? "bg-pink-50 text-pink ring-1 ring-pink/25" : "bg-pink text-white shadow-pink",
+        size === "lg" ? "h-14 text-[18px]" : "h-12 text-[16px]",
+        want ? "bg-pink-50 text-pink-ink ring-1 ring-pink/25" : "bg-pink text-white shadow-pink",
         !hydrated && "opacity-90",
         className
       )}
     >
-      <Heart size={size === "lg" ? 23 : 19} strokeWidth={2.2} className={cn(want && "animate-pop fill-pink")} />
+      <Heart size={size === "lg" ? 24 : 20} strokeWidth={2} className={cn(want && "animate-pop fill-pink")} />
       {want ? "В хотелках" : label}
     </button>
   );
@@ -108,9 +108,9 @@ export function InviteFriends({ place, className, always, short }: { place: Plac
         e.stopPropagation();
         openInvite(place, ctx);
       }}
-      className={cn("press inline-flex h-10 items-center gap-1.5 rounded-full bg-blue-50 px-3.5 text-[14.5px] font-semibold text-blue animate-rise", className)}
+      className={cn("press hit relative inline-flex h-10 items-center gap-1.5 rounded-full bg-blue-50 px-3.5 text-[15px] font-semibold text-blue-ink animate-rise", className)}
     >
-      <UserPlus size={17} /> {short ? "Позвать" : "Позвать друзей"}
+      <UserPlus size={16} /> {short ? "Позвать" : "Позвать друзей"}
     </button>
   );
 }
@@ -119,7 +119,7 @@ export function InviteFriends({ place, className, always, short }: { place: Plac
 export function WantProof({ slug, className }: { slug: string; className?: string }) {
   const n = useWantCount(slug);
   if (!n) return null;
-  return <p className={cn("text-[13.5px] font-medium text-muted", className)}>👨‍👩‍👧 {n.toLocaleString("ru-RU")} {n % 10 === 1 && n % 100 !== 11 ? "семья хочет" : "семей хотят"} сюда</p>;
+  return <p className={cn("text-[14px] font-medium text-muted", className)}>👨‍👩‍👧 {n.toLocaleString("ru-RU")} {n % 10 === 1 && n % 100 !== 11 ? "семья хочет" : "семей хотят"} сюда</p>;
 }
 
 const FEEDBACK: { id: IntentFeedback; label: string; Icon: typeof ThumbsUp }[] = [
@@ -139,7 +139,7 @@ export function FeedbackRow({ slug, className, compact }: { slug: string; classN
       onClick={() => rateVisited(slug, intent?.feedback === id ? undefined : id)}
       className={cn("press inline-flex items-center justify-center gap-1.5 rounded-full text-[14px] font-semibold", compact ? "h-10 w-12" : "h-10 px-3.5", intent?.feedback === id ? "bg-ink text-white" : "bg-fill text-ink")}
     >
-      <Icon size={compact ? 18 : 16} /> {!compact && label}
+      <Icon size={compact ? 20 : 16} /> {!compact && label}
     </button>
   ));
   if (compact)
@@ -169,18 +169,18 @@ export function VisitedControl({ slug, className, askFeedback = true }: { slug: 
           markPlaceVisited(slug, ctx);
           useToast.getState().show("Отметили: уже были ✅");
         }}
-        className={cn("press inline-flex h-10 items-center gap-1.5 rounded-full bg-green-50 px-3.5 text-[14.5px] font-semibold text-green", className)}
+        className={cn("press hit relative inline-flex h-10 items-center gap-1.5 rounded-full bg-green-50 px-3.5 text-[15px] font-semibold text-green-ink", className)}
       >
-        <CheckCircle2 size={17} /> Мы уже были
+        <CheckCircle2 size={16} /> Мы уже были
       </button>
     );
   return (
     <div className={cn("animate-rise", className)}>
       <div className="flex flex-wrap items-center gap-2">
-        <span className="inline-flex h-10 items-center gap-1.5 rounded-full bg-green-50 px-3.5 text-[14.5px] font-semibold text-green">
-          <CheckCircle2 size={17} /> Были здесь
+        <span className="inline-flex h-10 items-center gap-1.5 rounded-full bg-green-50 px-3.5 text-[15px] font-semibold text-green-ink">
+          <CheckCircle2 size={16} /> Были здесь
         </span>
-        <button onClick={() => removeIntent(slug)} className="press h-10 rounded-full px-2 text-[13.5px] font-medium text-muted">
+        <button onClick={() => removeIntent(slug)} className="press hit relative h-10 rounded-full px-2 text-[14px] font-medium text-muted">
           Отменить
         </button>
       </div>

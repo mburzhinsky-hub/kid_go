@@ -14,19 +14,21 @@ export interface CategoryDef {
   name: string; // в единственном числе для подписей
   bg: string;
   fg: string;
+  /** Цвет для текста на подложке bg (контраст ≥ 4.5:1); fg — яркий, для иконок. */
+  ink: string;
   Icon: Icon;
 }
 
 /** Палитра категорий снята с референса. */
 export const CATEGORIES: CategoryDef[] = [
-  { id: "all", label: "Все", short: "Все", name: "Все места", bg: "#FFC21A", fg: "#FFFFFF", Icon: IconStar },
-  { id: "park", label: "Парки", short: "Парки", name: "Парк", bg: "#E4F4DD", fg: "#22A33C", Icon: IconTree },
-  { id: "play", label: "Площадки", short: "Площадки", name: "Игровое пространство", bg: "#FFE3E8", fg: "#F5334F", Icon: IconSlide },
-  { id: "museum", label: "Культура", short: "Культура", name: "Музей", bg: "#EEE5FE", fg: "#7A3DF0", Icon: IconMuseum },
-  { id: "active", label: "Активный отдых", short: "Активное", name: "Активный отдых", bg: "#DAEEFB", fg: "#1EA3F0", Icon: IconWaves },
-  { id: "animals", label: "Животные", short: "Животные", name: "Животные", bg: "#FFEFCF", fg: "#F29A0B", Icon: IconPaw },
-  { id: "cafe", label: "Кафе", short: "Кафе", name: "Кафе", bg: "#FFE3D4", fg: "#FF6A2B", Icon: IconCafe },
-  { id: "shop", label: "Магазины", short: "Магазины", name: "Магазин", bg: "#FFE4F1", fg: "#FF2E88", Icon: IconBag },
+  { id: "all", label: "Все", short: "Все", name: "Все места", bg: "#FFC21A", fg: "#FFFFFF", ink: "#11121A", Icon: IconStar },
+  { id: "park", label: "Парки", short: "Парки", name: "Парк", bg: "#E4F4DD", fg: "#22A33C", ink: "#14702C", Icon: IconTree },
+  { id: "play", label: "Площадки", short: "Площадки", name: "Игровое пространство", bg: "#FFE3E8", fg: "#F5334F", ink: "#C61C35", Icon: IconSlide },
+  { id: "museum", label: "Культура", short: "Культура", name: "Музей", bg: "#EEE5FE", fg: "#7A3DF0", ink: "#6527D6", Icon: IconMuseum },
+  { id: "active", label: "Активный отдых", short: "Активное", name: "Активный отдых", bg: "#DAEEFB", fg: "#1EA3F0", ink: "#0A6BA3", Icon: IconWaves },
+  { id: "animals", label: "Животные", short: "Животные", name: "Животные", bg: "#FFEFCF", fg: "#F29A0B", ink: "#8F5200", Icon: IconPaw },
+  { id: "cafe", label: "Кафе", short: "Кафе", name: "Кафе", bg: "#FFE3D4", fg: "#FF6A2B", ink: "#B03F07", Icon: IconCafe },
+  { id: "shop", label: "Магазины", short: "Магазины", name: "Магазин", bg: "#FFE4F1", fg: "#FF2E88", ink: "#C4125F", Icon: IconBag },
 ];
 
 export const categoryDef = (id: string) => CATEGORIES.find((c) => c.id === id) ?? CATEGORIES[0];
@@ -79,16 +81,16 @@ export const SCENARIOS: Scenario[] = [
 ];
 
 export const INTERESTS: { id: InterestId; label: string; emoji: string; bg: string; fg: string }[] = [
-  { id: "dinosaurs", label: "Динозавры", emoji: "🦖", bg: "#E4F4DD", fg: "#1F8F35" },
-  { id: "animals", label: "Животные", emoji: "🐾", bg: "#FFEFCF", fg: "#B86E00" },
-  { id: "transport", label: "Транспорт", emoji: "🚂", bg: "#DAEEFB", fg: "#0F7FC6" },
-  { id: "sport", label: "Спорт", emoji: "⚽", bg: "#FFE3E8", fg: "#D61F3D" },
-  { id: "drawing", label: "Рисование", emoji: "🎨", bg: "#FFE4F1", fg: "#D4146D" },
+  { id: "dinosaurs", label: "Динозавры", emoji: "🦖", bg: "#E4F4DD", fg: "#1B7F2F" },
+  { id: "animals", label: "Животные", emoji: "🐾", bg: "#FFEFCF", fg: "#8F5200" },
+  { id: "transport", label: "Транспорт", emoji: "🚂", bg: "#DAEEFB", fg: "#0B6AA8" },
+  { id: "sport", label: "Спорт", emoji: "⚽", bg: "#FFE3E8", fg: "#C61C35" },
+  { id: "drawing", label: "Рисование", emoji: "🎨", bg: "#FFE4F1", fg: "#C4125F" },
   { id: "music", label: "Музыка", emoji: "🎵", bg: "#EEE5FE", fg: "#6327D9" },
   { id: "science", label: "Наука", emoji: "🔬", bg: "#E2EEFF", fg: "#1F62E0" },
-  { id: "cooking", label: "Готовка", emoji: "🧁", bg: "#FFE3D4", fg: "#D24E12" },
-  { id: "construction", label: "Конструкторы", emoji: "🧱", bg: "#FFF3D6", fg: "#A06A00" },
-  { id: "nature", label: "Природа", emoji: "🌿", bg: "#E5F7EC", fg: "#16803E" },
+  { id: "cooking", label: "Готовка", emoji: "🧁", bg: "#FFE3D4", fg: "#B03F07" },
+  { id: "construction", label: "Конструкторы", emoji: "🧱", bg: "#FFF3D6", fg: "#8A5A00" },
+  { id: "nature", label: "Природа", emoji: "🌿", bg: "#E5F7EC", fg: "#12733A" },
   { id: "space", label: "Космос", emoji: "🪐", bg: "#E9E7FF", fg: "#4B3BD6" },
   { id: "fairy", label: "Сказки", emoji: "🧚", bg: "#FDE7F0", fg: "#C2186B" },
 ];

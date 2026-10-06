@@ -16,15 +16,15 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { BottomSheet } from "@/components/ui/BottomSheet";
 import { useToast } from "@/components/ui/Toast";
 import { SmartImage } from "@/components/ui/SmartImage";
-import { plural } from "@/lib/format";
+import { plural, quote } from "@/lib/format";
 import { cn } from "@/lib/cn";
 import { CollectionCover } from "./CollectionCover";
 import { useCollectionShare } from "./CollectionCard";
 
 const STATUS = {
   DRAFT: { label: "Черновик", cls: "bg-fill text-ink-2", Icon: FileEdit },
-  PUBLIC: { label: "Публичная", cls: "bg-green-50 text-green", Icon: Globe },
-  UNLISTED: { label: "По ссылке", cls: "bg-blue-50 text-blue", Icon: Link2 },
+  PUBLIC: { label: "Публичная", cls: "bg-green-50 text-green-ink", Icon: Globe },
+  UNLISTED: { label: "По ссылке", cls: "bg-blue-50 text-blue-ink", Icon: Link2 },
   PRIVATE: { label: "Приватная", cls: "bg-fill text-ink-2", Icon: Lock },
 } as const;
 
@@ -56,11 +56,11 @@ export function MyCollectionsScreen() {
       <header className="flex items-center gap-3 px-4 pb-2 pt-[max(14px,env(safe-area-inset-top))]">
         <BackButton fallback="/profile" />
         <div className="min-w-0 flex-1">
-          <h1 className="tight text-[26px] font-[850] leading-tight">Мои подборки</h1>
-          <p className="text-[13.5px] text-muted">{me ? `${me.name} · @${me.username}` : "Собирайте места и делитесь с друзьями"}</p>
+          <h1 className="tight text-[24px] font-[850] leading-tight">Мои подборки</h1>
+          <p className="text-[14px] text-muted">{me ? `${me.name} · @${me.username}` : "Собирайте места и делитесь с друзьями"}</p>
         </div>
         <Link href="/collections/new/?from=my_collections" className="press inline-flex h-11 items-center gap-1.5 rounded-full bg-pink px-4 text-[15px] font-bold text-white shadow-pink">
-          <Plus size={18} /> Создать
+          <Plus size={20} /> Создать
         </Link>
       </header>
 
@@ -79,13 +79,13 @@ export function MyCollectionsScreen() {
       ) : (
         <>
           <section className="mx-4 mt-3 overflow-hidden rounded-[28px] p-5" style={{ background: "linear-gradient(135deg,#FFE9F3,#F4EAFF)" }}>
-            <p className="text-[13.5px] font-semibold text-ink-2">Благодаря вашим подборкам захотели сходить</p>
-            <p className="tight mt-1 text-[52px] font-[900] leading-none text-pink">{total.wantToGo}</p>
+            <p className="text-[14px] font-semibold text-ink-2">Благодаря вашим подборкам захотели сходить</p>
+            <p className="tight mt-1 text-[52px] font-[900] leading-none text-pink-ink">{total.wantToGo}</p>
             <p className="mt-0.5 text-[14px] text-ink-2">{plural(total.wantToGo, "раз добавили место в «Хочу сюда»", "раза добавили место в «Хочу сюда»", "раз добавили места в «Хочу сюда»")}</p>
             <div className="mt-4 grid grid-cols-3 gap-2">
-              <Mini icon={<Eye size={15} />} value={total.views} label="просмотров" />
-              <Mini icon={<Heart size={15} />} value={total.saves} label="сохранили" />
-              <Mini icon={<Share2 size={15} />} value={total.shares} label="поделились" />
+              <Mini icon={<Eye size={16} />} value={total.views} label="просмотров" />
+              <Mini icon={<Heart size={16} />} value={total.saves} label="сохранили" />
+              <Mini icon={<Share2 size={16} />} value={total.shares} label="поделились" />
             </div>
           </section>
 
@@ -105,7 +105,7 @@ export function MyCollectionsScreen() {
                   return (
                     <li key={i.place_id} className="flex items-center gap-3 rounded-[20px] bg-surface p-2.5 shadow-card">
                       <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-fill text-[13px] font-bold">{n + 1}</span>
-                      <SmartImage photo={p.photos[0]} tint={p.tint} emoji={p.emoji} sizes="48px" className="h-12 w-12 shrink-0 rounded-[13px]" />
+                      <SmartImage photo={p.photos[0]} tint={p.tint} emoji={p.emoji} sizes="48px" className="h-12 w-12 shrink-0 rounded-[12px]" />
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-[15px] font-semibold leading-tight">{p.title}</p>
                         <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-fill">
@@ -113,8 +113,8 @@ export function MyCollectionsScreen() {
                         </div>
                       </div>
                       <div className="shrink-0 text-right leading-tight">
-                        <p className="text-[16px] font-bold text-pink">{i.want}</p>
-                        <p className="text-[11.5px] text-muted">хотят</p>
+                        <p className="text-[16px] font-bold text-pink-ink">{i.want}</p>
+                        <p className="text-[12px] text-muted">хотят</p>
                       </div>
                     </li>
                   );
@@ -123,14 +123,14 @@ export function MyCollectionsScreen() {
             </section>
           )}
 
-          {!serverStats && <p className="mx-4 mt-6 text-center text-[12.5px] leading-snug text-muted">Пока считаем действия, сделанные на этом устройстве. Когда подключится сервер, здесь появятся все посетители.</p>}
+          {!serverStats && <p className="mx-4 mt-6 text-center text-[13px] leading-snug text-muted">Пока считаем действия, сделанные на этом устройстве. Когда подключится сервер, здесь появятся все посетители.</p>}
         </>
       )}
 
       <BottomSheet open={!!del} onClose={() => setDel(null)} title="Удалить подборку?">
-        <p className="-mt-1 text-[15px] text-muted">«{del?.title}» исчезнет из вашего списка. Ссылки, которые вы уже отправили друзьям, продолжат открываться.</p>
+        <p className="-mt-1 text-[15px] text-muted">{quote(del?.title ?? "")} исчезнет из вашего списка. Ссылки, которые вы уже отправили друзьям, продолжат открываться.</p>
         <div className="mt-4 flex gap-2 pb-2">
-          <button onClick={() => setDel(null)} className="press h-12 flex-1 rounded-full bg-fill text-[15.5px] font-semibold">
+          <button onClick={() => setDel(null)} className="press h-12 flex-1 rounded-full bg-fill text-[16px] font-semibold">
             Отмена
           </button>
           <button
@@ -139,7 +139,7 @@ export function MyCollectionsScreen() {
               setDel(null);
               toast("Подборка удалена");
             }}
-            className="press h-12 flex-1 rounded-full bg-red text-[15.5px] font-semibold text-white"
+            className="press h-12 flex-1 rounded-full bg-red-ink text-[16px] font-semibold text-white"
           >
             Удалить
           </button>
@@ -185,9 +185,9 @@ function CollectionRow({ c, onDelete, events }: { c: Collection; onDelete: () =>
           </Link>
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
             <span className={cn("inline-flex h-6 items-center gap-1 rounded-full px-2 text-[12px] font-semibold", status.cls)}>
-              <status.Icon size={12} /> {status.label}
+              <status.Icon size={14} /> {status.label}
             </span>
-            <span className="text-[12.5px] text-muted">{placesWord(placed.length)}</span>
+            <span className="text-[13px] text-muted">{placesWord(placed.length)}</span>
           </div>
         </div>
       </div>
@@ -202,11 +202,11 @@ function CollectionRow({ c, onDelete, events }: { c: Collection; onDelete: () =>
       {open && (
         <div className="animate-rise px-3 pb-1 pt-3">
           <div className="grid grid-cols-3 gap-2 text-center">
-            <Detail icon={<MousePointerClick size={15} />} value={st.placeOpens} label="открыли места" />
-            <Detail icon={<MapIcon size={15} />} value={st.maps} label="на карте" />
-            <Detail icon={<Smartphone size={15} />} value={st.appClicks} label="в приложение" />
+            <Detail icon={<MousePointerClick size={16} />} value={st.placeOpens} label="открыли места" />
+            <Detail icon={<MapIcon size={16} />} value={st.maps} label="на карте" />
+            <Detail icon={<Smartphone size={16} />} value={st.appClicks} label="в приложение" />
           </div>
-          {extra > 0 && <p className="mt-2 text-[12.5px] text-muted">Ещё {extra} захотели сходить на других экранах после перехода по вашей ссылке.</p>}
+          {extra > 0 && <p className="mt-2 text-[13px] text-muted">Ещё {extra} захотели сходить на других экранах после перехода по вашей ссылке.</p>}
           {interest.length > 0 && (
             <div className="mt-3">
               <p className="text-[13px] font-semibold text-ink-2">Больше всего хотят</p>
@@ -214,7 +214,7 @@ function CollectionRow({ c, onDelete, events }: { c: Collection; onDelete: () =>
                 {interest.map((i) => (
                   <li key={i.place_id} className="flex items-center justify-between text-[14px]">
                     <span className="truncate pr-2">{getPlaceSync(i.place_id)?.title ?? i.place_id}</span>
-                    <b className="text-pink">{i.want}</b>
+                    <b className="text-pink-ink">{i.want}</b>
                   </li>
                 ))}
               </ul>
@@ -224,23 +224,23 @@ function CollectionRow({ c, onDelete, events }: { c: Collection; onDelete: () =>
       )}
 
       <div className="flex items-center gap-1.5 p-3">
-        <button onClick={() => setOpen((o) => !o)} aria-expanded={open} className="press inline-flex h-10 items-center gap-1 rounded-full bg-fill px-3 text-[13.5px] font-semibold">
-          Подробнее <ChevronDown size={15} className={cn("transition-transform", open && "rotate-180")} />
+        <button onClick={() => setOpen((o) => !o)} aria-expanded={open} className="press hit relative inline-flex h-10 items-center gap-1 rounded-full bg-fill px-3 text-[14px] font-semibold">
+          Подробнее <ChevronDown size={16} className={cn("transition-transform", open && "rotate-180")} />
         </button>
         <div className="ml-auto flex gap-1.5">
           {canShare && (
-            <button onClick={() => resolved && share(resolved)} aria-label="Поделиться" className="press grid h-10 w-10 place-items-center rounded-full bg-pink-50 text-pink">
-              <Share2 size={17} />
+            <button onClick={() => resolved && share(resolved)} aria-label="Поделиться" className="press hit relative grid h-10 w-10 place-items-center rounded-full bg-pink-50 text-pink-ink">
+              <Share2 size={16} />
             </button>
           )}
-          <Link href={`/c/?id=${encodeURIComponent(c.id)}`} aria-label="Открыть" className="press grid h-10 w-10 place-items-center rounded-full bg-fill">
-            <ExternalLink size={17} />
+          <Link href={`/c/?id=${encodeURIComponent(c.id)}`} aria-label="Открыть" className="press hit relative grid h-10 w-10 place-items-center rounded-full bg-fill">
+            <ExternalLink size={16} />
           </Link>
-          <Link href={`/collections/edit/?id=${encodeURIComponent(c.id)}`} aria-label="Редактировать" className="press grid h-10 w-10 place-items-center rounded-full bg-fill">
-            <Pencil size={17} />
+          <Link href={`/collections/edit/?id=${encodeURIComponent(c.id)}`} aria-label="Редактировать" className="press hit relative grid h-10 w-10 place-items-center rounded-full bg-fill">
+            <Pencil size={16} />
           </Link>
-          <button onClick={onDelete} aria-label="Удалить" className="press grid h-10 w-10 place-items-center rounded-full bg-fill text-muted">
-            <Trash2 size={17} />
+          <button onClick={onDelete} aria-label="Удалить" className="press hit relative grid h-10 w-10 place-items-center rounded-full bg-fill text-muted">
+            <Trash2 size={16} />
           </button>
         </div>
       </div>
@@ -251,8 +251,8 @@ function CollectionRow({ c, onDelete, events }: { c: Collection; onDelete: () =>
 function Cell({ icon, value, label, strong }: { icon: React.ReactNode; value: number; label: string; strong?: boolean }) {
   return (
     <div className={cn("bg-surface px-1 py-2 text-center", strong && "bg-pink-50")}>
-      <p className={cn("tight text-[19px] font-[850] leading-none", strong && "text-pink")}>{value}</p>
-      <p className="mt-1 flex items-center justify-center gap-1 text-[11px] text-muted">
+      <p className={cn("tight text-[20px] font-[850] leading-none", strong && "text-pink-ink")}>{value}</p>
+      <p className="mt-1 flex items-center justify-center gap-1 text-[12px] text-muted">
         {icon}
         <span className="truncate">{label}</span>
       </p>
@@ -262,10 +262,10 @@ function Cell({ icon, value, label, strong }: { icon: React.ReactNode; value: nu
 
 function Detail({ icon, value, label }: { icon: React.ReactNode; value: number; label: string }) {
   return (
-    <div className="rounded-[14px] bg-fill-2 px-2 py-2.5">
+    <div className="rounded-[12px] bg-fill-2 px-2 py-2.5">
       <p className="flex items-center justify-center gap-1 text-ink-2">{icon}</p>
       <p className="tight mt-0.5 text-[18px] font-[850] leading-none">{value}</p>
-      <p className="mt-1 text-[11px] leading-tight text-muted">{label}</p>
+      <p className="mt-1 text-[12px] leading-tight text-muted">{label}</p>
     </div>
   );
 }

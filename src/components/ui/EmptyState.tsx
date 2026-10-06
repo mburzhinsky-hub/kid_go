@@ -26,7 +26,7 @@ export function EmptyState({
   return (
     <div className={cn("flex flex-col items-center px-6 py-8 text-center", className)}>
       <Illustration art={art} />
-      <Title className="tight mt-4 text-[21px] font-[800] leading-tight">{title}</Title>
+      <Title className="tight mt-4 text-[22px] font-[800] leading-tight">{title}</Title>
       {text && <p className="mt-1.5 max-w-[300px] text-[15px] leading-snug text-muted">{text}</p>}
       {action && (
         <Link href={action.href} className="press mt-5 inline-flex h-12 items-center rounded-full bg-pink px-6 text-[16px] font-semibold text-white shadow-pink">

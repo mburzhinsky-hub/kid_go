@@ -114,11 +114,11 @@ function SearchScreenInner({ initialQ = "", initialCategory, initialSort }: Sear
       <h1 className="sr-only">Поиск мест</h1>
       <div className="sticky top-0 z-20 bg-bg/95 pb-2 pt-[max(12px,env(safe-area-inset-top))]">
         <div className="flex items-center gap-2 px-4">
-          <button onClick={() => goBack(router, "/")} aria-label="Назад" className="press grid h-[50px] w-10 shrink-0 place-items-center">
+          <button onClick={() => goBack(router, "/")} aria-label="Назад" className="press grid h-12 w-11 shrink-0 place-items-center">
             <ArrowLeft size={24} />
           </button>
-          <label className="flex h-[50px] min-w-0 flex-1 items-center gap-2.5 rounded-full bg-fill px-4">
-            <Search size={21} className="shrink-0 text-ink-2" />
+          <label className="flex h-12 min-w-0 flex-1 items-center gap-2.5 rounded-full bg-fill px-4">
+            <Search size={20} className="shrink-0 text-ink-2" />
             <input
               autoFocus={!initialCategory && !initialQ}
               value={q}
@@ -126,11 +126,11 @@ function SearchScreenInner({ initialQ = "", initialCategory, initialSort }: Sear
               placeholder="Куда пойдём сегодня?"
               enterKeyHint="search"
               aria-label="Поиск"
-              className="min-w-0 flex-1 bg-transparent text-[16.5px] outline-none placeholder:text-muted"
+              className="min-w-0 flex-1 bg-transparent text-[17px] outline-none placeholder:text-muted"
             />
             {q && (
               <button onClick={() => setQ("")} aria-label="Очистить" className="text-muted">
-                <X size={18} />
+                <X size={20} />
               </button>
             )}
           </label>
@@ -142,11 +142,11 @@ function SearchScreenInner({ initialQ = "", initialCategory, initialSort }: Sear
               <button
                 key={c.id}
                 onClick={() => setCategory(c.id === "all" ? undefined : (c.id as CategoryId))}
-                className={cn("press inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3 text-[14px] font-semibold transition-colors")}
+                className={cn("press hit relative inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3 text-[14px] font-semibold transition-colors")}
                 style={
                   c.id === "all"
-                    ? { background: active ? "#FFC21A" : "#FFF5D6", color: active ? "#fff" : "#B07D00" }
-                    : { background: active ? c.fg : c.bg, color: active ? "#fff" : c.fg }
+                    ? { background: active ? "#FFC21A" : "#FFF5D6", color: active ? "#11121A" : "#7D5200" }
+                    : { background: active ? c.ink : c.bg, color: active ? "#fff" : c.ink }
                 }
               >
                 <c.Icon width={16} height={16} /> {c.short}
@@ -157,9 +157,9 @@ function SearchScreenInner({ initialQ = "", initialCategory, initialSort }: Sear
       </div>
 
       {parsed && parsed.chips.length > 0 && (
-        <div className="mx-4 mt-2 rounded-[22px] p-3.5 animate-rise" style={{ background: "linear-gradient(135deg,#F4EAFF,#FFE9F3)" }}>
-          <p className="flex items-center gap-1.5 text-[13.5px] font-semibold text-purple">
-            <Sparkles size={15} /> Поняли так:
+        <div className="mx-4 mt-2 rounded-[24px] p-3.5 animate-rise" style={{ background: "linear-gradient(135deg,#F4EAFF,#FFE9F3)" }}>
+          <p className="flex items-center gap-1.5 text-[14px] font-semibold text-purple-ink">
+            <Sparkles size={16} /> Поняли так:
           </p>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {parsed.chips.map((c) => (
@@ -169,7 +169,7 @@ function SearchScreenInner({ initialQ = "", initialCategory, initialSort }: Sear
             ))}
           </div>
           <Link href={plannerHref} className="press mt-3 flex h-11 items-center justify-center gap-1.5 rounded-full bg-pink text-[15px] font-semibold text-white shadow-pink">
-            Собрать день по запросу <ArrowRight size={17} />
+            Собрать день по запросу <ArrowRight size={16} />
           </Link>
         </div>
       )}
@@ -179,11 +179,11 @@ function SearchScreenInner({ initialQ = "", initialCategory, initialSort }: Sear
           <h2 className="text-[15px] font-semibold text-muted">Часто ищут</h2>
           <div className="mt-2 flex flex-wrap gap-2">
             {SUGGEST.map((s) => (
-              <button key={s} onClick={() => setQ(s)} className="press h-9 rounded-full bg-surface px-3.5 text-[14.5px] font-medium shadow-card">
+              <button key={s} onClick={() => setQ(s)} className="press hit relative h-9 rounded-full bg-surface px-3.5 text-[15px] font-medium shadow-card">
                 {s}
               </button>
             ))}
-            <button onClick={() => setQ("недалеко, чтобы дети побегали и потом поесть")} className="press h-9 rounded-full bg-purple-50 px-3.5 text-[14.5px] font-medium text-purple">
+            <button onClick={() => setQ("недалеко, чтобы дети побегали и потом поесть")} className="press hit relative h-9 rounded-full bg-purple-50 px-3.5 text-[15px] font-medium text-purple-ink">
               ✨ «недалеко, побегать и поесть»
             </button>
           </div>

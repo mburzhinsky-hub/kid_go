@@ -17,8 +17,8 @@
 
   --color-ink: #11121a;
   --color-ink-2: #3a3d4a;
-  --color-muted: #7d818d;
-  --color-muted-2: #a3a6af;
+  --color-muted: #666a77;
+  --color-muted-2: #737783;
 
   --color-pink: #ff2e88;
   --color-pink-600: #ec1676;
@@ -38,6 +38,16 @@
   --color-sky: #1fa9f5;
   --color-sky-50: #ddf0fc;
   --color-star: #fdb813;
+
+  /* Цвета для ТЕКСТА (контраст ≥ 4.5:1 на белом и на светлой подложке того же цвета). Яркие цвета выше — для заливок и иконок. */
+  --color-pink-ink: #cc1469;
+  --color-blue-ink: #1a5cd9;
+  --color-purple-ink: #7a2fe0;
+  --color-green-ink: #137a34;
+  --color-red-ink: #cc1f33;
+  --color-orange-ink: #b04808;
+  --color-yellow-ink: #7d5200;
+  --color-sky-ink: #0a6fab;
 
   --radius-xl: 16px;
   --radius-2xl: 20px;
@@ -110,6 +120,8 @@
   .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
   .pt-safe { padding-top: env(safe-area-inset-top); }
   .press { transition: transform 0.18s var(--ease-out); }
+  /* Невидимая зона нажатия ≥ 44×44 вокруг маленького элемента (элемент должен быть positioned: relative/absolute). */
+  .hit::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 44px); height: max(100%, 44px); transform: translate(-50%, -50%); }
   .press:active { transform: scale(0.97); }
   .tight { letter-spacing: -0.022em; }
   .skeleton {

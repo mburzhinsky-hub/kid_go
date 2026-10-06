@@ -84,6 +84,7 @@ export default async function HomePage() {
   return (
     <SourceScope source="HOME">
       <main className="pb-28">
+        <h1 className="sr-only">КидГоу — куда пойти с детьми сегодня</h1>
         <AppHeader />
         <SearchBar />
         <div className="mt-4">

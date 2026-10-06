@@ -46,7 +46,7 @@ export function HeroBanner({ slides }: { slides: HeroSlide[] }) {
       <div
         ref={ref}
         onPointerDown={() => (paused.current = true)}
-        className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto rounded-[26px] shadow-card"
+        className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto rounded-[28px] shadow-card"
       >
         {slides.map((s, i) => (
           <Link
@@ -68,14 +68,14 @@ export function HeroBanner({ slides }: { slides: HeroSlide[] }) {
             <div className="absolute inset-0" style={{ background: s.overlay }} />
             <Doodle kind={s.doodle} />
             <div className="absolute inset-y-0 left-0 flex w-[66%] flex-col justify-center gap-2 pl-5 pr-2">
-              <h2 className="tight max-w-[235px] text-[31px] font-[850] leading-[1.02] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.25)]">
+              <h2 className="tight max-w-[235px] text-[30px] font-[850] leading-[1.02] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.25)]">
                 {s.title}
               </h2>
-              <p className="max-w-[220px] text-[15.5px] font-medium leading-snug text-white/95 drop-shadow-[0_1px_6px_rgba(0,0,0,0.3)]">
+              <p className="max-w-[220px] text-[16px] font-medium leading-snug text-white/95 drop-shadow-[0_1px_6px_rgba(0,0,0,0.3)]">
                 {s.subtitle}
               </p>
-              <span className="mt-2 inline-flex h-11 w-max items-center gap-2 rounded-full bg-pink pl-5 pr-4 text-[15.5px] font-semibold text-white shadow-pink">
-                {s.cta} <ArrowRight size={19} strokeWidth={2.3} />
+              <span className="mt-2 inline-flex h-11 w-max items-center gap-2 rounded-full bg-pink pl-5 pr-4 text-[16px] font-semibold text-white shadow-pink">
+                {s.cta} <ArrowRight size={20} strokeWidth={2} />
               </span>
             </div>
           </Link>
@@ -100,7 +100,7 @@ function Doodle({ kind = "crown" }: { kind?: HeroSlide["doodle"] }) {
     <svg aria-hidden className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">
       {kind === "crown" && (
         <>
-          <path d="M228 50l9 26 14-22 8 24 16-20 2 32-46 8z" stroke="#fff" {...common} transform="rotate(-14 250 60)" />
+          <path d="M262 46l9 26 14-22 8 24 16-20 2 32-46 8z" stroke="#fff" {...common} transform="rotate(-14 284 56)" />
           <path d="M352 52c-6-12-24-6-18 10 3 9 18 18 18 18s13-11 14-21c1-15-14-17-14-7z" stroke="#C7F25A" {...common} />
           <path d="M318 214l6 6M330 204l3 9" stroke="#fff" {...common} />
         </>
@@ -115,7 +115,7 @@ function Doodle({ kind = "crown" }: { kind?: HeroSlide["doodle"] }) {
       {kind === "dino" && (
         <>
           <path d="M330 54l10 16 12-12 4 18 16-6-8 16" stroke="#fff" {...common} />
-          <circle cx="250" cy="44" r="7" stroke="#FFE15A" {...common} />
+          <circle cx="296" cy="40" r="7" stroke="#FFE15A" {...common} />
           <path d="M360 200c8 0 8 10 16 10" stroke="#C7F25A" {...common} />
         </>
       )}

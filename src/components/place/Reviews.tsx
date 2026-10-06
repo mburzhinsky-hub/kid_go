@@ -10,7 +10,7 @@ export function Reviews({ place }: { place: Place }) {
   return (
     <div>
       {place.rating > 0 && place.rating_source && (
-        <div className="rounded-[22px] bg-surface p-4 shadow-card">
+        <div className="rounded-[24px] bg-surface p-4 shadow-card">
           <div className="flex items-center gap-3">
             <div>
               <p className="tight text-[36px] font-[850] leading-none">{place.rating.toFixed(1)}</p>
@@ -26,9 +26,9 @@ export function Reviews({ place }: { place: Place }) {
                 href={place.rating_source}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-1 inline-flex items-center gap-1 text-[12.5px] font-semibold text-muted underline decoration-line underline-offset-2"
+                className="hit relative mt-1 inline-flex items-center gap-1 text-[13px] font-semibold text-muted underline decoration-line underline-offset-2"
               >
-                Читать отзывы <ExternalLink size={12} />
+                Читать отзывы <ExternalLink size={14} />
               </a>
             </div>
           </div>
@@ -45,15 +45,15 @@ export function Reviews({ place }: { place: Place }) {
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="text-[15px] font-semibold leading-tight">{r.author}</p>
-                  <p className="text-[12.5px] text-muted">
+                  <p className="text-[13px] text-muted">
                     {r.kids} · {r.date}
                   </p>
                 </div>
                 <span className="inline-flex items-center gap-0.5 text-[13px] font-bold">
-                  <Star size={13} className="fill-star text-star" /> {r.rating}
+                  <Star size={14} className="fill-star text-star" /> {r.rating}
                 </span>
               </div>
-              <p className="mt-2.5 text-[14.5px] leading-snug text-ink-2">{r.text}</p>
+              <p className="mt-2.5 text-[15px] leading-snug text-ink-2">{r.text}</p>
             </li>
           ))}
         </ul>

@@ -5,13 +5,13 @@ export function HomeSkeleton() {
         <div className="h-9 w-32 rounded-xl skeleton" />
         <div className="h-10 w-28 rounded-full skeleton" />
       </div>
-      <div className="mt-4 h-[50px] rounded-full skeleton" />
+      <div className="mt-4 h-12 rounded-full skeleton" />
       <div className="mt-4 flex gap-2.5">
         {Array.from({ length: 5 }).map((_, i) => (
           <div key={i} className="h-[62px] w-[62px] shrink-0 rounded-[20px] skeleton" />
         ))}
       </div>
-      <div className="mt-5 aspect-[16/10.4] rounded-[26px] skeleton" />
+      <div className="mt-5 aspect-[16/10.4] rounded-[28px] skeleton" />
       <div className="mt-6 grid grid-cols-2 gap-2.5">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="h-[76px] rounded-[20px] skeleton" />

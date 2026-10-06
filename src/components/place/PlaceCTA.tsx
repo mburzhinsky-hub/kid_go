@@ -37,8 +37,8 @@ export function PlaceCTA({ slug, title }: { slug: string; title: string; lat?: n
     <StickyBar>
       <WantButton slug={slug} size="lg" className="min-w-0 flex-1" />
       {inDay ? (
-        <Link href="/day" aria-label={`Наш день: ${title}`} className="press inline-flex h-[58px] shrink-0 items-center gap-2 rounded-full bg-surface px-4 text-[15.5px] font-bold text-green shadow-card">
-          <CalendarCheck size={22} /> В дне <ChevronRight size={17} className="-ml-1 text-muted-2" />
+        <Link href="/day" aria-label={`Наш день: ${title}`} className="press inline-flex h-14 shrink-0 items-center gap-2 rounded-full bg-surface px-4 text-[16px] font-bold text-green-ink shadow-card">
+          <CalendarCheck size={24} /> В дне <ChevronRight size={16} className="-ml-1 text-muted-2" />
         </Link>
       ) : (
         <button
@@ -48,9 +48,9 @@ export function PlaceCTA({ slug, title }: { slug: string; title: string; lat?: n
             track("place_add_to_day", { slug });
             toast("Добавили в наш день 💛", { label: "Открыть", href: "/day" });
           }}
-          className="press inline-flex h-[58px] shrink-0 items-center gap-2 rounded-full bg-surface px-4 text-[15.5px] font-bold text-ink shadow-card"
+          className="press inline-flex h-14 shrink-0 items-center gap-2 rounded-full bg-surface px-4 text-[16px] font-bold text-ink shadow-card"
         >
-          <CalendarPlus size={22} className="text-pink" /> В наш день
+          <CalendarPlus size={24} className="text-pink-ink" /> В наш день
         </button>
       )}
     </StickyBar>
@@ -84,7 +84,7 @@ export function StickyCTA({
   icon?: React.ReactNode;
   secondary?: React.ReactNode;
 }) {
-  const cls = "press flex h-[58px] flex-1 items-center justify-center gap-2.5 rounded-full bg-pink text-[19px] font-bold text-white shadow-pink";
+  const cls = "press flex h-14 flex-1 items-center justify-center gap-2.5 rounded-full bg-pink text-[18px] font-bold text-white shadow-pink";
   return (
     <StickyBar>
       {secondary}

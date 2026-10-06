@@ -500,6 +500,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
       className="fixed inset-0 mx-auto max-w-[480px] overflow-hidden bg-[#efebe3]"
       style={{ ["--sheet-h" as string]: `${sheetH}px` }}
     >
+      <h1 className="sr-only">Карта мест</h1>
       {/* карта */}
       {/* position задан inline: maplibre-gl.css (без @layer) иначе перебивает tailwind-класс и карта схлопывается до 300px */}
       <div ref={containerRef} style={{ position: "absolute", inset: 0 }} className={cn(mode === "fallback" && "invisible")} />
@@ -530,7 +531,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
                 points={planPlaces.map((p) => `${fbProject(p.latitude, p.longitude).x},${fbProject(p.latitude, p.longitude).y}`).join(" ")}
                 fill="none"
                 stroke="#FF2E88"
-                strokeWidth={4}
+                strokeWidth={3}
                 strokeDasharray="7 6"
                 strokeLinecap="round"
               />
@@ -572,36 +573,36 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
         <div className="flex items-center gap-2.5 px-4">
           <TabBackButton tone="float" />
           {planSlugs.length ? (
-            <div className="flex h-[52px] min-w-0 flex-1 items-center gap-2 rounded-full bg-white px-4 shadow-float">
-              <MapPin size={20} className="shrink-0 text-pink" />
-              <span className="truncate text-[16.5px] font-semibold">{isSet ? (initialSet?.title ?? "Подборка") : "Маршрут дня"}</span>
-              <span className="ml-auto shrink-0 text-[13.5px] text-muted">{planSlugs.length}</span>
+            <div className="flex h-12 min-w-0 flex-1 items-center gap-2 rounded-full bg-white px-4 shadow-float">
+              <MapPin size={20} className="shrink-0 text-pink-ink" />
+              <span className="truncate text-[17px] font-semibold">{isSet ? (initialSet?.title ?? "Подборка") : "Маршрут дня"}</span>
+              <span className="ml-auto shrink-0 text-[14px] text-muted">{planSlugs.length}</span>
             </div>
           ) : (
             <>
-          <label className="flex h-[52px] min-w-0 flex-1 items-center gap-2.5 rounded-full bg-white px-4 shadow-float">
-            <Search size={22} strokeWidth={2.1} className="text-ink-2" />
+          <label className="flex h-12 min-w-0 flex-1 items-center gap-2.5 rounded-full bg-white px-4 shadow-float">
+            <Search size={24} strokeWidth={2} className="text-ink-2" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Поиск мест"
               aria-label="Поиск мест на карте"
-              className="min-w-0 flex-1 bg-transparent text-[16.5px] outline-none placeholder:text-muted"
+              className="min-w-0 flex-1 bg-transparent text-[17px] outline-none placeholder:text-muted"
             />
             {query && (
               <button onClick={() => setQuery("")} aria-label="Очистить" className="text-muted">
-                <X size={18} />
+                <X size={20} />
               </button>
             )}
           </label>
           <button
             onClick={() => (activeCount ? reset() : setSheet("age"))}
             aria-label={activeCount ? "Сбросить фильтры" : "Фильтры"}
-            className="press relative grid h-[52px] w-[52px] shrink-0 place-items-center rounded-[18px] bg-white shadow-float"
+            className="press relative grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white shadow-float"
           >
-            <SlidersHorizontal size={21} strokeWidth={2.1} />
+            <SlidersHorizontal size={20} strokeWidth={2} />
             {activeCount > 0 && (
-              <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-pink px-1 text-[11px] font-bold text-white">{activeCount}</span>
+              <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-pink-ink px-1 text-[11px] font-bold text-white">{activeCount}</span>
             )}
           </button>
             </>
@@ -643,26 +644,26 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
                 ? "Карта грузится дольше обычного."
                 : manual
                   ? "Другой вид карты. Места — в списке ниже; вернуться к основной карте — «Основная»."
-                  : "Подложка карты недоступна (связь или блокировка серверов тайлов)."}
+                  : "Карта не загрузилась — возможно, слабый интернет. Откройте другой вид или повторите."}
             </p>
             <div className="mt-1.5 flex flex-wrap gap-1.5">
               {manual && (
-                <button onClick={retry} className="press h-9 rounded-full bg-ink px-3.5 text-[13.5px] font-semibold text-white">
+                <button onClick={retry} className="press hit relative h-10 rounded-full bg-ink px-4 text-[14px] font-semibold text-white">
                   Основная
                 </button>
               )}
-              <button onClick={() => setMode("yandex")} className={cn("press h-9 rounded-full px-3.5 text-[13.5px] font-semibold", mode === "yandex" ? "bg-ink text-white" : "bg-fill")}>
+              <button onClick={() => setMode("yandex")} className={cn("press hit relative h-10 rounded-full px-4 text-[14px] font-semibold", mode === "yandex" ? "bg-ink text-white" : "bg-fill")}>
                 Карта Яндекса
               </button>
-              <button onClick={() => setMode("fallback")} className={cn("press h-9 rounded-full px-3.5 text-[13.5px] font-semibold", mode === "fallback" ? "bg-ink text-white" : "bg-fill")}>
+              <button onClick={() => setMode("fallback")} className={cn("press hit relative h-10 rounded-full px-4 text-[14px] font-semibold", mode === "fallback" ? "bg-ink text-white" : "bg-fill")}>
                 Схема
               </button>
               {!manual && (
-                <button onClick={retry} className="press inline-flex h-9 items-center gap-1.5 rounded-full bg-fill px-3.5 text-[13.5px] font-semibold">
+                <button onClick={retry} className="press hit relative inline-flex h-10 items-center gap-1.5 rounded-full bg-fill px-4 text-[14px] font-semibold">
                   <RefreshCw size={14} /> Повторить
                 </button>
               )}
-              <a href={yLink} target="_blank" rel="noopener noreferrer" className="press inline-flex h-9 items-center gap-1.5 rounded-full bg-fill px-3.5 text-[13.5px] font-semibold text-blue">
+              <a href={yLink} target="_blank" rel="noopener noreferrer" className="press hit relative inline-flex h-10 items-center gap-1.5 rounded-full bg-fill px-4 text-[14px] font-semibold text-blue-ink">
                 <ExternalLink size={14} /> В приложении
               </a>
             </div>
@@ -670,21 +671,21 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
         )}
         {geo === "denied" && (
           <div className="mx-4 mt-1 flex items-center gap-2 rounded-[16px] bg-white/95 px-3 py-2 text-[13px] shadow-card animate-rise">
-            <LocateOff size={16} className="shrink-0 text-red" />
+            <LocateOff size={16} className="shrink-0 text-red-ink" />
             <span className="flex-1">Геолокация выключена. {origin.source === "default" ? (withRegion ? "Показываем Москву и Подмосковье." : "Показываем Москву — Подмосковье можно добавить фильтром.") : `Считаем дорогу от «${origin.label}».`}</span>
             <button onClick={() => setGeo("idle")} aria-label="Скрыть" className="text-muted">
-              <X size={15} />
+              <X size={16} />
             </button>
           </div>
         )}
       </div>
 
       {mode === "fallback" && (
-        <div className="absolute right-4 z-20 flex flex-col overflow-hidden rounded-[18px] bg-white shadow-float" style={{ bottom: "calc(var(--sheet-h) + 80px)" }}>
-          <button onClick={() => setFz((z) => Math.min(4, z * 1.5))} aria-label="Приблизить" className="press grid h-11 w-[52px] place-items-center border-b border-line">
+        <div className="absolute right-4 z-20 flex flex-col overflow-hidden rounded-[20px] bg-white shadow-float" style={{ bottom: "calc(var(--sheet-h) + 80px)" }}>
+          <button onClick={() => setFz((z) => Math.min(4, z * 1.5))} aria-label="Приблизить" className="press grid h-11 w-12 place-items-center border-b border-line">
             <Plus size={20} />
           </button>
-          <button onClick={() => setFz((z) => Math.max(0.5, z / 1.5))} aria-label="Отдалить" className="press grid h-11 w-[52px] place-items-center rounded-[18px]">
+          <button onClick={() => setFz((z) => Math.max(0.5, z / 1.5))} aria-label="Отдалить" className="press grid h-11 w-12 place-items-center rounded-[20px]">
             <Minus size={20} />
           </button>
         </div>
@@ -701,7 +702,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
           className="press absolute right-4 z-20 grid h-11 w-11 place-items-center rounded-full bg-white text-ink-2 shadow-float"
           style={{ bottom: "calc(var(--sheet-h) + 78px)" }}
         >
-          <Layers size={19} strokeWidth={2.1} />
+          <Layers size={20} strokeWidth={2} />
         </button>
       )}
 
@@ -709,10 +710,10 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
       <button
         onClick={() => locate()}
         aria-label="Где я"
-        className="press absolute right-4 z-20 grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full bg-white text-blue shadow-float"
+        className="press absolute right-4 z-20 grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white text-blue-ink shadow-float"
         style={{ bottom: "calc(var(--sheet-h) + 16px)" }}
       >
-        <Navigation size={23} strokeWidth={2.2} className={cn(geo === "ok" && "fill-blue")} />
+        <Navigation size={24} strokeWidth={2} className={cn(geo === "ok" && "fill-blue")} />
       </button>
 
       {/* нижняя панель */}
@@ -726,7 +727,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
           onClick={() => setCollapsed((c) => !c)}
           aria-label={collapsed ? "Показать список мест" : "Свернуть список, чтобы видеть карту"}
           aria-expanded={!collapsed}
-          className="mx-auto grid h-6 w-24 place-items-center"
+          className="hit relative mx-auto grid h-6 w-24 place-items-center"
         >
           <span className="h-[5px] w-10 rounded-full bg-[#dcdad4]" />
         </button>
@@ -737,7 +738,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
         ) : (
           <>
             <div className="flex items-end justify-between px-4 pt-1">
-              <h2 className="tight text-[21px] font-[800]">
+              <h2 className="tight text-[22px] font-[800]">
                 {planSlugs.length
                   ? isSet
                     ? (initialSet?.title ?? "Подборка")
@@ -750,8 +751,8 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
                         : "Рядом с вами"
                     : `Нашли ${nearby.length}`}
               </h2>
-              <Link href="/search" className="press flex items-center gap-1 text-[16px] font-medium text-blue">
-                Все <ArrowRight size={18} />
+              <Link href="/search" className="press hit relative flex items-center gap-1 text-[16px] font-medium text-blue-ink">
+                Все <ArrowRight size={20} />
               </Link>
             </div>
             {collapsed ? null : nearby.length ? (
@@ -767,7 +768,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
                 title="Здесь ничего не нашлось"
                 text="Попробуйте убрать часть фильтров"
                 secondary={
-                  <button onClick={reset} className="press mt-3 rounded-full bg-pink-50 px-5 py-2.5 text-[15px] font-semibold text-pink">
+                  <button onClick={reset} className="press mt-3 rounded-full bg-pink-50 px-5 py-2.5 text-[15px] font-semibold text-pink-ink">
                     Сбросить фильтры
                   </button>
                 }
@@ -787,7 +788,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
                 setAge(g?.id ?? null);
                 setSheet(null);
               }}
-              className="press col-span-2 h-14 rounded-[18px] bg-pink-50 text-[15.5px] font-semibold text-pink"
+              className="press col-span-2 h-14 rounded-[20px] bg-pink-50 text-[16px] font-semibold text-pink-ink"
             >
               Как у наших: {kids.map((k) => (k.name ? `${k.name} ${k.age}` : `${k.age} ${k.age === 1 ? "год" : "лет"}`)).join(", ")}
             </button>
@@ -799,7 +800,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
                 setAge(age === a.id ? null : a.id);
                 setSheet(null);
               }}
-              className={cn("press h-14 rounded-[18px] text-[16px] font-semibold", age === a.id ? "bg-ink text-white" : "bg-fill")}
+              className={cn("press h-14 rounded-[20px] text-[16px] font-semibold", age === a.id ? "bg-ink text-white" : "bg-fill")}
             >
               {a.label}
             </button>
@@ -813,7 +814,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
               toggle("free");
               setSheet(null);
             }}
-            className={cn("press h-14 rounded-[18px] text-[16px] font-semibold", toggles.has("free") ? "bg-ink text-white" : "bg-green-50 text-green")}
+            className={cn("press h-14 rounded-[20px] text-[16px] font-semibold", toggles.has("free") ? "bg-ink text-white" : "bg-green-50 text-green-ink")}
           >
             Бесплатно
           </button>
@@ -824,7 +825,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
                 setPrice(price === a.id ? null : a.id);
                 setSheet(null);
               }}
-              className={cn("press h-14 rounded-[18px] text-[16px] font-semibold", price === a.id ? "bg-ink text-white" : "bg-fill")}
+              className={cn("press h-14 rounded-[20px] text-[16px] font-semibold", price === a.id ? "bg-ink text-white" : "bg-fill")}
             >
               {a.label}
             </button>

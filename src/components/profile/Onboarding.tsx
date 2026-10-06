@@ -100,7 +100,7 @@ export function Onboarding() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Имя — если хотите"
-                className="mt-5 h-14 w-full rounded-[18px] bg-surface px-4 text-[17px] shadow-card outline-none focus:ring-2 focus:ring-pink/40"
+                className="mt-5 h-14 w-full rounded-[20px] bg-surface px-4 text-[17px] shadow-card outline-none focus:ring-2 focus:ring-pink/40"
               />
               <p className="mt-5 text-[15px] font-semibold">Что нравится?</p>
               <div className="mt-2.5 flex flex-wrap gap-2">
@@ -130,37 +130,37 @@ export function Onboarding() {
                   key={o.id}
                   aria-pressed={on}
                   onClick={() => (on ? s.setOrigin(DEFAULT_ORIGIN) : s.setOrigin(okrugOrigin(o)))}
-                  className={cn("press inline-flex h-11 items-center rounded-full px-4 text-[15.5px] font-semibold", on ? "bg-ink text-white" : "bg-surface text-ink shadow-card")}
+                  className={cn("press inline-flex h-11 items-center rounded-full px-4 text-[16px] font-semibold", on ? "bg-ink text-white" : "bg-surface text-ink shadow-card")}
                 >
                   {o.short}
                 </button>
               );
             })}
           </div>
-          <button onClick={gps} disabled={gpsBusy} className="press mt-5 flex w-full items-center gap-3 rounded-[22px] bg-blue-50 p-4 text-left">
-            <span className="grid h-12 w-12 place-items-center rounded-full bg-white text-blue">
-              {gpsBusy ? <Loader2 size={22} className="animate-spin" /> : <LocateFixed size={22} />}
+          <button onClick={gps} disabled={gpsBusy} className="press mt-5 flex w-full items-center gap-3 rounded-[24px] bg-blue-50 p-4 text-left">
+            <span className="grid h-12 w-12 place-items-center rounded-full bg-white text-blue-ink">
+              {gpsBusy ? <Loader2 size={24} className="animate-spin" /> : <LocateFixed size={24} />}
             </span>
             <span className="flex-1">
-              <span className="block text-[17px] font-bold text-blue">Определить, где я</span>
-              <span className="text-[13.5px] text-ink-2">и запомнить как «Дом» — минуты от двери</span>
+              <span className="block text-[17px] font-bold text-blue-ink">Определить, где я</span>
+              <span className="text-[14px] text-ink-2">и запомнить как «Дом» — минуты от двери</span>
             </span>
-            {s.origin.source === "gps" && <Check size={22} className="text-blue" />}
+            {s.origin.source === "gps" && <Check size={24} className="text-blue-ink" />}
           </button>
-          <button onClick={() => setLocOpen(true)} className="press mt-2.5 flex w-full items-center gap-3 rounded-[22px] bg-surface p-4 text-left shadow-card">
-            <span className="grid h-12 w-12 place-items-center rounded-full bg-pink-50 text-pink">
-              <MapPin size={22} />
+          <button onClick={() => setLocOpen(true)} className="press mt-2.5 flex w-full items-center gap-3 rounded-[24px] bg-surface p-4 text-left shadow-card">
+            <span className="grid h-12 w-12 place-items-center rounded-full bg-pink-50 text-pink-ink">
+              <MapPin size={24} />
             </span>
             <span className="flex-1">
               <span className="block text-[17px] font-bold">Подмосковье или адрес</span>
-              <span className="text-[13.5px] text-muted">Красногорск, Химки, свой посёлок…</span>
+              <span className="text-[14px] text-muted">Красногорск, Химки, свой посёлок…</span>
             </span>
-            {(s.origin.source === "custom" || s.origin.source === "home") && <Check size={22} className="text-pink" />}
+            {(s.origin.source === "custom" || s.origin.source === "home") && <Check size={24} className="text-pink-ink" />}
           </button>
-          <p className="mt-4 rounded-[16px] bg-green-50 px-3.5 py-2.5 text-[15px] font-semibold text-green animate-fade">
+          <p className="mt-4 rounded-[16px] bg-green-50 px-3.5 py-2.5 text-[15px] font-semibold text-green-ink animate-fade">
             {s.origin.source === "default" ? "Ищем по всей Москве" : `Ищем рядом: ${s.origin.source === "home" ? "Дом" : s.origin.label}`}
           </p>
-          {gpsError && <p className="mt-3 text-[14px] text-[#8a4a00]">Геопозиция недоступна — выберите округ, этого достаточно.</p>}
+          {gpsError && <p className="mt-3 text-[14px] text-orange-ink">Геопозиция недоступна — выберите округ, этого достаточно.</p>}
           <LocationSheet open={locOpen} onClose={() => setLocOpen(false)} />
         </section>
       )}

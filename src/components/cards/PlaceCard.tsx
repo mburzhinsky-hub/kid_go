@@ -27,7 +27,7 @@ export function PlaceCard({
   return (
     <Link
       href={placeHref(place)}
-      className={cn("press group block shrink-0 snap-start overflow-hidden rounded-[18px] bg-surface shadow-card", width, className)}
+      className={cn("press group block shrink-0 snap-start overflow-hidden rounded-[20px] bg-surface shadow-card", width, className)}
     >
       <div className="relative">
         <SmartImage
@@ -47,9 +47,9 @@ export function PlaceCard({
       </div>
       <div className="px-3 pb-3 pt-2">
         <h3 className="truncate text-[15px] font-semibold leading-snug">{place.title}</h3>
-        <div className="mt-1 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5">
+        <div className="mt-1 flex items-center justify-between gap-2">
           <RatingBadge rating={place.rating} count={place.review_count} />
-          {km != null ? <DistanceBadge km={formatKm(km)} /> : <TravelBadge place={place} />}
+          {km != null ? <DistanceBadge km={formatKm(km)} /> : <TravelBadge place={place} className="min-w-0 justify-end" />}
         </div>
       </div>
     </Link>
@@ -71,12 +71,12 @@ export function PlaceRow({ place, km, aside, footer }: { place: Place; km?: numb
   const link = (
     <Link href={placeHref(place)} className={cn("press flex gap-3 p-2.5", !footer && "rounded-[20px] bg-surface shadow-card")}>
       <div className="relative shrink-0">
-        <SmartImage photo={place.photos[0]} tint={place.tint} emoji={place.emoji} sizes="112px" className="h-[96px] w-[108px] rounded-[14px]" />
+        <SmartImage photo={place.photos[0]} tint={place.tint} emoji={place.emoji} sizes="112px" className="h-[96px] w-[108px] rounded-[12px]" />
         <FavoriteButton slug={place.slug} className="absolute right-1.5 top-1.5 h-8 w-8" />
       </div>
       <div className="flex min-w-0 flex-1 flex-col py-0.5">
         <h3 className="line-clamp-2 text-[16px] font-semibold leading-[1.2]">{place.title}</h3>
-        <p className="mt-0.5 truncate text-[13.5px] text-muted">{place.subtitle}</p>
+        <p className="mt-0.5 truncate text-[14px] text-muted">{place.subtitle}</p>
         <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-0.5 pt-1">
           <RatingBadge rating={place.rating} count={place.review_count} />
           {km != null ? <DistanceBadge km={formatKm(km)} /> : <TravelBadge place={place} />}

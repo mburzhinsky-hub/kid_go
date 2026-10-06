@@ -62,7 +62,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           role="status"
           className="fixed inset-x-0 top-0 z-[60] mx-auto flex max-w-[480px] items-center justify-center gap-2 bg-ink px-4 pb-2 pt-[max(8px,env(safe-area-inset-top))] text-[13px] font-medium text-white animate-rise"
         >
-          <WifiOff size={15} /> Нет интернета — показываем сохранённое
+          <WifiOff size={16} /> Нет интернета — показываем сохранённое
         </div>
       )}
       {children}

@@ -24,7 +24,7 @@ export function ParentsPicks() {
         ))}
         <Link href="/collections/new/?from=home" className="press flex w-[220px] shrink-0 snap-start flex-col items-center justify-center gap-2 rounded-[24px] bg-pink-50 px-5 py-6 text-center ring-1 ring-pink/15">
           <span className="grid h-12 w-12 place-items-center rounded-full bg-pink text-white shadow-pink">
-            <Plus size={24} strokeWidth={2.6} />
+            <Plus size={24} strokeWidth={2.5} />
           </span>
           <span className="text-[17px] font-bold leading-tight">Есть любимые места?</span>
           <span className="text-[14px] leading-snug text-ink-2">Соберите свою подборку и отправьте друзьям</span>

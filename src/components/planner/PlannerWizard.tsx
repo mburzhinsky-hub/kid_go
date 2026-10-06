@@ -88,7 +88,7 @@ export function PlannerWizard() {
             aria-label={step > 0 ? "Назад" : "Закрыть"}
             className="press grid h-11 w-11 place-items-center rounded-full bg-surface shadow-card"
           >
-            {step > 0 ? <ArrowLeft size={22} /> : <X size={22} />}
+            {step > 0 ? <ArrowLeft size={24} /> : <X size={24} />}
           </button>
           <span className="text-[14px] font-semibold text-muted">
             Шаг {step + 1} из {STEPS.length}
@@ -110,9 +110,9 @@ export function PlannerWizard() {
             <h1 className="tight mt-3 text-[30px] font-[850] leading-[1.05]">Придумаем ваш&nbsp;день&nbsp;✨</h1>
             <p className="mt-2 text-[16px] text-muted">5 коротких вопросов — и у вас готовый маршрут с временем и бюджетом.</p>
 
-            <div className="mt-5 rounded-[22px] bg-surface p-3 shadow-card">
-              <label htmlFor="nl" className="flex items-center gap-1.5 px-1 text-[13.5px] font-semibold text-purple">
-                <Wand2 size={15} /> Или просто опишите словами
+            <div className="mt-5 rounded-[24px] bg-surface p-3 shadow-card">
+              <label htmlFor="nl" className="flex items-center gap-1.5 px-1 text-[14px] font-semibold text-purple-ink">
+                <Wand2 size={16} /> Или просто опишите словами
               </label>
               <div className="mt-2 flex items-end gap-2">
                 <textarea
@@ -121,21 +121,21 @@ export function PlannerWizard() {
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Например: недалеко, побегать и потом поесть"
-                  className="min-h-[52px] flex-1 resize-none rounded-[16px] bg-fill px-3.5 py-3 text-[15.5px] leading-snug outline-none placeholder:text-muted-2 focus:ring-2 focus:ring-purple/40"
+                  className="min-h-12 flex-1 resize-none rounded-[16px] bg-fill px-3.5 py-3 text-[16px] leading-snug outline-none placeholder:text-muted-2 focus:ring-2 focus:ring-purple/40"
                 />
                 <button
                   onClick={fromText}
                   disabled={!parsed}
-                  className="press h-[52px] shrink-0 rounded-[16px] bg-purple px-4 text-[15px] font-bold text-white disabled:opacity-30"
+                  className="press h-12 shrink-0 rounded-[16px] bg-purple-ink px-4 text-[15px] font-bold text-white disabled:opacity-30"
                 >
                   Готово
                 </button>
               </div>
               {parsed && parsed.chips.length > 0 && (
                 <div className="mt-2.5 flex flex-wrap gap-1.5 px-1 animate-fade">
-                  <span className="text-[12.5px] text-muted">Поняли так:</span>
+                  <span className="text-[13px] text-muted">Поняли так:</span>
                   {parsed.chips.map((c) => (
-                    <span key={c} className="rounded-full bg-purple-50 px-2.5 py-1 text-[12.5px] font-semibold text-purple">
+                    <span key={c} className="rounded-full bg-purple-50 px-2.5 py-1 text-[13px] font-semibold text-purple-ink">
                       {c}
                     </span>
                   ))}
@@ -163,33 +163,33 @@ export function PlannerWizard() {
                     onClick={() => setGoing((g) => (on ? g.filter((x) => x !== k.id) : [...g, k.id]))}
                     aria-pressed={on}
                     className={cn(
-                      "press relative flex items-center gap-3 rounded-[22px] p-3 text-left transition-all",
-                      on ? "bg-pink-50 ring-2 ring-pink" : "bg-surface shadow-card"
+                      "press relative flex items-center gap-3 rounded-[24px] p-3 text-left transition-all",
+                      on ? "bg-pink-50 ring-2 ring-inset ring-pink" : "bg-surface shadow-card"
                     )}
                   >
-                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white text-[26px] shadow-card">
+                    <span className="relative grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white text-[24px] shadow-card">
                       {k.emoji ?? KID_EMOJI[i % KID_EMOJI.length]}
+                      {on && (
+                        <span className="absolute -bottom-1 -right-1 grid h-6 w-6 place-items-center rounded-full bg-pink-ink text-white ring-2 ring-white animate-pop">
+                          <Check size={14} strokeWidth={3} />
+                        </span>
+                      )}
                     </span>
-                    <span>
-                      <span className="block text-[16px] font-bold leading-tight">{k.name || "Ребёнок"}</span>
-                      <span className="text-[13.5px] text-muted">
+                    <span className="min-w-0">
+                      <span className="block truncate text-[16px] font-bold leading-tight">{k.name || "Ребёнок"}</span>
+                      <span className="text-[14px] text-muted">
                         {k.age === 0 ? "до года" : `${k.age} ${plural(k.age, "год", "года", "лет")}`}
                       </span>
                     </span>
-                    {on && (
-                      <span className="absolute right-2.5 top-2.5 grid h-6 w-6 place-items-center rounded-full bg-pink text-white animate-pop">
-                        <Check size={15} strokeWidth={3} />
-                      </span>
-                    )}
                   </button>
                 );
               })}
               {!adding && (
                 <button
                   onClick={() => setAdding(true)}
-                  className="press flex min-h-[74px] items-center justify-center gap-2 rounded-[22px] border-2 border-dashed border-[#dcd9d2] text-[15px] font-semibold text-muted"
+                  className="press flex min-h-[74px] flex-col items-center justify-center gap-0.5 rounded-[24px] border-2 border-dashed border-[#dcd9d2] px-2 text-center text-[15px] font-semibold text-muted"
                 >
-                  <Plus size={18} /> Добавить ребёнка
+                  <Plus size={20} /> <span>Добавить ребёнка</span>
                 </button>
               )}
             </div>
@@ -255,7 +255,7 @@ export function PlannerWizard() {
             columns={1}
             colors={["#E4F4DD", "#E2EEFF", "#EEE5FE"]}
           />
-          <div className="mt-5 flex items-center justify-between gap-3 rounded-[22px] bg-surface p-3.5 shadow-card">
+          <div className="mt-5 flex items-center justify-between gap-3 rounded-[24px] bg-surface p-3.5 shadow-card">
             <span className="text-[15px] font-semibold leading-tight">
               Где ищем?
               <span className="block text-[13px] font-medium text-muted">вся Москва, округ или точка — по желанию</span>
@@ -270,7 +270,7 @@ export function PlannerWizard() {
         <button
           disabled={!canNext}
           onClick={() => (step < STEPS.length - 1 ? setStep(step + 1) : finish())}
-          className="press h-[58px] w-full rounded-full bg-pink text-[18px] font-bold text-white shadow-pink transition-opacity disabled:opacity-40 disabled:shadow-none"
+          className="press h-14 w-full rounded-full bg-pink text-[18px] font-bold text-white shadow-pink transition-opacity disabled:opacity-40 disabled:shadow-none"
         >
           {step < STEPS.length - 1 ? "Дальше" : "Придумать день ✨"}
         </button>
@@ -308,11 +308,11 @@ function StepTiles({
               className={cn(
                 "press relative flex rounded-[24px] p-4 text-left transition-all",
                 columns === 2 ? "min-h-[128px] flex-col justify-between" : "items-center gap-4",
-                on ? "ring-[3px] ring-pink" : ""
+                on ? "ring-[3px] ring-inset ring-pink" : ""
               )}
               style={{ background: colors[i % colors.length] }}
             >
-              <span className={cn("grid place-items-center rounded-full bg-white/80", columns === 2 ? "h-14 w-14 text-[30px]" : "h-12 w-12 text-[26px]")}>
+              <span className={cn("grid place-items-center rounded-full bg-white/80", columns === 2 ? "h-14 w-14 text-[30px]" : "h-12 w-12 text-[24px]")}>
                 {it.emoji}
               </span>
               <span>
@@ -336,25 +336,25 @@ function AddKid({ onAdd, onCancel }: { onAdd: (c: Child) => void; onCancel: () =
   const [name, setName] = useState("");
   const [age, setAge] = useState(5);
   return (
-    <div className="mt-3 rounded-[22px] bg-surface p-4 shadow-card animate-rise">
+    <div className="mt-3 rounded-[24px] bg-surface p-4 shadow-card animate-rise">
       <input
         autoFocus
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Имя (необязательно)"
-        className="h-12 w-full rounded-[14px] bg-fill px-3.5 text-[16px] outline-none focus:ring-2 focus:ring-pink/40"
+        className="h-12 w-full rounded-[12px] bg-fill px-3.5 text-[16px] outline-none focus:ring-2 focus:ring-pink/40"
       />
       <div className="mt-3 flex items-center justify-between">
         <span className="text-[15px] font-semibold">Возраст</span>
         <div className="flex items-center gap-3">
-          <button aria-label="Меньше" onClick={() => setAge((a) => Math.max(0, a - 1))} className="press grid h-10 w-10 place-items-center rounded-full bg-fill">
-            <Minus size={18} />
+          <button aria-label="Меньше" onClick={() => setAge((a) => Math.max(0, a - 1))} className="press hit relative grid h-10 w-10 place-items-center rounded-full bg-fill">
+            <Minus size={20} />
           </button>
           <span className="w-16 text-center text-[17px] font-bold">
             {age} {plural(age, "год", "года", "лет")}
           </span>
-          <button aria-label="Больше" onClick={() => setAge((a) => Math.min(14, a + 1))} className="press grid h-10 w-10 place-items-center rounded-full bg-fill">
-            <Plus size={18} />
+          <button aria-label="Больше" onClick={() => setAge((a) => Math.min(14, a + 1))} className="press hit relative grid h-10 w-10 place-items-center rounded-full bg-fill">
+            <Plus size={20} />
           </button>
         </div>
       </div>

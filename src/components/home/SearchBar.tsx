@@ -6,17 +6,17 @@ export function SearchBar({ placeholder = "Куда пойдём сегодня?
     <div className="flex items-center gap-2.5 px-4">
       <Link
         href="/search"
-        className="press flex h-[50px] flex-1 items-center gap-2.5 rounded-full bg-fill px-4 text-[16.5px] text-muted"
+        className="press flex h-12 flex-1 items-center gap-2.5 rounded-full bg-fill px-4 text-[17px] text-muted"
       >
-        <Search size={22} strokeWidth={2.1} className="text-ink-2" />
+        <Search size={24} strokeWidth={2} className="text-ink-2" />
         {placeholder}
       </Link>
       <Link
         href="/search?filters=1"
         aria-label="Фильтры"
-        className="press grid h-[50px] w-[50px] place-items-center rounded-full bg-fill"
+        className="press grid h-12 w-12 place-items-center rounded-full bg-fill"
       >
-        <SlidersHorizontal size={21} strokeWidth={2.1} />
+        <SlidersHorizontal size={20} strokeWidth={2} />
       </Link>
     </div>
   );

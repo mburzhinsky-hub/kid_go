@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 
 export function CategoryScroller({ active = "all", hrefBase = "/search" }: { active?: string; hrefBase?: string }) {
   return (
-    <nav aria-label="Категории" className="no-scrollbar snap-x-pad flex snap-x gap-[10px] overflow-x-auto px-4 pb-1">
+    <nav aria-label="Категории" className="no-scrollbar snap-x-pad flex snap-x gap-[10px] overflow-x-auto px-3.5 pb-1">
       {CATEGORIES.map(({ id, label, bg, fg, Icon }) => {
         const isActive = id === active;
         const solid = isActive && id !== "all" ? fg : bg;
@@ -23,7 +23,7 @@ export function CategoryScroller({ active = "all", hrefBase = "/search" }: { act
             >
               <Icon width={31} height={31} />
             </span>
-            <span className="text-[12.5px] font-medium leading-[1.2] text-ink">{label}</span>
+            <span className="text-[13px] font-medium leading-[1.2] text-ink">{label}</span>
           </Link>
         );
       })}
