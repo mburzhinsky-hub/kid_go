@@ -266,6 +266,10 @@ export function scorePlace(
     mood: moodFit(p, input.mood) * 9,
     shelter: c.indoorOnly && p.outdoor ? -3 : 0,
     activity: input.activity ? 1 - Math.abs(p.activity_level - input.activity) / 2 : 0.5,
+    parentBreak:
+      c.parentBreak && p.category === "cafe" && p.experience_tags.includes("playzone")
+        ? 6
+        : 0,
     // данные OpenStreetMap не проверены редакцией — при прочих равных отдаём предпочтение каталогу
     trust: p.confidence === "osm" ? -0.7 : 0,
     popularity: (p.is_hit ? 0.4 : 0) + (p.review_count > 0 ? Math.min(0.4, p.review_count / 10000) : 0),
@@ -275,7 +279,7 @@ export function scorePlace(
     transport: transportFit(p, input),
     prefer:
       // сценарий про одну категорию («к животным», «на каток») тянет к ней сильнее, чем про несколько
-      (c.preferCategories?.includes(p.category) ? (c.preferCategories.length === 1 ? 4.6 : 3.4) : 0) +
+      (c.preferCategories?.includes(p.category) ? (c.preferCategories.length === 1 ? 4.6 : 4.0) : 0) +
       (c.outdoorPreferred && p.outdoor ? 2 : 0) +
       // формат сценария: «спектакль», «мастер-класс», «книги»…
       (c.experiences?.some((e) => p.experience_tags.includes(e)) ? 2.4 : 0) +
@@ -297,7 +301,7 @@ export function scorePlace(
       input.budget === "free"
         ? (p.price_max === 0 || p.family_budget === 0 ? 2.0 : 0)
         : Number.isFinite(budgetMax) && budgetMax > 0
-          ? -((p.family_budget / budgetMax) ** 1.3) * (input.budget === "2000" ? 3.4 : 1.4) + (input.budget === "5000" && p.price_min > 0 ? 1.8 : 0)
+          ? -((p.family_budget / budgetMax) ** 1.3) * (input.budget === "2000" ? 3.4 : 1.4) + (input.budget === "5000" && p.price_max > 0 ? 1.8 : 0)
           : budgetMax === Infinity
             ? (p.price_level >= 2 && p.rating >= 4.6 ? 0.6 : 0)
             : 0,
@@ -561,11 +565,11 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
     let dur = 0;
     if (slot === "food") {
       // голодный ребёнок далеко не уедет: кафе — как можно ближе
-      const foodBonus = (s: ScoredPlace, legMin: number) => ((!s.place.unknown_fields?.includes("kids_menu") && s.place.kids_menu) ? 1 : 0) + (c.parentBreak && s.place.experience_tags.includes("playzone") ? 2.5 : 0) - Math.max(0, legMin - 10) * 0.25;
+      const foodBonus = (s: ScoredPlace, legMin: number) => ((!s.place.unknown_fields?.includes("kids_menu") && s.place.kids_menu) ? 1 : 0) + (c.parentBreak && s.place.experience_tags.includes("playzone") ? 5 : 0) - Math.max(0, legMin - 10) * 0.25;
       chosen = pickFrom((s) => s.place.category === "cafe" && (!c.parentBreak || s.place.experience_tags.includes("playzone")) && (!s.place.experience_tags.includes("icecream") || total <= 120), foodBonus);
       dur = total <= 120 ? 40 : 55;
       // еду просили прямо, а рядом только кафе-мороженое — лучше перекус, чем ничего
-      if (!chosen && mustFood) {
+      if (!chosen && mustFood && !c.parentBreak) {
         chosen = pickFrom((s) => s.place.category === "cafe", foodBonus);
         dur = 30;
       }
@@ -763,7 +767,7 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
     const surprise = results.length % 3 === 2;
     const next = candidates
       .filter((c) => !tried.has(c.place.id))
-      .slice(0, 18)
+      .slice(0, input.constraints?.parentBreak ? 36 : 18)
       .map((c) => {
         const sameCat = chosenAnchors.filter((p) => p.category === c.place.category).length;
         const near = chosenAnchors.some((p) => travelBetween(pt(p), pt(c.place), "walk").km < 1.5) ? 1 : 0;
