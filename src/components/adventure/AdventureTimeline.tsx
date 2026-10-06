@@ -40,7 +40,7 @@ export function AdventureTimeline({
             onMove={onMove}
             onRemove={onRemove}
             onReplace={onReplace ? () => onReplace(i) : undefined}
-            showMenu={!!stop.place.menu_url && (stop.place.category === "cafe" || plan.totalMinutes >= 180)}
+            showMenu={!!stop.place.menu_url && (stop.foodOption === true || (stop.foodOption == null && (stop.place.category === "cafe" || plan.totalMinutes >= 180)))}
           />
           {stop.travelToNext && <TravelConnector {...stop.travelToNext} />}
         </li>
