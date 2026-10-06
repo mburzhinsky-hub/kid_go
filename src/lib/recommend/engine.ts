@@ -287,9 +287,18 @@ export function scorePlace(
       (fam?.visited.includes(p.slug) && !fam?.loved.includes(p.slug) ? 2 : 0) -
       (fam?.seen?.includes(p.slug) ? 0.8 : 0),
     rotation: hash(`${input.seed ?? ""}:${p.id}`) * 0.9,
-    // при скромном бюджете дорогой якорь «съедает» весь день — предпочитаем то, что оставит место для обеда;
-    // при щедром — тянемся к «событию»
-    price: Number.isFinite(budgetMax) && budgetMax > 0 ? -((p.family_budget / budgetMax) ** 1.3) * (input.budget === "2000" ? 3.4 : 1.4) : budgetMax === Infinity ? (p.price_level >= 2 && p.rating >= 4.6 ? 0.6 : 0) : 0,
+    // При скромном бюджете дорогой якорь «съедает» весь день.
+    // В режиме «бесплатно» предпочитаем действительно бесплатные места, а не варианты «от 0 ₽» с платными активностями.
+    // При бюджете 5 000 ₽ небольшой bonus помогает использовать доступный бюджет на более насыщенное событие,
+    // но он заметно слабее intent/возраста/географии и не заставляет тратить деньги любой ценой.
+    price:
+      input.budget === "free"
+        ? (p.price_max === 0 || p.family_budget === 0 ? 1.6 : 0)
+        : Number.isFinite(budgetMax) && budgetMax > 0
+          ? -((p.family_budget / budgetMax) ** 1.3) * (input.budget === "2000" ? 3.4 : 1.4) + (input.budget === "5000" && p.price_min > 0 ? 1.25 : 0)
+          : budgetMax === Infinity
+            ? (p.price_level >= 2 && p.rating >= 4.6 ? 0.6 : 0)
+            : 0,
   };
   const score = Object.values(parts).reduce((a, b) => a + b, 0);
   return { place: p, score, km: travel.km, minutes: travel.minutes, parts, tier };
