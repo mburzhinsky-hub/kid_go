@@ -18,7 +18,6 @@ export function AdventureTimeline({
   onMove,
   onRemove,
   onReplace,
-  showMenu,
 }: {
   plan: Plan;
   editable?: boolean;
@@ -61,6 +60,7 @@ function StopRow({
   onMove,
   onRemove,
   onReplace,
+  showMenu,
 }: {
   stop: PlanStop;
   index: number;
