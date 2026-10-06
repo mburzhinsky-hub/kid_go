@@ -38,6 +38,14 @@ export type PlaceType =
   | "other";
 
 export type VerificationStatus = "verified" | "partial" | "demo" | "osm";
+export type ParkingStatus = "yes" | "no" | "partial" | "unknown";
+
+export interface ParkingInfo {
+  status: ParkingStatus;
+  details: string;
+  source: string;
+  checked_at: string;
+}
 export type PlaceVerifiedField = "identity" | "address" | "price" | "opening_hours";
 export type PhotoKind = "official" | "partner" | "creator" | "ugc" | "stock" | "demo";
 export type ParentInfoField =
@@ -129,6 +137,12 @@ export interface Place {
   review_count: number;
   /** Рейтинг показываем только когда известен его конкретный источник. */
   rating_source?: string;
+  /** Прямая подтверждённая ссылка на меню/варианты еды. */
+  menu_url?: string;
+  /** Детализированная редакторская информация о парковке. */
+  parking_info?: ParkingInfo;
+  /** Редакторская заметка из источника данных — используется для описания/тегов, не как системный текст UI. */
+  editorial_note?: string;
   price_min: number; // ₽ на человека, 0 — бесплатно
   price_max: number;
   price_level: 0 | 1 | 2 | 3;
