@@ -1,6 +1,7 @@
 import type { Place, Plan, PlanStop, Photo, TransportId } from "@/lib/types";
 import { haversineKm, legMode, pt, travelMinutes } from "@/lib/geo";
 import { ceilTo, fromMinutes, toMinutes } from "@/lib/format";
+import { applyPlanMeals } from "@/lib/food";
 
 export interface StopInput {
   place: Place;
@@ -8,6 +9,8 @@ export interface StopInput {
   note?: string;
   /** Зафиксированное время в пути (из редакторской Adventure). */
   travelOverride?: number;
+  /** Explicit false prevents a no-food itinerary from acquiring meals on reopening. */
+  foodOption?: boolean;
 }
 
 export interface BuildPlanOptions {
@@ -27,17 +30,14 @@ export interface BuildPlanOptions {
 /** Буфер на сборы/туалет/одевание между точками — с детьми без него никак. */
 const BUFFER = 10;
 
-/**
- * Единая сборка маршрута: и для готовых приключений, и для сгенерированных,
- * и для «Нашего дня». Считает время, бюджет, расстояние и возраст.
- */
+/** Единая сборка готового, сгенерированного и пользовательского маршрута. */
 export function buildPlan(stopsIn: StopInput[], o: BuildPlanOptions): Plan {
   const transport = o.transport ?? "transit";
   let clock = toMinutes(o.start ?? "12:00");
   let distanceKm = 0;
   const stops: PlanStop[] = stopsIn.map((s, i) => {
     const duration = s.duration ?? s.place.average_duration;
-    const stop: PlanStop = { place: s.place, start: fromMinutes(clock), duration, note: s.note };
+    const stop: PlanStop = { place: s.place, start: fromMinutes(clock), duration, note: s.note, foodOption: s.foodOption };
     const next = stopsIn[i + 1];
     if (next) {
       const km = haversineKm(pt(s.place), pt(next.place));
@@ -54,6 +54,7 @@ export function buildPlan(stopsIn: StopInput[], o: BuildPlanOptions): Plan {
 
   const first = stops[0]?.place;
   const totalMinutes = clock - toMinutes(o.start ?? "12:00");
+  applyPlanMeals(stops, totalMinutes);
   const budget = stops.reduce((sum, s) => sum + s.place.family_budget, 0);
   const ageMin = Math.max(...stops.map((s) => s.place.age_min));
   const ageMax = Math.min(...stops.map((s) => s.place.age_max));

@@ -1,5 +1,7 @@
 "use client";
 
+import { loadMapLibre } from "@/lib/maplibre-runtime";
+
 import "maplibre-gl/dist/maplibre-gl.css";
 import Link from "next/link";
 import { createPortal } from "react-dom";
@@ -35,6 +37,11 @@ import { cn } from "@/lib/cn";
 const MKAD_BOX: [[number, number], [number, number]] = [
   [37.37, 55.57],
   [37.87, 55.915],
+];
+/** Основная часть каталога Подмосковья: запад, северо-восток, юг и восток. */
+const MOSCOW_REGION_BOX: [[number, number], [number, number]] = [
+  [36.65, 55.05],
+  [38.85, 56.35],
 ];
 
 type Toggle = "near" | "open" | "indoor" | "outdoor" | "cafe" | "parking" | "free";
@@ -101,6 +108,8 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
   const setOrigin = useFamily((s) => s.setOrigin);
   const transport = useFamily((s) => s.transport);
   const maxTravelMin = useFamily((s) => s.maxTravelMin);
+  const geoScope = useFamily((s) => s.geoScope);
+  const setPrefs = useFamily((s) => s.setPrefs);
   // каталог + места рядом из OpenStreetMap (для тех, у кого каталог редкий)
   const { places: extra } = useNearbyExtras();
   const pool = useMemo(() => (extra.length ? [...allPlaces, ...extra] : allPlaces), [extra]);
@@ -115,6 +124,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
   const okrugRef = useRef<string | undefined>(undefined);
   const [mapReady, setMapReady] = useState(false);
   const anywhere = hydrated && locationMode(origin) === "any";
+  const withRegion = anywhere && geoScope === "moscow-region";
   const okrug = useMemo(() => (hydrated ? okrugOfOrigin(origin) : undefined), [hydrated, origin]);
   okrugRef.current = okrug?.id;
   // точка выезда семьи — она же «я» на карте
@@ -124,8 +134,11 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
   // схема без подложки: кадр = точка выезда + ближайшие места (влезают в экран)
   const fbFrame = useMemo(() => {
     const me: GeoPoint = origin.source !== "default" ? { lat: origin.lat, lng: origin.lng } : DEFAULT_LOCATION;
-    // «вся Москва»: кадр — город целиком, без привязки к точке
-    if (origin.source === "default" && !planPlaces.length) return { center: DEFAULT_LOCATION as GeoPoint, zoom: 1.15 };
+    // Общий режим: Москва или расширенный кадр Москвы и области.
+    if (origin.source === "default" && !planPlaces.length)
+      return withRegion
+        ? { center: { lat: 55.72, lng: 37.74 } as GeoPoint, zoom: 0.48 }
+        : { center: DEFAULT_LOCATION as GeoPoint, zoom: 1.15 };
     const near = planPlaces.length
       ? planPlaces
       : [...pool].sort((a, b) => travelToPlace(me, a, "car").minutes - travelToPlace(me, b, "car").minutes).slice(0, 8);
@@ -136,7 +149,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
     const kmX = (Math.max(...pts.map((q) => q.lng)) - Math.min(...pts.map((q) => q.lng))) * 111.32 * Math.cos((lat * Math.PI) / 180);
     const extent = Math.max(kmX / 300, kmY / 360, 0.01);
     return { center: { lat, lng } as GeoPoint, zoom: Math.max(0.35, Math.min(3, (1 / (extent * 9)) * 0.72)) };
-  }, [origin, planPlaces, pool]);
+  }, [origin, planPlaces, pool, withRegion]);
   const fbCenter = fbFrame.center;
   useEffect(() => {
     if (mode === "fallback") setFz(fbFrame.zoom);
@@ -162,8 +175,8 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
     const now = new Date();
     if (planSlugs.length) return planPlaces;
     return pool.filter((p) => {
-      // «вся Москва» — только Москва: ни Подмосковье, ни дальние города в «Лучшем в Москве» не нужны
-      if (anywhere && (!inMoscow(p) || isSuburban(pt(p)))) return false;
+      // Общий режим: по умолчанию Москва; по явному фильтру добавляем Подмосковье.
+      if (anywhere && !withRegion && (!inMoscow(p) || isSuburban(pt(p)))) return false;
       if (category && p.category !== category) return false;
       // кафе и магазины из OSM — только по запросу, иначе они заслоняют места, куда стоит ехать
       if (p.confidence === "osm" && (p.category === "cafe" || p.category === "shop") && !(toggles.has("cafe") || category === "cafe" || category === "shop" || q)) return false;
@@ -185,28 +198,40 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
       }
       return true;
     });
-  }, [query, toggles, age, price, category, user, transport, maxTravelMin, planSlugs, planPlaces, pool, anywhere]);
+  }, [query, toggles, age, price, category, user, transport, maxTravelMin, planSlugs, planPlaces, pool, anywhere, withRegion]);
   const visibleIds = useMemo(() => new Set(visible.map((p) => p.slug)), [visible]);
   const nearby = useMemo(() => {
     if (planSlugs.length) return visible.map((p) => ({ p, min: 0 }));
     const quality = (p: Place) => p.rating * 2 + Math.log10(p.review_count + 1) + (p.is_hit ? 1 : 0);
-    // без точки «рядом» не считаем: лучшее по городу
-    if (anywhere) return visible.map((p) => ({ p, min: 0, s: quality(p) })).sort((a, b) => b.s - a.s);
+    // Без точки «рядом» не считаем. В широком охвате намеренно показываем
+    // несколько подмосковных вариантов в первой ленте, чтобы они не терялись среди Москвы.
+    if (anywhere) {
+      const ranked = visible.map((p) => ({ p, min: 0, s: quality(p) })).sort((a, b) => b.s - a.s);
+      if (!withRegion) return ranked;
+      const city = ranked.filter(({ p }) => inMoscow(p) && !isSuburban(pt(p)));
+      const region = ranked.filter(({ p }) => !inMoscow(p) || isSuburban(pt(p)));
+      const first = [...city.slice(0, 8), ...region.slice(0, 6)];
+      const used = new Set(first.map(({ p }) => p.slug));
+      return [...first, ...ranked.filter(({ p }) => !used.has(p.slug))];
+    }
     const minOf = (p: Place) => travelToPlace(user, p, transport).minutes;
     if (okrug) {
       // выбран округ: сначала лучшее в нём самом, затем у соседей; из других концов города — только если рядом почти ничего нет
       return orderByArea(visible, (p) => p, okrug, quality, { enough: 3, fallback: (a, b) => minOf(a) - minOf(b) }).list.map((p) => ({ p, min: minOf(p) }));
     }
     return visible.map((p) => ({ p, min: minOf(p) })).sort((a, b) => a.min - b.min);
-  }, [visible, user, transport, planSlugs, anywhere, okrug]);
+  }, [visible, user, transport, planSlugs, anywhere, okrug, withRegion]);
   // ссылки на Яндекс Карты: рамка — по лучшим местам выдачи (или точке выезда)
   const yFrame = useMemo(() => {
     const top = nearby.slice(0, 30).map(({ p }) => ({ lat: p.latitude, lng: p.longitude }));
     if (planPlaces.length) return { ...frameOf(top.length ? top : [DEFAULT_LOCATION]), pins: planPlaces.map((p, i) => ({ lat: p.latitude, lng: p.longitude, n: i + 1 })) };
-    if (anywhere) return { center: DEFAULT_LOCATION as GeoPoint, zoom: 10, pins: top.slice(0, 20) };
+    if (anywhere)
+      return withRegion
+        ? { center: { lat: 55.72, lng: 37.74 } as GeoPoint, zoom: 8, pins: top.slice(0, 20) }
+        : { center: DEFAULT_LOCATION as GeoPoint, zoom: 10, pins: top.slice(0, 20) };
     const pts = [{ lat: user.lat, lng: user.lng }, ...top.slice(0, 8)];
     return { ...frameOf(pts), pins: [...top.slice(0, 15)] };
-  }, [nearby, planPlaces, anywhere, user]);
+  }, [nearby, planPlaces, anywhere, user, withRegion]);
   const ySrc = useMemo(() => yandexWidgetUrl(yFrame.center, yFrame.zoom, yFrame.pins), [yFrame]);
   const yLink = useMemo(() => yandexMapsUrl(yFrame.center, yFrame.zoom, yFrame.pins), [yFrame]);
   const selectedPlace = selected ? poolBySlug.get(selected) ?? getPlaceSync(selected) : null;
@@ -228,7 +253,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
         return;
       }
       const { map } = res;
-      const ml = (await import("maplibre-gl")).default;
+      const ml = await loadMapLibre();
       if (flag.cancelled) {
         map.remove();
         return;
@@ -250,7 +275,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
         // кадр: маршрут целиком; «вся Москва» — город в пределах МКАД над панелью; иначе — точка выезда и ближайшие места
         const pad = { top: 150, bottom: (sheetRef.current?.offsetHeight ?? 236) + 24, left: 28, right: 28 };
         if (!planPlaces.length && anywhereRef.current) {
-          map.fitBounds(MKAD_BOX, { padding: pad, duration: 0, maxZoom: 11 });
+          map.fitBounds(geoScope === "moscow-region" ? MOSCOW_REGION_BOX : MKAD_BOX, { padding: pad, duration: 0, maxZoom: 11 });
           setZoom(map.getZoom());
           setMode("map");
           setMapReady(true);
@@ -293,7 +318,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
       setEls({});
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [start, attempt]);
+  }, [start, attempt, geoScope]);
 
   // «Долго грузится» — через 6 секунд предлагаем не ждать; вернулась сеть — пробуем снова сами
   useEffect(() => {
@@ -362,7 +387,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
       return;
     }
     (async () => {
-      const ml = (await import("maplibre-gl")).default;
+      const ml = await loadMapLibre();
       if (!userMarkerRef.current) {
         const el = document.createElement("div");
         el.innerHTML = '<span class="kg-user-dot"></span>';
@@ -381,9 +406,9 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
     const map = mapRef.current;
     if (!prev || prev === key || !map || mode !== "map" || planSlugs.length) return;
     const m = locationMode(origin);
-    if (m === "any") map.fitBounds(MKAD_BOX, { padding: { top: 150, bottom: (sheetRef.current?.offsetHeight ?? 236) + 24, left: 28, right: 28 }, maxZoom: 11, duration: 700 });
+    if (m === "any") map.fitBounds(geoScope === "moscow-region" ? MOSCOW_REGION_BOX : MKAD_BOX, { padding: { top: 150, bottom: (sheetRef.current?.offsetHeight ?? 236) + 24, left: 28, right: 28 }, maxZoom: 11, duration: 700 });
     else map.flyTo({ center: [origin.lng, origin.lat], zoom: m === "area" ? 11.2 : 12.8, offset: [0, -(sheetRef.current?.offsetHeight ?? 236) / 3] });
-  }, [origin, hydrated, mode, planSlugs.length]);
+  }, [origin, hydrated, mode, planSlugs.length, geoScope]);
 
   /* раскладка без наложений: пересчёт при фильтрах, выборе, зуме и сдвиге карты */
   useEffect(() => {
@@ -459,12 +484,13 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
     });
   };
 
-  const activeCount = toggles.size + (age ? 1 : 0) + (price ? 1 : 0) + (category ? 1 : 0);
+  const activeCount = toggles.size + (age ? 1 : 0) + (price ? 1 : 0) + (category ? 1 : 0) + (withRegion ? 1 : 0);
   const reset = () => {
     setToggles(new Set());
     setAge(null);
     setPrice(null);
     setCategory(undefined);
+    if (anywhere) setPrefs({ geoScope: "moscow" });
     setQuery("");
   };
 
@@ -588,6 +614,15 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
               {categoryDef(category).label} <X size={14} />
             </FilterChip>
           )}
+          {anywhere && (
+            <FilterChip
+              size="sm"
+              active={withRegion}
+              onClick={() => setPrefs({ geoScope: withRegion ? "moscow" : "moscow-region" })}
+            >
+              {withRegion ? "Москва + область" : "+ Подмосковье"}
+            </FilterChip>
+          )}
           <FilterChip size="sm" active={!!age} onClick={() => setSheet("age")}>
             {age ? AGES.find((a) => a.id === age)!.label : "Возраст"} <ChevronDown size={14} />
           </FilterChip>
@@ -636,7 +671,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
         {geo === "denied" && (
           <div className="mx-4 mt-1 flex items-center gap-2 rounded-[16px] bg-white/95 px-3 py-2 text-[13px] shadow-card animate-rise">
             <LocateOff size={16} className="shrink-0 text-red" />
-            <span className="flex-1">Геолокация выключена. {origin.source === "default" ? "Показываем всю Москву — округ можно выбрать в шапке главной." : `Считаем дорогу от «${origin.label}».`}</span>
+            <span className="flex-1">Геолокация выключена. {origin.source === "default" ? (withRegion ? "Показываем Москву и Подмосковье." : "Показываем Москву — Подмосковье можно добавить фильтром.") : `Считаем дорогу от «${origin.label}».`}</span>
             <button onClick={() => setGeo("idle")} aria-label="Скрыть" className="text-muted">
               <X size={15} />
             </button>
@@ -649,7 +684,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
           <button onClick={() => setFz((z) => Math.min(4, z * 1.5))} aria-label="Приблизить" className="press grid h-11 w-[52px] place-items-center border-b border-line">
             <Plus size={20} />
           </button>
-          <button onClick={() => setFz((z) => Math.max(0.5, z / 1.5))} aria-label="Отдалить" className="press grid h-11 w-[52px] place-items-center">
+          <button onClick={() => setFz((z) => Math.max(0.5, z / 1.5))} aria-label="Отдалить" className="press grid h-11 w-[52px] place-items-center rounded-[18px]">
             <Minus size={20} />
           </button>
         </div>
@@ -674,7 +709,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
       <button
         onClick={() => locate()}
         aria-label="Где я"
-        className="press absolute right-4 z-20 grid h-[52px] w-[52px] place-items-center rounded-full bg-white text-blue shadow-float"
+        className="press absolute right-4 z-20 grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full bg-white text-blue shadow-float"
         style={{ bottom: "calc(var(--sheet-h) + 16px)" }}
       >
         <Navigation size={23} strokeWidth={2.2} className={cn(geo === "ok" && "fill-blue")} />
@@ -709,7 +744,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
                     : "Маршрут дня"
                   : activeCount === 0 && !query.trim()
                     ? anywhere
-                      ? "Лучшее в Москве"
+                      ? withRegion ? "Москва + Подмосковье" : "Лучшее в Москве"
                       : okrug
                         ? `Лучшее ${okrug.prep}`
                         : "Рядом с вами"

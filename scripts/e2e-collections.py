@@ -234,18 +234,23 @@ with sync_playwright() as p:
     # на этом же устройстве считаем свои действия
     print("4. Админка")
     pg = own_ctx.pages[0]
-    go(pg, "/admin/")
-    for tab in ("Авторы", "Подборки", "Намерения"):
-        pg.get_by_role("button", name=tab).click()
-        pg.wait_for_timeout(400)
-        check(pg.get_by_text("Считаем действия").count() > 0, f"админка: вкладка «{tab}»")
-    check(overflow(pg) <= 0, f"админка без горизонтального скролла ({overflow(pg)})")
+    resp = pg.goto(B + "/admin/")
+    HAS_ADMIN = bool(resp and resp.status < 400)  # во внутренней выгрузке на GitHub Pages кабинет не публикуется
+    if not HAS_ADMIN:
+        print("  – кабинета нет в этой сборке (статическая выгрузка без /admin) — пропускаем")
+    else:
+        pg.wait_for_timeout(1500)
+        for tab in ("Авторы", "Подборки", "Намерения"):
+            pg.get_by_role("button", name=tab).click()
+            pg.wait_for_timeout(400)
+            check(pg.get_by_text("Считаем действия").count() > 0, f"админка: вкладка «{tab}»")
+        check(overflow(pg) <= 0, f"админка без горизонтального скролла ({overflow(pg)})")
 
-    # скрытие подборки админом убирает её у автора
-    pg.get_by_role("button", name="Подборки").click()
-    pg.wait_for_timeout(300)
-    pg.get_by_role("button", name="Скрыть").first.click()
-    pg.wait_for_timeout(300)
+        # скрытие подборки админом убирает её у автора
+        pg.get_by_role("button", name="Подборки").click()
+        pg.wait_for_timeout(300)
+        pg.get_by_role("button", name="Скрыть").first.click()
+        pg.wait_for_timeout(300)
     go(pg, "/")
     own_ctx.close()
 
@@ -253,7 +258,7 @@ with sync_playwright() as p:
     print("5. Узкие экраны 360px / 430px")
     for w in (360, 430):
         ctx, pg = new_ctx(b, w=w, h=800)
-        for path in ("/@weekend-parents/rainy-day/", "/@weekend-parents/", "/favorites/?tab=collections", "/favorites/?tab=visited", "/collections/", "/collections/new/", "/", "/admin/"):
+        for path in ("/@weekend-parents/rainy-day/", "/@weekend-parents/", "/favorites/?tab=collections", "/favorites/?tab=visited", "/collections/", "/collections/new/", "/") + (("/admin/",) if HAS_ADMIN else ()):
             go(pg, path, 1200)
             check(overflow(pg) <= 0, f"{w}px {path}: без горизонтального скролла ({overflow(pg)})")
         ctx.close()

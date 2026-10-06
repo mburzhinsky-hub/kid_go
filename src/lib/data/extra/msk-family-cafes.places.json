@@ -1,0 +1,1111 @@
+[
+  {
+    "title": "Dream Kids",
+    "slug": "dream-kids",
+    "town": "Можайский",
+    "region": "msk",
+    "address": "Москва, Гжатская ул., 5, корп. 8",
+    "metro": "Давыдково",
+    "lat": 55.714076,
+    "lng": 37.434479,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Семейный ресторан и большое детское пространство",
+    "description": "Семейный ресторан с игровой площадкой, творческой и кулинарной студиями и детской анимацией. Подходит для спокойного обеда родителей, пока ребёнок занят в игровой.",
+    "price": [
+      600,
+      2200
+    ],
+    "family_budget": 4800,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking",
+      "drawing"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone",
+      "workshop",
+      "toddlers"
+    ],
+    "tags": [
+      "Семейный ресторан",
+      "Игровая",
+      "Мастер-классы"
+    ],
+    "photoSet": "cafe",
+    "source": "https://dreamkids.moscow/",
+    "confidence": "high"
+  },
+  {
+    "title": "Июль Детям",
+    "slug": "iyul-detyam",
+    "town": "Южное Бутово",
+    "region": "msk",
+    "address": "Москва, ул. Поляны, 5",
+    "metro": "Улица Скобелевская",
+    "lat": 55.5565752,
+    "lng": 37.5545043,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Семейный ресторан с двухуровневой игровой",
+    "description": "Семейный ресторан с безопасной развивающей игровой комнатой, аниматорами и небольшими ежедневными активностями. Родители могут поесть, пока дети играют рядом.",
+    "price": [
+      650,
+      1800
+    ],
+    "family_budget": 4200,
+    "age": [
+      0,
+      7
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": false,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "12:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "09:00-21:00",
+      "09:00-21:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking",
+      "science"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone",
+      "workshop",
+      "toddlers"
+    ],
+    "tags": [
+      "Игровая",
+      "Аниматоры",
+      "Для малышей"
+    ],
+    "photoSet": "cafe",
+    "source": "https://julydetyam.ru/onas",
+    "confidence": "high"
+  },
+  {
+    "title": "Русское Подворье",
+    "slug": "russkoe-podvorye",
+    "town": "Зюзино",
+    "region": "msk",
+    "address": "Москва, Симферопольский б-р, 16, корп. 1",
+    "metro": "Севастопольская",
+    "lat": 55.6519072,
+    "lng": 37.6047157,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Семейный ресторан с отдельной детской комнатой",
+    "description": "Ресторан русской кухни с отдельной детской комнатой, игрушками и игровыми автоматами. В меню есть отдельный раздел для детей.",
+    "price": [
+      800,
+      2200
+    ],
+    "family_budget": 4800,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "12:00-00:00",
+      "12:00-00:00",
+      "12:00-00:00",
+      "12:00-00:00",
+      "12:00-00:00",
+      "12:00-00:00",
+      "12:00-00:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone"
+    ],
+    "tags": [
+      "Детская комната",
+      "Детское меню"
+    ],
+    "photoSet": "cafe",
+    "source": "https://russkoepodvorie.com/",
+    "confidence": "high"
+  },
+  {
+    "title": "Vasilchuki Chaihona №1 — Дмитрия Ульянова",
+    "slug": "vasilchuki-chaihona-dmitriya-ulyanova",
+    "town": "Котловка",
+    "region": "msk",
+    "address": "Москва, ул. Дмитрия Ульянова, 51",
+    "metro": "Академическая",
+    "lat": 55.6806305,
+    "lng": 37.5956445,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Ресторан с детской комнатой и программой по выходным",
+    "description": "Большой семейный ресторан с детской комнатой, играми и видеонаблюдением. По выходным для маленьких гостей проводят программу с аниматором.",
+    "price": [
+      900,
+      2500
+    ],
+    "family_budget": 5200,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "11:00-00:00",
+      "11:00-00:00",
+      "11:00-00:00",
+      "11:00-00:00",
+      "11:00-00:00",
+      "11:00-00:00",
+      "11:00-00:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone"
+    ],
+    "tags": [
+      "Детская комната",
+      "Видеонаблюдение"
+    ],
+    "photoSet": "cafe",
+    "source": "https://chaihona.ru/restaurants/dmitriya-ulyanova-51",
+    "confidence": "high"
+  },
+  {
+    "title": "Vasilchuki Chaihona №1 — Афимолл",
+    "slug": "vasilchuki-chaihona-afimall",
+    "town": "Пресненский",
+    "region": "msk",
+    "address": "Москва, Пресненская наб., 2, ТРЦ «Афимолл Сити», 5 этаж",
+    "metro": "Выставочная",
+    "lat": 55.749162,
+    "lng": 37.539742,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Семейный ресторан с просторной детской комнатой",
+    "description": "Ресторан в Афимолле с просторной детской комнатой, программой для детей по выходным и видеонаблюдением за игровой зоной.",
+    "price": [
+      900,
+      2500
+    ],
+    "family_budget": 5200,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "10:00-00:00",
+      "10:00-00:00",
+      "10:00-00:00",
+      "10:00-00:00",
+      "10:00-00:00",
+      "10:00-00:00",
+      "10:00-00:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone"
+    ],
+    "tags": [
+      "Детская комната",
+      "Аниматоры"
+    ],
+    "photoSet": "cafe",
+    "source": "https://chaihona.ru/restaurants/trc-afimoll-siti",
+    "confidence": "high"
+  },
+  {
+    "title": "Vasilchuki Chaihona №1 — Метрополис",
+    "slug": "vasilchuki-chaihona-metropolis",
+    "town": "Войковский",
+    "region": "msk",
+    "address": "Москва, Ленинградское ш., 16А, стр. 4, ТЦ «Метрополис», 3 этаж",
+    "metro": "Войковская",
+    "lat": 55.823217,
+    "lng": 37.497468,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Ресторан с детской комнатой в Метрополисе",
+    "description": "Семейный ресторан в ТЦ «Метрополис» с детской комнатой, играми и возможностью наблюдать за ребёнком по видеосвязи.",
+    "price": [
+      900,
+      2500
+    ],
+    "family_budget": 5200,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-00:00",
+      "10:00-00:00",
+      "10:00-23:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone"
+    ],
+    "tags": [
+      "Детская комната",
+      "ТЦ Метрополис"
+    ],
+    "photoSet": "cafe",
+    "source": "https://chaihona.ru/restaurants/leningradskoe-sosse-16a",
+    "confidence": "high"
+  },
+  {
+    "title": "Пьеро",
+    "slug": "piero-zilart",
+    "town": "Даниловский",
+    "region": "msk",
+    "address": "Москва, б-р Братьев Весниных, 1",
+    "metro": "ЗИЛ",
+    "lat": 55.6981405,
+    "lng": 37.6400943,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Семейный ресторан в ЗИЛАРТе",
+    "description": "Семейный ресторан с отдельной зоной для малышей и игровой зоной для детей постарше. Подходит как самостоятельный семейный выход и как остановка после прогулки по ЗИЛАРТу.",
+    "price": [
+      900,
+      2500
+    ],
+    "family_budget": 5200,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": false,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "12:00-22:00",
+      "12:00-22:00",
+      "12:00-22:00",
+      "12:00-22:00",
+      "12:00-23:00",
+      "11:00-23:00",
+      "11:00-22:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone"
+    ],
+    "tags": [
+      "Игровая",
+      "ЗИЛАРТ"
+    ],
+    "photoSet": "cafe",
+    "source": "https://xn--e1asbf2d.xn--p1ai/",
+    "confidence": "high"
+  },
+  {
+    "title": "Ribambelle — Времена года",
+    "slug": "ribambelle-vremena-goda",
+    "town": "Фили-Давыдково",
+    "region": "msk",
+    "address": "Москва, Кутузовский пр-т, 48, Галереи «Времена года», 3 этаж",
+    "metro": "Славянский бульвар",
+    "lat": 55.731749,
+    "lng": 37.4873247,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Семейный ресторан-клуб с большим детским городком",
+    "description": "Семейный ресторан-клуб с игровой для малышей, большим детским городком, аниматорами и мастер-классами.",
+    "price": [
+      1000,
+      2800
+    ],
+    "family_budget": 5800,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 100,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "11:00-22:00",
+      "11:00-22:00",
+      "11:00-22:00",
+      "11:00-22:00",
+      "11:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking",
+      "drawing"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone",
+      "workshop",
+      "toddlers"
+    ],
+    "tags": [
+      "Детский городок",
+      "Аниматоры"
+    ],
+    "photoSet": "cafe",
+    "source": "https://ribambelle.ru/kontakty",
+    "confidence": "high"
+  },
+  {
+    "title": "Kitchen — Ходынка",
+    "slug": "kitchen-khodynka",
+    "town": "Хорошёвский",
+    "region": "msk",
+    "address": "Москва, ул. Гризодубовой, 4, корп. 4",
+    "metro": "ЦСКА",
+    "lat": 55.786133,
+    "lng": 37.520702,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Семейное кафе с большим игровым лабиринтом",
+    "description": "Семейное кафе с большим детским лабиринтом, отдельной зоной для малышей, детским меню, анимацией и мастер-классами.",
+    "price": [
+      800,
+      2200
+    ],
+    "family_budget": 4800,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking",
+      "drawing"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone",
+      "workshop",
+      "toddlers"
+    ],
+    "tags": [
+      "Игровой лабиринт",
+      "Мастер-классы"
+    ],
+    "photoSet": "cafe",
+    "source": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/",
+    "confidence": "high"
+  },
+  {
+    "title": "АндерСон — Островитянова",
+    "slug": "anderson-ostrovityanova",
+    "town": "Обручевский",
+    "region": "msk",
+    "address": "Москва, ул. Островитянова, 5",
+    "metro": "Университет дружбы народов",
+    "lat": 55.644694,
+    "lng": 37.493973,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Семейное кафе с игровой комнатой",
+    "description": "Семейное кафе с игровой комнатой и аниматором. Есть детское меню; удобно для спокойного семейного завтрака, обеда или короткой передышки.",
+    "price": [
+      700,
+      2000
+    ],
+    "family_budget": 4400,
+    "age": [
+      1,
+      10
+    ],
+    "duration": 80,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": false,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "08:30-22:00",
+      "08:30-22:00",
+      "08:30-22:00",
+      "08:30-22:00",
+      "08:30-22:00",
+      "09:00-22:00",
+      "09:00-22:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone",
+      "toddlers"
+    ],
+    "tags": [
+      "Игровая",
+      "Аниматор"
+    ],
+    "photoSet": "cafe",
+    "source": "https://cafe-anderson.ru/cafe/ostrov/",
+    "confidence": "high"
+  },
+  {
+    "title": "Kids Castle — Митино",
+    "slug": "kids-castle-mitino",
+    "town": "Митино",
+    "region": "msk",
+    "address": "Москва, Новотушинский пр-д, 10, корп. 2, ТЦ «Родник», 2 этаж",
+    "metro": "Волоколамская",
+    "lat": 55.840559,
+    "lng": 37.380795,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Семейный ресторан внутри большого детского центра",
+    "description": "Детский развлекательный центр и семейный ресторан с батутами, горками, лабиринтами и городом профессий для детей от 1 до 14 лет.",
+    "price": [
+      900,
+      2500
+    ],
+    "family_budget": 5200,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 120,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 2,
+    "noise": 3,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "12:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-21:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-21:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "construction",
+      "sport",
+      "fairy"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone",
+      "toddlers"
+    ],
+    "tags": [
+      "Батуты",
+      "Город профессий",
+      "Игровая"
+    ],
+    "photoSet": "play",
+    "source": "https://kids-castle.pro/mitino",
+    "confidence": "high"
+  },
+  {
+    "title": "KLICH",
+    "slug": "klich-zilart",
+    "town": "Даниловский",
+    "region": "msk",
+    "address": "Москва, наб. Марка Шагала, 1, корп. 2",
+    "metro": "ЗИЛ",
+    "lat": 55.6999,
+    "lng": 37.6314,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Ресторан с большой детской комнатой в ЗИЛАРТе",
+    "description": "Ресторан с отдельной детской комнатой: игровая башня, горка, сухой бассейн и спокойные зоны. Есть детское меню и аниматоры.",
+    "price": [
+      1000,
+      2800
+    ],
+    "family_budget": 5800,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-23:00",
+      "10:00-00:00",
+      "10:00-00:00",
+      "10:00-23:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone"
+    ],
+    "tags": [
+      "Детская комната",
+      "Аниматоры"
+    ],
+    "photoSet": "cafe",
+    "source": "https://klich.moscow/kontakty",
+    "confidence": "high"
+  },
+  {
+    "title": "Repast Cafe",
+    "slug": "repast-cafe",
+    "town": "Филёвский Парк",
+    "region": "msk",
+    "address": "Москва, Большая Филёвская ул., 21, корп. 2",
+    "metro": "Филёвский парк",
+    "lat": 55.7464127,
+    "lng": 37.4930338,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Семейный ресторан с детской комнатой",
+    "description": "Семейный ресторан на Большой Филёвской с отдельной детской комнатой. Подходит для обеда после прогулки в парке и для семейного ужина.",
+    "price": [
+      800,
+      1900
+    ],
+    "family_budget": 4300,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": false,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "11:00-23:00",
+      "11:00-23:00",
+      "11:00-23:00",
+      "11:00-23:00",
+      "11:00-23:00",
+      "11:00-23:00",
+      "11:00-23:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone"
+    ],
+    "tags": [
+      "Детская комната",
+      "Семейный ресторан"
+    ],
+    "photoSet": "cafe",
+    "source": "https://repastcafe.com/",
+    "confidence": "high"
+  },
+  {
+    "title": "Local Kids",
+    "slug": "local-kids-vnukovo",
+    "town": "Внуково",
+    "region": "msk",
+    "address": "Москва, б-р Андрея Тарковского, 9",
+    "metro": "Рассказовка",
+    "lat": 55.6254537,
+    "lng": 37.3434663,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Семейный ресторан с игровыми и бейбиситтерами",
+    "description": "Семейный ресторан с детскими игровыми пространствами и отдельной детской комнатой. В карточке места и отзывах также отмечают работу бейбиситтеров.",
+    "price": [
+      900,
+      2200
+    ],
+    "family_budget": 4800,
+    "age": [
+      0,
+      10
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": true,
+    "kids_menu": true,
+    "parking": true,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone",
+      "toddlers"
+    ],
+    "tags": [
+      "Игровая",
+      "С малышами"
+    ],
+    "photoSet": "cafe",
+    "source": "https://localkids.clients.site/",
+    "confidence": "high"
+  },
+  {
+    "title": "Littles Kids Play Cafe",
+    "slug": "littles-kids-play-cafe",
+    "town": "Пресненский",
+    "region": "msk",
+    "address": "Москва, ул. Сергея Макеева, 9, корп. 1",
+    "metro": "Улица 1905 года",
+    "lat": 55.76104,
+    "lng": 37.55022,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Кафе, где игровые зоны окружают столики родителей",
+    "description": "Семейное кафе с игровыми пространствами по периметру зала: родители сохраняют зрительный контакт с ребёнком. Вместо аниматоров работают childcare.",
+    "price": [
+      900,
+      2300
+    ],
+    "family_budget": 4900,
+    "age": [
+      0,
+      10
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": false,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00",
+      "09:00-22:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone",
+      "toddlers"
+    ],
+    "tags": [
+      "Игровая",
+      "Childcare"
+    ],
+    "photoSet": "cafe",
+    "source": "https://littleskids.com/",
+    "confidence": "high"
+  },
+  {
+    "title": "Jooie — Пресня",
+    "slug": "jooie-presnya",
+    "town": "Пресненский",
+    "region": "msk",
+    "address": "Москва, Расторгуевский пер., 3А",
+    "metro": "Улица 1905 года",
+    "lat": 55.7651,
+    "lng": 37.5686,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Семейное кафе с игровой комнатой",
+    "description": "Семейное кафе на Пресне с игровой комнатой, детскими мероприятиями и отдельным детским меню.",
+    "price": [
+      800,
+      2200
+    ],
+    "family_budget": 4600,
+    "age": [
+      1,
+      10
+    ],
+    "duration": 85,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": false,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00",
+      "10:00-22:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone"
+    ],
+    "tags": [
+      "Игровая",
+      "Детские мероприятия"
+    ],
+    "photoSet": "cafe",
+    "source": "https://jooiecafe.ru/",
+    "confidence": "high"
+  },
+  {
+    "title": "Tutta La Vita",
+    "slug": "tutta-la-vita",
+    "town": "Замоскворечье",
+    "region": "msk",
+    "address": "Москва, ул. Большая Ордынка, 20, стр. 7",
+    "metro": "Третьяковская",
+    "lat": 55.741102,
+    "lng": 37.624648,
+    "category": "cafe",
+    "place_type": "restaurant",
+    "subtitle": "Итальянский ресторан с детской игровой комнатой",
+    "description": "Итальянский семейный ресторан в центре Москвы. Для маленьких гостей есть отдельная игровая комната, детское меню и программы с аниматорами.",
+    "price": [
+      1000,
+      2600
+    ],
+    "family_budget": 5400,
+    "age": [
+      1,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": true,
+    "activity": 1,
+    "noise": 2,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": true,
+    "parking": true,
+    "toilets": true,
+    "wardrobe": true,
+    "booking": false,
+    "hours": [
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00",
+      "00:00-24:00"
+    ],
+    "weather": [
+      "any",
+      "rain",
+      "cold"
+    ],
+    "interests": [
+      "cooking"
+    ],
+    "experience": [
+      "cafe",
+      "food",
+      "playzone"
+    ],
+    "tags": [
+      "Игровая",
+      "Круглосуточно"
+    ],
+    "photoSet": "cafe",
+    "source": "https://tuttalavita.ru/",
+    "confidence": "high"
+  }
+]

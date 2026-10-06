@@ -7,6 +7,8 @@ import { formatAgeRange } from "@/lib/format";
 import { placeHref } from "@/lib/place-href";
 
 /** Публичная страница подборки: /@username/slug. Публичные подборки индексируются, «по ссылке» — нет. */
+type CollectionPageProps = { params: Promise<{ handle: string; slug: string }> };
+
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -23,7 +25,7 @@ const resolve = (handle: string, slug: string) => {
   return h.startsWith("@") ? seedCollection(h, slug) : null;
 };
 
-export async function generateMetadata({ params }: PageProps<"/[handle]/[slug]">): Promise<Metadata> {
+export async function generateMetadata({ params }: CollectionPageProps): Promise<Metadata> {
   const { handle, slug } = await params;
   const r = resolve(handle, slug);
   if (!r) return {};
@@ -47,7 +49,7 @@ export async function generateMetadata({ params }: PageProps<"/[handle]/[slug]">
   };
 }
 
-export default async function CollectionPage({ params }: PageProps<"/[handle]/[slug]">) {
+export default async function CollectionPage({ params }: CollectionPageProps) {
   const { handle, slug } = await params;
   const r = resolve(handle, slug);
   if (!r) notFound();

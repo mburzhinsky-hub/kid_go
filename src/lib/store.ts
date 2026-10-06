@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { BudgetId, Child, FamilySignals, TransportId } from "@/lib/types";
+import type { BudgetId, Child, FamilySignals, GeoScope, TransportId } from "@/lib/types";
 import { DEFAULT_ORIGIN, suggestedTransport, type Origin } from "@/lib/location";
 import type { IntentFeedback, IntentSource, IntentStatus, PlaceIntent } from "@/lib/social/types";
 import { getAnonId, getUserId } from "@/lib/social/identity";
@@ -51,6 +51,8 @@ interface FamilyState {
   maxDistanceKm: number;
   /** Готовы ехать до N минут. */
   maxTravelMin: number;
+  /** Общая география, когда точка выезда не выбрана. */
+  geoScope: GeoScope;
   onboarded: boolean;
   origin: Origin;
   home?: Origin;
@@ -89,7 +91,7 @@ interface FamilyState {
   setDayStart: (t: string) => void;
   upsertChild: (c: Child) => void;
   removeChild: (id: string) => void;
-  setPrefs: (p: Partial<Pick<FamilyState, "budget" | "transport" | "maxDistanceKm" | "maxTravelMin" | "city">>) => void;
+  setPrefs: (p: Partial<Pick<FamilyState, "budget" | "transport" | "maxDistanceKm" | "maxTravelMin" | "geoScope" | "city">>) => void;
   completeOnboarding: () => void;
   setOrigin: (o: Origin) => void;
   setHome: (o: Origin | undefined) => void;
@@ -118,6 +120,7 @@ export const useFamily = create<FamilyState>()(
       transportAuto: true,
       maxDistanceKm: 10,
       maxTravelMin: 40,
+      geoScope: "moscow",
       onboarded: false,
       origin: DEFAULT_ORIGIN,
       home: undefined,
@@ -229,7 +232,7 @@ export const useFamily = create<FamilyState>()(
     }),
     {
       name: "kidgo-family",
-      version: 4,
+      version: 5,
       // v1 подставлял демо-детей Мишу и Аню всем подряд — убираем их, если семья их не меняла
       migrate: (state, version) => {
         let cur = state as Partial<FamilyState>;
@@ -246,9 +249,10 @@ export const useFamily = create<FamilyState>()(
             visitedPlaces: (cur.visitedPlaces ?? []).filter((x) => x !== "park-gorkogo" || kids.length > 0),
           };
         }
-        if (version < 3) cur = { ...cur, transportAuto: (cur.transport ?? "transit") === "transit" };
-        if (version < 4) {
-          // v4: «Хочу сюда» стало сущностью с источником — переносим старые хотелки и «уже были»
+        if (version < 3) cur = { ...cur, transportAuto: (cur.transport ?? "transit") === "transit", geoScope: "moscow" };
+        if (version < 4) cur = { ...cur, geoScope: cur.geoScope ?? "moscow" };
+        if (version < 5) {
+          // v5: «Хочу сюда» стало сущностью с источником — переносим старые хотелки и «уже были»
           const now = new Date().toISOString();
           const intents: Record<string, PlaceIntent> = {};
           const mk = (slug: string, status: IntentStatus): PlaceIntent => ({

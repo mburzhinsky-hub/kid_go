@@ -1,6 +1,9 @@
 import type { Place, OpeningHours, Review, CategoryId } from "@/lib/types";
 import { PH, ph } from "./photos";
 import { buildPlaces } from "./extra";
+import { isPublishableBasePlace, trustForBasePlace } from "./trust";
+import { auditForPlace, isAuditedPublicPlace, trustedPlaceTags } from "./source-audit";
+import { applyEditorialFacts } from "./editorial";
 
 /**
  * Демо-база мест (Москва). Названия известных мест реальные, часть заведений
@@ -70,16 +73,46 @@ function place(s: Seed): Place {
   counter += 1;
   const level = s.price_max === 0 ? 0 : s.price_max <= 600 ? 1 : s.price_max <= 1500 ? 2 : 3;
   const weather = s.weather_tags ?? (s.indoor && !s.outdoor ? ["rain", "cold", "any"] : s.indoor ? ["any", "rain", "sun"] : ["sun", "any"]);
+  const trust = trustForBasePlace(s.slug);
+  const audit = auditForPlace(s.slug);
+  const verifiedFields = audit?.verified_fields ?? [];
+  const verifiedFamilyFields = audit?.verified_family_fields ?? [];
+  const broadType: Place["place_type"] =
+    s.category === "play" ? "play_center" :
+    s.category === "active" ? "active" :
+    s.category === "animals" ? (s.slug === "moskvarium" ? "aquarium" : "zoo") :
+    s.category === "cafe" ? "cafe" :
+    s.category === "shop" ? "shop" :
+    s.category;
   return {
     id: `p${String(counter).padStart(2, "0")}`,
     price_level: (s.price_level ?? level) as Place["price_level"],
     tint: s.tint ?? TINTS[s.category],
-    toilets: s.toilets ?? true,
-    wardrobe: s.wardrobe ?? s.indoor,
+    toilets: s.toilets ?? false,
+    wardrobe: s.wardrobe ?? false,
     weather_tags: weather,
     season_tags: s.season_tags ?? ["spring", "summer", "autumn", "winter"],
-    reviews: s.reviews ?? REVIEW_POOL[s.category],
     ...s,
+    // Старый seed содержал демонстрационные рейтинги/отзывы. Не выдаём их за реальный social proof.
+    rating: 0,
+    review_count: 0,
+    rating_source: undefined,
+    reviews: [],
+    source: audit?.source ?? trust.source,
+    source_name: trust.sourceName,
+    verified_at: audit?.checked_at ?? trust.verifiedAt,
+    verification_status: trust.confidence === "demo" ? "demo" : "partial",
+    verification_note: audit?.status === "reviewed" && audit.identity
+      ? "Существование места проверено по публичному источнику. Точные поля отмечаются отдельно."
+      : trust.note,
+    verified_fields: verifiedFields,
+    confidence: trust.confidence,
+    place_type: broadType,
+    tags: trustedPlaceTags(s.tags ?? [], verifiedFields, verifiedFamilyFields),
+    // Неподтверждённые family-поля не попадают в публичные факты.
+    // Если поле подтверждено source audit, его значение можно показывать как yes/no.
+    unknown_fields: (["stroller_friendly", "baby_room", "kids_menu", "parking", "toilets", "wardrobe", "booking_required"] as const)
+      .filter((field) => !verifiedFamilyFields.includes(field)),
   } as Place;
 }
 
@@ -259,15 +292,15 @@ const SEED_PLACES: Place[] = [
     tags: ["Профессии", "Мастер-классы", "4–12 лет", "В помещении"],
   }),
   place({
-    title: "Пиратская площадка в Нескучном саду",
+    title: "Площадка «Стройка» в Нескучном саду",
     slug: "piratskaya-ploshchadka",
     season_tags: ["spring", "summer", "autumn"],
-    subtitle: "Большая деревянная площадка",
+    subtitle: "Тематическая площадка с экскаватором и краном",
     description:
-      "Деревянный пиратский корабль с мачтами, канатами и горками посреди старого парка. Рядом песочница, качели-гнёзда и площадка для малышей. Бесплатно и в любую погоду, кроме ливня.",
+      "Игровая площадка «Стройка» в Нескучном саду: экскаватор, подъёмный кран, лазалки, песочница и горки. Официальная публикация Парка Горького подтверждает площадку и ориентир входа между домами 22 и 24 по Ленинскому проспекту.",
     latitude: 55.7192,
     longitude: 37.5935,
-    address: "Ленинский пр-т, 30А, Нескучный сад",
+    address: "Нескучный сад, вход между Ленинским проспектом, 22 и 24",
     metro: "Ленинский проспект",
     category: "play",
     photos: [
@@ -276,7 +309,7 @@ const SEED_PLACES: Place[] = [
       ph(PH.girlSwing, "Качели"),
       ph(PH.childClimbPlayground, "Лазалки"),
     ],
-    emoji: "🏴‍☠️",
+    emoji: "🏗️",
     rating: 4.7,
     review_count: 640,
     price_min: 0,
@@ -297,9 +330,9 @@ const SEED_PLACES: Place[] = [
     opening_hours: always,
     toilets: true,
     wardrobe: false,
-    interest_tags: ["sport", "fairy", "nature"],
-    experience_tags: ["playzone", "free", "walk"],
-    tags: ["Бесплатно", "На улице", "Песочница", "2–10 лет"],
+    interest_tags: ["construction", "sport", "nature"],
+    experience_tags: ["playzone", "walk"],
+    tags: ["Площадка «Стройка»", "На улице", "Песочница", "2–10 лет"],
   }),
 
   /* ───────────── Парки ───────────── */
@@ -488,8 +521,8 @@ const SEED_PLACES: Place[] = [
     emoji: "🌴",
     rating: 4.7,
     review_count: 1900,
-    price_min: 400,
-    price_max: 700,
+    price_min: 350,
+    price_max: 600,
     family_budget: 1800,
     age_min: 2,
     age_max: 12,
@@ -530,8 +563,8 @@ const SEED_PLACES: Place[] = [
     rating: 4.7,
     review_count: 6800,
     price_min: 0,
-    price_max: 800,
-    family_budget: 1500,
+    price_max: 0,
+    family_budget: 0,
     age_min: 0,
     age_max: 12,
     average_duration: 150,
@@ -588,7 +621,7 @@ const SEED_PLACES: Place[] = [
     kids_menu: false,
     parking: true,
     booking_required: false,
-    opening_hours: closedMon("10:00", "18:00"),
+    opening_hours: [null, null, ["10:00", "18:00"], ["10:00", "18:00"], ["10:00", "18:00"], ["10:00", "18:00"], ["10:00", "18:00"]],
     interest_tags: ["dinosaurs", "science", "nature"],
     experience_tags: ["unusual"],
     tags: ["Динозавры", "Квест", "От 4 лет", "В помещении"],
@@ -614,7 +647,7 @@ const SEED_PLACES: Place[] = [
     emoji: "🚀",
     rating: 4.7,
     review_count: 4500,
-    price_min: 250,
+    price_min: 0,
     price_max: 500,
     family_budget: 1500,
     age_min: 5,
@@ -629,7 +662,7 @@ const SEED_PLACES: Place[] = [
     kids_menu: false,
     parking: true,
     booking_required: false,
-    opening_hours: closedMon("10:00", "20:00"),
+    opening_hours: [["10:00", "19:00"], ["10:00", "19:00"], ["10:00", "19:00"], ["10:00", "21:00"], ["10:00", "19:00"], ["10:00", "21:00"], ["10:00", "19:00"]],
     interest_tags: ["space", "science", "transport"],
     experience_tags: ["unusual"],
     tags: ["Космос", "Интерактив", "От 5 лет", "В помещении"],
@@ -654,8 +687,8 @@ const SEED_PLACES: Place[] = [
     emoji: "🦋",
     rating: 4.8,
     review_count: 2600,
-    price_min: 300,
-    price_max: 700,
+    price_min: 0,
+    price_max: 600,
     family_budget: 1800,
     age_min: 3,
     age_max: 12,
@@ -669,7 +702,7 @@ const SEED_PLACES: Place[] = [
     kids_menu: false,
     parking: false,
     booking_required: false,
-    opening_hours: closedMon("10:00", "19:00"),
+    opening_hours: closedMon("10:00", "18:00"),
     interest_tags: ["animals", "nature", "science", "dinosaurs"],
     experience_tags: ["unusual", "workshop"],
     tags: ["Природа", "Квесты", "От 3 лет", "В помещении"],
@@ -682,7 +715,7 @@ const SEED_PLACES: Place[] = [
       "Более 300 интерактивных экспонатов: гигантские мыльные пузыри, плазменные шары, оптические иллюзии и механика. Каждый час — научное шоу с жидким азотом.",
     latitude: 55.8049,
     longitude: 37.5112,
-    address: "Ленинградский пр-т, 80, корп. 11",
+    address: "Ленинградский просп., 80, к. 11",
     metro: "Сокол",
     category: "museum",
     photos: [
@@ -735,8 +768,8 @@ const SEED_PLACES: Place[] = [
     emoji: "🪐",
     rating: 4.7,
     review_count: 3200,
-    price_min: 600,
-    price_max: 1200,
+    price_min: 350,
+    price_max: 1100,
     family_budget: 3600,
     age_min: 4,
     age_max: 12,
@@ -750,7 +783,7 @@ const SEED_PLACES: Place[] = [
     kids_menu: false,
     parking: false,
     booking_required: true,
-    opening_hours: closedMon("10:00", "21:00"),
+    opening_hours: [["10:00", "21:00"], null, ["10:00", "21:00"], ["10:00", "21:00"], ["10:00", "21:00"], ["10:00", "21:00"], ["10:00", "21:00"]],
     interest_tags: ["space", "science"],
     experience_tags: ["show", "unusual"],
     tags: ["Космос", "Кино под куполом", "От 4 лет", "В помещении"],
@@ -819,7 +852,7 @@ const SEED_PLACES: Place[] = [
     rating: 4.9,
     review_count: 12400,
     price_min: 0,
-    price_max: 900,
+    price_max: 2000,
     family_budget: 1800,
     age_min: 0,
     age_max: 12,
@@ -833,7 +866,7 @@ const SEED_PLACES: Place[] = [
     kids_menu: true,
     parking: false,
     booking_required: false,
-    opening_hours: daily("09:00", "19:00"),
+    opening_hours: daily("07:30", "19:00"),
     wardrobe: false,
     interest_tags: ["animals", "nature"],
     experience_tags: ["walk", "food"],
@@ -861,8 +894,8 @@ const SEED_PLACES: Place[] = [
     emoji: "🐬",
     rating: 4.6,
     review_count: 1900,
-    price_min: 900,
-    price_max: 2400,
+    price_min: 0,
+    price_max: 1700,
     family_budget: 6400,
     age_min: 0,
     age_max: 12,
@@ -1013,9 +1046,9 @@ const SEED_PLACES: Place[] = [
     subtitle: "Детские трассы и тренировки",
     description:
       "Детский скалодром с яркими трассами разной сложности, автостраховкой и тренерами. Первое занятие — с инструктором. Ребёнок уходит усталым и очень гордым.",
-    latitude: 55.7402,
-    longitude: 37.527,
-    address: "Кутузовский пр-т, 36, стр. 13/14",
+    latitude: 55.73986,
+    longitude: 37.527045,
+    address: "Кутузовский проспект, 36, стр. 13/14",
     metro: "Кутузовская",
     category: "active",
     photos: [
@@ -1042,7 +1075,15 @@ const SEED_PLACES: Place[] = [
     kids_menu: false,
     parking: true,
     booking_required: true,
-    opening_hours: [["15:00", "23:00"], ["15:00", "23:00"], ["15:00", "23:00"], ["15:00", "23:00"], ["15:00", "23:00"], ["10:00", "22:00"], ["10:00", "22:00"]],
+    opening_hours: [
+      ["15:00", "23:00"],
+      ["15:00", "23:00"],
+      ["15:00", "23:00"],
+      ["15:00", "23:00"],
+      ["15:00", "23:00"],
+      ["11:00", "22:00"],
+      ["11:00", "22:00"],
+    ],
     interest_tags: ["sport"],
     experience_tags: ["unusual"],
     tags: ["Скалолазание", "С тренером", "От 5 лет", "В помещении"],
@@ -1082,7 +1123,7 @@ const SEED_PLACES: Place[] = [
     kids_menu: false,
     parking: true,
     booking_required: false,
-    opening_hours: daily("10:00", "20:00"),
+    opening_hours: daily("10:00", "21:00"),
     season_tags: ["spring", "summer", "autumn"],
     wardrobe: false,
     interest_tags: ["sport", "nature"],
@@ -1531,7 +1572,7 @@ const SEED_PLACES: Place[] = [
     kids_menu: true,
     parking: true,
     booking_required: false,
-    opening_hours: daily("10:00", "22:00"),
+    opening_hours: [["10:00", "22:00"], ["10:00", "22:00"], ["10:00", "22:00"], ["10:00", "22:00"], ["10:00", "23:00"], ["10:00", "23:00"], ["10:00", "22:00"]],
     price_level: 2,
     interest_tags: ["construction", "transport", "fairy"],
     experience_tags: ["toys", "unusual", "food"],
@@ -1662,8 +1703,20 @@ const SEED_PLACES: Place[] = [
   }),
 ];
 
-/** Редакторские места из `extra/*.json` (Подмосковье и районы Москвы) идут вслед за демо-набором. */
-export const places: Place[] = [...SEED_PLACES, ...buildPlaces(SEED_PLACES.length, new Set(SEED_PLACES.map((p) => p.slug)))];
+const REMOVED_EDITORIAL_SLUGS = new Set(["joki-joya", "katok-na-poyme-pavshino"]);
+
+/** В production публикуем только базовые места, прошедшие редакторскую проверку; demo-записи остаются в истории кода, но не попадают в каталог. */
+const PUBLISHABLE_SEED_PLACES = SEED_PLACES.filter(
+  (p) => !REMOVED_EDITORIAL_SLUGS.has(p.slug) && isPublishableBasePlace(p.slug) && isAuditedPublicPlace(p.slug)
+);
+
+/** Редакторские места из `extra/*.json` (Подмосковье и районы Москвы) идут вслед за проверенным базовым набором. */
+export const places: Place[] = [
+  ...PUBLISHABLE_SEED_PLACES,
+  ...buildPlaces(PUBLISHABLE_SEED_PLACES.length, new Set(PUBLISHABLE_SEED_PLACES.map((p) => p.slug))),
+]
+  .filter((p) => !REMOVED_EDITORIAL_SLUGS.has(p.slug))
+  .map(applyEditorialFacts);
 
 export const placeById = new Map(places.map((p) => [p.id, p]));
 export const placeBySlug = new Map(places.map((p) => [p.slug, p]));

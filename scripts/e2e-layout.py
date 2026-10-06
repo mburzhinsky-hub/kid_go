@@ -20,7 +20,7 @@ ROUTES = [
     ("/planner/results?s=science", "results", True),
     ("/planner/results?s=science&wide=1", "results-wide", True),
     ("/scenarios", "scenarios", True),
-    ("/day?steps=moskovsky-zoopark,kafe-zelyony-slon&title=Тест&emoji=%F0%9F%8C%BF&start=12:00&d=90,60", "day", True),
+    ("/day?steps=moskovsky-zoopark,jooie-presnya&title=Тест&emoji=%F0%9F%8C%BF&start=12:00&d=90,60", "day", True),
 ]
 problems = []
 

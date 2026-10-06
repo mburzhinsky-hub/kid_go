@@ -25,6 +25,8 @@ export function LocationSheet({ open, onClose }: { open: boolean; onClose: () =>
   const home = useFamily((s) => s.home);
   const setOrigin = useFamily((s) => s.setOrigin);
   const setHome = useFamily((s) => s.setHome);
+  const geoScope = useFamily((s) => s.geoScope);
+  const setPrefs = useFamily((s) => s.setPrefs);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saveHome, setSaveHome] = useState(!home);
@@ -87,25 +89,41 @@ export function LocationSheet({ open, onClose }: { open: boolean; onClose: () =>
     <>
     <BottomSheet open={open && !picking} onClose={onClose} title="Где ищем?">
       <p className="-mt-1 text-[14.5px] leading-snug text-muted">
-        По умолчанию — вся Москва: показываем лучшее по городу, дорогу не считаем. Выберите округ или точку, если нужно «рядом».
+        Сразу выберите охват: только Москва или Москва вместе с Подмосковьем. Для «рядом» можно указать округ, город или точный адрес.
       </p>
 
-      <button
-        onClick={() => {
-          track("location_set", { source: "any" });
-          choose(DEFAULT_ORIGIN, false);
-        }}
-        className={cn("press mt-3.5 flex w-full items-center gap-3 rounded-[18px] p-3.5 text-left", origin.source === "default" ? "bg-ink text-white" : "bg-surface shadow-card")}
-      >
-        <span className={cn("grid h-11 w-11 place-items-center rounded-full", origin.source === "default" ? "bg-white/15" : "bg-fill")}>
-          <Globe2 size={21} />
-        </span>
-        <span className="flex-1">
-          <span className="block text-[16px] font-bold">Вся Москва</span>
-          <span className={cn("text-[13px]", origin.source === "default" ? "text-white/75" : "text-muted")}>без привязки к месту — лучшие идеи города</span>
-        </span>
-        {origin.source === "default" && <Check size={20} />}
-      </button>
+      <div className="mt-3.5 grid grid-cols-2 gap-2">
+        <button
+          onClick={() => {
+            track("location_set", { source: "any", scope: "moscow" });
+            setPrefs({ geoScope: "moscow" });
+            choose(DEFAULT_ORIGIN, false);
+          }}
+          className={cn("press rounded-[18px] p-3.5 text-left", origin.source === "default" && geoScope === "moscow" ? "bg-ink text-white" : "bg-surface shadow-card")}
+        >
+          <span className={cn("grid h-10 w-10 place-items-center rounded-full", origin.source === "default" && geoScope === "moscow" ? "bg-white/15" : "bg-fill")}>
+            <Globe2 size={20} />
+          </span>
+          <span className="mt-2 block text-[15.5px] font-bold">Москва</span>
+          <span className={cn("mt-0.5 block text-[12.5px] leading-snug", origin.source === "default" && geoScope === "moscow" ? "text-white/75" : "text-muted")}>лучшие идеи в городе</span>
+          {origin.source === "default" && geoScope === "moscow" && <Check size={18} className="mt-2" />}
+        </button>
+        <button
+          onClick={() => {
+            track("location_set", { source: "any", scope: "moscow-region" });
+            setPrefs({ geoScope: "moscow-region" });
+            choose(DEFAULT_ORIGIN, false);
+          }}
+          className={cn("press rounded-[18px] p-3.5 text-left", origin.source === "default" && geoScope === "moscow-region" ? "bg-purple text-white" : "bg-purple-50 text-ink shadow-card")}
+        >
+          <span className={cn("grid h-10 w-10 place-items-center rounded-full", origin.source === "default" && geoScope === "moscow-region" ? "bg-white/15" : "bg-white text-purple")}>
+            <MapPin size={20} />
+          </span>
+          <span className="mt-2 block text-[15.5px] font-bold">Москва + область</span>
+          <span className={cn("mt-0.5 block text-[12.5px] leading-snug", origin.source === "default" && geoScope === "moscow-region" ? "text-white/75" : "text-muted")}>Красногорск, Истра, Одинцово и другие</span>
+          {origin.source === "default" && geoScope === "moscow-region" && <Check size={18} className="mt-2" />}
+        </button>
+      </div>
 
       <p className="mt-5 text-[14px] font-bold text-ink-2">Или округ — условно</p>
       <div className="mt-2 grid grid-cols-2 gap-2">

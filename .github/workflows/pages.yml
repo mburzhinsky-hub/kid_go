@@ -27,6 +27,10 @@ jobs:
         with:
           enablement: true
       - run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Content trust validation
+        run: npm run validate:data
       - name: Engine evaluation (0 нарушений, разнообразие, полнота дня)
         run: npm run eval
       - name: Audit of scenarios and filters (77 сценариев × условия × режимы места)
@@ -41,7 +45,7 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
           NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
         run: |
-          rm -rf src/app/api   # серверные API-роуты не нужны в статической выгрузке
+          rm -rf src/app/api src/app/admin   # серверные API и внутренний кабинет не публикуем в статической выгрузке
           npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

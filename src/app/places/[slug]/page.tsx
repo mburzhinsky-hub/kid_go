@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MapPin, Navigation, CalendarDays } from "lucide-react";
+import { MapPin, Navigation, CalendarDays, UtensilsCrossed } from "lucide-react";
 import { repo } from "@/lib/data/repository";
 import { allPlaces } from "@/lib/data/repository";
 import { HeroGallery, PhotoGallery } from "@/components/place/PhotoGallery";
@@ -18,18 +18,21 @@ import { AdventureCard } from "@/components/cards/AdventureCard";
 import { adventureCardData } from "@/lib/cards";
 import { whatNextGroups } from "@/lib/what-next";
 import { TravelBadge } from "@/components/ui/TravelBadge";
-import { categoryDef } from "@/lib/catalog";
+import { categoryDef, placeTypeName } from "@/lib/catalog";
 import { formatAgeRange, formatPrice } from "@/lib/format";
+
+type PlacePageProps = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
   return allPlaces.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/places/[slug]">): Promise<Metadata> {
+export async function generateMetadata({ params }: PlacePageProps): Promise<Metadata> {
   const { slug } = await params;
   const place = await repo.getPlace(slug);
   if (!place) return {};
-  const description = `${place.subtitle}. ${formatAgeRange(place.age_min, place.age_max)}, ${place.address}. ${place.description.slice(0, 120)}…`;
+  const addressVerified = place.verified_fields?.includes("address") ?? false;
+  const description = `${place.subtitle}. ${formatAgeRange(place.age_min, place.age_max)}${addressVerified ? `, ${place.address}` : ""}. ${place.description.slice(0, 120)}…`;
   return {
     title: `${place.title} — ${place.subtitle.toLowerCase()}`,
     description,
@@ -42,7 +45,7 @@ export async function generateMetadata({ params }: PageProps<"/places/[slug]">):
   };
 }
 
-export default async function PlacePage({ params }: PageProps<"/places/[slug]">) {
+export default async function PlacePage({ params }: PlacePageProps) {
   const { slug } = await params;
   const place = await repo.getPlace(slug);
   if (!place) notFound();
@@ -52,6 +55,11 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
   const inAdventures = adventures.filter((a) => a.steps.some((s) => s.place_id === place.id));
   const placeEvents = events.filter((e) => e.place_id === place.id);
   const cat = categoryDef(place.category);
+  const typeLabel = placeTypeName(place.place_type) ?? cat.name;
+  const verified = new Set(place.verified_fields ?? []);
+  const addressVerified = verified.has("address");
+  const priceVerified = verified.has("price");
+  const hoursVerified = verified.has("opening_hours");
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -59,11 +67,19 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
     name: place.title,
     description: place.description,
     image: place.photos.map((p) => p.src),
-    address: { "@type": "PostalAddress", streetAddress: place.address, addressLocality: "Москва", addressCountry: "RU" },
-    geo: { "@type": "GeoCoordinates", latitude: place.latitude, longitude: place.longitude },
-    ...(place.review_count > 0 ? { aggregateRating: { "@type": "AggregateRating", ratingValue: place.rating, reviewCount: place.review_count } } : {}),
-    isAccessibleForFree: place.price_max === 0,
-    priceRange: place.price_max === 0 ? "Бесплатно" : `${formatPrice(place.price_min)}–${formatPrice(place.price_max)}`,
+    ...(addressVerified
+      ? {
+          address: { "@type": "PostalAddress", streetAddress: place.address, addressLocality: place.region === "mo" ? place.town ?? "Московская область" : "Москва", addressCountry: "RU" },
+          geo: { "@type": "GeoCoordinates", latitude: place.latitude, longitude: place.longitude },
+        }
+      : {}),
+    ...(place.review_count > 0 && place.rating_source ? { aggregateRating: { "@type": "AggregateRating", ratingValue: place.rating, reviewCount: place.review_count } } : {}),
+    ...(priceVerified
+      ? {
+          isAccessibleForFree: place.price_max === 0,
+          priceRange: place.price_max === 0 ? "Бесплатно" : `${formatPrice(place.price_min)}–${formatPrice(place.price_max)}`,
+        }
+      : {}),
   };
 
   return (
@@ -83,9 +99,9 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
         <header className="pt-5">
           <div className="flex items-center gap-2">
             <span className="inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold" style={{ background: cat.bg, color: cat.fg }}>
-              <cat.Icon width={14} height={14} /> {cat.name}
+              <cat.Icon width={14} height={14} /> {typeLabel}
             </span>
-            <OpenStatus hours={place.opening_hours} />
+            {hoursVerified && <OpenStatus hours={place.opening_hours} />}
           </div>
           <h1 className="tight mt-2.5 text-[31px] font-[850] leading-[1.08]">{place.title}</h1>
           <p className="mt-1 text-[18px] text-[#6b6f7c]">{place.subtitle}</p>
@@ -115,23 +131,37 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
           </div>
         )}
 
-        <div className="mt-3 flex items-center gap-3 rounded-[22px] bg-fill-2 py-3 pl-3.5 pr-3 ring-1 ring-line">
-          <MapPin size={28} strokeWidth={2} className="shrink-0 text-green" />
-          <div className="min-w-0 flex-1">
-            <p className="line-clamp-2 text-[15.5px] font-semibold leading-tight">{place.address}</p>
-            <p className="mt-0.5 truncate text-[13.5px] text-muted">
-              <TravelBadge place={place} long className="text-[13.5px]" />{place.metro ? ` · м. ${place.metro}` : ""}
-            </p>
+        {addressVerified && (
+          <div className="mt-3 flex items-center gap-3 rounded-[22px] bg-fill-2 py-3 pl-3.5 pr-3 ring-1 ring-line">
+            <MapPin size={28} strokeWidth={2} className="shrink-0 text-green" />
+            <div className="min-w-0 flex-1">
+              <p className="line-clamp-2 text-[15.5px] font-semibold leading-tight">{place.address}</p>
+              <p className="mt-0.5 truncate text-[13.5px] text-muted">
+                <TravelBadge place={place} long className="text-[13.5px]" />{place.metro ? ` · м. ${place.metro}` : ""}
+              </p>
+            </div>
+            <a
+              href={routeUrl(place.latitude, place.longitude)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="press inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full bg-blue-50 px-3.5 text-[14.5px] font-semibold text-blue"
+            >
+              <Navigation size={15} /> Как добраться
+            </a>
           </div>
+        )}
+
+        {place.menu_url && (
           <a
-            href={routeUrl(place.latitude, place.longitude)}
+            href={place.menu_url}
             target="_blank"
-            rel="noopener noreferrer"
-            className="press inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full bg-blue-50 px-3.5 text-[14.5px] font-semibold text-blue"
+            rel="noreferrer"
+            className="press mt-3 flex h-12 items-center justify-center gap-2 rounded-full bg-orange-50 px-4 text-[14.5px] font-semibold text-[#b45a12]"
           >
-            <Navigation size={15} /> Как добраться
+            <UtensilsCrossed size={17} />
+            {place.category === "cafe" ? "Посмотреть меню" : "Где поесть / меню"}
           </a>
-        </div>
+        )}
 
         {placeEvents.length > 0 && (
           <section className="mt-8">
@@ -145,8 +175,13 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
                   <div className="min-w-0 flex-1">
                     <p className="text-[15px] font-semibold leading-tight">{e.title}</p>
                     <p className="text-[13px] text-ink-2">
-                      {e.start_at.slice(11, 16)}–{e.end_at.slice(11, 16)} · {e.price ? formatPrice(e.price) : "бесплатно"} · {formatAgeRange(e.age_min, e.age_max)}
+                      {new Date(e.start_at).toLocaleDateString("ru-RU", { day: "numeric", month: "short", timeZone: "Europe/Moscow" })} · {e.start_at.slice(11, 16)}–{e.end_at.slice(11, 16)} · {e.price ? formatPrice(e.price) : "бесплатно"} · {formatAgeRange(e.age_min, e.age_max)}
                     </p>
+                    {e.source && (
+                      <a href={e.source} target="_blank" rel="noreferrer" className="mt-0.5 inline-block text-[12px] font-semibold text-muted underline underline-offset-2">
+                        источник программы
+                      </a>
+                    )}
                   </div>
                 </li>
               ))}
@@ -183,12 +218,14 @@ export default async function PlacePage({ params }: PageProps<"/places/[slug]">)
           </section>
         )}
 
-        <section className="mt-9">
-          <h2 className="tight text-[24px] font-[800]">Отзывы родителей</h2>
-          <div className="mt-3.5">
-            <Reviews place={place} />
-          </div>
-        </section>
+        {((place.rating > 0 && !!place.rating_source) || place.reviews.length > 0) && (
+          <section className="mt-9">
+            <h2 className="tight text-[24px] font-[800]">Отзывы</h2>
+            <div className="mt-3.5">
+              <Reviews place={place} />
+            </div>
+          </section>
+        )}
       </article>
 
       {nearby.length > 0 && (

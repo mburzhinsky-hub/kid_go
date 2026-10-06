@@ -226,7 +226,7 @@ for (const a of allAdventures) {
   if (!(a.steps.length >= 2)) E(k, `шагов: ${a.steps.length}`);
   if (!HHMM.test(a.start_time)) E(k, `start_time ${a.start_time}`);
   if (!(a.age_min >= 0 && a.age_max >= a.age_min)) E(k, `возраст ${a.age_min}–${a.age_max}`);
-  if (!(a.recommend_percent >= 50 && a.recommend_percent <= 100)) W(k, `recommend ${a.recommend_percent}`);
+  if (a.recommend_percent != null && !(a.recommend_percent >= 50 && a.recommend_percent <= 100)) W(k, `recommend ${a.recommend_percent}`);
   const places = a.steps.map((s) => byId.get(s.place_id));
   places.forEach((p, i) => {
     if (!p) return E(k, `шаг ${i + 1}: нет места ${a.steps[i].place_id}`);

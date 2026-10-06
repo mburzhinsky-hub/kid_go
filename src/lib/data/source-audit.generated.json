@@ -1,0 +1,2177 @@
+{
+  "_meta": {
+    "generated_at": "2026-10-05",
+    "records": 131,
+    "completed": 131,
+    "rule": "A public venue is publishable only after source-backed identity confirmation. Price, hours and family amenities are shown as facts only when separately evidenced on the audited source.",
+    "reviewed": 131,
+    "unresolved": 0,
+    "dynamic_fields_policy": "Price/hours are exact only for manually reviewed sources; other stored values remain internal estimates and must not render as verified facts.",
+    "field_level_evidence": "verified_fields now carry field_sources; dynamic fields use their exact official tariff/visitor/contact page when available."
+  },
+  "centralny-detsky-magazin": {
+    "source": "https://cdm-moscow.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://cdm-moscow.ru/",
+      "opening_hours": "https://cdm-moscow.ru/visit"
+    }
+  },
+  "panda-park-sokolniki": {
+    "source": "https://pandapark.org/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://pandapark.org/",
+      "address": "https://pandapark.org/",
+      "opening_hours": "https://pandapark.org/pandapark-sokolniki/"
+    }
+  },
+  "skalodrom-skala-siti": {
+    "source": "https://www.skala-city.ru/",
+    "checked_at": "2026-10-06",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://www.skala-city.ru/",
+      "address": "https://skala-city.ru/contact",
+      "opening_hours": "https://skala-city.ru/contact"
+    }
+  },
+  "moskvarium": {
+    "source": "https://moskvarium.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://moskvarium.ru/",
+      "address": "https://moskvarium.ru/contacts/",
+      "price": "https://moskvarium.ru/prices/",
+      "opening_hours": "https://moskvarium.ru/contacts/"
+    }
+  },
+  "moskovsky-zoopark": {
+    "source": "https://moscowzoo.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://moscowzoo.ru/",
+      "address": "https://moscowzoo.ru/",
+      "price": "https://moscowzoo.ru/visitors/tickets",
+      "opening_hours": "https://moscowzoo.ru/visitors/tickets"
+    }
+  },
+  "muzey-transporta": {
+    "source": "https://mtmuseum.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://mtmuseum.ru/",
+      "address": "https://mtmuseum.ru/contacts/",
+      "opening_hours": "https://mtmuseum.ru/contacts/"
+    }
+  },
+  "moskovsky-planetariy": {
+    "source": "https://planetarium-moscow.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://planetarium-moscow.ru/",
+      "address": "https://planetarium-moscow.ru/contacts",
+      "price": "https://planetarium-moscow.ru/visitors/prices",
+      "opening_hours": "https://planetarium-moscow.ru/contacts"
+    }
+  },
+  "eksperimentanium": {
+    "source": "https://experimentanium.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://experimentanium.ru/",
+      "address": "https://experimentanium.ru/visitors/",
+      "opening_hours": "https://experimentanium.ru/visitors/"
+    }
+  },
+  "darvinovsky-muzey": {
+    "source": "https://www.darwinmuseum.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://www.darwinmuseum.ru/",
+      "address": "https://www.darwinmuseum.ru/price",
+      "price": "https://www.darwinmuseum.ru/price",
+      "opening_hours": "https://www.darwinmuseum.ru/price"
+    }
+  },
+  "muzey-kosmonavtiki": {
+    "source": "https://kosmo-museum.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://kosmo-museum.ru/",
+      "address": "https://kosmo-museum.ru/",
+      "price": "https://kosmo-museum.ru/static_pages/stoimost-biletov",
+      "opening_hours": "https://kosmo-museum.ru/static_pages/stoimost-biletov"
+    }
+  },
+  "paleontologichesky-muzey": {
+    "source": "https://www.paleo.ru/museum/visitors/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://www.paleo.ru/museum/visitors/",
+      "price": "https://www.paleo.ru/museum/visitors/",
+      "opening_hours": "https://www.paleo.ru/museum/visitors/"
+    }
+  },
+  "vdnh": {
+    "source": "https://vdnh.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://vdnh.ru/",
+      "price": "https://vdnh.ru/visitors/about/",
+      "opening_hours": "https://vdnh.ru/visitors/about/"
+    }
+  },
+  "aptekarsky-ogorod": {
+    "source": "https://hortus.msu.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://hortus.msu.ru/",
+      "address": "https://hortus.msu.ru/",
+      "price": "https://hortus.msu.ru/ticketprice.html",
+      "opening_hours": "https://hortus.msu.ru/"
+    }
+  },
+  "kolomenskoe": {
+    "source": "https://mgomz.ru/kolomenskoe",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://mgomz.ru/kolomenskoe"
+    }
+  },
+  "park-zaryadye": {
+    "source": "https://welcome.zaryadyepark.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://welcome.zaryadyepark.ru/",
+      "address": "https://welcome.zaryadyepark.ru/"
+    }
+  },
+  "park-gorkogo": {
+    "source": "https://parkgorkogo.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://parkgorkogo.ru/",
+      "opening_hours": "https://parkgorkogo.ru/faq/"
+    }
+  },
+  "park-sokolniki": {
+    "source": "https://parksokolniki.mos.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://parksokolniki.mos.ru/"
+    }
+  },
+  "piratskaya-ploshchadka": {
+    "source": "https://vk.com/@gorkypark-igrovye-ploschadki-v-neskuchnom-sadu-chast-1",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://vk.com/@gorkypark-igrovye-ploschadki-v-neskuchnom-sadu-chast-1",
+      "address": "https://vk.com/@gorkypark-igrovye-ploschadki-v-neskuchnom-sadu-chast-1"
+    }
+  },
+  "joki-joya": {
+    "source": "https://joki-joya.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://joki-joya.ru/"
+    }
+  },
+  "arkhangelskoe": {
+    "source": "https://arhangelskoe.su/for_visitor/working_hours/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://arhangelskoe.su/for_visitor/working_hours/",
+      "address": "https://arhangelskoe.su/for_visitor/working_hours/"
+    }
+  },
+  "norway-park-krasnogorsk": {
+    "source": "https://welcome.mosreg.ru/ideas/progulki-na-vysote-devatietaznogo-doma",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://welcome.mosreg.ru/ideas/progulki-na-vysote-devatietaznogo-doma",
+      "address": "https://welcome.mosreg.ru/ideas/progulki-na-vysote-devatietaznogo-doma"
+    }
+  },
+  "zoolandia-kryuchkovo": {
+    "source": "https://zoolandia-istra.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://zoolandia-istra.ru/",
+      "address": "https://zoolandia-istra.ru/",
+      "price": "https://zoolandia-istra.ru/",
+      "opening_hours": "https://zoolandia-istra.ru/"
+    }
+  },
+  "muzey-novy-ierusalim": {
+    "source": "https://njerusalem.ru/posetitelyam/rezhim-raboty/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://njerusalem.ru/posetitelyam/rezhim-raboty/"
+    }
+  },
+  "air-arena-rigamoll": {
+    "source": "https://airarena.ru/batutnyy-park",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://airarena.ru/batutnyy-park",
+      "price": "https://airarena.ru/batutnyy-park",
+      "opening_hours": "https://airarena.ru/batutnyy-park"
+    }
+  },
+  "muzey-tekhniki-zadorozhnogo": {
+    "source": "https://tmuseum.ru/kontakty/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://tmuseum.ru/kontakty/",
+      "address": "https://tmuseum.ru/kontakty/"
+    }
+  },
+  "muzey-materinstva-ilinskoe": {
+    "source": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+      "address": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/"
+    }
+  },
+  "katok-na-poyme-pavshino": {
+    "source": "https://detinform.ru/katok-na-poyme-v-pavshinskoy-poyme.html",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://detinform.ru/katok-na-poyme-v-pavshinskoy-poyme.html",
+      "address": "https://detinform.ru/katok-na-poyme-v-pavshinskoy-poyme.html"
+    }
+  },
+  "istrinsky-park-kultury": {
+    "source": "https://2gis.ru/istra/firm/70000001060278185",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://2gis.ru/istra/firm/70000001060278185",
+      "address": "https://2gis.ru/istra/firm/70000001060278185"
+    }
+  },
+  "lucky-llama-istra": {
+    "source": "https://2gis.ru/istra/firm/70000001101893486",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://2gis.ru/istra/firm/70000001101893486",
+      "address": "https://2gis.ru/istra/firm/70000001101893486"
+    }
+  },
+  "park-patriot-kubinka": {
+    "source": "https://parkpatriot.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://parkpatriot.ru/",
+      "address": "https://parkpatriot.ru/"
+    }
+  },
+  "detsky-park-malysh-odincovo": {
+    "source": "https://2gis.ru/odintsovo/firm/70000001029426020",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://2gis.ru/odintsovo/firm/70000001029426020",
+      "address": "https://2gis.ru/odintsovo/firm/70000001029426020"
+    }
+  },
+  "misti-park-odintsovo": {
+    "source": "https://mistyparkodi.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "kids_menu"
+    ],
+    "field_sources": {
+      "identity": "https://mistyparkodi.ru/",
+      "address": "https://mistyparkodi.ru/"
+    }
+  },
+  "hippo-land-odintsovo": {
+    "source": "https://www.hippo-land.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "kids_menu"
+    ],
+    "field_sources": {
+      "identity": "https://www.hippo-land.ru/",
+      "address": "https://www.hippo-land.ru/"
+    }
+  },
+  "unaboom-odintsovo": {
+    "source": "https://unaboom.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "kids_menu"
+    ],
+    "field_sources": {
+      "identity": "https://unaboom.ru/",
+      "address": "https://unaboom.ru/"
+    }
+  },
+  "termy-odintsovo": {
+    "source": "https://therms.ru/odincovo",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://therms.ru/odincovo",
+      "address": "https://therms.ru/odincovo"
+    }
+  },
+  "pandapark-meshchersky": {
+    "source": "https://pandapark.org/pandapark-mescherskiy/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://pandapark.org/pandapark-mescherskiy/",
+      "address": "https://pandapark.org/pandapark-mescherskiy/"
+    }
+  },
+  "huskyland-nazarevo": {
+    "source": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
+      "address": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend"
+    }
+  },
+  "muzey-lego-lets-go-zvenigorod": {
+    "source": "https://letsgo-museum.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "parking",
+      "booking_required"
+    ],
+    "field_sources": {
+      "identity": "https://letsgo-museum.ru/",
+      "address": "https://letsgo-museum.ru/"
+    }
+  },
+  "muzey-russkogo-deserta-zvenigorod": {
+    "source": "https://rusdessertmuseum.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "booking_required"
+    ],
+    "field_sources": {
+      "identity": "https://rusdessertmuseum.ru/",
+      "address": "https://rusdessertmuseum.ru/"
+    }
+  },
+  "muzey-nazad-v-sssr-zvenigorod": {
+    "source": "https://ussrmuseum.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ussrmuseum.ru/"
+    }
+  },
+  "usadba-vyazemy-pushkin": {
+    "source": "https://museum-gol.ru/visitors/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://museum-gol.ru/visitors/"
+    }
+  },
+  "park-malevicha-razdory": {
+    "source": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/",
+      "address": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/"
+    }
+  },
+  "park-razdolye-razdory": {
+    "source": "https://odinparki.ru/parks/?id=2991",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://odinparki.ru/parks/?id=2991",
+      "address": "https://odinparki.ru/parks/?id=2991"
+    }
+  },
+  "dom-muzey-prishvina-dunino": {
+    "source": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
+      "address": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
+      "price": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
+      "opening_hours": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/"
+    }
+  },
+  "lunny-kot-zelenograd": {
+    "source": "https://mooncatpark.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://mooncatpark.ru/",
+      "address": "https://mooncatpark.ru/"
+    }
+  },
+  "muzey-lozhki-solnechnogorsk": {
+    "source": "https://welcome.mosreg.ru/ideas/muzej-lozki",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "booking_required"
+    ],
+    "field_sources": {
+      "identity": "https://welcome.mosreg.ru/ideas/muzej-lozki",
+      "address": "https://welcome.mosreg.ru/ideas/muzej-lozki"
+    }
+  },
+  "dolgoprudnensky-muzey": {
+    "source": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei",
+      "address": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei"
+    }
+  },
+  "kidburg-zelenopark": {
+    "source": "https://zelenopark.kidburg.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "booking_required"
+    ],
+    "field_sources": {
+      "identity": "https://zelenopark.kidburg.ru/",
+      "address": "https://zelenopark.kidburg.ru/"
+    }
+  },
+  "peshki-park": {
+    "source": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii",
+      "address": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii"
+    }
+  },
+  "teatr-nash-dom-khimki": {
+    "source": "https://welcome.mosreg.ru/ideas/teatr-nash-dom",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://welcome.mosreg.ru/ideas/teatr-nash-dom",
+      "address": "https://welcome.mosreg.ru/ideas/teatr-nash-dom"
+    }
+  },
+  "park-tolstogo-himki": {
+    "source": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "stroller_friendly",
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
+      "address": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo"
+    }
+  },
+  "park-ekobereg-himki": {
+    "source": "https://2gis.ru/khimki/gallery/firm/70000001060565637",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://2gis.ru/khimki/gallery/firm/70000001060565637"
+    }
+  },
+  "mega-himki-detskie-zony": {
+    "source": "https://star-lab.org/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "price",
+      "opening_hours"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://star-lab.org/",
+      "address": "https://star-lab.org/",
+      "price": "https://star-lab.org/",
+      "opening_hours": "https://star-lab.org/"
+    }
+  },
+  "detmir-mega-himki": {
+    "source": "https://www.detmir.ru/shops/item/id/176/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://www.detmir.ru/shops/item/id/176/",
+      "address": "https://www.detmir.ru/shops/item/id/176/"
+    }
+  },
+  "muzey-igrushki-sergiev-posad": {
+    "source": "https://ru.wikipedia.org/wiki/Музей_игрушки_(Сергиев_Посад)",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Музей_игрушки_(Сергиев_Посад)",
+      "address": "https://ru.wikipedia.org/wiki/Музей_игрушки_(Сергиев_Посад)"
+    }
+  },
+  "abramtsevo": {
+    "source": "https://ru.wikipedia.org/wiki/Абрамцево_(музей-заповедник)",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Абрамцево_(музей-заповедник)",
+      "address": "https://ru.wikipedia.org/wiki/Абрамцево_(музей-заповедник)"
+    }
+  },
+  "melikhovo-chekhov": {
+    "source": "https://chekhovmuseum.com/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://chekhovmuseum.com/"
+    }
+  },
+  "ostafyevo-russky-parnas": {
+    "source": "https://2gis.ru/moscow/firm/70000001018325589",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://2gis.ru/moscow/firm/70000001018325589",
+      "address": "https://2gis.ru/moscow/firm/70000001018325589"
+    }
+  },
+  "dubrovitsy-znamenskaya-cerkov": {
+    "source": "https://2gis.ru/moscow/firm/4504127916750444",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://2gis.ru/moscow/firm/4504127916750444",
+      "address": "https://2gis.ru/moscow/firm/4504127916750444"
+    }
+  },
+  "park-talalikhina-podolsk": {
+    "source": "https://2gis.ru/podolsk/firm/70000001006489201",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://2gis.ru/podolsk/firm/70000001006489201",
+      "address": "https://2gis.ru/podolsk/firm/70000001006489201"
+    }
+  },
+  "ledovy-dvorec-vityaz-podolsk": {
+    "source": "https://2gis.ru/podolsk/firm/4504127912990222",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://2gis.ru/podolsk/firm/4504127912990222",
+      "address": "https://2gis.ru/podolsk/firm/4504127912990222"
+    }
+  },
+  "gorki-leninskie": {
+    "source": "https://2gis.ru/moscow/firm/4504128908501846",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://2gis.ru/moscow/firm/4504128908501846",
+      "address": "https://2gis.ru/moscow/firm/4504128908501846"
+    }
+  },
+  "kolomna-pastila-muzey": {
+    "source": "https://2gis.ru/kolomna/firm/70000001023964852",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "booking_required"
+    ],
+    "field_sources": {
+      "identity": "https://2gis.ru/kolomna/firm/70000001023964852",
+      "address": "https://2gis.ru/kolomna/firm/70000001023964852"
+    }
+  },
+  "kolomna-kreml": {
+    "source": "https://2gis.ru/kolomna/firm/70000001034360438",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://2gis.ru/kolomna/firm/70000001034360438",
+      "address": "https://2gis.ru/kolomna/firm/70000001034360438"
+    }
+  },
+  "kolomna-muzey-lyubimoy-igrushki": {
+    "source": "https://2gis.ru/kolomna/firm/70000001023926045",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://2gis.ru/kolomna/firm/70000001023926045",
+      "address": "https://2gis.ru/kolomna/firm/70000001023926045"
+    }
+  },
+  "troitsk-zarechye": {
+    "source": "https://yandex.ru/maps/org/zarechye/163370592762/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://yandex.ru/maps/org/zarechye/163370592762/",
+      "address": "https://yandex.ru/maps/org/zarechye/163370592762/"
+    }
+  },
+  "natashinsky-park-lyubertsy": {
+    "source": "https://2gis.ru/lyubertsy/firm/70000001022981485",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://2gis.ru/lyubertsy/firm/70000001022981485",
+      "address": "https://2gis.ru/lyubertsy/firm/70000001022981485"
+    }
+  },
+  "politehnichesky-muzey": {
+    "source": "https://ru.wikipedia.org/wiki/Политехнический_музей",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "stroller_friendly"
+    ],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Политехнический_музей",
+      "address": "https://ru.wikipedia.org/wiki/Политехнический_музей"
+    }
+  },
+  "muzey-moskvy": {
+    "source": "https://ru.wikipedia.org/wiki/Музей_Москвы",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Музей_Москвы",
+      "address": "https://ru.wikipedia.org/wiki/Музей_Москвы"
+    }
+  },
+  "muzey-pobedy": {
+    "source": "https://ru.wikipedia.org/wiki/Центральный_музей_Великой_Отечественной_войны",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Центральный_музей_Великой_Отечественной_войны",
+      "address": "https://ru.wikipedia.org/wiki/Центральный_музей_Великой_Отечественной_войны"
+    }
+  },
+  "zoomuzey-msu": {
+    "source": "https://ru.wikipedia.org/wiki/Зоологический_музей_МГУ",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Зоологический_музей_МГУ",
+      "address": "https://ru.wikipedia.org/wiki/Зоологический_музей_МГУ"
+    }
+  },
+  "gim": {
+    "source": "https://ru.wikipedia.org/wiki/Государственный_исторический_музей",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Государственный_исторический_музей",
+      "address": "https://ru.wikipedia.org/wiki/Государственный_исторический_музей"
+    }
+  },
+  "tretyakovka-lavrushinsky": {
+    "source": "https://ru.wikipedia.org/wiki/Государственная_Третьяковская_галерея",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Государственная_Третьяковская_галерея",
+      "address": "https://ru.wikipedia.org/wiki/Государственная_Третьяковская_галерея"
+    }
+  },
+  "pushkinsky-muzey": {
+    "source": "https://ru.wikipedia.org/wiki/Государственный_музей_изобразительных_искусств_имени_А._С._Пушкина",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Государственный_музей_изобразительных_искусств_имени_А._С._Пушкина",
+      "address": "https://ru.wikipedia.org/wiki/Государственный_музей_изобразительных_искусств_имени_А._С._Пушкина"
+    }
+  },
+  "teatr-obrazcova": {
+    "source": "https://puppet.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://puppet.ru/"
+    }
+  },
+  "cirk-nikulina": {
+    "source": "https://circusnikulin.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://circusnikulin.ru/",
+      "address": "https://circusnikulin.ru/"
+    }
+  },
+  "bolshoy-moscow-cirk": {
+    "source": "https://bigcirk.moscow/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "booking_required"
+    ],
+    "field_sources": {
+      "identity": "https://bigcirk.moscow/",
+      "address": "https://bigcirk.moscow/"
+    }
+  },
+  "teatr-sats": {
+    "source": "https://teatr-sats.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://teatr-sats.ru/",
+      "address": "https://teatr-sats.ru/"
+    }
+  },
+  "ugolok-durova": {
+    "source": "https://www.ugolokdurova.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://www.ugolokdurova.ru/",
+      "address": "https://www.ugolokdurova.ru/"
+    }
+  },
+  "dom-muzey-vasnecova": {
+    "source": "https://ru.wikipedia.org/wiki/Дом-музей_В._М._Васнецова",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Дом-музей_В._М._Васнецова",
+      "address": "https://ru.wikipedia.org/wiki/Дом-музей_В._М._Васнецова"
+    }
+  },
+  "ostankino-tower": {
+    "source": "https://ru.wikipedia.org/wiki/Останкинская_телебашня",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Останкинская_телебашня",
+      "address": "https://ru.wikipedia.org/wiki/Останкинская_телебашня"
+    }
+  },
+  "panorama360-federation": {
+    "source": "https://ru.wikipedia.org/wiki/Башня_Федерация",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Башня_Федерация"
+    }
+  },
+  "kidzania-aviapark": {
+    "source": "https://kidzaniamoscow.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://kidzaniamoscow.ru/"
+    }
+  },
+  "katok-vdnh": {
+    "source": "https://ru.wikipedia.org/wiki/ВДНХ",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/ВДНХ"
+    }
+  },
+  "katok-park-gorkogo": {
+    "source": "https://ru.wikipedia.org/wiki/Центральный_парк_культуры_и_отдыха_имени_Горького",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Центральный_парк_культуры_и_отдыха_имени_Горького",
+      "address": "https://ru.wikipedia.org/wiki/Центральный_парк_культуры_и_отдыха_имени_Горького"
+    }
+  },
+  "depo-food-hall": {
+    "source": "https://depomoscow.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://depomoscow.ru/",
+      "address": "https://depomoscow.ru/"
+    }
+  },
+  "danilovsky-rynok": {
+    "source": "https://ru.wikipedia.org/wiki/Даниловский_рынок",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Даниловский_рынок",
+      "address": "https://ru.wikipedia.org/wiki/Даниловский_рынок"
+    }
+  },
+  "dom-knigi-arbat": {
+    "source": "https://ru.wikipedia.org/wiki/Московский_дом_книги",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Московский_дом_книги",
+      "address": "https://ru.wikipedia.org/wiki/Московский_дом_книги"
+    }
+  },
+  "biblio-globus": {
+    "source": "https://ru.wikipedia.org/wiki/Библио-Глобус",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Библио-Глобус",
+      "address": "https://ru.wikipedia.org/wiki/Библио-Глобус"
+    }
+  },
+  "park-druzhby": {
+    "source": "https://walking.sport.mos.ru/parkdruzhby/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://walking.sport.mos.ru/parkdruzhby/"
+    }
+  },
+  "park-fili": {
+    "source": "https://parkfili.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [
+      "baby_room",
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://parkfili.ru/"
+    }
+  },
+  "pandapark-fili": {
+    "source": "https://pandapark.org/pandapark-fili/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://pandapark.org/pandapark-fili/",
+      "address": "https://pandapark.org/pandapark-fili/"
+    }
+  },
+  "krylatskie-kholmy": {
+    "source": "https://ru.wikipedia.org/wiki/Крылатские_холмы",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Крылатские_холмы",
+      "address": "https://ru.wikipedia.org/wiki/Крылатские_холмы"
+    }
+  },
+  "park-pobedy-poklonnaya-gora": {
+    "source": "https://ru.wikipedia.org/wiki/Парк_Победы_(Москва)",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Парк_Победы_(Москва)",
+      "address": "https://ru.wikipedia.org/wiki/Парк_Победы_(Москва)"
+    }
+  },
+  "park-hodynskoe-pole": {
+    "source": "https://ru.wikipedia.org/wiki/Ходынское_поле_(парк)",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Ходынское_поле_(парк)",
+      "address": "https://ru.wikipedia.org/wiki/Ходынское_поле_(парк)"
+    }
+  },
+  "park-severnoe-tushino": {
+    "source": "https://mosparks.ru/about/park-severnoe-tushino",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://mosparks.ru/about/park-severnoe-tushino",
+      "address": "https://mosparks.ru/about/park-severnoe-tushino"
+    }
+  },
+  "tsaritsyno-park": {
+    "source": "https://tsaritsyno-museum.ru/kids-2/kids-infrastructure/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [
+      "baby_room",
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://tsaritsyno-museum.ru/kids-2/kids-infrastructure/"
+    }
+  },
+  "tsaritsyno-verevochny-park": {
+    "source": "https://tsaritsyno-museum.ru/park/sport/verevochnyj-park/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://tsaritsyno-museum.ru/park/sport/verevochnyj-park/",
+      "address": "https://tsaritsyno-museum.ru/park/sport/verevochnyj-park/"
+    }
+  },
+  "ostrov-mechty": {
+    "source": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
+      "address": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8"
+    }
+  },
+  "pokrovskoe-streshnevo": {
+    "source": "https://museum.cpm.moscow/museums/278",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "stroller_friendly"
+    ],
+    "field_sources": {
+      "identity": "https://museum.cpm.moscow/museums/278",
+      "address": "https://museum.cpm.moscow/museums/278"
+    }
+  },
+  "akvapark-moreon": {
+    "source": "https://more-on.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "parking"
+    ],
+    "field_sources": {
+      "identity": "https://more-on.ru/",
+      "address": "https://more-on.ru/"
+    }
+  },
+  "bitsevsky-les": {
+    "source": "https://um.mos.ru/places/prirodno-istoricheskiy-park-bittsevskiy-les/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://um.mos.ru/places/prirodno-istoricheskiy-park-bittsevskiy-les/",
+      "address": "https://um.mos.ru/places/prirodno-istoricheskiy-park-bittsevskiy-les/"
+    }
+  },
+  "izmailovsky-park": {
+    "source": "https://ru.wikipedia.org/wiki/Измайловский_парк",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Измайловский_парк",
+      "address": "https://ru.wikipedia.org/wiki/Измайловский_парк"
+    }
+  },
+  "kuskovo": {
+    "source": "https://ru.wikipedia.org/wiki/Кусково",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "stroller_friendly"
+    ],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Кусково",
+      "address": "https://ru.wikipedia.org/wiki/Кусково"
+    }
+  },
+  "neskuchny-sad": {
+    "source": "https://ru.wikipedia.org/wiki/Нескучный_сад",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Нескучный_сад",
+      "address": "https://ru.wikipedia.org/wiki/Нескучный_сад"
+    }
+  },
+  "muzeon": {
+    "source": "https://ru.wikipedia.org/wiki/Музеон",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Музеон"
+    }
+  },
+  "sad-ermitazh": {
+    "source": "https://www.mosgorsad.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://www.mosgorsad.ru/",
+      "address": "https://www.mosgorsad.ru/"
+    }
+  },
+  "taganskiy-park": {
+    "source": "https://ru.wikipedia.org/wiki/Таганский_парк",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Таганский_парк",
+      "address": "https://ru.wikipedia.org/wiki/Таганский_парк"
+    }
+  },
+  "gbs-ran": {
+    "source": "https://gbsad.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://gbsad.ru/"
+    }
+  },
+  "vorobyovy-gory": {
+    "source": "https://ru.wikipedia.org/wiki/Воробьёвы_горы_(Москва)",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Воробьёвы_горы_(Москва)"
+    }
+  },
+  "kuzminki-park": {
+    "source": "https://ru.wikipedia.org/wiki/Кузьминки_(парк)",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Кузьминки_(парк)",
+      "address": "https://ru.wikipedia.org/wiki/Кузьминки_(парк)"
+    }
+  },
+  "vorontsovsky-park": {
+    "source": "https://ru.wikipedia.org/wiki/Воронцовский_парк",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Воронцовский_парк"
+    }
+  },
+  "park-luzhniki": {
+    "source": "https://www.luzhniki.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://www.luzhniki.ru/"
+    }
+  },
+  "lefortovsky-park": {
+    "source": "https://ru.wikipedia.org/wiki/Лефортовский_парк",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Лефортовский_парк",
+      "address": "https://ru.wikipedia.org/wiki/Лефортовский_парк"
+    }
+  },
+  "lyublino-usadba": {
+    "source": "https://ru.wikipedia.org/wiki/Люблино_(усадьба)",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Люблино_(усадьба)",
+      "address": "https://ru.wikipedia.org/wiki/Люблино_(усадьба)"
+    }
+  },
+  "park-850-moscow": {
+    "source": "https://ru.wikipedia.org/wiki/Парк_850-летия_Москвы",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Парк_850-летия_Москвы",
+      "address": "https://ru.wikipedia.org/wiki/Парк_850-летия_Москвы"
+    }
+  },
+  "borisovskie-prudy": {
+    "source": "https://ru.wikipedia.org/wiki/Борисовские_пруды",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Борисовские_пруды",
+      "address": "https://ru.wikipedia.org/wiki/Борисовские_пруды"
+    }
+  },
+  "izmailovsky-kreml": {
+    "source": "https://ru.wikipedia.org/wiki/Измайловский_кремль",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Измайловский_кремль",
+      "address": "https://ru.wikipedia.org/wiki/Измайловский_кремль"
+    }
+  },
+  "terletsky-park": {
+    "source": "https://ru.wikipedia.org/wiki/Терлецкий_парк",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Терлецкий_парк",
+      "address": "https://ru.wikipedia.org/wiki/Терлецкий_парк"
+    }
+  },
+  "muzey-zhd-tehniki": {
+    "source": "https://museum.cpm.moscow/museums/430",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://museum.cpm.moscow/museums/430",
+      "address": "https://museum.cpm.moscow/museums/430"
+    }
+  },
+  "losiny-ostrov": {
+    "source": "https://losinyiostrov.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://losinyiostrov.ru/",
+      "address": "https://losinyiostrov.ru/"
+    }
+  },
+  "lianozovsky-park": {
+    "source": "https://ru.wikipedia.org/wiki/Лианозовский_парк",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Лианозовский_парк",
+      "address": "https://ru.wikipedia.org/wiki/Лианозовский_парк"
+    }
+  },
+  "ostankino-usadba": {
+    "source": "https://ru.wikipedia.org/wiki/Останкино_(усадьба)",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Останкино_(усадьба)",
+      "address": "https://ru.wikipedia.org/wiki/Останкино_(усадьба)"
+    }
+  },
+  "timiryazevsky-park": {
+    "source": "https://yandex.ru/maps/org/timiryazevskiy_park/127468965054/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://yandex.ru/maps/org/timiryazevskiy_park/127468965054/",
+      "address": "https://yandex.ru/maps/org/timiryazevskiy_park/127468965054/"
+    }
+  },
+  "park-severny-rechnoy": {
+    "source": "https://ru.wikipedia.org/wiki/Северный_речной_вокзал",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Северный_речной_вокзал",
+      "address": "https://ru.wikipedia.org/wiki/Северный_речной_вокзал"
+    }
+  },
+  "serebryany-bor": {
+    "source": "https://xn--90ah2agcb.xn--p1ai/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://xn--90ah2agcb.xn--p1ai/",
+      "address": "https://xn--90ah2agcb.xn--p1ai/"
+    }
+  },
+  "stroginskaya-poima": {
+    "source": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/",
+      "address": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/"
+    }
+  },
+  "mitinsky-park": {
+    "source": "https://ru.wikipedia.org/wiki/Митино",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Митино",
+      "address": "https://ru.wikipedia.org/wiki/Митино"
+    }
+  },
+  "borodinskaya-panorama": {
+    "source": "https://www.1812panorama.ru/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://www.1812panorama.ru/",
+      "address": "https://www.1812panorama.ru/"
+    }
+  },
+  "mosfilm-excursion": {
+    "source": "https://www.mosfilm.ru/excursions/",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address"
+    ],
+    "verified_family_fields": [
+      "stroller_friendly",
+      "booking_required"
+    ],
+    "field_sources": {
+      "identity": "https://www.mosfilm.ru/excursions/",
+      "address": "https://www.mosfilm.ru/excursions/"
+    }
+  },
+  "shkolnoe-ozero-zelenograd": {
+    "source": "https://ru.wikipedia.org/wiki/Зеленоград",
+    "checked_at": "2026-10-05",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://ru.wikipedia.org/wiki/Зеленоград"
+    }
+  }
+}

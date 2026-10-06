@@ -5,6 +5,8 @@ import { SEED_CREATORS } from "@/lib/social/seed";
 import { seedCollectionsOf, seedCreatorByHandle, coverOf, placesOf } from "@/lib/social/catalog";
 
 /** Публичная страница автора: /@username. Страницы демо-авторов предгенерированы (статический экспорт). */
+type HandlePageProps = { params: Promise<{ handle: string }> };
+
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -21,7 +23,7 @@ const resolve = (handle: string) => {
   return h.startsWith("@") ? seedCreatorByHandle(h) : undefined;
 };
 
-export async function generateMetadata({ params }: PageProps<"/[handle]">): Promise<Metadata> {
+export async function generateMetadata({ params }: HandlePageProps): Promise<Metadata> {
   const { handle } = await params;
   const creator = resolve(handle);
   if (!creator) return {};
@@ -43,7 +45,7 @@ export async function generateMetadata({ params }: PageProps<"/[handle]">): Prom
   };
 }
 
-export default async function CreatorPage({ params }: PageProps<"/[handle]">) {
+export default async function CreatorPage({ params }: HandlePageProps) {
   const { handle } = await params;
   const creator = resolve(handle);
   if (!creator) notFound();

@@ -63,9 +63,9 @@ def run():
     assert pg.get_by_role("button", name="Назад").count() + pg.get_by_role("link", name="Назад").count() >= 1, "нет стрелки «назад» в приключении"
     (pg.get_by_role("button", name="Назад") if pg.get_by_role("button", name="Назад").count() else pg.get_by_role("link", name="Назад")).first.click()
     pg.wait_for_url(re.compile(r".*/adventures/?$")); print("6b back arrow ok")
-    pg.goto(B+"/map?plan=paleontologichesky-muzey,kafe-ponchik"); pg.wait_for_timeout(2500); print("7 map:", pg.locator("h2").first.inner_text())
+    pg.goto(B+"/map?plan=paleontologichesky-muzey,dream-kids"); pg.wait_for_timeout(2500); print("7 map:", pg.locator("h2").first.inner_text())
     pg.goto(B+"/profile"); print("8 profile has minutes:", "40 мин" in pg.inner_text("main"))
-    pg.goto(B+"/places/skazochny-les"); pg.wait_for_timeout(500); print("9 place travel:", pg.locator("text=/\\d+ мин/").first.inner_text())
+    pg.goto(B+"/places/kidzania-aviapark"); pg.wait_for_timeout(500); print("9 place travel:", pg.locator("text=/\\d+ мин/").first.inner_text())
     # planner wizard with no kids path: new context
     ctx2=b.new_context(viewport={"width":390,"height":844}); ctx2.route(re.compile(r"https://(api\.open-meteo|tiles|images).*"), lambda r: r.abort())
     p2=ctx2.new_page(); p2.on("pageerror", lambda e: errs.append(("pageerror2", str(e))))

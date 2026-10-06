@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Plus, Pencil, Trash2, ChevronRight, MapPin, Settings2, Sparkles, Check, Home, Users, Smartphone } from "lucide-react";
+import { Plus, Pencil, Trash2, ChevronRight, MapPin, Sparkles, Check, Home, Users, Smartphone } from "lucide-react";
 import type { Child, InterestId } from "@/lib/types";
 import { useFamily, ageFromBirth, childLabel } from "@/lib/store";
 import { TRAVEL_LIMITS } from "@/lib/location";
@@ -115,7 +115,6 @@ export function ProfileScreen() {
             <Row icon={<Users size={20} className="text-green" />} label="Посмотреть на демо-семье" value="Миша и Аня" onClick={() => s.loadDemoFamily()} />
           )}
           <Row icon={<Smartphone size={20} className="text-blue" />} label="Перенести на другое устройство" onClick={() => useSocialUi.getState().openTransfer()} />
-          <Row href="/admin" icon={<Settings2 size={20} className="text-blue" />} label="Кабинет контента" value="для команды" />
         </div>
         <p className="mt-4 text-center text-[12.5px] text-muted">КидГоу · данные семьи хранятся только на этом устройстве</p>
       </section>

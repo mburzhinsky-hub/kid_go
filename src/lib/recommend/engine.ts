@@ -216,8 +216,8 @@ export function scorePlace(
   const travel = legHome(input, p);
   const anchorLike = isAnchorLike(p, input);
   const reach = anchorLike ? ctx.reach : ctx.reach * 1.35;
-  // «вся Москва» — это город, а не область: без Красногорска, Мытищ и Истры (и без дальних окраин вроде Зеленограда — они в своих округах)
-  if (mode === "any" && (!inMoscow(p) || isSuburban(pt(p)))) return null;
+  // В общем режиме пользователь явно выбирает географию: Москва или Москва + область.
+  if (mode === "any" && input.geoScope !== "moscow-region" && (!inMoscow(p) || isSuburban(pt(p)))) return null;
   // округ: основное место — только в самом округе, соседние округа годятся для кафе и магазина по пути
   const okr = areaOf(input);
   const strict = !!okr && input.areaScope !== "wide";
@@ -235,7 +235,7 @@ export function scorePlace(
 
   if (c.indoorOnly && !p.indoor) return null;
   if (c.quiet && p.noise_level === 3) return null;
-  if (c.stroller && !p.stroller_friendly) return null;
+  if (c.stroller && !(p.unknown_fields ?? []).includes("stroller_friendly") && !p.stroller_friendly) return null;
   if (c.avoidCategories?.includes(p.category)) return null;
   if (fam?.disliked.includes(p.slug)) return null;
 
@@ -259,23 +259,49 @@ export function scorePlace(
     distance: mode === "any" ? 0 : Math.max(0, 1 - travel.minutes / ctx.reach) ** 1.3 * (input.transport === "walk" ? 10 : 8.5) * (strict ? 0.3 : mode === "area" ? 0.7 : 1),
     // «шире округа»: выбранный округ всё равно впереди соседних
     area: !okr || strict ? 0 : tier === 0 ? 2.4 : tier === 1 ? 0.8 : 0,
+    // При широком поиске область доступна, но Москва остаётся чуть выше при прочих равных.
+    geography: mode === "any" && input.geoScope === "moscow-region" && (p.region === "mo" || isSuburban(pt(p))) ? -1.1 : 0,
     interest: interest * 8 + scenarioInterest,
-    rating: (p.rating - 4) * (p.review_count > 0 ? 1 : 0.4),
-    mood: moodFit(p, input.mood) * 7.5,
+    rating: p.rating_source ? p.rating - 4 : 0,
+    mood: moodFit(p, input.mood) * 9,
+    shelter: c.indoorOnly && p.outdoor ? -3 : 0,
     activity: input.activity ? 1 - Math.abs(p.activity_level - input.activity) / 2 : 0.5,
+    parentBreak:
+      c.parentBreak && p.category === "cafe" && p.experience_tags.includes("playzone")
+        ? 10
+        : 0,
+    scenarioBudget:
+      input.budget === "any" &&
+      c.preferCategories?.includes(p.category) &&
+      ["animals", "active", "play"].includes(p.category) &&
+      p.price_min > 0
+        ? 3
+        : input.budget === "5000" &&
+            c.experiences?.includes("playzone") &&
+            c.preferCategories?.includes(p.category) &&
+            p.price_min > 0
+          ? 5
+          : input.budget === "5000" &&
+              c.preferCategories?.includes("park") &&
+              p.category === "park" &&
+              p.price_max > 0
+            ? 1.8
+            : 0,
     // данные OpenStreetMap не проверены редакцией — при прочих равных отдаём предпочтение каталогу
     trust: p.confidence === "osm" ? -0.7 : 0,
-    popularity: (p.is_hit ? 0.4 : 0) + Math.min(0.4, p.review_count / 10000),
+    popularity: (p.is_hit ? 0.4 : 0) + (p.review_count > 0 ? Math.min(0.4, p.review_count / 10000) : 0),
     weather: weatherFit(p, ctx, outdoorDay, input),
     season: seasonFit(p, ctx),
     crowd: crowdFit(p, ctx, input),
     transport: transportFit(p, input),
     prefer:
       // сценарий про одну категорию («к животным», «на каток») тянет к ней сильнее, чем про несколько
-      (c.preferCategories?.includes(p.category) ? (c.preferCategories.length === 1 ? 4.6 : 3.4) : 0) +
+      (c.preferCategories?.includes(p.category) ? (c.preferCategories.length === 1 ? 4.8 : 4.8) : 0) +
       (c.outdoorPreferred && p.outdoor ? 2 : 0) +
       // формат сценария: «спектакль», «мастер-класс», «книги»…
       (c.experiences?.some((e) => p.experience_tags.includes(e)) ? 2.4 : 0) +
+      // parentBreak — отдельный intent: ребёнок занят в игровой, взрослый может спокойно посидеть.
+      (c.parentBreak && p.category === "cafe" && p.experience_tags.includes("playzone") ? 4.8 : 0) +
       // компания / праздник: места, где принимают брони и есть игровая зона
       (c.bookingOk && (p.booking_required || p.experience_tags.includes("playzone")) ? 1.6 : 0),
     family:
@@ -284,9 +310,18 @@ export function scorePlace(
       (fam?.visited.includes(p.slug) && !fam?.loved.includes(p.slug) ? 2 : 0) -
       (fam?.seen?.includes(p.slug) ? 0.8 : 0),
     rotation: hash(`${input.seed ?? ""}:${p.id}`) * 0.9,
-    // при скромном бюджете дорогой якорь «съедает» весь день — предпочитаем то, что оставит место для обеда;
-    // при щедром — тянемся к «событию»
-    price: Number.isFinite(budgetMax) && budgetMax > 0 ? -((p.family_budget / budgetMax) ** 1.3) * (input.budget === "2000" ? 3.4 : 1.4) : budgetMax === Infinity ? (p.price_level >= 2 && p.rating >= 4.6 ? 0.6 : 0) : 0,
+    // При скромном бюджете дорогой якорь «съедает» весь день.
+    // В режиме «бесплатно» предпочитаем действительно бесплатные места, а не варианты «от 0 ₽» с платными активностями.
+    // При бюджете 5 000 ₽ небольшой bonus помогает использовать доступный бюджет на более насыщенное событие,
+    // но он заметно слабее intent/возраста/географии и не заставляет тратить деньги любой ценой.
+    price:
+      input.budget === "free"
+        ? (p.price_max === 0 || p.family_budget === 0 ? 2.0 : 0)
+        : Number.isFinite(budgetMax) && budgetMax > 0
+          ? -((p.family_budget / budgetMax) ** 1.3) * (input.budget === "2000" ? 3.4 : 1.4) + (input.budget === "5000" && p.price_min > 0 ? 1.8 : 0)
+          : budgetMax === Infinity
+            ? (p.price_level >= 2 && p.rating >= 4.6 ? 0.6 : 0)
+            : 0,
   };
   const score = Object.values(parts).reduce((a, b) => a + b, 0);
   return { place: p, score, km: travel.km, minutes: travel.minutes, parts, tier };
@@ -308,9 +343,11 @@ export function areaOf(input: Pick2<PlannerInput, "location" | "locationMode">):
 function ageNeeds(p: Place, ctx: DayCtx): number {
   let v = 0;
   if (ctx.youngest <= 3) {
-    v += (p.stroller_friendly ? 0.9 : -0.6) + (p.baby_room ? 0.7 : 0) + (p.activity_level === 3 ? -1.6 : 0) + (p.noise_level === 3 ? -1.2 : 0) + (p.experience_tags.includes("toddlers") ? 1.2 : 0);
+    const strollerKnown = !(p.unknown_fields ?? []).includes("stroller_friendly");
+    const babyKnown = !(p.unknown_fields ?? []).includes("baby_room");
+    v += (strollerKnown ? (p.stroller_friendly ? 0.9 : -0.6) : 0) + (babyKnown && p.baby_room ? 0.7 : 0) + (p.activity_level === 3 ? -1.6 : 0) + (p.noise_level === 3 ? -1.2 : 0) + (p.experience_tags.includes("toddlers") ? 1.2 : 0);
   } else if (ctx.youngest <= 5) {
-    v += (p.kids_menu ? 0.3 : 0) + (p.age_min <= 3 ? 0.4 : 0);
+    v += (!(p.unknown_fields ?? []).includes("kids_menu") && p.kids_menu ? 0.3 : 0) + (p.age_min <= 3 ? 0.4 : 0);
   }
   if (ctx.oldest >= 9) {
     v += (p.age_min >= 6 ? 1.1 : p.age_min <= 2 && p.age_max <= 8 ? -1.4 : 0) + (p.activity_level === 3 ? 0.5 : 0) + (p.experience_tags.includes("toddlers") ? -1.2 : 0);
@@ -355,9 +392,24 @@ function crowdFit(p: Place, ctx: DayCtx, input: PlannerInput): number {
   return v;
 }
 
-/** Как добираемся: на машине важна парковка, на метро — станция рядом. */
+export function hasFoodOption(p: Pick2<Place, "category" | "menu_url">): boolean {
+  return p.category === "cafe" || !!p.menu_url;
+}
+
+export function planHasFood(plan: Pick2<Plan, "stops">): boolean {
+  return plan.stops.some((s) => s.foodOption === true || (s.foodOption == null && hasFoodOption(s.place)));
+}
+
+/** Как добираемся: на машине важна подтверждённая парковка, на метро — станция рядом. */
 function transportFit(p: Place, input: PlannerInput): number {
-  if (input.transport === "car") return p.parking ? 1.2 : -1.2;
+  if (input.transport === "car") {
+    const status = p.parking_info?.status;
+    if (status === "yes") return 1.2;
+    if (status === "partial") return 0.25;
+    if (status === "unknown") return -0.05;
+    if (status === "no") return -1.2;
+    return p.parking ? 0.7 : 0;
+  }
   if (input.transport === "transit") return p.metro ? 0.7 : -0.3;
   return p.stroller_friendly ? 0.2 : 0;
 }
@@ -488,7 +540,7 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
   let spent = anchor.place.family_budget;
 
   const lunchInWindow = ctx.start <= 14 * 60 && ctx.end >= 12 * 60 + 30;
-  const wantFood = input.budget !== "free" && (input.foodAfter || c.parentBreak || total >= 300 || (total >= 200 && lunchInWindow));
+  const wantFood = input.budget !== "free" && (input.foodAfter || c.parentBreak || total >= 240 || (total >= 180 && lunchInWindow));
   const covered = new Set(
     kidsInterests.map((ints, i) => (ints.some((x) => anchor.place.interest_tags.includes(x as never)) ? i : -1)).filter((i) => i >= 0)
   );
@@ -496,7 +548,7 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
   const used = () => new Set(picks.map((p) => p.place.id));
   const last = () => picks[picks.length - 1].place;
   const cats = () => new Set(picks.map((p) => p.place.category));
-  const hasFood = () => picks.some((p) => p.slot === "food" || p.place.category === "cafe");
+  const hasFood = () => picks.some((p) => p.slot === "food" || p.place.category === "cafe" || (!c.parentBreak && hasFoodOption(p.place)));
   const activities = () => picks.filter((p) => p.slot === "anchor" || p.slot === "activity").length;
   const sunny = outdoorDay > 0.6;
 
@@ -530,11 +582,11 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
     let dur = 0;
     if (slot === "food") {
       // голодный ребёнок далеко не уедет: кафе — как можно ближе
-      const foodBonus = (s: ScoredPlace, legMin: number) => (s.place.kids_menu ? 1 : 0) + (c.parentBreak && s.place.experience_tags.includes("playzone") ? 2.5 : 0) - Math.max(0, legMin - 10) * 0.25;
-      chosen = pickFrom((s) => s.place.category === "cafe" && (!s.place.experience_tags.includes("icecream") || total <= 120), foodBonus);
+      const foodBonus = (s: ScoredPlace, legMin: number) => ((!s.place.unknown_fields?.includes("kids_menu") && s.place.kids_menu) ? 1 : 0) + (c.parentBreak && s.place.experience_tags.includes("playzone") ? 5 : 0) - Math.max(0, legMin - 10) * 0.25;
+      chosen = pickFrom((s) => s.place.category === "cafe" && (!c.parentBreak || s.place.experience_tags.includes("playzone")) && (!s.place.experience_tags.includes("icecream") || total <= 120), foodBonus);
       dur = total <= 120 ? 40 : 55;
       // еду просили прямо, а рядом только кафе-мороженое — лучше перекус, чем ничего
-      if (!chosen && mustFood) {
+      if (!chosen && mustFood && !c.parentBreak) {
         chosen = pickFrom((s) => s.place.category === "cafe", foodBonus);
         dur = 30;
       }
@@ -732,7 +784,7 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
     const surprise = results.length % 3 === 2;
     const next = candidates
       .filter((c) => !tried.has(c.place.id))
-      .slice(0, 18)
+      .slice(0, input.constraints?.parentBreak ? 36 : 18)
       .map((c) => {
         const sameCat = chosenAnchors.filter((p) => p.category === c.place.category).length;
         const near = chosenAnchors.some((p) => travelBetween(pt(p), pt(c.place), "walk").km < 1.5) ? 1 : 0;
@@ -763,6 +815,16 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
     results.push({ a, plan: toPlan(a, input, ctx, scored, partialAge) });
   }
 
+  const wantsFood = input.budget !== "free" && !!(input.foodAfter || input.constraints?.parentBreak || DURATION_MIN[input.duration] >= 240);
+  const foodFulfilled = (plan: Plan) =>
+    input.constraints?.parentBreak
+      ? plan.stops.some((s) => s.place.category === "cafe" && s.place.experience_tags.includes("playzone"))
+      : planHasFood(plan);
+  const wantsOutdoor = !!input.constraints?.outdoorPreferred && ctx.cond.wet !== "all" && !ctx.cond.cold;
+  const fulfillment = (plan: Plan) =>
+    (wantsFood && foodFulfilled(plan) ? 4 : 0) +
+    (wantsOutdoor && plan.stops.some((s) => s.place.outdoor) ? 2 : 0);
+  results.sort((a, b) => fulfillment(b.plan) - fulfillment(a.plan));
   const plans = results.map((r) => r.plan);
   return {
     plans: plans.slice(offset),
@@ -796,6 +858,25 @@ function toPlan(a: Assembled, input: PlannerInput, ctx: DayCtx, pool: ScoredPlac
       description: chainLabel(picks.map((p) => p.place)),
     }
   );
+  // Явно отмечаем, где в этом плане находится еда. Само наличие menu_url в базе
+  // не означает, что питание является частью конкретного маршрута.
+  const lunchInWindow = ctx.start <= 14 * 60 && ctx.end >= 12 * 60 + 30;
+  const wantsFood = input.budget !== "free" && (
+    input.foodAfter ||
+    input.constraints?.parentBreak ||
+    ctx.total >= 240 ||
+    (ctx.total >= 180 && lunchInWindow)
+  );
+  draft.stops.forEach((stop) => { stop.foodOption = false; });
+  if (wantsFood) {
+    let foodIndex = picks.findIndex((p) => p.slot === "food");
+    if (foodIndex < 0 && input.constraints?.parentBreak) {
+      foodIndex = picks.findIndex((p) => p.place.category === "cafe" && p.place.experience_tags.includes("playzone"));
+    }
+    if (foodIndex < 0) foodIndex = picks.findIndex((p) => p.place.category === "cafe");
+    if (foodIndex < 0 && !input.constraints?.parentBreak) foodIndex = picks.findIndex((p) => !!p.place.menu_url);
+    if (foodIndex >= 0) draft.stops[foodIndex].foodOption = true;
+  }
   // погода на шаг и крытая замена для уличных
   draft.stops.forEach((s, i) => {
     s.weather = a.ordered.weather[i];

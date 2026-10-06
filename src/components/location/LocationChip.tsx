@@ -10,10 +10,11 @@ import { cn } from "@/lib/cn";
 export function LocationChip({ className, tone = "fill" }: { className?: string; tone?: "fill" | "card" }) {
   const origin = useFamily((s) => s.origin);
   const hydrated = useFamily((s) => s.hydrated);
+  const geoScope = useFamily((s) => s.geoScope);
   const [open, setOpen] = useState(false);
   const any = !hydrated || origin.source === "default";
   const Icon = any ? Globe2 : origin.source === "gps" ? LocateFixed : origin.source === "home" ? Home : MapPin;
-  const label = any ? "Вся Москва" : origin.source === "home" ? "Дом" : origin.label;
+  const label = any ? (geoScope === "moscow-region" ? "Москва + область" : "Москва") : origin.source === "home" ? "Дом" : origin.label;
   return (
     <>
       <button
