@@ -5,11 +5,11 @@ import { formatCount } from "@/lib/format";
 const AVATAR_BG = ["#FFE3E8", "#E2EEFF", "#E4F4DD", "#FFF3D6", "#EEE5FE"];
 
 export function Reviews({ place }: { place: Place }) {
-  if (place.review_count === 0 && place.reviews.length === 0) return null;
+  if ((!place.rating_source || place.rating <= 0) && place.reviews.length === 0) return null;
 
   return (
     <div>
-      {place.review_count > 0 && place.rating_source && (
+      {place.rating > 0 && place.rating_source && (
         <div className="rounded-[22px] bg-surface p-4 shadow-card">
           <div className="flex items-center gap-3">
             <div>
@@ -21,7 +21,7 @@ export function Reviews({ place }: { place: Place }) {
               </div>
             </div>
             <div className="min-w-0">
-              <p className="text-[14px] font-semibold">{formatCount(place.review_count)} отзывов</p>
+              {place.review_count > 0 ? <p className="text-[14px] font-semibold">{formatCount(place.review_count)} отзывов</p> : <p className="text-[14px] font-semibold">Рейтинг по внешнему источнику</p>}
               <a
                 href={place.rating_source}
                 target="_blank"
