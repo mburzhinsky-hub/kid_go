@@ -1695,14 +1695,20 @@ const SEED_PLACES: Place[] = [
   }),
 ];
 
+const REMOVED_EDITORIAL_SLUGS = new Set(["joki-joya", "katok-na-poyme-pavshino"]);
+
 /** В production публикуем только базовые места, прошедшие редакторскую проверку; demo-записи остаются в истории кода, но не попадают в каталог. */
-const PUBLISHABLE_SEED_PLACES = SEED_PLACES.filter((p) => isPublishableBasePlace(p.slug) && isAuditedPublicPlace(p.slug));
+const PUBLISHABLE_SEED_PLACES = SEED_PLACES.filter(
+  (p) => !REMOVED_EDITORIAL_SLUGS.has(p.slug) && isPublishableBasePlace(p.slug) && isAuditedPublicPlace(p.slug)
+);
 
 /** Редакторские места из `extra/*.json` (Подмосковье и районы Москвы) идут вслед за проверенным базовым набором. */
 export const places: Place[] = [
   ...PUBLISHABLE_SEED_PLACES,
   ...buildPlaces(PUBLISHABLE_SEED_PLACES.length, new Set(PUBLISHABLE_SEED_PLACES.map((p) => p.slug))),
-].map(applyEditorialFacts);
+]
+  .filter((p) => !REMOVED_EDITORIAL_SLUGS.has(p.slug))
+  .map(applyEditorialFacts);
 
 export const placeById = new Map(places.map((p) => [p.id, p]));
 export const placeBySlug = new Map(places.map((p) => [p.slug, p]));
