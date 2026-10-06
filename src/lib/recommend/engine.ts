@@ -268,7 +268,7 @@ export function scorePlace(
     activity: input.activity ? 1 - Math.abs(p.activity_level - input.activity) / 2 : 0.5,
     parentBreak:
       c.parentBreak && p.category === "cafe" && p.experience_tags.includes("playzone")
-        ? 8
+        ? 10
         : 0,
     scenarioBudget:
       input.budget === "any" &&
@@ -280,7 +280,7 @@ export function scorePlace(
             c.experiences?.includes("playzone") &&
             c.preferCategories?.includes(p.category) &&
             p.price_min > 0
-          ? 2.2
+          ? 5
           : input.budget === "5000" &&
               c.preferCategories?.includes("park") &&
               p.category === "park" &&
