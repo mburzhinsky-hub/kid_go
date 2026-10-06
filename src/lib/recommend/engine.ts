@@ -262,13 +262,13 @@ export function scorePlace(
     // При широком поиске область доступна, но Москва остаётся чуть выше при прочих равных.
     geography: mode === "any" && input.geoScope === "moscow-region" && (p.region === "mo" || isSuburban(pt(p))) ? -1.1 : 0,
     interest: interest * 8 + scenarioInterest,
-    rating: p.review_count > 0 && p.rating_source ? p.rating - 4 : 0,
+    rating: p.rating_source ? p.rating - 4 : 0,
     mood: moodFit(p, input.mood) * 9,
     shelter: c.indoorOnly && p.outdoor ? -3 : 0,
     activity: input.activity ? 1 - Math.abs(p.activity_level - input.activity) / 2 : 0.5,
     // данные OpenStreetMap не проверены редакцией — при прочих равных отдаём предпочтение каталогу
     trust: p.confidence === "osm" ? -0.7 : 0,
-    popularity: (p.is_hit ? 0.4 : 0) + Math.min(0.4, p.review_count / 10000),
+    popularity: (p.is_hit ? 0.4 : 0) + (p.review_count > 0 ? Math.min(0.4, p.review_count / 10000) : 0),
     weather: weatherFit(p, ctx, outdoorDay, input),
     season: seasonFit(p, ctx),
     crowd: crowdFit(p, ctx, input),
@@ -358,9 +358,24 @@ function crowdFit(p: Place, ctx: DayCtx, input: PlannerInput): number {
   return v;
 }
 
-/** Как добираемся: на машине важна парковка, на метро — станция рядом. */
+export function hasFoodOption(p: Pick2<Place, "category" | "menu_url">): boolean {
+  return p.category === "cafe" || !!p.menu_url;
+}
+
+export function planHasFood(plan: Pick2<Plan, "stops">): boolean {
+  return plan.stops.some((s) => hasFoodOption(s.place));
+}
+
+/** Как добираемся: на машине важна подтверждённая парковка, на метро — станция рядом. */
 function transportFit(p: Place, input: PlannerInput): number {
-  if (input.transport === "car") return p.parking ? 1.2 : -1.2;
+  if (input.transport === "car") {
+    const status = p.parking_info?.status;
+    if (status === "yes") return 1.2;
+    if (status === "partial") return 0.25;
+    if (status === "unknown") return -0.05;
+    if (status === "no") return -1.2;
+    return p.parking ? 0.7 : 0;
+  }
   if (input.transport === "transit") return p.metro ? 0.7 : -0.3;
   return p.stroller_friendly ? 0.2 : 0;
 }
@@ -491,7 +506,7 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
   let spent = anchor.place.family_budget;
 
   const lunchInWindow = ctx.start <= 14 * 60 && ctx.end >= 12 * 60 + 30;
-  const wantFood = input.budget !== "free" && (input.foodAfter || c.parentBreak || total >= 300 || (total >= 200 && lunchInWindow));
+  const wantFood = input.budget !== "free" && (input.foodAfter || c.parentBreak || total >= 240 || (total >= 180 && lunchInWindow));
   const covered = new Set(
     kidsInterests.map((ints, i) => (ints.some((x) => anchor.place.interest_tags.includes(x as never)) ? i : -1)).filter((i) => i >= 0)
   );
@@ -499,7 +514,7 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
   const used = () => new Set(picks.map((p) => p.place.id));
   const last = () => picks[picks.length - 1].place;
   const cats = () => new Set(picks.map((p) => p.place.category));
-  const hasFood = () => picks.some((p) => p.slot === "food" || p.place.category === "cafe");
+  const hasFood = () => picks.some((p) => p.slot === "food" || p.place.category === "cafe" || (!c.parentBreak && hasFoodOption(p.place)));
   const activities = () => picks.filter((p) => p.slot === "anchor" || p.slot === "activity").length;
   const sunny = outdoorDay > 0.6;
 
@@ -534,7 +549,7 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
     if (slot === "food") {
       // голодный ребёнок далеко не уедет: кафе — как можно ближе
       const foodBonus = (s: ScoredPlace, legMin: number) => (s.place.kids_menu ? 1 : 0) + (c.parentBreak && s.place.experience_tags.includes("playzone") ? 2.5 : 0) - Math.max(0, legMin - 10) * 0.25;
-      chosen = pickFrom((s) => s.place.category === "cafe" && (!s.place.experience_tags.includes("icecream") || total <= 120), foodBonus);
+      chosen = pickFrom((s) => s.place.category === "cafe" && (!c.parentBreak || s.place.experience_tags.includes("playzone")) && (!s.place.experience_tags.includes("icecream") || total <= 120), foodBonus);
       dur = total <= 120 ? 40 : 55;
       // еду просили прямо, а рядом только кафе-мороженое — лучше перекус, чем ничего
       if (!chosen && mustFood) {
@@ -766,10 +781,14 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
     results.push({ a, plan: toPlan(a, input, ctx, scored, partialAge) });
   }
 
-  const wantsFood = input.budget !== "free" && !!(input.foodAfter || input.constraints?.parentBreak);
+  const wantsFood = input.budget !== "free" && !!(input.foodAfter || input.constraints?.parentBreak || DURATION_MIN[input.duration] >= 240);
+  const foodFulfilled = (plan: Plan) =>
+    input.constraints?.parentBreak
+      ? plan.stops.some((s) => s.place.category === "cafe" && s.place.experience_tags.includes("playzone"))
+      : planHasFood(plan);
   const wantsOutdoor = !!input.constraints?.outdoorPreferred && ctx.cond.wet !== "all" && !ctx.cond.cold;
   const fulfillment = (plan: Plan) =>
-    (wantsFood && plan.stops.some((s) => s.place.category === "cafe") ? 4 : 0) +
+    (wantsFood && foodFulfilled(plan) ? 4 : 0) +
     (wantsOutdoor && plan.stops.some((s) => s.place.outdoor) ? 2 : 0);
   results.sort((a, b) => fulfillment(b.plan) - fulfillment(a.plan));
   const plans = results.map((r) => r.plan);
