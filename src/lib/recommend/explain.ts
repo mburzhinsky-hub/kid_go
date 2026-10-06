@@ -65,15 +65,21 @@ export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = [
   else if (first.place.activity_level === 1 && input.mood === "calm") sentences.push("спокойный темп без толп и шума");
   else if (first.place.category === "museum") sentences.push("будет что обсудить по дороге домой");
 
-  const food = plan.stops.find((s, i) => i > 0 && s.place.category === "cafe");
-  const foodOnSite = !food ? plan.stops.find((s) => !!s.place.menu_url) : undefined;
+  const food = plan.stops.find((s) => s.foodOption === true && s.place.category === "cafe");
+  const foodOnSite = !food ? plan.stops.find((s) => s.foodOption === true && !!s.place.menu_url) : undefined;
   if (food) {
-    const prev = plan.stops[plan.stops.indexOf(food) - 1];
-    const min = prev.travelToNext?.minutes ?? 5;
-    why.push(`🍽 Кафе в ${min} мин`);
-    const near = min <= 10 ? "всего в " : "в ";
-    const verifiedKidsMenu = !food.place.unknown_fields?.includes("kids_menu") && food.place.kids_menu;
-    sentences.push(`а ${verifiedKidsMenu ? "семейное кафе с детским меню" : "кафе"} — ${near}${min} ${plural(min, "минуте", "минутах", "минутах")}`);
+    const foodIndex = plan.stops.indexOf(food);
+    const prev = foodIndex > 0 ? plan.stops[foodIndex - 1] : undefined;
+    const min = prev?.travelToNext?.minutes;
+    if (min != null) {
+      why.push(`🍽 Кафе в ${min} мин`);
+      const near = min <= 10 ? "всего в " : "в ";
+      const verifiedKidsMenu = !food.place.unknown_fields?.includes("kids_menu") && food.place.kids_menu;
+      sentences.push(`а ${verifiedKidsMenu ? "семейное кафе с детским меню" : "кафе"} — ${near}${min} ${plural(min, "минуте", "минутах", "минутах")}`);
+    } else {
+      why.push("🍽 Еда в самом сценарии");
+      sentences.push("семейное кафе уже является основной точкой маршрута");
+    }
   } else if (foodOnSite) {
     why.push("🍽 Можно поесть на месте");
     sentences.push("и для еды не нужен отдельный переезд — у места есть подтверждённое меню");
