@@ -202,7 +202,7 @@ const seeds: AdventureSeed[] = [
     title: "Энергия и высота",
     tagline: "Игровой парк и вид на Москву-Сити",
     description:
-      "Сначала активная часть в Joki Joya, затем меняем ритм и смотрим на город со смотровой площадки PANORAMA360.",
+      "Сначала активная часть в Кидзании, затем меняем ритм и смотрим на город со смотровой площадки PANORAMA360.",
     cover: ph(PH.indoorPlay, "Активный семейный день — иллюстрация"),
     emoji: "🤸",
     tint: "#CDEBFF",
@@ -210,7 +210,7 @@ const seeds: AdventureSeed[] = [
     moods: ["energy", "surprise"],
     interests: ["sport", "construction"],
     steps: [
-      { slug: "joki-joya", duration: 120, travel: 10 },
+      { slug: "kidzania-aviapark", duration: 120, travel: 20 },
       { slug: "panorama360-federation", duration: 60 },
     ],
   },
