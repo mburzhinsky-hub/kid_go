@@ -1,6 +1,6 @@
-import { MapPin, Navigation } from "lucide-react";
+import { MapPin } from "lucide-react";
 import type { Place } from "@/lib/types";
-import { routeUrl } from "@/lib/route-url";
+import { RouteButton } from "@/components/place/RouteButton";
 import { TravelBadge } from "@/components/ui/TravelBadge";
 
 /** Адрес, время в пути и кнопка маршрута — один и тот же блок на всех страницах места. */
@@ -14,14 +14,7 @@ export function AddressCard({ place }: { place: Place }) {
           <TravelBadge place={place} long className="mt-1 text-[14px]" />
         </div>
       </div>
-      <a
-        href={routeUrl(place.latitude, place.longitude)}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="press mt-3 flex h-11 items-center justify-center gap-2 rounded-full bg-blue-50 text-[15px] font-semibold text-blue-ink"
-      >
-        <Navigation size={16} /> Как добраться
-      </a>
+      <RouteButton place={place} />
     </div>
   );
 }

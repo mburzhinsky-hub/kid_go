@@ -8,11 +8,11 @@ import { mealsFromSearch } from "@/lib/food";
 import { AdventureView } from "./AdventureView";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { BackButton } from "@/components/place/PhotoGallery";
-import type { Place } from "@/lib/types";
+import type { Place, TransportId } from "@/lib/types";
 
 /** A generated day is restored from its shareable link; manual days use the store. */
 export function DayView({
-  steps, title, start, why, explanation, emoji, durations, dayOffset,
+  steps, title, start, why, explanation, emoji, durations, dayOffset, transport,
 }: {
   steps?: string[];
   title?: string;
@@ -22,6 +22,7 @@ export function DayView({
   emoji?: string;
   durations?: number[];
   dayOffset?: number;
+  transport?: TransportId;
 }) {
   const day = useFamily((s) => s.day);
   const hydrated = useFamily((s) => s.hydrated);
@@ -84,6 +85,7 @@ export function DayView({
       onReplace={fromUrl ? undefined : replaceInDay}
       syncUrl={fromUrl}
       dayOffset={dayOffset}
+      transport={fromUrl ? transport : undefined}
     />
   );
 }

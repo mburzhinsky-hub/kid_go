@@ -11,11 +11,13 @@ import { categoryDef } from "@/lib/catalog";
 import { formatAgeRange, placePriceShort } from "@/lib/format";
 import { routeUrl } from "@/lib/route-url";
 import { placeHref } from "@/lib/place-href";
+import { useFamily } from "@/lib/store";
 import { AroundLink } from "@/components/place/AroundLink";
 
 /** Карточка выбранного маркера, выезжающая снизу. */
 export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; minutes?: number; onClose: () => void }) {
   const cat = categoryDef(place.category);
+  const transport = useFamily((s) => s.transport);
   return (
     <div className="animate-sheet">
       <div className="flex gap-3">
@@ -50,7 +52,7 @@ export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; mi
       <div className="mt-3 flex gap-2">
         <WantButton slug={place.slug} className="min-w-0 flex-1" />
         <a
-          href={routeUrl(place.latitude, place.longitude)}
+          href={routeUrl(place.latitude, place.longitude, transport)}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Маршрут"
