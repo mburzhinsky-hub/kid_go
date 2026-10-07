@@ -82,7 +82,7 @@ def run():
         pg.wait_for_timeout(300)
         ok("Ищем рядом: ВАО" in pg.inner_text("main"), "выбрали округ — «Ищем рядом: ВАО», дорога от района")
         pg.click("text=Поехали! 🚀")
-        pg.wait_for_url(re.compile(r".*/kid_go/?$|.*:3000/?$"))
+        pg.wait_for_url(re.compile(r".*/kid_go/?$|.*:\d+/?$"))
         pg.wait_for_timeout(1500)
         body = pg.inner_text("body")
         ok("Миша" not in body and "Аня" not in body, "чужих демо-детей нет")
