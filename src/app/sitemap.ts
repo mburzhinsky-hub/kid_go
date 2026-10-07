@@ -3,7 +3,7 @@ import { repo } from "@/lib/data/repository";
 import { SEED_CREATORS } from "@/lib/social/seed";
 import { seedCollectionsOf } from "@/lib/social/catalog";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kidgo.app";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kids-go.fun";
 
 export const dynamic = "force-static";
 

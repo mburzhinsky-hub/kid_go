@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: HandlePageProps): Promise<Met
     description,
     alternates: { canonical: `/@${creator.username}/` },
     openGraph: {
-      title: `${creator.display_name} · КидГоу`,
+      title: `${creator.display_name} · Kids Go`,
       description: `Автор подборок · @${creator.username}`,
       type: "profile",
       ...(photo?.src ? { images: [{ url: `${photo.src}?w=1200&h=630&fit=crop&q=75`, width: 1200, height: 630, alt: photo.alt }] } : {}),

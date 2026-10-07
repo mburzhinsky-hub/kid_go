@@ -14,7 +14,7 @@ const SITE = process.env.NEXT_PUBLIC_SITE_URL;
 /** Адрес сайта: на клиенте — откуда реально открыта страница, на сервере — из окружения. */
 export function siteOrigin(): string {
   if (typeof window !== "undefined") return `${location.origin}${BASE}`;
-  return SITE ?? "https://kidgo.app";
+  return SITE ?? "https://kids-go.fun";
 }
 
 export type ShareChannel = "native" | "telegram" | "whatsapp" | "copy" | "other";

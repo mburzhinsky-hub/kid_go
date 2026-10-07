@@ -613,7 +613,7 @@ const RU: Record<string, string> = {
 const ru = (xs: readonly string[]) => xs.map((x) => RU[x] ?? x).join(" / ");
 if (DOC) {
   const L: string[] = [];
-  L.push("# Сценарии КидГоу", "");
+  L.push("# Сценарии Kids Go", "");
   L.push(`Всего **${N}** сценариев (${(Object.keys(GROUP_LABEL) as ScenarioGroup[]).map((g) => `${GROUP_LABEL[g].toLowerCase()} — ${byGroup.get(g)?.length ?? 0}`).join(", ")}).`);
   L.push("Файл создаётся скриптом `npx tsx scripts/audit-scenarios.ts --doc`; правьте сценарии в `src/lib/scenarios.tsx`.", "");
   L.push("Сценарий = готовый рецепт для движка: настроение, длительность, бюджет, «поесть» и ограничения. В режиме «вся Москва» ограничение по времени в пути не применяется (его нет, откуда считать) — в результатах предлагаем выбрать округ или точку.", "");

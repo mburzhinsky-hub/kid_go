@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: PlacePageProps): Promise<Meta
     description,
     alternates: { canonical: `/places/${place.slug}` },
     openGraph: {
-      title: `${place.title} · КидГоу`,
+      title: `${place.title} · Kids Go`,
       description,
       images: [{ url: `${place.photos[0].src}?w=1200&h=630&fit=crop&q=75`, width: 1200, height: 630, alt: place.photos[0].alt }],
     },

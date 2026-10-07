@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: AdventurePageProps): Promise<
     description,
     alternates: { canonical: `/adventures/${a.slug}` },
     openGraph: {
-      title: `${a.emoji} ${a.title} · КидГоу`,
+      title: `${a.emoji} ${a.title} · Kids Go`,
       description,
       images: [{ url: `${a.cover_image.src}?w=1200&h=630&fit=crop&q=75`, width: 1200, height: 630, alt: a.cover_image.alt }],
     },

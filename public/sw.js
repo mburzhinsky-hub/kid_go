@@ -1,7 +1,7 @@
-/* КидГоу service worker: офлайн-оболочка + кэш просмотренных страниц и фото.
+/* Kids Go service worker: офлайн-оболочка + кэш просмотренных страниц и фото.
    Стратегии: страницы — network-first (свежие данные, офлайн — из кэша),
    статика и изображения — stale-while-revalidate. */
-const VERSION = "kidgo-collections-20261006-v3";
+const VERSION = "kidgo-collections-20261007-v1";
 const BASE = new URL(self.registration.scope).pathname.replace(/\/$/, "");
 const SHELL = ["/", "/adventures/", "/favorites/", "/offline.html", "/icons/icon-192.png"].map((p) => BASE + p);
 
