@@ -6,8 +6,8 @@ const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export default function manifest(): MetadataRoute.Manifest {
   const m: MetadataRoute.Manifest & { launch_handler?: { client_mode: string } } = {
-    name: "КидГоу — куда пойти с детьми",
-    short_name: "КидГоу",
+    name: "Kids Go — куда пойти с детьми",
+    short_name: "Kids Go",
     description: "Выберите настроение — мы соберём ваш день с ребёнком.",
     start_url: `${B}/`, scope: `${B}/`, id: `${B}/`,
     display: "standalone",

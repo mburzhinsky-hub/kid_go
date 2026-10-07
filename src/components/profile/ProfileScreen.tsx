@@ -116,7 +116,7 @@ export function ProfileScreen() {
           )}
           <Row icon={<Smartphone size={20} className="text-blue-ink" />} label="Перенести на другое устройство" onClick={() => useSocialUi.getState().openTransfer()} />
         </div>
-        <p className="mt-4 text-center text-[13px] text-muted">КидГоу · данные семьи хранятся только на этом устройстве</p>
+        <p className="mt-4 text-center text-[13px] text-muted">Kids Go · данные семьи хранятся только на этом устройстве</p>
       </section>
 
       <ChildEditor child={editing} onClose={() => setEditing(null)} />

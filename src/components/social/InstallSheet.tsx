@@ -23,7 +23,7 @@ export function InstallSheet({ open, onClose, link, ids }: { open: boolean; onCl
   const copy = async () => toast((await copyText(link)) ? "Ссылка скопирована 💌" : "Не получилось скопировать");
 
   return (
-    <BottomSheet open={open} onClose={onClose} title={env.standalone ? "Вы уже в приложении" : "Приложение КидГоу"}>
+    <BottomSheet open={open} onClose={onClose} title={env.standalone ? "Вы уже в приложении" : "Приложение Kids Go"}>
       {env.standalone ? (
         <p className="text-[16px] leading-snug text-ink-2">Всё сохранено здесь: хотелки и подборки лежат во вкладке «Избранное».</p>
       ) : (
@@ -54,7 +54,7 @@ export function InstallSheet({ open, onClose, link, ids }: { open: boolean; onCl
                 setBusy(false);
                 if (r === "accepted") {
                   setDone(true);
-                  toast("Готово — значок КидГоу на вашем экране 🎉");
+                  toast("Готово — значок Kids Go на вашем экране 🎉");
                 }
               }}
               className="press mt-4 flex h-14 w-full items-center justify-center gap-2.5 rounded-full bg-pink text-[18px] font-bold text-white shadow-pink disabled:opacity-60"
@@ -65,13 +65,13 @@ export function InstallSheet({ open, onClose, link, ids }: { open: boolean; onCl
             <Steps
               items={[
                 [<SquarePlus key="a" size={20} />, <>Откройте меню <b>⋮</b> в Chrome и выберите <b>«Установить приложение»</b></>],
-                [<Smartphone key="b" size={20} />, <>Если значок КидГоу уже есть на экране — откройте его: ссылка откроется внутри приложения</>],
+                [<Smartphone key="b" size={20} />, <>Если значок Kids Go уже есть на экране — откройте его: ссылка откроется внутри приложения</>],
               ]}
             />
           ) : (
             <Steps
               items={[
-                [<Smartphone key="a" size={20} />, <>Откройте эту ссылку на телефоне и добавьте КидГоу на экран «Домой»</>],
+                [<Smartphone key="a" size={20} />, <>Откройте эту ссылку на телефоне и добавьте Kids Go на экран «Домой»</>],
               ]}
             />
           )}

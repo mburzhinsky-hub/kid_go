@@ -1,6 +1,6 @@
 /**
  * Block 1 content/data-trust gate.
- * Fails CI on regressions that can make KidGo publish invented, contradictory or broken data.
+ * Fails CI on regressions that can make Kids Go publish invented, contradictory or broken data.
  */
 import { ADDED_SCENARIO_IDS, BASELINE_ADVENTURE_SLUGS, BASELINE_SCENARIO_IDS } from "./baseline";
 import { places } from "../src/lib/data/places";
@@ -154,7 +154,7 @@ for (const e of RAW_EVENTS) {
   if (adventures.length < BASELINE_ADVENTURE_SLUGS.length) fail(`adventure library shrank: ${adventures.length} < ${BASELINE_ADVENTURE_SLUGS.length}`);
 }
 
-console.log("KidGo content trust gate");
+console.log("Kids Go content trust gate");
 console.log(`  public places: ${places.length}`);
 console.log(`  sourced JSON places: ${RAW_PLACES.length}`);
 console.log(`  adventures: ${adventures.length}`);

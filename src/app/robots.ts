@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kidgo.app";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kids-go.fun";
 
 export const dynamic = "force-static";
 

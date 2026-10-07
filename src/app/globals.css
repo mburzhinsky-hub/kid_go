@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
- * КидГоу — design system (снято с визуального референса).
+ * Kids Go — design system (снято с визуального референса).
  * Светлый тёплый фон, белые карточки с мягкой тенью, большие скругления,
  * фуксиевый primary CTA и сочные категориальные акценты.
  */
@@ -101,11 +101,21 @@
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     background: #f1efea;
+    /* Это приложение, а не сайт: экран не должен уезжать вправо/влево. clip не создаёт скролл-контейнер, sticky и fixed работают. */
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
   }
   body {
     @apply bg-bg text-ink font-sans antialiased;
     font-feature-settings: "ss01", "cv11";
     overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+    width: 100%;
+    max-width: 100%;
+  }
+  /* hidden на html уходит во viewport; clip на body добавляем только там, где он есть, иначе body станет скролл-контейнером и сломает sticky */
+  @supports (overflow: clip) {
+    html, body { overflow-x: clip; }
   }
   button, a { touch-action: manipulation; }
   button { cursor: pointer; }
@@ -134,6 +144,16 @@
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* iOS приближает страницу и «уносит» её вправо, когда фокус попадает в поле со шрифтом меньше 16px.
+   Без @layer, чтобы перебить утилиты Tailwind вроде text-[14px] на самих полях. */
+@media (pointer: coarse) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
 }
 
 /* ───── Карта ───── */

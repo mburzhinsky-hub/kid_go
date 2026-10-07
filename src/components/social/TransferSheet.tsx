@@ -37,7 +37,7 @@ export function TransferSheet({ open, onClose }: { open: boolean; onClose: () =>
       ) : (
         <>
           <p className="-mt-1 text-[15px] leading-snug text-muted">
-            Откройте эту ссылку в приложении КидГоу (с экрана «Домой») или на другом телефоне — всё окажется на месте. Переедет: <b className="text-ink-2">{parts.join(", ")}</b>.
+            Откройте эту ссылку в приложении Kids Go (с экрана «Домой») или на другом телефоне — всё окажется на месте. Переедет: <b className="text-ink-2">{parts.join(", ")}</b>.
           </p>
           <input readOnly value={data.url} onFocus={(e) => e.currentTarget.select()} aria-label="Ссылка для переноса" className="mt-3 h-12 w-full truncate rounded-[16px] bg-fill px-3.5 text-[14px] text-ink-2 outline-none" />
           <div className="mt-3 flex gap-2">
@@ -50,7 +50,7 @@ export function TransferSheet({ open, onClose }: { open: boolean; onClose: () =>
             {canNativeShare() && (
               <button
                 onClick={async () => {
-                  if (await nativeShare({ title: "Мои хотелки в КидГоу", text: "Мои хотелки и подборки в КидГоу", url: data.url })) onClose();
+                  if (await nativeShare({ title: "Мои хотелки в Kids Go", text: "Мои хотелки и подборки в Kids Go", url: data.url })) onClose();
                 }}
                 className="press inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-fill text-[16px] font-semibold"
               >

@@ -1,21 +1,21 @@
 import { cn } from "@/lib/cn";
 
 const LETTERS = [
-  { ch: "К", c: "#1DAA5A", r: -6, y: 1 },
-  { ch: "и", c: "#FF9500", r: 4, y: 3 },
-  { ch: "д", c: "#FF3B30", r: -3, y: 2 },
-  { ch: "Г", c: "#4C4CF2", r: 5, y: -1 },
-  { ch: "о", c: "#18B4E0", r: -4, y: 2 },
-  { ch: "у", c: "#FFB800", r: 6, y: 1 },
+  { ch: "K", c: "#1DAA5A", r: -6, y: 1 },
+  { ch: "i", c: "#FF9500", r: 4, y: 3 },
+  { ch: "d", c: "#FF3B30", r: -3, y: 2 },
+  { ch: "s", c: "#FFB800", r: 5, y: 2 },
+  { ch: "G", c: "#4C4CF2", r: -4, y: 0, gap: true },
+  { ch: "o", c: "#18B4E0", r: 6, y: 2 },
 ];
 
-/** Логотип «КидГоу»: пухлые разноцветные буквы + солнечные лучики. */
+/** Логотип «Kids Go»: пухлые разноцветные буквы + солнечные лучики. */
 export function Logo({ className, size = 34 }: { className?: string; size?: number }) {
   return (
     <span
       className={cn("relative inline-flex select-none items-end font-logo font-black leading-none", className)}
-      style={{ fontSize: size, letterSpacing: "-0.04em" }}
-      aria-label="КидГоу"
+      style={{ fontSize: size, letterSpacing: "-0.03em" }}
+      aria-label="Kids Go"
       role="img"
     >
       {LETTERS.map((l, i) => (
@@ -25,6 +25,7 @@ export function Logo({ className, size = 34 }: { className?: string; size?: numb
           className="inline-block"
           style={{
             color: l.c,
+            marginLeft: l.gap ? "0.22em" : undefined,
             transform: `translateY(${l.y}px) rotate(${l.r}deg)`,
             textShadow: `0 2px 0 color-mix(in oklab, ${l.c} 75%, #000 25%)`,
             WebkitTextStroke: `0.5px ${l.c}`,

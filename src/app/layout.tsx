@@ -1,26 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource/nunito/cyrillic-900.css";
+import "@fontsource/nunito/latin-900.css";
 import "@fontsource-variable/inter/index.css";
 import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
 import { BottomNavigation } from "@/components/layout/BottomNavigation";
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kidgo.app";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kids-go.fun";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
-  title: { default: "КидГоу — куда пойти с детьми сегодня", template: "%s · КидГоу" },
+  title: { default: "Kids Go — куда пойти с детьми сегодня", template: "%s · Kids Go" },
   description:
     "Выберите настроение — мы соберём ваш день: готовые семейные приключения, лучшие места для детей в Москве, маршрут, время и бюджет.",
-  applicationName: "КидГоу",
-  appleWebApp: { capable: true, title: "КидГоу", statusBarStyle: "default" },
+  applicationName: "Kids Go",
+  appleWebApp: { capable: true, title: "Kids Go", statusBarStyle: "default" },
   formatDetection: { telephone: false },
   openGraph: {
     type: "website",
     locale: "ru_RU",
-    siteName: "КидГоу",
-    title: "КидГоу — куда пойти с детьми сегодня",
+    siteName: "Kids Go",
+    title: "Kids Go — куда пойти с детьми сегодня",
     description: "Выберите настроение — мы соберём ваш день.",
   },
   icons: { icon: [{ url: `${B}/icons/favicon-48.png`, sizes: "48x48" }, { url: `${B}/icons/icon-192.png`, sizes: "192x192" }], apple: `${B}/icons/apple-touch-icon.png` },
@@ -29,6 +29,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  maximumScale: 1,
   viewportFit: "cover",
   themeColor: "#fbfaf7",
 };
