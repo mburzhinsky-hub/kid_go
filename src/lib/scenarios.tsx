@@ -8,11 +8,12 @@ import { GlyphSparkle, GlyphClock, GlyphRain, GlyphTreeWalk, GlyphPizza, GlyphGi
  * Главная показывает 8 самых уместных сейчас: по погоде, дню недели, времени и возрасту детей.
  */
 
-export type ScenarioGroup = "weather" | "time" | "party" | "occasion" | "mood" | "effort";
+export type ScenarioGroup = "weather" | "time" | "trip" | "party" | "occasion" | "mood" | "effort";
 
 export const GROUP_LABEL: Record<ScenarioGroup, string> = {
   weather: "Погода и сезон",
   time: "Когда",
+  trip: "За город",
   party: "Кто идёт",
   occasion: "Повод",
   mood: "Настроение",
@@ -36,6 +37,8 @@ export interface ScenarioCtx {
   youngest: number;
   oldest: number;
   interests: string[];
+  /** Включена география «Москва + область»: на главной уместны поездки за город. */
+  region?: boolean;
 }
 
 export interface ScenarioDef {
@@ -106,6 +109,12 @@ export const SCENARIO_LIBRARY: ScenarioDef[] = [
   { id: "late-start", label: "Выехали поздно", group: "time", emoji: "🕓", ...col("blue"), mood: "surprise", duration: "short", constraints: { startAt: H(15), endBy: H(20) }, relevance: (c) => (c.hour >= 15 && c.hour < 18 ? 6 : 0), hint: "Успеем за пару часов" },
   { id: "sunday-eve", label: "Воскресный вечер", group: "time", emoji: "🌙", ...col("purple"), mood: "calm", duration: "short", constraints: { endBy: H(19), maxTravelMin: 25, quiet: true }, relevance: (c) => (c.weekday === 6 && c.hour >= 14 ? 9 : 0), hint: "Тихо и домой к ужину" },
   { id: "weekday-off", label: "Будний день без толпы", group: "time", emoji: "🍃", ...col("mint"), mood: "learn", duration: "half", constraints: { quiet: true, preferCategories: ["museum", "animals"] }, relevance: (c) => (c.weekday < 5 && c.hour < 14 ? 5.5 : 0), hint: "Музеи и зоопарки, когда там свободно" },
+
+  /* ── за город: поездки из Москвы (дорога считается от центра и показана в карточке) ── */
+  { id: "day-trip", label: "Выезд на день", group: "trip", emoji: "🚗", ...col("sky"), mood: "surprise", duration: "day", food: true, constraints: { regionOnly: true }, relevance: (c) => (c.region && !(c.kidsCount && c.oldest < 1) ? (c.weekday >= 5 ? 9 : 5) : 0), hint: "Поездка из Москвы: дорога указана в карточке" },
+  { id: "estate-park", label: "Усадьба и парк", group: "trip", emoji: "🏡", ...col("leaf"), mood: "outdoor", duration: "half", constraints: { regionOnly: true, onlyCategories: ["park"], outdoorPreferred: true }, relevance: (c) => (c.region && !(c.kidsCount && c.oldest < 1) && !c.rainAllDay && !c.cold ? (c.weekday >= 5 ? 8 : 4) : 0), hint: "Парки и усадьбы за городом" },
+  { id: "museums-away", label: "Музеи за городом", group: "trip", emoji: "🏛", ...col("purple"), mood: "learn", duration: "half", constraints: { regionOnly: true, onlyCategories: ["museum"] }, /* музеи области в базе — от 3 лет */ relevance: (c) => (c.region && !(c.kidsCount && c.oldest < 3) ? (c.rainAllDay || c.cold ? 8 : c.weekday >= 5 ? 6 : 4) : 0), hint: "Музеи Звенигорода, Коломны, Сергиева Посада" },
+  { id: "play-away", label: "Игровые и ферма за городом", group: "trip", emoji: "🐴", ...col("orange"), mood: "energy", duration: "half", constraints: { regionOnly: true, onlyCategories: ["play", "animals", "active"] }, relevance: (c) => (c.region && !(c.kidsCount && c.oldest < 1) ? (c.weekday >= 5 ? 6.5 : 3.5) : 0), hint: "Парки развлечений, фермы и зоопарки области" },
 
   /* ── кто идёт ── */
   { id: "baby", label: "С малышом до года", group: "party", emoji: "🍼", ...col("mint"), mood: "calm", duration: "short", constraints: { stroller: true, quiet: true, maxTravelMin: 25 }, relevance: (c) => (c.kidsCount && c.youngest < 1 ? 10 : 0), hint: "Спокойно, недалеко и удобно с коляской" },
@@ -199,6 +208,14 @@ export function pickScenarios(ctx: ScenarioCtx, n = 8): ScenarioDef[] {
     out.push(s);
     perGroup.set(s.group, g + 1);
     if (out.length >= n) break;
+  }
+  // выбрано «Москва + область»: хотя бы одна поездка за город всегда на виду (иначе область теряется среди городских ситуаций)
+  if (ctx.region && !out.some((s) => s.group === "trip")) {
+    const trip = ranked.find((x) => x.s.group === "trip")?.s;
+    if (trip) {
+      if (out.length >= n) out.pop();
+      out.splice(Math.min(2, out.length), 0, trip);
+    }
   }
   return out;
 }

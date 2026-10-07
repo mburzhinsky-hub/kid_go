@@ -1,5 +1,5 @@
 import type { Plan, PlannerInput, InterestId } from "@/lib/types";
-import { plural } from "@/lib/format";
+import { fromMoscowLabel, plural } from "@/lib/format";
 
 /**
  * Человекопонятные объяснения «почему это подходит вашей семье».
@@ -62,8 +62,10 @@ export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = [
   }
   if (input.transport === "car" && plan.stops.some((s) => s.place.parking_info?.status === "yes")) cond.push("🚗 Есть парковка");
   else if (input.transport === "car" && plan.stops.some((s) => s.place.parking_info?.status === "partial")) cond.push("🚗 Парковка рядом");
-  if (first.place.confidence === "osm" || (plan.fromHome && plan.fromHome.minutes <= 12 && plan.fromHome.mode === "walk")) cond.push("🏡 Рядом с домом");
-  else if (plan.fromHome && plan.fromHome.minutes >= 35) cond.push(`🛣 Выезд: ${plan.fromHome.minutes} мин`);
+  if (!plan.fromHome?.fromMoscow && (first.place.confidence === "osm" || (plan.fromHome && plan.fromHome.minutes <= 12 && plan.fromHome.mode === "walk"))) cond.push("🏡 Рядом с домом");
+  else if (plan.fromHome && plan.fromHome.minutes >= 35 && !plan.fromHome.fromMoscow) cond.push(`🛣 Выезд: ${plan.fromHome.minutes} мин`);
+  // выезд за город: главный факт — сколько ехать от Москвы
+  if (plan.fromHome?.fromMoscow) cond.unshift(fromMoscowLabel(plan.fromHome.minutes, plan.fromHome.mode));
   why.push(...cond.slice(0, 2));
 
   if (first.place.activity_level === 3) sentences.push("детям будет где выплеснуть энергию");
@@ -108,7 +110,7 @@ export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = [
   else if (input.budget !== "any" && plan.budget <= Number(input.budget)) why.push("👛 В бюджете");
 
   if (second && plan.distanceKm < 1.5) why.push("🚶 Всё рядом");
-  if (plan.fromHome && plan.fromHome.minutes <= 20) why.push(`📍 ${plan.fromHome.minutes} мин от вас`);
+  if (plan.fromHome && !plan.fromHome.fromMoscow && plan.fromHome.minutes <= 20) why.push(`📍 ${plan.fromHome.minutes} мин от вас`);
 
   let explanation: string;
   if (head && sentences.length) explanation = `${head}: ${sentences.join(", ").replace(/^а /, "")}.`;

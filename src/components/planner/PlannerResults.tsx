@@ -20,7 +20,8 @@ import { scenarioById } from "@/lib/scenarios";
 import { planCardData } from "@/lib/cards";
 import { AdventureCard } from "@/components/cards/AdventureCard";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { LocationChip } from "@/components/location/LocationChip";
+import { GeoScope } from "@/components/location/GeoScope";
+import { getPlaceSync } from "@/lib/data/repository";
 import { LocationSheet } from "@/components/location/LocationSheet";
 import { AgePicker } from "@/components/ui/AgePicker";
 import { track } from "@/lib/analytics";
@@ -125,6 +126,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
   const realDay = result.dayOffset;
   const dateISO = moscowDateISO(realDay);
   const dayAcc = DAY_WORD_ACC[weekdayOf(dateISO)];
+  const anchorPlace = query.anchor ? getPlaceSync(query.anchor) : undefined;
   const dayWord = realDay === 0 ? "сегодня" : realDay === 1 ? "завтра" : `в ${dayAcc}`;
   const sum = daySummary(forecast!, dateISO);
   const t = (n: number) => `${n > 0 ? "+" : ""}${n}°`;
@@ -144,8 +146,8 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
       <header className="flex items-center justify-between gap-2 px-4 pb-1 pt-[max(14px,env(safe-area-inset-top))]">
         <BackButton fallback="/" />
         <div className="flex min-w-0 items-center gap-2">
-          <LocationChip tone="card" className="h-11" />
-          <Link href="/planner" aria-label="Изменить условия" className="press grid h-11 w-11 shrink-0 place-items-center rounded-full bg-surface shadow-card">
+          <GeoScope where="results" />
+          <Link href={query.anchor ? `/planner?anchor=${encodeURIComponent(query.anchor)}` : "/planner"} aria-label="Изменить условия" className="press grid h-11 w-11 shrink-0 place-items-center rounded-full bg-surface shadow-card">
             <SlidersHorizontal size={20} />
           </Link>
         </div>
@@ -162,7 +164,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
         )}
         <h1 className="tight text-[30px] font-[850] leading-[1.06]">
           {result.plans.length ? (
-            <>Мы придумали вам {dayAcc} 💛</>
+            anchorPlace ? <>День вокруг «{anchorPlace.title}»</> : <>Мы придумали вам {dayAcc} 💛</>
           ) : areaEmpty && here ? (
             <>{cap(here.prep)} под это ничего нет</>
           ) : (
@@ -212,7 +214,13 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
         )}
         {input.locationMode === "any" && input.geoScope === "moscow-region" && (
           <div className="mt-3 flex items-center gap-3 rounded-[16px] bg-purple-50 px-3 py-2.5 text-[14px] leading-snug text-purple-ink">
-            <span className="flex-1">Ищем по Москве и Подмосковью. Подмосковные варианты тоже могут попасть в готовый день.</span>
+            <span className="flex-1">
+              {anchorPlace
+                ? "Ищем по Москве и Подмосковью."
+                : input.duration === "short" || input.duration === "mid"
+                  ? "Ищем по Москве и Подмосковью. На 2–4 часа в основном город — за город едем на полдня и дольше."
+                  : "Ищем по Москве и Подмосковью: в днях есть выезды за город, дорога от Москвы указана в карточке."}
+            </span>
             <button onClick={() => fam.setPrefs({ geoScope: "moscow" })} className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[14px] font-semibold">
               Только Москва
             </button>

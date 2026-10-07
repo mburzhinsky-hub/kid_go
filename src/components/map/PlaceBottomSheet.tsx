@@ -11,6 +11,7 @@ import { categoryDef } from "@/lib/catalog";
 import { formatAgeRange, placePriceShort } from "@/lib/format";
 import { routeUrl } from "@/lib/route-url";
 import { placeHref } from "@/lib/place-href";
+import { AroundLink } from "@/components/place/AroundLink";
 
 /** Карточка выбранного маркера, выезжающая снизу. */
 export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; minutes?: number; onClose: () => void }) {
@@ -61,6 +62,11 @@ export function PlaceBottomSheet({ place, minutes, onClose }: { place: Place; mi
           Подробнее <ArrowRight size={16} />
         </Link>
       </div>
+      {!place.slug.startsWith("osm-") && (
+        <div className="mt-1 flex justify-center">
+          <AroundLink slug={place.slug} from="map" variant="link" label="Собрать день вокруг этого места" />
+        </div>
+      )}
     </div>
   );
 }

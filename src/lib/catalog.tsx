@@ -107,10 +107,10 @@ export const MOODS = [
 ] as const;
 
 export const DURATIONS = [
-  { id: "short", label: "1–2 часа", hint: "быстро и без усталости", emoji: "⏱" },
+  { id: "short", label: "≈ 2 часа", hint: "быстро и без усталости", emoji: "⏱" },
   { id: "mid", label: "3–4 часа", hint: "самое то для выходного", emoji: "☀️" },
   { id: "half", label: "Полдня", hint: "с обедом и прогулкой", emoji: "🌤" },
-  { id: "day", label: "Весь день", hint: "большое приключение", emoji: "🗓" },
+  { id: "day", label: "Почти весь день", hint: "большое приключение", emoji: "🗓" },
 ] as const;
 
 export const BUDGETS = [

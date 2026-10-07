@@ -13,6 +13,10 @@ import { locationMode, travelToPlace } from "@/lib/location";
 import { tierOf } from "@/lib/moscow";
 import { useOkrug } from "@/lib/use-okrug";
 import { useFamily } from "@/lib/store";
+import { useGeoVisible } from "@/lib/use-geo";
+import { isOutside } from "@/lib/outside";
+import { GeoScope } from "@/components/location/GeoScope";
+import { AroundLink } from "@/components/place/AroundLink";
 import { goBack } from "@/lib/nav";
 import { PlaceRow } from "@/components/cards/PlaceCard";
 import { FilterChip } from "@/components/ui/FilterChip";
@@ -48,7 +52,11 @@ function SearchScreenInner({ initialQ = "", initialCategory, initialSort }: Sear
   const origin = useFamily((s) => s.origin);
   const transport = useFamily((s) => s.transport);
   const { places: extra } = useNearbyExtras();
-  const pool = useMemo(() => (extra.length ? [...allPlaces, ...extra] : allPlaces), [extra]);
+  const { regionOk } = useGeoVisible();
+  const setPrefs = useFamily((s) => s.setPrefs);
+  const fullPool = useMemo(() => (extra.length ? [...allPlaces, ...extra] : allPlaces), [extra]);
+  // «Москва» — только город; «Москва + область» — ещё и выезды за город. Скрытые не пропадают: ниже подсказка, сколько их.
+  const pool = useMemo(() => (regionOk ? fullPool : fullPool.filter((p) => !isOutside(p))), [fullPool, regionOk]);
   const anywhere = locationMode(origin) === "any";
   const okrug = useOkrug();
   const mins = (p: Place) => travelToPlace(origin, p, transport).minutes;
@@ -95,6 +103,20 @@ function SearchScreenInner({ initialQ = "", initialCategory, initialSort }: Sear
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [q, category, sort, parsed, origin, transport, kids, pool, anywhere, okrug]);
 
+  const hiddenRegion = useMemo(() => {
+    if (regionOk) return 0;
+    const words = norm(q)
+      .split(/\s+/)
+      .filter((w) => w.length > 2)
+      .map((w) => w.slice(0, Math.max(4, w.length - 2)));
+    return fullPool.filter((p) => {
+      if (!isOutside(p) || (category && p.category !== category)) return false;
+      if (!words.length) return true;
+      const hay = norm(`${p.title} ${p.subtitle} ${p.tags.join(" ")} ${p.town ?? ""}`);
+      return words.some((w) => hay.includes(w));
+    }).length;
+  }, [fullPool, regionOk, q, category]);
+
   const plannerHref = parsed
     ? `/planner/results?${new URLSearchParams({
         q,
@@ -135,7 +157,10 @@ function SearchScreenInner({ initialQ = "", initialCategory, initialSort }: Sear
             )}
           </label>
         </div>
-        <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto px-4">
+        <div className="mt-2.5 px-4">
+          <GeoScope where="search" size="sm" />
+        </div>
+        <div className="no-scrollbar mt-2.5 flex gap-2 overflow-x-auto px-4">
           {CATEGORIES.map((c) => {
             const active = c.id === "all" ? !category : category === c.id;
             return (
@@ -213,8 +238,17 @@ function SearchScreenInner({ initialQ = "", initialCategory, initialSort }: Sear
 
       <div className="mt-3 space-y-2.5 px-4">
         {results.map((p: Place) => (
-          <PlaceRow key={p.id} place={p} />
+          <PlaceRow key={p.id} place={p} footer={p.slug.startsWith("osm-") ? undefined : <AroundLink slug={p.slug} from="search" variant="link" />} />
         ))}
+        {hiddenRegion > 0 && (
+          <button
+            type="button"
+            onClick={() => setPrefs({ geoScope: "moscow-region" })}
+            className="press flex min-h-12 w-full items-center justify-center gap-2 rounded-[20px] bg-purple-50 px-4 py-2.5 text-center text-[15px] font-semibold text-purple-ink"
+          >
+            🚗 Ещё {hiddenRegion} {plural(hiddenRegion, "место", "места", "мест")} в области — показать «Москва + область»
+          </button>
+        )}
       </div>
       {results.length === 0 && (
         <EmptyState

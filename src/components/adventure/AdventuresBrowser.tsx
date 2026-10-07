@@ -33,7 +33,7 @@ export function AdventuresBrowser({ items }: { items: AdventureItem[] }) {
   const [f, setF] = useState<FilterId>("all");
   const kids = useFamily((s) => s.children);
   // выбран округ: сначала приключения в нём, у каждого — подпись, где это
-  const ordered = useAreaOrder(items.map((x) => ({ ...x, areas: x.card.areas })));
+  const ordered = useAreaOrder(items.map((x) => ({ ...x, areas: x.card.areas, tripKm: x.card.tripKm })));
   const okrug = ordered.okrug;
   const list = useMemo(
     () =>

@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { DayView } from "@/components/adventure/DayView";
 import { PlannerResults } from "@/components/planner/PlannerResults";
+import { PlannerWizard } from "@/components/planner/PlannerWizard";
 import { SearchScreen } from "@/components/search/SearchScreen";
 import { MapScreen } from "@/components/map/MapScreen";
 import { FavoritesScreen } from "@/components/favorites/FavoritesScreen";
@@ -34,6 +35,10 @@ function DayRoute() {
 function ResultsRoute() {
   const sp = useSearchParams();
   return <PlannerResults query={Object.fromEntries(sp.entries())} />;
+}
+
+function PlannerRoute() {
+  return <PlannerWizard anchor={useSearchParams().get("anchor") ?? undefined} />;
 }
 
 function SearchRoute() {
@@ -76,6 +81,7 @@ const wrap = (C: React.ComponentType) =>
 
 export const DayPageClient = wrap(DayRoute);
 export const ResultsPageClient = wrap(ResultsRoute);
+export const PlannerPageClient = wrap(PlannerRoute);
 export const SearchPageClient = wrap(SearchRoute);
 export const MapPageClient = wrap(MapRoute);
 export const FavoritesPageClient = wrap(FavoritesRoute);

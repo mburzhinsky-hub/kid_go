@@ -1,75 +1,22 @@
 import { AppHeader } from "@/components/layout/AppHeader";
 import { SearchBar } from "@/components/home/SearchBar";
 import { CategoryScroller } from "@/components/home/CategoryScroller";
-import { type HeroSlide } from "@/components/home/HeroBanner";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { HomeAdventureCards } from "@/components/cards/AreaAdventureCards";
 import { adventureCardData } from "@/lib/cards";
 import { PlaceCarousel } from "@/components/cards/PlaceCard";
 import { EventCard } from "@/components/cards/EventCard";
-import { HomeHero, HomeScenarios, HomeWeather, NearbyPopular, NearbyPopularHeader } from "@/components/home/HomeLive";
+import { HomeScenarios, HomeWeather, NearbyPopular, NearbyPopularHeader } from "@/components/home/HomeLive";
+import { HomeCta } from "@/components/home/HomeCta";
 import { TripFeedback } from "@/components/home/TripFeedback";
-import { PlannerPromo } from "@/components/home/PlannerPromo";
 import { ForYou } from "@/components/home/ForYou";
 import { OnboardingNudge } from "@/components/home/OnboardingNudge";
 import { ParentsPicks } from "@/components/home/ParentsPicks";
 import { SourceScope } from "@/components/social/SourceScope";
 import { repo } from "@/lib/data/repository";
-import { PH, ph } from "@/lib/data/photos";
 
 // Погода и афиша меняются в течение дня — обновляем страницу раз в 30 минут (ISR).
 export const revalidate = 1800;
-
-const SLIDES: HeroSlide[] = [
-  {
-    id: "weekend",
-    title: "Выходные будут ярче!",
-    subtitle: "Лучшие идеи для детей рядом с вами",
-    cta: "Смотреть идеи",
-    href: "/adventures",
-    photo: ph(PH.childLaughing, "Смеющийся ребёнок"),
-    tint: "#FFC8A8",
-    emoji: "🎈",
-    overlay: "linear-gradient(95deg, rgba(150,30,70,0.62) 0%, rgba(150,30,70,0.25) 48%, rgba(0,0,0,0) 72%)",
-    doodle: "crown",
-  },
-  {
-    id: "rain",
-    title: "Дождь? Не беда!",
-    subtitle: "Музеи, батуты и океанариум — всё под крышей",
-    cta: "Идеи под крышей",
-    href: "/planner/results?mood=surprise&duration=mid&weather=rain&from=rain",
-    photo: ph(PH.childYellowRaincoat, "Ребёнок в жёлтом дождевике"),
-    tint: "#BFD9FF",
-    emoji: "☔",
-    overlay: "linear-gradient(95deg, rgba(20,60,160,0.62) 0%, rgba(20,60,160,0.25) 50%, rgba(0,0,0,0) 74%)",
-    doodle: "rain",
-  },
-  {
-    id: "dino",
-    title: "День динозавров",
-    subtitle: "Готовый маршрут: музей → кафе → игрушки",
-    cta: "Хочу так",
-    href: "/adventures/den-dinozavrov",
-    photo: ph(PH.dinoHall, "Скелет динозавра"),
-    tint: "#E5D9FF",
-    emoji: "🦖",
-    overlay: "linear-gradient(95deg, rgba(70,30,140,0.66) 0%, rgba(70,30,140,0.25) 50%, rgba(0,0,0,0) 75%)",
-    doodle: "dino",
-  },
-  {
-    id: "free",
-    title: "Весело и бесплатно",
-    subtitle: "Парки и площадки, где не нужны билеты",
-    cta: "Подобрать",
-    href: "/planner/results?mood=outdoor&duration=mid&budget=free&weather=sun&from=free",
-    photo: ph(PH.woodenPlayground, "Деревянная площадка"),
-    tint: "#CFEFC4",
-    emoji: "🌳",
-    overlay: "linear-gradient(95deg, rgba(10,110,60,0.62) 0%, rgba(10,110,60,0.25) 50%, rgba(0,0,0,0) 75%)",
-    doodle: "star",
-  },
-];
 
 export default async function HomePage() {
   const [places, adventures, events] = await Promise.all([repo.listPlaces(), repo.listAdventures(), repo.listEvents()]);
@@ -86,16 +33,10 @@ export default async function HomePage() {
       <main className="pb-28">
         <h1 className="sr-only">КидГоу — куда пойти с детьми сегодня</h1>
         <AppHeader />
-        <SearchBar />
-        <div className="mt-4">
-          <CategoryScroller />
-        </div>
-        <div className="mt-4">
-          <HomeHero slides={SLIDES} />
-        </div>
+        <HomeCta />
 
         <section className="mt-7">
-          <SectionHeader title="Что хочется сегодня?" />
+          <SectionHeader title="Или начните с ситуации" />
           <div className="mt-3.5">
             <HomeScenarios />
           </div>
@@ -107,6 +48,16 @@ export default async function HomePage() {
           <SectionHeader title="Готовые приключения" href="/adventures" />
           <div className="no-scrollbar snap-x-pad mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-4 pt-1">
             <HomeAdventureCards items={adv.map(adventureCardData)} limit={6} />
+          </div>
+        </section>
+
+        <section className="mt-8" aria-label="Поиск и карта">
+          <p className="px-4 text-[14px] font-semibold text-muted">Знаете, куда хотите?</p>
+          <div className="mt-2">
+            <SearchBar placeholder="Найти место" />
+          </div>
+          <div className="mt-3">
+            <CategoryScroller />
           </div>
         </section>
 
@@ -122,10 +73,6 @@ export default async function HomePage() {
             <NearbyPopular places={places} />
           </div>
         </section>
-
-        <div className="mt-5">
-          <PlannerPromo />
-        </div>
 
         {upcoming.length > 0 && (
           <section className="mt-8">

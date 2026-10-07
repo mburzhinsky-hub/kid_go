@@ -150,3 +150,8 @@ export function weekdayAccusative(date = new Date()) {
 export function quote(s: string): string {
   return `«${s.replace(/«/g, "„").replace(/»/g, "“")}»`;
 }
+
+/** «🚗 ~45 мин от Москвы» — выезд за город, считается от центра Москвы, поэтому с «~». */
+export function fromMoscowLabel(minutes: number, mode: "walk" | "transit" | "car", from = "от Москвы"): string {
+  return `${mode === "car" ? "🚗" : "🚆"} ~${Math.round(minutes / 5) * 5} мин ${from}`;
+}

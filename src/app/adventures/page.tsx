@@ -5,6 +5,7 @@ import { repo } from "@/lib/data/repository";
 import { adventureCardData } from "@/lib/cards";
 import { AdventuresBrowser } from "@/components/adventure/AdventuresBrowser";
 import { TabBackButton } from "@/components/ui/BackButton";
+import { GeoScope } from "@/components/location/GeoScope";
 
 export const metadata: Metadata = {
   title: "Готовые приключения с детьми",
@@ -30,6 +31,7 @@ export default async function AdventuresPage() {
         <TabBackButton className="mb-2" />
         <h1 className="tight text-[30px] font-[850] leading-tight">Приключения</h1>
         <p className="mt-0.5 text-[16px] text-muted">Готовые дни: места рядом, время и бюджет уже посчитаны</p>
+        <GeoScope className="mt-3" where="adventures" />
       </header>
       <Link
         href="/planner"
@@ -41,7 +43,7 @@ export default async function AdventuresPage() {
         </span>
         <span className="flex-1">
           <span className="block text-[17px] font-bold leading-tight">Собрать свой день</span>
-          <span className="block text-[14px] text-white/85">Возраст, настроение, бюджет — 5 вопросов</span>
+          <span className="block text-[14px] text-white/85">Дети, время и настроение — 3 вопроса</span>
         </span>
         <ArrowRight size={24} />
       </Link>

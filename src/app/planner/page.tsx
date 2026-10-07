@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { PlannerWizard } from "@/components/planner/PlannerWizard";
+import { PlannerPageClient } from "@/components/route-params";
 
 export const metadata: Metadata = {
   title: "Придумаем ваш день",
-  description: "Возраст, настроение, время и бюджет — и готовый семейный маршрут на сегодня.",
+  description: "Дети, время и настроение — и готовые варианты семейного дня.",
 };
 
 export default function PlannerPage() {
-  return <PlannerWizard />;
+  return <PlannerPageClient />;
 }

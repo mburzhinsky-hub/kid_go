@@ -2,8 +2,10 @@ import type { Adventure, Plan } from "@/lib/types";
 import type { AdventureCardData } from "@/components/cards/AdventureCard";
 import { adventurePlaces } from "@/lib/data/repository";
 import { chainLabel } from "@/lib/plan";
-import { formatAgeRange, formatDurationShort, priceLevelLabel } from "@/lib/format";
+import { formatAgeRange, formatDurationShort, fromMoscowLabel, priceLevelLabel } from "@/lib/format";
 import { areasOfPlaces } from "@/lib/area-fit";
+import { DEFAULT_LOCATION, haversineKm, pt } from "@/lib/geo";
+import { isOutside } from "@/lib/outside";
 import { withPlanMeals } from "@/lib/food";
 
 const level = (budget: number) => (budget === 0 ? 0 : budget < 2500 ? 1 : budget < 5000 ? 2 : 3);
@@ -24,7 +26,14 @@ export function adventureCardData(a: Adventure): AdventureCardData {
     recommend: a.recommend_percent,
     thumbs: places.map((p) => ({ ...p.photos[0], tint: p.tint, emoji: p.emoji })),
     areas: areasOfPlaces(places),
+    tripKm: tripKmOf(places),
   };
+}
+
+/** Расстояние от центра Москвы до основного места выезда за город (undefined — маршрут в городе). */
+export function tripKmOf(places: Parameters<typeof isOutside>[0][]): number | undefined {
+  const out = places.find((p) => isOutside(p));
+  return out ? Math.round(haversineKm(DEFAULT_LOCATION, pt(out))) : undefined;
 }
 
 /** Сгенерированный план → данные карточки. */
@@ -44,6 +53,10 @@ export function planCardData(plan: Plan, href: string, fromLabel?: string): Adve
     thumbs: places.map((p) => ({ ...p.photos[0], tint: p.tint, emoji: p.emoji })),
     why: plan.why,
     explanation: plan.explanation,
-    fromHome: plan.fromHome ? `📍 ${plan.fromHome.approx ? "≈ " : ""}${plan.fromHome.minutes} мин ${fromLabel ?? "от вас"} · старт ${plan.stops[0]?.start}` : undefined,
+    fromHome: plan.fromHome
+      ? plan.fromHome.fromMoscow
+        ? `${fromMoscowLabel(plan.fromHome.minutes, plan.fromHome.mode)} · старт ${plan.stops[0]?.start}`
+        : `📍 ${plan.fromHome.approx ? "≈ " : ""}${plan.fromHome.minutes} мин ${fromLabel ?? "от вас"} · старт ${plan.stops[0]?.start}`
+      : undefined,
   };
 }

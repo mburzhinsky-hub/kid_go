@@ -4,15 +4,21 @@ import { useMemo } from "react";
 import { AdventureCard, type AdventureCardData } from "./AdventureCard";
 import { areaNote, fitOfAreas } from "@/lib/area-fit";
 import { useOkrug } from "@/lib/use-okrug";
+import { useGeoVisible } from "@/lib/use-geo";
 
 /** Порядок приключений с учётом выбранного округа: сначала те, что целиком в нём, потом в нём и рядом, потом остальные. */
-export function useAreaOrder<T extends { areas?: string[] }>(items: T[], limit?: number) {
+export function useAreaOrder<T extends { areas?: string[]; tripKm?: number }>(items: T[], limit?: number) {
   const okrug = useOkrug();
+  const { regionOk } = useGeoVisible();
   return useMemo(() => {
-    if (!okrug) return { okrug, list: limit ? items.slice(0, limit) : items };
-    const ranked = items.map((it, i) => ({ it, i, f: fitOfAreas(it.areas, okrug.id) })).sort((a, b) => a.f - b.f || a.i - b.i);
+    // «Москва»: выезды за город не показываем; «Москва + область»: они идут после городских, но в первую выдачу попадают
+    const city = items.filter((it) => it.tripKm == null);
+    const trips = regionOk ? items.filter((it) => it.tripKm != null) : [];
+    const pool = limit && trips.length ? [...city.slice(0, Math.max(1, limit - 2)), ...trips.slice(0, 2)] : [...city, ...trips];
+    if (!okrug) return { okrug, list: limit ? pool.slice(0, limit) : pool };
+    const ranked = pool.map((it, i) => ({ it, i, f: fitOfAreas(it.areas, okrug.id) })).sort((a, b) => a.f - b.f || a.i - b.i);
     return { okrug, list: (limit ? ranked.slice(0, limit) : ranked).map((x) => x.it) };
-  }, [items, okrug, limit]);
+  }, [items, okrug, limit, regionOk]);
 }
 
 /** Карусель «Готовые приключения» на главной. */
