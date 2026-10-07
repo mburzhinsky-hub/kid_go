@@ -92,5 +92,7 @@ for ($i = 1; $i <= 4; $i++) {
 check('4-й запрос при лимите 3 → 429 с Retry-After', $code === 429 && ctype_digit((string) ($retry ?? '')));
 try { RateLimit::hit($db, 'test:other', 3, 60); check('другой ключ считается отдельно', true); } catch (Kg\ApiException) { check('другой ключ считается отдельно', false); }
 
+require __DIR__ . '/auth.php';
+
 echo "\nИтого: $pass ок, $fail ошибок\n";
 exit($fail ? 1 : 0);
