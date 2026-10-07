@@ -111,7 +111,7 @@ export function PlannerWizard({ anchor }: { anchor?: string }) {
 
   return (
     <main className="flex min-h-dvh flex-col pb-32">
-      <header className="sticky top-0 z-20 flex items-center justify-between bg-bg/95 px-4 pb-2 pt-[max(14px,env(safe-area-inset-top))]">
+      <header className="sticky top-0 z-20 flex items-center justify-between bg-bg px-4 pb-2 pt-[max(14px,env(safe-area-inset-top))]">
         <button onClick={() => goBack(router, "/")} aria-label="Закрыть" className="press grid h-11 w-11 shrink-0 place-items-center rounded-full bg-surface shadow-card">
           <X size={24} />
         </button>

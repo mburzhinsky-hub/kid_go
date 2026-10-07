@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Users, Clock, Wallet, Route, Umbrella, Sun, Heart, Share2, Shuffle, Sparkles, CalendarPlus, Home, CloudRain, ArrowRight } from "lucide-react";
-import type { Photo, Place, PlanStop } from "@/lib/types";
+import type { Photo, Place, PlanStop, TransportId } from "@/lib/types";
+import { multiRouteUrl } from "@/lib/route-url";
 import { buildPlan, chainLabel, type StopInput } from "@/lib/plan";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { BackButton, ShareButton } from "@/components/place/PhotoGallery";
@@ -50,14 +51,13 @@ export interface AdventureViewProps {
   onReplace?: (index: number, slug: string) => void;
   syncUrl?: boolean;
   dayOffset?: number;
+  /** Как едет семья в этом дне: из ссылки плана (выбор в планировщике) или из профиля. */
+  transport?: TransportId;
   children?: React.ReactNode;
 }
 
 const START_OPTIONS = ["10:00", "11:00", "12:30", "14:00", "16:00"];
 
-export function multiRouteUrl(places: Place[]) {
-  return `https://yandex.ru/maps/?rtext=${places.map((p) => `${p.latitude},${p.longitude}`).join("~")}&rtt=mt`;
-}
 
 /** «Хочу сюда» на шагах приключения запоминает источник — приключение, из которого место попало в хотелки. */
 export function AdventureView(props: AdventureViewProps) {
@@ -79,6 +79,7 @@ function AdventureViewInner(props: AdventureViewProps) {
   }, [props.stops]);
 
   const fam = useFamily();
+  const transport: TransportId = props.transport ?? fam.transport;
   const okrug = useOkrug();
   const { forecast } = useForecast();
   const dayOffset = props.dayOffset ?? 0;
@@ -88,19 +89,19 @@ function AdventureViewInner(props: AdventureViewProps) {
   const youngest = kids.length ? Math.min(...kids.map((k) => k.age)) : 5;
 
   const plan = useMemo(() => {
-    const p = buildPlan(stopsIn, { key: props.planKey, title: props.title, start, transport: fam.transport });
+    const p = buildPlan(stopsIn, { key: props.planKey, title: props.title, start, transport });
     if (forecast) {
       const summary = daySummary(forecast, dateISO).weather;
       p.stops.forEach((s, i) => {
         const r = wxFor(s.place, toMinutes(s.start), s.duration, { forecast, dateISO, youngest }, { weather: summary, mood: "surprise", constraints: undefined });
         s.weather = r.w;
         if (r.w?.bad && s.place.outdoor && !s.place.indoor) {
-          s.backup = alternativesFor(p.stops, i, { kids, transport: fam.transport, weekday, forecast, dateISO, indoorOnly: true, area: okrug?.id })[0]?.place.slug;
+          s.backup = alternativesFor(p.stops, i, { kids, transport, weekday, forecast, dateISO, indoorOnly: true, area: okrug?.id })[0]?.place.slug;
         }
       });
     }
     return p;
-  }, [stopsIn, props.planKey, props.title, start, fam.transport, forecast, dateISO, youngest, kids, weekday, okrug]);
+  }, [stopsIn, props.planKey, props.title, start, transport, forecast, dateISO, youngest, kids, weekday, okrug]);
 
   const saveKey = modified ? `custom:${plan.stops.map((s) => s.place.slug).join("+")}` : props.planKey;
   const saved = fam.savedPlans.some((p) => p.key === saveKey);
@@ -113,10 +114,10 @@ function AdventureViewInner(props: AdventureViewProps) {
     !plan.stops.some((s) => s.foodOption && s.place.category !== "cafe");
   const cover = props.cover ?? places[0]?.photos[0];
   const startOptions = START_OPTIONS.includes(props.start) ? START_OPTIONS : [props.start, ...START_OPTIONS].sort((a, b) => toMinutes(a) - toMinutes(b));
-  const fromHome = fam.hydrated && places[0] && locationMode(fam.origin) === "exact" ? travelToPlace(fam.origin, places[0], fam.transport) : null;
+  const fromHome = fam.hydrated && places[0] && locationMode(fam.origin) === "exact" ? travelToPlace(fam.origin, places[0], transport) : null;
   // выезд за город: «~N мин от Москвы» (если точка выезда не задана — от центра)
   const tripKm = tripKmOf(places);
-  const tripMode = fam.transport === "car" ? "car" : "transit";
+  const tripMode = transport === "car" ? "car" : "transit";
   const trip = tripKm != null && !fromHome ? { minutes: travelMinutes(tripKm, tripMode), mode: tripMode as "car" | "transit" } : null;
   const endMin = plan.stops.length ? toMinutes(plan.stops[plan.stops.length - 1].start) + plan.stops[plan.stops.length - 1].duration : toMinutes(start);
   const bring = forecast ? bringList(windowWx(forecast, dateISO, toMinutes(start), endMin), youngest, places.some((p) => p.outdoor)) : [];
@@ -258,11 +259,11 @@ function AdventureViewInner(props: AdventureViewProps) {
         stops={plan.stops}
         onClose={() => setReplacing(null)}
         onPick={(i, p, why) => replaceStop(i, p, why)}
-        opts={{ kids, transport: fam.transport, weekday, forecast, dateISO, area: okrug?.id }}
+        opts={{ kids, transport, weekday, forecast, dateISO, area: okrug?.id }}
       />
 
       <StickyCTA
-        href={multiRouteUrl(places)}
+        href={multiRouteUrl(places, transport)}
         onClick={go}
         icon={<IconRocket width={24} height={24} />}
         secondary={

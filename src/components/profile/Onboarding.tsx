@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { LocateFixed, MapPin, Loader2, Check } from "lucide-react";
-import type { InterestId } from "@/lib/types";
+import { LocateFixed, MapPin, Loader2, Check, Plus, X, Globe2 } from "lucide-react";
+import type { Child, InterestId } from "@/lib/types";
+import { plural } from "@/lib/format";
 import { useFamily } from "@/lib/store";
 import { INTERESTS } from "@/lib/catalog";
 import { InterestChip } from "./ProfileScreen";
@@ -14,6 +15,8 @@ import { requestGpsOrigin } from "@/lib/use-context";
 import { DEFAULT_ORIGIN, OKRUGS, okrugOrigin } from "@/lib/location";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
+
+const KID_EMOJI = ["🦁", "🦄", "🐻", "🐰", "🦊", "🐼"];
 
 /**
  * Знакомство: 1) что это, 2) возраст ребёнка (имя — по желанию), 3) откуда выезжаете.
@@ -26,14 +29,26 @@ export function Onboarding() {
   const [name, setName] = useState("");
   const [age, setAge] = useState<number | null>(null);
   const [interests, setInterests] = useState<InterestId[]>([]);
+  /** Дети, уже добавленные на этом шаге (можно добавить несколько). */
+  const [added, setAdded] = useState<Child[]>([]);
   const [locOpen, setLocOpen] = useState(false);
   const [gpsBusy, setGpsBusy] = useState(false);
   const [gpsError, setGpsError] = useState(false);
 
+  /** Сохраняет ребёнка из формы и очищает форму — для «Добавить ещё ребёнка» и для «Дальше». */
   const saveChild = () => {
     if (age == null) return;
-    s.upsertChild({ id: `c${Date.now()}`, name: name.trim(), age, interests, emoji: "🦁" });
-    track("onboarding_child", { age, interests: interests.length });
+    const c: Child = { id: `c${Date.now()}`, name: name.trim(), age, interests, emoji: KID_EMOJI[added.length % KID_EMOJI.length] };
+    s.upsertChild(c);
+    setAdded((a) => [...a, c]);
+    track("onboarding_child", { age, interests: interests.length, n: added.length + 1 });
+    setAge(null);
+    setName("");
+    setInterests([]);
+  };
+  const removeAdded = (id: string) => {
+    s.removeChild(id);
+    setAdded((a) => a.filter((c) => c.id !== id));
   };
   const finish = () => {
     s.completeOnboarding();
@@ -54,11 +69,11 @@ export function Onboarding() {
   };
 
   const next = () => {
-    if (step === 1) saveChild();
+    if (step === 1 && age != null) saveChild();
     if (step === 2) return finish();
     setStep(step + 1);
   };
-  const canNext = step !== 1 || age != null;
+  const canNext = step !== 1 || age != null || added.length > 0;
 
   return (
     // высота ровно в экран: шаг прокручивается внутри, а кнопка «Дальше» всегда видна — не надо отдалять страницу
@@ -91,8 +106,26 @@ export function Onboarding() {
 
       {step === 1 && (
         <section className="flex-1 animate-rise">
-          <h1 className="tight mt-5 text-[30px] font-[850] leading-[1.08]">Сколько лет ребёнку? 💛</h1>
-          <p className="mt-2 text-[16px] text-muted">Покажем только то, что подходит по возрасту. Остальных детей добавите в профиле.</p>
+          <h1 className="tight mt-5 text-[30px] font-[850] leading-[1.08]">{added.length ? "Кто ещё идёт? 💛" : "Сколько лет ребёнку? 💛"}</h1>
+          <p className="mt-2 text-[16px] text-muted">
+            {added.length
+              ? "Добавьте ещё одного ребёнка или нажмите «Дальше» — день подберём так, чтобы было интересно всем."
+              : "Покажем только то, что подходит по возрасту. Если детей несколько — добавьте каждого, подберём день для всех."}
+          </p>
+          {added.length > 0 && (
+            <ul className="mt-4 flex flex-wrap gap-2" aria-label="Добавленные дети">
+              {added.map((c) => (
+                <li key={c.id} className="flex h-11 items-center gap-2 rounded-full bg-pink-50 pl-3 pr-1.5 text-[16px] font-bold ring-2 ring-inset ring-pink">
+                  <span className="text-[18px]">{c.emoji}</span>
+                  {c.name ? `${c.name}, ` : ""}
+                  {c.age === 0 ? "до года" : `${c.age} ${plural(c.age, "год", "года", "лет")}`}
+                  <button onClick={() => removeAdded(c.id)} aria-label={`Убрать: ${c.name || "ребёнок"}, ${c.age}`} className="press hit relative grid h-8 w-8 place-items-center rounded-full text-ink-2">
+                    <X size={16} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
           <AgePicker className="mt-5" value={age} onPick={setAge} />
           {age != null && (
             <div className="animate-fade">
@@ -121,8 +154,42 @@ export function Onboarding() {
       {step === 2 && (
         <section className="flex-1 animate-rise">
           <h1 className="tight mt-5 text-[30px] font-[850] leading-[1.08]">Где ищем? 📍</h1>
-          <p className="mt-2 text-[16px] text-muted">Можно ничего не выбирать — покажем лучшее по всей Москве. Хотите ближе к дому — отметьте свой округ.</p>
-          <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Округ Москвы">
+          <p className="mt-2 text-[16px] text-muted">Выберите, куда готовы выезжать. Хотите точнее — укажите свой округ или адрес: посчитаем дорогу от вас.</p>
+
+          <div className="mt-5 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Охват поиска">
+            {(
+              [
+                { id: "moscow", title: "Москва", note: "Лучшие идеи в городе", Icon: Globe2 },
+                { id: "moscow-region", title: "Москва + область", note: "Ещё поездки за город: усадьбы, парки, музеи", Icon: MapPin },
+              ] as const
+            ).map((o) => {
+              const on = s.origin.source === "default" && s.geoScope === o.id;
+              const region = o.id === "moscow-region";
+              return (
+                <button
+                  key={o.id}
+                  role="radio"
+                  aria-checked={on}
+                  onClick={() => {
+                    track("geo_scope_set", { scope: o.id, where: "onboarding" });
+                    s.setPrefs({ geoScope: o.id });
+                    s.setOrigin(DEFAULT_ORIGIN);
+                  }}
+                  className={cn("press rounded-[20px] p-3.5 text-left", on ? (region ? "bg-purple-ink text-white" : "bg-ink text-white") : region ? "bg-purple-50 text-ink shadow-card" : "bg-surface shadow-card")}
+                >
+                  <span className={cn("grid h-10 w-10 place-items-center rounded-full", on ? "bg-white/15" : region ? "bg-white text-purple-ink" : "bg-fill")}>
+                    <o.Icon size={20} />
+                  </span>
+                  <span className="mt-2 block text-[16px] font-bold">{o.title}</span>
+                  <span className={cn("mt-0.5 block text-[13px] leading-snug", on ? "text-white/80" : "text-muted")}>{o.note}</span>
+                  {on && <Check size={20} className="mt-2" />}
+                </button>
+              );
+            })}
+          </div>
+
+          <p className="mt-6 text-[14px] font-bold text-ink-2">Или ближе к дому — по желанию</p>
+          <div className="mt-2.5 flex flex-wrap gap-2" role="group" aria-label="Округ Москвы">
             {OKRUGS.map((o) => {
               const on = s.origin.source === "area" && s.origin.label === o.short;
               return (
@@ -158,14 +225,25 @@ export function Onboarding() {
             {(s.origin.source === "custom" || s.origin.source === "home") && <Check size={24} className="text-pink-ink" />}
           </button>
           <p className="mt-4 rounded-[16px] bg-green-50 px-3.5 py-2.5 text-[15px] font-semibold text-green-ink animate-fade">
-            {s.origin.source === "default" ? "Ищем по всей Москве" : `Ищем рядом: ${s.origin.source === "home" ? "Дом" : s.origin.label}`}
+            {s.origin.source === "default"
+              ? s.geoScope === "moscow-region"
+                ? "Ищем в Москве и области"
+                : "Ищем по всей Москве"
+              : `Ищем рядом: ${s.origin.source === "home" ? "Дом" : s.origin.label} — дорогу считаем от этой точки`}
           </p>
-          {gpsError && <p className="mt-3 text-[14px] text-orange-ink">Геопозиция недоступна — выберите округ, этого достаточно.</p>}
+          {gpsError && <p className="mt-3 text-[14px] text-orange-ink">Геопозиция недоступна — выберите «Москва» или свой округ, этого достаточно.</p>}
           <LocationSheet open={locOpen} onClose={() => setLocOpen(false)} />
         </section>
       )}
 
       </div>
+
+      {/* ещё один ребёнок: всегда на виду над «Дальше» — сохраняем текущего и открываем чистую форму */}
+      {step === 1 && age != null && (
+        <button onClick={saveChild} className="press mt-1 flex h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-fill text-[16px] font-semibold text-ink">
+          <Plus size={20} /> Добавить ещё ребёнка
+        </button>
+      )}
 
       <div className="relative flex shrink-0 items-center gap-4 pb-[max(16px,env(safe-area-inset-bottom))] pt-2">
         <span aria-hidden className="pointer-events-none absolute inset-x-0 -top-5 h-5 bg-gradient-to-t from-bg to-transparent" />

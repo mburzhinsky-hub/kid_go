@@ -28,6 +28,7 @@ function DayRoute() {
       why={g("chips")?.split("|").filter(Boolean)}
       durations={g("d")?.split(",").map(Number)}
       dayOffset={Number(g("day") ?? 0) || 0}
+      transport={(["walk", "transit", "car"] as const).find((t) => t === g("transport"))}
     />
   );
 }

@@ -49,7 +49,7 @@ export function decodeKids(raw?: string): Pick<Child, "name" | "age" | "interest
 }
 
 /** Ссылка на «Наш день» по плану: шаги и время, без имён детей. */
-export function planHref(plan: Plan, kidNames: string[] = []) {
+export function planHref(plan: Plan, kidNames: string[] = [], transport?: TransportId) {
   const chips = plan.why.filter((w) => !kidNames.some((n) => n && w.includes(n)));
   const q = new URLSearchParams({
     steps: plan.stops.map((s) => s.place.slug).join(","),
@@ -61,6 +61,8 @@ export function planHref(plan: Plan, kidNames: string[] = []) {
     chips: chips.join("|"),
   });
   if (plan.dayOffset) q.set("day", String(plan.dayOffset));
+  // как едем: день открывается с той же дорогой, по которой он посчитан (а не с транспортом из профиля)
+  if (transport) q.set("transport", transport);
   return `/day?${q}`;
 }
 
@@ -275,7 +277,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
               <p className="mb-2 text-[13px] font-bold uppercase tracking-wide text-muted">
                 {["Вариант мечты", "Запасной план", "Неожиданная идея"][(i + offset) % 3] ?? "Вариант"}
               </p>
-              <AdventureCard data={planCardData(p, planHref(p, kidNames))} variant="full" priority={i === 0} />
+              <AdventureCard data={planCardData(p, planHref(p, kidNames, input.transport))} variant="full" priority={i === 0} />
             </div>
           ))}
           <Link
@@ -285,13 +287,13 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
             <RefreshCw size={20} /> Показать другие варианты
           </Link>
           {alt && here && (
-            <AreaGap alt={alt} mode="few" offType={result.area?.offType ?? 0} scenarioLabel={scenario?.label} kidNames={kidNames} query={query} withQuery={withQuery} onPick={pickOrigin} />
+            <AreaGap alt={alt} mode="few" offType={result.area?.offType ?? 0} scenarioLabel={scenario?.label} kidNames={kidNames} query={query} withQuery={withQuery} onPick={pickOrigin} transport={input?.transport} />
           )}
         </div>
       ) : (
         <div className="px-4">
           {areaEmpty && alt && here ? (
-            <AreaGap alt={alt} mode="none" offType={result.area?.offType ?? 0} scenarioLabel={scenario?.label} kidNames={kidNames} query={query} withQuery={withQuery} onPick={pickOrigin} />
+            <AreaGap alt={alt} mode="none" offType={result.area?.offType ?? 0} scenarioLabel={scenario?.label} kidNames={kidNames} query={query} withQuery={withQuery} onPick={pickOrigin} transport={input?.transport} />
           ) : (
             <EmptyState
               art="plan"
@@ -351,6 +353,7 @@ function AreaGap({
   query,
   withQuery,
   onPick,
+  transport,
 }: {
   alt: AreaAlt;
   mode: "none" | "few";
@@ -361,6 +364,7 @@ function AreaGap({
   query: ResultsQuery;
   withQuery: (patch: Record<string, string | undefined>) => string;
   onPick: (o: Origin) => void;
+  transport?: TransportId;
 }) {
   const { here, others, scenarios } = alt;
   const hrefFor = (id: string) => `/planner/results?${new URLSearchParams(altQuery(query, id))}`;
@@ -394,7 +398,7 @@ function AreaGap({
                 {mode === "none" &&
                   o.plans.slice(0, oi === 0 ? 2 : 1).map((p) => (
                     <div key={p.key} className="mb-3">
-                      <AdventureCard data={planCardData(p, planHref(p, kidNames), `от ${here.short}`)} variant="full" />
+                      <AdventureCard data={planCardData(p, planHref(p, kidNames, transport), `от ${here.short}`)} variant="full" />
                     </div>
                   ))}
               </div>
