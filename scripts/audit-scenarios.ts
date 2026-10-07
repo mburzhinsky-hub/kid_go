@@ -18,7 +18,7 @@ import { demoForecast, moscowDateISO, outdoorVerdict, weekdayOf, windowWx, type 
 import { isFreeEntry, isOpenDuring, toMinutes } from "../src/lib/format";
 import { AREAS, DEFAULT_ORIGIN, OKRUGS, SETTLEMENTS, isSuburban, okrugById, okrugOrigin, type Origin } from "../src/lib/location";
 import { inMoscow, okrugOf, okrugOfOrigin, tierOf } from "../src/lib/moscow";
-import { areaAlternatives } from "../src/lib/recommend/area";
+import { areaAlternatives, scenarioCtxOf } from "../src/lib/recommend/area";
 import { GROUP_LABEL, SCENARIO_LIBRARY, pickScenarios, type ScenarioCtx, type ScenarioDef, type ScenarioGroup } from "../src/lib/scenarios";
 import { allPlaces } from "../src/lib/data/repository";
 import type { InterestId, TransportId } from "../src/lib/types";
@@ -224,7 +224,9 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
     if (areaEmptyRuns % 40 === 1) {
       altChecked++;
       const alt = areaAlternatives({ query: { ...query, ...(transport ? { transport } : {}) }, kids, origin: loc.o, prefs: { budget: "5000", transport: loc.transport, maxTravelMin: 40 }, forecast, now, family: { want: [], visited: [], loved: [], disliked: [], seen: [] } }, input);
-      if (!alt || (!alt.others.length && !alt.scenarios.length && !r.suggestions.length)) {
+      // сценарий, который этой семье и в этот момент главная не показывает (relevance 0), «выхода» не требует
+      const shownToFamily = (SCENARIO_LIBRARY.find((x) => x.id === sid)?.relevance(scenarioCtxOf(input)) ?? 1) > 0;
+      if (shownToFamily && (!alt || (!alt.others.length && !alt.scenarios.length && !r.suggestions.length))) {
         altNoExit++;
         hard.push(`округ пуст и выхода нет (ни другого округа, ни другой ситуации, ни подсказок) — ${tag}`);
       }
@@ -332,8 +334,8 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
     const cs = sc?.constraints;
     if (sc && youngest >= 5 && !c.indoorOnly === !cs?.indoorOnly) {
       const rainy = wx === "rain" || wx === "rain15" || wx === "cold";
-      const feasible = !!cs?.preferCategories && (allPlaces as { category: string; price_min: number; age_min: number; age_max: number; indoor: boolean }[]).some(
-        (p) => cs.preferCategories!.includes(p.category as never) && (input.budget !== "free" || p.price_min === 0) && kids.every((k) => k.age >= p.age_min && k.age <= p.age_max) && (!rainy || p.indoor)
+      const feasible = !!cs?.preferCategories && (allPlaces as { category: string; price_min: number; family_budget: number; age_min: number; age_max: number; indoor: boolean }[]).some(
+        (p) => cs.preferCategories!.includes(p.category as never) && (input.budget === "free" ? p.price_min === 0 : p.family_budget <= BUDGET_MAX[input.budget]) && kids.every((k) => k.age >= p.age_min && k.age <= p.age_max) && (!rainy || p.indoor)
       );
       if (cs?.preferCategories && feasible && CITY_LOCS.has(loc.id) && mode !== "area") {
         const okCat = r.plans.some((p) => p.stops.some((s) => cs.preferCategories!.includes(s.place.category)));

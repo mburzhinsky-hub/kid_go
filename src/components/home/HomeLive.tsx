@@ -9,7 +9,9 @@ import { useForecast } from "@/lib/use-context";
 import { daySummary, moscowDateISO } from "@/lib/forecast";
 import { moscowNow, plural } from "@/lib/format";
 import { DAY_TEMP } from "@/lib/school-calendar";
-import { pickScenarios, scenarioHref, SCENARIO_LIBRARY, type ScenarioCtx, type ScenarioDef } from "@/lib/scenarios";
+import { startToday } from "@/lib/day-window";
+import { buildHomeCtx } from "@/lib/home-ctx";
+import { pickScenarios, scenarioHref, SCENARIO_LIBRARY, type HomeCtx, type ScenarioCtx, type ScenarioDef } from "@/lib/scenarios";
 import type { Scenario } from "@/lib/catalog";
 import { ScenarioGrid } from "./QuickScenarioCard";
 import { HeroBanner, type HeroSlide } from "./HeroBanner";
@@ -28,8 +30,8 @@ import { GlyphRain, GlyphSun } from "@/components/icons/brand-icons";
 
 /* ───────── контекст «сейчас» для главной ───────── */
 
-/** После 19:00 сегодня уже никуда — показываем завтрашний день. */
-export const planningOffset = (minutes: number) => (minutes >= 19 * 60 ? 1 : 0);
+/** Если сегодня уже не успеть (то же правило, что в движке для обычного дня «3–4 часа») — показываем завтрашний день. */
+export const planningOffset = (minutes: number) => (startToday(minutes, "mid").tomorrow ? 1 : 0);
 
 const NEUTRAL: ScenarioCtx = {
   weekday: 5,
@@ -49,13 +51,15 @@ const NEUTRAL: ScenarioCtx = {
   interests: [],
 };
 
+const NEUTRAL_PAIR: HomeCtx = { today: NEUTRAL, tomorrow: NEUTRAL, nowMin: 11 * 60 };
+
 function useMounted() {
   const [m, setM] = useState(false);
   useEffect(() => setM(true), []);
   return m;
 }
 
-export function useHomeCtx(): { ctx: ScenarioCtx; ready: boolean } {
+export function useHomeCtx(): { ctx: ScenarioCtx; pair: HomeCtx; ready: boolean } {
   const mounted = useMounted();
   const { forecast } = useForecast();
   const kids = useFamily((s) => s.children);
@@ -63,44 +67,22 @@ export function useHomeCtx(): { ctx: ScenarioCtx; ready: boolean } {
   const geoScope = useFamily((s) => s.geoScope);
   const origin = useFamily((s) => s.origin);
   const region = locationMode(origin) === "any" && geoScope === "moscow-region";
-  const ctx = useMemo<ScenarioCtx>(() => {
-    if (!mounted) return NEUTRAL;
+  const pair = useMemo<HomeCtx>(() => {
+    if (!mounted) return NEUTRAL_PAIR;
     const now = moscowNow();
-    // вечером планируем уже завтрашний день
-    const off = planningOffset(now.minutes);
-    // месяц и число — по московской дате планируемого дня (вечером это уже завтра), а не по часам устройства
-    const dateISO = moscowDateISO(off);
-    const sum = forecast ? daySummary(forecast, dateISO) : undefined;
-    const w = sum?.window;
-    const ages = kids.map((k) => k.age);
-    return {
-      weekday: (now.weekday + off) % 7,
-      hour: off ? 10 : Math.floor(now.minutes / 60),
-      month: Number(dateISO.slice(5, 7)),
-      day: Number(dateISO.slice(8, 10)),
-      rainAllDay: !!sum?.allWet,
-      rainLater: !!sum?.rainFrom && !sum.allWet,
-      snow: w?.condition === "snow",
-      cold: !!w && w.feelsMax < DAY_TEMP.cold,
-      hot: !!w && w.feelsMax >= DAY_TEMP.hot,
-      sunny: !!w && w.condition === "sun",
-      warm: !!w && w.tempMax >= DAY_TEMP.warm,
-      kidsCount: kids.length,
-      youngest: ages.length ? Math.min(...ages) : 5,
-      oldest: ages.length ? Math.max(...ages) : 5,
-      interests: kids.flatMap((k) => k.interests),
-      region,
-    };
+    return buildHomeCtx({ nowMin: now.minutes, weekday: now.weekday, dateOf: (off) => moscowDateISO(off), forecast: forecast ?? undefined, kids, region });
   }, [mounted, forecast, kids, region]);
-  return { ctx, ready: mounted && hydrated && !!forecast };
+  // для баннеров, которым нужен один день: тот, что подойдёт обычному выходу на 3–4 часа
+  const ctx = pair === NEUTRAL_PAIR ? NEUTRAL : planningOffset(pair.nowMin) ? pair.tomorrow : pair.today;
+  return { ctx, pair, ready: mounted && hydrated && !!forecast };
 }
 
 const toCard = (s: ScenarioDef): Scenario => ({ id: s.id, label: s.label, bg: s.bg, bubble: s.bubble, Glyph: s.Glyph, emoji: s.emoji, href: scenarioHref(s) });
 
 /** «Что хочется сегодня?» — 8 ситуаций, уместных именно сейчас. */
 export function HomeScenarios() {
-  const { ctx } = useHomeCtx();
-  const items = useMemo(() => pickScenarios(ctx).map(toCard), [ctx]);
+  const { pair } = useHomeCtx();
+  const items = useMemo(() => pickScenarios(pair).map(toCard), [pair]);
   return (
     <>
       <ScenarioGrid items={items} />
@@ -113,8 +95,8 @@ export function HomeScenarios() {
 
 /** «Подходит сегодня»: те же 8 ситуаций, что и на главной, без ссылки на весь список (используется на странице ситуаций). */
 export function LiveScenarios() {
-  const { ctx } = useHomeCtx();
-  const items = useMemo(() => pickScenarios(ctx).map(toCard), [ctx]);
+  const { pair } = useHomeCtx();
+  const items = useMemo(() => pickScenarios(pair).map(toCard), [pair]);
   return <ScenarioGrid items={items} />;
 }
 

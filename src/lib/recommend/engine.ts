@@ -10,6 +10,7 @@ import { inMoscow, okrugOfOrigin, tierOf, type Tier } from "@/lib/moscow";
 import { isOutside } from "@/lib/outside";
 import { explainPlan } from "./explain";
 import { DAY_TEMP } from "@/lib/school-calendar";
+import { DURATION_MIN, startToday } from "@/lib/day-window";
 
 /**
  * Recommendation layer v2 (без LLM как источника истины).
@@ -22,7 +23,7 @@ import { DAY_TEMP } from "@/lib/school-calendar";
  *  6. Набор из 3 планов с разнообразием (MMR) и «сюрпризом», крытые замены для уличных шагов.
  */
 
-export const DURATION_MIN: Record<DurationId, number> = { short: 120, mid: 240, half: 330, day: 450 };
+export { DURATION_MIN };
 export const BUDGET_MAX: Record<BudgetId, number> = { free: 0, "2000": 2000, "5000": 5000, any: Infinity };
 const MIN_STOPS: Record<DurationId, number> = { short: 1, mid: 2, half: 3, day: 3 };
 const MAX_STOPS: Record<DurationId, number> = { short: 2, mid: 3, half: 4, day: 5 };
@@ -106,9 +107,10 @@ export function dayContext(input: PlannerInput, reachMul = 1): DayCtx {
   let offset = input.dayOffset ?? 0;
   let start: number;
   if (offset === 0) {
-    start = ceilTo(now.minutes + 40, 30); // собраться и доехать
-    const latest = (c.endBy ?? 21 * 60) - Math.min(want, 90);
-    if (start > Math.min(18 * 60, latest)) {
+    // сегодня успеваем только если останется хотя бы большая часть заявленной длины (иначе «весь день» — это 2 часа вечером)
+    const today = startToday(now.minutes, input.duration, c);
+    start = today.start;
+    if (today.tomorrow) {
       offset = 1;
       start = 10 * 60 + 30;
     }
@@ -284,6 +286,7 @@ export function scorePlace(
 
   if (c.indoorOnly && !p.indoor) return null;
   if (c.quiet && p.noise_level === 3) return null;
+  if (c.maxActivity && p.activity_level > c.maxActivity) return null;
   if (c.stroller && !(p.unknown_fields ?? []).includes("stroller_friendly") && !p.stroller_friendly) return null;
   if (c.avoidCategories?.includes(p.category)) return null;
   if (!fitsOnly(p, c)) return null;
@@ -445,6 +448,8 @@ function seasonFit(p: Place, ctx: DayCtx): number {
 function crowdFit(p: Place, ctx: DayCtx, input: PlannerInput): number {
   const calm = input.mood === "calm" || input.constraints?.quiet;
   let v = 0;
+  // «Без толпы»: самые популярные места — в конец очереди
+  if (input.constraints?.avoidHits && p.is_hit) v -= 4;
   if (ctx.weekend && p.is_hit && p.noise_level === 3) v -= calm ? 1.4 : 0.5;
   if (!ctx.weekend && (p.category === "museum" || p.category === "animals")) v += 0.5;
   if (ctx.weekend && p.category === "play" && p.price_min > 0) v += 0.2;
@@ -580,6 +585,8 @@ interface Assembled {
   ordered: Ordered;
   reordered: boolean;
   anchor: ScoredPlace;
+  /** «Передышка родителю»: 0 — есть кафе с игровой (или передышка не нужна), 1 — только обычное кафе, 2 — кафе нет вовсе. Лучших вариантов не хватает — берём 1, потом 2. */
+  foodRank?: 0 | 1 | 2;
 }
 
 /**
@@ -608,7 +615,7 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
   const total = win.total;
   const c = input.constraints ?? {};
   const budgetMax = BUDGET_MAX[input.budget];
-  const maxStops = MAX_STOPS[input.duration];
+  const maxStops = Math.min(MAX_STOPS[input.duration], c.maxStops ?? Infinity);
   const legMax = LEG_MAX[input.transport];
 
   const picks: Pick[] = [];
@@ -638,6 +645,7 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
   const wantActivities = total >= 330 || (trip && total >= 140) ? 2 : 1;
   const activityMin = trip ? 55 : 75;
 
+  let foodMiss = 0;
   while (picks.length < maxStops) {
     let slot: Slot | null = null;
     if (wantFood && !hasFood() && remaining >= 50) slot = "food";
@@ -674,10 +682,11 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
       const foodBonus = (s: ScoredPlace, legMin: number) => ((!s.place.unknown_fields?.includes("kids_menu") && s.place.kids_menu) ? 1 : 0) + (c.parentBreak && s.place.experience_tags.includes("playzone") ? 5 : 0) - Math.max(0, legMin - 10) * 0.25;
       chosen = pickFrom((s) => s.place.category === "cafe" && (!c.parentBreak || s.place.experience_tags.includes("playzone")) && (!s.place.experience_tags.includes("icecream") || total <= 120), foodBonus);
       dur = total <= 120 ? 40 : 55;
-      // еду просили прямо, а рядом только кафе-мороженое — лучше перекус, чем ничего
-      if (!chosen && mustFood && !c.parentBreak) {
-        chosen = pickFrom((s) => s.place.category === "cafe", foodBonus);
-        dur = 30;
+      // еду просили прямо, а рядом нет кафе с игровой (или только мороженое) — со второй попытки берём обычное кафе: перекус лучше, чем день без стола.
+      // С первого раза не берём: следующее место может оказаться рядом с кафе с игровой.
+      if (!chosen && mustFood && foodMiss++ >= 1) {
+        chosen = (c.parentBreak ? pickFrom((s) => s.place.category === "cafe" && !s.place.experience_tags.includes("icecream"), foodBonus) : undefined) ?? pickFrom((s) => s.place.category === "cafe", foodBonus);
+        dur = c.parentBreak ? (total <= 120 ? 40 : 50) : 30;
       }
       if (!chosen) slot = remaining >= activityMin && activities() < 2 ? "activity" : remaining >= 35 ? "extra" : null;
     }
@@ -730,7 +739,12 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
   let set = picks;
   while (set.length >= 1) {
     const { best, reordered } = bestOrder(set, ctx, input);
-    if (best) return { ordered: best, reordered, anchor };
+    if (best) {
+      const zone = best.picks.some((q) => q.place.category === "cafe" && q.place.experience_tags.includes("playzone"));
+      const cafe = best.picks.some((q) => q.place.category === "cafe");
+      const foodRank = c.parentBreak && wantFood && mustFood && !zone ? (cafe ? 1 : 2) : 0;
+      return { ordered: best, reordered, anchor, foodRank };
+    }
     if (set.length === 1) break;
     set = set.slice(0, -1);
   }
@@ -833,6 +847,17 @@ function nearestAnchorMin(input: PlannerInput): number | undefined {
  * не показываем «ничего не нашлось», а честно расширяем до тех пор, пока не появятся варианты.
  */
 export function generatePlans(input: PlannerInput, count = 3, offset = 0): PlannerResult {
+  const r = generateForDay(input, count, offset);
+  // Сегодня ничего не вышло (зоопарк уже закрывается, спектакли закончились, сезонного места сегодня нет) —
+  // честнее собрать на завтра, чем «ничего не нашлось»; страница результатов скажет, что это завтра.
+  if (!r.plans.length && !input.dayOffset && r.dayOffset === 0) {
+    const t = generateForDay({ ...input, dayOffset: 1 }, count, offset);
+    if (t.plans.length) return t;
+  }
+  return r;
+}
+
+function generateForDay(input: PlannerInput, count: number, offset: number): PlannerResult {
   const base = dayContext(input).reach;
   const first = generateOnce(input, count, offset, 1);
   if (input.locationMode === "any") return first; // без привязки к точке радиус не причём
@@ -888,7 +913,7 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
   const regionSeat = input.locationMode === "any" && input.geoScope === "moscow-region" && !input.constraints?.regionOnly && (input.duration === "half" || input.duration === "day");
   const results: { a: Assembled; plan: Plan }[] = [];
   const tried = new Set<string>();
-  const minStops = Math.min(input.constraints?.minStops ?? MIN_STOPS[input.duration], MAX_STOPS[input.duration]);
+  const minStops = Math.min(input.constraints?.minStops ?? MIN_STOPS[input.duration], MAX_STOPS[input.duration], input.constraints?.maxStops ?? Infinity);
   const fallback: Assembled[] = [];
 
   while (results.length < count + offset) {
@@ -933,7 +958,7 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
 
     const a = assemble(next.c, scored, ctx, input, kidsInterests.map((x) => [...x]), outdoorDay, new Set(results.flatMap((r) => r.a.ordered.picks.map((p) => p.place.id))));
     if (!a) continue;
-    if (a.ordered.picks.length < (isRegionTrip(input, next.c.place) ? Math.min(minStops, 2) : minStops)) {
+    if (a.foodRank || a.ordered.picks.length < (isRegionTrip(input, next.c.place) ? Math.min(minStops, 2) : minStops)) {
       fallback.push(a);
       continue;
     }
@@ -941,7 +966,9 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
     if (results.some((r) => r.plan.stops.filter((s) => ids.has(s.place.id)).length >= 2)) continue;
     results.push({ a, plan: toPlan(a, input, ctx, scored, partialAge) });
   }
-  // мало вариантов нужной длины — добираем короткими, но честно
+  // мало вариантов нужной длины — добираем короткими, но честно; сначала варианты с обычным кафе, потом без него, потом короткие
+  const short = (a: Assembled) => a.ordered.picks.length < minStops;
+  fallback.sort((x, y) => (short(x) ? 10 : 0) + (x.foodRank ?? 0) - ((short(y) ? 10 : 0) + (y.foodRank ?? 0)));
   for (const a of fallback) {
     if (results.length >= count + offset) break;
     const ids = new Set(a.ordered.picks.map((p) => p.place.id));

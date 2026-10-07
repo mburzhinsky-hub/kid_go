@@ -16,6 +16,7 @@
     "audit:photos": "tsx scripts/audit-photos.ts",
     "audit:coverage": "tsx scripts/audit-coverage.ts",
     "audit:doc": "tsx scripts/audit-scenarios.ts --quick --doc",
+    "audit:logic": "tsx scripts/audit-logic.ts",
     "validate:data": "tsx scripts/validate-content.ts",
     "prebuild": "node scripts/copy-maplibre.mjs",
     "predev": "node scripts/copy-maplibre.mjs"

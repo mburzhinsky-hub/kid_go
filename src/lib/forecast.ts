@@ -163,6 +163,17 @@ export const CONDITION_LABEL: Record<Weather["condition"], string> = {
   sun: "солнечно",
 };
 
+/** Снегопад (WMO 71–77, 85–86). */
+const isSnowfall = (h: HourWx) => (h.code >= 71 && h.code <= 77) || h.code === 85 || h.code === 86;
+const precipitating = (h: HourWx) => h.pop >= 60 || h.precip >= 0.5;
+/**
+ * Снег — не дождь: при умеренном морозе и без сильного ветра снегопад гулять не мешает (горки, каток, «первый снег»),
+ * мешает только очень сильный. Без этой поправки в любой снегопад день считался «дождливым» и улица запрещалась целиком.
+ */
+export const isMildSnow = (h: HourWx) => isSnowfall(h) && h.precip < 2 && h.feels >= -12 && h.gust < 12;
+/** Час, в который улица плоха из-за осадков. */
+export const isWetHour = (h: HourWx) => precipitating(h) && !isMildSnow(h);
+
 export interface WxWindow {
   tempMin: number;
   tempMax: number;
@@ -175,6 +186,8 @@ export interface WxWindow {
   condition: Weather["condition"];
   /** часов в окне, данных нет — окно за пределами прогноза */
   empty: boolean;
+  /** Осадки в окне есть, но это только умеренный снег — улицу он не закрывает. */
+  snowOnly: boolean;
 }
 
 /** Погода в окне [from, to) минут от полуночи для даты. Берём худшее за окно. */
@@ -187,7 +200,7 @@ export function windowWx(f: Forecast, dateISO: string, from: number, to: number)
     return hh >= h0 && hh <= h1;
   });
   if (!hrs.length)
-    return { tempMin: 0, tempMax: 0, feelsMin: 0, feelsMax: 0, popMax: 0, precipMax: 0, gustMax: 0, uvMax: 0, condition: "cloud", empty: true };
+    return { tempMin: 0, tempMax: 0, feelsMin: 0, feelsMax: 0, popMax: 0, precipMax: 0, gustMax: 0, uvMax: 0, condition: "cloud", empty: true, snowOnly: false };
   const worst = hrs.reduce((a, b) => (severity(b) > severity(a) ? b : a));
   return {
     tempMin: Math.min(...hrs.map((h) => h.temp)),
@@ -200,6 +213,7 @@ export function windowWx(f: Forecast, dateISO: string, from: number, to: number)
     uvMax: Math.max(...hrs.map((h) => h.uv)),
     condition: conditionOf(worst.code, worst.pop),
     empty: false,
+    snowOnly: hrs.some(precipitating) && hrs.filter(precipitating).every(isMildSnow),
   };
 }
 
@@ -212,7 +226,7 @@ export function daySummary(f: Forecast, dateISO: string) {
     const hh = Number(h.time.slice(11, 13));
     return hh >= 9 && hh <= 20;
   });
-  const wet = (h: HourWx) => h.pop >= 60 || h.precip >= 0.5;
+  const wet = isWetHour;
   const firstWet = dayHours.find(wet);
   const firstDryAfter = firstWet ? dayHours.find((h) => h.time > firstWet.time && !wet(h)) : undefined;
   const allWet = dayHours.length > 0 && dayHours.every(wet);
@@ -238,12 +252,13 @@ export function daySummary(f: Forecast, dateISO: string) {
 export function outdoorVerdict(w: WxWindow, youngestAge: number): { ok: boolean; score: number; reason?: string } {
   if (w.empty) return { ok: true, score: 0.8 };
   const coldLimit = youngestAge < 3 ? -12 : -20;
-  if (w.popMax >= 60 || w.precipMax >= 0.5) return { ok: false, score: 0, reason: w.condition === "snow" ? "снегопад" : "дождь" };
+  const falling = w.popMax >= 60 || w.precipMax >= 0.5;
+  if (falling && !w.snowOnly) return { ok: false, score: 0, reason: w.condition === "snow" ? "снегопад" : "дождь" };
   if (w.gustMax >= 15) return { ok: false, score: 0, reason: "сильный ветер" };
   if (w.feelsMin < coldLimit) return { ok: false, score: 0, reason: "сильный мороз" };
   if (w.feelsMax >= 33 || (youngestAge < 3 && w.feelsMax >= 30)) return { ok: false, score: 0, reason: "жара" };
   let score = 1;
-  if (w.popMax >= 30) score -= 0.35;
+  if (w.popMax >= 30) score -= w.snowOnly ? 0.2 : 0.35;
   if (w.feelsMin < 0) score -= 0.25;
   if (w.feelsMin < -10) score -= 0.2;
   if (w.feelsMax > 27) score -= 0.3;
