@@ -14,6 +14,10 @@ use Kg\Router;
 use Kg\Ids;
 use Kg\App;
 
+set_exception_handler(static function (Throwable $e): void {
+    echo '::error::' . get_class($e) . ': ' . str_replace(["\n", "\r"], ' ', $e->getMessage()) . ' @ ' . basename($e->getFile()) . ':' . $e->getLine() . "\n";
+    exit(1);
+});
 putenv('KG_ENV=development');
 Config::load('/nonexistent-config.php'); // берём настройки из окружения
 
@@ -21,7 +25,7 @@ $fail = 0; $pass = 0;
 function check(string $name, bool $ok, string $info = ''): void
 {
     global $fail, $pass;
-    if ($ok) { $pass++; echo "  ok   $name\n"; } else { $fail++; echo "  FAIL $name $info\n"; }
+    if ($ok) { $pass++; echo "  ok   $name\n"; } else { $fail++; echo "  FAIL $name $info\n"; if (getenv('GITHUB_ACTIONS')) echo "::error::FAIL $name $info\n"; }
 }
 function call(string $method, string $path, array $query = [], array $headers = [], string $body = '', string $ip = '203.0.113.7'): array
 {
@@ -75,10 +79,10 @@ foreach (['users', 'collections', 'collection_items', 'collection_saves', 'place
 [$s, $j] = call('GET', '/api/v1/health', ['deep' => '1']);
 check('health?deep=1 видит базу', $s === 200 && ($j['db'] ?? false) === true);
 
-$db->prepare("INSERT INTO users (id, handle, handle_lc, key_hash, created_at, updated_at) VALUES ('u00000000001','Mama','mama',?,UTC_TIMESTAMP(),UTC_TIMESTAMP())")->execute([str_repeat('a', 64)]);
+$db->prepare("INSERT INTO users (id, handle, handle_lc, created_at, updated_at) VALUES ('u00000000001','Mama','mama',UTC_TIMESTAMP(),UTC_TIMESTAMP())")->execute();
 $db->prepare("INSERT INTO collections (id, user_id, title, slug, created_at, updated_at) VALUES ('c000000001','u00000000001','Тест','test',UTC_TIMESTAMP(),UTC_TIMESTAMP())")->execute();
 $db->exec("INSERT INTO collection_items (collection_id, place_id, position) VALUES ('c000000001','moskovsky-zoopark',0)");
-try { $db->prepare("INSERT INTO users (id, handle, handle_lc, key_hash, created_at, updated_at) VALUES ('u00000000002','MAMA','mama',?,UTC_TIMESTAMP(),UTC_TIMESTAMP())")->execute([str_repeat('b', 64)]); check('ник уникален без учёта регистра', false); }
+try { $db->prepare("INSERT INTO users (id, handle, handle_lc, created_at, updated_at) VALUES ('u00000000002','MAMA','mama',UTC_TIMESTAMP(),UTC_TIMESTAMP())")->execute(); check('ник уникален без учёта регистра', false); }
 catch (PDOException) { check('ник уникален без учёта регистра', true); }
 $db->exec("DELETE FROM users WHERE id='u00000000001'");
 check('удаление кабинета каскадом убирает подборки и места',
@@ -91,6 +95,8 @@ for ($i = 1; $i <= 4; $i++) {
 }
 check('4-й запрос при лимите 3 → 429 с Retry-After', $code === 429 && ctype_digit((string) ($retry ?? '')));
 try { RateLimit::hit($db, 'test:other', 3, 60); check('другой ключ считается отдельно', true); } catch (Kg\ApiException) { check('другой ключ считается отдельно', false); }
+
+require __DIR__ . '/auth.php';
 
 echo "\nИтого: $pass ок, $fail ошибок\n";
 exit($fail ? 1 : 0);

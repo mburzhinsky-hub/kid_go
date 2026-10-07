@@ -54,12 +54,12 @@ final class Request
         return $this->headers[strtolower($name)] ?? null;
     }
 
-    /** Секретный ключ кабинета: из заголовка Authorization: Bearer … или из cookie kg_key. */
+    /** Секретный ключ кабинета: из заголовка Authorization: Bearer … или из cookie kg_session. */
     public function bearerKey(): ?string
     {
         $h = $this->header('authorization');
         if ($h !== null && preg_match('/^Bearer\s+([A-Za-z0-9_-]{20,128})$/', $h, $m)) return $m[1];
-        $c = $_COOKIE['kg_key'] ?? null;
+        $c = $_COOKIE['kg_session'] ?? null;
         if (is_string($c) && preg_match('/^[A-Za-z0-9_-]{20,128}$/', $c)) return $c;
         return null;
     }
