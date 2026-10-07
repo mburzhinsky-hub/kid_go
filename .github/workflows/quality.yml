@@ -47,8 +47,8 @@ jobs:
       - name: Static production build
         env:
           GITHUB_PAGES: "true"
-          NEXT_PUBLIC_BASE_PATH: /kid_go
-          NEXT_PUBLIC_SITE_URL: https://mburzhinsky-hub.github.io/kid_go
+          NEXT_PUBLIC_BASE_PATH: ""
+          NEXT_PUBLIC_SITE_URL: https://kids-go.fun
         run: |
           rm -rf src/app/api src/app/admin
           npm run build

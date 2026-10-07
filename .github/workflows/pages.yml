@@ -44,8 +44,8 @@ jobs:
       - name: Build static export
         env:
           GITHUB_PAGES: "true"
-          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
-          NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          NEXT_PUBLIC_BASE_PATH: ""
+          NEXT_PUBLIC_SITE_URL: https://kids-go.fun
         run: |
           rm -rf src/app/api src/app/admin   # серверные API и внутренний кабинет не публикуем в статической выгрузке
           npm run build
