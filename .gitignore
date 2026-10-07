@@ -8,3 +8,7 @@ next-env.d.ts
 /screenshots
 
 /public/vendor/maplibre/
+
+# Kids Go API: секреты и загрузки живут только на хостинге
+/api/config.php
+/api/uploads/
