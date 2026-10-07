@@ -293,6 +293,8 @@ export interface ScenarioConstraints {
   /** Шаг-«передышка» для родителя: кафе с игровой зоной. */
   parentBreak?: boolean;
   bookingOk?: boolean;
+  /** Поездка за город: основное место — только за пределами Москвы (группа «За город»). */
+  regionOnly?: boolean;
 }
 
 export interface PlannerInput {
@@ -331,6 +333,8 @@ export interface PlannerInput {
   areaScope?: "strict" | "adjacent" | "wide";
   /** Для округа: показать и то, что «не совсем по теме» ситуации (по умолчанию — только подходящие по типу). */
   looseFit?: boolean;
+  /** «Собрать день вокруг этого места»: основное место зафиксировано (slug), остальные шаги подбираются рядом. */
+  anchorSlug?: string;
 }
 
 /** Собранный маршрут: и готовые, и сгенерированные приключения приводятся к нему. */
@@ -375,7 +379,15 @@ export interface Plan {
   score?: number;
   adventureSlug?: string;
   /** Дорога от точки выезда до первого шага. */
-  fromHome?: { minutes: number; km: number; mode: TransportId; /** оценка от центра округа, а не от двери */ approx?: boolean };
+  fromHome?: {
+    minutes: number;
+    km: number;
+    mode: TransportId;
+    /** оценка от центра округа, а не от двери */
+    approx?: boolean;
+    /** Выезд за город: время считается от центра Москвы («~45 мин от Москвы»), а не от двери. */
+    fromMoscow?: boolean;
+  };
   /** Что взять с собой. */
   bring?: string[];
   /** Почему порядок/состав такие из-за погоды. */

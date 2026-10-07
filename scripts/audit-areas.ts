@@ -19,7 +19,9 @@ import { areasOfPlaces, fitOfAreas, orderByArea } from "../src/lib/area-fit";
 import { demoForecast, moscowDateISO, weekdayOf, type WxScenario } from "../src/lib/forecast";
 import { OKRUGS, okrugOrigin, type Okrug } from "../src/lib/location";
 import { okrugOf, okrugOfOrigin, tierOf } from "../src/lib/moscow";
-import { SCENARIO_LIBRARY } from "../src/lib/scenarios";
+import { SCENARIO_LIBRARY as ALL_SCENARIOS } from "../src/lib/scenarios";
+/** Поездки за город («Выезд на день» и др.) считаются от центра и по определению вне округа — их проверяет audit-scenarios. */
+const SCENARIO_LIBRARY = ALL_SCENARIOS.filter((s) => !s.constraints?.regionOnly);
 import { allPlaces, allAdventures, adventurePlaces } from "../src/lib/data/repository";
 import { travelBetween } from "../src/lib/location";
 import { pt } from "../src/lib/geo";

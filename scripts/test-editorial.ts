@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { ADDED_SCENARIO_IDS, BASELINE_SCENARIO_IDS } from "./baseline";
 import { places } from "../src/lib/data/places";
 import { SCENARIO_LIBRARY } from "../src/lib/scenarios";
 import { buildPlan } from "../src/lib/plan";
@@ -10,7 +11,8 @@ import { DEFAULT_ORIGIN } from "../src/lib/location";
 import newCafes from "../src/lib/data/extra/msk-family-cafes.places.json";
 
 assert.equal(places.length, 146);
-assert.equal(SCENARIO_LIBRARY.length, 78);
+for (const id of BASELINE_SCENARIO_IDS) assert.ok(SCENARIO_LIBRARY.some((s) => s.id === id), `scenario ${id} must remain`);
+assert.equal(SCENARIO_LIBRARY.length, BASELINE_SCENARIO_IDS.length + ADDED_SCENARIO_IDS.length);
 assert.equal(places.filter((p) => p.menu_url).length, 64);
 assert.ok(!places.some((p) => ["joki-joya", "katok-na-poyme-pavshino"].includes(p.slug)));
 const cafe = places.find((p) => p.slug === "dream-kids")!;

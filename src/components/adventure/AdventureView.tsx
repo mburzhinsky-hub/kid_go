@@ -21,8 +21,9 @@ import { travelToPlace, formatTravel, locationMode } from "@/lib/location";
 import { getPlaceSync } from "@/lib/data/repository";
 import { BottomSheet } from "@/components/ui/BottomSheet";
 import { useToast } from "@/components/ui/Toast";
-import { formatAgeRange, formatBudget, formatDuration, moscowNow, quote, toMinutes } from "@/lib/format";
-import { formatKm } from "@/lib/geo";
+import { formatAgeRange, formatBudget, formatDuration, fromMoscowLabel, moscowNow, quote, toMinutes } from "@/lib/format";
+import { formatKm, travelMinutes } from "@/lib/geo";
+import { tripKmOf } from "@/lib/cards";
 import { track } from "@/lib/analytics";
 import { SourceScope } from "@/components/social/SourceScope";
 import { cn } from "@/lib/cn";
@@ -113,6 +114,10 @@ function AdventureViewInner(props: AdventureViewProps) {
   const cover = props.cover ?? places[0]?.photos[0];
   const startOptions = START_OPTIONS.includes(props.start) ? START_OPTIONS : [props.start, ...START_OPTIONS].sort((a, b) => toMinutes(a) - toMinutes(b));
   const fromHome = fam.hydrated && places[0] && locationMode(fam.origin) === "exact" ? travelToPlace(fam.origin, places[0], fam.transport) : null;
+  // выезд за город: «~N мин от Москвы» (если точка выезда не задана — от центра)
+  const tripKm = tripKmOf(places);
+  const tripMode = fam.transport === "car" ? "car" : "transit";
+  const trip = tripKm != null && !fromHome ? { minutes: travelMinutes(tripKm, tripMode), mode: tripMode as "car" | "transit" } : null;
   const endMin = plan.stops.length ? toMinutes(plan.stops[plan.stops.length - 1].start) + plan.stops[plan.stops.length - 1].duration : toMinutes(start);
   const bring = forecast ? bringList(windowWx(forecast, dateISO, toMinutes(start), endMin), youngest, places.some((p) => p.outdoor)) : [];
   const badIndex = plan.stops.findIndex((s) => s.weather?.bad && s.place.outdoor && !s.place.indoor);
@@ -226,6 +231,15 @@ function AdventureViewInner(props: AdventureViewProps) {
             <span className="flex shrink-0 items-center pr-1 text-[14px] font-semibold text-muted">Начать в</span>
             {startOptions.map((t) => <button key={t} onClick={() => setStart(t)} aria-pressed={t === start} className={cn("press hit relative h-9 shrink-0 rounded-full px-3.5 text-[15px] font-bold transition-colors", t === start ? "bg-ink text-white" : "bg-surface text-ink shadow-card")}>{t}</button>)}
           </div>
+          {trip && (
+            <div className="mt-4 flex items-center gap-2 rounded-[20px] bg-purple-50 px-3.5 py-2 text-[14px] font-semibold text-purple-ink">
+              <Route size={16} className="shrink-0" />
+              <span>
+                {fromMoscowLabel(trip.minutes, trip.mode)} в одну сторону
+                <span className="font-medium text-ink-2/70"> · выезжайте около {leaveAt(start, trip.minutes)}</span>
+              </span>
+            </div>
+          )}
           {fromHome && <div className="mt-4 flex items-center gap-2 rounded-[20px] bg-fill px-3.5 py-2 text-[14px] font-semibold text-ink-2"><Home size={16} className="shrink-0" /><span>{fam.origin.source === "home" ? "Дом" : fam.origin.label} → {places[0].title}: {formatTravel(fromHome)}<span className="font-medium text-muted"> · выйти около {leaveAt(start, fromHome.minutes)}</span></span></div>}
           <div className="mt-5"><AdventureTimeline plan={plan} editable={props.editable} onMove={props.onMove} onRemove={props.onRemove} onReplace={(i) => setReplacing(i)} /></div>
           <div className="mt-4 flex items-center gap-3 rounded-[24px] bg-ink p-4 text-white">

@@ -2,6 +2,7 @@
  * Block 1 content/data-trust gate.
  * Fails CI on regressions that can make KidGo publish invented, contradictory or broken data.
  */
+import { ADDED_SCENARIO_IDS, BASELINE_ADVENTURE_SLUGS, BASELINE_SCENARIO_IDS } from "./baseline";
 import { places } from "../src/lib/data/places";
 import { adventures } from "../src/lib/data/adventures";
 import { RAW_EVENTS, RAW_PLACES } from "../src/lib/data/extra";
@@ -140,11 +141,17 @@ for (const e of RAW_EVENTS) {
   if (!e.valid_until) fail(`event ${e.title}: recurring event must have a validity end date`);
 }
 
-if (SCENARIO_LIBRARY.length !== 78) {
-  fail(`scenario library changed: expected the audited 78 scenarios, got ${SCENARIO_LIBRARY.length}`);
+{
+  const have = new Set(SCENARIO_LIBRARY.map((s) => s.id));
+  for (const id of BASELINE_SCENARIO_IDS) if (!have.has(id)) fail(`scenario «${id}» from the audited 78 is missing`);
+  const expected = BASELINE_SCENARIO_IDS.length + ADDED_SCENARIO_IDS.length;
+  if (SCENARIO_LIBRARY.length !== expected) fail(`scenario library changed: expected ${expected} (audited 78 + ${ADDED_SCENARIO_IDS.length} trip scenarios), got ${SCENARIO_LIBRARY.length}`);
+  for (const id of ADDED_SCENARIO_IDS) if (!have.has(id)) fail(`trip scenario «${id}» is missing`);
 }
-if (adventures.length !== 12) {
-  fail(`adventure library changed unexpectedly: expected 12, got ${adventures.length}`);
+{
+  const have = new Set(adventures.map((a) => a.slug));
+  for (const slug of BASELINE_ADVENTURE_SLUGS) if (!have.has(slug)) fail(`adventure «${slug}» from the original 12 is missing`);
+  if (adventures.length < BASELINE_ADVENTURE_SLUGS.length) fail(`adventure library shrank: ${adventures.length} < ${BASELINE_ADVENTURE_SLUGS.length}`);
 }
 
 console.log("KidGo content trust gate");

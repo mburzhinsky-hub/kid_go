@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Footprints, Bus, Car, Plus, Check, Star } from "lucide-react";
 import type { Photo, TransportId } from "@/lib/types";
 import { SmartImage } from "@/components/ui/SmartImage";
@@ -24,6 +24,10 @@ export interface NextItem {
   minutes: number;
   mode: TransportId;
   extra?: string;
+  /** Прямая ссылка на меню (только настоящая, из базы). */
+  menuUrl?: string;
+  ageMin: number;
+  ageMax: number;
 }
 
 export interface NextGroup {
@@ -31,21 +35,45 @@ export interface NextGroup {
   label: string;
   emoji: string;
   bg: string;
+  /** Почему это логичное продолжение — одна фраза. */
+  why: string;
   items: NextItem[];
+  /** Для сортировки на сервере; на клиенте не нужен. */
+  score?: number;
 }
 
 const MODE = { walk: { Icon: Footprints, word: "пешком" }, transit: { Icon: Bus, word: "на транспорте" }, car: { Icon: Car, word: "на машине" } };
 
 /**
- * «Что сделать после?» — ключевая механика: из любого места
- * в один тап собираем «наш день» с ближайшим следующим шагом.
+ * «Что потом?» — ключевая механика: из любого места
+ * в один тап собираем «наш день» с логичным следующим шагом.
+ * На клиенте уточняем по детям семьи и по тому, что уже есть в «нашем дне»:
+ * если в дне уже есть кафе — «Поесть» уходит назад, добавленные места показываем отмеченными.
  */
-export function WhatNext({ currentSlug, groups }: { currentSlug: string; groups: NextGroup[] }) {
-  const [active, setActive] = useState(groups[0]?.id);
-  const group = groups.find((g) => g.id === active) ?? groups[0];
+export function WhatNext({ currentSlug, groups, groupOf }: { currentSlug: string; groups: NextGroup[]; groupOf: Record<string, string> }) {
+  const [active, setActive] = useState<string | undefined>(undefined);
   const day = useFamily((s) => s.day);
+  const kids = useFamily((s) => s.children);
+  const hydrated = useFamily((s) => s.hydrated);
   const addToDay = useFamily((s) => s.addToDay);
   const toast = useToast((s) => s.show);
+
+  const shown = useMemo(() => {
+    const covered = new Set(hydrated ? day.filter((s) => s !== currentSlug).map((s) => groupOf[s]).filter(Boolean) : []);
+    const fits = (it: NextItem) => !hydrated || kids.length === 0 || kids.every((k) => k.age >= it.ageMin - 1 && k.age <= it.ageMax + 1);
+    const prepared = groups
+      .map((g) => {
+        const fit = g.items.filter(fits);
+        // не режем до нуля: если ничего не подошло по возрасту, показываем то, что есть
+        const list = (fit.length > 0 ? fit : g.items).slice(0, 3);
+        return { ...g, items: list, done: covered.has(g.id) };
+      })
+      .filter((g) => g.items.length > 0);
+    // уже покрытые днём продолжения — в конец, но не прячем: «добавить ещё одно кафе» бывает нужно
+    return [...prepared.filter((g) => !g.done), ...prepared.filter((g) => g.done)];
+  }, [groups, groupOf, day, kids, hydrated, currentSlug]);
+
+  const group = shown.find((g) => g.id === active) ?? shown[0];
   if (!group) return null;
   const [lead, ...others] = group.items;
 
@@ -58,7 +86,7 @@ export function WhatNext({ currentSlug, groups }: { currentSlug: string; groups:
   return (
     <div>
       <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
-        {groups.map((g) => (
+        {shown.map((g) => (
           <button
             key={g.id}
             onClick={() => setActive(g.id)}
@@ -75,6 +103,7 @@ export function WhatNext({ currentSlug, groups }: { currentSlug: string; groups:
       </div>
 
       <div key={group.id} className="mt-3 animate-rise">
+        <p className="mb-2 px-1 text-[14px] leading-snug text-muted">{group.why}</p>
         {lead && (
           <div className="overflow-hidden rounded-[24px] bg-surface shadow-card">
             <Link href={placeHref(lead)} className="relative block">
@@ -92,6 +121,11 @@ export function WhatNext({ currentSlug, groups }: { currentSlug: string; groups:
                 {lead.title}
                 {lead.extra && <> · {lead.extra}</>}
               </p>
+              {lead.menuUrl && (
+                <a href={lead.menuUrl} target="_blank" rel="noreferrer" className="press hit relative mt-2 inline-flex h-10 items-center rounded-full bg-orange-50 px-4 text-[14px] font-semibold text-orange-ink">
+                  Меню
+                </a>
+              )}
               <AddButton added={day.includes(lead.slug)} onAdd={() => add(lead.slug, lead.title)} className="mt-3 w-full" big />
             </div>
           </div>
@@ -107,6 +141,7 @@ export function WhatNext({ currentSlug, groups }: { currentSlug: string; groups:
                     <span className="flex items-center gap-1 text-[13px] text-muted">
                       <TravelIcon mode={it.mode} /> {it.minutes} мин {MODE[it.mode].word}
                     </span>
+                    {it.menuUrl && <span className="block text-[12px] font-semibold text-orange-ink">есть ссылка на меню</span>}
                   </span>
                 </Link>
                 <AddButton added={day.includes(it.slug)} onAdd={() => add(it.slug, it.title)} />

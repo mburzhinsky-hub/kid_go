@@ -18,6 +18,13 @@ interface AdventureSeed {
   ageOverride?: [number, number];
 }
 
+/** Обложка выезда за город — первое фото его главного места. */
+const coverOf = (slug: string): Photo => {
+  const p = placeBySlug.get(slug);
+  if (!p) throw new Error(`Adventure cover: unknown or unpublished place ${slug}`);
+  return { ...p.photos[0] };
+};
+
 /**
  * Curated adventures use only places that remain publishable after the Block 1 trust audit.
  * Recommendation percentages were removed: real social proof must come from real user data later.
@@ -230,6 +237,79 @@ const seeds: AdventureSeed[] = [
       { slug: "tretyakovka-lavrushinsky", duration: 120, travel: 20 },
       { slug: "muzeon", duration: 60, travel: 10 },
       { slug: "park-gorkogo", duration: 60 },
+    ],
+  },
+  /* ── выезды за город: «Москва + область»; дорога от Москвы считается на карточке и странице ── */
+  {
+    slug: "arkhangelskoe-i-tekhnika",
+    title: "Техника и усадьба",
+    tagline: "Танки, паровозы и прогулка по парку над Москвой-рекой",
+    description:
+      "Музей техники Вадима Задорожного — автомобили, танки, самолёты и поезда, часть на открытой площадке. После — неспешная прогулка по парку усадьбы «Архангельское»: дворец на реставрации, зато аллеи и павильоны открыты.",
+    cover: coverOf("muzey-tekhniki-zadorozhnogo"),
+    emoji: "🚂",
+    tint: "#DCE8FF",
+    start: "11:30",
+    moods: ["learn", "outdoor", "surprise"],
+    interests: ["transport", "construction", "nature"],
+    steps: [
+      { slug: "muzey-tekhniki-zadorozhnogo", duration: 150, travel: 12, note: "В понедельник музей закрыт." },
+      { slug: "arkhangelskoe", duration: 90, note: "Если похолодало или дождь — оставьте только музей." },
+    ],
+  },
+  {
+    slug: "istra-derevyannoe-zodchestvo",
+    title: "День в Истре",
+    tagline: "Деревянное зодчество, парк и лабиринты",
+    description:
+      "В музее «Новый Иерусалим» детям интереснее всего деревянное зодчество в парке: часовня, крестьянская усадьба и ветряная мельница. Потом — Истринский парк с площадками и каруселями, а в дождь или холод — лабиринты и батуты «Лаки Лама».",
+    cover: coverOf("muzey-novy-ierusalim"),
+    emoji: "🛖",
+    tint: "#E3F1D6",
+    start: "11:30",
+    moods: ["learn", "outdoor", "energy"],
+    interests: ["construction", "nature", "transport"],
+    ageOverride: [4, 10],
+    steps: [
+      { slug: "muzey-novy-ierusalim", duration: 120, travel: 8, note: "В понедельник музей закрыт." },
+      { slug: "istrinsky-park-kultury", duration: 45, travel: 3, note: "Площадки и карусели — на воздухе, при дожде пропустите." },
+      { slug: "lucky-llama-istra", duration: 90 },
+    ],
+  },
+  {
+    slug: "zvenigorod-tri-muzeya",
+    title: "Звенигород: три музея",
+    tagline: "Пряники, Lego и советское детство",
+    description:
+      "Три небольших музея в одном городе: чаепитие и мастер-класс по пряникам, музей Lego с интерактивным городом и «Назад в СССР» с вещами и игрушками времён бабушек и дедушек. Всё под крышей — день подходит и для дождя.",
+    cover: coverOf("muzey-lego-lets-go-zvenigorod"),
+    emoji: "🧱",
+    tint: "#EEE5FE",
+    start: "11:00",
+    moods: ["learn", "creative", "calm"],
+    interests: ["construction", "cooking", "science"],
+    steps: [
+      { slug: "muzey-russkogo-deserta-zvenigorod", duration: 90, travel: 5 },
+      { slug: "muzey-nazad-v-sssr-zvenigorod", duration: 60, travel: 8 },
+      { slug: "muzey-lego-lets-go-zvenigorod", duration: 90, note: "Музей Lego открыт с четверга по воскресенье, на экскурсию лучше записаться заранее." },
+    ],
+  },
+  {
+    slug: "kolomna-kreml-i-pastila",
+    title: "Коломна: кремль и пастила",
+    tagline: "Крепость, театрализованная экскурсия и музей игрушек",
+    description:
+      "Поездка на день: белокаменный кремль с башнями, театрализованная экскурсия с дегустацией коломенской пастилы и маленький Музей любимой игрушки в соседних кварталах Старой Коломны.",
+    cover: coverOf("kolomna-kreml"),
+    emoji: "🏰",
+    tint: "#FFE6B8",
+    start: "12:30",
+    moods: ["learn", "creative", "surprise"],
+    interests: ["fairy", "cooking"],
+    steps: [
+      { slug: "kolomna-kreml", duration: 120, travel: 10 },
+      { slug: "kolomna-pastila-muzey", duration: 90, travel: 4, note: "Музей пастилы принимает группами по записи — запишитесь заранее." },
+      { slug: "kolomna-muzey-lyubimoy-igrushki", duration: 45 },
     ],
   },
 ];

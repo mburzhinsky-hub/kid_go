@@ -150,10 +150,13 @@ for (const sc of SCENARIO_LIBRARY)
         forecast,
         foodAfter: sc.food,
         constraints: sc.constraints,
+        geoScope: sc.constraints?.regionOnly ? "moscow-region" : undefined,
         seed: "eval",
       });
       scenarioRuns++;
-      if (!r.plans.length && !r.suggestions.length) scenarioEmpty.push(`${sc.id} · ${fname} · ${wx}`);
+      // поездки за город — узкие по определению (музеи области от 3 лет и т.п.): пустая выдача честна, выход — «другая ситуация»
+      if (!r.plans.length && !r.suggestions.length && sc.constraints?.regionOnly) scenarioEmpty.push(`(узкий) ${sc.id} · ${fname} · ${wx}`);
+      else if (!r.plans.length && !r.suggestions.length) scenarioEmpty.push(`${sc.id} · ${fname} · ${wx}`);
       else if (!r.plans.length) scenarioEmpty.push(`(подсказка) ${sc.id} · ${fname} · ${wx}`);
     }
 

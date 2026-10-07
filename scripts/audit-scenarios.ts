@@ -25,7 +25,9 @@ import type { InterestId, TransportId } from "../src/lib/types";
 
 const QUICK = process.argv.includes("--quick");
 /** Узкие сценарии («На каток», «Вода в жару», «Пикник»…) показывают только своё: пустая выдача для них честна, выход — «Выбрать другую ситуацию». */
-const NARROW = new Set(SCENARIO_LIBRARY.filter((s) => s.constraints?.onlyCategories?.length || s.constraints?.onlyTypes?.length || s.constraints?.onlyExperiences?.length).map((s) => s.id));
+const NARROW = new Set(SCENARIO_LIBRARY.filter((s) => s.constraints?.onlyCategories?.length || s.constraints?.onlyTypes?.length || s.constraints?.onlyExperiences?.length || s.constraints?.regionOnly).map((s) => s.id));
+/** Поездки за город: показываются на главной только при «Москва + область», считаются от центра и по определению не в Москве. */
+const TRIP = new Set(SCENARIO_LIBRARY.filter((s) => s.constraints?.regionOnly).map((s) => s.id));
 const DOC = process.argv.includes("--doc");
 const fail: string[] = [];
 const warn: string[] = [];
@@ -102,9 +104,24 @@ for (let weekday = 0; weekday < 7; weekday++)
             for (const p of picked) shown.set(p.id, (shown.get(p.id) ?? 0) + 1);
           }
 if (badRel) fail.push(`relevance вернул не число/отрицательное: ${badRel}`);
-const never = SCENARIO_LIBRARY.filter((s) => !shown.get(s.id));
+/* «За город»: при включённой области они должны выходить на главную, а без неё — нет */
+const shownRegion = new Map<string, number>();
+let ctxRegionN = 0;
+for (let weekday = 0; weekday < 7; weekday++)
+  for (const hour of [9, 12, 17])
+    for (const [month, day] of [[1, 20], [5, 15], [7, 10], [10, 8], [12, 15]] as const)
+      for (const wx of Object.values(WXC))
+        for (const kids of [KIDS["5 лет"], KIDS["2 и 9"], KIDS["без детей"]]) {
+          const ctx: ScenarioCtx = { weekday, hour, month, day, rainAllDay: false, rainLater: false, snow: false, cold: false, hot: false, sunny: false, warm: false, kidsCount: 0, youngest: 5, oldest: 5, interests: [], region: true, ...wx, ...kids };
+          ctxRegionN++;
+          const picked = pickScenarios(ctx);
+          if (picked.length !== 8) fail.push(`главная (область): ${picked.length} ситуаций вместо 8 (${JSON.stringify(ctx)})`);
+          for (const p of picked) shownRegion.set(p.id, (shownRegion.get(p.id) ?? 0) + 1);
+        }
+for (const id of TRIP) if (shown.get(id)) fail.push(`главная: поездка «${id}» показана без «Москва + область»`);
+const never = SCENARIO_LIBRARY.filter((s) => (TRIP.has(s.id) ? !shownRegion.get(s.id) : !shown.get(s.id)));
 for (const s of never) fail.push(`главная: «${s.id}» не показывается никогда (мёртвый сценарий)`);
-const rare = SCENARIO_LIBRARY.filter((s) => shown.get(s.id) && (shown.get(s.id) ?? 0) / ctxN < 0.001);
+const rare = SCENARIO_LIBRARY.filter((s) => (TRIP.has(s.id) ? (shownRegion.get(s.id) ?? 0) / ctxRegionN < 0.01 : shown.get(s.id) && (shown.get(s.id) ?? 0) / ctxN < 0.001));
 for (const s of rare) fail.push(`главная: «${s.id}» показывается реже чем в 0,1% ситуаций`);
 
 /* ───────────── 3. Матрица ───────────── */
@@ -155,6 +172,7 @@ const WXS: WxScenario[] = ["sun", "rain", "rain15", "cold", "heat"];
 
 let runs = 0;
 let emptyRuns = 0;
+let tripEmpty = 0;
 let emptyNoHelp = 0;
 const hard: string[] = [];
 const empties = new Map<string, number>();
@@ -213,6 +231,13 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
     }
     return r;
   }
+  if (!r.plans.length && TRIP.has(sid)) {
+    // поездки за город бывают пустыми по делу (вечер будня, малыш, нет подходящих мест) — считаем отдельно; на «хорошем» дне пустоты быть не должно
+    tripEmpty++;
+    const goodDay = (now.getTime() === SAT.getTime() || now.getTime() === SUN_AM.getTime()) && wx === "sun" && Math.max(...kids.map((k) => k.age)) >= 5 && !tag.includes(" + ");
+    if (goodDay) hard.push(`поездка не собрала план в хороший день — ${tag}`);
+    return r;
+  }
   if (!r.plans.length) {
     emptyRuns++;
     emptyByScenario.set(sid, (emptyByScenario.get(sid) ?? 0) + 1);
@@ -254,13 +279,18 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
       if (c.quiet && s.place.noise_level === 3) hard.push(`«тихо», а ${s.place.slug} шумное — ${t}`);
       if (c.stroller && !(s.place.unknown_fields ?? []).includes("stroller_friendly") && !s.place.stroller_friendly) hard.push(`«с коляской», а ${s.place.slug} подтверждённо без — ${t}`);
       if (c.avoidCategories?.includes(s.place.category)) hard.push(`исключённая категория ${s.place.category}: ${s.place.slug} — ${t}`);
-      if (mode === "any" && isSuburban({ lat: s.place.latitude, lng: s.place.longitude })) hard.push(`«вся Москва», а ${s.place.slug} за МКАД — ${t}`);
+      if (mode === "any" && !TRIP.has(sid) && isSuburban({ lat: s.place.latitude, lng: s.place.longitude })) hard.push(`«вся Москва», а ${s.place.slug} за МКАД — ${t}`);
       if (!s.place.title) hard.push(`у места нет названия: ${s.place.slug} — ${t}`);
       // Еда не может объявляться запланированной только из-за наличия URL в базе.
       if (s.foodOption && s.place.category !== "cafe" && !s.place.menu_url) hard.push(`еда без заведения/меню: ${s.place.slug} — ${t}`);
       if (input.budget === "free" && s.foodOption) hard.push(`платное питание навязано бесплатному маршруту: ${s.place.slug} — ${t}`);
     }
-    if (mode === "any") for (const s of p.stops) if (!inMoscow(s.place)) hard.push(`«вся Москва», а ${s.place.slug} не в Москве — ${t}`);
+    if (mode === "any" && !TRIP.has(sid)) for (const s of p.stops) if (!inMoscow(s.place)) hard.push(`«вся Москва», а ${s.place.slug} не в Москве — ${t}`);
+    // поездка за город: основное место — за пределами Москвы, и у плана есть «~N мин от Москвы»
+    if (TRIP.has(sid) && mode === "any") {
+      if (!p.stops.some((s) => !inMoscow(s.place) || isSuburban({ lat: s.place.latitude, lng: s.place.longitude }))) hard.push(`«за город», а все места в Москве — ${t}`);
+      if (!p.fromHome?.fromMoscow) hard.push(`«за город», а у плана нет «от Москвы» — ${t}`);
+    }
     if (strictArea && okId) {
       const tiers = p.stops.map((s) => tierOf(s.place, okId));
       p.stops.forEach((s, i) => {
@@ -275,7 +305,8 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
     const last = p.stops[p.stops.length - 1];
     if (c.endBy && toMinutes(last.start) + last.duration > c.endBy + 10) hard.push(`позже «домой к ${Math.floor(c.endBy / 60)}:00»: ${last.start}+${last.duration} — ${t}`);
     if (mode === "any") {
-      if (p.fromHome) hard.push(`«вся Москва», а в плане есть дорога от дома — ${t}`);
+      if (p.fromHome && !p.fromHome.fromMoscow) hard.push(`«вся Москва», а в плане есть дорога от дома — ${t}`);
+      if (p.fromHome?.fromMoscow && !TRIP.has(sid)) hard.push(`«вся Москва», а план — выезд за город при выбранной «Москве» — ${t}`);
     } else {
       if (!p.fromHome) hard.push(`нет дороги до первого места — ${t}`);
       else {
@@ -447,7 +478,8 @@ out(`Главная: ${ctxN} сочетаний условий; показаны
 const showRates = SCENARIO_LIBRARY.map((s) => ({ id: s.id, p: (shown.get(s.id) ?? 0) / ctxN })).sort((a, b) => a.p - b.p);
 out(`  реже всего: ${showRates.slice(0, 5).map((x) => `${x.id} ${(x.p * 100).toFixed(1)}%`).join(", ")}; чаще всего: ${showRates.slice(-3).map((x) => `${x.id} ${(x.p * 100).toFixed(0)}%`).join(", ")}`);
 out(`Матрица: ${runs} прогонов (${pass1} сценарий×семья×погода×место, ${pass2} время, ${pass3} фильтры) за ${((Date.now() - t0) / 1000).toFixed(0)} с`);
-out(`  пустых (кроме строгого округа): ${emptyRuns} (${((emptyRuns / Math.max(1, runs - areaRuns)) * 100).toFixed(2)}%), из них без подсказки: ${emptyNoHelp}; вариантов в выдаче в среднем ${(planCount / (runs - emptyRuns - areaEmptyRuns)).toFixed(2)}, выдач меньше 3: ${((plansLt3 / (runs - emptyRuns - areaEmptyRuns)) * 100).toFixed(1)}%`);
+out(`  пустых (кроме строгого округа): ${emptyRuns} (${((emptyRuns / Math.max(1, runs - areaRuns)) * 100).toFixed(2)}%), из них без подсказки: ${emptyNoHelp}; вариантов в выдаче в среднем ${(planCount / (runs - emptyRuns - areaEmptyRuns - tripEmpty)).toFixed(2)}, выдач меньше 3: ${((plansLt3 / (runs - emptyRuns - areaEmptyRuns - tripEmpty)) * 100).toFixed(1)}%`);
+out(`  поездки за город: пустых ${tripEmpty} (вечер будня, малыши и т.п. — честно; в «хороший день» пустых нет)`);
 out(`  строгий округ: ${areaRuns} прогонов, «здесь нет» в ${areaEmptyRuns} (${((areaEmptyRuns / Math.max(1, areaRuns)) * 100).toFixed(0)}%); проверено, что есть выход (другой округ/ситуация): ${altChecked}, без выхода: ${altNoExit}`);
 out(`  нарушений жёстких условий: ${hard.length}`);
 hard.slice(0, 25).forEach((h) => out(`    ✗ ${h}`));

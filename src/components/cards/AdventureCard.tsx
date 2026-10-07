@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Clock, Users, Umbrella, Sun, ThumbsUp, ArrowRight } from "lucide-react";
 import type { Plan } from "@/lib/types";
 import { SmartImage } from "@/components/ui/SmartImage";
+import { TripBadge } from "./TripBadge";
 import { cn } from "@/lib/cn";
 
 export interface AdventureCardData {
@@ -23,6 +24,8 @@ export interface AdventureCardData {
   fromHome?: string;
   /** Округа основных мест маршрута (id или "mo") — чтобы сказать, где это относительно выбранного округа. */
   areas?: string[];
+  /** Выезд за город: расстояние от центра Москвы до основного места, км (для «~N мин от Москвы»). */
+  tripKm?: number;
 }
 
 export type AreaNote = { text: string; tone: "here" | "near" | "far" };
@@ -99,6 +102,7 @@ export function AdventureCard({
           <p className="min-w-0 flex-1 text-[14px] font-semibold leading-tight text-ink-2">{data.chain}</p>
         </div>
 
+        {data.tripKm != null && <p className="mt-2"><TripBadge km={data.tripKm} /></p>}
         {note && (
           <p className={cn("mt-2 text-[13px] font-semibold leading-snug", note.tone === "here" ? "text-green-ink" : note.tone === "near" ? "text-yellow-ink" : "text-red-ink")}>{note.text}</p>
         )}

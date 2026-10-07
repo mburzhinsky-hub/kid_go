@@ -16,7 +16,9 @@ import { TagChip } from "@/components/ui/badges";
 import { PlaceCarousel } from "@/components/cards/PlaceCard";
 import { AdventureCard } from "@/components/cards/AdventureCard";
 import { adventureCardData } from "@/lib/cards";
-import { whatNextGroups } from "@/lib/what-next";
+import { nextGroupMap, whatNextGroups } from "@/lib/what-next";
+import { AroundLink } from "@/components/place/AroundLink";
+import { isOutside } from "@/lib/outside";
 import { categoryDef, placeTypeName } from "@/lib/catalog";
 import { formatAgeRange, formatPrice } from "@/lib/format";
 
@@ -178,15 +180,23 @@ export default async function PlacePage({ params }: PlacePageProps) {
           </div>
         </section>
 
-        {groups.length > 0 && (
-          <section className="mt-9">
-            <h2 className="tight text-[24px] font-[800]">Что сделать после?</h2>
-            <p className="mt-0.5 text-[14px] text-muted">Соберём продолжение дня рядом</p>
+        <section className="mt-9" aria-labelledby="what-next-title">
+          <h2 id="what-next-title" className="tight text-[24px] font-[800]">Что потом?</h2>
+          <p className="mt-0.5 text-[14px] text-muted">Логичное продолжение дня рядом — добавьте в один тап</p>
+          {groups.length > 0 ? (
             <div className="mt-3.5">
-              <WhatNext currentSlug={place.slug} groups={groups} />
+              <WhatNext currentSlug={place.slug} groups={groups} groupOf={nextGroupMap()} />
             </div>
-          </section>
-        )}
+          ) : (
+            <p className="mt-3 rounded-[20px] bg-surface p-3.5 text-[14px] leading-snug text-muted shadow-card">
+              {isOutside(place) ? "Рядом нет мест из нашей базы — возьмите перекус с собой или соберите день целиком: мы подберём дорогу и порядок." : "Рядом пока нет подходящих продолжений — соберите день целиком."}
+            </p>
+          )}
+          {groups.length > 0 && isOutside(place) && !groups.some((g) => g.id === "eat") && (
+            <p className="mt-2 px-1 text-[13px] leading-snug text-muted">🥪 Кафе рядом из нашей базы нет — возьмите перекус с собой.</p>
+          )}
+          <AroundLink slug={place.slug} from="place" className="mt-3.5" />
+        </section>
 
         {inAdventures.length > 0 && (
           <section className="mt-9">

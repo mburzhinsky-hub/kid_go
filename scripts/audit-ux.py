@@ -129,7 +129,7 @@ def run():
         print("4. Шторка (BottomSheet)")
         ctx, pg = new_ctx(b)
         seed_family(pg)
-        chip = pg.locator("header button[aria-label^='Где ищем']")
+        chip = pg.locator("button[aria-label^='Где ищем:']")
         chip.click()
         pg.wait_for_timeout(500)
         dlg = pg.get_by_role("dialog")

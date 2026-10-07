@@ -15,13 +15,15 @@ import { ScenarioGrid } from "./QuickScenarioCard";
 import { HeroBanner, type HeroSlide } from "./HeroBanner";
 import { PlaceCarousel } from "@/components/cards/PlaceCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { travelToPlace, isSuburban } from "@/lib/location";
+import { travelToPlace, isSuburban, locationMode } from "@/lib/location";
 import { useNearbyExtras } from "@/lib/nearby";
 import { allPlaces } from "@/lib/data/repository";
 import { pt } from "@/lib/geo";
 import { inMoscow } from "@/lib/moscow";
 import { orderByArea } from "@/lib/area-fit";
 import { useOkrug } from "@/lib/use-okrug";
+import { useGeoVisible } from "@/lib/use-geo";
+import { isOutside } from "@/lib/outside";
 import { GlyphRain, GlyphSun } from "@/components/icons/brand-icons";
 
 /* ───────── контекст «сейчас» для главной ───────── */
@@ -58,6 +60,9 @@ export function useHomeCtx(): { ctx: ScenarioCtx; ready: boolean } {
   const { forecast } = useForecast();
   const kids = useFamily((s) => s.children);
   const hydrated = useFamily((s) => s.hydrated);
+  const geoScope = useFamily((s) => s.geoScope);
+  const origin = useFamily((s) => s.origin);
+  const region = locationMode(origin) === "any" && geoScope === "moscow-region";
   const ctx = useMemo<ScenarioCtx>(() => {
     if (!mounted) return NEUTRAL;
     const now = moscowNow();
@@ -84,8 +89,9 @@ export function useHomeCtx(): { ctx: ScenarioCtx; ready: boolean } {
       youngest: ages.length ? Math.min(...ages) : 5,
       oldest: ages.length ? Math.max(...ages) : 5,
       interests: kids.flatMap((k) => k.interests),
+      region,
     };
-  }, [mounted, forecast, kids]);
+  }, [mounted, forecast, kids, region]);
   return { ctx, ready: mounted && hydrated && !!forecast };
 }
 
@@ -103,6 +109,13 @@ export function HomeScenarios() {
       </Link>
     </>
   );
+}
+
+/** «Подходит сегодня»: те же 8 ситуаций, что и на главной, без ссылки на весь список (используется на странице ситуаций). */
+export function LiveScenarios() {
+  const { ctx } = useHomeCtx();
+  const items = useMemo(() => pickScenarios(ctx).map(toCard), [ctx]);
+  return <ScenarioGrid items={items} />;
 }
 
 /** Карусель: в дождливый день первым — «Дождь? Не беда!». */
@@ -180,7 +193,8 @@ export function NearbyPopularHeader() {
   const anywhere = !hydrated || origin.source === "default";
   const { places: extra } = useNearbyExtras();
   const own = useAreaPopular([], extra);
-  return <SectionHeader title={anywhere ? "Популярное в Москве" : okrug ? (own.inArea ? `Популярное ${okrug.prep}` : `Популярное рядом с ${okrug.short}`) : "Популярное рядом"} href="/search?sort=popular" />;
+  const { regionOk } = useGeoVisible();
+  return <SectionHeader title={anywhere ? (regionOk ? "Популярное в Москве и области" : "Популярное в Москве") : okrug ? (own.inArea ? `Популярное ${okrug.prep}` : `Популярное рядом с ${okrug.short}`) : "Популярное рядом"} href="/search?sort=popular" />;
 }
 
 /** Популярное с учётом выбора: округ — сначала места из него, затем соседние; адрес — по близости; вся Москва — по рейтингу. */
@@ -189,6 +203,7 @@ function useAreaPopular(seed: Place[], extra: Place[]) {
   const transport = useFamily((s) => s.transport);
   const mounted = useMounted();
   const okrug = useOkrug();
+  const { regionOk } = useGeoVisible();
   return useMemo(() => {
     const places = (seed.length ? seed : allPlaces).concat(extra.length ? extra : []);
     const pool = places.filter((p) => p.category !== "cafe" && p.category !== "shop");
@@ -199,11 +214,14 @@ function useAreaPopular(seed: Place[], extra: Place[]) {
       return { list: r.list.slice(0, 8), inArea: r.inArea };
     }
     if (!mounted || origin.source === "default") {
-      // «вся Москва» — только Москва
-      return { list: pool.filter((p) => inMoscow(p) && !isSuburban(pt(p))).sort((a, b) => quality(b) - quality(a)).slice(0, 8), inArea: false };
+      // «вся Москва» — только Москва; с «Москва + область» — лучшее города и несколько поездок (чтобы область не терялась)
+      const city = pool.filter((p) => !isOutside(p)).sort((a, b) => quality(b) - quality(a));
+      if (!regionOk) return { list: city.slice(0, 8), inArea: false };
+      const region = pool.filter((p) => isOutside(p)).sort((a, b) => quality(b) - quality(a));
+      return { list: [...city.slice(0, 5), ...region.slice(0, 3)], inArea: false };
     }
     return { list: pool.map((p) => ({ p, s: quality(p) - travelToPlace(origin, p, transport).minutes / 12 })).sort((a, b) => b.s - a.s).map((x) => x.p).slice(0, 8), inArea: false };
-  }, [seed, extra, origin, transport, mounted, okrug]);
+  }, [seed, extra, origin, transport, mounted, okrug, regionOk]);
 }
 
 /** «Популярное рядом» — с учётом точки выезда семьи. */

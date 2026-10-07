@@ -65,7 +65,7 @@ with sync_playwright() as p:
     print("   manual switch ok")
 
     pg.goto(B + "/"); pg.wait_for_timeout(1000)
-    pg.locator("header button[aria-label^='Где ищем']").first.click()
+    pg.locator("button[aria-label^='Где ищем:']").first.click()
     pg.get_by_role("dialog").get_by_text("Указать на карте").click(); pg.wait_for_timeout(5000)
     dlg = pg.locator("[aria-label='Указать точку на карте']")
     print("2 picker title before:", dlg.locator("p").first.inner_text())

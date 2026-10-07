@@ -103,7 +103,7 @@ def run():
 
         # «Указать на карте»: тайлов нет → честное сообщение, поиск остаётся рабочим
         pg.goto(B + "/"); pg.wait_for_timeout(800)
-        pg.locator("header button[aria-label^='Где ищем']").first.click()
+        pg.locator("button[aria-label^='Где ищем:']").first.click()
         pg.get_by_role("dialog").get_by_text("Указать на карте").click(); pg.wait_for_timeout(12000)
         assert pg.get_by_text("Карта не загрузилась").count() > 0, "нет сообщения, что карта не загрузилась"
         pg.get_by_text("Выбрать без карты").click(); pg.wait_for_timeout(300)

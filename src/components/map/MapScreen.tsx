@@ -13,6 +13,7 @@ import { allPlaces, getPlaceSync } from "@/lib/data/repository";
 import { useNearbyExtras } from "@/lib/nearby";
 import { DEFAULT_LOCATION, pt } from "@/lib/geo";
 import { travelToPlace, nearestAreaLabel, locationMode, isSuburban } from "@/lib/location";
+import { GeoScope } from "@/components/location/GeoScope";
 import { inMoscow, okrugOfOrigin, tierOf } from "@/lib/moscow";
 import { orderByArea } from "@/lib/area-fit";
 import { isFreeEntry, openState } from "@/lib/format";
@@ -484,13 +485,12 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
     });
   };
 
-  const activeCount = toggles.size + (age ? 1 : 0) + (price ? 1 : 0) + (category ? 1 : 0) + (withRegion ? 1 : 0);
+  const activeCount = toggles.size + (age ? 1 : 0) + (price ? 1 : 0) + (category ? 1 : 0);
   const reset = () => {
     setToggles(new Set());
     setAge(null);
     setPrice(null);
     setCategory(undefined);
-    if (anywhere) setPrefs({ geoScope: "moscow" });
     setQuery("");
   };
 
@@ -615,15 +615,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
               {categoryDef(category).label} <X size={14} />
             </FilterChip>
           )}
-          {anywhere && (
-            <FilterChip
-              size="sm"
-              active={withRegion}
-              onClick={() => setPrefs({ geoScope: withRegion ? "moscow" : "moscow-region" })}
-            >
-              {withRegion ? "Москва + область" : "+ Подмосковье"}
-            </FilterChip>
-          )}
+          {anywhere && <GeoScope where="map" size="sm" className="shrink-0" />}
           <FilterChip size="sm" active={!!age} onClick={() => setSheet("age")}>
             {age ? AGES.find((a) => a.id === age)!.label : "Возраст"} <ChevronDown size={14} />
           </FilterChip>

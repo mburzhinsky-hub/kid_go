@@ -1,38 +1,61 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { X, ArrowLeft, Plus, Minus, Check, Wand2 } from "lucide-react";
+import { X, Plus, Minus, Check, Wand2, Pencil, ChevronDown, SlidersHorizontal, MapPin } from "lucide-react";
 import type { BudgetId, DurationId, MoodId, TransportId, Child } from "@/lib/types";
 import { useFamily } from "@/lib/store";
 import { goBack } from "@/lib/nav";
 import { MOODS, DURATIONS, BUDGETS, TRANSPORTS } from "@/lib/catalog";
 import { parseQuery } from "@/lib/recommend/nlu";
+import { anchorDuration } from "@/lib/recommend/build-input";
+import { getPlaceSync } from "@/lib/data/repository";
+import { locationMode } from "@/lib/location";
 import { plural } from "@/lib/format";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 import { PlannerLoader } from "./PlannerLoader";
 import { AgePicker } from "@/components/ui/AgePicker";
-import { LocationChip } from "@/components/location/LocationChip";
+import { GeoScope } from "@/components/location/GeoScope";
+import { FilterChip } from "@/components/ui/FilterChip";
 
-const STEPS = ["Кто идёт?", "Сколько времени?", "Какое настроение?", "Бюджет", "Как добираемся?"];
 const KID_EMOJI = ["🦁", "🦄", "🐻", "🐰", "🦊", "🐼"];
+const TIME_EMOJI: Record<DurationId, string> = { short: "⏱", mid: "☀️", half: "🌤", day: "🗓" };
+const ROADS: { v: number | null; label: string }[] = [
+  { v: null, label: "Не важно" },
+  { v: 30, label: "до 30 мин" },
+  { v: 45, label: "до 45 мин" },
+  { v: 60, label: "до часа" },
+  { v: 90, label: "до 1,5 часа" },
+];
+type Wx = "any" | "indoor" | "outdoor";
 
 export { encodeKids } from "./PlannerResults";
 import { encodeKids } from "./PlannerResults";
 
-export function PlannerWizard() {
+/**
+ * Короткий планировщик: «Что будем делать сегодня?» — один экран на 10–30 секунд.
+ * Обязательное — только дети, время и настроение (уже выбраны разумные значения),
+ * остальное спрятано в «Уточнить подбор».
+ */
+export function PlannerWizard({ anchor }: { anchor?: string }) {
   const router = useRouter();
   const family = useFamily();
-  const [step, setStep] = useState(0);
+  const anchorPlace = anchor ? getPlaceSync(anchor) : undefined;
   const [going, setGoing] = useState<string[]>([]);
-  const [duration, setDuration] = useState<DurationId | null>(null);
-  const [mood, setMood] = useState<MoodId | null>(null);
+  const [duration, setDuration] = useState<DurationId>(anchorPlace ? anchorDuration(anchorPlace) : "mid");
+  const [mood, setMood] = useState<MoodId>("surprise");
   const [budget, setBudget] = useState<BudgetId | null>(null);
   const [transport, setTransport] = useState<TransportId | null>(null);
+  const [travel, setTravel] = useState<number | null>(null);
+  const [wx, setWx] = useState<Wx>("any");
+  const [food, setFood] = useState(false);
+  const [more, setMore] = useState(false);
+  const [wordsOpen, setWordsOpen] = useState(false);
   const [loading, setLoading] = useState<string | null>(null);
   const [text, setText] = useState("");
-  const [adding, setAdding] = useState(false);
+  const [editing, setEditing] = useState<string | "new" | null>(null);
 
   // по умолчанию идут все дети из профиля (один раз после загрузки профиля)
   const inited = useRef(false);
@@ -40,26 +63,31 @@ export function PlannerWizard() {
     if (family.hydrated && !inited.current) {
       inited.current = true;
       setGoing(family.children.map((c) => c.id));
-      setBudget((b) => b ?? family.budget);
-      setTransport((t) => t ?? family.transport);
     }
-  }, [family.hydrated, family.children, family.budget, family.transport]);
+  }, [family.hydrated, family.children]);
 
   const allKids = family.children;
   const kids = allKids.filter((k) => going.includes(k.id));
   const parsed = useMemo(() => (text.trim().length > 3 ? parseQuery(text) : null), [text]);
-
-  const canNext = [kids.length > 0, !!duration, !!mood, !!budget, !!transport][step];
+  const anyMode = locationMode(family.origin) === "any";
+  const region = anyMode && family.geoScope === "moscow-region";
+  const budgetV = budget ?? family.budget;
+  const transportV = transport ?? family.transport;
+  const detailsCount = [budget && budget !== family.budget, transport && transport !== family.transport, travel, wx !== "any", food].filter(Boolean).length;
 
   const finish = (override?: Record<string, string>) => {
     const params = new URLSearchParams({
       kids: encodeKids(kids.length ? kids : family.children),
-      duration: duration ?? "mid",
-      mood: mood ?? "surprise",
-      budget: budget ?? "any",
-      transport: transport ?? "transit",
-      ...override,
+      duration,
+      mood,
+      budget: budgetV,
+      transport: transportV,
     });
+    if (travel) params.set("travel", String(travel));
+    if (wx !== "any") params.set("weather", wx === "indoor" ? "rain" : "sun");
+    if (food) params.set("food", "1");
+    if (anchorPlace) params.set("anchor", anchorPlace.slug);
+    for (const [k, v] of Object.entries(override ?? {})) params.set(k, v);
     track("planner_submit", Object.fromEntries(params));
     setLoading(`/planner/results?${params}`);
   };
@@ -79,55 +107,232 @@ export function PlannerWizard() {
 
   if (loading) return <PlannerLoader kids={kids} onDone={() => router.replace(loading)} />;
 
+  const editingKid = editing && editing !== "new" ? allKids.find((k) => k.id === editing) : undefined;
+
   return (
     <main className="flex min-h-dvh flex-col pb-32">
-      <header className="sticky top-0 z-20 bg-bg/95 px-4 pb-3 pt-[max(14px,env(safe-area-inset-top))]">
-        <div className="flex items-center justify-between">
-          <button
-            onClick={() => (step > 0 ? setStep(step - 1) : goBack(router, "/"))}
-            aria-label={step > 0 ? "Назад" : "Закрыть"}
-            className="press grid h-11 w-11 place-items-center rounded-full bg-surface shadow-card"
-          >
-            {step > 0 ? <ArrowLeft size={24} /> : <X size={24} />}
-          </button>
-          <span className="text-[14px] font-semibold text-muted">
-            Шаг {step + 1} из {STEPS.length}
-          </span>
-          <span className="w-11" />
-        </div>
-        <div className="mt-3 flex gap-1.5">
-          {STEPS.map((_, i) => (
-            <span key={i} className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#e9e7e2]">
-              <span className={cn("block h-full rounded-full bg-pink transition-all duration-500", i <= step ? "w-full" : "w-0")} />
-            </span>
-          ))}
-        </div>
+      <header className="sticky top-0 z-20 flex items-center justify-between bg-bg/95 px-4 pb-2 pt-[max(14px,env(safe-area-inset-top))]">
+        <button onClick={() => goBack(router, "/")} aria-label="Закрыть" className="press grid h-11 w-11 shrink-0 place-items-center rounded-full bg-surface shadow-card">
+          <X size={24} />
+        </button>
+        <GeoScope where="planner" />
       </header>
 
       <div className="px-4">
-        {step === 0 && (
-          <>
-            <h1 className="tight mt-3 text-[30px] font-[850] leading-[1.05]">Придумаем ваш&nbsp;день&nbsp;✨</h1>
-            <p className="mt-2 text-[16px] text-muted">5 коротких вопросов — и у вас готовый маршрут с временем и бюджетом.</p>
+        <h1 className="tight mt-2 text-[30px] font-[850] leading-[1.05]">Что будем делать сегодня?</h1>
+        <p className="mt-2 text-[16px] text-muted">Три коротких вопроса — и готовые варианты дня.</p>
 
-            <div className="mt-5 rounded-[24px] bg-surface p-3 shadow-card">
-              <label htmlFor="nl" className="flex items-center gap-1.5 px-1 text-[14px] font-semibold text-purple-ink">
-                <Wand2 size={16} /> Или просто опишите словами
-              </label>
-              <div className="mt-2 flex items-end gap-2">
+        {anchorPlace && (
+          <div className="mt-4 flex items-center gap-3 rounded-[20px] bg-purple-50 p-3">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white text-[20px]">{anchorPlace.emoji}</span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-[13px] font-semibold text-purple-ink">День вокруг места</span>
+              <span className="block truncate text-[16px] font-bold">{anchorPlace.title}</span>
+            </span>
+            <Link href="/planner" replace aria-label="Убрать место" className="press hit relative grid h-10 w-10 place-items-center rounded-full bg-white">
+              <X size={18} />
+            </Link>
+          </div>
+        )}
+
+        {/* 1. Кто идёт */}
+        <h2 className="tight mt-7 text-[20px] font-[800]">{allKids.length ? "Кто идёт?" : "Сколько лет ребёнку?"}</h2>
+        {family.hydrated && !allKids.length && (
+          <AgePicker
+            className="mt-3"
+            onPick={(age) => {
+              const c = { id: `c${Date.now()}`, name: "", age, interests: [], emoji: KID_EMOJI[0] };
+              family.upsertChild(c);
+              setGoing((g) => [...g, c.id]);
+            }}
+          />
+        )}
+        {allKids.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {allKids.map((k, i) => {
+              const on = going.includes(k.id);
+              return (
+                <div key={k.id} className={cn("flex items-center rounded-full pl-1 pr-1 transition-all", on ? "bg-pink-50 ring-2 ring-inset ring-pink" : "bg-surface shadow-card")}>
+                  <button
+                    onClick={() => setGoing((g) => (on ? g.filter((x) => x !== k.id) : [...g, k.id]))}
+                    aria-pressed={on}
+                    className="press hit relative flex h-11 items-center gap-2 rounded-full pl-1.5 pr-2.5 text-left"
+                  >
+                    <span className="relative grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white text-[18px] shadow-card">
+                      {k.emoji ?? KID_EMOJI[i % KID_EMOJI.length]}
+                      {on && (
+                        <span className="absolute -bottom-1 -right-1 grid h-4 w-4 place-items-center rounded-full bg-pink-ink text-white ring-2 ring-white">
+                          <Check size={10} strokeWidth={3.5} />
+                        </span>
+                      )}
+                    </span>
+                    <span className="text-[16px] font-bold leading-tight">
+                      {k.name ? `${k.name}, ` : ""}
+                      {k.age === 0 ? "до года" : k.age}
+                    </span>
+                  </button>
+                  <button onClick={() => setEditing(editing === k.id ? null : k.id)} aria-label={`Изменить: ${k.name || "ребёнок"}, ${k.age}`} className="press hit relative grid h-9 w-9 place-items-center rounded-full text-ink-2">
+                    <Pencil size={16} />
+                  </button>
+                </div>
+              );
+            })}
+            <button onClick={() => setEditing(editing === "new" ? null : "new")} className="press hit relative flex h-11 items-center gap-1.5 rounded-full border-2 border-dashed border-[#dcd9d2] px-3.5 text-[15px] font-semibold text-muted">
+              <Plus size={18} /> Ребёнок
+            </button>
+          </div>
+        )}
+        {editing && (
+          <KidForm
+            key={editing}
+            initial={editingKid}
+            onCancel={() => setEditing(null)}
+            onSave={(c) => {
+              family.upsertChild(c);
+              if (!editingKid) setGoing((g) => [...g, c.id]);
+              setEditing(null);
+            }}
+            onRemove={
+              editingKid
+                ? () => {
+                    family.removeChild(editingKid.id);
+                    setGoing((g) => g.filter((x) => x !== editingKid.id));
+                    setEditing(null);
+                  }
+                : undefined
+            }
+          />
+        )}
+
+        {/* 2. Сколько времени */}
+        <h2 className="tight mt-7 text-[20px] font-[800]">Сколько у вас времени?</h2>
+        <div className="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Сколько времени">
+          {DURATIONS.map((d, i) => {
+            const on = duration === d.id;
+            return (
+              <button
+                key={d.id}
+                role="radio"
+                aria-checked={on}
+                onClick={() => setDuration(d.id)}
+                className={cn("press relative flex min-h-[56px] items-center gap-2.5 rounded-[18px] px-3.5 text-left transition-colors", on ? "ring-[3px] ring-inset ring-pink" : "")}
+                style={{ background: ["#E2EEFF", "#FFF3D6", "#FFE4F1", "#E4F4DD"][i] }}
+              >
+                <span className="text-[22px]">{TIME_EMOJI[d.id]}</span>
+                <span className="text-[16px] font-bold leading-tight">{d.label}</span>
+              </button>
+            );
+          })}
+        </div>
+        {region && (
+          <p className="mt-2 flex items-start gap-1.5 text-[13px] leading-snug text-purple-ink">
+            <MapPin size={14} className="mt-0.5 shrink-0" />
+            {duration === "short" || duration === "mid"
+              ? "На это время — в основном город: дорога за город съела бы день."
+              : duration === "half"
+                ? "На полдня можно выехать недалеко за МКАД: Красногорск, Одинцово, Химки."
+                : "На почти весь день — поездка за город: Звенигород, Истра, Подольск и дальше."}
+          </p>
+        )}
+
+        {/* 3. Что хочется */}
+        <h2 className="tight mt-7 text-[20px] font-[800]">Что хочется?</h2>
+        <div className="mt-3 flex flex-wrap gap-2" role="radiogroup" aria-label="Что хочется">
+          {MOODS.map((m) => {
+            const on = mood === m.id;
+            return (
+              <button
+                key={m.id}
+                role="radio"
+                aria-checked={on}
+                onClick={() => setMood(m.id)}
+                className={cn("press hit relative inline-flex h-11 items-center gap-1.5 rounded-full px-3.5 text-[15px] font-semibold transition-colors", on ? "ring-[3px] ring-inset ring-pink" : "")}
+                style={{ background: m.bg }}
+              >
+                <span className="text-[17px]">{m.emoji}</span> {m.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Необязательное */}
+        <button
+          onClick={() => setMore((v) => !v)}
+          aria-expanded={more}
+          className="press mt-7 flex h-12 w-full items-center justify-between rounded-[18px] bg-surface px-4 text-[16px] font-semibold shadow-card"
+        >
+          <span className="flex items-center gap-2">
+            <SlidersHorizontal size={18} /> Уточнить подбор
+            {detailsCount > 0 && <span className="grid h-6 min-w-6 place-items-center rounded-full bg-pink px-1.5 text-[13px] text-white">{detailsCount}</span>}
+          </span>
+          <ChevronDown size={20} className={cn("transition-transform", more && "rotate-180")} />
+        </button>
+        {more && (
+          <div className="mt-3 space-y-5 rounded-[24px] bg-surface p-4 shadow-card animate-rise">
+            <Group label="Бюджет на семью">
+              {BUDGETS.map((b) => (
+                <FilterChip key={b.id} active={budgetV === b.id} onClick={() => setBudget(b.id)}>
+                  {b.emoji} {b.label}
+                </FilterChip>
+              ))}
+            </Group>
+            <Group label="Как добираетесь">
+              {TRANSPORTS.map((t) => (
+                <FilterChip key={t.id} active={transportV === t.id} onClick={() => setTransport(t.id)}>
+                  {t.emoji} {t.label}
+                </FilterChip>
+              ))}
+            </Group>
+            {(region || !anyMode) && (
+              <Group label="Дорога в одну сторону">
+                {ROADS.map((r) => (
+                  <FilterChip key={r.label} active={travel === r.v} onClick={() => setTravel(r.v)}>
+                    {r.label}
+                  </FilterChip>
+                ))}
+              </Group>
+            )}
+            <Group label="Где лучше">
+              {(
+                [
+                  ["any", "Без разницы"],
+                  ["indoor", "Под крышей"],
+                  ["outdoor", "На улице"],
+                ] as [Wx, string][]
+              ).map(([id, label]) => (
+                <FilterChip key={id} active={wx === id} onClick={() => setWx(id)}>
+                  {label}
+                </FilterChip>
+              ))}
+            </Group>
+            <Group label="Еда">
+              <FilterChip active={food} onClick={() => setFood((v) => !v)}>
+                🍽 Хотим поесть в плане
+              </FilterChip>
+            </Group>
+          </div>
+        )}
+
+        <div className="mt-3 rounded-[24px] bg-surface shadow-card">
+          <button onClick={() => setWordsOpen((v) => !v)} aria-expanded={wordsOpen} className="press flex h-12 w-full items-center justify-between rounded-[24px] px-4 text-[16px] font-semibold text-purple-ink">
+            <span className="flex items-center gap-2">
+              <Wand2 size={18} /> Или опишите словами
+            </span>
+            <ChevronDown size={20} className={cn("transition-transform", wordsOpen && "rotate-180")} />
+          </button>
+          {wordsOpen && (
+            <div className="px-3 pb-3 animate-rise">
+              <div className="flex items-end gap-2">
                 <textarea
                   id="nl"
+                  aria-label="Опишите словами"
                   rows={2}
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Например: недалеко, побегать и потом поесть"
                   className="min-h-12 flex-1 resize-none rounded-[16px] bg-fill px-3.5 py-3 text-[16px] leading-snug outline-none placeholder:text-muted-2 focus:ring-2 focus:ring-purple/40"
                 />
-                <button
-                  onClick={fromText}
-                  disabled={!parsed}
-                  className="press h-12 shrink-0 rounded-[16px] bg-purple-ink px-4 text-[15px] font-bold text-white disabled:opacity-30"
-                >
+                <button onClick={fromText} disabled={!parsed} className="press h-12 shrink-0 rounded-[16px] bg-purple-ink px-4 text-[15px] font-bold text-white disabled:opacity-30">
                   Готово
                 </button>
               </div>
@@ -142,206 +347,43 @@ export function PlannerWizard() {
                 </div>
               )}
             </div>
-
-            <h2 className="tight mt-7 text-[22px] font-[800]">{allKids.length ? "Кто идёт?" : "Сколько лет ребёнку?"}</h2>
-            {family.hydrated && !allKids.length && (
-              <AgePicker
-                className="mt-3"
-                onPick={(age) => {
-                  const c = { id: `c${Date.now()}`, name: "", age, interests: [], emoji: KID_EMOJI[0] };
-                  family.upsertChild(c);
-                  setGoing((g) => [...g, c.id]);
-                }}
-              />
-            )}
-            <div className={cn("mt-3 grid grid-cols-2 gap-2.5", !allKids.length && "hidden")}>
-              {allKids.map((k, i) => {
-                const on = going.includes(k.id);
-                return (
-                  <button
-                    key={k.id}
-                    onClick={() => setGoing((g) => (on ? g.filter((x) => x !== k.id) : [...g, k.id]))}
-                    aria-pressed={on}
-                    className={cn(
-                      "press relative flex items-center gap-3 rounded-[24px] p-3 text-left transition-all",
-                      on ? "bg-pink-50 ring-2 ring-inset ring-pink" : "bg-surface shadow-card"
-                    )}
-                  >
-                    <span className="relative grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white text-[24px] shadow-card">
-                      {k.emoji ?? KID_EMOJI[i % KID_EMOJI.length]}
-                      {on && (
-                        <span className="absolute -bottom-1 -right-1 grid h-6 w-6 place-items-center rounded-full bg-pink-ink text-white ring-2 ring-white animate-pop">
-                          <Check size={14} strokeWidth={3} />
-                        </span>
-                      )}
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block truncate text-[16px] font-bold leading-tight">{k.name || "Ребёнок"}</span>
-                      <span className="text-[14px] text-muted">
-                        {k.age === 0 ? "до года" : `${k.age} ${plural(k.age, "год", "года", "лет")}`}
-                      </span>
-                    </span>
-                  </button>
-                );
-              })}
-              {!adding && (
-                <button
-                  onClick={() => setAdding(true)}
-                  className="press flex min-h-[74px] flex-col items-center justify-center gap-0.5 rounded-[24px] border-2 border-dashed border-[#dcd9d2] px-2 text-center text-[15px] font-semibold text-muted"
-                >
-                  <Plus size={20} /> <span>Добавить ребёнка</span>
-                </button>
-              )}
-            </div>
-            {adding && (
-              <AddKid
-                onCancel={() => setAdding(false)}
-                onAdd={(c) => {
-                  setGoing((g) => [...g, c.id]);
-                  family.upsertChild(c);
-                  setAdding(false);
-                }}
-              />
-            )}
-          </>
-        )}
-
-        {step === 1 && (
-          <StepTiles
-            title="Сколько у вас времени?"
-            items={DURATIONS.map((d) => ({ id: d.id, label: d.label, hint: d.hint, emoji: d.emoji }))}
-            value={duration}
-            onChange={(v) => {
-              setDuration(v as DurationId);
-              setTimeout(() => setStep(2), 220);
-            }}
-            columns={2}
-            colors={["#E2EEFF", "#FFF3D6", "#FFE4F1", "#E4F4DD"]}
-          />
-        )}
-        {step === 2 && (
-          <StepTiles
-            title="Какое настроение?"
-            items={MOODS.map((m) => ({ id: m.id, label: m.label, emoji: m.emoji }))}
-            value={mood}
-            onChange={(v) => {
-              setMood(v as MoodId);
-              setTimeout(() => setStep(3), 220);
-            }}
-            columns={2}
-            colors={MOODS.map((m) => m.bg)}
-          />
-        )}
-        {step === 3 && (
-          <StepTiles
-            title="Какой бюджет на семью?"
-            items={BUDGETS.map((b) => ({ id: b.id, label: b.label, emoji: b.emoji }))}
-            value={budget}
-            onChange={(v) => {
-              setBudget(v as BudgetId);
-              setTimeout(() => setStep(4), 220);
-            }}
-            columns={2}
-            colors={["#E4F4DD", "#FFF3D6", "#E2EEFF", "#FFE4F1"]}
-          />
-        )}
-        {step === 4 && (
-          <>
-          <StepTiles
-            title="Как будете добираться?"
-            items={TRANSPORTS.map((t) => ({ id: t.id, label: t.label, emoji: t.emoji }))}
-            value={transport}
-            onChange={(v) => setTransport(v as TransportId)}
-            columns={1}
-            colors={["#E4F4DD", "#E2EEFF", "#EEE5FE"]}
-          />
-          <div className="mt-5 flex items-center justify-between gap-3 rounded-[24px] bg-surface p-3.5 shadow-card">
-            <span className="text-[15px] font-semibold leading-tight">
-              Где ищем?
-              <span className="block text-[13px] font-medium text-muted">вся Москва, округ или точка — по желанию</span>
-            </span>
-            <LocationChip />
-          </div>
-          </>
-        )}
+          )}
+        </div>
       </div>
 
       <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[480px] bg-gradient-to-t from-bg from-60% to-transparent px-4 pb-[max(14px,env(safe-area-inset-bottom))] pt-6">
         <button
-          disabled={!canNext}
-          onClick={() => (step < STEPS.length - 1 ? setStep(step + 1) : finish())}
+          disabled={!kids.length}
+          onClick={() => finish()}
           className="press h-14 w-full rounded-full bg-pink text-[18px] font-bold text-white shadow-pink transition-opacity disabled:opacity-40 disabled:shadow-none"
         >
-          {step < STEPS.length - 1 ? "Дальше" : "Придумать день ✨"}
+          {kids.length ? "Показать варианты дня" : "Укажите возраст ребёнка"}
         </button>
       </div>
     </main>
   );
 }
 
-function StepTiles({
-  title,
-  items,
-  value,
-  onChange,
-  columns,
-  colors,
-}: {
-  title: string;
-  items: { id: string; label: string; hint?: string; emoji: string }[];
-  value: string | null;
-  onChange: (id: string) => void;
-  columns: 1 | 2;
-  colors: string[];
-}) {
+function Group({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <section className="animate-rise">
-      <h1 className="tight mt-3 text-[30px] font-[850] leading-[1.08]">{title}</h1>
-      <div className={cn("mt-6 grid gap-2.5", columns === 2 ? "grid-cols-2" : "grid-cols-1")}>
-        {items.map((it, i) => {
-          const on = value === it.id;
-          return (
-            <button
-              key={it.id}
-              onClick={() => onChange(it.id)}
-              aria-pressed={on}
-              className={cn(
-                "press relative flex rounded-[24px] p-4 text-left transition-all",
-                columns === 2 ? "min-h-[128px] flex-col justify-between" : "items-center gap-4",
-                on ? "ring-[3px] ring-inset ring-pink" : ""
-              )}
-              style={{ background: colors[i % colors.length] }}
-            >
-              <span className={cn("grid place-items-center rounded-full bg-white/80", columns === 2 ? "h-14 w-14 text-[30px]" : "h-12 w-12 text-[24px]")}>
-                {it.emoji}
-              </span>
-              <span>
-                <span className="block text-[17px] font-bold leading-tight">{it.label}</span>
-                {it.hint && <span className="mt-0.5 block text-[13px] text-ink-2/70">{it.hint}</span>}
-              </span>
-              {on && (
-                <span className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full bg-pink text-white animate-pop">
-                  <Check size={16} strokeWidth={3} />
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </div>
-    </section>
+    <div>
+      <p className="text-[14px] font-bold text-ink-2">{label}</p>
+      <div className="mt-2 flex flex-wrap gap-2">{children}</div>
+    </div>
   );
 }
 
-function AddKid({ onAdd, onCancel }: { onAdd: (c: Child) => void; onCancel: () => void }) {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState(5);
+function KidForm({ initial, onSave, onCancel, onRemove }: { initial?: Child; onSave: (c: Child) => void; onCancel: () => void; onRemove?: () => void }) {
+  const [name, setName] = useState(initial?.name ?? "");
+  const [age, setAge] = useState(initial?.age ?? 5);
   return (
     <div className="mt-3 rounded-[24px] bg-surface p-4 shadow-card animate-rise">
       <input
-        autoFocus
+        autoFocus={!initial}
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Имя (необязательно)"
+        aria-label="Имя ребёнка"
         className="h-12 w-full rounded-[12px] bg-fill px-3.5 text-[16px] outline-none focus:ring-2 focus:ring-pink/40"
       />
       <div className="mt-3 flex items-center justify-between">
@@ -350,8 +392,8 @@ function AddKid({ onAdd, onCancel }: { onAdd: (c: Child) => void; onCancel: () =
           <button aria-label="Меньше" onClick={() => setAge((a) => Math.max(0, a - 1))} className="press hit relative grid h-10 w-10 place-items-center rounded-full bg-fill">
             <Minus size={20} />
           </button>
-          <span className="w-16 text-center text-[17px] font-bold">
-            {age} {plural(age, "год", "года", "лет")}
+          <span className="w-16 text-center text-[17px] font-bold" aria-live="polite">
+            {age === 0 ? "до года" : `${age} ${plural(age, "год", "года", "лет")}`}
           </span>
           <button aria-label="Больше" onClick={() => setAge((a) => Math.min(14, a + 1))} className="press hit relative grid h-10 w-10 place-items-center rounded-full bg-fill">
             <Plus size={20} />
@@ -359,14 +401,30 @@ function AddKid({ onAdd, onCancel }: { onAdd: (c: Child) => void; onCancel: () =
         </div>
       </div>
       <div className="mt-4 flex gap-2">
-        <button onClick={onCancel} className="press h-11 flex-1 rounded-full bg-fill text-[15px] font-semibold">
-          Отмена
-        </button>
+        {onRemove ? (
+          <button onClick={onRemove} className="press h-11 flex-1 rounded-full bg-fill text-[15px] font-semibold text-red-ink">
+            Убрать
+          </button>
+        ) : (
+          <button onClick={onCancel} className="press h-11 flex-1 rounded-full bg-fill text-[15px] font-semibold">
+            Отмена
+          </button>
+        )}
         <button
-          onClick={() => onAdd({ id: `c${Date.now()}`, name: name.trim(), age, interests: [], emoji: KID_EMOJI[Math.floor(Math.random() * KID_EMOJI.length)] })}
-          className="press h-11 flex-1 rounded-full bg-pink text-[15px] font-semibold text-white disabled:opacity-40"
+          onClick={() =>
+            onSave({
+              ...(initial ?? { interests: [] }),
+              id: initial?.id ?? `c${Date.now()}`,
+              name: name.trim(),
+              age,
+              // возраст поправили руками — дата рождения больше не нужна
+              birthDate: initial && initial.age === age ? initial.birthDate : undefined,
+              emoji: initial?.emoji ?? KID_EMOJI[Math.floor(Math.random() * KID_EMOJI.length)],
+            })
+          }
+          className="press h-11 flex-1 rounded-full bg-pink text-[15px] font-semibold text-white"
         >
-          Добавить
+          {initial ? "Сохранить" : "Добавить"}
         </button>
       </div>
     </div>

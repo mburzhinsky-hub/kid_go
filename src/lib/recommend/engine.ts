@@ -7,6 +7,7 @@ import { travelBetween, travelToPlace, type Travel } from "@/lib/location";
 import { bringList, daySummary, moscowDateISO, outdoorVerdict, weekdayOf, windowWx, type Forecast } from "@/lib/forecast";
 import { isSuburban } from "@/lib/location";
 import { inMoscow, okrugOfOrigin, tierOf, type Tier } from "@/lib/moscow";
+import { isOutside } from "@/lib/outside";
 import { explainPlan } from "./explain";
 import { DAY_TEMP } from "@/lib/school-calendar";
 
@@ -31,6 +32,24 @@ const DEFAULT_REACH: Record<PlannerInput["transport"], number> = { walk: 25, tra
 const LEG_MAX: Record<PlannerInput["transport"], number> = { walk: 18, transit: 25, car: 20 };
 const BUFFER = 10;
 const ACTIVITY: CategoryId[] = ["park", "play", "museum", "active", "animals"];
+
+/**
+ * Выезд за город («Москва + область»): после дороги туда-обратно на месте должно остаться хотя бы столько минут.
+ * Отсюда и длина дня: на 2 часа область почти не нужна, на «почти весь день» Истра или Коломна — вполне.
+ */
+const REGION_MIN_SITE = 90;
+/** С этой дороги (мин) выезд — «поездка на день», а не «рядом с Москвой». */
+const FAR_TRIP_MIN = 55;
+/** Поправка к оценке места за городом по длине дня (на коротком дне область уступает городу, на длинном — наравне). */
+const REGION_BIAS: Record<DurationId, number> = { short: -2.6, mid: -1.5, half: -0.6, day: 0.5 };
+
+/** Место за пределами Москвы или заметно за МКАД. */
+export { isOutside };
+
+type TripInput = Pick2<PlannerInput, "locationMode" | "geoScope">;
+/** «Вся Москва + область»: место за городом — это поездка, у неё есть дорога от центра. */
+const isRegionTrip = (input: TripInput, p: Pick2<Place, "id" | "slug" | "latitude" | "longitude" | "region">): boolean =>
+  input.locationMode === "any" && input.geoScope === "moscow-region" && isOutside(p);
 
 export interface ScoredPlace {
   place: Place;
@@ -239,7 +258,15 @@ export function scorePlace(
   const anchorLike = isAnchorLike(p, input);
   const reach = anchorLike ? ctx.reach : ctx.reach * 1.35;
   // В общем режиме пользователь явно выбирает географию: Москва или Москва + область.
-  if (mode === "any" && input.geoScope !== "moscow-region" && (!inMoscow(p) || isSuburban(pt(p)))) return null;
+  if (mode === "any" && input.geoScope !== "moscow-region" && isOutside(p)) return null;
+  // «За город»: основное место только за пределами Москвы
+  if (c.regionOnly && anchorLike && !isOutside(p)) return null;
+  // Выезд за город: дорога туда-обратно не должна съесть всё время дня, и не дальше, чем готовы ехать
+  const trip = isRegionTrip(input, p);
+  if (trip) {
+    if (ctx.total - 2 * travel.minutes < REGION_MIN_SITE) return null;
+    if (c.maxTravelMin && travel.minutes > c.maxTravelMin) return null;
+  }
   // округ: основное место — только в самом округе, соседние округа годятся для кафе и магазина по пути
   const okr = areaOf(input);
   const strict = !!okr && input.areaScope !== "wide";
@@ -285,7 +312,9 @@ export function scorePlace(
     // «шире округа»: выбранный округ всё равно впереди соседних
     area: !okr || strict ? 0 : tier === 0 ? 2.4 : tier === 1 ? 0.8 : 0,
     // При широком поиске область доступна, но Москва остаётся чуть выше при прочих равных.
-    geography: mode === "any" && input.geoScope === "moscow-region" && (p.region === "mo" || isSuburban(pt(p))) ? -1.1 : 0,
+    geography: trip
+      ? REGION_BIAS[input.duration] - (Math.max(0, travel.minutes - 60) / 60) * 0.8 + (p.is_hit || p.rating >= 4.7 ? 0.4 : 0)
+      : 0,
     interest: interest * 8 + scenarioInterest,
     rating: p.rating_source ? p.rating - 4 : 0,
     mood: moodFit(p, input.mood) * 9,
@@ -484,11 +513,11 @@ interface Ordered {
 
 function simulate(order: Pick[], ctx: DayCtx, input: PlannerInput, ignoreWeather = false): Ordered | null {
   let clock = ctx.start;
+  const first = legHome(input, order[0].place).minutes;
+  // выезд за город: к первому месту едем дольше, чем «собраться и доехать» в старте дня
+  if (isRegionTrip(input, order[0].place)) clock = Math.max(clock, ceilTo(ctx.start + first - 25, 5));
   // сегодня выезжаем не раньше «сейчас + сборы + дорога до первого места»
-  if (ctx.nowMin !== null) {
-    const first = legHome(input, order[0].place).minutes;
-    clock = Math.max(clock, ceilTo(ctx.nowMin + 25 + first, 5));
-  }
+  if (ctx.nowMin !== null) clock = Math.max(clock, ceilTo(ctx.nowMin + 25 + first, 5));
   const startClock = clock;
   let cost = 0;
   const weather: (StopWeather | undefined)[] = [];
@@ -519,6 +548,8 @@ function simulate(order: Pick[], ctx: DayCtx, input: PlannerInput, ignoreWeather
   const endBy = input.constraints?.endBy;
   if (endBy && clock + backHome > endBy + 10) return null;
   if (clock > 21 * 60) return null;
+  // из поездки за город с малышами возвращаемся не за полночь
+  if (isRegionTrip(input, order[order.length - 1].place) && clock + backHome > (ctx.youngest <= 6 ? 21 * 60 : 22 * 60)) return null;
   return { picks: order, cost, weather, startClock, end: clock };
 }
 
@@ -551,8 +582,30 @@ interface Assembled {
   anchor: ScoredPlace;
 }
 
+/**
+ * Окно «на месте»: в поездке за город дорога туда-обратно вычитается из длины дня,
+ * а старт первого места сдвигается на время дороги.
+ */
+function windowOf(ctx: DayCtx, input: PlannerInput, anchor: Place): { total: number; start: number; end: number; trip: boolean } {
+  if (!isRegionTrip(input, anchor)) return { total: ctx.total, start: ctx.start, end: ctx.end, trip: false };
+  const there = legHome(input, anchor).minutes;
+  const total = Math.max(REGION_MIN_SITE, ctx.total - 2 * there);
+  const start = Math.max(ctx.start, ceilTo(ctx.start + there - 25, 5));
+  return { total, start, end: start + total, trip: true };
+}
+
+/** Нужна ли в плане еда: просили прямо, передышка родителю, длинный день или обед внутри окна. */
+function wantsFoodIn(input: PlannerInput, w: { total: number; start: number; end: number; trip: boolean }): boolean {
+  const lunchInWindow = w.start <= 14 * 60 && w.end >= 12 * 60 + 30;
+  return (
+    input.budget !== "free" &&
+    !!(input.foodAfter || input.constraints?.parentBreak || w.total >= 240 || (w.total >= 180 && lunchInWindow) || (w.trip && w.total >= 150))
+  );
+}
+
 function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: PlannerInput, kidsInterests: string[][], outdoorDay: number, avoid?: Set<string>): Assembled | null {
-  const total = ctx.total;
+  const win = windowOf(ctx, input, anchor.place);
+  const total = win.total;
   const c = input.constraints ?? {};
   const budgetMax = BUDGET_MAX[input.budget];
   const maxStops = MAX_STOPS[input.duration];
@@ -569,8 +622,7 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
   let remaining = total - anchorDur;
   let spent = anchor.place.family_budget;
 
-  const lunchInWindow = ctx.start <= 14 * 60 && ctx.end >= 12 * 60 + 30;
-  const wantFood = input.budget !== "free" && (input.foodAfter || c.parentBreak || total >= 240 || (total >= 180 && lunchInWindow));
+  const wantFood = wantsFoodIn(input, win);
   const covered = new Set(
     kidsInterests.map((ints, i) => (ints.some((x) => anchor.place.interest_tags.includes(x as never)) ? i : -1)).filter((i) => i >= 0)
   );
@@ -581,12 +633,16 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
   const hasFood = () => picks.some((p) => p.slot === "food" || p.place.category === "cafe" || (!c.parentBreak && hasFoodOption(p.place)));
   const activities = () => picks.filter((p) => p.slot === "anchor" || p.slot === "activity").length;
   const sunny = outdoorDay > 0.6;
+  // поездка за город: на месте времени меньше, но второе занятие рядом нужно — иначе дорога ради одного места
+  const trip = win.trip;
+  const wantActivities = total >= 330 || (trip && total >= 140) ? 2 : 1;
+  const activityMin = trip ? 55 : 75;
 
   while (picks.length < maxStops) {
     let slot: Slot | null = null;
     if (wantFood && !hasFood() && remaining >= 50) slot = "food";
     else if (mustShop && !picks.some((q) => q.place.category === "shop") && remaining >= 40) slot = "extra";
-    else if (activities() < (total >= 330 ? 2 : 1) && remaining >= 75) slot = "activity";
+    else if (activities() < wantActivities && remaining >= activityMin) slot = "activity";
     else if (remaining >= 35) slot = "extra";
     if (!slot) break;
 
@@ -623,13 +679,13 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
         chosen = pickFrom((s) => s.place.category === "cafe", foodBonus);
         dur = 30;
       }
-      if (!chosen) slot = remaining >= 75 && activities() < 2 ? "activity" : remaining >= 35 ? "extra" : null;
+      if (!chosen) slot = remaining >= activityMin && activities() < 2 ? "activity" : remaining >= 35 ? "extra" : null;
     }
     if (!chosen && slot === "activity") {
-      chosen = pickFrom(
-        (s) => ACTIVITY.includes(s.place.category) && !cats().has(s.place.category) && !parkWhileIndoor(s),
-        (s) => kidsInterests.filter((ints, i) => !covered.has(i) && ints.some((x) => s.place.interest_tags.includes(x as never))).length * 2.5
-      );
+      const interestBonus = (s: ScoredPlace) => kidsInterests.filter((ints, i) => !covered.has(i) && ints.some((x) => s.place.interest_tags.includes(x as never))).length * 2.5;
+      chosen = pickFrom((s) => ACTIVITY.includes(s.place.category) && !cats().has(s.place.category) && !parkWhileIndoor(s), interestBonus);
+      // за городом выбор мал: второй музей в том же городе лучше, чем дорога ради одного места
+      if (!chosen && trip) chosen = pickFrom((s) => ACTIVITY.includes(s.place.category) && !parkWhileIndoor(s), interestBonus);
       if (chosen) dur = Math.max(45, Math.min(chosen.s.place.average_duration, remaining - 45));
       else if (remaining >= 35) slot = "extra";
     }
@@ -683,6 +739,12 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
 
 function titleFor(anchor: Place, input: PlannerInput, stops: Place[] = [anchor]): { title: string; emoji: string } {
   const t = anchor.interest_tags;
+  // выезд за город называем по месту, чтобы с первого взгляда было ясно: это поездка, а не прогулка у дома
+  if (isRegionTrip(input, anchor)) {
+    const emoji = anchor.category === "museum" ? "🏛" : anchor.category === "park" ? "🌳" : anchor.category === "animals" ? "🐾" : "🚗";
+    const what = input.duration === "day" ? "поездка на день" : "выезд за город";
+    return { title: anchor.town ? `${anchor.town.replace(/\s*\(.*\)$/, "")}: ${what}` : "Выезд за город", emoji };
+  }
   // Прогулка только по паркам: интерес «космос» у ВДНХ или «наука» у ботсада не делает её космическим днём или днём открытий.
   if (anchor.category === "park" && stops.every((p) => p.category === "park" || p.category === "cafe")) {
     const ex = [...(input.constraints?.experiences ?? []), ...(input.constraints?.onlyExperiences ?? [])];
@@ -740,10 +802,11 @@ export interface Relaxation {
 const anchorsOf = (pool: ScoredPlace[], input: PlannerInput) => pool.filter((s) => isAnchorLike(s.place, input));
 
 /** Первое плечо «от дома до места» с учётом режима: вся Москва — без дороги, округ — с запасом, точка — как есть. */
-export function legHome(input: Pick2<PlannerInput, "location" | "transport" | "locationMode">, p: Pick2<Place, "latitude" | "longitude">): Travel {
+export function legHome(input: Pick2<PlannerInput, "location" | "transport" | "locationMode" | "geoScope">, p: Pick2<Place, "id" | "slug" | "latitude" | "longitude" | "region">): Travel {
   const mode = input.locationMode ?? "exact";
   const t = travelToPlace(input.location, p as Place, input.transport);
-  if (mode === "any") return { km: 0, minutes: 0, mode: t.mode };
+  // «вся Москва»: в городе дорога не считается, а выезд за город — настоящая поездка от центра
+  if (mode === "any") return isRegionTrip(input, p) ? t : { km: 0, minutes: 0, mode: t.mode };
   if (mode === "area") return { ...t, minutes: Math.max(5, t.minutes - AREA_SOFTEN) };
   return t;
 }
@@ -804,6 +867,10 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
     partialAge = true;
     scored = ALL_PLACES.map((p) => scorePlace(p, input, ages, ctx, outdoorDay, true)).filter(Boolean) as ScoredPlace[];
   }
+  // «Собрать день вокруг этого места»: основное место зафиксировано, остальное подбираем рядом
+  const forced = input.anchorSlug ? ALL_PLACES.find((p) => p.slug === input.anchorSlug) : undefined;
+  if (forced) return aroundAnchor(input, count, offset, forced, scored, ctx, outdoorDay, partialAge);
+
   // строго по округу: основное место должно быть «по теме» ситуации (иначе — честное «здесь такого нет»)
   const strictArea = !!areaOf(input) && input.areaScope !== "wide";
   let anchors = anchorsOf(scored, input);
@@ -817,6 +884,8 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
 
   const kidsInterests = input.children.map((c) => [...c.interests, ...(input.constraints?.interests ?? [])] as string[]);
   const candidates = anchors.sort((a, b) => b.score - a.score);
+  // «Москва + область» и длинный день: хотя бы один из вариантов — выезд за город, если он есть
+  const regionSeat = input.locationMode === "any" && input.geoScope === "moscow-region" && !input.constraints?.regionOnly && (input.duration === "half" || input.duration === "day");
   const results: { a: Assembled; plan: Plan }[] = [];
   const tried = new Set<string>();
   const minStops = Math.min(input.constraints?.minStops ?? MIN_STOPS[input.duration], MAX_STOPS[input.duration]);
@@ -826,16 +895,37 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
     // MMR: сила места минус похожесть на уже выбранные якоря; каждый третий — «сюрприз»
     const chosenAnchors = results.map((r) => r.a.anchor.place);
     const surprise = results.length % 3 === 2;
-    const next = candidates
-      .filter((c) => !tried.has(c.place.id))
-      .slice(0, input.constraints?.parentBreak ? 36 : 18)
+    const open = candidates.filter((c) => !tried.has(c.place.id));
+    // выезд за город иначе тонет среди сильных городских мест: даём ему отдельные «места в зале».
+    // Полдня — хотя бы один выезд; весь день — хотя бы один «настоящий» (Истра, Сергиев Посад, Коломна), не только ближняя область
+    const outsideChosen = chosenAnchors.filter((p) => isOutside(p));
+    const farChosen = outsideChosen.filter((p) => legHome(input, p).minutes >= FAR_TRIP_MIN).length;
+    const needTrip = regionSeat && results.length >= 1 && (input.duration === "day" ? farChosen === 0 : outsideChosen.length === 0);
+    const trips = needTrip ? open.filter((c) => isRegionTrip(input, c.place)) : [];
+    const seat =
+      input.duration === "day"
+        ? [...(outsideChosen.length ? [] : trips.filter((c) => c.minutes < FAR_TRIP_MIN).slice(0, 5)), ...trips.filter((c) => c.minutes >= FAR_TRIP_MIN).slice(0, 16)]
+        : trips.slice(0, 10);
+    const next = [...new Set([...open.slice(0, input.constraints?.parentBreak ? 36 : 18), ...seat])]
       .map((c) => {
         const sameCat = chosenAnchors.filter((p) => p.category === c.place.category).length;
         const near = chosenAnchors.some((p) => travelBetween(pt(p), pt(c.place), "walk").km < 1.5) ? 1 : 0;
         const novelty = surprise
           ? (c.place.experience_tags.includes("unusual") ? 1.2 : 0) + (input.family?.seen?.includes(c.place.slug) ? -1 : 0.6)
           : 0;
-        return { c, v: c.score - sameCat * 1.6 - near * 1.2 + novelty };
+        const tripBoost =
+          needTrip && isRegionTrip(input, c.place)
+            ? input.duration === "day"
+              ? c.minutes >= FAR_TRIP_MIN
+                ? 5.5
+                : outsideChosen.length
+                  ? 0
+                  : 2.5
+              : 2.5
+            : 0;
+        // выезды за город не должны занять все три места: второй и третий — реже
+        const crowd = regionSeat && isRegionTrip(input, c.place) ? chosenAnchors.filter((p) => isOutside(p)).length * 1.6 : 0;
+        return { c, v: c.score - sameCat * 1.6 - near * 1.2 + novelty + tripBoost - crowd };
       })
       .sort((a, b) => b.v - a.v)[0];
     if (!next) break;
@@ -843,7 +933,7 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
 
     const a = assemble(next.c, scored, ctx, input, kidsInterests.map((x) => [...x]), outdoorDay, new Set(results.flatMap((r) => r.a.ordered.picks.map((p) => p.place.id))));
     if (!a) continue;
-    if (a.ordered.picks.length < minStops) {
+    if (a.ordered.picks.length < (isRegionTrip(input, next.c.place) ? Math.min(minStops, 2) : minStops)) {
       fallback.push(a);
       continue;
     }
@@ -883,6 +973,49 @@ function generateOnce(input: PlannerInput, count: number, offset: number, reachM
   };
 }
 
+/** Оценка для места, которое выбрали вручную: жёсткие фильтры не должны его «вычёркивать». */
+function forcedScore(p: Place, input: PlannerInput): ScoredPlace {
+  const t = legHome(input, p);
+  return { place: p, score: 10, km: t.km, minutes: t.minutes, parts: {} };
+}
+
+/**
+ * «Собрать день вокруг этого места»: основное место — заданное, варианты отличаются тем, что идёт до и после.
+ * Каждый следующий вариант берёт других спутников, а уже использованные не повторяет.
+ */
+function aroundAnchor(input: PlannerInput, count: number, offset: number, forced: Place, scored: ScoredPlace[], ctx: DayCtx, outdoorDay: number, partialAge: boolean): PlannerResult {
+  const ages = input.children.map((c) => c.age);
+  const anchor = scored.find((s) => s.place.id === forced.id) ?? scorePlace(forced, input, ages, ctx, outdoorDay, true) ?? forcedScore(forced, input);
+  const kidsInterests = input.children.map((c) => [...c.interests, ...(input.constraints?.interests ?? [])] as string[]);
+  const banned = new Set<string>();
+  const plans: Plan[] = [];
+  const keys = new Set<string>();
+  for (let i = 0; i < count + offset + 2 && plans.length < count + offset; i++) {
+    const pool = scored.filter((s) => s.place.id !== forced.id && !banned.has(s.place.id));
+    const a = assemble(anchor, pool, ctx, input, kidsInterests.map((x) => [...x]), outdoorDay, banned);
+    if (!a) break;
+    const companions = a.ordered.picks.filter((p) => p.place.id !== forced.id);
+    // следующие варианты без спутников — повтор: оставляем один «чистый» вариант на месте
+    if (!companions.length && plans.length) break;
+    const key = a.ordered.picks.map((p) => p.place.slug).join("+");
+    companions.forEach((p) => banned.add(p.place.id));
+    if (keys.has(key)) continue;
+    keys.add(key);
+    plans.push(toPlan(a, input, ctx, scored, partialAge));
+  }
+  return {
+    plans: plans.slice(offset),
+    startLabel: plans[0]?.stops[0]?.start ?? fromMinutes(ctx.start),
+    tomorrow: ctx.tomorrow,
+    dayOffset: ctx.dayOffset,
+    considered: scored.length,
+    suggestions: plans.length ? [] : diagnose(input),
+    partialAge,
+    anchorsNear: plans.length,
+    area: undefined,
+  };
+}
+
 function areaInfo(input: PlannerInput, anchors: number, offType: number): PlannerResult["area"] {
   const id = areaOf(input);
   return id ? { id, scope: input.areaScope === "wide" ? "wide" : "strict", anchors, offType, loose: !!input.looseFit } : undefined;
@@ -906,13 +1039,8 @@ function toPlan(a: Assembled, input: PlannerInput, ctx: DayCtx, pool: ScoredPlac
   if (input.budget === "free") draft.budget = 0;
   // Явно отмечаем, где в этом плане находится еда. Само наличие menu_url в базе
   // не означает, что питание является частью конкретного маршрута.
-  const lunchInWindow = ctx.start <= 14 * 60 && ctx.end >= 12 * 60 + 30;
-  const wantsFood = input.budget !== "free" && (
-    input.foodAfter ||
-    input.constraints?.parentBreak ||
-    ctx.total >= 240 ||
-    (ctx.total >= 180 && lunchInWindow)
-  );
+  const win = windowOf(ctx, input, a.anchor.place);
+  const wantsFood = wantsFoodIn(input, win);
   draft.stops.forEach((stop) => { stop.foodOption = false; });
   if (wantsFood) {
     let foodIndex = picks.findIndex((p) => p.slot === "food");
@@ -929,7 +1057,12 @@ function toPlan(a: Assembled, input: PlannerInput, ctx: DayCtx, pool: ScoredPlac
     if (s.place.outdoor && !s.place.indoor) s.backup = findBackup(s.place, picks.map((p) => p.place.id), pool, input)?.slug;
   });
   const mode0 = input.locationMode ?? "exact";
-  draft.fromHome = mode0 === "any" ? undefined : { ...legHome(input, picks[0].place), approx: mode0 === "area" || undefined };
+  // выезд за город: «~N мин от Москвы» — дорога до основного места от центра; в городе «вся Москва» дороги не считает
+  draft.fromHome = win.trip
+    ? { ...legHome(input, a.anchor.place), approx: true, fromMoscow: true }
+    : mode0 === "any"
+      ? undefined
+      : { ...legHome(input, picks[0].place), approx: mode0 === "area" || undefined };
   draft.dayOffset = ctx.dayOffset;
   const hasOutdoor = picks.some((p) => p.place.outdoor);
   if (ctx.forecast) draft.bring = bringList(windowWx(ctx.forecast, ctx.dateISO, a.ordered.startClock, a.ordered.end), ctx.youngest, hasOutdoor);
@@ -951,6 +1084,8 @@ function toPlan(a: Assembled, input: PlannerInput, ctx: DayCtx, pool: ScoredPlac
       notes.push("⛅ Успеваем до дождя");
     }
   }
+  if (win.trip) notes.push(input.duration === "day" ? "🧳 Поездка на день" : "🌳 Выезд за город");
+  if (win.trip && win.total >= 150 && !planHasFood({ stops: draft.stops })) notes.push("🥪 Возьмите перекус с собой");
   if (input.family?.want.some((s) => picks.some((p) => p.place.slug === s))) notes.push("❤️ Вы хотели сюда");
   if (partialAge) notes.push("👀 Не всё — для всех возрастов");
   const { why, explanation } = explainPlan(draft, input, notes);
