@@ -720,9 +720,9 @@ const SEED_PLACES: Place[] = [
     category: "museum",
     photos: [
       ph(PH.plasmaBall, "Ребёнок трогает плазменный шар"),
-      ph(PH.legoMany, "Конструктор"),
-      ph(PH.lego, "Детали"),
-      ph(PH.boyWatercolor, "Опыты с цветом"),
+      ph(PH.labCoatGirl, "Юная исследовательница"),
+      ph(PH.labKidsGroup, "Дети проводят опыт"),
+      ph(PH.microscopeGirl, "Девочка у микроскопа"),
     ],
     emoji: "🧪",
     rating: 4.8,
@@ -760,10 +760,10 @@ const SEED_PLACES: Place[] = [
     metro: "Баррикадная",
     category: "museum",
     photos: [
-      ph(PH.spacecraft, "Космос"),
+      ph(PH.planetsDisplay, "Планеты"),
+      ph(PH.domeBuilding, "Купол"),
       ph(PH.orangeRocket, "Ракета"),
-      ph(PH.plasmaBall, "Опыты"),
-      ph(PH.shuttle, "Шаттл"),
+      ph(PH.spacecraft, "Космос"),
     ],
     emoji: "🪐",
     rating: 4.7,
@@ -800,10 +800,10 @@ const SEED_PLACES: Place[] = [
     metro: "Комсомольская",
     category: "museum",
     photos: [
-      ph(PH.toyBoats, "Модели транспорта"),
-      ph(PH.legoAssorted, "Детали"),
-      ph(PH.ferrisRed, "Колесо"),
-      ph(PH.toyWindow, "Витрина"),
+      ph(PH.tramOrange, "Трамвай"),
+      ph(PH.tramYellow, "Жёлтый трамвай"),
+      ph(PH.trainSteam2, "Паровоз"),
+      ph(PH.tramLisbon, "Трамвай на улице"),
     ],
     emoji: "🚋",
     rating: 4.6,
@@ -843,10 +843,10 @@ const SEED_PLACES: Place[] = [
     category: "animals",
     photos: [
       ph(PH.giraffe, "Жираф"),
+      ph(PH.penguins, "Пингвины"),
       ph(PH.redPanda, "Красная панда"),
+      ph(PH.elephants, "Слоны"),
       ph(PH.giraffes, "Два жирафа"),
-      ph(PH.redPandaClimb, "Панда на дереве"),
-      ph(PH.goatKid, "Малыш с козлёнком"),
     ],
     emoji: "🦒",
     rating: 4.9,
@@ -1716,7 +1716,7 @@ export const places: Place[] = [
   ...buildPlaces(
     PUBLISHABLE_SEED_PLACES.length,
     new Set(PUBLISHABLE_SEED_PLACES.map((p) => p.slug)),
-    PUBLISHABLE_SEED_PLACES.map((p) => p.photos[0]?.src).filter((src): src is string => !!src),
+    PUBLISHABLE_SEED_PLACES.map((p) => p.photos.map((x) => x.src)),
   ),
 ]
   .filter((p) => !REMOVED_EDITORIAL_SLUGS.has(p.slug))

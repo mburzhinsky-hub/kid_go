@@ -1,5 +1,6 @@
 import type { ComponentType, SVGProps } from "react";
 import type { BudgetId, DurationId, MoodId, ScenarioConstraints } from "@/lib/types";
+import { isSchoolBreak } from "@/lib/school-calendar";
 import { GlyphSparkle, GlyphClock, GlyphRain, GlyphTreeWalk, GlyphPizza, GlyphGift, GlyphHeart, GlyphSmile } from "@/components/icons/brand-icons";
 
 /**
@@ -22,6 +23,8 @@ export interface ScenarioCtx {
   weekday: number; // 0 — пн
   hour: number;
   month: number; // 1..12
+  /** Число месяца, 1..31 (нужно для каникул). */
+  day: number;
   rainAllDay: boolean;
   rainLater: boolean;
   snow: boolean;
@@ -99,7 +102,7 @@ export const SCENARIO_LIBRARY: ScenarioDef[] = [
   { id: "slow-sunday", label: "Воскресенье без спешки", group: "time", emoji: "☕", ...col("yellow"), mood: "calm", duration: "half", constraints: { parentBreak: true }, relevance: (c) => (c.weekday === 6 ? 8 : c.weekday === 5 ? 3 : 1) },
   { id: "weekend-morning", label: "Утро выходного", group: "time", emoji: "🥞", ...col("yellow"), mood: "surprise", duration: "mid", food: true, constraints: { startAt: H(10), endBy: H(15) }, relevance: (c) => (c.weekday >= 5 && c.hour < 11 ? 9 : 0), hint: "С 10:00 и с обедом" },
   { id: "lunch-walk", label: "Обед и прогулка", group: "time", emoji: "🍲", ...col("peach"), mood: "calm", duration: "short", food: true, constraints: { parentBreak: true, outdoorPreferred: true }, relevance: (c) => (c.hour >= 11 && c.hour < 14 && !c.rainAllDay && !c.cold ? 7 : 0) },
-  { id: "holidays", label: "Каникулы", group: "time", emoji: "🏖", ...col("green"), mood: "surprise", duration: "day", constraints: { minStops: 4 }, relevance: (c) => (c.weekday < 5 && [3, 6, 7, 8, 10, 12, 1].includes(c.month) && c.hour < 15 ? 8 : 0), hint: "Насыщенный будний день без школы" },
+  { id: "holidays", label: "Каникулы", group: "time", emoji: "🏖", ...col("green"), mood: "surprise", duration: "day", constraints: { minStops: 4 }, relevance: (c) => (c.weekday < 5 && isSchoolBreak(c.month, c.day) && (c.kidsCount === 0 || c.oldest >= 6) && c.hour < 15 ? 8 : 0), hint: "Насыщенный будний день без школы" },
   { id: "late-start", label: "Выехали поздно", group: "time", emoji: "🕓", ...col("blue"), mood: "surprise", duration: "short", constraints: { startAt: H(15), endBy: H(20) }, relevance: (c) => (c.hour >= 15 && c.hour < 18 ? 6 : 0), hint: "Успеем за пару часов" },
   { id: "sunday-eve", label: "Воскресный вечер", group: "time", emoji: "🌙", ...col("purple"), mood: "calm", duration: "short", constraints: { endBy: H(19), maxTravelMin: 25, quiet: true }, relevance: (c) => (c.weekday === 6 && c.hour >= 14 ? 9 : 0), hint: "Тихо и домой к ужину" },
   { id: "weekday-off", label: "Будний день без толпы", group: "time", emoji: "🍃", ...col("mint"), mood: "learn", duration: "half", constraints: { quiet: true, preferCategories: ["museum", "animals"] }, relevance: (c) => (c.weekday < 5 && c.hour < 14 ? 5.5 : 0), hint: "Музеи и зоопарки, когда там свободно" },

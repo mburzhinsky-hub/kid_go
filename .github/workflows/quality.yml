@@ -42,6 +42,8 @@ jobs:
         run: npm run audit:quick
       - name: District audit
         run: npm run audit:areas
+      - name: Photo audit
+        run: npm run audit:photos
       - name: Static production build
         env:
           GITHUB_PAGES: "true"

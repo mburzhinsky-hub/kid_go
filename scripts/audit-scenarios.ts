@@ -87,11 +87,11 @@ let ctxN = 0;
 let badRel = 0;
 for (let weekday = 0; weekday < 7; weekday++)
   for (const hour of [8, 11, 13, 16, 19, 21])
-    for (const month of [1, 3, 5, 7, 8, 10, 12])
+    for (const [month, day] of [[1, 5], [1, 20], [3, 25], [5, 15], [7, 10], [8, 20], [10, 8], [10, 29], [12, 15], [12, 30]] as const)
       for (const wx of Object.values(WXC))
         for (const kids of Object.values(KIDS))
           for (const interests of INTS) {
-            const ctx: ScenarioCtx = { weekday, hour, month, rainAllDay: false, rainLater: false, snow: false, cold: false, hot: false, sunny: false, warm: false, kidsCount: 0, youngest: 5, oldest: 5, interests, ...wx, ...kids };
+            const ctx: ScenarioCtx = { weekday, hour, month, day, rainAllDay: false, rainLater: false, snow: false, cold: false, hot: false, sunny: false, warm: false, kidsCount: 0, youngest: 5, oldest: 5, interests, ...wx, ...kids };
             ctxN++;
             for (const s of SCENARIO_LIBRARY) {
               const r = s.relevance(ctx);

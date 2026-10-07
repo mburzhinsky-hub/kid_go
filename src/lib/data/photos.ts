@@ -46,6 +46,14 @@ export const PH = {
   shuttle: U("photo-1519241678948-28f18681ce14"),
   spacecraft: U("photo-1745773620897-e6666b641de3"),
   orangeRocket: U("photo-1649605551149-526a96a130a5"),
+  labCoatGirl: U("photo-1633828763399-e29f1cd3f4c1"),
+  labKidsGroup: U("photo-1758685734153-132c8620c1bd"),
+  microscopeGirl: U("photo-1780265596033-47b8cb06c794"),
+  planetsDisplay: U("photo-1693168390110-a6cfa5b8451e"),
+  domeBuilding: U("photo-1576571365101-960d1fe97ba3"),
+  tramYellow: U("photo-1578950586898-faece8969e13"),
+  tramOrange: U("photo-1601845699868-271441551717"),
+  tramLisbon: U("photo-1585208798174-6cedd86e019a"),
   // животные
   giraffe: U("photo-1574870111867-089730e5a72b"),
   giraffeTree: U("photo-1543716778-1b10caf74fb8"),
@@ -70,6 +78,15 @@ export const PH = {
   girlWhiteHorse: U("photo-1507065282747-afce6cd90e84"),
   ponyStable: U("photo-1764889743960-b886cfeb943e"),
   boyPony: U("photo-1776127839787-649512e5a80d"),
+  penguins: U("photo-1574950333594-f3e9a9446d0f"),
+  penguinsGroup: U("photo-1701037591192-c14cfd9250e6"),
+  elephants: U("photo-1578135568951-0291665c42b3"),
+  elephantRiver: U("photo-1584706368162-73c7dab84d68"),
+  zebra: U("photo-1548091665-b481fffafbf5"),
+  zebras: U("photo-1646672164069-7310ff9c3359"),
+  macawsFlight: U("photo-1779234365900-bf17512a1f81"),
+  boyParrot: U("photo-1583031906814-b568721a98d8"),
+  dogOnWheel: U("photo-1522922907574-208becedb03d"),
   // парки
   parkPath: U("photo-1690065587467-d0e0f6d778de"),
   parkSun: U("photo-1641357441057-e798d0af9ed8"),
@@ -277,45 +294,95 @@ export const PH = {
   riverbankPath: U("photo-1776586264945-b41b670f0991"),
   pavedPath: U("photo-1775478950062-fff456082152"),
   treePath: U("photo-1778069718364-82fb4b2bd610"),
+  // ── добавлено при аудите картинок (каждый id проверен на существование)
+  skatesCloseup: U("photo-1669184773984-b1a177330ee9"),
+  figureSkater: U("photo-1770223859967-dffb913a9f3b"),
+  rinkGroup: U("photo-1707125239384-6f3f894af0c4"),
+  womanSkating: U("photo-1670885192882-45e27afb4294"),
+  ropesBalanceBoy: U("photo-1757988668896-8726f1ae3464"),
+  redRopeBridge: U("photo-1552250657-071c44e7e5f4"),
+  ziplineChild: U("photo-1788362321749-f6d705a34a98"),
+  ropeClimber: U("photo-1691152389757-60d7771f3ff6"),
+  carouselBlue: U("photo-1577774438656-768f1e5d9ed6"),
+  carouselNight: U("photo-1597172984973-fa1a221fe91d"),
+  carouselAnimals: U("photo-1542332606-b2d1c52a6c33"),
+  carouselCarriage: U("photo-1740168674236-502e85b7ce1b"),
+  rideCrowd: U("photo-1502136969935-8d8eef54d77b"),
+  boyOnSwing: U("photo-1566806924653-730bc02389ff"),
+  blueSlide: U("photo-1569466126773-842a038eae3e"),
+  helmetPlayground: U("photo-1755618191430-696697645684"),
+  waterRedStairs: U("photo-1790699592081-a9466c56b7b1"),
+  waterRedStairs2: U("photo-1790699592062-9b2c803c7792"),
+  inflatableWater: U("photo-1785769395783-9477a6b11f1b"),
+  inflatableWater2: U("photo-1785769395316-01ecdc6f241e"),
+  marionetteClown: U("photo-1779723971986-92a06b397963"),
+  clownPuppet: U("photo-1771363340736-e3cc8d30cb11"),
+  clownMarionette2: U("photo-1789405128554-0a76bc838751"),
+  masksPuppet: U("photo-1771760564125-f5430486dc1a"),
+  kidsShelf: U("photo-1680178776508-41a276595b0f"),
+  girlLibraryStairs: U("photo-1762475833699-53a01f26565a"),
+  childShelfRead: U("photo-1767356326735-2da0a10cf1f0"),
+  girlsStairsReading: U("photo-1762475833776-fd57865db4d5"),
+  estateGreenDome: U("photo-1674470667559-f5ce512b2a66"),
+  estateRoad: U("photo-1674470668076-f2b6a433e0cf"),
+  estateStatue: U("photo-1674470667600-6eeed4d2e011"),
+  estateWhite: U("photo-1766082636922-81817b4c078f"),
+  museumChildExhibit: U("photo-1763194994497-0b904eb0640d"),
+  museumChildDisplay: U("photo-1784462525752-aa7d8c9d42c9"),
+  museumGirlPillars: U("photo-1706059922924-247ffa0410ab"),
+  clownJuggler: U("photo-1714592996652-9d8b24697177"),
+  aerialSilks: U("photo-1762271232481-30bd8d3342fa"),
+  circusTentBike: U("photo-1631898723983-01a5025579cb"),
+  greenhousePalm: U("photo-1610881369563-c44142785509"),
+  palmTree: U("photo-1597191604228-368203e7b222"),
+  ballpitToddler: U("photo-1542944041-70d34cc5c9b8"),
+  ballsAssorted: U("photo-1561085444-cf8213ca992c"),
+  playroomTables: U("photo-1763310225230-6e15b125935a"),
+  playKitchen: U("photo-1763310225537-f7161d5c93e9"),
+  playKitchenWindow: U("photo-1773543447025-8838024abc4c"),
+  playMapFlags: U("photo-1782455799976-8d9b850f8976"),
+  moscowCityTower: U("photo-1541447271487-09612b3f49f7"),
+  moscowNightTower: U("photo-1641464835774-431b7934037b"),
+  moscowGoldenHigh: U("photo-1565115164386-01c287236aac"),
 } as const;
 
 export const ph = (src: string, alt: string): Photo => ({ src, alt, kind: "stock" });
 
 /** Тематические наборы стоковых фото для записей из JSON (иллюстрации, не фото самого места). */
-export const PHOTO_SETS: Record<string, { keys: (keyof typeof PH)[]; alt: string }> = {
+export const PHOTO_SETS: Record<string, { keys: (keyof typeof PH)[]; alt: string; /** наборы, из которых можно добрать кадры, если своего набора мало на все места */ mix?: string[] }> = {
   park: {
     keys: ["parkPath", "parkLakeBench", "parkPeople", "parkWalk", "parkAvenue", "parkLawn", "parkSteps", "parkBench", "forestPath", "parkGreen", "fatherChildPark", "parkLakeTrees", "familyLake", "forestSun", "bigTree", "fountainPeople", "greenPond", "parkGazebo", "fountainFlowers", "parkSun", "parkBenchesRow", "treesGrass", "hillSunset", "fieldPeople", "benchTrees", "lawnTrees", "treeLinedStreet", "lawnPeople", "familyWoodsPath", "groupPath", "benchAlley", "motherChildRoad", "riverbankPath", "pavedPath", "treePath"],
     alt: "Парк",
   },
-  estate: { keys: ["estateRedPalace", "parkLakeBench", "estateGreenRoof", "parkLakeTrees", "estateLake", "parkGazebo", "churchArch", "estateClock", "parkAvenue", "parkLawnBuilding", "forestSun", "forestPath", "parkLawn", "lawnTrees"], alt: "Усадьба и парк" },
-  autumn: { keys: ["autumnPath", "childRunsAutumn", "autumnSkyline", "autumnPeoplePath", "familyWalk", "parkSun", "parkWalk", "parkBench"], alt: "Осенняя прогулка" },
-  playground: { keys: ["woodenPlayground", "colorfulPlayground", "redSlide", "boySwing", "girlSwing", "playgroundPark", "childClimbPlayground", "emptyPlaygroundRed"], alt: "Детская площадка" },
-  picnic: { keys: ["picnicFamily", "picnicBlanket", "childrenCircle", "girlGrass"], alt: "Пикник на траве" },
+  estate: { keys: ["estateRedPalace", "parkLakeBench", "estateGreenRoof", "parkLakeTrees", "estateLake", "parkGazebo", "churchArch", "estateClock", "parkAvenue", "parkLawnBuilding", "forestSun", "forestPath", "parkLawn", "lawnTrees", "estateGreenDome", "estateRoad", "estateStatue", "estateWhite"], alt: "Усадьба и парк", mix: ["park"] },
+  autumn: { keys: ["autumnPath", "childRunsAutumn", "autumnSkyline", "autumnPeoplePath", "familyWalk", "parkSun", "parkWalk", "parkBench"], alt: "Осенняя прогулка", mix: ["park"] },
+  playground: { keys: ["woodenPlayground", "colorfulPlayground", "redSlide", "boySwing", "girlSwing", "playgroundPark", "childClimbPlayground", "emptyPlaygroundRed", "boyOnSwing", "blueSlide", "helmetPlayground"], alt: "Детская площадка" },
+  picnic: { keys: ["picnicFamily", "picnicBlanket", "childrenCircle", "girlGrass"], alt: "Пикник на траве", mix: ["park"] },
   farm: { keys: ["goatKid", "girlBabyGoat", "childPetsGoat", "goatsNoses", "whiteGoat"], alt: "Контактная ферма" },
   pony: { keys: ["girlHorse", "girlWhiteHorse", "ponyStable", "boyPony"], alt: "Лошади и пони" },
-  zoo: { keys: ["giraffe", "giraffeTree", "giraffes", "giraffeSky", "redPanda", "redPandaClimb", "redPandaLog"], alt: "Животные" },
+  zoo: { keys: ["giraffe", "giraffeTree", "giraffes", "giraffeSky", "redPanda", "redPandaClimb", "redPandaLog", "penguins", "elephants", "zebra", "penguinsGroup", "zebras", "elephantRiver"], alt: "Животные" },
   aquarium: { keys: ["aquariumTunnel", "aquariumTunnel2", "dolphins", "aquariumFish", "fishSchool", "sharks"], alt: "Аквариум" },
   dino: { keys: ["dinoPeople", "dinoDisplay", "dinoSkeleton", "dinoCrowd", "dinoSkylight", "dinoHall", "childDinoSkull"], alt: "Музей динозавров" },
   space: { keys: ["rocketWarehouse", "rocketStatue", "shuttle", "spacecraft", "orangeRocket"], alt: "Космос и ракеты" },
-  science: { keys: ["plasmaBall", "whaleMuseum", "dinoHall"], alt: "Научный музей" },
-  museum: { keys: ["dinoHall", "whaleMuseum", "dinoSkylight", "plasmaBall", "childDinoSkull"], alt: "Музей" },
-  play: { keys: ["balls", "slidesBallpit", "indoorPlay", "inflatableMall", "multicolorSlides", "playAreaSlide", "bounceHouse", "rubberDucks"], alt: "Игровая зона" },
-  trampoline: { keys: ["trampolineIndoor", "obstacleFoam", "trampolines", "trampolineStations", "bungeeTrampoline"], alt: "Батутный парк" },
-  climbing: { keys: ["climbingWall", "childClimbing", "kidsClimb", "childrenClimbing", "childrenClimbingTall"], alt: "Скалодром" },
-  ropes: { keys: ["ropeBridge", "treehouseBridge", "ropesCourse", "forestBridge", "childrenClimbingTall", "kidsClimb"], alt: "Верёвочный парк" },
-  waterpark: { keys: ["waterpark", "waterparkFamily", "waterparkSlides", "waterPlayground", "girlPool", "kidsPool"], alt: "Аквапарк" },
-  ice: { keys: ["kidsSkating", "kidsHockey", "skatingPeople", "iceRink"], alt: "Каток" },
+  science: { keys: ["plasmaBall", "labCoatGirl", "labKidsGroup", "microscopeGirl"], alt: "Научный музей" },
+  museum: { keys: ["dinoHall", "whaleMuseum", "dinoSkylight", "plasmaBall", "childDinoSkull", "museumChildExhibit", "museumChildDisplay", "museumGirlPillars"], alt: "Музей" },
+  play: { keys: ["balls", "slidesBallpit", "indoorPlay", "inflatableMall", "multicolorSlides", "playAreaSlide", "bounceHouse", "rubberDucks", "ballpitToddler", "ballsAssorted", "playroomTables", "playKitchen", "playKitchenWindow", "playMapFlags"], alt: "Игровая зона", mix: ["trampoline"] },
+  trampoline: { keys: ["trampolineIndoor", "obstacleFoam", "trampolines", "trampolineStations", "bungeeTrampoline"], alt: "Батутный парк", mix: ["play"] },
+  climbing: { keys: ["climbingWall", "childClimbing", "kidsClimb", "childrenClimbing", "childrenClimbingTall"], alt: "Скалодром", mix: ["ropes"] },
+  ropes: { keys: ["ropeBridge", "treehouseBridge", "ropesCourse", "forestBridge", "childrenClimbingTall", "kidsClimb", "ropesBalanceBoy", "redRopeBridge", "ziplineChild", "ropeClimber"], alt: "Верёвочный парк", mix: ["climbing"] },
+  waterpark: { keys: ["waterpark", "waterparkFamily", "waterparkSlides", "waterPlayground", "girlPool", "kidsPool", "waterRedStairs", "waterRedStairs2", "inflatableWater", "inflatableWater2"], alt: "Аквапарк" },
+  ice: { keys: ["kidsSkating", "kidsHockey", "skatingPeople", "iceRink", "skatesCloseup", "figureSkater", "rinkGroup", "womanSkating"], alt: "Каток" },
   art: { keys: ["girlPainting", "boyWatercolor", "paintPlates", "paintbrush"], alt: "Творческая студия" },
-  theatre: { keys: ["frogPuppets", "marionette", "childrenReading"], alt: "Кукольный театр" },
+  theatre: { keys: ["frogPuppets", "marionette", "childrenReading", "marionetteClown", "clownPuppet", "clownMarionette2", "masksPuppet"], alt: "Кукольный театр" },
   cafe: { keys: ["cafeChildWindow", "cafeMomChild", "cafeStroller", "cafeBearHat", "cafeWood", "cafePlants", "cafeWarm", "cafeBooks", "girlFruitBowl"], alt: "Уютное кафе" },
   pancakes: { keys: ["pancakeBlueberry", "pancakesBerries", "pancakes", "pancakesStrawberry"], alt: "Блины" },
   pizza: { keys: ["pizza", "pizzaLeaves", "pizzaTwo", "pizzaHand"], alt: "Пицца" },
   icecream: { keys: ["icecreamSprinkles", "icecreamThree", "icecreamCones", "icecreamPink", "icecreamHand", "icecreamStrawberry"], alt: "Мороженое" },
   toys: { keys: ["toyWindow", "toyShelves", "toyBoats", "plushPastries", "toyStorePeople", "toyCloseup", "teddyBow"], alt: "Магазин игрушек" },
   lego: { keys: ["lego", "legoMany", "legoStack", "legoAssorted"], alt: "Конструкторы" },
-  books: { keys: ["kidsBooks", "childrenReading", "libraryMomChild", "boyReading"], alt: "Детские книги" },
-  ferris: { keys: ["ferrisBlue", "carouselHorse", "ferrisWhite", "amusementNight", "ferrisRed"], alt: "Парк аттракционов" },
-  greenhouse: { keys: ["greenhouse", "tropicalWaterfall", "greenhouseGlass", "bananaTrees"], alt: "Оранжерея" },
+  books: { keys: ["kidsBooks", "childrenReading", "libraryMomChild", "boyReading", "kidsShelf", "girlLibraryStairs", "childShelfRead", "girlsStairsReading"], alt: "Детские книги" },
+  ferris: { keys: ["ferrisBlue", "carouselHorse", "ferrisWhite", "amusementNight", "ferrisRed", "carouselBlue", "carouselNight", "carouselAnimals", "carouselCarriage", "rideCrowd"], alt: "Парк аттракционов", mix: ["park"] },
+  greenhouse: { keys: ["greenhouse", "tropicalWaterfall", "greenhouseGlass", "bananaTrees", "greenhousePalm", "palmTree"], alt: "Оранжерея" },
   rain: { keys: ["toddlerRainboots", "redBoots", "girlUmbrella", "childPinkRaincoat", "childYellowRaincoat", "childPuddle"], alt: "Дождливый день" },
 };
 
@@ -355,73 +422,136 @@ export const PLACE_PHOTOS: Record<string, PhotoPick> = {
   "repast-cafe": pick(FAMILY_CAFE, ["cafeMomChild", "roundTable", "rubberDucks", "pizzaHand"]),
   "local-kids-vnukovo": pick(KIDS_CAFE, ["bounceHouse", "kidsCorner", "cafeStroller", "girlTable"]),
   "littles-kids-play-cafe": pick(KIDS_CAFE, ["girlsTalking", "childDrawingCafe", "balls", "playAreaSlide", "cafeMomChild"]),
-  "jooie-presnya": pick(KIDS_CAFE, ["birthdayBalloons", "indoorPlay", "cupcake", "girlPainting"]),
+  "jooie-presnya": pick(KIDS_CAFE, ["birthdayBalloons", "cupcake", "playKitchenWindow", "kidsCorner"]),
   "tutta-la-vita": pick("Итальянская кухня", ["pizzaLeaves", "pizza", "cafeWood", "childMenu"]),
   "kids-castle-mitino": pick(KIDS_CAFE, ["kidsCorner", "trampolines", "bounceHouse", "cafeChildWindow"]),
   // искусство и усадебные музеи
   "tretyakovka-lavrushinsky": pick("Картинная галерея", ["artKidStarry", "galleryPeople", "kidsDrawingsWall", "artKidBench"]),
-  "pushkinsky-muzey": pick("Картинная галерея", ["artKidBench", "artKidStarry", "kidsDrawingsWall", "girlPainting"]),
+  "pushkinsky-muzey": pick("Картинная галерея", ["museumGirlPillars", "artKidBench", "girlPainting", "artKidStarry"]),
   "dom-muzey-vasnecova": pick("Дом-музей художника", ["kidsDrawingsWall", "boyWatercolor", "paintbrush", "artKidBench"]),
   "ostankino-usadba": pick("Музей-усадьба", ["museumHallward", "statuesSkylight", "galleryPeople", "parkSun"]),
   // музеи по теме
   "kolomna-pastila-muzey": pick("Музей пастилы", ["cupcake", "pancakesBerries", "museumHallward", "cafeWarm"]),
-  "muzey-novy-ierusalim": pick(MUSEUM, ["statuesSkylight", "museumPeople", "bigClock", "museumHallward"]),
-  "muzey-tekhniki-zadorozhnogo": pick("Музей техники", ["armoredVehicle", "fighterJet", "bigClock", "museumPeople"]),
+  "muzey-novy-ierusalim": pick(MUSEUM, ["churchArch", "estateGreenDome", "statuesSkylight", "museumPeople"]),
+  "muzey-tekhniki-zadorozhnogo": pick("Музей техники", ["armoredVehicle", "trainSteam1", "tramOrange", "bigClock"]),
   "muzey-materinstva-ilinskoe": pick(MUSEUM, ["libraryMomChild", "toyShelves", "teddyPink", "kidsBooks"]),
-  "muzey-nazad-v-sssr-zvenigorod": pick(MUSEUM, ["toyCloseup", "museumHallward", "bigClock", "kidsBooks"]),
+  "muzey-nazad-v-sssr-zvenigorod": pick(MUSEUM, ["toyCloseup", "museumChildDisplay", "bigClock", "museumHallward"]),
   "dom-muzey-prishvina-dunino": pick("Дом-музей писателя", ["childrenReading", "autumnPath", "boyReading", "parkBench"]),
   "muzey-lozhki-solnechnogorsk": pick(MUSEUM, ["paintPlates", "museumHallward", "toyShelves", "museumPeople"]),
-  "dolgoprudnensky-muzey": pick(MUSEUM, ["galleryPeople", "museumHallward", "bigClock"]),
-  "muzey-moskvy": pick(MUSEUM, ["museumPeople", "bigClock", "museumHallward", "galleryPeople"]),
-  "muzey-pobedy": pick("Музей Победы", ["memorialFlags", "armoredVehicle", "fighterJet", "wwiDiorama"]),
+  "dolgoprudnensky-muzey": pick(MUSEUM, ["galleryPeople", "museumChildDisplay", "bigClock", "museumChildExhibit"]),
+  "muzey-moskvy": pick(MUSEUM, ["museumPeople", "museumHallward", "moscowCityTower", "museumChildExhibit"]),
+  "muzey-pobedy": pick("Музей Победы", ["memorialFlags", "fighterJet", "museumHallward", "museumChildDisplay"]),
   "zoomuzey-msu": pick("Зоологический музей", ["crocodileSkeleton", "skeletonAnimal", "whaleMuseum", "museumPeople"]),
-  gim: pick("Исторический музей", ["bigClock", "statuesSkylight", "museumHallward", "museumPeople"]),
-  "borodinskaya-panorama": pick("Музей-панорама", ["wwiDiorama", "memorialFlags", "armoredVehicle", "museumHallward"]),
+  gim: pick("Исторический музей", ["bigClock", "statuesSkylight", "museumHallward", "museumGirlPillars"]),
+  "borodinskaya-panorama": pick("Музей-панорама", ["wwiDiorama", "memorialFlags", "museumChildExhibit", "museumHallward"]),
   "muzey-zhd-tehniki": pick("Музей железных дорог", ["trainSteam1", "trainSteam2", "bigClock", "museumPeople"]),
   "izmailovsky-kreml": pick("Сказочные терема и сувениры", ["woodenHouse", "toyShelves", "churchArch", "toyCloseup"]),
   "muzey-igrushki-sergiev-posad": pick("Музей игрушки", ["toyShelves", "toyBoats", "teddyBow", "toyCloseup"]),
   "kolomna-muzey-lyubimoy-igrushki": pick("Музей игрушки", ["teddyPink", "toyCloseup", "plushBasket", "teddies"]),
   // театры, цирки, кино
   "teatr-nash-dom-khimki": pick("Театр", ["theaterAudience", "theaterInterior", "frogPuppets", "childrenReading"]),
-  "teatr-obrazcova": pick("Кукольный театр", ["frogPuppets", "marionette", "theaterInterior", "theaterAudience"]),
-  "cirk-nikulina": pick("Цирк", ["circusTent", "acrobat", "circusNight", "theaterInterior"]),
-  "bolshoy-moscow-cirk": pick("Цирк", ["circusNight", "circusTent", "acrobat", "theaterOrnate"]),
+  "teatr-obrazcova": pick("Кукольный театр", ["marionetteClown", "frogPuppets", "marionette", "masksPuppet"]),
+  "cirk-nikulina": pick("Цирк", ["circusTent", "acrobat", "clownJuggler", "theaterInterior"]),
+  "bolshoy-moscow-cirk": pick("Цирк", ["circusNight", "aerialSilks", "circusTentBike", "theaterOrnate"]),
+  "ugolok-durova": pick("Театр зверей", ["dogOnWheel", "theaterInterior", "macawsFlight", "theaterAudience"]),
   "teatr-sats": pick("Театр", ["theaterOrnate", "theaterEmpty", "theaterInterior", "theaterAudience"]),
   "mosfilm-excursion": pick("Киностудия", ["filmCrew", "filmCamera", "clapper"]),
   "politehnichesky-muzey": pick("Музей науки и техники", ["rocketWarehouse", "spacecraft", "plasmaBall", "bigClock"]),
   // смотровые площадки
-  "ostankino-tower": pick("Вид на город", ["citySkyline", "telescopeCity", "coinTelescope"]),
-  "panorama360-federation": pick("Вид на город", ["telescopeCity", "citySkyline", "coinTelescope"]),
+  "ostankino-tower": pick("Вид на город", ["citySkyline", "coinTelescope", "moscowNightTower", "telescopeCity"]),
+  "panorama360-federation": pick("Вид на город", ["moscowCityTower", "moscowGoldenHigh", "telescopeCity"]),
   // животные
   "huskyland-nazarevo": pick("Хаски", ["huskyBlueEyes", "huskyPuppy", "huskyDeck", "huskyAdult"]),
 };
 
+/**
+ * Подбор кадров для всех мест каталога сразу: галереи двух мест не должны почти совпадать.
+ * Состояние живёт только на время сборки каталога (см. buildPlaces) и не зависит от порядка рендера.
+ */
+export interface GalleryCtx {
+  /** slug → кадры (src) уже собранных галерей */
+  bySlug: Map<string, string[]>;
+  covers: Set<string>;
+  use: Map<string, number>;
+}
+
+export function newGalleryCtx(initial: Iterable<readonly string[]> = []): GalleryCtx {
+  const ctx: GalleryCtx = { bySlug: new Map(), covers: new Set(), use: new Map() };
+  let i = 0;
+  for (const g of initial) registerGallery(ctx, `#${i++}`, g);
+  return ctx;
+}
+
+function registerGallery(ctx: GalleryCtx, slug: string, srcs: readonly string[]) {
+  if (ctx.bySlug.has(slug)) return;
+  ctx.bySlug.set(slug, [...srcs]);
+  if (srcs[0]) ctx.covers.add(srcs[0]);
+  for (const s of srcs) ctx.use.set(s, (ctx.use.get(s) ?? 0) + 1);
+}
+
+/** Своя подборка места — заранее учитываем её, чтобы соседние места по набору не повторяли эти кадры. */
+export function reserveOwnGallery(ctx: GalleryCtx, slug: string) {
+  const own = PLACE_PHOTOS[slug];
+  if (own) registerGallery(ctx, slug, own.keys.slice(0, 4).map((k) => PH[k]));
+}
+
 const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a);
+const MAX_SHARE = 2;
+const GALLERY_SIZE = 4;
+const rot = <T,>(a: T[], k: number) => (a.length ? [...a.slice(k % a.length), ...a.slice(0, k % a.length)] : a);
 
 /**
  * Фото места: своя подборка, если она есть, иначе набор по типу.
- * `idx` — порядковый номер места внутри набора, `avoid` — первые кадры, которые уже заняты другими местами:
- * первый кадр берём из свободных, чтобы карточки в списках различались.
+ * `idx` — порядковый номер места внутри набора (разводит первые кадры), `ctx` — уже выданные галереи:
+ * из набора берутся наименее использованные кадры так, чтобы с любой другой галереей совпадало не больше двух.
  */
-export function photosFor(setKey: string, slug: string, _title?: string, idx?: number, avoid?: ReadonlySet<string>): Photo[] {
+export function photosFor(setKey: string, slug: string, _title?: string, idx?: number, ctx?: GalleryCtx): Photo[] {
   const own = PLACE_PHOTOS[slug];
-  const set: PhotoPick = own ?? PHOTO_SETS[setKey] ?? PHOTO_SETS.park;
-  const len = set.keys.length;
+  if (own) {
+    const keys = own.keys.slice(0, GALLERY_SIZE);
+    if (ctx) registerGallery(ctx, slug, keys.map((k) => PH[k]));
+    return keys.map((k) => ph(PH[k], own.alt));
+  }
+  const def = PHOTO_SETS[setKey] ?? PHOTO_SETS.park;
+  const primary = def.keys;
+  const primarySet = new Set<PhotoKey>(primary);
+  const mixKeys = (def.mix ?? []).flatMap((m) => PHOTO_SETS[m]?.keys ?? []).filter((k, i, a) => !primarySet.has(k) && a.indexOf(k) === i);
+  const h = hash(slug);
+  const len = primary.length;
   let step = 1;
   if (idx != null && len > 2) {
     step = Math.max(2, Math.floor(len / 3));
     while (gcd(step, len) !== 1) step++;
   }
-  let start = own ? 0 : idx == null ? hash(slug) % len : (idx * step) % len;
-  if (avoid) {
-    for (let t = 0; t < len; t++) {
-      const s = (start + t) % len;
-      if (!avoid.has(PH[set.keys[s]])) {
-        start = s;
-        break;
-      }
+  const start = idx == null ? h % len : (idx * step) % len;
+  const used = (k: PhotoKey) => ctx?.use.get(PH[k]) ?? 0;
+  // свои кадры набора — раньше «добавочных»; внутри группы — наименее использованные, при равенстве — по кругу
+  const order = (keys: PhotoKey[], from: number) => rot(keys, from).map((k, i) => ({ k, i })).sort((a, b) => used(a.k) - used(b.k) || a.i - b.i).map((x) => x.k);
+  const cands = [...order(primary, start), ...order(mixKeys, h)];
+  const want = Math.min(GALLERY_SIZE, cands.length);
+  const chosen: PhotoKey[] = [];
+  const others = ctx ? [...ctx.bySlug.entries()].filter(([s]) => s !== slug).map(([, g]) => new Set(g)) : [];
+  const fits = (k: PhotoKey, limit: number, coverFree = false) => {
+    const src = PH[k];
+    if (!coverFree && !chosen.length && ctx?.covers.has(src)) return false;
+    return others.every((g) => {
+      let n = g.has(src) ? 1 : 0;
+      for (const c of chosen) if (g.has(PH[c])) n++;
+      return n <= limit;
+    });
+  };
+  for (const limit of [MAX_SHARE, MAX_SHARE + 1, 99]) {
+    for (const k of cands) {
+      if (chosen.length >= want) break;
+      if (!chosen.includes(k) && fits(k, limit)) chosen.push(k);
     }
+    if (chosen.length >= want) break;
   }
-  const n = Math.min(4, len);
-  return Array.from({ length: n }, (_, i) => ph(PH[set.keys[(start + i) % len]], set.alt));
+  // все кадры набора уже чьи-то обложки — лучше повторить обложку, чем оставить галерею из одного кадра
+  for (const k of cands) {
+    if (chosen.length >= Math.min(2, cands.length)) break;
+    if (!chosen.includes(k) && fits(k, 99, true)) chosen.push(k);
+  }
+  if (ctx) registerGallery(ctx, slug, chosen.map((k) => PH[k]));
+  return chosen.map((k) => ph(PH[k], def.alt));
 }

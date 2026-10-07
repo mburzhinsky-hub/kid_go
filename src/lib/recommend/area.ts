@@ -40,6 +40,7 @@ export function scenarioCtxOf(input: PlannerInput): ScenarioCtx {
     weekday: d.weekday,
     hour: Math.floor(d.start / 60),
     month: d.month,
+    day: d.day,
     rainAllDay: d.cond.wet === "all",
     rainLater: d.cond.wet === "later",
     snow: d.cond.snow,

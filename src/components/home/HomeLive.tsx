@@ -8,6 +8,7 @@ import { useFamily } from "@/lib/store";
 import { useForecast } from "@/lib/use-context";
 import { daySummary, moscowDateISO } from "@/lib/forecast";
 import { moscowNow, plural } from "@/lib/format";
+import { DAY_TEMP } from "@/lib/school-calendar";
 import { pickScenarios, scenarioHref, SCENARIO_LIBRARY, type ScenarioCtx, type ScenarioDef } from "@/lib/scenarios";
 import type { Scenario } from "@/lib/catalog";
 import { ScenarioGrid } from "./QuickScenarioCard";
@@ -32,6 +33,7 @@ const NEUTRAL: ScenarioCtx = {
   weekday: 5,
   hour: 11,
   month: 10,
+  day: 8,
   rainAllDay: false,
   rainLater: false,
   snow: false,
@@ -61,20 +63,23 @@ export function useHomeCtx(): { ctx: ScenarioCtx; ready: boolean } {
     const now = moscowNow();
     // вечером планируем уже завтрашний день
     const off = planningOffset(now.minutes);
-    const sum = forecast ? daySummary(forecast, moscowDateISO(off)) : undefined;
+    // месяц и число — по московской дате планируемого дня (вечером это уже завтра), а не по часам устройства
+    const dateISO = moscowDateISO(off);
+    const sum = forecast ? daySummary(forecast, dateISO) : undefined;
     const w = sum?.window;
     const ages = kids.map((k) => k.age);
     return {
       weekday: (now.weekday + off) % 7,
       hour: off ? 10 : Math.floor(now.minutes / 60),
-      month: new Date().getMonth() + 1,
+      month: Number(dateISO.slice(5, 7)),
+      day: Number(dateISO.slice(8, 10)),
       rainAllDay: !!sum?.allWet,
       rainLater: !!sum?.rainFrom && !sum.allWet,
       snow: w?.condition === "snow",
-      cold: !!w && w.feelsMax < -8,
-      hot: !!w && w.feelsMax >= 29,
+      cold: !!w && w.feelsMax < DAY_TEMP.cold,
+      hot: !!w && w.feelsMax >= DAY_TEMP.hot,
       sunny: !!w && w.condition === "sun",
-      warm: !!w && w.tempMax >= 17,
+      warm: !!w && w.tempMax >= DAY_TEMP.warm,
       kidsCount: kids.length,
       youngest: ages.length ? Math.min(...ages) : 5,
       oldest: ages.length ? Math.max(...ages) : 5,
@@ -138,10 +143,10 @@ export function HomeWeather() {
     title = `${dayWord} ${temp(sum.weather.temp)}, с ${sum.rainFrom} дождь`;
     text = "Гуляем, пока сухо, потом — под крышу. Порядок подберём сами";
     href = `/planner/results?s=before-rain${off ? "&day=1" : ""}`;
-  } else if (w.feelsMax < -8) {
+  } else if (w.feelsMax < DAY_TEMP.cold) {
     text = "Морозно — тёплые места и короткие прогулки";
     href = `/planner/results?s=frost${off ? "&day=1" : ""}`;
-  } else if (w.feelsMax >= 29) {
+  } else if (w.feelsMax >= DAY_TEMP.hot) {
     text = "Жарко — идеи в тени и прохладе";
     href = `/planner/results?s=heat${off ? "&day=1" : ""}`;
   } else if (w.condition === "cloud") text = "Без дождя — можно и погулять, и в музей";

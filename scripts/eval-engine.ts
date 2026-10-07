@@ -13,7 +13,7 @@ import { generatePlans, BUDGET_MAX, DURATION_MIN } from "../src/lib/recommend/en
 import { demoForecast, daySummary, moscowDateISO, outdoorVerdict, weekdayOf, windowWx, type WxScenario } from "../src/lib/forecast";
 import { isOpenDuring, toMinutes } from "../src/lib/format";
 import { AREAS, SETTLEMENTS, isSuburban } from "../src/lib/location";
-import { SCENARIO_LIBRARY, pickScenarios, type ScenarioCtx } from "../src/lib/scenarios";
+import { SCENARIO_LIBRARY, pickScenarios, scenarioById, type ScenarioCtx } from "../src/lib/scenarios";
 import type { BudgetId, DurationId, InterestId, MoodId, PlannerInput } from "../src/lib/types";
 import { placesFromOsm, parseOpeningHours, type OsmElement } from "../src/lib/osm";
 import { readFileSync } from "node:fs";
@@ -310,7 +310,7 @@ for (const t of SENS) {
 }
 
 /* Главная: набор из 8 ситуаций должен реагировать на условия */
-const sc = (o: Partial<ScenarioCtx>): ScenarioCtx => ({ weekday: 5, hour: 11, month: 10, rainAllDay: false, rainLater: false, snow: false, cold: false, hot: false, sunny: true, warm: true, kidsCount: 1, youngest: 5, oldest: 5, interests: [], ...o });
+const sc = (o: Partial<ScenarioCtx>): ScenarioCtx => ({ weekday: 5, hour: 11, month: 10, day: 8, rainAllDay: false, rainLater: false, snow: false, cold: false, hot: false, sunny: true, warm: true, kidsCount: 1, youngest: 5, oldest: 5, interests: [], ...o });
 const ids = (c: ScenarioCtx) => new Set(pickScenarios(c).map((x) => x.id));
 const diffN = (a: Set<string>, b: Set<string>) => [...a].filter((x) => !b.has(x)).length;
 const HOME: { name: string; a: ScenarioCtx; b: ScenarioCtx; min: number }[] = [
@@ -321,6 +321,19 @@ const HOME: { name: string; a: ScenarioCtx; b: ScenarioCtx; min: number }[] = [
   { name: "один ребёнок → двое с разницей", a: sc({}), b: sc({ kidsCount: 2, youngest: 2, oldest: 9 }), min: 2 },
   { name: "без интересов → рисование и наука", a: sc({}), b: sc({ interests: ["drawing", "science", "animals"] }), min: 2 },
 ];
+/* «Каникулы» — только в школьные каникулы (окна приблизительные), по будням и для школьников */
+const holidaysRel = (o: Partial<ScenarioCtx>) => (scenarioById("holidays")?.relevance(sc({ weekday: 2, hour: 10, kidsCount: 1, youngest: 8, oldest: 8, ...o })) ?? 0) > 0;
+const CAL: { name: string; got: boolean; want: boolean }[] = [
+  { name: "7 октября, среда — учебный день", got: holidaysRel({ month: 10, day: 7 }), want: false },
+  { name: "29 октября, среда — осенние каникулы", got: holidaysRel({ month: 10, day: 29 }), want: true },
+  { name: "15 июля — лето", got: holidaysRel({ month: 7, day: 15 }), want: true },
+  { name: "15 мая — учебный день", got: holidaysRel({ month: 5, day: 15 }), want: false },
+  { name: "3 января — новогодние каникулы", got: holidaysRel({ month: 1, day: 3 }), want: true },
+  { name: "20 января — учебный день", got: holidaysRel({ month: 1, day: 20 }), want: false },
+  { name: "суббота в каникулы — не «будний день без школы»", got: holidaysRel({ weekday: 5, month: 7, day: 15 }), want: false },
+  { name: "ребёнку 4 года каникулы не нужны", got: holidaysRel({ month: 7, day: 15, youngest: 4, oldest: 4 }), want: false },
+];
+const calFail = CAL.filter((x) => x.got !== x.want);
 const homeRes = HOME.map((h) => ({ name: h.name, n: diffN(ids(h.a), ids(h.b)), min: h.min }));
 
 const avg = (a: number[]) => Math.round(a.reduce((x, y) => x + y, 0) / Math.max(1, a.length));
@@ -352,10 +365,12 @@ console.log("Чувствительность (доля случаев, где �
 for (const r of sensRes) console.log(`  ${r.rate >= r.min ? "✓" : "✗"} ${r.name}: ${(r.rate * 100).toFixed(0)}% (нужно ≥ ${(r.min * 100).toFixed(0)}%)`);
 console.log("Главная — сколько из 8 ситуаций заменилось при смене условий:");
 for (const r of homeRes) console.log(`  ${r.n >= r.min ? "✓" : "✗"} ${r.name}: ${r.n} (нужно ≥ ${r.min})`);
+console.log(`Каникулы по календарю: ${CAL.length - calFail.length} из ${CAL.length}`);
+calFail.forEach((x) => console.log("  ✗", x.name, "— ожидали", x.want ? "показывать" : "не показывать"));
 scenarioEmpty.slice(0, 12).forEach((x) => console.log("  ·", x));
 const sensFail = sensRes.some((r) => r.rate < r.min) || homeRes.some((r) => r.n < r.min);
 const subFail = subEmpty / subRuns > 0.02 || subViol.length > 0 || osmProblems.length > 0 || osmNoPlan / osmRuns > 0.02 || (osmCompared > 0 && osmNearer / osmCompared < 0.9);
-const fail = sensFail || subFail || scenarioEmpty.filter((x) => !x.startsWith("(")).length > 0 || violations.length > 0 || emptyNoHelp / runs > 0.02 || empty / runs > 0.15 || richOne / Math.max(1, richRuns) > 0.05;
+const fail = calFail.length > 0 || sensFail || subFail || scenarioEmpty.filter((x) => !x.startsWith("(")).length > 0 || violations.length > 0 || emptyNoHelp / runs > 0.02 || empty / runs > 0.15 || richOne / Math.max(1, richRuns) > 0.05;
 if (fail) {
   console.error("\nОценка не пройдена");
   process.exit(1);

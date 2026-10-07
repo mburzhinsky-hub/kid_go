@@ -39,6 +39,8 @@ jobs:
         run: npm run audit:areas
       - name: Audit of places (поля, часы, возраст, координаты, округ, дубли, приключения, афиша)
         run: npm run audit:places
+      - name: Audit of photos (кадр про это место, без повторов между соседними местами)
+        run: npm run audit:photos
       - name: Build static export
         env:
           GITHUB_PAGES: "true"

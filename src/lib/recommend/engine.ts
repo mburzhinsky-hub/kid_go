@@ -8,6 +8,7 @@ import { bringList, daySummary, moscowDateISO, outdoorVerdict, weekdayOf, window
 import { isSuburban } from "@/lib/location";
 import { inMoscow, okrugOfOrigin, tierOf, type Tier } from "@/lib/moscow";
 import { explainPlan } from "./explain";
+import { DAY_TEMP } from "@/lib/school-calendar";
 
 /**
  * Recommendation layer v2 (без LLM как источника истины).
@@ -73,6 +74,7 @@ export interface DayCtx {
   /** Минуты с полуночи сейчас (только если планируем на сегодня). */
   nowMin: number | null;
   month: number;
+  day: number;
   season: Season;
   weekend: boolean;
   cond: DayCond;
@@ -101,17 +103,18 @@ export function dayContext(input: PlannerInput, reachMul = 1): DayCtx {
   const reach = Math.min(150, (input.maxDistanceKm ? Math.min(reachBase, 20) : reachBase) * reachMul);
   const sum = input.forecast ? daySummary(input.forecast, dateISO) : undefined;
   const month = Number(dateISO.slice(5, 7));
+  const day = Number(dateISO.slice(8, 10));
   const weekday = offset === 0 ? now.weekday : weekdayOf(dateISO);
   const w = sum?.window;
   const legacy = input.weather;
   const cond: DayCond = sum && w
     ? {
         wet: sum.allWet ? "all" : sum.rainFrom ? "later" : "none",
-        cold: w.feelsMax < -5,
-        hot: w.feelsMax >= 27,
+        cold: w.feelsMax < DAY_TEMP.cold,
+        hot: w.feelsMax >= DAY_TEMP.hot,
         snow: w.condition === "snow",
         sunny: w.condition === "sun" && !sum.allWet,
-        warm: w.tempMax >= 16,
+        warm: w.tempMax >= DAY_TEMP.warm,
         temp: sum.weather.temp,
       }
     : {
@@ -138,6 +141,7 @@ export function dayContext(input: PlannerInput, reachMul = 1): DayCtx {
     rainFrom: sum?.rainFrom,
     nowMin: offset === 0 ? now.minutes : null,
     month,
+    day,
     season: seasonOf(month),
     weekend: weekday >= 5,
     cond,
@@ -677,8 +681,15 @@ function assemble(anchor: ScoredPlace, pool: ScoredPlace[], ctx: DayCtx, input: 
   return null;
 }
 
-function titleFor(anchor: Place, input: PlannerInput): { title: string; emoji: string } {
+function titleFor(anchor: Place, input: PlannerInput, stops: Place[] = [anchor]): { title: string; emoji: string } {
   const t = anchor.interest_tags;
+  // Прогулка только по паркам: интерес «космос» у ВДНХ или «наука» у ботсада не делает её космическим днём или днём открытий.
+  if (anchor.category === "park" && stops.every((p) => p.category === "park" || p.category === "cafe")) {
+    const ex = [...(input.constraints?.experiences ?? []), ...(input.constraints?.onlyExperiences ?? [])];
+    if (input.budget === "free") return { title: "Бесплатный день", emoji: "💚" };
+    if (ex.includes("picnic")) return { title: "Пикник на траве", emoji: "🧺" };
+    return { title: "День на воздухе", emoji: "🌿" };
+  }
   if (anchor.place_type === "ice_rink") return { title: "На коньках", emoji: "⛸" };
   if (anchor.place_type === "waterpark") return { title: "День в воде", emoji: "💦" };
   if (anchor.place_type === "theatre") return { title: "В театр", emoji: "🎭" };
@@ -692,7 +703,7 @@ function titleFor(anchor: Place, input: PlannerInput): { title: string; emoji: s
   if (t.includes("space")) return { title: "Космический день", emoji: "🚀" };
   if (anchor.slug === "moskvarium") return { title: "Подводный мир", emoji: "🐬" };
   if (anchor.category === "animals") return { title: "День с животными", emoji: "🐾" };
-  if (t.includes("science")) return { title: "День открытий", emoji: "🧪" };
+  if (t.includes("science") && anchor.category !== "play") return { title: "День открытий", emoji: "🧪" };
   if (anchor.category === "active") return { title: "Энергия на максимум", emoji: "⚡" };
   if (anchor.category === "play" && t.includes("fairy")) return { title: "Сказочный день", emoji: "🧚" };
   if (t.includes("drawing") || t.includes("cooking") || anchor.experience_tags.includes("workshop")) return { title: "Творческий день", emoji: "🎨" };
@@ -879,7 +890,7 @@ function areaInfo(input: PlannerInput, anchors: number, offType: number): Planne
 
 function toPlan(a: Assembled, input: PlannerInput, ctx: DayCtx, pool: ScoredPlace[], partialAge: boolean): Plan {
   const picks = a.ordered.picks;
-  const { title, emoji } = titleFor(a.anchor.place, input);
+  const { title, emoji } = titleFor(a.anchor.place, input, picks.map((p) => p.place));
   const draft = buildPlan(
     picks.map((p) => ({ place: p.place, duration: p.duration })),
     {

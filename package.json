@@ -13,6 +13,7 @@
     "audit:quick": "tsx scripts/audit-scenarios.ts --quick",
     "audit:areas": "tsx scripts/audit-areas.ts",
     "audit:places": "tsx scripts/audit-places.ts",
+    "audit:photos": "tsx scripts/audit-photos.ts",
     "audit:coverage": "tsx scripts/audit-coverage.ts",
     "audit:doc": "tsx scripts/audit-scenarios.ts --quick --doc",
     "validate:data": "tsx scripts/validate-content.ts",

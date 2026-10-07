@@ -1,6 +1,6 @@
 import type { CategoryId, ExperienceTag, InterestId, KidEvent, OpeningHours, ParentInfoField, Place, PlaceType, SeasonTag, WeatherTag } from "@/lib/types";
 import { auditForPlace, isAuditedPublicPlace, trustedPlaceTags } from "./source-audit";
-import { PH, PHOTO_SETS, ph, photosFor } from "./photos";
+import { PH, PHOTO_SETS, ph, photosFor, newGalleryCtx, reserveOwnGallery, type GalleryCtx } from "./photos";
 export { photosFor };
 
 /**
@@ -122,7 +122,7 @@ export function parseHours(h: (string | null)[]): OpeningHours {
   return out;
 }
 
-export function buildPlace(r: RawPlace, index: number, photoIdx?: number, usedCovers?: ReadonlySet<string>): Place {
+export function buildPlace(r: RawPlace, index: number, photoIdx?: number, gallery?: GalleryCtx): Place {
   const level = r.price[1] === 0 ? 0 : r.price[1] <= 600 ? 1 : r.price[1] <= 1500 ? 2 : 3;
   const indoorOnly = r.indoor && !r.outdoor;
   const weather: WeatherTag[] = r.weather?.length ? r.weather : indoorOnly ? ["rain", "cold", "any"] : r.indoor ? ["any", "rain", "sun"] : ["sun", "any"];
@@ -175,7 +175,7 @@ export function buildPlace(r: RawPlace, index: number, photoIdx?: number, usedCo
     confidence: r.confidence === "high" ? "high" : "medium",
     category: r.category,
     place_type: broadType,
-    photos: photosFor(r.photoSet, r.slug, r.title, photoIdx, usedCovers),
+    photos: photosFor(r.photoSet, r.slug, r.title, photoIdx, gallery),
     tint: TINTS[r.category],
     emoji: EMOJI[r.category],
     // Social proof публикуем только с отдельным, проверяемым источником рейтинга.
@@ -212,20 +212,27 @@ export function buildPlace(r: RawPlace, index: number, photoIdx?: number, usedCo
   };
 }
 
-export function buildPlaces(startIndex: number, existingSlugs: Set<string>, usedCovers: Iterable<string> = []): Place[] {
+/**
+ * @param usedGalleries галереи уже собранных мест (базовый набор): новые места не должны повторять их кадры.
+ */
+export function buildPlaces(startIndex: number, existingSlugs: Set<string>, usedGalleries: Iterable<readonly string[]> = []): Place[] {
   const seen = new Set(existingSlugs);
-  const covers = new Set(usedCovers);
-  const res: Place[] = [];
-  const perSet = new Map<string, number>();
+  const gallery = newGalleryCtx(usedGalleries);
+  const eligible: RawPlace[] = [];
   for (const r of RAW_PLACES) {
     if (r.confidence === "low" || seen.has(r.slug) || !isAuditedPublicPlace(r.slug)) continue;
     seen.add(r.slug);
+    eligible.push(r);
+  }
+  // сначала места с авторской подборкой: остальные подстраиваются под них
+  for (const r of eligible) reserveOwnGallery(gallery, r.slug);
+  const res: Place[] = [];
+  const perSet = new Map<string, number>();
+  for (const r of eligible) {
     // Порядковый номер внутри набора: соседние места одного типа получают разные первые кадры.
     const k = perSet.get(r.photoSet) ?? 0;
     perSet.set(r.photoSet, k + 1);
-    const place = buildPlace(r, startIndex + res.length, k, covers);
-    if (place.photos[0]) covers.add(place.photos[0].src);
-    res.push(place);
+    res.push(buildPlace(r, startIndex + res.length, k, gallery));
   }
   return res;
 }
