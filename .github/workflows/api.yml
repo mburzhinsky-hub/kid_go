@@ -1,0 +1,46 @@
+name: API
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ["api/**", ".github/workflows/api.yml"]
+  push:
+    branches: [main]
+    paths: ["api/**", ".github/workflows/api.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  api:
+    name: PHP 8.3 + MySQL 8.0
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: kidsgo_test
+        ports: ["3306:3306"]
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -proot"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    env:
+      KG_DB_HOST: 127.0.0.1
+      KG_DB_PORT: "3306"
+      KG_DB_NAME: kidsgo_test
+      KG_DB_USER: root
+      KG_DB_PASS: root
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: pdo_mysql, mbstring, gd
+      - name: Синтаксис всех PHP-файлов
+        run: |
+          set -e
+          find api -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Проверки API (с базой)
+        run: php api/tests/run.php
