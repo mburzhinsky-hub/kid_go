@@ -39,6 +39,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, [pathname]);
 
   useEffect(() => {
+    // приложение запустилось: сторож загрузки (src/lib/boot-watchdog.ts) больше не нужен
+    (window as unknown as { __kgReady?: () => void }).__kgReady?.();
     rehydrateFamily();
     rehydrateSocial();
     warmEvents();

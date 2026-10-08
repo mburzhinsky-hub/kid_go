@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Проверка Kids Go</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { margin: 0; padding: 16px 16px 48px; font: 16px/1.4 -apple-system, system-ui, sans-serif; background: #faf8f4; color: #1d1b1a; }
+  @media (prefers-color-scheme: dark) { body { background: #161413; color: #f3efe9; } }
+  h1 { font-size: 22px; margin: 4px 0 8px; }
+  p { margin: 6px 0; color: #6f6a64; font-size: 14px; }
+  .row { font: 13px/1.35 ui-monospace, Menlo, monospace; padding: 5px 0; border-bottom: 1px solid rgba(128,128,128,.25); overflow-wrap: anywhere; }
+  .ok::before { content: "✓ "; color: #1f8a4c; font-weight: 700; }
+  .bad::before { content: "✗ "; color: #c62d2d; font-weight: 700; }
+  .warn::before { content: "! "; color: #9a6b00; font-weight: 700; }
+  .info::before { content: "• "; opacity: .6; }
+  h2 { font-size: 15px; margin: 18px 0 2px; }
+  button { font: inherit; font-weight: 600; margin: 12px 8px 0 0; padding: 10px 16px; border-radius: 999px; border: 1px solid rgba(128,128,128,.5); background: transparent; color: inherit; }
+  #done { margin-top: 14px; font-weight: 700; }
+</style>
+</head>
+<body>
+<h1>Проверка Kids Go</h1>
+<p>Страница сама проверит связь с сайтом и устройство. Дождитесь строки «ГОТОВО» внизу, сделайте скриншот (или нажмите «Скопировать отчёт») и пришлите.</p>
+<div id="log"></div>
+<div id="done">Идёт проверка…</div>
+<button id="copy">Скопировать отчёт</button><button id="again">Повторить</button>
+<script>
+"use strict";
+(() => {
+  const log = document.getElementById("log");
+  const done = document.getElementById("done");
+  const lines = [];
+  const add = (cls, text) => {
+    lines.push((cls === "ok" ? "[ok] " : cls === "bad" ? "[FAIL] " : cls === "warn" ? "[!] " : "") + text);
+    const d = document.createElement("div");
+    d.className = "row " + cls;
+    d.textContent = text;
+    log.appendChild(d);
+  };
+  const head = (t) => { lines.push("\n" + t); const h = document.createElement("h2"); h.textContent = t; log.appendChild(h); };
+  const ms = (t0) => Math.round(performance.now() - t0) + " мс";
+  const guard = (p, limit, label) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error("нет ответа за " + limit / 1000 + " с")), limit))]);
+
+  async function get(url, limit = 15000) {
+    const ctl = new AbortController();
+    const t0 = performance.now();
+    const timer = setTimeout(() => ctl.abort(), limit);
+    try {
+      const r = await fetch(url, { cache: "no-store", signal: ctl.signal });
+      const buf = await r.arrayBuffer();
+      return { ok: r.ok, status: r.status, type: r.headers.get("content-type") || "", enc: r.headers.get("content-encoding") || "", bytes: buf.byteLength, buf, t: performance.now() - t0 };
+    } catch (e) {
+      return { ok: false, status: 0, error: ctl.signal.aborted ? "нет ответа за " + limit / 1000 + " с" : (e && e.message) || String(e), t: performance.now() - t0 };
+    } finally { clearTimeout(timer); }
+  }
+
+  async function run() {
+    log.textContent = ""; lines.length = 0; done.textContent = "Идёт проверка…";
+    const t00 = performance.now();
+    let fails = 0;
+    const bad = (t) => { fails++; add("bad", t); };
+
+    head("Устройство");
+    add("info", "Время: " + new Date().toString());
+    add("info", "Адрес: " + location.href);
+    add(location.protocol === "https:" ? "ok" : "bad", "Протокол: " + location.protocol + (location.protocol === "https:" ? "" : " — сайт открыт без шифрования, часть функций не работает"));
+    if (location.protocol !== "https:") fails++;
+    add(window.isSecureContext ? "ok" : "warn", "Безопасный контекст: " + window.isSecureContext);
+    add("info", "Браузер: " + navigator.userAgent);
+    add("info", "Язык: " + navigator.language + " · часовой пояс: " + (Intl.DateTimeFormat().resolvedOptions().timeZone || "?"));
+    add("info", "Экран: " + screen.width + "×" + screen.height + " · окно: " + innerWidth + "×" + innerHeight + " · DPR " + devicePixelRatio);
+    const c = navigator.connection;
+    add("info", "Онлайн: " + navigator.onLine + (c ? " · сеть: " + (c.effectiveType || "?") + (c.saveData ? " · экономия трафика" : "") : ""));
+
+    head("Хранилища браузера");
+    try { localStorage.setItem("kg-diag", "1"); add(localStorage.getItem("kg-diag") === "1" ? "ok" : "bad", "localStorage"); localStorage.removeItem("kg-diag"); } catch (e) { bad("localStorage: " + e.message); }
+    try { sessionStorage.setItem("kg-diag", "1"); add("ok", "sessionStorage"); sessionStorage.removeItem("kg-diag"); } catch (e) { bad("sessionStorage: " + e.message); }
+    try { document.cookie = "kgdiag=1; path=/; max-age=60"; add(document.cookie.indexOf("kgdiag=1") >= 0 ? "ok" : "warn", "cookie"); } catch (e) { add("warn", "cookie: " + e.message); }
+    try {
+      await guard(new Promise((res, rej) => { const q = indexedDB.open("kg-diag"); q.onsuccess = () => { q.result.close(); res(); }; q.onerror = () => rej(q.error); q.onblocked = () => rej(new Error("заблокировано")); }), 4000);
+      add("ok", "IndexedDB");
+    } catch (e) { add("warn", "IndexedDB: " + e.message); }
+    add("serviceWorker" in navigator ? "ok" : "warn", "Service Worker: " + ("serviceWorker" in navigator ? "доступен" : "недоступен"));
+    if ("serviceWorker" in navigator) {
+      try { const regs = await guard(navigator.serviceWorker.getRegistrations(), 4000); add("info", "Зарегистрировано service worker: " + regs.length + (regs.length ? " (" + regs.map((r) => r.scope).join(", ") + ")" : "")); }
+      catch (e) { add("warn", "Service worker: " + e.message); }
+    }
+    try { const keys = await guard(caches.keys(), 4000); add("info", "Кэши приложения: " + (keys.join(", ") || "нет")); } catch (e) { add("warn", "Кэши: " + e.message); }
+
+    head("Связь с сайтом");
+    const h = await get("/api/v1/health");
+    if (h.ok) add("ok", "API /api/v1/health: " + h.status + " за " + Math.round(h.t) + " мс · " + new TextDecoder().decode(h.buf).slice(0, 70));
+    else bad("API /api/v1/health: " + (h.status || "ошибка") + " " + (h.error || "") + " (" + Math.round(h.t) + " мс)");
+
+    const home = await get("/");
+    if (!home.ok) { bad("Главная /: " + (home.status || "ошибка") + " " + (home.error || "") + " (" + Math.round(home.t) + " мс)"); }
+    else add("ok", "Главная /: " + home.status + " за " + Math.round(home.t) + " мс · " + Math.round(home.bytes / 1024) + " КБ · " + home.type + (home.enc ? " · " + home.enc : ""));
+
+    if (home.ok) {
+      const html = new TextDecoder().decode(home.buf);
+      const urls = new Set();
+      for (const m of html.matchAll(/(?:src|href)="(\/_next\/static\/[^"]+\.(?:js|css))"/g)) urls.add(m[1]);
+      const list = [...urls];
+      add("info", "Файлов приложения на главной: " + list.length);
+      const photo = html.match(/\/photos\/[A-Za-z0-9_-]+-480\.webp/);
+      const extra = ["/manifest.webmanifest", "/sw.js", "/icons/icon-192.png"];
+      if (photo) extra.push(photo[0]);
+      const results = [];
+      let next = 0;
+      const worker = async () => {
+        while (next < list.length) {
+          const u = list[next++];
+          const r = await get(u, 20000);
+          const isJs = u.endsWith(".js");
+          const typeOk = isJs ? /javascript|ecmascript/.test(r.type) : /text\/css/.test(r.type);
+          let syntax = "";
+          if (r.ok && isJs) { try { new Function(new TextDecoder().decode(r.buf)); } catch (e) { syntax = e.name + ": " + e.message; } }
+          results.push({ u, r, typeOk, syntax });
+        }
+      };
+      await Promise.all([worker(), worker(), worker(), worker(), worker(), worker()]);
+      let slowest = 0, total = 0;
+      for (const { u, r, typeOk, syntax } of results.sort((a, b) => list.indexOf(a.u) - list.indexOf(b.u))) {
+        const name = u.replace("/_next/static/", "");
+        total += r.bytes || 0; slowest = Math.max(slowest, r.t);
+        if (!r.ok) bad(name + ": " + (r.status || "ошибка") + " " + (r.error || "") + " (" + Math.round(r.t) + " мс)");
+        else if (syntax) bad(name + ": браузер не смог разобрать код — " + syntax);
+        else if (!typeOk) add("warn", name + ": тип «" + r.type + "»");
+        else if (r.t > 5000) add("warn", name + ": медленно, " + Math.round(r.t) + " мс");
+      }
+      const okCount = results.filter((x) => x.r.ok && !x.syntax).length;
+      add(okCount === list.length ? "ok" : "bad", "Файлы приложения: " + okCount + " из " + list.length + " загрузились и разобраны · " + Math.round(total / 1024) + " КБ · самый долгий " + Math.round(slowest) + " мс");
+      if (okCount !== list.length) fails++;
+      for (const u of extra) {
+        const r = await get(u, 15000);
+        if (r.ok) add("ok", u + ": " + r.status + " · " + r.type + " · " + Math.round(r.t) + " мс");
+        else bad(u + ": " + (r.status || "ошибка") + " " + (r.error || ""));
+      }
+    }
+
+    done.textContent = (fails ? "ГОТОВО. Найдено проблем: " + fails + "." : "ГОТОВО. Проблем не найдено.") + " Проверка заняла " + ms(t00) + ".";
+    lines.push("\n" + done.textContent);
+  }
+
+  document.getElementById("again").onclick = () => run();
+  document.getElementById("copy").onclick = async (e) => {
+    const text = lines.join("\n");
+    try { await navigator.clipboard.writeText(text); e.target.textContent = "Скопировано"; }
+    catch (err) {
+      const ta = document.createElement("textarea"); ta.value = text; ta.style.cssText = "position:fixed;inset:0;width:100%;height:100%;z-index:9";
+      document.body.appendChild(ta); ta.select(); ta.onblur = () => ta.remove(); e.target.textContent = "Выделено — нажмите «Скопировать»";
+    }
+  };
+  run();
+})();
+</script>
+</body>
+</html>
