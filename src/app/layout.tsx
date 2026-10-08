@@ -5,6 +5,8 @@ import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
 import { BottomNavigation } from "@/components/layout/BottomNavigation";
 import { BOOT_WATCHDOG } from "@/lib/boot-watchdog";
+import { firstVisitScript } from "@/lib/first-visit";
+import { Logo } from "@/components/ui/Logo";
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kids-go.fun";
@@ -39,10 +41,18 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru">
+    // suppressHydrationWarning: скрипт первого захода ставит на <html> метку data-first до запуска React
+    <html lang="ru" suppressHydrationWarning>
       <body>
         {/* сторож загрузки: если приложение не запустилось за 15 секунд, показывает понятный экран с кнопкой «Обновить» вместо белого */}
         <script dangerouslySetInnerHTML={{ __html: BOOT_WATCHDOG }} />
+        {/* первый заход на главную: до первой отрисовки включаем заставку, чтобы не мелькала главная перед знакомством (src/lib/first-visit.ts) */}
+        <script dangerouslySetInnerHTML={{ __html: firstVisitScript(B) }} />
+        <div id="kg-splash" aria-hidden="true">
+          <div className="kg-splash-mark">
+            <Logo size={60} className="animate-pop" />
+          </div>
+        </div>
         <Providers>
           <DesktopBackdrop />
           <div className="relative mx-auto min-h-dvh w-full max-w-[480px] bg-bg sm:shadow-[0_0_0_1px_rgba(17,18,26,0.04),0_30px_80px_rgba(17,18,26,0.08)]">
