@@ -6,7 +6,9 @@ import { useFamily } from "@/lib/store";
 
 export function PlannerPromo() {
   const kids = useFamily((s) => s.children);
-  const names = kids.map((k) => k.name).join(" и ");
+  // перечисляем имена, только если названы все дети; иначе — общий текст (без «Маша и .»)
+  const named = kids.map((k) => k.name?.trim()).filter(Boolean);
+  const names = named.length && named.length === kids.length ? named.join(" и ") : "";
   return (
     <Link
       href="/planner"

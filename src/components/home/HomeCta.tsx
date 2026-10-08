@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useFamily } from "@/lib/store";
 import { locationMode } from "@/lib/location";
+import { kidLabel } from "@/lib/format";
 import { GeoScope } from "@/components/location/GeoScope";
 
 /**
@@ -16,7 +17,7 @@ export function HomeCta() {
   const origin = useFamily((s) => s.origin);
   const geoScope = useFamily((s) => s.geoScope);
   const region = locationMode(origin) === "any" && geoScope === "moscow-region";
-  const who = kids.map((k) => `${k.name ? `${k.name}, ` : ""}${k.age === 0 ? "до года" : k.age}`).join(" · ");
+  const who = kids.map(kidLabel).join(" · ");
   return (
     <section aria-labelledby="home-cta-title" className="px-4">
       <GeoScope where="home" />
@@ -39,7 +40,7 @@ export function HomeCta() {
           Что будем делать сегодня?
         </h2>
         <p className="mt-2 max-w-[290px] text-[15px] leading-snug text-white/90">
-          {hydrated && who ? `Для ${who}. ` : ""}
+          {hydrated && who ? `Учтём: ${who}. ` : ""}
           Куда пойти, где поесть и как ехать — одним маршрутом, за полминуты.
         </p>
         {region && <p className="mt-1.5 max-w-[290px] text-[13px] leading-snug text-white/80">С областью: на полдня и дольше предложим выезд за город.</p>}

@@ -50,8 +50,14 @@ export function legMode(km: number, preferred: TransportId): TransportId {
 }
 
 export function formatKm(km: number): string {
-  if (km < 1) return `${Math.max(100, Math.round((km * 1000) / 50) * 50)} м`;
-  return `${km.toFixed(1).replace(".0", "")} км`;
+  if (km < 1) {
+    const m = Math.max(100, Math.round((km * 1000) / 50) * 50);
+    // 0,98 км округляется до 1000 м — это уже «1 км»
+    if (m < 1000) return `${m} м`;
+    km = 1;
+  }
+  const r = Math.round(km * 10) / 10;
+  return `${String(r).replace(".", ",")} км`;
 }
 
 export function distanceFromUser(p: { latitude: number; longitude: number }, user: GeoPoint = DEFAULT_LOCATION) {

@@ -187,7 +187,7 @@ with sync_playwright() as p:
     html = raw.text()
     check(raw.status == 200 and f'og:title" content="Дождливые выходные"' in html, "мессенджер (без JavaScript) видит название подборки в og:title")
     check("og:image" in html and f"/c/{cid}/" in html and 'rel="canonical"' in html, "в разметке есть og:image и canonical")
-    check("3 места" in html or "места для детей" in html or "Подборка от" in html, "в описании превью есть подпись автора")
+    check("3 места" in html or "места для детей" in html or "Автор:" in html, "в описании превью есть подпись автора")
     check('name="robots"' not in html, "публичная подборка не закрыта от поисковиков")
     check(Bp.get_by_role("button", name="Хочу сюда").count() >= 2, "у друга есть «Хочу сюда»")
     check(overflow(Bp) <= 0, f"страница подборки без горизонтального скролла ({overflow(Bp)})")

@@ -11,7 +11,7 @@ export function LegalPage({ title, updated, children }: { title: string; updated
         <ChevronLeft size={20} /> Назад
       </Link>
       <h1 className="tight text-[30px] font-[850] leading-tight">{title}</h1>
-      <p className="mt-1 text-[13px] text-muted">Редакция от {updated}</p>
+      <p className="mt-1 text-[13px] text-muted">Редакция: {updated}</p>
       <div className="mt-5 space-y-3 text-[16px] leading-relaxed text-ink-2 [&_h2]:mt-7 [&_h2]:text-[20px] [&_h2]:font-[800] [&_h2]:text-ink [&_li]:ml-5 [&_li]:list-disc">{children}</div>
     </main>
   );

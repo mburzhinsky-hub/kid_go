@@ -35,6 +35,13 @@ const TRAVEL_MIN = 10;
 const TRAVEL_MAX = 150;
 
 /** Если длину дня не выбрали: вокруг городского места — «3–4 часа», вокруг места за городом — столько, сколько стоит дорога. */
+const BUDGET_ORDER: BudgetId[] = ["free", "2000", "5000", "any"];
+/** Бюджет из профиля, поднятый до минимума сценария (кроме «бесплатно» — это осознанный выбор). */
+function atLeast(b: BudgetId, min?: BudgetId): BudgetId {
+  if (!min || b === "free") return b;
+  return BUDGET_ORDER.indexOf(b) < BUDGET_ORDER.indexOf(min) ? min : b;
+}
+
 export function anchorDuration(p: Place): DurationId {
   if (!isOutside(p)) return "mid";
   const km = Math.hypot((p.latitude - DEFAULT_ORIGIN.lat) * 111, (p.longitude - DEFAULT_ORIGIN.lng) * 63);
@@ -81,7 +88,7 @@ export function buildPlannerInput(a: BuildArgs): PlannerInput {
     children: kids,
     duration: (pick(DURATIONS, query.duration) ?? scenario?.duration ?? (anchor ? anchorDuration(anchor) : "mid")) as DurationId,
     mood: (pick(MOODS, query.mood) ?? scenario?.mood ?? "surprise") as MoodId,
-    budget: (pick(BUDGETS, query.budget) ?? scenario?.budget ?? prefs.budget) as BudgetId,
+    budget: (pick(BUDGETS, query.budget) ?? scenario?.budget ?? atLeast(prefs.budget, scenario?.minBudget)) as BudgetId,
     transport: (pick(TRANSPORTS, query.transport) ?? prefs.transport) as TransportId,
     location: loc,
     locationMode: mode,

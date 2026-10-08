@@ -58,8 +58,9 @@ export function ForYou() {
       </section>
     );
   if (!ranked.length) return null;
-  const named = kids.filter((k) => k.name);
-  const title = named.length === kids.length ? `Для ${kidsGenitive(named.map((k) => k.name))} 💛` : "Для ваших детей 💛";
+  // имена не склоняем (Лев, Любовь, Адель…): оставляем их в именительном после двоеточия
+  const names = kids.map((k) => k.name?.trim()).filter(Boolean);
+  const title = names.length === kids.length && names.length <= 2 ? `Для вас: ${names.join(" и ")} 💛` : kids.length === 1 ? "Для вашего ребёнка 💛" : "Для ваших детей 💛";
 
   return (
     <section className="mt-7">
@@ -78,16 +79,4 @@ export function ForYou() {
       </div>
     </section>
   );
-}
-
-/** Родительный падеж для частых детских имён: Миша → Миши, Аня → Ани, Олег → Олега. */
-export function kidsGenitive(names: string[]) {
-  const g = (n: string) => {
-    if (/[гкхжшщч]а$/.test(n) || n.endsWith("я")) return n.slice(0, -1) + "и";
-    if (n.endsWith("а")) return n.slice(0, -1) + "ы";
-    if (/[йь]$/.test(n)) return n.slice(0, -1) + "я";
-    if (/[бвгджзклмнпрстфхцчшщ]$/.test(n)) return n + "а";
-    return n;
-  };
-  return names.map(g).join(" и ");
 }

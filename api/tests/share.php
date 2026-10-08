@@ -39,7 +39,7 @@ $pub = $mk(['title' => $evil, 'description' => '', 'visibility' => 'PUBLIC', 'pu
 [$st, $html, $cache] = SharePage::render($pdo, $pub, $shell, $site);
 check('публичная подборка → 200', $st === 200 && str_contains($cache, 'public'));
 check('название и автор в <title> и og:title, всё экранировано', str_contains($html, '<title>Лето &quot;в городе&quot; &lt;script&gt;alert(1)&lt;/script&gt; &amp; парки · Kids Go</title>') && !str_contains($html, '<script>alert'));
-check('без описания автора — «4 места для детей: …» и подпись автора', str_contains($html, '4 места для детей: Московский зоопарк, Парк Горького, ВДНХ и другие. Подборка от Автор share_author.'), substr($html, 0, 600));
+check('без описания автора — «4 места для детей: …» и подпись автора', str_contains($html, '4 места для детей: Московский зоопарк, Парк Горького, ВДНХ и другие. Автор: Автор share_author.'), substr($html, 0, 600));
 check('картинка — фото обложки-места (photo-bbb222), JPEG 1200×630', str_contains($html, 'og:image" content="https://kids-go.fun/photos/photo-bbb222-og.jpg"') && str_contains($html, 'og:image:width" content="1200"'));
 check('og:url и canonical на красивый адрес /c/<id>/', str_contains($html, 'og:url" content="https://kids-go.fun/c/' . $pub . '/"') && str_contains($html, 'rel="canonical" href="https://kids-go.fun/c/' . $pub . '/"'));
 check('крупная карточка twitter:card и тег noindex у публичной убран', str_contains($html, 'twitter:card" content="summary_large_image"') && !str_contains($html, 'name="robots"'));
@@ -50,7 +50,7 @@ $unl = $mk(['title' => 'По ссылке', 'description' => 'Только дл�
 [$st, $html] = SharePage::render($pdo, $unl, $shell, $site);
 check('по ссылке → 200, но noindex', $st === 200 && str_contains($html, 'name="robots" content="noindex, nofollow"'));
 check('нет фото ни у одного места → картинка по умолчанию', str_contains($html, 'https://kids-go.fun/icons/icon-512.png'));
-check('описание автора используется как есть', str_contains($html, 'Только для своих. Подборка от Автор share_author.'));
+check('описание автора используется как есть', str_contains($html, 'Только для своих. Автор: Автор share_author.'));
 
 $priv = $mk(['title' => 'Приватная', 'visibility' => 'PRIVATE', 'publish' => true, 'items' => [['place_id' => 'vdnh']]]);
 $draft = $mk(['title' => 'Черновик', 'visibility' => 'PUBLIC', 'items' => [['place_id' => 'vdnh']]]);

@@ -74,7 +74,7 @@ final class SharePage
         }
         $desc = self::clip($desc, 180);
         if (!preg_match('/[.!?…]$/u', $desc)) $desc .= '.';
-        $desc .= ' Подборка от ' . $author . '.';
+        $desc .= ' Автор: ' . $author . '.';
 
         // картинка: обложка-место, иначе первое место с фото
         $photo = null;

@@ -14,7 +14,7 @@ import { useForecast } from "@/lib/use-context";
 import { useNearbyExtras } from "@/lib/nearby";
 import { DEFAULT_ORIGIN, isSuburban, locationMode, okrugById, type Origin } from "@/lib/location";
 import { daySummary, moscowDateISO, weekdayOf, type Forecast } from "@/lib/forecast";
-import { plural } from "@/lib/format";
+import { formatTemp, plural, prepV } from "@/lib/format";
 import { MOODS, DURATIONS, BUDGETS, TRANSPORTS } from "@/lib/catalog";
 import { scenarioById } from "@/lib/scenarios";
 import { planCardData } from "@/lib/cards";
@@ -129,9 +129,9 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
   const dateISO = moscowDateISO(realDay);
   const dayAcc = DAY_WORD_ACC[weekdayOf(dateISO)];
   const anchorPlace = query.anchor ? getPlaceSync(query.anchor) : undefined;
-  const dayWord = realDay === 0 ? "сегодня" : realDay === 1 ? "завтра" : `в ${dayAcc}`;
+  const dayWord = realDay === 0 ? "сегодня" : realDay === 1 ? "завтра" : `${prepV(dayAcc)} ${dayAcc}`;
   const sum = daySummary(forecast!, dateISO);
-  const t = (n: number) => `${n > 0 ? "+" : ""}${n}°`;
+  const t = formatTemp;
   const wxLine = sum.allWet ? `${t(sum.weather.temp)}, дождь весь день` : sum.rainFrom ? `${t(sum.weather.temp)}, с ${sum.rainFrom} дождь` : `${t(sum.weather.temp)}, ${sum.weather.label}`;
   const label = <T extends { id: string; label: string }>(arr: readonly T[], id: string) => arr.find((x) => x.id === id)?.label;
   const kidNames = fam.children.map((k) => k.name).filter(Boolean);
@@ -238,7 +238,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
         )}
         {here && result.area?.scope === "wide" && (
           <div className="mt-3 flex items-center gap-3 rounded-[12px] bg-blue-50 px-3 py-2.5 text-[14px] leading-snug text-blue-ink">
-            <span className="flex-1">Ищем {here.prep} и в ближайших округах — места из {here.short} идут первыми.</span>
+            <span className="flex-1">Ищем {here.prep} и в ближайших округах — места из {here.gen} идут первыми.</span>
             <Link href={withQuery({ wide: undefined, offset: undefined })} replace className="press shrink-0 rounded-full bg-white px-3.5 py-2 text-[14px] font-semibold">
               Только {here.short}
             </Link>
@@ -260,7 +260,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
         )}
         {!result.relaxed && nearby.status === "error" && locationMode(fam.origin) !== "any" && (isSuburban(fam.origin) || input?.locationMode === "area") && (
           <p className="mt-3 rounded-[12px] bg-fill-2 px-3 py-2 text-[13px] leading-snug text-muted">
-            Не удалось подгрузить дополнительные места {result.area ? `в ${okrugById(result.area.id)?.short ?? "округе"}` : "рядом с вами"} — слабый интернет. Показываем то, что уже знаем.
+            Не удалось подгрузить дополнительные места {result.area ? (okrugById(result.area.id)?.prep ?? "в округе") : "рядом с вами"} — слабый интернет. Показываем то, что уже знаем.
           </p>
         )}
         {result.partialAge && (
@@ -383,22 +383,22 @@ function AreaGap({
       {others.length > 0 && (
         <div>
           {mode === "none" && <h2 className="tight text-[22px] font-[800] leading-tight">То же самое — в другом округе</h2>}
-          {mode === "none" && <p className="mt-1 text-[14px] leading-snug text-muted">Ближайшее подходящее — {others[0].label}, это ≈ {others[0].minutes} мин от {here.short}.</p>}
+          {mode === "none" && <p className="mt-1 text-[14px] leading-snug text-muted">Ближайшее подходящее — {others[0].label}, это ≈ {others[0].minutes} мин от {here.gen}.</p>}
           <div className={cn("space-y-5", mode === "none" ? "mt-3" : "mt-0")}>
             {others.map((o, oi) => (
               <div key={o.key}>
                 <div className="flex items-center justify-between gap-2 px-1 pb-2">
                   <p className="min-w-0 text-[13px] font-bold uppercase tracking-wide text-muted">
-                    {o.label} · ≈ {o.minutes} мин от {here.short}
+                    {o.label} · ≈ {o.minutes} мин от {here.gen}
                   </p>
                   <button onClick={() => onPick(o.origin)} className="press hit relative h-9 shrink-0 rounded-full bg-ink px-3.5 text-[14px] font-semibold text-white">
-                    Искать в {o.label}
+                    {o.prep ? `Искать ${o.prep}` : "Искать здесь"}
                   </button>
                 </div>
                 {mode === "none" &&
                   o.plans.slice(0, oi === 0 ? 2 : 1).map((p) => (
                     <div key={p.key} className="mb-3">
-                      <AdventureCard data={planCardData(p, planHref(p, kidNames, transport), `от ${here.short}`)} variant="full" />
+                      <AdventureCard data={planCardData(p, planHref(p, kidNames, transport), `от ${here.gen}`)} variant="full" />
                     </div>
                   ))}
               </div>

@@ -8,6 +8,8 @@ import { useFamily } from "@/lib/store";
 import { areaNote, fitOfAreas } from "@/lib/area-fit";
 import { useAreaOrder } from "@/components/cards/AreaAdventureCards";
 
+const cap = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
+
 export interface AdventureItem {
   card: AdventureCardData;
   indoor: boolean;
@@ -66,7 +68,7 @@ export function AdventuresBrowser({ items }: { items: AdventureItem[] }) {
       <div className="no-scrollbar sticky top-0 z-20 -mt-1 flex gap-2 overflow-x-auto bg-bg/95 px-4 pb-3 pt-2">
         {okrug && (
           <FilterChip active={f === "area"} onClick={() => setF(f === "area" ? "all" : "area")} size="sm">
-            📍 В {okrug.short}
+            📍 {cap(okrug.prep)}
           </FilterChip>
         )}
         {FILTERS.map((x) => (
@@ -82,7 +84,7 @@ export function AdventuresBrowser({ items }: { items: AdventureItem[] }) {
         {list.length === 0 && (
           <EmptyState
             art="search"
-            title={f === "area" && okrug ? `В ${okrug.short} готовых приключений пока нет` : "Таких приключений пока нет"}
+            title={f === "area" && okrug ? `${cap(okrug.prep)} готовых приключений пока нет` : "Таких приключений пока нет"}
             text={f === "area" ? "Снимите фильтр — покажем и ближайшие округа, или соберите день под себя в планировщике: он подберёт места именно там." : "Попробуйте другой фильтр — или соберите день под себя в планировщике."}
             action={{ href: "/planner", label: "Собрать свой день" }}
           />

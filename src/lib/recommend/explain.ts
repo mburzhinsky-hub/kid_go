@@ -7,19 +7,20 @@ import { fromMoscowLabel, plural } from "@/lib/format";
  * получает те же факты и может только переформулировать их, не добавляя мест.
  */
 
-export const INTEREST_LABEL: Record<InterestId, { label: string; emoji: string; love: string }> = {
-  dinosaurs: { label: "Динозавры", emoji: "🦖", love: "динозавров" },
-  animals: { label: "Животные", emoji: "🐾", love: "животных" },
-  transport: { label: "Транспорт", emoji: "🚂", love: "транспорт" },
-  sport: { label: "Спорт", emoji: "⚽", love: "спорт" },
-  drawing: { label: "Рисование", emoji: "🎨", love: "рисовать" },
-  music: { label: "Музыка", emoji: "🎵", love: "музыку" },
-  science: { label: "Наука", emoji: "🔬", love: "опыты" },
-  cooking: { label: "Готовка", emoji: "🧁", love: "готовить" },
-  construction: { label: "Конструкторы", emoji: "🧱", love: "конструкторы" },
-  nature: { label: "Природа", emoji: "🌿", love: "природу" },
-  space: { label: "Космос", emoji: "🪐", love: "космос" },
-  fairy: { label: "Сказки", emoji: "🧚", love: "сказки" },
+/** `about` — винительный падеж для «про …»: «про динозавров», «про музыку». */
+export const INTEREST_LABEL: Record<InterestId, { label: string; emoji: string; love: string; about: string }> = {
+  dinosaurs: { label: "Динозавры", emoji: "🦖", love: "динозавров", about: "динозавров" },
+  animals: { label: "Животные", emoji: "🐾", love: "животных", about: "животных" },
+  transport: { label: "Транспорт", emoji: "🚂", love: "транспорт", about: "транспорт" },
+  sport: { label: "Спорт", emoji: "⚽", love: "спорт", about: "спорт" },
+  drawing: { label: "Рисование", emoji: "🎨", love: "рисовать", about: "рисование" },
+  music: { label: "Музыка", emoji: "🎵", love: "музыку", about: "музыку" },
+  science: { label: "Наука", emoji: "🔬", love: "опыты", about: "науку" },
+  cooking: { label: "Готовка", emoji: "🧁", love: "готовить", about: "готовку" },
+  construction: { label: "Конструкторы", emoji: "🧱", love: "конструкторы", about: "конструкторы" },
+  nature: { label: "Природа", emoji: "🌿", love: "природу", about: "природу" },
+  space: { label: "Космос", emoji: "🪐", love: "космос", about: "космос" },
+  fairy: { label: "Сказки", emoji: "🧚", love: "сказки", about: "сказки" },
 };
 
 const toMin = (hhmm: string) => {
@@ -95,7 +96,7 @@ export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = [
   for (const child of input.children) {
     const hit = child.interests.find((i) => plan.stops.some((s) => s.place.interest_tags.includes(i)));
     if (hit) {
-      why.push(child.name ? `${INTEREST_LABEL[hit].emoji} ${child.name} любит ${INTEREST_LABEL[hit].love}` : `${INTEREST_LABEL[hit].emoji} Про ${INTEREST_LABEL[hit].label.toLowerCase()}`);
+      why.push(child.name ? `${INTEREST_LABEL[hit].emoji} ${child.name} любит ${INTEREST_LABEL[hit].love}` : `${INTEREST_LABEL[hit].emoji} Про ${INTEREST_LABEL[hit].about}`);
       break;
     }
   }
@@ -103,7 +104,7 @@ export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = [
   const ages = input.children.map((c) => c.age);
   if (ages.length) {
     const fits = ages.every((a) => a >= plan.ageMin && a <= plan.ageMax);
-    if (fits) why.push(ages.length > 2 ? "👧👦 Подходит всем" : ages.length > 1 ? "👧👦 Подходит обоим" : `🎈 Для ${ages[0]} ${plural(ages[0], "года", "лет", "лет")}`);
+    if (fits) why.push(ages.length > 2 ? "👧👦 Подходит всем" : ages.length > 1 ? "👧👦 Подходит обоим детям" : ages[0] === 0 ? "🎈 Для малышей до года" : `🎈 Для ${ages[0]} ${plural(ages[0], "года", "лет", "лет")}`);
   }
 
   if (plan.budget === 0) why.push("💚 Бесплатно");

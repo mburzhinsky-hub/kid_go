@@ -274,6 +274,8 @@ export interface ScenarioConstraints {
   quiet?: boolean;
   stroller?: boolean;
   maxTravelMin?: number;
+  /** Лимит дороги действует и внутри своего округа («Ближе всего» — именно про близость). */
+  strictTravel?: boolean;
   /** Вернуться домой к этому времени (минуты от полуночи). */
   endBy?: number;
   /** Начать не раньше (минуты от полуночи). */

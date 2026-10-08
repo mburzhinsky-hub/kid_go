@@ -162,7 +162,7 @@ export const creatorUrl = (username: string, utm?: UtmParams) => withUtm(`${site
 
 /* ───────── тексты ───────── */
 
-export const collectionShareText = (r: ResolvedCollection) => `${r.collection.title} ✨ Подборка ${r.author.name}`;
+export const collectionShareText = (r: ResolvedCollection) => `${r.collection.title} ✨ Автор подборки: ${r.author.name}`;
 export const placeInviteText = () => "Хотим сходить сюда с детьми 👋 Кто с нами?";
 
 /* ───────── каналы ───────── */

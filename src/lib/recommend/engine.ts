@@ -275,7 +275,8 @@ export function scorePlace(
   const tier = okr ? tierOf(p, okr) : undefined;
   if (strict && tier !== undefined && (tier === 2 || (tier === 1 && anchorLike))) return null;
   if (okr && input.areaScope === "adjacent" && tier === 2) return null;
-  if (mode !== "any" && travel.minutes > reach && !(strict && tier === 0)) return null;
+  // в своём округе дальнюю дорогу прощаем — кроме ситуаций, где близость и есть смысл («Ближе всего»)
+  if (mode !== "any" && travel.minutes > reach && !(strict && tier === 0 && !c.strictTravel)) return null;
 
   // возраст: по умолчанию место должно подходить всем детям
   const fit = ages.length ? ages.filter((a) => a >= p.age_min && a <= p.age_max).length / ages.length : 1;

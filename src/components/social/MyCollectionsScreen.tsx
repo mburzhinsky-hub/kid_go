@@ -84,9 +84,9 @@ export function MyCollectionsScreen() {
             <p className="tight mt-1 text-[52px] font-[900] leading-none text-pink-ink">{total.wantToGo}</p>
             <p className="mt-0.5 text-[14px] text-ink-2">{plural(total.wantToGo, "раз добавили место в «Хочу сюда»", "раза добавили место в «Хочу сюда»", "раз добавили места в «Хочу сюда»")}</p>
             <div className="mt-4 grid grid-cols-3 gap-2">
-              <Mini icon={<Eye size={16} />} value={total.views} label="просмотров" />
-              <Mini icon={<Heart size={16} />} value={total.saves} label="сохранили" />
-              <Mini icon={<Share2 size={16} />} value={total.shares} label="поделились" />
+              <Mini icon={<Eye size={16} />} value={total.views} label={plural(total.views, "просмотр", "просмотра", "просмотров")} />
+              <Mini icon={<Heart size={16} />} value={total.saves} label={plural(total.saves, "сохранение", "сохранения", "сохранений")} />
+              <Mini icon={<Share2 size={16} />} value={total.shares} label={plural(total.shares, "поделился", "поделились", "поделились")} />
             </div>
           </section>
 
@@ -194,10 +194,10 @@ function CollectionRow({ c, onDelete, events }: { c: Collection; onDelete: () =>
       </div>
 
       <div className="grid grid-cols-4 gap-px bg-line">
-        <Cell icon={<Eye size={14} />} value={st.views} label="просмотры" />
-        <Cell icon={<Heart size={14} />} value={st.saves} label="сохранили" />
-        <Cell icon={<Share2 size={14} />} value={st.shares} label="поделились" />
-        <Cell icon={<Heart size={14} className="fill-pink text-pink" />} value={st.wantToGo} label="хотят" strong />
+        <Cell icon={<Eye size={14} />} value={st.views} label={plural(st.views, "просмотр", "просмотра", "просмотров")} />
+        <Cell icon={<Heart size={14} />} value={st.saves} label={plural(st.saves, "сохранение", "сохранения", "сохранений")} />
+        <Cell icon={<Share2 size={14} />} value={st.shares} label={plural(st.shares, "поделился", "поделились", "поделились")} />
+        <Cell icon={<Heart size={14} className="fill-pink text-pink" />} value={st.wantToGo} label={plural(st.wantToGo, "хочет", "хотят", "хотят")} strong />
       </div>
 
       {open && (
@@ -207,7 +207,7 @@ function CollectionRow({ c, onDelete, events }: { c: Collection; onDelete: () =>
             <Detail icon={<MapIcon size={16} />} value={st.maps} label="на карте" />
             <Detail icon={<Smartphone size={16} />} value={st.appClicks} label="открыли в приложении" />
           </div>
-          {extra > 0 && <p className="mt-2 text-[13px] text-muted">Ещё {extra} захотели сходить на других экранах после перехода по вашей ссылке.</p>}
+          {extra > 0 && <p className="mt-2 text-[13px] text-muted">Ещё {extra} {plural(extra, "семья", "семьи", "семей")} {plural(extra, "захотела", "захотели", "захотели")} сходить на других экранах после перехода по вашей ссылке.</p>}
           {interest.length > 0 && (
             <div className="mt-3">
               <p className="text-[13px] font-semibold text-ink-2">Больше всего хотят</p>
