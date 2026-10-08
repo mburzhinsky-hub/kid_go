@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { Plus, Eye, Heart, Share2, MousePointerClick, Smartphone, Map as MapIcon, Pencil, Trash2, ChevronDown, Lock, Link2, Globe, FileEdit, ExternalLink } from "lucide-react";
+import { Plus, Eye, Heart, Share2, MousePointerClick, Smartphone, Map as MapIcon, Pencil, Trash2, ChevronDown, Lock, Link2, Globe, FileEdit, ExternalLink, EyeOff } from "lucide-react";
 import type { Collection, ResolvedCollection } from "@/lib/social/types";
 import { useSocial } from "@/lib/social/store";
 import { useEvents } from "@/lib/social/events";
@@ -26,9 +26,10 @@ const STATUS = {
   PUBLIC: { label: "Публичная", cls: "bg-green-50 text-green-ink", Icon: Globe },
   UNLISTED: { label: "По ссылке", cls: "bg-blue-50 text-blue-ink", Icon: Link2 },
   PRIVATE: { label: "Приватная", cls: "bg-fill text-ink-2", Icon: Lock },
+  HIDDEN: { label: "Скрыта модерацией", cls: "bg-red-50 text-red", Icon: EyeOff },
 } as const;
 
-const statusOf = (c: Collection) => STATUS[c.status === "DRAFT" ? "DRAFT" : c.visibility];
+const statusOf = (c: Collection) => STATUS[c.status === "HIDDEN" ? "HIDDEN" : c.status === "DRAFT" ? "DRAFT" : c.visibility];
 
 /**
  * «Мои подборки»: список и аналитика автора. Не перегружаем: главное число — сколько людей захотели сходить благодаря подборкам;

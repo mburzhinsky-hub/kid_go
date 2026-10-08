@@ -122,3 +122,11 @@ jobs:
           # короткая ссылка на подборку: несуществующий код должен отдать нашу страницу с пометкой «не найдена» (а не общую 404 сервера)
           code=$(curl -sS $R -o page.html -w '%{http_code}' "https://${SITE_DOMAIN}/c/zzzzzzzzzz/" || true)
           if [ "$code" != "404" ] || ! grep -q 'Подборка не найдена' page.html; then echo "::error::Короткая ссылка /c/<код>/ не работает (HTTP $code)"; exit 1; fi
+          # модерация: служебные адреса закрыты без токена, страница модератора на месте
+          code=$(curl -sS $R -o /dev/null -w '%{http_code}' "https://${SITE_DOMAIN}/api/v1/admin/reports" || true)
+          [ "$code" = "403" ] || { echo "::error::Очередь жалоб без токена должна отвечать 403, а ответила HTTP $code"; exit 1; }
+          code=$(curl -sS $R -o mod.html -w '%{http_code}' "https://${SITE_DOMAIN}/api/moderation.php" || true)
+          if [ "$code" != "200" ] || ! grep -q 'Модерация · Kids Go' mod.html; then echo "::error::Страница модератора /api/moderation.php не открывается (HTTP $code)"; exit 1; fi
+          # www → основной адрес (не критично: сертификат и алиас www настраиваются в панели хостинга)
+          hdr=$(curl -sS --resolve "www.${SITE_DOMAIN}:443:${HOSTING_IP}" --insecure -o /dev/null -D - "https://www.${SITE_DOMAIN}/c/zzzzzzzzzz/?x=1" || true)
+          if echo "$hdr" | head -1 | grep -q ' 301' && echo "$hdr" | grep -qi "^location: https://${SITE_DOMAIN}/c/zzzzzzzzzz/?x=1"; then echo "www → ${SITE_DOMAIN}: редирект работает"; else echo "::warning::Редирект www.${SITE_DOMAIN} → ${SITE_DOMAIN} не подтвердился: $(echo "$hdr" | head -3 | tr '\r\n' '  ')"; fi
