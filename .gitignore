@@ -9,6 +9,9 @@ next-env.d.ts
 
 /public/vendor/maplibre/
 
+# Копии фото скачиваются при деплое (scripts/fetch-photos.mjs)
+/public/photos/
+
 # Kids Go API: секреты и загрузки живут только на хостинге
 /api/config.php
 /api/uploads/
