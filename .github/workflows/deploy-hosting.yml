@@ -92,7 +92,16 @@ jobs:
           put -O /api build-api/config.php
           bye
           CMD
-          if ! lftp -u "$HOSTING_USER","$HOSTING_PASS" "$HOSTING_HOST" -f lftp.cmd; then echo "::error::Не удалось загрузить файлы на хостинг по FTPS (проверьте HOSTING_HOST, HOSTING_USER, HOSTING_PASS)"; exit 1; fi
+          if ! lftp -u "$HOSTING_USER","$HOSTING_PASS" "$HOSTING_HOST" -f lftp.cmd > lftp.out 2>&1; then
+            echo "::error::Загрузка по FTPS не удалась. Последние строки: $(tail -n 6 lftp.out | tr '\n' '|' | cut -c1-600)"
+            # Диагностика: какой способ подключения вообще работает (пароль lftp не печатает)
+            for variant in "ftps-verify:set ftp:ssl-force true;set ssl:verify-certificate yes" "ftps-noverify:set ftp:ssl-force true;set ssl:verify-certificate no" "ftp-plain:set ftp:ssl-allow no"; do
+              name=${variant%%:*}; cmds=${variant#*:}
+              res=$(timeout 60 lftp -u "$HOSTING_USER","$HOSTING_PASS" "$HOSTING_HOST" -e "set net:max-retries 1;set net:timeout 15;$cmds;cls -1 /;bye" 2>&1 | tr '\n' '|' | cut -c1-300)
+              echo "::warning::Проверка $name: $res"
+            done
+            exit 1
+          fi
       - name: Миграции базы и проверка
         run: |
           R="--resolve ${SITE_DOMAIN}:443:${HOSTING_IP}"
