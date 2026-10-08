@@ -104,9 +104,9 @@ jobs:
       - name: Миграции базы и проверка
         run: |
           R="--resolve ${SITE_DOMAIN}:443:${HOSTING_IP}"
-          code=$(curl -sS $R -o mig.json -w '%{http_code}' -X POST -H "Authorization: Bearer $ADMIN_TOKEN" "https://${SITE_DOMAIN}/api/v1/admin/migrate" || true)
+          code=$(curl -sS $R -o mig.json -w '%{http_code}' -X POST -H "Authorization: Bearer $ADMIN_TOKEN" "https://${SITE_DOMAIN}/api/v1/admin/migrate" 2>curl.err || true)
           echo "migrate: HTTP $code"; cat mig.json || true; echo
-          [ "$code" = "200" ] || { echo "::error::Миграции не применились (HTTP $code): $(head -c 300 mig.json)"; exit 1; }
+          [ "$code" = "200" ] || { echo "::error::Миграции не применились (HTTP $code): $(head -c 300 mig.json) curl: $(head -c 300 curl.err)"; exit 1; }
           code=$(curl -sS $R -o health.json -w '%{http_code}' "https://${SITE_DOMAIN}/api/v1/health?deep=1" || true)
           echo "health: HTTP $code"; cat health.json; echo
           [ "$code" = "200" ] || { echo "::error::API не отвечает (HTTP $code): $(head -c 300 health.json)"; exit 1; }
