@@ -93,7 +93,7 @@ export function CabinetScreen() {
           <CreatorAvatar author={{ avatar: user.avatar.value, tint: user.tint, name: user.display_name || user.handle }} size={72} ring />
           <div className="min-w-0 flex-1">
             <h1 className="tight truncate text-[26px] font-[850] leading-tight">{user.display_name || `@${user.handle}`}</h1>
-            <p className="truncate text-[15px] text-muted">@{user.handle}</p>
+            {user.display_name && <p className="truncate text-[15px] text-muted">@{user.handle}</p>}
           </div>
           <button onClick={() => setEditing(true)} aria-label="Изменить профиль" className="press hit relative grid h-10 w-10 shrink-0 place-items-center rounded-full bg-fill">
             <Pencil size={18} />
