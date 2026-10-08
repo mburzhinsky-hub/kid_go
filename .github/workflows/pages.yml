@@ -41,8 +41,11 @@ jobs:
         run: npm run audit:places
       - name: Audit of photos (кадр про это место, без повторов между соседними местами)
         run: npm run audit:photos
+      - name: Фотографии (свои копии вместо Unsplash)
+        run: node scripts/fetch-photos.mjs
       - name: Build static export
         env:
+          NEXT_PUBLIC_PHOTOS_LOCAL: "1"
           GITHUB_PAGES: "true"
           NEXT_PUBLIC_BASE_PATH: ""
           NEXT_PUBLIC_SITE_URL: https://kids-go.fun
