@@ -22,6 +22,7 @@ final class ApiException extends \RuntimeException
     public static function notFound(string $msg = 'Не найдено'): self { return new self(404, 'not_found', $msg); }
     public static function conflict(string $msg, string $code = 'conflict'): self { return new self(409, $code, $msg); }
     public static function tooLarge(string $msg = 'Слишком большой запрос'): self { return new self(413, 'too_large', $msg); }
+    public static function unprocessable(string $msg, string $code = 'invalid'): self { return new self(422, $code, $msg); }
     public static function tooMany(int $retryAfter): self
     {
         return new self(429, 'rate_limited', 'Слишком часто. Попробуйте чуть позже.', ['Retry-After' => (string) max(1, $retryAfter)]);

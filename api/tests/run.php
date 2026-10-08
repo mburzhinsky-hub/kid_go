@@ -13,6 +13,8 @@ use Kg\Request;
 use Kg\Router;
 use Kg\Ids;
 use Kg\App;
+use Kg\Places;
+use Kg\Text;
 
 set_exception_handler(static function (Throwable $e): void {
     echo '::error::' . get_class($e) . ': ' . str_replace(["\n", "\r"], ' ', $e->getMessage()) . ' @ ' . basename($e->getFile()) . ':' . $e->getLine() . "\n";
@@ -57,6 +59,15 @@ check('ключ кабинета 43 символа base64url', (bool) preg_match
 check('миграция делится на запросы', count(Migrator::statements("-- c\nCREATE TABLE a (x INT);\nCREATE TABLE b (y INT);\n")) === 2);
 [$s] = call('POST', '/api/v1/admin/migrate');
 check('служебный вход без токена закрыт', $s === 403);
+check('Text::slug: транслитерация и очистка', Text::slug('Привет, мир!') === 'privet-mir' && Text::slug('Щука Ёж Съезд') === 'shchuka-ezh-sezd'
+    && Text::slug('  --  ') === 'podborka' && Text::slug('Fun Day #1') === 'fun-day-1' && strlen(Text::slug(str_repeat('щ', 100))) <= 100);
+check('Text::clean: управляющие символы убираются, переводы строк → пробел, края обрезаются',
+    Text::clean("  a\x00b\x07c\nd\r\n\te \u{200B}\u{202E}") === 'abc d e' && Text::clean("\u{00A0} x \u{00A0}") === 'x');
+check('Text::iso: ISO 8601 с Z', Text::iso('2026-10-08 12:00:00') === '2026-10-08T12:00:00Z');
+check('Places: формат slug места строгий (в конце нет перевода строки)', preg_match(Places::PATTERN, 'moskovsky-zoopark') === 1
+    && preg_match(Places::PATTERN, "abc\n") === 0 && preg_match(Places::PATTERN, '-abc') === 0 && preg_match(Places::PATTERN, str_repeat('a', 81)) === 0 && preg_match(Places::PATTERN, str_repeat('a', 80)) === 1);
+$r = new Request('PUT', '/x', [], ['content-type' => 'application/json'], '{"a":{},"b":[]}');
+check('Request::jsonValue: {} остаётся объектом, [] — массивом', json_encode($r->jsonValue()) === '{"a":{},"b":[]}');
 
 if (getenv('KG_DB_NAME') === false || getenv('KG_DB_NAME') === '') {
     echo "\nБаза не настроена — пропускаем проверки с MySQL\n";
@@ -73,7 +84,7 @@ $first = Migrator::run($db);
 check('миграции применились', count($first) >= 1 && $first[0] === '001_init.sql');
 check('повторный запуск ничего не меняет (идемпотентность)', Migrator::run($db) === []);
 $tables = $db->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
-foreach (['users', 'collections', 'collection_items', 'collection_saves', 'place_intents', 'events', 'reports', 'rate_limits', 'admin_actions', 'handle_holds'] as $t) {
+foreach (['users', 'collections', 'collection_items', 'collection_saves', 'place_intents', 'events', 'reports', 'rate_limits', 'admin_actions', 'handle_holds', 'sessions', 'user_docs'] as $t) {
     check("таблица $t есть", in_array($t, $tables, true));
 }
 [$s, $j] = call('GET', '/api/v1/health', ['deep' => '1']);
@@ -97,6 +108,7 @@ check('4-й запрос при лимите 3 → 429 с Retry-After', $code ==
 try { RateLimit::hit($db, 'test:other', 3, 60); check('другой ключ считается отдельно', true); } catch (Kg\ApiException) { check('другой ключ считается отдельно', false); }
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/collections.php';
 
 echo "\nИтого: $pass ок, $fail ошибок\n";
 exit($fail ? 1 : 0);

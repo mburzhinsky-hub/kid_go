@@ -78,4 +78,20 @@ final class Request
         if (!is_array($data)) throw ApiException::badRequest('Ожидался объект JSON', 'bad_json');
         return $data;
     }
+
+    /**
+     * Тело запроса как JSON «как есть»: объекты остаются объектами (stdClass), поэтому пустой {} не превращается в [].
+     * Нужно там, где сервер хранит чужой JSON и не должен менять его форму. Глубина до $depth.
+     */
+    public function jsonValue(int $depth = 32): mixed
+    {
+        if ($this->rawBody === '') throw ApiException::badRequest('Пустое тело запроса', 'bad_json');
+        $ct = strtolower((string) $this->header('content-type'));
+        if (!str_contains($ct, 'application/json')) throw ApiException::badRequest('Ожидается JSON', 'bad_content_type');
+        try {
+            return json_decode($this->rawBody, false, $depth, JSON_THROW_ON_ERROR);
+        } catch (\JsonException) {
+            throw ApiException::badRequest('Не удалось разобрать JSON', 'bad_json');
+        }
+    }
 }
