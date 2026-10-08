@@ -32,12 +32,12 @@ export function fitOfAreas(areas: string[] | undefined, okrugId: string): Tier {
 /** Подпись «где это» для маршрута относительно выбранного округа (null — подписывать нечего). */
 export function areaNote(areas: string[] | undefined, okrugId: string): { text: string; tone: "here" | "near" | "far" } | null {
   if (!areas?.length) return null;
-  const here = okrugById(okrugId)?.short ?? "округе";
+  const o = okrugById(okrugId);
   const fit = fitOfAreas(areas, okrugId);
-  if (fit === 0) return { text: `📍 Всё в ${here}`, tone: "here" };
+  if (fit === 0) return { text: `📍 Всё ${o?.prep ?? "в вашем округе"}`, tone: "here" };
   const names = areas.map((a) => (a === "mo" ? "Подмосковье" : okrugById(a)?.short ?? a));
-  if (fit === 1) return { text: `📍 ${names.join(" + ")} — рядом с ${here}`, tone: "near" };
-  return { text: `📍 ${names.join(" + ")} — не в ${here}`, tone: "far" };
+  if (fit === 1) return { text: `📍 ${names.join(" + ")} — ${o ? `рядом с ${o.ins}` : "по соседству"}`, tone: "near" };
+  return { text: `📍 ${names.join(" + ")} — не ${o?.prep ?? "в вашем округе"}`, tone: "far" };
 }
 
 /**

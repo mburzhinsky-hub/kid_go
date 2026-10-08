@@ -22,7 +22,7 @@ import { travelToPlace, formatTravel, locationMode } from "@/lib/location";
 import { getPlaceSync } from "@/lib/data/repository";
 import { BottomSheet } from "@/components/ui/BottomSheet";
 import { useToast } from "@/components/ui/Toast";
-import { formatAgeRange, formatBudget, formatDuration, fromMoscowLabel, moscowNow, quote, toMinutes } from "@/lib/format";
+import { formatAgeRange, formatBudget, formatDuration, fromMoscowLabel, moscowNow, plural, quote, toMinutes } from "@/lib/format";
 import { formatKm, travelMinutes } from "@/lib/geo";
 import { tripKmOf } from "@/lib/cards";
 import { track } from "@/lib/analytics";
@@ -189,7 +189,7 @@ function AdventureViewInner(props: AdventureViewProps) {
             <span className="inline-flex h-9 items-center gap-1.5 rounded-full bg-orange-50 px-3.5 text-[14px] font-semibold text-orange-ink"><Sun size={16} /> Лучше в сухую погоду</span>
           )}
           <span className="inline-flex h-9 items-center gap-1.5 rounded-full bg-purple-50 px-3.5 text-[14px] font-semibold text-purple-ink">
-            {plan.stops.length} {plan.stops.length === 1 ? "место" : plan.stops.length < 5 ? "места" : "мест"}
+            {plan.stops.length} {plural(plan.stops.length, "место", "места", "мест")}
           </span>
         </div>
         {badStop && (

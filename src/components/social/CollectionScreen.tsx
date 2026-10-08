@@ -20,7 +20,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { RatingBadge, AgeBadge, PriceBadge } from "@/components/ui/badges";
 import { TravelBadge } from "@/components/ui/TravelBadge";
 import { categoryDef } from "@/lib/catalog";
-import { formatAgeRange, placePriceShort } from "@/lib/format";
+import { formatAgeRange, placePriceShort, plural } from "@/lib/format";
 import { placeHref } from "@/lib/place-href";
 import { cn } from "@/lib/cn";
 import { CollectionCover } from "./CollectionCover";
@@ -217,7 +217,7 @@ function CollectionBody({ r, own, preview }: { r: ResolvedCollection; own: boole
           )}
           {missing > 0 && placed.length > 0 && (
             <p className="rounded-[16px] bg-yellow-50 px-3.5 py-2.5 text-[14px] leading-snug text-yellow-ink">
-              {missing === 1 ? "Одно место из подборки больше недоступно" : `${missing} места из подборки больше недоступны`} — мы их не показываем.
+              {missing === 1 ? "Одно место из подборки больше недоступно — мы его не показываем." : `${missing} ${plural(missing, "место", "места", "мест")} из подборки больше ${plural(missing, "недоступно", "недоступны", "недоступны")} — мы ${plural(missing, "его", "их", "их")} не показываем.`}
             </p>
           )}
         </section>

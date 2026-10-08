@@ -1,6 +1,6 @@
 import { ExternalLink, Star } from "lucide-react";
 import type { Place } from "@/lib/types";
-import { formatCount, plural } from "@/lib/format";
+import { formatCountNoun } from "@/lib/format";
 
 const AVATAR_BG = ["#FFE3E8", "#E2EEFF", "#E4F4DD", "#FFF3D6", "#EEE5FE"];
 
@@ -21,7 +21,7 @@ export function Reviews({ place }: { place: Place }) {
               </div>
             </div>
             <div className="min-w-0">
-              {place.review_count > 0 ? <p className="text-[14px] font-semibold">{formatCount(place.review_count)} {plural(place.review_count, "отзыв", "отзыва", "отзывов")}</p> : <p className="text-[14px] font-semibold">Оценка посетителей</p>}
+              {place.review_count > 0 ? <p className="text-[14px] font-semibold">{formatCountNoun(place.review_count, "отзыв", "отзыва", "отзывов")}</p> : <p className="text-[14px] font-semibold">Оценка посетителей</p>}
               <a
                 href={place.rating_source}
                 target="_blank"

@@ -27,6 +27,11 @@ export function formatDurationShort(min: number): string {
   return `${String(rounded).replace(".", ",")} ч`;
 }
 
+/** «+5°», «−3°» (типографский минус), «0°». */
+export function formatTemp(t: number): string {
+  return `${t > 0 ? "+" : t < 0 ? "\u2212" : ""}${Math.abs(t)}°`;
+}
+
 export function formatPrice(rub: number): string {
   return `${rub.toLocaleString("ru-RU").replace(/[\u00a0\u202f ]/g, "\u00a0")}\u00a0₽`;
 }
@@ -47,8 +52,33 @@ export function formatAge(min: number, max: number): string {
   return `${min}–${max} ${plural(max, "год", "года", "лет")}`;
 }
 
+/** Возраст ребёнка: «до года», «1 год», «3 года», «5 лет». */
+export function ageWord(age: number): string {
+  return age <= 0 ? "до года" : `${age} ${plural(age, "год", "года", "лет")}`;
+}
+
+/** Ребёнок в перечислении, имя — в именительном: «Маша, 3 года», «Петя, до года», без имени — «ребёнок, 5 лет» / «малыш до года». */
+export function kidLabel(k: { name?: string; age: number }): string {
+  const name = k.name?.trim();
+  if (name) return `${name}, ${ageWord(k.age)}`;
+  return k.age <= 0 ? "малыш до года" : `ребёнок, ${ageWord(k.age)}`;
+}
+
 export function formatAgeRange(min: number, max: number): string {
-  return `${min}–${max} ${plural(max, "год", "года", "лет")}`;
+  // перепутанные границы — меняем местами, совпадающие — один возраст («12 лет», а не «12–12 лет»)
+  const lo = Math.min(min, max);
+  const hi = Math.max(min, max);
+  if (lo === hi) return lo <= 0 ? "до года" : `${hi} ${plural(hi, "год", "года", "лет")}`;
+  return `${lo}–${hi} ${plural(hi, "год", "года", "лет")}`;
+}
+
+/** Число + существительное, для тысяч — «1,2 тыс. отзывов» (после «тыс.» — родительный множественного). */
+export function formatCountNoun(n: number, one: string, few: string, many: string): string {
+  if (n >= 1000) {
+    const k = Math.round(n / 100) / 10;
+    return `${String(k).replace(".", ",")} тыс. ${many}`;
+  }
+  return `${n} ${plural(n, one, few, many)}`;
 }
 
 export function formatCount(n: number): string {
@@ -139,6 +169,11 @@ export function isOpenDuring(hours: OpeningHours, weekday: number, from: number,
   const d = hours[weekday];
   if (!d) return false;
   return from >= toMinutes(d[0]) && from + duration <= toMinutes(d[1]);
+}
+
+/** Предлог «в»/«во»: «во вторник», «во Владимире» (в/ф + согласная), иначе «в среду». */
+export function prepV(word: string): "в" | "во" {
+  return /^[вфВФ][бвгджзйклмнпрстфхцчшщ]/i.test(word) ? "во" : "в";
 }
 
 const WEEKDAY_ACC = ["понедельник", "вторник", "среду", "четверг", "пятницу", "субботу", "воскресенье"];

@@ -15,6 +15,7 @@ import { SmartImage } from "@/components/ui/SmartImage";
 import { haversineKm, pt } from "@/lib/geo";
 import type { Place } from "@/lib/types";
 import { cn } from "@/lib/cn";
+import { plural } from "@/lib/format";
 import { useSocial } from "@/lib/social/store";
 import { useCollectionLookup, usePublicCollections, useSavedCollections } from "@/lib/social/repo";
 import { IntentSourceProvider } from "@/lib/social/intent-source";
@@ -76,7 +77,7 @@ export function FavoritesScreen({ initialTab = "want" }: { initialTab?: Tab }) {
             ))}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-[16px] font-bold leading-tight">Наш день · {dayPlaces.length} {dayPlaces.length === 1 ? "место" : dayPlaces.length < 5 ? "места" : "мест"}</p>
+            <p className="text-[16px] font-bold leading-tight">Наш день · {dayPlaces.length} {plural(dayPlaces.length, "место", "места", "мест")}</p>
             <p className="truncate text-[13px] text-white/70">{dayPlaces.map((p) => p.title).join(" → ")}</p>
           </div>
           <ArrowRight size={20} />

@@ -23,6 +23,7 @@ import { BackButton } from "@/components/ui/BackButton";
 import { useToast } from "@/components/ui/Toast";
 import { categoryDef } from "@/lib/catalog";
 import { cn } from "@/lib/cn";
+import { plural } from "@/lib/format";
 import { CreatorAvatar } from "./Avatar";
 import type { ShareTarget } from "./ShareSheet";
 import { CollectionScreen } from "./CollectionScreen";
@@ -297,7 +298,7 @@ export function CollectionBuilder({ editId, asAuthor, from }: { editId?: string;
                     }}
                     className={cn("press h-11 rounded-full px-5 text-[16px] font-semibold", on ? "bg-ink text-white" : "bg-surface text-ink shadow-card")}
                   >
-                    {g.label} лет
+                    {g.label} {plural(g.max, "год", "года", "лет")}
                   </button>
                 );
               })}
@@ -391,7 +392,7 @@ function shareDone(r: ResolvedCollection, openShare: (t: ShareTarget) => void) {
     heading: "Поделиться подборкой",
     text: collectionShareText(r),
     buildUrl: (utm) => collectionUrl(r, utm),
-    preview: { tile: art.kind === "photo" ? art.tile : art.tiles[0], title: r.collection.title, subtitle: `Подборка ${r.author.name} · ${placesWord(placed.length)}` },
+    preview: { tile: art.kind === "photo" ? art.tile : art.tiles[0], title: r.collection.title, subtitle: `Автор: ${r.author.name} · ${placesWord(placed.length)}` },
     ids: { creator_id: r.author.id, collection_id: r.collection.id },
   });
 }

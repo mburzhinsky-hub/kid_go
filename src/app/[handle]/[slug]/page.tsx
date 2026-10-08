@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
   const { placed } = placesOf(r.collection);
   const art = coverOf(r.collection, placed);
   const photo = art.kind === "photo" ? art.tile.photo : art.tiles[0].photo;
-  const description = `Подборка ${r.author.name} · ${placesWord(placed.length)} для детей ${formatAgeRange(r.collection.age_min, r.collection.age_max)}`;
+  const description = `${placesWord(placed.length)} для детей ${formatAgeRange(r.collection.age_min, r.collection.age_max)} · Автор: ${r.author.name}`;
   const indexable = r.collection.visibility === "PUBLIC" && r.collection.status === "PUBLISHED";
   return {
     title: `${r.collection.title} — ${r.author.name}`,

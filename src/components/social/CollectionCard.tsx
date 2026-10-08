@@ -27,7 +27,7 @@ export function useCollectionShare() {
       heading: "Поделиться подборкой",
       text: collectionShareText(r),
       buildUrl: (utm) => collectionUrl(r, utm),
-      preview: { tile: art.kind === "photo" ? art.tile : art.tiles[0], title: r.collection.title, subtitle: `Подборка ${r.author.name} · ${placesWord(placed.length)}` },
+      preview: { tile: art.kind === "photo" ? art.tile : art.tiles[0], title: r.collection.title, subtitle: `Автор: ${r.author.name} · ${placesWord(placed.length)}` },
       ids: { creator_id: r.author.id, collection_id: r.collection.id },
     });
   };

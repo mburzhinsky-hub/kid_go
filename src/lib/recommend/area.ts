@@ -14,6 +14,8 @@ import { areaOf, dayContext, generatePlans } from "./engine";
 export interface AreaOther {
   key: string;
   label: string;
+  /** «в САО» — для кнопки «Искать в …»; у городов области формы нет, там пишем без предлога. */
+  prep?: string;
   origin: Origin;
   /** Оценка времени от центра выбранного округа до центра этого. */
   minutes: number;
@@ -70,7 +72,7 @@ export function areaAlternatives(args: BuildArgs, input: PlannerInput): AreaAlt 
   const hereOrigin = okrugOrigin(here);
 
   // 1) тот же запрос, но в других округах — ближайшие первыми
-  const cands: { key: string; label: string; origin: Origin }[] = OKRUGS.filter((o) => o.id !== here.id).map((o) => ({ key: o.id, label: o.short, origin: okrugOrigin(o) }));
+  const cands: { key: string; label: string; prep?: string; origin: Origin }[] = OKRUGS.filter((o) => o.id !== here.id).map((o) => ({ key: o.id, label: o.short, prep: o.prep, origin: okrugOrigin(o) }));
   if (OUTER.has(here.id)) {
     for (const s of SETTLEMENTS) {
       if (haversineKm(here, s) <= 28) cands.push({ key: s.id, label: s.label, origin: { lat: s.lat, lng: s.lng, label: s.label, source: "area" } });
@@ -89,7 +91,7 @@ export function areaAlternatives(args: BuildArgs, input: PlannerInput): AreaAlt 
     if (!r.plans.length) continue;
     // дорога на карточке — от выбранного округа, а не от чужого центра
     const plans = r.plans.map((p) => ({ ...p, fromHome: { ...travelToPlace(hereOrigin, p.stops[0].place, transport), approx: true as const } }));
-    others.push({ key: c.key, label: c.label, origin: c.origin, minutes, plans });
+    others.push({ key: c.key, label: c.label, prep: c.prep, origin: c.origin, minutes, plans });
   }
 
   // 2) другие ситуации, которые в этом округе работают

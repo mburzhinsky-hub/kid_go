@@ -85,7 +85,7 @@ export function CreatorScreen({ creator }: { creator: CreatorProfile }) {
             <button
               onClick={() => {
                 toggleFollow(author);
-                toast(following ? "Вы отписались" : `Вы подписались на ${creator.display_name}`);
+                toast(following ? "Вы отписались" : `Вы подписаны: ${creator.display_name}`);
               }}
               aria-pressed={following}
               className={cn("press mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full text-[16px] font-bold", following ? "bg-fill text-ink" : "bg-pink text-white shadow-pink")}

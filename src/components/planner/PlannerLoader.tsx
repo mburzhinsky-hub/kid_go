@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from "react";
 import type { Child } from "@/lib/types";
-import { plural } from "@/lib/format";
+import { ageWord } from "@/lib/format";
 
 /** Игривая загрузка: показываем, что именно мы учитываем — это и есть ценность. */
 export function PlannerLoader({ kids, onDone }: { kids: Pick<Child, "name" | "age">[]; onDone: () => void }) {
-  const ages = kids.map((k) => k.age).join(" и ");
+  // «по возрасту: 3 года и до года» — именительный после двоеточия, без «для 0 лет»
+  const ages = [...new Set(kids.map((k) => k.age))].sort((a, b) => b - a).map(ageWord).join(" и ");
   const steps = [
     "Смотрим прогноз по часам…",
-    kids.length ? `Ищем места для ${ages} ${plural(kids[kids.length - 1].age, "года", "лет", "лет")}…` : "Ищем лучшие места…",
+    kids.length ? `Ищем места по возрасту: ${ages}…` : "Ищем лучшие места…",
     "Проверяем, что всё открыто…",
     "Считаем дорогу от вас и бюджет…",
     "Ставим прогулку в сухое окно…",

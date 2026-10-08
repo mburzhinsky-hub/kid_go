@@ -7,7 +7,7 @@ import type { Place } from "@/lib/types";
 import { useFamily } from "@/lib/store";
 import { useForecast } from "@/lib/use-context";
 import { daySummary, moscowDateISO } from "@/lib/forecast";
-import { moscowNow, plural } from "@/lib/format";
+import { formatTemp, moscowNow, plural } from "@/lib/format";
 import { DAY_TEMP } from "@/lib/school-calendar";
 import { startToday } from "@/lib/day-window";
 import { buildHomeCtx } from "@/lib/home-ctx";
@@ -126,7 +126,7 @@ export function HomeWeather() {
   const dayWord = off ? "Завтра" : "Сегодня";
   const sum = daySummary(forecast, moscowDateISO(off));
   const w = sum.window;
-  const temp = (t: number) => `${t > 0 ? "+" : ""}${t}°`;
+  const temp = formatTemp;
   const bad = sum.allWet;
   let title = `${dayWord} ${temp(sum.weather.temp)}, ${sum.weather.label}`;
   let text = "Отличный день, чтобы гулять — идеи на воздухе";
@@ -176,7 +176,7 @@ export function NearbyPopularHeader() {
   const { places: extra } = useNearbyExtras();
   const own = useAreaPopular([], extra);
   const { regionOk } = useGeoVisible();
-  return <SectionHeader title={anywhere ? (regionOk ? "Популярное в Москве и области" : "Популярное в Москве") : okrug ? (own.inArea ? `Популярное ${okrug.prep}` : `Популярное рядом с ${okrug.short}`) : "Популярное рядом"} href="/search?sort=popular" />;
+  return <SectionHeader title={anywhere ? (regionOk ? "Популярное в Москве и области" : "Популярное в Москве") : okrug ? (own.inArea ? `Популярное ${okrug.prep}` : `Популярное рядом с ${okrug.ins}`) : "Популярное рядом"} href="/search?sort=popular" />;
 }
 
 /** Популярное с учётом выбора: округ — сначала места из него, затем соседние; адрес — по близости; вся Москва — по рейтингу. */

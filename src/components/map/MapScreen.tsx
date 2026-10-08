@@ -16,7 +16,7 @@ import { travelToPlace, nearestAreaLabel, locationMode, isSuburban } from "@/lib
 import { GeoScope } from "@/components/location/GeoScope";
 import { inMoscow, okrugOfOrigin, tierOf } from "@/lib/moscow";
 import { orderByArea } from "@/lib/area-fit";
-import { isFreeEntry, openState, plural } from "@/lib/format";
+import { ageWord, isFreeEntry, openState } from "@/lib/format";
 import { categoryDef } from "@/lib/catalog";
 import { useFamily } from "@/lib/store";
 import { MapMarker } from "./MapMarker";
@@ -782,7 +782,7 @@ export function MapScreen({ initialCategory, initialFocus, initialPlan, initialS
               }}
               className="press col-span-2 h-14 rounded-[20px] bg-pink-50 text-[16px] font-semibold text-pink-ink"
             >
-              Как у наших: {kids.map((k) => (k.name ? `${k.name} ${k.age}` : `${k.age} ${plural(k.age, "год", "года", "лет")}`)).join(", ")}
+              Как у наших: {kids.map((k) => (k.name?.trim() ? `${k.name.trim()}, ${ageWord(k.age)}` : ageWord(k.age))).join(" · ")}
             </button>
           )}
           {AGES.map((a) => (
