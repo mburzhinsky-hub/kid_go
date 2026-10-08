@@ -41,8 +41,11 @@ jobs:
             if [ -z "${!v}" ]; then echo "::error::Не задан секрет $v (Settings → Secrets and variables → Actions)"; fail=1; fi
           done
           [ -z "${fail:-}" ]
+      - name: Фотографии (копии на свой хостинг)
+        run: node scripts/fetch-photos.mjs
       - name: Сборка сайта
         env:
+          NEXT_PUBLIC_PHOTOS_LOCAL: "1"
           GITHUB_PAGES: "true"
           NEXT_PUBLIC_BASE_PATH: ""
           NEXT_PUBLIC_SITE_URL: https://kids-go.fun
@@ -90,7 +93,8 @@ jobs:
           set net:max-retries 3
           set net:timeout 30
           set cmd:fail-exit yes
-          mirror -R --delete --parallel=4 --exclude '^api/' --exclude '^\.well-known/' --exclude '^cgi-bin/' out/ /
+          mirror -R --delete --parallel=4 --exclude '^photos/' --exclude '^api/' --exclude '^\.well-known/' --exclude '^cgi-bin/' out/ /
+          mirror -R --delete --ignore-time --parallel=4 out/photos/ /photos/
           mirror -R --delete --parallel=2 --exclude '^config\.php$' --exclude '^uploads/' --exclude '^tests/' --exclude '^README\.md$' --exclude '^config\.example\.php$' api/ /api/
           put -O /api build-api/config.php
           CMD

@@ -1,7 +1,7 @@
 /* Kids Go service worker: офлайн-оболочка + кэш просмотренных страниц и фото.
    Стратегии: страницы — network-first (свежие данные, офлайн — из кэша),
    статика и изображения — stale-while-revalidate. */
-const VERSION = "kidgo-collections-20261007-v2";
+const VERSION = "kidgo-collections-20261008-v3";
 const BASE = new URL(self.registration.scope).pathname.replace(/\/$/, "");
 const SHELL = ["/", "/adventures/", "/favorites/", "/offline.html", "/icons/icon-192.png"].map((p) => BASE + p);
 
@@ -35,7 +35,7 @@ self.addEventListener("fetch", (e) => {
     return;
   }
 
-  const isAsset = url.pathname.startsWith(BASE + "/_next/static") || url.pathname.startsWith(BASE + "/icons") || url.hostname === "images.unsplash.com";
+  const isAsset = url.pathname.startsWith(BASE + "/_next/static") || url.pathname.startsWith(BASE + "/icons") || url.pathname.startsWith(BASE + "/photos/") || url.hostname === "images.unsplash.com";
   if (isAsset) {
     e.respondWith(
       caches.open(VERSION).then(async (c) => {
