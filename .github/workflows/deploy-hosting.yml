@@ -61,8 +61,16 @@ jobs:
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
+          ADMIN_TOKEN_SECRET: ${{ secrets.ADMIN_TOKEN }}
         run: |
-          ADMIN_TOKEN=$(openssl rand -hex 24)
+          # Служебный токен (миграции и страница модерации). Если задан секрет ADMIN_TOKEN — токен постоянный, им входят на /api/moderation.php;
+          # иначе на каждую выкладку создаётся одноразовый случайный токен, который никто не видит.
+          if [ -n "${ADMIN_TOKEN_SECRET:-}" ]; then
+            if [ "${#ADMIN_TOKEN_SECRET}" -lt 16 ]; then echo "::error::Секрет ADMIN_TOKEN слишком короткий: нужно не меньше 16 символов"; exit 1; fi
+            ADMIN_TOKEN="$ADMIN_TOKEN_SECRET"
+          else
+            ADMIN_TOKEN=$(openssl rand -hex 24)
+          fi
           echo "::add-mask::$ADMIN_TOKEN"
           echo "ADMIN_TOKEN=$ADMIN_TOKEN" >> "$GITHUB_ENV"
           export ADMIN_SHA=$(printf %s "$ADMIN_TOKEN" | sha256sum | cut -d' ' -f1)
