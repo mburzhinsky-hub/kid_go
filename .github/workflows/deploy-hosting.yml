@@ -1,0 +1,106 @@
+name: Deploy to hosting
+
+# Выкладка сайта и API на хостинг reg.ru по FTPS. Пока запускается вручную (Actions → Deploy to hosting → Run workflow).
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hosting
+  cancel-in-progress: false
+
+env:
+  HOSTING_IP: 31.31.196.139   # адрес сайта на хостинге: проверяем его напрямую, пока домен ещё смотрит на GitHub
+  SITE_DOMAIN: kids-go.fun
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+      - run: npm ci
+      - name: Проверка секретов
+        env:
+          HOSTING_HOST: ${{ secrets.HOSTING_HOST }}
+          HOSTING_USER: ${{ secrets.HOSTING_USER }}
+          HOSTING_PASS: ${{ secrets.HOSTING_PASS }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+        run: |
+          for v in HOSTING_HOST HOSTING_USER HOSTING_PASS DB_NAME DB_USER DB_PASS; do
+            if [ -z "${!v}" ]; then echo "::error::Не задан секрет $v (Settings → Secrets and variables → Actions)"; fail=1; fi
+          done
+          [ -z "${fail:-}" ]
+      - name: Сборка сайта
+        env:
+          GITHUB_PAGES: "true"
+          NEXT_PUBLIC_BASE_PATH: ""
+          NEXT_PUBLIC_SITE_URL: https://kids-go.fun
+        run: |
+          npm run typecheck
+          rm -rf src/app/api src/app/admin
+          npm run build
+      - name: Файл настроек API (config.php) из секретов
+        env:
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+        run: |
+          ADMIN_TOKEN=$(openssl rand -hex 24)
+          echo "::add-mask::$ADMIN_TOKEN"
+          echo "ADMIN_TOKEN=$ADMIN_TOKEN" >> "$GITHUB_ENV"
+          export ADMIN_SHA=$(printf %s "$ADMIN_TOKEN" | sha256sum | cut -d' ' -f1)
+          mkdir -p build-api
+          php -r '
+            $c = [
+              "env" => "production",
+              "site_url" => "https://kids-go.fun",
+              "db" => ["host" => "127.0.0.1", "port" => 3306, "name" => getenv("DB_NAME"), "user" => getenv("DB_USER"), "pass" => getenv("DB_PASS")],
+              "app_secret" => hash("sha256", "kidsgo|" . getenv("DB_PASS")),
+              "admin_token_sha256" => getenv("ADMIN_SHA"),
+            ];
+            file_put_contents("build-api/config.php", "<?php\nreturn " . var_export($c, true) . ";\n");
+          '
+          php -l build-api/config.php
+      - name: Загрузка на хостинг (FTPS)
+        env:
+          HOSTING_HOST: ${{ secrets.HOSTING_HOST }}
+          HOSTING_USER: ${{ secrets.HOSTING_USER }}
+          HOSTING_PASS: ${{ secrets.HOSTING_PASS }}
+        run: |
+          sudo apt-get install -y lftp >/dev/null
+          cat > lftp.cmd <<'CMD'
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ssl:verify-certificate yes
+          set net:max-retries 3
+          set net:timeout 30
+          set cmd:fail-exit yes
+          mirror -R --delete --parallel=4 --exclude '^api/' --exclude '^\.well-known/' --exclude '^cgi-bin/' out/ /
+          mkdir -p /api
+          mirror -R --delete --parallel=2 --exclude '^config\.php$' --exclude '^uploads/' --exclude '^tests/' --exclude '^README\.md$' --exclude '^config\.example\.php$' api/ /api/
+          put -O /api build-api/config.php
+          bye
+          CMD
+          if ! lftp -u "$HOSTING_USER","$HOSTING_PASS" "$HOSTING_HOST" -f lftp.cmd; then echo "::error::Не удалось загрузить файлы на хостинг по FTPS (проверьте HOSTING_HOST, HOSTING_USER, HOSTING_PASS)"; exit 1; fi
+      - name: Миграции базы и проверка
+        run: |
+          R="--resolve ${SITE_DOMAIN}:443:${HOSTING_IP}"
+          code=$(curl -sS $R -o mig.json -w '%{http_code}' -X POST -H "Authorization: Bearer $ADMIN_TOKEN" "https://${SITE_DOMAIN}/api/v1/admin/migrate" || true)
+          echo "migrate: HTTP $code"; cat mig.json || true; echo
+          [ "$code" = "200" ] || { echo "::error::Миграции не применились (HTTP $code): $(head -c 300 mig.json)"; exit 1; }
+          code=$(curl -sS $R -o health.json -w '%{http_code}' "https://${SITE_DOMAIN}/api/v1/health?deep=1" || true)
+          echo "health: HTTP $code"; cat health.json; echo
+          [ "$code" = "200" ] || { echo "::error::API не отвечает (HTTP $code): $(head -c 300 health.json)"; exit 1; }
+          code=$(curl -sS $R -o /dev/null -w '%{http_code}' "https://${SITE_DOMAIN}/")
+          [ "$code" = "200" ] || { echo "::error::Главная страница на хостинге не открывается (HTTP $code)"; exit 1; }
