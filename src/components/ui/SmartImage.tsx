@@ -20,19 +20,32 @@ interface Props {
  * Фото с фирменной подложкой: пока грузится — цветной тинт,
  * если не загрузилось (офлайн/битая ссылка) — яркая иллюстрация, а не серый плейсхолдер.
  */
+const LOCAL_PHOTOS = process.env.NEXT_PUBLIC_PHOTOS_LOCAL === "1";
+
+/** Запасной адрес: если своей копии фото нет на сервере, пробуем оригинал (один размер, без оптимизации). */
+function remoteSrc(src: string) {
+  return LOCAL_PHOTOS && src.startsWith("https://images.unsplash.com/") ? `${src}?w=960&q=70&auto=format&fit=crop&cs=tinysrgb` : undefined;
+}
+
 export function SmartImage({ photo, tint = "#FFE3EE", emoji = "✨", sizes, priority, className, imgClassName, quality }: Props) {
-  const [failed, setFailed] = useState(!photo.src);
+  // 0 — своя копия, 1 — оригинал с фотохостинга, 2 — иллюстрация вместо фото
+  const [stage, setStage] = useState(photo.src ? 0 : 2);
   const imgRef = useRef<HTMLImageElement>(null);
+  const remote = remoteSrc(photo.src);
+  const fail = () => setStage((s) => (s === 0 && remote ? 1 : 2));
   // Ошибка могла случиться до гидрации (React не повторяет onError) — проверяем вручную.
   useEffect(() => {
     const img = imgRef.current;
     // только для eager-картинок: у отложенных lazy Chrome тоже отдаёт complete=true
-    if (img && img.loading !== "lazy" && img.complete && img.naturalWidth === 0 && img.currentSrc) setFailed(true);
+    if (img && img.loading !== "lazy" && img.complete && img.naturalWidth === 0 && img.currentSrc) fail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className={cn("overflow-hidden", !/\b(absolute|fixed)\b/.test(className ?? "") && "relative", className)} style={{ backgroundColor: tint }}>
-      {failed ? (
+      {stage === 2 ? (
         <Fallback tint={tint} emoji={emoji} />
+      ) : stage === 1 && remote ? (
+        <Image src={remote} alt={photo.alt} fill sizes={sizes} unoptimized onError={() => setStage(2)} className={cn("object-cover", imgClassName)} />
       ) : (
         <Image
           ref={imgRef}
@@ -42,7 +55,7 @@ export function SmartImage({ photo, tint = "#FFE3EE", emoji = "✨", sizes, prio
           sizes={sizes}
           priority={priority}
           quality={quality}
-          onError={() => setFailed(true)}
+          onError={fail}
           className={cn("object-cover", imgClassName)}
         />
       )}

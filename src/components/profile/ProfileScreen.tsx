@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Plus, Pencil, Trash2, ChevronRight, MapPin, Sparkles, Check, Home, Users, Smartphone } from "lucide-react";
+import { Plus, Pencil, Trash2, ChevronRight, Sparkles, Home, Smartphone } from "lucide-react";
 import type { Child, InterestId } from "@/lib/types";
 import { useFamily, ageFromBirth, childLabel } from "@/lib/store";
 import { TRAVEL_LIMITS } from "@/lib/location";
@@ -20,16 +20,10 @@ import { CreatorAvatar } from "@/components/social/Avatar";
 
 const AVATARS = ["🦁", "🦄", "🐻", "🐰", "🦊", "🐼", "🐯", "🐸"];
 const AVATAR_BG = ["#FFE4F1", "#EEE5FE", "#E2EEFF", "#E4F4DD", "#FFF3D6", "#FFE3D4"];
-const CITIES = [
-  { id: "Москва", soon: false },
-  { id: "Санкт-Петербург", soon: true },
-  { id: "Казань", soon: true },
-];
 
 export function ProfileScreen() {
   const s = useFamily();
   const [editing, setEditing] = useState<Child | null>(null);
-  const [cityOpen, setCityOpen] = useState(false);
   const [locOpen, setLocOpen] = useState(false);
   const mine = useMyCollections();
   const socialReady = useSocial((x) => x.hydrated);
@@ -128,11 +122,7 @@ export function ProfileScreen() {
             value={!s.hydrated || s.origin.source === "default" ? "Вся Москва" : s.origin.source === "home" ? "Дом" : s.origin.label}
             onClick={() => setLocOpen(true)}
           />
-          <Row id="city" icon={<MapPin size={20} className="text-red-ink" />} label="Город" value={s.city} onClick={() => setCityOpen(true)} />
           <Row href="/onboarding" icon={<Sparkles size={20} className="text-purple-ink" />} label="Пройти знакомство заново" />
-          {s.hydrated && !s.children.length && (
-            <Row icon={<Users size={20} className="text-green-ink" />} label="Показать на примере семьи" value="Миша и Аня" onClick={() => s.loadDemoFamily()} />
-          )}
           <Row icon={<Smartphone size={20} className="text-blue-ink" />} label="Перенести на другое устройство" onClick={() => useSocialUi.getState().openTransfer()} />
         </div>
         <p className="mt-4 text-center text-[13px] text-muted">Kids Go · данные детей хранятся только на этом устройстве</p>
@@ -140,24 +130,6 @@ export function ProfileScreen() {
 
       <ChildEditor child={editing} onClose={() => setEditing(null)} />
       <LocationSheet open={locOpen} onClose={() => setLocOpen(false)} />
-      <BottomSheet open={cityOpen} onClose={() => setCityOpen(false)} title="Ваш город">
-        <div className="space-y-2 pb-2">
-          {CITIES.map((c) => (
-            <button
-              key={c.id}
-              disabled={c.soon}
-              onClick={() => {
-                s.setPrefs({ city: c.id });
-                setCityOpen(false);
-              }}
-              className={cn("press flex h-14 w-full items-center justify-between rounded-[20px] px-4 text-[16px] font-semibold", s.city === c.id ? "bg-pink-50 text-pink-ink" : "bg-fill", c.soon && "opacity-50")}
-            >
-              {c.id}
-              {c.soon ? <span className="text-[13px] font-medium text-muted">скоро</span> : s.city === c.id && <Check size={20} />}
-            </button>
-          ))}
-        </div>
-      </BottomSheet>
     </main>
   );
 }

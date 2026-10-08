@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { CreatorScreen } from "@/components/social/CreatorScreen";
 import { SEED_CREATORS } from "@/lib/social/seed";
 import { seedCollectionsOf, seedCreatorByHandle, coverOf, placesOf } from "@/lib/social/catalog";
+import { ogImageUrl } from "@/lib/image-loader";
 
 /** Публичная страница автора: /@username. Страницы демо-авторов предгенерированы (статический экспорт). */
 type HandlePageProps = { params: Promise<{ handle: string }> };
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }: HandlePageProps): Promise<Met
       title: `${creator.display_name} · Kids Go`,
       description: `Автор подборок · @${creator.username}`,
       type: "profile",
-      ...(photo?.src ? { images: [{ url: `${photo.src}?w=1200&h=630&fit=crop&q=75`, width: 1200, height: 630, alt: photo.alt }] } : {}),
+      ...(photo?.src ? { images: [{ url: ogImageUrl(photo.src), width: 1200, height: 630, alt: photo.alt }] } : {}),
     },
   };
 }

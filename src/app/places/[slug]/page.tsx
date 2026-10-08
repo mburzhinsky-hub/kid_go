@@ -21,6 +21,7 @@ import { AroundLink } from "@/components/place/AroundLink";
 import { isOutside } from "@/lib/outside";
 import { categoryDef, placeTypeName } from "@/lib/catalog";
 import { formatAgeRange, formatPrice } from "@/lib/format";
+import { ogImageUrl } from "@/lib/image-loader";
 
 type PlacePageProps = { params: Promise<{ slug: string }> };
 
@@ -41,7 +42,7 @@ export async function generateMetadata({ params }: PlacePageProps): Promise<Meta
     openGraph: {
       title: `${place.title} · Kids Go`,
       description,
-      images: [{ url: `${place.photos[0].src}?w=1200&h=630&fit=crop&q=75`, width: 1200, height: 630, alt: place.photos[0].alt }],
+      images: [{ url: ogImageUrl(place.photos[0].src), width: 1200, height: 630, alt: place.photos[0].alt }],
     },
   };
 }
@@ -148,7 +149,7 @@ export default async function PlacePage({ params }: PlacePageProps) {
 
         {placeEvents.length > 0 && (
           <section className="mt-8">
-            <h2 className="tight text-[22px] font-[800]">Скоро здесь</h2>
+            <h2 className="tight text-[22px] font-[800]">Ближайшие события</h2>
             <ul className="mt-3 space-y-2">
               {placeEvents.map((e) => (
                 <li key={e.id} className="flex items-center gap-3 rounded-[20px] bg-yellow-50 p-3">
@@ -189,11 +190,11 @@ export default async function PlacePage({ params }: PlacePageProps) {
             </div>
           ) : (
             <p className="mt-3 rounded-[20px] bg-surface p-3.5 text-[14px] leading-snug text-muted shadow-card">
-              {isOutside(place) ? "Рядом нет мест из нашей базы — возьмите перекус с собой или соберите день целиком: мы подберём дорогу и порядок." : "Рядом пока нет подходящих продолжений — соберите день целиком."}
+              {isOutside(place) ? "Рядом мы пока ничего не советуем — возьмите перекус с собой или соберите день целиком: подберём дорогу и порядок." : "Рядом пока нет подходящих продолжений — соберите день целиком."}
             </p>
           )}
           {groups.length > 0 && isOutside(place) && !groups.some((g) => g.id === "eat") && (
-            <p className="mt-2 px-1 text-[13px] leading-snug text-muted">🥪 Кафе рядом из нашей базы нет — возьмите перекус с собой.</p>
+            <p className="mt-2 px-1 text-[13px] leading-snug text-muted">🥪 Кафе рядом мы пока не знаем — возьмите перекус с собой.</p>
           )}
           <AroundLink slug={place.slug} from="place" className="mt-3.5" />
         </section>

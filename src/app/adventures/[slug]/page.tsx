@@ -5,6 +5,7 @@ import { AdventureView } from "@/components/adventure/AdventureView";
 import { AdventureCard } from "@/components/cards/AdventureCard";
 import { adventureCardData } from "@/lib/cards";
 import { formatAgeRange, formatDuration, formatBudget } from "@/lib/format";
+import { ogImageUrl } from "@/lib/image-loader";
 
 type AdventurePageProps = { params: Promise<{ slug: string }> };
 
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: AdventurePageProps): Promise<
     openGraph: {
       title: `${a.emoji} ${a.title} · Kids Go`,
       description,
-      images: [{ url: `${a.cover_image.src}?w=1200&h=630&fit=crop&q=75`, width: 1200, height: 630, alt: a.cover_image.alt }],
+      images: [{ url: ogImageUrl(a.cover_image.src), width: 1200, height: 630, alt: a.cover_image.alt }],
     },
   };
 }

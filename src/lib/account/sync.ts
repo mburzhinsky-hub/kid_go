@@ -11,7 +11,7 @@ import { useFamily } from "@/lib/store";
 import { useSocial } from "@/lib/social/store";
 import { setUserId } from "@/lib/social/identity";
 import type { Collection, ResolvedCollection } from "@/lib/social/types";
-import { api, ApiError, type ApiAuthor } from "./api";
+import { api, ApiError, GENERIC_ERROR, type ApiAuthor } from "./api";
 import { useAccount } from "./store";
 import { DOCS, fingerprint, type DocSpec } from "./docs";
 
@@ -322,7 +322,7 @@ export function runOutbox(): Promise<void> {
         }
         // сервер отклонил содержимое (лимит, пустая публикация…): сообщаем и не зацикливаемся
         done();
-        onProblem(e instanceof ApiError ? e.message : "Не удалось сохранить подборку на сервере");
+        onProblem(e instanceof ApiError && e.message !== GENERIC_ERROR ? e.message : "Не получилось сохранить подборку. Попробуйте ещё раз.");
       }
     }
   });

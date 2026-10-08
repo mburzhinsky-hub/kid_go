@@ -13,6 +13,7 @@ import { placeInviteText, placeUrl, siteOrigin } from "@/lib/social/share";
 import { useSocialUi } from "@/lib/social/ui-store";
 import { useWantCount } from "@/lib/social/proof";
 import type { IntentFeedback } from "@/lib/social/types";
+import { plural } from "@/lib/format";
 
 /**
  * После «Хочу сюда»: понятное подтверждение без модальных окон.
@@ -119,7 +120,7 @@ export function InviteFriends({ place, className, always, short }: { place: Plac
 export function WantProof({ slug, className }: { slug: string; className?: string }) {
   const n = useWantCount(slug);
   if (!n) return null;
-  return <p className={cn("text-[14px] font-medium text-muted", className)}>👨‍👩‍👧 {n.toLocaleString("ru-RU")} {n % 10 === 1 && n % 100 !== 11 ? "семья хочет" : "семей хотят"} сюда</p>;
+  return <p className={cn("text-[14px] font-medium text-muted", className)}>👨‍👩‍👧 {n.toLocaleString("ru-RU")} {plural(n, "семья хочет", "семьи хотят", "семей хотят")} сюда</p>;
 }
 
 const FEEDBACK: { id: IntentFeedback; label: string; Icon: typeof ThumbsUp }[] = [

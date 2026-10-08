@@ -5,6 +5,7 @@ import { SEED_CREATORS } from "@/lib/social/seed";
 import { seedCollection, seedCollectionsOf, coverOf, placesOf, placesWord } from "@/lib/social/catalog";
 import { formatAgeRange } from "@/lib/format";
 import { placeHref } from "@/lib/place-href";
+import { ogImageUrl } from "@/lib/image-loader";
 
 /** Публичная страница подборки: /@username/slug. Публичные подборки индексируются, «по ссылке» — нет. */
 type CollectionPageProps = { params: Promise<{ handle: string; slug: string }> };
@@ -43,7 +44,7 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
       type: "article",
       title: `${r.collection.title} — ${r.author.name}`,
       description,
-      ...(photo.src ? { images: [{ url: `${photo.src}?w=1200&h=630&fit=crop&q=75`, width: 1200, height: 630, alt: photo.alt }] } : {}),
+      ...(photo.src ? { images: [{ url: ogImageUrl(photo.src), width: 1200, height: 630, alt: photo.alt }] } : {}),
     },
     twitter: { card: "summary_large_image", title: r.collection.title, description },
   };

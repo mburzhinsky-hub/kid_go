@@ -38,7 +38,7 @@ export function PlaceCTA({ slug, title }: { slug: string; title: string; lat?: n
       <WantButton slug={slug} size="lg" className="min-w-0 flex-1" />
       {inDay ? (
         <Link href="/day" aria-label={`Наш день: ${title}`} className="press inline-flex h-14 shrink-0 items-center gap-2 rounded-full bg-surface px-4 text-[16px] font-bold text-green-ink shadow-card">
-          <CalendarCheck size={24} /> В дне <ChevronRight size={16} className="-ml-1 text-muted-2" />
+          <CalendarCheck size={24} /> В нашем дне <ChevronRight size={16} className="-ml-1 text-muted-2" />
         </Link>
       ) : (
         <button

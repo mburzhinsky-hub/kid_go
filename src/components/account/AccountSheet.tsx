@@ -20,7 +20,7 @@ function explain(e: unknown): string {
   if (e instanceof ApiError) {
     if (e.offline) return e.message;
     if (e.status === 429) return e.retryAfter ? `Слишком много попыток. Подождите ${Math.max(1, Math.ceil(e.retryAfter / 60))} мин и повторите.` : "Слишком много попыток. Попробуйте позже.";
-    if (e.status === 404 || e.status >= 500) return "Сервер кабинетов сейчас недоступен. Попробуйте чуть позже.";
+    if (e.status === 404 || e.status >= 500) return "Сейчас не получается. Попробуйте чуть позже.";
     return e.message;
   }
   return "Что-то пошло не так. Попробуйте ещё раз.";
@@ -197,7 +197,7 @@ export function AccountSheet() {
             <label className="mt-4 flex items-start gap-3 text-[14px] leading-snug text-ink-2">
               <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 h-5 w-5 shrink-0 accent-[#ff2e88]" />
               <span>
-                Я согласен(на) с{" "}
+                Соглашаюсь с{" "}
                 <Link href="/rules/" target="_blank" className="font-semibold text-pink-ink underline">
                   правилами сообщества
                 </Link>{" "}

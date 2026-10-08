@@ -159,7 +159,7 @@ export function HomeWeather() {
         <span className="block text-[15px] font-bold leading-tight">{title}</span>
         <span className="block text-[13px] leading-tight text-ink-2">{text}</span>
         <span className="mt-0.5 block text-[12px] leading-tight text-muted">
-          {forecast.source === "open-meteo" ? `Прогноз Open-Meteo · ${origin.source === "default" ? "Москва" : origin.label}` : forecast.scenario ? `Тестовая погода: ${forecast.scenario}` : "Нет связи с прогнозом — примерная погода"}
+          {forecast.source === "open-meteo" || forecast.scenario ? `Прогноз на сегодня · ${origin.source === "default" ? "Москва" : origin.label}` : "Примерная погода на сегодня"}
         </span>
       </span>
       <ArrowRight size={20} className="shrink-0 text-ink-2" />

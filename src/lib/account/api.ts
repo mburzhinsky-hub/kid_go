@@ -24,6 +24,18 @@ export class ApiError extends Error {
   }
 }
 
+export const GENERIC_ERROR = "Не получилось. Попробуйте ещё раз.";
+
+/**
+ * Сообщение сервера показываем человеку, только если оно написано для людей («Неверный ник или пароль», «Этот ник занят»).
+ * Служебные пояснения о полях запроса (латиница, JSON, имена полей) заменяем общим текстом.
+ */
+export function humanMessage(msg: string | undefined): string | undefined {
+  if (!msg) return undefined;
+  if (/[A-Za-z_{}\[\]]/.test(msg) || /курсор|тело запроса|документ|идентификатор|Метод/i.test(msg)) return undefined;
+  return msg;
+}
+
 export function getToken(): string | undefined {
   try {
     return localStorage.getItem(TOKEN_KEY) || undefined;
@@ -50,7 +62,7 @@ export async function api<T = unknown>(method: "GET" | "POST" | "PUT" | "PATCH" 
   try {
     res = await fetch(`${API}${path}`, { method, headers, body: body === undefined ? undefined : JSON.stringify(body), credentials: "same-origin", cache: "no-store" });
   } catch {
-    throw new ApiError(0, "offline", "Нет связи с сервером. Проверьте интернет и попробуйте ещё раз.");
+    throw new ApiError(0, "offline", "Нет интернета. Проверьте связь и попробуйте ещё раз.");
   }
   if (res.status === 204) return undefined as T;
   let data: unknown = null;
@@ -65,7 +77,7 @@ export async function api<T = unknown>(method: "GET" | "POST" | "PUT" | "PATCH" 
   if (!res.ok) {
     const e = (data as { error?: { code?: string; message?: string } } | null)?.error;
     const ra = Number(res.headers.get("Retry-After")) || undefined;
-    throw new ApiError(res.status, e?.code ?? "http_" + res.status, e?.message ?? (res.status === 404 ? "Сервер кабинетов пока недоступен." : "Что-то пошло не так. Попробуйте ещё раз."), data, ra);
+    throw new ApiError(res.status, e?.code ?? "http_" + res.status, (res.status < 500 && humanMessage(e?.message)) || (res.status === 404 || res.status >= 500 ? "Сейчас не получается. Попробуйте чуть позже." : GENERIC_ERROR), data, ra);
   }
   return data as T;
 }

@@ -21,3 +21,12 @@ export default function imageLoader({ src, width, quality }: { src: string; widt
   }
   return src;
 }
+
+/** Картинка для превью ссылки (1200×630): своя JPEG-копия, если фото хранятся на сайте, иначе оригинал. */
+export function ogImageUrl(src: string): string {
+  if (LOCAL && src.startsWith("https://images.unsplash.com/")) {
+    const id = src.slice("https://images.unsplash.com/".length).split("?")[0];
+    return `${BASE}/photos/${id}-og.jpg`;
+  }
+  return `${src}?w=1200&h=630&fit=crop&q=75`;
+}

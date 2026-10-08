@@ -270,7 +270,7 @@ export async function createBaseMap(opts: BaseMapOptions): Promise<BaseMapResult
   }
 
   // 2) остальные — по приоритету из ответивших
-  opts.onStatus?.("Ищем доступный сервер карты…");
+  opts.onStatus?.("Загружаем карту…");
   for (;;) {
     if (cancelled()) return null;
     const left = PROVIDERS.map((p, i) => ({ p, i })).filter(({ p, i }) => !tried.includes(p.id) && results[i] !== false);

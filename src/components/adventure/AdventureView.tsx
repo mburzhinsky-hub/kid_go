@@ -196,7 +196,7 @@ function AdventureViewInner(props: AdventureViewProps) {
           <div className="mt-4 rounded-[24px] bg-blue-50 p-3.5 animate-rise" role="status">
             <p className="flex items-start gap-2 text-[15px] font-semibold leading-snug text-blue-ink">
               <CloudRain size={20} className="mt-0.5 shrink-0" />
-              <span>В {badStop.start} в {quote(badStop.place.title)} по прогнозу {badStop.weather?.condition === "snow" ? "снег" : "дождь"} ({badStop.weather?.pop}%).
+              <span>В {badStop.start} в {quote(badStop.place.title)} по прогнозу {badStop.weather?.condition === "snow" ? "снег" : "дождь"} (вероятность {badStop.weather?.pop}%).
                 {backup ? ` Рядом есть крытое — ${quote(backup.title)}.` : " Можно сдвинуть начало или заменить шаг."}
               </span>
             </p>

@@ -105,7 +105,7 @@ function StopRow({
                   title={`Вероятность осадков ${w.pop}%`}
                 >
                   {wxIcon} {w.temp > 0 ? "+" : ""}
-                  {w.temp}°{p.indoor && !p.outdoor ? " · под крышей" : w.bad ? ` · ${w.pop}%` : ""}
+                  {w.temp}°{p.indoor && !p.outdoor ? " · под крышей" : w.bad ? ` · ${w.condition === "snow" ? "снег" : "дождь"} ${w.pop}%` : ""}
                 </span>
               )}
             </p>
