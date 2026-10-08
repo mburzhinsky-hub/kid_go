@@ -12,25 +12,29 @@ import { warmEvents } from "@/lib/social/events";
 import { initInstallCapture } from "@/lib/social/app";
 import { registerTouch } from "@/lib/social/attribution";
 import { initAccount } from "@/lib/account";
+import { hideSplash, ONBOARDING_SHOWN_KEY } from "@/lib/first-visit";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [offline, setOffline] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   useNavTracker();
+  const hydrated = useFamily((s) => s.hydrated);
   const needsOnboarding = useFamily((s) => s.hydrated && !s.onboarded && s.children.length === 0);
 
   // первый запуск (в том числе с экрана «Домой»): знакомимся, а не показываем чужую семью
   useEffect(() => {
+    // заставка первого захода (src/lib/first-visit.ts) держится, пока знакомство не открылось, — убираем её, когда ушли с главной или знакомство не нужно
+    if (pathname !== "/" || (hydrated && !needsOnboarding)) hideSplash();
     if (!needsOnboarding || pathname !== "/") return;
     try {
-      if (sessionStorage.getItem("kidgo-onb-shown")) return;
-      sessionStorage.setItem("kidgo-onb-shown", "1");
+      if (sessionStorage.getItem(ONBOARDING_SHOWN_KEY)) return;
+      sessionStorage.setItem(ONBOARDING_SHOWN_KEY, "1");
     } catch {
       /* noop */
     }
     router.replace("/onboarding");
-  }, [needsOnboarding, pathname, router]);
+  }, [hydrated, needsOnboarding, pathname, router]);
 
   // метки ссылки (utm_*, cr, col) запоминаем на любой странице входа, кроме страниц автора и подборки: они записывают касание сами
   useEffect(() => {
@@ -41,6 +45,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // приложение запустилось: сторож загрузки (src/lib/boot-watchdog.ts) больше не нужен
     (window as unknown as { __kgReady?: () => void }).__kgReady?.();
+    // запасной выход: что бы ни случилось, заставка не должна висеть дольше нескольких секунд
+    const splashTimer = window.setTimeout(hideSplash, 6000);
     rehydrateFamily();
     rehydrateSocial();
     warmEvents();
@@ -54,6 +60,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       navigator.serviceWorker.register(`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/sw.js`).catch(() => {});
     }
     return () => {
+      window.clearTimeout(splashTimer);
       window.removeEventListener("online", update);
       window.removeEventListener("offline", update);
     };

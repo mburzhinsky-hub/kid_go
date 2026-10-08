@@ -146,6 +146,19 @@
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 
+/* Заставка первого захода: пока включена метка html[data-first] (src/lib/first-visit.ts), закрывает экран; без метки — плавно гаснет.
+   z-index ниже сторожа загрузки, чтобы при зависании его экран был сверху. */
+#kg-splash {
+  position: fixed; inset: 0; z-index: 100000; display: grid; place-items: center;
+  background: #fbfaf7;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.32s ease, visibility 0s linear 0.32s;
+}
+html[data-first] #kg-splash { opacity: 1; visibility: visible; pointer-events: auto; transition: none; }
+/* логотип уходит быстрее фона: иначе на пол-секунды он повис бы поверх заголовка знакомства */
+.kg-splash-mark { transition: opacity 0.14s ease, transform 0.3s ease; }
+html:not([data-first]) .kg-splash-mark { opacity: 0; transform: scale(0.92); }
+
 /* iOS приближает страницу и «уносит» её вправо, когда фокус попадает в поле со шрифтом меньше 16px.
    Без @layer, чтобы перебить утилиты Tailwind вроде text-[14px] на самих полях. */
 @media (pointer: coarse) {
