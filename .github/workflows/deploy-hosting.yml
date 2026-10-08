@@ -91,7 +91,6 @@ jobs:
           set net:timeout 30
           set cmd:fail-exit yes
           mirror -R --delete --parallel=4 --exclude '^api/' --exclude '^\.well-known/' --exclude '^cgi-bin/' out/ /
-          mkdir -p /api
           mirror -R --delete --parallel=2 --exclude '^config\.php$' --exclude '^uploads/' --exclude '^tests/' --exclude '^README\.md$' --exclude '^config\.example\.php$' api/ /api/
           put -O /api build-api/config.php
           CMD
