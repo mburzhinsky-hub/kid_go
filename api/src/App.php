@@ -5,6 +5,8 @@ namespace Kg;
 
 use Kg\Controllers\AdminController;
 use Kg\Controllers\AuthController;
+use Kg\Controllers\CollectionsController;
+use Kg\Controllers\DocsController;
 use Kg\Controllers\HealthController;
 
 final class App
@@ -27,7 +29,19 @@ final class App
         $r->add('DELETE', '/me', [$auth, 'deleteMe']);
         $r->add('GET', '/me/sessions', [$auth, 'sessions']);
         $r->add('POST', '/me/password', [$auth, 'changePassword']);
-        // Этапы 2+: аккаунты, подборки, «хочу сюда», жалобы — подключаются здесь
+        // Облачная копия локального состояния: документы intents, trips, plans, saves, follows, prefs
+        $docs = new DocsController();
+        $r->add('GET', '/me/docs', [$docs, 'index']);
+        $r->add('PUT', '/me/docs/:name', [$docs, 'put']);
+        // Подборки и страницы авторов
+        $col = new CollectionsController();
+        $r->add('GET', '/collections', [$col, 'index']);
+        $r->add('POST', '/collections', [$col, 'create']);
+        $r->add('GET', '/collections/:id', [$col, 'show']);
+        $r->add('PUT', '/collections/:id', [$col, 'update']);
+        $r->add('DELETE', '/collections/:id', [$col, 'delete']);
+        $r->add('GET', '/authors/:handle', [$col, 'authorPage']);
+        // Дальше: жалобы, статистика, модерация — подключаются здесь
         return $r;
     }
 }
