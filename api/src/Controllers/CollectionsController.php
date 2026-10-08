@@ -8,6 +8,7 @@ use Kg\Auth;
 use Kg\Db;
 use Kg\Handles;
 use Kg\Ids;
+use Kg\Moderation;
 use Kg\Places;
 use Kg\RateLimit;
 use Kg\Request;
@@ -94,6 +95,31 @@ final class CollectionsController
         // Ответ зависит от того, кто смотрит (поле mine), поэтому общий кэш — только для чужого просмотра
         $headers = $mine ? ['Cache-Control' => 'no-store'] : ['Cache-Control' => 'public, max-age=60', 'Vary' => 'Authorization, Cookie'];
         return Response::json(['collection' => $this->collection($row), 'author' => $this->authorJson($row, 'a_'), 'mine' => $mine], 200, $headers);
+    }
+
+    /**
+     * POST /collections/:id/report {reason, note?} — жалоба на чужую подборку (вход не нужен). Пожаловаться можно только на то,
+     * что человек сам видит по ссылке: скрытая, приватная и несуществующая подборки одинаково дают 404.
+     * Повторная жалоба того же человека принимается без повторного учёта.
+     */
+    public function report(Request $req, array $params): Response
+    {
+        $db = Db::pdo();
+        $me = Auth::user($db, $req);
+        $id = (string) ($params['id'] ?? '');
+        $row = preg_match(self::ID_RE, $id) ? $this->fetchWithAuthor($db, $id) : null;
+        if ($row !== null && $me !== null && $row['user_id'] === $me['id']) {
+            throw ApiException::forbidden('Нельзя пожаловаться на свою подборку');
+        }
+        $visible = $row !== null && in_array($row['visibility'], ['UNLISTED', 'PUBLIC'], true)
+            && $row['status'] === 'PUBLISHED' && $row['a_status'] === 'ACTIVE';
+        if (!$visible) throw ApiException::notFound('Подборка не найдена');
+        $b = $req->json();
+        $reason = is_string($b['reason'] ?? null) ? $b['reason'] : '';
+        if (!in_array($reason, Moderation::REASONS, true)) throw ApiException::unprocessable('Выберите причину жалобы', 'bad_reason');
+        $note = $this->text($b['note'] ?? null, Moderation::MAX_NOTE, 'Комментарий', 'bad_note');
+        Moderation::report($db, $id, $me, $req->ip, $reason, $note);
+        return Response::json(['ok' => true]);
     }
 
     /** GET /authors/:handle — публичный профиль и публичные подборки автора (ник без учёта регистра, можно с @). */

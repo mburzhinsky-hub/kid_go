@@ -15,8 +15,11 @@ ErrorDocument 404 /404.html
   ExpiresByType font/woff2 "access plus 1 year"
 </IfModule>
 
-# Короткая ссылка на подборку /c/<код>/: отдаём оболочку страницы с превью (название, описание, картинка) для мессенджеров
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # Один адрес сайта: www.kids-go.fun → kids-go.fun (путь и параметры сохраняются). Правило стоит первым, чтобы сработать до остальных.
+  RewriteCond %{HTTP_HOST} ^www\.kids-go\.fun$ [NC]
+  RewriteRule ^(.*)$ https://kids-go.fun/$1 [R=301,L]
+  # Короткая ссылка на подборку /c/<код>/: отдаём оболочку страницы с превью (название, описание, картинка) для мессенджеров
   RewriteRule ^c/([a-z0-9]{10})/?$ api/page.php?id=$1 [L,QSA]
 </IfModule>

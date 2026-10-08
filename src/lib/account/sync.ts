@@ -152,7 +152,8 @@ const payloadOf = (c: Collection) => ({
   age_min: c.age_min,
   age_max: c.age_max,
   items: [...c.items].sort((a, b) => a.position - b.position).map((i) => ({ place_id: i.place_id, creator_note: i.creator_note })),
-  publish: c.status === "PUBLISHED",
+  // скрытую модерацией подборку не трогаем: «publish: false» вернул бы её в черновик, когда модератор уже её вернул
+  ...(c.status === "HIDDEN" ? {} : { publish: c.status === "PUBLISHED" }),
 });
 
 /** Подборки, которыми владеет этот кабинет: созданные здесь, не «от имени автора» и не демо. */
@@ -220,6 +221,26 @@ export async function linkCollections(): Promise<void> {
     const mine = fresh.map(({ author: _a, ...c }) => ({ ...c, user_id: user.id }));
     // не отправленное (лимит и т. п.) остаётся на устройстве под новым владельцем
     return { collections: [...mine, ...rest.map((c) => (s.authors[c.id] ? c : { ...c, user_id: user.id }))] };
+  });
+}
+
+/**
+ * Модерация могла скрыть или вернуть подборку, пока устройство было закрыто: подтягиваем только эту разницу
+ * (остальное устройство и так знает лучше, у него могут быть неотправленные правки).
+ */
+export async function refreshModeration(): Promise<void> {
+  if (!loggedIn() || ownLocal().length === 0) return;
+  const { collections: remote } = await api<{ collections: ApiCollection[] }>("GET", "/collections?mine=1");
+  const status = new Map(remote.map((c) => [c.id, c.status]));
+  useSocial.setState((s) => {
+    let changed = false;
+    const collections = s.collections.map((c) => {
+      const server = status.get(c.id);
+      if (!server || s.authors[c.id] || (c.status === "HIDDEN") === (server === "HIDDEN")) return c;
+      changed = true;
+      return { ...c, status: server };
+    });
+    return changed ? { collections } : s;
   });
 }
 
@@ -317,8 +338,10 @@ async function syncNow(opts: { pull: boolean }) {
   await serial(async () => {
     useAccount.setState({ sync: "syncing" });
     try {
-      if (opts.pull) await pullAll();
-      else await flushDocs();
+      if (opts.pull) {
+        await pullAll();
+        await refreshModeration().catch(() => {}); // не критично: статус подтянется при следующем открытии
+      } else await flushDocs();
       useAccount.setState({ sync: "idle", lastSyncAt: Date.now(), expired: false });
     } catch (e) {
       if (e instanceof ApiError && e.status === 401) useAccount.setState({ sync: "idle", expired: true });

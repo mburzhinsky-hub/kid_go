@@ -18,6 +18,15 @@ final class App
         $admin = new AdminController();
         $r->add('GET', '/health', [$health, 'health']);
         $r->add('POST', '/admin/migrate', [$admin, 'migrate']);
+        // Модерация: очередь жалоб и действия (служебный токен)
+        $r->add('GET', '/admin/reports', [$admin, 'reports']);
+        $r->add('GET', '/admin/collections/:id', [$admin, 'collection']);
+        $r->add('POST', '/admin/collections/:id/hide', [$admin, 'hide']);
+        $r->add('POST', '/admin/collections/:id/restore', [$admin, 'restore']);
+        $r->add('POST', '/admin/collections/:id/dismiss', [$admin, 'dismiss']);
+        $r->add('GET', '/admin/authors/:handle', [$admin, 'author']);
+        $r->add('POST', '/admin/authors/:handle/suspend', [$admin, 'suspend']);
+        $r->add('POST', '/admin/authors/:handle/unsuspend', [$admin, 'unsuspend']);
         $auth = new AuthController();
         $r->add('GET', '/handles/check', [$auth, 'checkHandle']);
         $r->add('POST', '/accounts', [$auth, 'register']);
@@ -40,8 +49,9 @@ final class App
         $r->add('GET', '/collections/:id', [$col, 'show']);
         $r->add('PUT', '/collections/:id', [$col, 'update']);
         $r->add('DELETE', '/collections/:id', [$col, 'delete']);
+        $r->add('POST', '/collections/:id/report', [$col, 'report']);
         $r->add('GET', '/authors/:handle', [$col, 'authorPage']);
-        // Дальше: жалобы, статистика, модерация — подключаются здесь
+        // Дальше: статистика автора — подключается здесь
         return $r;
     }
 }

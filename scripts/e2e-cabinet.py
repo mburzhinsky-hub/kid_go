@@ -5,9 +5,13 @@
 Телефон A: создаёт кабинет → хотелка, «были», оценка → подборка → короткая ссылка.
 Чужой браузер B (без кабинета): открывает ссылку; после перевода подборки в «приватную» и удаления кабинета — не открывает.
 Телефон C: входит по нику и паролю и видит те же данные; выходит, и данные кабинета с устройства уходят.
+Жалобы и модерация (нужен E2E_ADMIN_TOKEN — служебный токен, SHA-256 которого задан серверу в KG_ADMIN_TOKEN_SHA256):
+друг жалуется кнопкой, ещё две жалобы с других устройств скрывают подборку, автор видит пояснение, модератор на /api/moderation.php
+возвращает подборку и блокирует/разблокирует автора.
 Всё это время в запросах к /api/ не должно быть ничего про детей и семью.
 """
 import json
+import os
 import re
 import sys
 from playwright.sync_api import sync_playwright
@@ -15,6 +19,7 @@ from playwright.sync_api import sync_playwright
 B = (sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8099").rstrip("/")
 UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
 NICK, PW = "mama_test", "Pa55-word-test"
+ADMIN = os.environ.get("E2E_ADMIN_TOKEN", "")
 fails, errors, api_bodies = [], [], []
 
 
@@ -57,6 +62,24 @@ def api(pg, method, path, body=None):
         }""",
         [method, path, body, token(pg)],
     )
+
+
+def admin(ctx, method, path, token=None):
+    r = ctx.request.fetch(
+        B + "/api/v1/admin" + path,
+        method=method,
+        headers={"Authorization": "Bearer " + (token or ADMIN), "Content-Type": "application/json", "X-Forwarded-For": "203.0.113.200"},
+        data="{}" if method != "GET" else None,
+    )
+    try:
+        return r.status, r.json()
+    except Exception:
+        return r.status, None
+
+
+def report(ctx, cid, reason, ip, note=None):
+    r = ctx.request.post(B + f"/api/v1/collections/{cid}/report", headers={"X-Forwarded-For": ip}, data={"reason": reason, **({"note": note} if note else {})})
+    return r.status
 
 
 with sync_playwright() as p:
@@ -174,6 +197,109 @@ with sync_playwright() as p:
     check("Дождливые выходные" not in Bp.inner_text("body"), "приватная подборка у друга больше не открывается")
     check(ctxB.request.get(B + f"/c/{cid}/").status == 404, "приватная подборка: сервер отвечает 404")
     api(A, "PUT", f"/collections/{cid}", {"visibility": "UNLISTED"})
+
+    # ───────── M: жалобы и модерация ─────────
+    if ADMIN:
+        print("M1. Друг жалуется кнопкой на странице подборки")
+        go(A, f"/c/{cid}/", 2500)
+        check(A.get_by_role("button", name="Пожаловаться на подборку").count() == 0, "у автора кнопки жалобы нет")
+        go(Bp, f"/c/{cid}/", 2500)
+        btn = Bp.get_by_role("button", name="Пожаловаться на подборку")
+        check(btn.count() == 1, "у друга есть кнопка «Пожаловаться на подборку»")
+        btn.click()
+        Bp.wait_for_timeout(500)
+        dlgR = Bp.get_by_role("dialog")
+        send = dlgR.get_by_role("button", name="Отправить жалобу")
+        check(send.is_disabled(), "«Отправить жалобу» выключена, пока не выбрана причина")
+        dlgR.get_by_role("radio", name=re.compile("Спам или реклама")).click()
+        note = dlgR.get_by_label(re.compile("Комментарий"))
+        note.fill("Реклама в описании")
+        check(note.evaluate("e => parseFloat(getComputedStyle(e).fontSize)") >= 16, "шрифт комментария ≥16px")
+        check(overflow(Bp) <= 0, f"шит жалобы без горизонтального скролла ({overflow(Bp)})")
+        check(send.is_enabled(), "причина выбрана — кнопка доступна")
+        send.click()
+        Bp.wait_for_timeout(1500)
+        check(dlgR.get_by_text("Мы получили жалобу").count() == 1, "после отправки — «Спасибо» и пояснение")
+        Bp.keyboard.press("Escape")
+        st, q = admin(ctxB, "GET", "/reports")
+        row = next((i for i in (q or {}).get("items", []) if i["collection"]["id"] == cid), None)
+        check(st == 200 and row is not None and row["reports"]["count"] == 1 and row["reports"]["reasons"] == {"spam": 1}, "жалоба дошла до очереди модератора")
+        check(row is not None and row["reports"]["notes"][0]["note"] == "Реклама в описании" and row["author"]["handle"] == NICK, "в очереди виден комментарий и автор")
+        check(report(ctxB, cid, "spam", "203.0.113.200") == 200, "жалоба от гостя другим способом принимается")
+
+        print("M2. Три жалобы от разных людей скрывают подборку")
+        check(report(ctxB, cid, "inappropriate", "203.0.113.11") == 200, "жалоба 3 принята")
+        mine = api(A, "GET", "/collections?mine=1")
+        cur = [c for c in mine["json"]["collections"] if c["id"] == cid]
+        check(len(cur) == 1 and cur[0]["status"] == "HIDDEN", "подборка скрыта автоматически")
+        go(Bp, f"/c/{cid}/", 2500)
+        check("Дождливые выходные" not in Bp.inner_text("body"), "друг больше не видит скрытую подборку")
+        check(ctxB.request.get(B + f"/c/{cid}/").status == 404, "превью скрытой подборки: сервер отвечает 404")
+        check(report(ctxB, cid, "spam", "203.0.113.12") == 404, "на скрытую подборку жаловаться уже нельзя")
+
+        print("M3. Автор видит, что подборку скрыли")
+        go(A, "/collections/", 3500)
+        check(A.get_by_text("Скрыта модерацией").count() >= 1, "в «Моих подборках» — пометка «Скрыта модерацией»")
+        go(A, f"/c/{cid}/", 3000)
+        check(A.get_by_text("Подборку скрыли").count() == 1, "на странице подборки автору объяснили, что она скрыта")
+        check("Дождливые выходные" in A.inner_text("body"), "автор по-прежнему видит свою подборку")
+
+        print("M4. Страница модератора")
+        ctxM, M = new_ctx(b)
+        console = []
+        M.on("console", lambda m: console.append(m.text) if m.type in ("error", "warning") else None)
+        go(M, "/api/moderation.php", 1200)
+        check("Модерация Kids Go" in M.inner_text("body"), "страница модератора открылась")
+        check("null" not in M.inner_text("body") and "[object" not in M.inner_text("body"), "на странице входа нет «null» и «[object …]»")
+        check(M.evaluate("document.querySelector('meta[name=robots]').content").startswith("noindex"), "страница закрыта от поисковиков")
+        M.get_by_placeholder("Служебный токен").fill("wrong-token-wrong-token")
+        M.get_by_role("button", name="Войти").click()
+        M.wait_for_timeout(1000)
+        check(M.get_by_text("Неверный токен").count() == 1, "неверный токен — понятная ошибка")
+        M.get_by_placeholder("Служебный токен").fill(ADMIN)
+        M.get_by_role("button", name="Войти").click()
+        M.wait_for_timeout(1500)
+        check(M.get_by_role("heading", name="Модерация", exact=True).count() == 1, "верный токен — открылась очередь")
+        check(M.get_by_text("Дождливые выходные").count() == 1 and M.get_by_text("Скрыта автоматически").count() == 1, "в очереди скрытая подборка с пометкой «Скрыта автоматически»")
+        check(M.get_by_text(re.compile("Жалоб: 3")).count() == 1, "видно число жалоб (3)")
+        check("null" not in M.inner_text("body") and "[object" not in M.inner_text("body"), "в очереди нет «null» и «[object …]»")
+        check(M.locator("li").count() == 3, "список мест подборки выведен (3 пункта)")
+        check(M.get_by_text("Реклама в описании").count() == 1, "виден комментарий жалобщика")
+        check(overflow(M) <= 0, f"страница модератора без горизонтального скролла ({overflow(M)})")
+        M.get_by_role("button", name="Вернуть").click()
+        M.wait_for_timeout(1500)
+        check(M.get_by_text("Опубликована").count() == 1 and M.get_by_text("проверена").count() == 1, "подборка возвращена и помечена «проверена»")
+        go(Bp, f"/c/{cid}/", 2500)
+        check("Дождливые выходные" in Bp.inner_text("body"), "друг снова видит подборку")
+        go(A, "/collections/", 3500)
+        check(A.get_by_text("Скрыта модерацией").count() == 0, "у автора пометка «Скрыта» пропала")
+
+        print("M5. Блокировка автора")
+        reg = ctxB.request.post(B + "/api/v1/accounts", headers={"X-Forwarded-For": "203.0.113.77"}, data={"handle": "mod_victim", "password": PW, "display_name": "Нарушитель", "avatar": "🦊", "tint": "#FFE4F1", "consent": True})
+        vt = reg.json()["token"]
+        vc = ctxB.request.post(B + "/api/v1/collections", headers={"Authorization": "Bearer " + vt, "X-Forwarded-For": "203.0.113.77"}, data={"title": "Подборка нарушителя", "visibility": "PUBLIC", "publish": True, "items": [{"place_id": "moskovsky-zoopark"}]})
+        vid = vc.json()["collection"]["id"]
+        check(ctxB.request.get(B + f"/api/v1/collections/{vid}").status == 200, "подборка нарушителя видна всем")
+        M.get_by_role("button", name="Найти", exact=True).first.click()
+        M.wait_for_timeout(500)
+        M.get_by_placeholder(re.compile("Ссылка на подборку")).fill(f"{B}/c/{vid}/")
+        M.get_by_role("button", name="Найти", exact=True).last.click()
+        M.wait_for_timeout(1200)
+        check(M.get_by_text("Подборка нарушителя").count() >= 1, "поиск по ссылке находит подборку")
+        M.once("dialog", lambda d: d.accept())
+        M.get_by_role("button", name="Заблокировать автора").click()
+        M.wait_for_timeout(1500)
+        check(M.get_by_text(re.compile("заблокирован")).count() >= 1, "автор помечен как заблокированный")
+        check(ctxB.request.get(B + f"/api/v1/collections/{vid}").status == 404, "подборки заблокированного автора не открываются")
+        check(ctxB.request.post(B + "/api/v1/sessions", headers={"X-Forwarded-For": "203.0.113.78"}, data={"handle": "mod_victim", "password": PW}).status == 401, "заблокированный не может войти")
+        M.get_by_role("button", name="Разблокировать автора").click()
+        M.wait_for_timeout(1500)
+        check(ctxB.request.get(B + f"/api/v1/collections/{vid}").status == 200, "после разблокировки подборка снова видна")
+        check(ctxB.request.post(B + "/api/v1/sessions", headers={"X-Forwarded-For": "203.0.113.79"}, data={"handle": "mod_victim", "password": PW}).status == 200, "после разблокировки автор входит")
+        check(not any("Content Security Policy" in t for t in console), "страница модератора не нарушает собственную политику безопасности (CSP)")
+        ctxM.close()
+    else:
+        print("M. Жалобы и модерация: пропущено (нет E2E_ADMIN_TOKEN)")
 
     # ───────── C: второй телефон ─────────
     print("C. Вход на втором телефоне")

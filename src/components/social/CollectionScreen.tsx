@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Heart, Share2, Map as MapIcon, ArrowRight, Umbrella, Sun, X, Smartphone, Lock, PencilLine } from "lucide-react";
+import { Heart, Share2, Map as MapIcon, ArrowRight, Umbrella, Sun, X, Smartphone, Lock, PencilLine, Flag, EyeOff } from "lucide-react";
 import type { ResolvedCollection } from "@/lib/social/types";
 import { coverOf, metaLine, placesOf, placesWord, settingLabel, type PlacedItem } from "@/lib/social/catalog";
 import { registerTouch } from "@/lib/social/attribution";
@@ -12,6 +12,8 @@ import { useSocial } from "@/lib/social/store";
 import { IntentSourceProvider } from "@/lib/social/intent-source";
 import { useSocialUi } from "@/lib/social/ui-store";
 import { useAppEnv } from "@/lib/social/app";
+import { ACCOUNTS_ENABLED } from "@/lib/account/api";
+import { CONTACT_EMAIL } from "@/components/legal/LegalPage";
 import { BackButton } from "@/components/ui/BackButton";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -25,6 +27,7 @@ import { CollectionCover } from "./CollectionCover";
 import { CreatorAvatar } from "./Avatar";
 import { WantButton, InviteFriends } from "./WantButton";
 import { useCollectionShare, useToggleSave } from "./CollectionCard";
+import { ReportSheet } from "./ReportSheet";
 
 /**
  * Публичная страница подборки. Работает без регистрации и без приложения: человек из Reels/Telegram/WhatsApp
@@ -40,7 +43,9 @@ export function CollectionScreen({ resolved, preview = false }: { resolved: Reso
   const r = useMemo<ResolvedCollection>(() => ({ ...resolved, collection: c }), [resolved, c]);
   const own = hydrated && (r.author.id === me?.id || r.author.id === getUserId());
 
-  if (c.status === "HIDDEN" || (creatorStatus === "SUSPENDED" && !own)) return <Gone kind="hidden" />;
+  // скрытую модерацией подборку видит только её автор (с пояснением); для остальных её нет
+  if (c.status === "HIDDEN" && !own) return hydrated ? <Gone kind="hidden" /> : <PageSkeleton />;
+  if (creatorStatus === "SUSPENDED" && !own) return <Gone kind="hidden" />;
   // черновики и закрытые подборки видит только автор
   if ((c.visibility === "PRIVATE" || c.status === "DRAFT") && !own && !preview) return hydrated ? <Gone kind="private" /> : <PageSkeleton />;
   return <CollectionBody r={r} own={own} preview={preview} />;
@@ -64,6 +69,7 @@ function CollectionBody({ r, own, preview }: { r: ResolvedCollection; own: boole
   const { saved, toggle } = useToggleSave(r);
   const env = useAppEnv();
   const [barClosed, setBarClosed] = useState(false);
+  const [reporting, setReporting] = useState(false);
   const showBar = !preview && !env.standalone && !barClosed;
   const ids = { creator_id: author.id, collection_id: c.id };
 
@@ -98,6 +104,8 @@ function CollectionBody({ r, own, preview }: { r: ResolvedCollection; own: boole
   const profileHref = author.hasPage ? `/@${author.username}/` : undefined;
   const canShare = c.visibility !== "PRIVATE" && c.status === "PUBLISHED";
   const setting = settingLabel(placed);
+  // пожаловаться можно на чужую подборку с сервера: у демо-авторов и локальных черновиков жалобы некому разбирать
+  const canReport = ACCOUNTS_ENABLED && !own && !preview && r.source !== "seed" && /^[a-z0-9]{10}$/.test(c.id) && c.visibility !== "PRIVATE" && c.status === "PUBLISHED";
 
   return (
     <IntentSourceProvider value={{ source_type: "COLLECTION", source_id: c.id, creator_id: author.id, collection_id: c.id }}>
@@ -129,6 +137,15 @@ function CollectionBody({ r, own, preview }: { r: ResolvedCollection; own: boole
           )}
         </header>
 
+        {own && c.status === "HIDDEN" && (
+          <p className="mx-4 mb-3 flex items-start gap-2 rounded-[16px] bg-yellow-50 px-3.5 py-2.5 text-[14px] leading-snug text-yellow-ink">
+            <EyeOff size={16} className="mt-0.5 shrink-0" />
+            <span>
+              Подборку скрыли: на неё пожаловались или она не прошла проверку. Другие люди её не видят. Мы проверим и вернём её, если нарушений нет. Вопросы — на{" "}
+              <a className="font-semibold underline" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+            </span>
+          </p>
+        )}
         {own && c.visibility === "PRIVATE" && (
           <p className="mx-4 mb-3 flex items-center gap-2 rounded-[16px] bg-fill px-3.5 py-2.5 text-[14px] text-ink-2">
             <Lock size={16} /> Приватная подборка — видите только вы
@@ -204,6 +221,15 @@ function CollectionBody({ r, own, preview }: { r: ResolvedCollection; own: boole
             </p>
           )}
         </section>
+
+        {canReport && (
+          <div className="mt-6 px-4 text-center">
+            <button onClick={() => setReporting(true)} className="press hit relative inline-flex h-10 items-center gap-1.5 rounded-full px-3 text-[14px] font-semibold text-muted">
+              <Flag size={16} /> Пожаловаться на подборку
+            </button>
+          </div>
+        )}
+        {canReport && <ReportSheet collectionId={c.id} open={reporting} onClose={() => setReporting(false)} />}
 
         {/* «Создайте свою» */}
         {!preview && (
