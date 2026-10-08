@@ -4,6 +4,7 @@ import "@fontsource-variable/inter/index.css";
 import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
 import { BottomNavigation } from "@/components/layout/BottomNavigation";
+import { BOOT_WATCHDOG } from "@/lib/boot-watchdog";
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kids-go.fun";
@@ -38,6 +39,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru">
       <body>
+        {/* сторож загрузки: если приложение не запустилось за 12 секунд, показывает причину вместо белого экрана */}
+        <script dangerouslySetInnerHTML={{ __html: BOOT_WATCHDOG }} />
         <Providers>
           <DesktopBackdrop />
           <div className="relative mx-auto min-h-dvh w-full max-w-[480px] bg-bg sm:shadow-[0_0_0_1px_rgba(17,18,26,0.04),0_30px_80px_rgba(17,18,26,0.08)]">
