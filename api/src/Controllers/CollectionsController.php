@@ -137,7 +137,9 @@ final class CollectionsController
         if ($publish && !$f['items']) throw $this->emptyPublish();
 
         $now = gmdate('Y-m-d H:i:s');
-        $id = $this->insert($db, $u['id'], $f, $publish, $now);
+        // Приложение может задать id заранее (случайные 10 символов): так подборка, созданная до входа, переезжает на сервер под тем же адресом
+        $wantId = isset($b['id']) && is_string($b['id']) && preg_match(self::ID_RE, $b['id']) ? $b['id'] : null;
+        $id = $this->insert($db, $u['id'], $f, $publish, $now, $wantId);
         RateLimit::hit($db, $bucket, 1000, 86400);
         $row = $this->fetchWithAuthor($db, $id) ?? throw new \RuntimeException('Созданная подборка не найдена');
         return Response::json(['collection' => $this->collection($row), 'author' => $this->authorJson($row, 'a_')], 201);
@@ -219,7 +221,7 @@ final class CollectionsController
      * Вставка под блокировкой строки пользователя: два одновременных запроса не обойдут лимит 50 и не займут один адрес.
      * @param array<string,mixed> $f
      */
-    private function insert(PDO $db, string $uid, array $f, bool $publish, string $now): string
+    private function insert(PDO $db, string $uid, array $f, bool $publish, string $now, ?string $wantId = null): string
     {
         $db->beginTransaction();
         try {
@@ -236,7 +238,7 @@ final class CollectionsController
             $ins = $db->prepare('INSERT INTO collections (id, user_id, title, slug, description, cover_kind, cover_slug, city, visibility, status,
                                  age_min, age_max, items, created_at, updated_at, published_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
             for ($try = 0;; $try++) {
-                $id = Ids::random(10);
+                $id = $wantId ?? Ids::random(10);
                 try {
                     $ins->execute([
                         $id, $uid, $f['title'], $slug, $f['description'], $coverKind, $coverSlug, $f['city'], $f['visibility'],
@@ -244,6 +246,7 @@ final class CollectionsController
                     ]);
                     break;
                 } catch (PDOException $e) {
+                    if ($e->getCode() === '23000' && $wantId !== null) throw ApiException::conflict('Этот идентификатор уже занят', 'id_taken');
                     if ($e->getCode() !== '23000' || $try >= 4) throw $e; // редкое совпадение случайного id — пробуем другой
                 }
             }

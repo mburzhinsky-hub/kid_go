@@ -170,11 +170,11 @@ $note = 'Нужен "самокат" 🛴 \\ / <b>x</b>';
         ['place_id' => 'park-gorkogo'],
         ['place_id' => 'moskovsky-zoopark', 'creator_note' => 'повтор'],
     ],
-    'status' => 'PUBLISHED', 'user_id' => 'uhacker00001', 'id' => 'hackhackha', 'slug' => 'hack', 'published_at' => '2020-01-01 00:00:00',
+    'status' => 'PUBLISHED', 'user_id' => 'uhacker00001', 'id' => 'HACK-hack', 'slug' => 'hack', 'published_at' => '2020-01-01 00:00:00',
 ]);
 $c = $j['collection'] ?? [];
 $cid = $c['id'] ?? '';
-check('создание → 201, id из 10 символов [a-z0-9]', $s === 201 && preg_match('/^[a-z0-9]{10}$/', $cid) === 1 && $cid !== 'hackhackha', kg_dbg($j));
+check('создание → 201, id из 10 символов [a-z0-9]', $s === 201 && preg_match('/^[a-z0-9]{10}$/', $cid) === 1 && $cid !== 'HACK-hack', kg_dbg($j));
 check('ответ — ровно та форма, что у клиентского типа Collection (без published_at у черновика)',
     array_keys($c) === ['id', 'user_id', 'title', 'slug', 'description', 'cover', 'city', 'visibility', 'status', 'age_min', 'age_max', 'created_at', 'updated_at', 'items'], kg_dbg(array_keys($c)));
 check('значения по умолчанию: PRIVATE, DRAFT, collage, Москва, 0–12; чужие поля из тела игнорируются',
@@ -189,6 +189,14 @@ check('пункты: повтор места убран, порядок и posit
     && $it[1]['id'] === "$cid-2" && $it[1]['place_id'] === 'park-gorkogo' && $it[1]['position'] === 1, kg_dbg($it));
 check('заметка: кавычки, эмодзи, слэши и HTML сохраняются как есть; у места без заметки поля нет',
     ($it[0]['creator_note'] ?? null) === $note && !array_key_exists('creator_note', $it[1]), kg_dbg($it));
+// id, выбранный приложением заранее
+[$s, $j] = $post(['title' => 'С заданным id', 'items' => [['place_id' => 'park-gorkogo']], 'id' => 'abc123xyz9']);
+check('клиентский id из 10 символов принимается', $s === 201 && ($j['collection']['id'] ?? '') === 'abc123xyz9', kg_dbg($j));
+[$s, $j] = api('POST', '/api/v1/collections', ['title' => 'Чужая занятая', 'items' => [['place_id' => 'park-gorkogo']], 'id' => 'abc123xyz9'], $GLOBALS['tB']);
+check('занятый id → 409 id_taken, подборка первого автора не тронута', $s === 409 && ($j['error']['code'] ?? '') === 'id_taken', kg_dbg($j));
+[$s, $j] = api('GET', '/api/v1/collections/abc123xyz9', null, $GLOBALS['tA']);
+check('подборка с клиентским id по-прежнему принадлежит первому автору', $s === 200 && ($j['mine'] ?? false) === true);
+$pdo->exec("DELETE FROM collections WHERE id = 'abc123xyz9'");
 check('автор в ответе: id, name, username, avatar, tint — как в /me',
     $j['author'] === ['id' => $A['id'], 'name' => 'Автор kolya_a', 'username' => 'kolya_a', 'avatar' => '🦊', 'tint' => '#ffe4f1'], kg_dbg($j['author'] ?? null));
 check('пункты лежат в JSON-колонке', (int) $pdo->query("SELECT JSON_LENGTH(items) FROM collections WHERE id='$cid'")->fetchColumn() === 2);
@@ -221,7 +229,7 @@ check('UNLISTED, но DRAFT: аноним → 404', $s === 404);
 check('DRAFT чужому не виден → 404', $s === 404);
 
 $before = $c;
-[$s, $j] = $put($cid, ['status' => 'HIDDEN', 'user_id' => $B['id'], 'id' => 'hackhackha', 'slug' => 'hack', 'published_at' => '2020-01-01 00:00:00', 'description' => 'Новое описание']);
+[$s, $j] = $put($cid, ['status' => 'HIDDEN', 'user_id' => $B['id'], 'id' => 'HACK-hack', 'slug' => 'hack', 'published_at' => '2020-01-01 00:00:00', 'description' => 'Новое описание']);
 $c2 = $j['collection'] ?? [];
 check('PUT: служебные поля из тела игнорируются, меняется только присланное (частичное обновление)',
     $s === 200 && $c2['status'] === 'DRAFT' && $c2['user_id'] === $A['id'] && $c2['id'] === $cid && $c2['slug'] === 'parki-moskvy' && !isset($c2['published_at'])
