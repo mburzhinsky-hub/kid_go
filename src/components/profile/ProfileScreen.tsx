@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Plus, Pencil, Trash2, ChevronRight, Sparkles, Home, Smartphone } from "lucide-react";
+import { Plus, Pencil, Trash2, ChevronRight, Sparkles, Home } from "lucide-react";
 import type { Child, InterestId } from "@/lib/types";
 import { useFamily, ageFromBirth, childLabel } from "@/lib/store";
 import { TRAVEL_LIMITS } from "@/lib/location";
@@ -13,7 +13,6 @@ import { TabBackButton } from "@/components/ui/BackButton";
 import { plural } from "@/lib/format";
 import { useSocial } from "@/lib/social/store";
 import { useMyCollections } from "@/lib/social/repo";
-import { useSocialUi } from "@/lib/social/ui-store";
 import { cn } from "@/lib/cn";
 import { ACCOUNTS_ENABLED, useAccount } from "@/lib/account";
 import { CreatorAvatar } from "@/components/social/Avatar";
@@ -123,9 +122,7 @@ export function ProfileScreen() {
             onClick={() => setLocOpen(true)}
           />
           <Row href="/onboarding" icon={<Sparkles size={20} className="text-purple-ink" />} label="Пройти знакомство заново" />
-          <Row icon={<Smartphone size={20} className="text-blue-ink" />} label="Перенести на другое устройство" onClick={() => useSocialUi.getState().openTransfer()} />
         </div>
-        <p className="mt-4 text-center text-[13px] text-muted">Kids Go · данные детей хранятся только на этом устройстве</p>
       </section>
 
       <ChildEditor child={editing} onClose={() => setEditing(null)} />
