@@ -4,6 +4,8 @@ import { useSocialUi } from "@/lib/social/ui-store";
 import { ShareSheet } from "./ShareSheet";
 import { InstallSheet } from "./InstallSheet";
 import { TransferSheet } from "./TransferSheet";
+import { AccountSheet } from "@/components/account/AccountSheet";
+import { ACCOUNTS_ENABLED } from "@/lib/account/api";
 
 export function GlobalSheets() {
   const share = useSocialUi((s) => s.share);
@@ -17,6 +19,7 @@ export function GlobalSheets() {
       <ShareSheet target={share} onClose={closeShare} />
       <InstallSheet open={install.open} onClose={closeInstall} link={install.link} ids={install.ids} />
       <TransferSheet open={transfer} onClose={closeTransfer} />
+      {ACCOUNTS_ENABLED && <AccountSheet />}
     </>
   );
 }

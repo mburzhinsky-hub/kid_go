@@ -7,6 +7,7 @@
  */
 import type { AuthorRef, Collection, ResolvedCollection } from "./types";
 import { slugify } from "./catalog";
+import { useAccount } from "@/lib/account/store";
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const SITE = process.env.NEXT_PUBLIC_SITE_URL;
@@ -124,7 +125,19 @@ export function decodeSnapshot(d: string): ResolvedCollection | null {
 /** Относительный путь страницы подборки (без базового пути и меток). */
 export function collectionPath(r: ResolvedCollection): string {
   if (r.source === "seed") return `/@${r.author.username}/${r.collection.slug}/`;
+  if (isServerBacked(r)) return `/c/?id=${r.collection.id}`;
   return `/c/?d=${encodeSnapshot(r)}`;
+}
+
+/** Подборка живёт на сервере и открывается другом по короткой ссылке: она моя, опубликована и не приватная. */
+function isServerBacked(r: ResolvedCollection): boolean {
+  const c = r.collection;
+  if (!/^[a-z0-9]{10}$/.test(c.id)) return false;
+  if (c.visibility === "PRIVATE" || c.status !== "PUBLISHED") return false;
+  // чужая сохранённая подборка тоже открывается по id, если автор не спрятал её
+  if (r.source === "snapshot") return true;
+  const user = useAccount.getState().user;
+  return !!user && c.user_id === user.id;
 }
 
 export function collectionUrl(r: ResolvedCollection, utm?: UtmParams): string {

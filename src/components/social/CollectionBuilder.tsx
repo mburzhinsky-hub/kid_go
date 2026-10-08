@@ -6,6 +6,7 @@ import { Plus, Search, X, Check, GripVertical, Trash2, MessageSquarePlus, Lock, 
 import type { AuthorRef, Collection, CollectionCover as CoverChoice, Visibility, ResolvedCollection } from "@/lib/social/types";
 import type { Place } from "@/lib/types";
 import { allPlaces, getPlaceSync } from "@/lib/data/repository";
+import { ACCOUNTS_ENABLED } from "@/lib/account/api";
 import { createCollection, updateCollection, publishCollection, validateHandle, becomeCreator, myAuthor, MAX_ITEMS, MAX_NOTE, MAX_TITLE } from "@/lib/social/repo";
 import { slugify } from "@/lib/social/catalog";
 import { trackEvent } from "@/lib/social/events";
@@ -363,6 +364,14 @@ export function CollectionBuilder({ editId, asAuthor, from }: { editId?: string;
       <ProfileSheet
         open={profileOpen}
         onClose={() => setProfileOpen(false)}
+        onAccount={ACCOUNTS_ENABLED ? () => {
+          setProfileOpen(false);
+          // после входа или создания кабинета подпись берётся из него, публикуем сразу
+          useSocialUi.getState().openAccount("register", () => {
+            const m = useSocial.getState().me;
+            if (m) finish(myAuthor(m));
+          });
+        } : undefined}
         onSave={(p) => {
           const profile = becomeCreator(p);
           setProfileOpen(false);
@@ -629,7 +638,7 @@ function PlacePicker({ open, onClose, selected, onToggle }: { open: boolean; onC
 
 /* ───────── подпись автора (при первой публикации) ───────── */
 
-function ProfileSheet({ open, onClose, onSave }: { open: boolean; onClose: () => void; onSave: (p: { name: string; username: string; avatar: string; tint: string }) => void }) {
+function ProfileSheet({ open, onClose, onSave, onAccount }: { open: boolean; onClose: () => void; onAccount?: () => void; onSave: (p: { name: string; username: string; avatar: string; tint: string }) => void }) {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [touched, setTouched] = useState(false);
@@ -676,6 +685,12 @@ function ProfileSheet({ open, onClose, onSave }: { open: boolean; onClose: () =>
       >
         Опубликовать
       </button>
+      {onAccount && (
+        <button onClick={onAccount} className="press mt-3 w-full rounded-[18px] bg-fill-2 p-3 text-left ring-1 ring-line">
+          <span className="block text-[15px] font-semibold">Или создайте кабинет</span>
+          <span className="block text-[13px] leading-snug text-muted">Подборки сохранятся на любом телефоне, а ссылка станет короткой. Нужны только ник и пароль.</span>
+        </button>
+      )}
     </BottomSheet>
   );
 }
