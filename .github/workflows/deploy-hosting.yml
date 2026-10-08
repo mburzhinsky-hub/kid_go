@@ -77,12 +77,16 @@ jobs:
           HOSTING_HOST: ${{ secrets.HOSTING_HOST }}
           HOSTING_USER: ${{ secrets.HOSTING_USER }}
           HOSTING_PASS: ${{ secrets.HOSTING_PASS }}
+          # Отпечаток (SHA-1) сертификата FTP-сервера reg.ru: у него собственный выпускающий центр, поэтому сверяем отпечаток сами
+          FTP_CERT_SHA1: "3B:A2:EE:65:C0:B3:9E:7B:73:41:9C:60:85:51:49:BC:AC:DB:82:9E"
         run: |
           sudo apt-get install -y lftp >/dev/null
+          FP=$(echo | openssl s_client -starttls ftp -connect "$HOSTING_HOST:21" -servername "$HOSTING_HOST" 2>/dev/null | openssl x509 -noout -fingerprint -sha1 | cut -d= -f2 || true)
+          if [ "$FP" != "$FTP_CERT_SHA1" ]; then echo "::error::Сертификат FTP-сервера не совпал с ожидаемым (получен: ${FP:-нет}). Выкладка остановлена."; exit 1; fi
           cat > lftp.cmd <<'CMD'
           set ftp:ssl-force true
           set ftp:ssl-protect-data true
-          set ssl:verify-certificate yes
+          set ssl:verify-certificate no
           set net:max-retries 3
           set net:timeout 30
           set cmd:fail-exit yes
@@ -90,18 +94,13 @@ jobs:
           mkdir -p /api
           mirror -R --delete --parallel=2 --exclude '^config\.php$' --exclude '^uploads/' --exclude '^tests/' --exclude '^README\.md$' --exclude '^config\.example\.php$' api/ /api/
           put -O /api build-api/config.php
-          bye
           CMD
-          if ! lftp -u "$HOSTING_USER","$HOSTING_PASS" "$HOSTING_HOST" -f lftp.cmd > lftp.out 2>&1; then
+          if ! lftp -u "$HOSTING_USER","$HOSTING_PASS" "$HOSTING_HOST" -e "source lftp.cmd; bye" > lftp.out 2>&1; then
             echo "::error::Загрузка по FTPS не удалась. Последние строки: $(tail -n 6 lftp.out | tr '\n' '|' | cut -c1-600)"
-            # Диагностика: какой способ подключения вообще работает (пароль lftp не печатает)
-            for variant in "ftps-verify:set ftp:ssl-force true;set ssl:verify-certificate yes" "ftps-noverify:set ftp:ssl-force true;set ssl:verify-certificate no" "ftp-plain:set ftp:ssl-allow no"; do
-              name=${variant%%:*}; cmds=${variant#*:}
-              res=$(timeout 60 lftp -u "$HOSTING_USER","$HOSTING_PASS" "$HOSTING_HOST" -e "set net:max-retries 1;set net:timeout 15;$cmds;cls -1 /;bye" 2>&1 | tr '\n' '|' | cut -c1-300)
-              echo "::warning::Проверка $name: $res"
-            done
             exit 1
           fi
+          echo "Загрузка завершена"
+
       - name: Миграции базы и проверка
         run: |
           R="--resolve ${SITE_DOMAIN}:443:${HOSTING_IP}"
