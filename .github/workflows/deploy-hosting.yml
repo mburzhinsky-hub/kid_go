@@ -102,7 +102,8 @@ jobs:
 
       - name: Миграции базы и проверка
         run: |
-          R="--resolve ${SITE_DOMAIN}:443:${HOSTING_IP}"
+          # Пока домен смотрит на GitHub Pages, на хостинге ещё нет сертификата Let's Encrypt (он выпускается после переключения DNS) — проверяем по IP хостинга без проверки сертификата.
+          R="--resolve ${SITE_DOMAIN}:443:${HOSTING_IP} --insecure"
           code=$(curl -sS $R -o mig.json -w '%{http_code}' -X POST -H "Authorization: Bearer $ADMIN_TOKEN" "https://${SITE_DOMAIN}/api/v1/admin/migrate" 2>curl.err || true)
           echo "migrate: HTTP $code"; cat mig.json || true; echo
           [ "$code" = "200" ] || { echo "::error::Миграции не применились (HTTP $code): $(head -c 300 mig.json) curl: $(head -c 300 curl.err)"; exit 1; }
