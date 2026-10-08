@@ -15,3 +15,6 @@ next-env.d.ts
 # Kids Go API: секреты и загрузки живут только на хостинге
 /api/config.php
 /api/uploads/
+
+# Данные каталога для сервера: создаются при деплое (scripts/gen-api-data.ts)
+/api/data/*.json

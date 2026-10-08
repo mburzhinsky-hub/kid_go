@@ -14,7 +14,13 @@ type Remote = { state: "idle" | "loading" | "missing" | "ok"; value?: ResolvedCo
 function Inner() {
   const sp = useSearchParams();
   const d = sp.get("d");
-  const id = sp.get("id");
+  // короткий адрес /c/<код>/ отдаёт сервер с превью; код читаем из адресной строки уже после загрузки (страница статическая)
+  const [pathId, setPathId] = useState<string | null>(null);
+  useEffect(() => {
+    const m = location.pathname.match(/\/c\/([a-z0-9]{10})\/?$/);
+    setPathId(m ? m[1] : null);
+  }, []);
+  const id = sp.get("id") ?? pathId;
   const all = useAllCollections();
   const hydrated = useSocial((s) => s.hydrated);
   const saved = useSocial((s) => s.saved);

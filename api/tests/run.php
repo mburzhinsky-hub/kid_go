@@ -109,6 +109,7 @@ try { RateLimit::hit($db, 'test:other', 3, 60); check('другой ключ с�
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/collections.php';
+require __DIR__ . '/share.php';
 
 echo "\nИтого: $pass ок, $fail ошибок\n";
 exit($fail ? 1 : 0);
