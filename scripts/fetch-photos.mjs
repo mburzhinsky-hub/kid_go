@@ -17,10 +17,12 @@ const jobs = ids.flatMap((id) => WIDTHS.map((w) => ({ id, w })));
 let done = 0, skipped = 0;
 const failed = [];
 
-async function one({ id, w }) {
-  const file = new URL(`${id}-${w}.webp`, OUT);
+async function one({ id, w, og }) {
+  const file = new URL(og ? `${id}-og.jpg` : `${id}-${w}.webp`, OUT);
   if (existsSync(file) && statSync(file).size > 1000) { skipped++; return; }
-  const url = `https://images.unsplash.com/${id}?w=${w}&q=70&fm=webp&fit=crop&cs=tinysrgb`;
+  const url = og
+    ? `https://images.unsplash.com/${id}?w=1200&h=630&q=78&fm=jpg&fit=crop&cs=tinysrgb`
+    : `https://images.unsplash.com/${id}?w=${w}&q=70&fm=webp&fit=crop&cs=tinysrgb`;
   for (let attempt = 1; attempt <= 4; attempt++) {
     try {
       const res = await fetch(url, { signal: AbortSignal.timeout(30000) });
@@ -35,9 +37,11 @@ async function one({ id, w }) {
       await new Promise((r) => setTimeout(r, 800 * attempt));
     }
   }
-  failed.push(`${id}-${w}`);
+  failed.push(og ? `${id}-og` : `${id}-${w}`);
 }
 
+// Картинка для превью ссылок в мессенджерах: JPEG 1200×630 (WebP показывают не все)
+for (const id of ids) jobs.push({ id, w: 1200, og: true });
 let i = 0;
 await Promise.all(Array.from({ length: 8 }, async () => { while (i < jobs.length) await one(jobs[i++]); }));
 

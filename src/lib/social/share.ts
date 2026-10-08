@@ -8,6 +8,7 @@
 import type { AuthorRef, Collection, ResolvedCollection } from "./types";
 import { slugify } from "./catalog";
 import { useAccount } from "@/lib/account/store";
+import { ACCOUNTS_ENABLED } from "@/lib/account/api";
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const SITE = process.env.NEXT_PUBLIC_SITE_URL;
@@ -125,7 +126,8 @@ export function decodeSnapshot(d: string): ResolvedCollection | null {
 /** Относительный путь страницы подборки (без базового пути и меток). */
 export function collectionPath(r: ResolvedCollection): string {
   if (r.source === "seed") return `/@${r.author.username}/${r.collection.slug}/`;
-  if (isServerBacked(r)) return `/c/?id=${r.collection.id}`;
+  // на своём сервере — короткий красивый адрес с превью; без сервера (GitHub Pages) — со снимком внутри
+  if (isServerBacked(r)) return ACCOUNTS_ENABLED ? `/c/${r.collection.id}/` : `/c/?id=${r.collection.id}`;
   return `/c/?d=${encodeSnapshot(r)}`;
 }
 

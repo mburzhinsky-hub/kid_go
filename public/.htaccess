@@ -14,3 +14,9 @@ ErrorDocument 404 /404.html
   ExpiresByType image/webp "access plus 30 days"
   ExpiresByType font/woff2 "access plus 1 year"
 </IfModule>
+
+# Короткая ссылка на подборку /c/<код>/: отдаём оболочку страницы с превью (название, описание, картинка) для мессенджеров
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^c/([a-z0-9]{10})/?$ api/page.php?id=$1 [L,QSA]
+</IfModule>

@@ -43,6 +43,8 @@ jobs:
           [ -z "${fail:-}" ]
       - name: Фотографии (копии на свой хостинг)
         run: node scripts/fetch-photos.mjs
+      - name: Данные каталога для API (допустимые места, названия и фото для превью ссылок)
+        run: npx tsx scripts/gen-api-data.ts
       - name: Сборка сайта
         env:
           NEXT_PUBLIC_PHOTOS_LOCAL: "1"
@@ -117,3 +119,6 @@ jobs:
           [ "$code" = "200" ] || { echo "::error::API не отвечает (HTTP $code): $(head -c 300 health.json)"; exit 1; }
           code=$(curl -sS $R -o /dev/null -w '%{http_code}' "https://${SITE_DOMAIN}/")
           [ "$code" = "200" ] || { echo "::error::Главная страница на хостинге не открывается (HTTP $code)"; exit 1; }
+          # короткая ссылка на подборку: несуществующий код должен отдать нашу страницу с пометкой «не найдена» (а не общую 404 сервера)
+          code=$(curl -sS $R -o page.html -w '%{http_code}' "https://${SITE_DOMAIN}/c/zzzzzzzzzz/" || true)
+          if [ "$code" != "404" ] || ! grep -q 'Подборка не найдена' page.html; then echo "::error::Короткая ссылка /c/<код>/ не работает (HTTP $code)"; exit 1; fi
