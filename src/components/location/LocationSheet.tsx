@@ -125,7 +125,7 @@ export function LocationSheet({ open, onClose }: { open: boolean; onClose: () =>
         </button>
       </div>
 
-      <p className="mt-5 text-[14px] font-bold text-ink-2">Или округ — условно</p>
+      <p className="mt-5 text-[14px] font-bold text-ink-2">Или ваш округ</p>
       <div className="mt-2 grid grid-cols-2 gap-2">
         {OKRUGS.map((a) => {
           const on = origin.source === "area" && origin.label === a.short;
@@ -148,9 +148,9 @@ export function LocationSheet({ open, onClose }: { open: boolean; onClose: () =>
           );
         })}
       </div>
-      <p className="mt-2 text-[13px] leading-snug text-muted">Дорогу считаем условно — от центра округа, с запасом: «≈ N мин».</p>
+      <p className="mt-2 text-[13px] leading-snug text-muted">Время в пути считаем примерно — от центра округа, с запасом.</p>
 
-      <p className="mt-5 text-[14px] font-bold text-ink-2">Подмосковье и точнее</p>
+      <p className="mt-5 text-[14px] font-bold text-ink-2">Подмосковье или точный адрес</p>
       <label className="mt-2 flex h-12 items-center gap-2.5 rounded-full bg-fill px-4">
         <Search size={20} className="shrink-0 text-ink-2" />
         <input

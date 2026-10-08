@@ -281,7 +281,7 @@ export function CollectionBuilder({ editId, asAuthor, from }: { editId?: string;
                 </CoverTile>
               ))}
             </div>
-            <p className="mt-1.5 text-[13px] text-muted">Фото — из мест подборки. Свою картинку добавить пока нельзя: нужен сервер для файлов.</p>
+            <p className="mt-1.5 text-[13px] text-muted">Обложка — из фото мест в подборке.</p>
 
             <h2 className="mt-6 text-[15px] font-bold">Для каких детей</h2>
             <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label="Возраст">

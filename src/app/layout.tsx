@@ -22,8 +22,10 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     siteName: "Kids Go",
     title: "Kids Go — куда пойти с детьми сегодня",
-    description: "Выберите настроение — мы соберём ваш день.",
+    description: "Готовый день в Москве: места, дорога, время и бюджет — за полминуты.",
+    images: [{ url: `${B}/og.jpg`, width: 1200, height: 630, alt: "Kids Go — куда пойти с детьми сегодня" }],
   },
+  twitter: { card: "summary_large_image", images: [`${B}/og.jpg`] },
   icons: { icon: [{ url: `${B}/icons/favicon-48.png`, sizes: "48x48" }, { url: `${B}/icons/icon-192.png`, sizes: "192x192" }], apple: `${B}/icons/apple-touch-icon.png` },
 };
 
@@ -39,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru">
       <body>
-        {/* сторож загрузки: если приложение не запустилось за 12 секунд, показывает причину вместо белого экрана */}
+        {/* сторож загрузки: если приложение не запустилось за 15 секунд, показывает понятный экран с кнопкой «Обновить» вместо белого */}
         <script dangerouslySetInnerHTML={{ __html: BOOT_WATCHDOG }} />
         <Providers>
           <DesktopBackdrop />

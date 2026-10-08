@@ -21,7 +21,7 @@ const field = "mt-1.5 h-12 w-full rounded-[16px] bg-fill px-4 text-[16px] outlin
 const RATING = { 1: "😕", 2: "🙂", 3: "😍" } as const;
 
 function msg(e: unknown) {
-  if (e instanceof ApiError) return e.offline || e.status >= 500 || e.status === 404 ? "Нет связи с сервером. Попробуйте позже." : e.message;
+  if (e instanceof ApiError) return e.offline || e.status >= 500 || e.status === 404 ? "Сейчас не получается. Попробуйте чуть позже." : e.message;
   return "Что-то пошло не так. Попробуйте ещё раз.";
 }
 
@@ -45,7 +45,7 @@ export function CabinetScreen() {
       <main className="px-5 pb-28 pt-[max(18px,env(safe-area-inset-top))]">
         <TabBackButton className="mb-2" />
         <h1 className="tight text-[30px] font-[850] leading-tight">Кабинет</h1>
-        <p className="mt-2 text-[16px] text-muted">Личные кабинеты скоро появятся.</p>
+        <p className="mt-2 text-[16px] text-muted">Любимые места и подборки сохраняются прямо на этом телефоне — загляните в «Профиль».</p>
       </main>
     );
   }
@@ -166,7 +166,7 @@ export function CabinetScreen() {
             onClick={async () => {
               const r = await logout();
               if (r.ok) return toast("Вы вышли из кабинета");
-              if (window.confirm("Не все изменения успели сохраниться на сервере: нет связи. Если выйти сейчас, они пропадут. Выйти всё равно?")) {
+              if (window.confirm("Часть изменений ещё не сохранилась — нет интернета. Если выйти сейчас, они пропадут. Выйти всё равно?")) {
                 await logout({ force: true });
                 toast("Вы вышли из кабинета");
               }

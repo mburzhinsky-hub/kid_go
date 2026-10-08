@@ -13,7 +13,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
       <EmptyState
         art="error"
         title="Ой, что-то сломалось"
-        text="Мы уже чиним. Попробуйте ещё раз — обычно помогает."
+        text="Попробуйте ещё раз — обычно помогает."
         secondary={
           <button onClick={reset} className="press mt-5 h-12 rounded-full bg-pink px-6 text-[16px] font-semibold text-white shadow-pink">
             Попробовать снова

@@ -172,7 +172,7 @@ function AddButton({ added, onAdd, className, big }: { added: boolean; onAdd: ()
       )}
     >
       {added ? <Check size={20} strokeWidth={2.5} /> : <Plus size={20} strokeWidth={2.5} />}
-      {added ? "В нашем дне" : big ? "Добавить в наш день" : "В день"}
+      {added ? "В нашем дне" : big ? "Добавить в наш день" : "В наш день"}
     </button>
   );
 }

@@ -9,7 +9,7 @@ import type { Collection, CollectionItem, CreatorProfile, User } from "./types";
 const T0 = "2026-09-20T09:00:00.000Z";
 
 export const SEED_USERS: User[] = [
-  { id: "u-weekend-parents", name: "Родители на выходных", username: "weekend-parents", avatar: "🧸", type: "CREATOR", bio: "Пример автора подборок" },
+  { id: "u-weekend-parents", name: "Родители на выходных", username: "weekend-parents", avatar: "🧸", type: "CREATOR", bio: "Подборки от команды Kids Go" },
 ];
 
 export const SEED_CREATORS: CreatorProfile[] = [
@@ -17,7 +17,7 @@ export const SEED_CREATORS: CreatorProfile[] = [
     user_id: "u-weekend-parents",
     display_name: "Родители на выходных",
     username: "weekend-parents",
-    bio: "Это пример страницы автора: так выглядят профиль и подборки родителей, которые делятся любимыми местами для детей. Создайте свою — это занимает пару минут.",
+    bio: "Подборки от команды Kids Go: проверенные места на выходные, дождливые дни и бесплатные прогулки. Соберите и свою — это займёт пару минут.",
     avatar: "🧸",
     tint: "#FFE4F1",
     featured: true,

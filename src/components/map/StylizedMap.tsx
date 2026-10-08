@@ -94,7 +94,7 @@ export function StylizedMap({ children, center, zoom = 1, origin }: { children: 
         </svg>
         {children}
       </div>
-      <span className="absolute bottom-[calc(var(--sheet-h,300px)+8px)] left-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-muted">Схема округов и расстояний · без подложки</span>
+      <span className="absolute bottom-[calc(var(--sheet-h,300px)+8px)] left-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-muted">Упрощённая схема — без улиц</span>
     </div>
   );
 }

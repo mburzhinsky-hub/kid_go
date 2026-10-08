@@ -260,7 +260,7 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
         )}
         {!result.relaxed && nearby.status === "error" && locationMode(fam.origin) !== "any" && (isSuburban(fam.origin) || input?.locationMode === "area") && (
           <p className="mt-3 rounded-[12px] bg-fill-2 px-3 py-2 text-[13px] leading-snug text-muted">
-            Не удалось подгрузить дополнительные места {result.area ? `в ${okrugById(result.area.id)?.short ?? "округе"}` : "рядом с вами"} (нет связи с картой). Показываем то, что есть в нашем каталоге.
+            Не удалось подгрузить дополнительные места {result.area ? `в ${okrugById(result.area.id)?.short ?? "округе"}` : "рядом с вами"} — слабый интернет. Показываем то, что уже знаем.
           </p>
         )}
         {result.partialAge && (

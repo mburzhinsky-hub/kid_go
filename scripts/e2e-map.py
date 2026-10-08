@@ -101,7 +101,7 @@ with sync_playwright() as p:
     assert pg3.locator("iframe[title^='Карта (Яндекс)']").count() == 1, "должна открыться карта Яндекса"
     src = pg3.locator("iframe").first.get_attribute("src"); print("   yandex src:", src[:140])
     pg3.get_by_role("button", name="Схема").click(); pg3.wait_for_timeout(800)
-    assert pg3.get_by_text("Схема округов и расстояний").count() == 1
+    assert pg3.get_by_text("Упрощённая схема").count() == 1
     print("   schematic markers:", pg3.evaluate("()=>document.querySelectorAll('button').length"))
     pg3.screenshot(path="/tmp/e2e-map-fallback.png")
     br.close()

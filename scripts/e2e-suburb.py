@@ -83,7 +83,7 @@ def run():
         assert pg.locator("iframe[title^='Карта (Яндекс)']").count() == 1, "нет запасной карты Яндекса"
         pg.get_by_role("button", name="Схема").click(); pg.wait_for_timeout(800)
         print("6 map heading:", pg.locator("h2").first.inner_text(), "| markers:", pg.locator("main button[aria-label]").count())
-        assert "Схема округов и расстояний" in pg.inner_text("main") or pg.locator("canvas").count() > 0
+        assert "Упрощённая схема" in pg.inner_text("main") or pg.locator("canvas").count() > 0
         pg.screenshot(path="/tmp/e2e-suburb-map.png")
 
         # поиск «в инкогнито»: нашли и место OSM

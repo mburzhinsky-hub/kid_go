@@ -77,9 +77,9 @@ export function NearbyPlaceView({ id }: { id?: string }) {
         <AddressCard place={place} />
 
         <p className="mt-8 text-center text-[12px] text-muted">
-          © участники OpenStreetMap ·{" "}
+          Данные:{" "}
           <a className="underline" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">
-            лицензия ODbL
+            © участники OpenStreetMap
           </a>
         </p>
       </article>

@@ -98,7 +98,7 @@ export function MyCollectionsScreen() {
 
           {interest.length > 0 && (
             <section className="mt-8 px-4">
-              <h2 className="tight text-[22px] font-[800]">Какие места заинтересовали аудиторию</h2>
+              <h2 className="tight text-[22px] font-[800]">Какие места понравились другим</h2>
               <ol className="mt-3 space-y-2">
                 {interest.map((i, n) => {
                   const p = getPlaceSync(i.place_id);
@@ -124,7 +124,7 @@ export function MyCollectionsScreen() {
             </section>
           )}
 
-          {!serverStats && <p className="mx-4 mt-6 text-center text-[13px] leading-snug text-muted">Пока считаем действия, сделанные на этом устройстве. Когда подключится сервер, здесь появятся все посетители.</p>}
+          {!serverStats && <p className="mx-4 mt-6 text-center text-[13px] leading-snug text-muted">Здесь — то, что видно на этом телефоне. Войдите в кабинет, чтобы видеть всех, кто открыл ваши подборки.</p>}
         </>
       )}
 
@@ -205,7 +205,7 @@ function CollectionRow({ c, onDelete, events }: { c: Collection; onDelete: () =>
           <div className="grid grid-cols-3 gap-2 text-center">
             <Detail icon={<MousePointerClick size={16} />} value={st.placeOpens} label="открыли места" />
             <Detail icon={<MapIcon size={16} />} value={st.maps} label="на карте" />
-            <Detail icon={<Smartphone size={16} />} value={st.appClicks} label="в приложение" />
+            <Detail icon={<Smartphone size={16} />} value={st.appClicks} label="открыли в приложении" />
           </div>
           {extra > 0 && <p className="mt-2 text-[13px] text-muted">Ещё {extra} захотели сходить на других экранах после перехода по вашей ссылке.</p>}
           {interest.length > 0 && (

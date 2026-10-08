@@ -4,6 +4,7 @@ import { GROUP_LABEL, SCENARIO_LIBRARY, scenarioHref, type ScenarioGroup } from 
 import { ScenarioGrid } from "@/components/home/QuickScenarioCard";
 import { LiveScenarios } from "@/components/home/HomeLive";
 import { GeoScope } from "@/components/location/GeoScope";
+import { plural } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "Ситуации: куда пойти с детьми, если…",
@@ -21,7 +22,7 @@ export default function ScenariosPage() {
       </header>
       <section className="px-4">
         <h1 className="tight text-[30px] font-[850] leading-[1.06]">Что у вас за ситуация?</h1>
-        <p className="mt-1.5 text-[16px] text-muted">{SCENARIO_LIBRARY.length} готовых сценариев — выберите, и мы соберём день с учётом погоды и дороги.</p>
+        <p className="mt-1.5 text-[16px] text-muted">{SCENARIO_LIBRARY.length} {plural(SCENARIO_LIBRARY.length, "готовая ситуация", "готовые ситуации", "готовых ситуаций")} — выберите, и мы соберём день с учётом погоды и дороги.</p>
       </section>
 
       <section className="mt-6" aria-labelledby="live-title">

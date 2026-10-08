@@ -46,6 +46,10 @@ let i = 0;
 await Promise.all(Array.from({ length: 8 }, async () => { while (i < jobs.length) await one(jobs[i++]); }));
 
 console.log(`Фото: ${ids.length}, файлов ${jobs.length}: скачано ${done}, уже было ${skipped}, не удалось ${failed.length}`);
-if (failed.length) console.log("Не скачались:", failed.slice(0, 20).join(", "));
+if (failed.length) {
+  console.log("Не скачались:", failed.slice(0, 20).join(", "));
+  // заметка в сводке выкладки: на сайте эти фото подставятся с фотохостинга или иллюстрацией
+  console.log(`::warning title=Фото не скачались (${failed.length})::${failed.slice(0, 40).join(", ")}`);
+}
 if (done + skipped === 0) { console.error("Ни одного фото не скачано — проверьте доступ к images.unsplash.com"); process.exit(1); }
 if (failed.length > jobs.length * 0.2) { console.error("Слишком много неудач (>20%)"); process.exit(1); }
