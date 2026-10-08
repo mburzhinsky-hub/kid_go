@@ -15,6 +15,8 @@ import { useSocial } from "@/lib/social/store";
 import { useMyCollections } from "@/lib/social/repo";
 import { useSocialUi } from "@/lib/social/ui-store";
 import { cn } from "@/lib/cn";
+import { ACCOUNTS_ENABLED, useAccount } from "@/lib/account";
+import { CreatorAvatar } from "@/components/social/Avatar";
 
 const AVATARS = ["🦁", "🦄", "🐻", "🐰", "🦊", "🐼", "🐯", "🐸"];
 const AVATAR_BG = ["#FFE4F1", "#EEE5FE", "#E2EEFF", "#E4F4DD", "#FFF3D6", "#FFE3D4"];
@@ -31,6 +33,8 @@ export function ProfileScreen() {
   const [locOpen, setLocOpen] = useState(false);
   const mine = useMyCollections();
   const socialReady = useSocial((x) => x.hydrated);
+  const account = useAccount((x) => x.user);
+  const accountReady = useAccount((x) => x.hydrated);
 
   return (
     <main className="pb-28">
@@ -39,6 +43,21 @@ export function ProfileScreen() {
         <h1 className="tight text-[30px] font-[850] leading-tight">Наша семья</h1>
         <p className="mt-0.5 text-[16px] text-muted">Чем точнее профиль — тем точнее идеи</p>
       </header>
+
+      {ACCOUNTS_ENABLED && accountReady && (
+        <Link href="/cabinet/" className="press mx-4 mt-4 flex items-center gap-3 rounded-[24px] bg-surface p-3.5 shadow-card">
+          {account ? (
+            <CreatorAvatar author={{ avatar: account.avatar.value, tint: account.tint, name: account.display_name || account.handle }} size={44} />
+          ) : (
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-pink-50 text-[22px]">🧸</span>
+          )}
+          <span className="min-w-0 flex-1">
+            <span className="block truncate text-[16px] font-bold">{account ? `Мой кабинет · @${account.handle}` : "Создать кабинет"}</span>
+            <span className="block text-[13px] leading-snug text-muted">{account ? "Подборки, «Были» и оценки на всех ваших телефонах" : "Ник и пароль — и всё сохранится на любом телефоне"}</span>
+          </span>
+          <ChevronRight size={20} className="shrink-0 text-muted-2" />
+        </Link>
+      )}
 
       <div className="mx-4 mt-4 grid grid-cols-3 gap-2">
         <Stat value={s.hydrated ? s.children.length : "–"} label={plural(s.children.length, "ребёнок", "ребёнка", "детей")} bg="#FFE4F1" />
@@ -116,7 +135,7 @@ export function ProfileScreen() {
           )}
           <Row icon={<Smartphone size={20} className="text-blue-ink" />} label="Перенести на другое устройство" onClick={() => useSocialUi.getState().openTransfer()} />
         </div>
-        <p className="mt-4 text-center text-[13px] text-muted">Kids Go · данные семьи хранятся только на этом устройстве</p>
+        <p className="mt-4 text-center text-[13px] text-muted">Kids Go · данные детей хранятся только на этом устройстве</p>
       </section>
 
       <ChildEditor child={editing} onClose={() => setEditing(null)} />

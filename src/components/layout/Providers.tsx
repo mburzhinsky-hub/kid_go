@@ -11,6 +11,7 @@ import { rehydrateSocial } from "@/lib/social/store";
 import { warmEvents } from "@/lib/social/events";
 import { initInstallCapture } from "@/lib/social/app";
 import { registerTouch } from "@/lib/social/attribution";
+import { initAccount } from "@/lib/account";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [offline, setOffline] = useState(false);
@@ -41,6 +42,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     rehydrateFamily();
     rehydrateSocial();
     warmEvents();
+    void initAccount();
     initInstallCapture();
     const update = () => setOffline(!navigator.onLine);
     update();

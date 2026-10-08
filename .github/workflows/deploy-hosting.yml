@@ -46,6 +46,7 @@ jobs:
       - name: Сборка сайта
         env:
           NEXT_PUBLIC_PHOTOS_LOCAL: "1"
+          NEXT_PUBLIC_ACCOUNTS: "1"   # кабинеты включены только там, где есть свой сервер API
           GITHUB_PAGES: "true"
           NEXT_PUBLIC_BASE_PATH: ""
           NEXT_PUBLIC_SITE_URL: https://kids-go.fun

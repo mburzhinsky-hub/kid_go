@@ -17,6 +17,7 @@ import { authorOf, normalizeHandle, seedCollection, seedCollectionsOf, seedCreat
 import { getAnonId, setUserId } from "./identity";
 import { trackEvent } from "./events";
 import { useFamily } from "@/lib/store";
+import { newCollectionId, mirrorUpsert, mirrorDelete } from "@/lib/account/sync";
 
 export interface NewCollectionInput {
   title: string;
@@ -34,7 +35,6 @@ export const MAX_ITEMS = 30;
 export const MAX_NOTE = 240;
 export const MAX_TITLE = 100;
 
-const rnd = () => Math.random().toString(36).slice(2, 8);
 const nowIso = () => new Date().toISOString();
 
 /* ───────── профиль автора ───────── */
@@ -193,7 +193,7 @@ export function createCollection(input: NewCollectionInput): Collection {
   const st = useSocial.getState();
   const author = input.as ?? (st.me ? myAuthor(st.me) : undefined);
   const userId = author?.id ?? `u-${getAnonId()}`;
-  const id = `col-${Date.now().toString(36)}${rnd()}`;
+  const id = newCollectionId();
   const t = nowIso();
   const c: Collection = {
     id,
@@ -212,6 +212,7 @@ export function createCollection(input: NewCollectionInput): Collection {
     items: toItems(id, input.items),
   };
   st.upsertCollection(c, input.as);
+  if (!input.as) mirrorUpsert(id);
   trackEvent("collection_created", { collection_id: id, creator_id: userId, places: c.items.length });
   return c;
 }
@@ -233,6 +234,7 @@ export function updateCollection(id: string, patch: Partial<Omit<NewCollectionIn
     updated_at: nowIso(),
   };
   st.upsertCollection(next);
+  if (!st.authors[id]) mirrorUpsert(id);
   return next;
 }
 
@@ -243,12 +245,15 @@ export function publishCollection(id: string, visibility?: Visibility): Collecti
   const t = nowIso();
   const next: Collection = { ...cur, status: "PUBLISHED", visibility: visibility ?? cur.visibility, published_at: cur.published_at ?? t, updated_at: t };
   st.upsertCollection(next);
+  if (!st.authors[id]) mirrorUpsert(id);
   trackEvent("collection_published", { collection_id: id, creator_id: cur.user_id, visibility: next.visibility, places: next.items.length });
   return next;
 }
 
 export function deleteCollection(id: string) {
+  const own = !useSocial.getState().authors[id];
   useSocial.getState().removeCollection(id);
+  if (own) mirrorDelete(id);
 }
 
 export function saveCollection(r: ResolvedCollection, source?: string) {
