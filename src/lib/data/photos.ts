@@ -421,7 +421,8 @@ export const PLACE_PHOTOS: Record<string, PhotoPick> = {
   "klich-zilart": pick(FAMILY_CAFE, ["slidesBallpit", "cafePlants", "candlesKids", "girlPancakes2"]),
   "repast-cafe": pick(FAMILY_CAFE, ["cafeMomChild", "roundTable", "rubberDucks", "pizzaHand"]),
   "local-kids-vnukovo": pick(KIDS_CAFE, ["bounceHouse", "kidsCorner", "cafeStroller", "girlTable"]),
-  "littles-kids-play-cafe": pick(KIDS_CAFE, ["girlsTalking", "childDrawingCafe", "balls", "playAreaSlide", "cafeMomChild"]),
+  // зал в эко-стиле (дерево, растения), вокруг столиков игровые зоны. Кадров из набора «игровая зона» только один: остальные берут игровые центры, а кафе с ними делить кадры не должно
+  "littles-kids-play-cafe": pick("Кафе с игровыми зонами", ["playroomTables", "kidsCorner", "cafePlants", "cafeWood"]),
   "jooie-presnya": pick(KIDS_CAFE, ["birthdayBalloons", "cupcake", "playKitchenWindow", "kidsCorner"]),
   "tutta-la-vita": pick("Итальянская кухня", ["pizzaLeaves", "pizza", "cafeWood", "childMenu"]),
   "kids-castle-mitino": pick(KIDS_CAFE, ["kidsCorner", "trampolines", "bounceHouse", "cafeChildWindow"]),
