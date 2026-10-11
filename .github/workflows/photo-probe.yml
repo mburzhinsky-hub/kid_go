@@ -1,0 +1,36 @@
+name: Photo probe
+
+# Разовый поиск настоящих фото мест в Wikimedia Commons (scripts/commons-probe.mjs).
+# Результат (кандидаты и превью) кладётся в ветку data/photo-candidates, чтобы его можно было посмотреть без доступа к Wikimedia.
+on:
+  push:
+    branches: [ci/photo-probe]
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Список мест
+        run: npx tsx scripts/export-photo-places.ts > "$RUNNER_TEMP/places.json"
+      - name: Поиск в Commons
+        run: node scripts/commons-probe.mjs "$RUNNER_TEMP/places.json" "$RUNNER_TEMP/out"
+      - name: Сводка
+        run: head -8 "$RUNNER_TEMP/out/summary.txt" >> "$GITHUB_STEP_SUMMARY"
+      - name: Публикация результата в ветку
+        run: |
+          cd "$RUNNER_TEMP/out"
+          git init -q
+          git checkout -q -b data/photo-candidates
+          git add -A
+          git -c user.name="photo-probe" -c user.email="photo-probe@users.noreply.github.com" commit -qm "Кандидаты фото из Wikimedia Commons"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" data/photo-candidates
