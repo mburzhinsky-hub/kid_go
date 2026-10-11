@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Поиск настоящих фото мест в Wikimedia Commons (свободные лицензии).
- *   node scripts/commons-probe.mjs places.json outdir [--only=slug1,slug2]
+ *   node scripts/commons-probe.mjs places.json outdir [--only=slug1,slug2] [--aliases=scripts/photo-aliases.json --merge]
  *
  * Для каждого места собираем кандидатов из трёх источников и оцениваем:
  *   1. геопоиск Commons вокруг координат места (дальше — только если снимок назван или описан этим местом);
@@ -17,6 +17,11 @@ const [, , PLACES, OUT, ...rest] = process.argv;
 if (!PLACES || !OUT) { console.error("node scripts/commons-probe.mjs places.json outdir [--only=a,b]"); process.exit(2); }
 const ONLY = (rest.find((a) => a.startsWith("--only=")) ?? "").slice(7).split(",").filter(Boolean);
 const THUMBS_ONLY = rest.includes("--thumbs-only"); // дозагрузить недостающие превью по готовому outdir/candidates.json (кандидатов с оценкой от 4,5)
+// второй проход: для известных мест, которые не нашлись по названию, — другие названия (ru/en) в scripts/photo-aliases.json.
+// Ищутся только места из этого файла; результат встаёт в уже готовый candidates.json (--merge), старые превью этих мест заменяются.
+const ALIASES_FILE = (rest.find((a) => a.startsWith("--aliases=")) ?? "").slice(10);
+const MERGE = rest.includes("--merge");
+const ALIASES = ALIASES_FILE ? JSON.parse(readFileSync(ALIASES_FILE, "utf8")) : {};
 const TOP = 12; // сколько кандидатов оставляем на место (потом их просматривают глазами и выбирают лучшие)
 const UA = "KidsGoPhotoAudit/1.0 (https://kids-go.fun; https://github.com/mburzhinsky-hub/kid_go) node";
 const COMMONS = "https://commons.wikimedia.org/w/api.php";
@@ -63,21 +68,25 @@ const BAD_NAME = /\b(map|plan|scheme|logo|flag|coat[ _]of[ _]arms|diagram|scan|p
 /* ───── кандидаты для одного места ───── */
 async function wikidataFor(p) {
   const clean = p.title.replace(/[«»"“”]/g, "").replace(/\s+—.*$/, "").trim();
-  const queries = [...new Set([clean, p.title.replace(/^(Парк|Музей|Усадьба|Театр)\s+/i, "").replace(/[«»"“”]/g, "").trim()])].filter((q) => q.length > 3);
+  const aliases = p.aliases ?? [];
+  const queries = [...new Set([clean, p.title.replace(/^(Парк|Музей|Усадьба|Театр)\s+/i, "").replace(/[«»"“”]/g, "").trim(), ...aliases])].filter((q) => q.length > 3);
   const ids = new Set();
   for (const q of queries) {
-    const r = await api(WIKIDATA, { action: "wbsearchentities", search: q, language: "ru", uselang: "ru", limit: 6, type: "item" });
-    for (const e of r.search ?? []) ids.add(e.id);
+    for (const language of /[а-яё]/i.test(q) ? ["ru"] : ["en", "ru"]) {
+      const r = await api(WIKIDATA, { action: "wbsearchentities", search: q, language, uselang: language, limit: 6, type: "item" });
+      for (const e of r.search ?? []) ids.add(e.id);
+    }
   }
   if (!ids.size) return null;
   const ents = await api(WIKIDATA, { action: "wbgetentities", ids: [...ids].join("|"), props: "claims|labels|sitelinks", sitefilter: "ruwiki|enwiki", languages: "ru|en" });
-  const sv = stems(p.title);
+  const sv = stems([p.title, ...aliases].join(" "));
+  const maxKm = aliases.length ? 8 : 3; // у большого парка или леса координата в Wikidata может быть далеко от нашей точки
   let best = null;
   for (const e of Object.values(ents.entities ?? {})) {
     const c = e.claims?.P625?.[0]?.mainsnak?.datavalue?.value;
     if (!c) continue;
     const d = km(p.lat, p.lng, c.latitude, c.longitude);
-    if (d > 3) continue;
+    if (d > maxKm) continue;
     const label = (e.labels?.ru?.value ?? "") + " " + (e.labels?.en?.value ?? "");
     const h = hits(sv, label);
     if (sv.length && !h) continue;
@@ -122,6 +131,26 @@ async function collect(p) {
       const found = cm.query?.search ?? [];
       for (const x of found) add(x.title, "category", null, rank++);
       if (found.length >= 5) break;
+    }
+  }
+  // другие названия места: категории Commons с похожим именем (и их подкатегории), самые используемые снимки первыми
+  if (p.aliases?.length) {
+    let rank = 100;
+    const seenCats = new Set(wd?.cat ? [wd.cat] : []);
+    for (const alias of p.aliases) {
+      const asv = stems(alias);
+      const cs = await api(COMMONS, { action: "query", list: "search", srsearch: alias, srnamespace: 14, srlimit: 4 });
+      for (const x of cs.query?.search ?? []) {
+        const name = x.title.replace(/^Category:/i, "");
+        if (seenCats.has(name) || !hits(asv, name)) continue;
+        seenCats.add(name);
+        const cm = await api(COMMONS, { action: "query", list: "search", srsearch: `deepcategory:"${name}" filetype:bitmap`, srnamespace: 6, srlimit: 30, srsort: "incoming_links_desc" });
+        for (const f of cm.query?.search ?? []) add(f.title, "category", null, rank++);
+        if (seenCats.size >= 4) break;
+      }
+      // и обычный поиск файлов по этому названию
+      const sf = await api(COMMONS, { action: "query", list: "search", srsearch: alias, srnamespace: 6, srlimit: 15 });
+      for (const f of sf.query?.search ?? []) add(f.title, "search", null);
     }
   }
   // поиск по названию: только если больше ничего не нашли (низкая уверенность)
@@ -180,12 +209,21 @@ function score(p, c, meta, sv) {
 }
 
 mkdirSync(OUT, { recursive: true });
-const places = THUMBS_ONLY ? [] : JSON.parse(readFileSync(PLACES, "utf8")).filter((p) => !ONLY.length || ONLY.includes(p.slug));
-const result = THUMBS_ONLY ? JSON.parse(readFileSync(`${OUT}/candidates.json`, "utf8")) : {};
+const places = THUMBS_ONLY
+  ? []
+  : JSON.parse(readFileSync(PLACES, "utf8"))
+      .filter((p) => (!ONLY.length || ONLY.includes(p.slug)) && (!ALIASES_FILE || ALIASES[p.slug]))
+      .map((p) => ({ ...p, aliases: ALIASES[p.slug] ?? [] }));
+const result = THUMBS_ONLY || (MERGE && existsSync(`${OUT}/candidates.json`)) ? JSON.parse(readFileSync(`${OUT}/candidates.json`, "utf8")) : {};
+if (MERGE) {
+  // прежние превью этих мест не годятся: номера кандидатов изменятся
+  const { rmSync } = await import("node:fs");
+  for (const p of places) rmSync(`${OUT}/thumbs/${p.slug}`, { recursive: true, force: true });
+}
 let n = 0;
 for (const p of places) {
   n++;
-  const sv = stems(p.title);
+  const sv = stems([p.title, ...p.aliases ?? []].join(" "));
   const { pool, wd } = await collect(p);
   const det = await details([...pool.keys()]);
   const cands = [];
@@ -216,7 +254,7 @@ if (!THUMBS_ONLY) writeFileSync(`${OUT}/candidates.json`, JSON.stringify(result,
 mkdirSync(`${OUT}/thumbs`, { recursive: true });
 const jobs = Object.entries(result)
   .flatMap(([slug, r]) => r.candidates.map((c, i) => ({ slug, i, c })))
-  .filter(({ slug, i, c }) => !existsSync(`${OUT}/thumbs/${slug}/${i}.jpg`) && (!THUMBS_ONLY || c.score >= 4.5));
+  .filter(({ slug, i, c }) => !existsSync(`${OUT}/thumbs/${slug}/${i}.jpg`) && (!THUMBS_ONLY || c.score >= 4.5) && (!MERGE || places.some((p) => p.slug === slug)));
 let ji = 0, thumbFail = 0;
 async function thumb({ slug, i, c }) {
   const file = c.title.replace(/^File:/, "");

@@ -34,8 +34,13 @@ jobs:
       - name: Список мест
         run: npx tsx scripts/export-photo-places.ts > "$RUNNER_TEMP/places.json"
       - name: Поиск в Commons (или докачка превью)
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
-          if [ -f "$RUNNER_TEMP/out/candidates.json" ]; then
+          if echo "$COMMIT_MSG" | grep -q '\[aliases\]' && [ -f "$RUNNER_TEMP/out/candidates.json" ]; then
+            # второй проход: места из scripts/photo-aliases.json ищутся по другим названиям, результат встаёт в готовый список
+            node scripts/commons-probe.mjs "$RUNNER_TEMP/places.json" "$RUNNER_TEMP/out" --aliases=scripts/photo-aliases.json --merge
+          elif [ -f "$RUNNER_TEMP/out/candidates.json" ]; then
             node scripts/commons-probe.mjs "$RUNNER_TEMP/places.json" "$RUNNER_TEMP/out" --thumbs-only
           else
             node scripts/commons-probe.mjs "$RUNNER_TEMP/places.json" "$RUNNER_TEMP/out"
