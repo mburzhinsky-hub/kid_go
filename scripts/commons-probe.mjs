@@ -17,10 +17,11 @@ const [, , PLACES, OUT, ...rest] = process.argv;
 if (!PLACES || !OUT) { console.error("node scripts/commons-probe.mjs places.json outdir [--only=a,b]"); process.exit(2); }
 const ONLY = (rest.find((a) => a.startsWith("--only=")) ?? "").slice(7).split(",").filter(Boolean);
 const THUMBS_ONLY = rest.includes("--thumbs-only"); // дозагрузить недостающие превью по готовому outdir/candidates.json (кандидатов с оценкой от 4,5)
-const TOP = 6; // сколько кандидатов оставляем на место
+const TOP = 12; // сколько кандидатов оставляем на место (потом их просматривают глазами и выбирают лучшие)
 const UA = "KidsGoPhotoAudit/1.0 (https://kids-go.fun; https://github.com/mburzhinsky-hub/kid_go) node";
 const COMMONS = "https://commons.wikimedia.org/w/api.php";
 const WIKIDATA = "https://www.wikidata.org/w/api.php";
+const WIKIS = { ru: "https://ru.wikipedia.org/w/api.php", en: "https://en.wikipedia.org/w/api.php" };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let last = 0;
@@ -69,7 +70,7 @@ async function wikidataFor(p) {
     for (const e of r.search ?? []) ids.add(e.id);
   }
   if (!ids.size) return null;
-  const ents = await api(WIKIDATA, { action: "wbgetentities", ids: [...ids].join("|"), props: "claims|labels", languages: "ru|en" });
+  const ents = await api(WIKIDATA, { action: "wbgetentities", ids: [...ids].join("|"), props: "claims|labels|sitelinks", sitefilter: "ruwiki|enwiki", languages: "ru|en" });
   const sv = stems(p.title);
   let best = null;
   for (const e of Object.values(ents.entities ?? {})) {
@@ -82,20 +83,21 @@ async function wikidataFor(p) {
     if (sv.length && !h) continue;
     const cat = e.claims?.P373?.[0]?.mainsnak?.datavalue?.value;
     const img = e.claims?.P18?.[0]?.mainsnak?.datavalue?.value;
-    if (!cat && !img) continue;
+    if (!cat && !img && !e.sitelinks?.ruwiki && !e.sitelinks?.enwiki) continue;
     const sc = h * 2 - d;
-    if (!best || sc > best.sc) best = { id: e.id, label: e.labels?.ru?.value ?? e.labels?.en?.value, cat, img, d, sc };
+    if (!best || sc > best.sc) best = { id: e.id, label: e.labels?.ru?.value ?? e.labels?.en?.value, cat, img, d, sc, ru: e.sitelinks?.ruwiki?.title, en: e.sitelinks?.enwiki?.title };
   }
   return best;
 }
 
 async function collect(p) {
   const pool = new Map(); // File:… → { via:Set, dist }
-  const add = (title, via, dist) => {
+  const add = (title, via, dist, rank) => {
     if (!/^File:/i.test(title)) return;
-    const c = pool.get(title) ?? { via: new Set(), dist: Infinity };
+    const c = pool.get(title) ?? { via: new Set(), dist: Infinity, rank: Infinity };
     c.via.add(via);
     if (dist != null) c.dist = Math.min(c.dist, dist);
+    if (rank != null) c.rank = Math.min(c.rank, rank);
     pool.set(title, c);
   };
   const wide = p.type === "park" || /усадьб|парк|заповедник|сад\b|лес|ферм|зоопарк|музей-/i.test(p.title);
@@ -104,9 +106,23 @@ async function collect(p) {
 
   const wd = await wikidataFor(p);
   if (wd?.img) add("File:" + wd.img, "wikidata-image", null);
+  if (wd) {
+    // снимки из статей Википедии о месте: их выбрали редакторы как самые показательные
+    for (const lang of ["ru", "en"]) {
+      if (!wd[lang]) continue;
+      const r = await api(WIKIS[lang], { action: "query", titles: wd[lang], prop: "images", imlimit: 80, redirects: 1 });
+      for (const im of r.query?.pages?.[0]?.images ?? []) if (/\.(jpe?g|png)$/i.test(im.title)) add("File:" + im.title.replace(/^[^:]+:/, ""), "article", null);
+    }
+  }
   if (wd?.cat) {
-    const cm = await api(COMMONS, { action: "query", list: "categorymembers", cmtitle: "Category:" + wd.cat, cmtype: "file", cmlimit: 60 });
-    for (const x of cm.query?.categorymembers ?? []) add(x.title, "category", null);
+    // категория Commons вместе с подкатегориями, по числу использований файла в статьях (самые востребованные — первыми)
+    let rank = 0;
+    for (const q of [`deepcategory:"${wd.cat}" filetype:bitmap`, `incategory:"${wd.cat}" filetype:bitmap`]) {
+      const cm = await api(COMMONS, { action: "query", list: "search", srsearch: q, srnamespace: 6, srlimit: 40, srsort: "incoming_links_desc" });
+      const found = cm.query?.search ?? [];
+      for (const x of found) add(x.title, "category", null, rank++);
+      if (found.length >= 5) break;
+    }
   }
   // поиск по названию: только если больше ничего не нашли (низкая уверенность)
   if (pool.size < 6) {
@@ -146,13 +162,18 @@ function score(p, c, meta, sv) {
   const via = meta.via;
   const dist = meta.dist !== Infinity ? meta.dist : c.geo ? km(p.lat, p.lng, c.geo.lat, c.geo.lng) * 1000 : Infinity;
   let s = 0;
-  if (via.has("category")) s += 4;
+  if (via.has("category")) s += 3 + (meta.rank < 10 ? 1.5 : meta.rank < 25 ? 0.5 : 0);
+  if (via.has("article")) s += 4;
   if (via.has("wikidata-image")) s += 4;
+  if (/Featured pictures|Quality images|Valued images/i.test(c.cats)) s += 1.5;
+  if (c.width >= c.height * 1.2) s += 0.5; else if (c.height > c.width * 1.1) s -= 0.5; // карточки и обложки — горизонтальные
+  const year = parseInt((c.date.match(/(18|19|20)\d\d/) ?? [])[0] ?? "", 10);
+  if (year && year < 1995) s -= 2.5; // старые чёрно-белые снимки
   if (dist <= 60) s += 3; else if (dist <= 150) s += 2; else if (dist <= 350) s += 1;
   s += Math.min(3, h);
   if (c.width >= 1600) s += 0.5;
   // далеко и не названо этим местом: не берём (чужой кадр рядом)
-  const named = h > 0 || via.has("category") || via.has("wikidata-image");
+  const named = h > 0 || via.has("category") || via.has("wikidata-image") || via.has("article");
   if (!named && dist > 120) s -= 4;
   if (via.size === 1 && via.has("search") && !(c.geo && dist <= 3000)) s -= 3;
   return { s: Math.round(s * 10) / 10, h, dist: Number.isFinite(dist) ? Math.round(dist) : null, named };

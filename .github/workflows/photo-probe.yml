@@ -22,9 +22,14 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Прошлый результат (если есть)
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
           mkdir -p "$RUNNER_TEMP/out"
-          git clone -q --depth=1 --branch data/photo-candidates "https://github.com/${{ github.repository }}" "$RUNNER_TEMP/out" || true
+          # сообщение коммита с «[full]» — искать заново, иначе докачать только недостающие превью
+          if ! echo "$COMMIT_MSG" | grep -q '\[full\]'; then
+            git clone -q --depth=1 --branch data/photo-candidates "https://github.com/${{ github.repository }}" "$RUNNER_TEMP/out" || true
+          fi
           rm -rf "$RUNNER_TEMP/out/.git"
       - name: Список мест
         run: npx tsx scripts/export-photo-places.ts > "$RUNNER_TEMP/places.json"
