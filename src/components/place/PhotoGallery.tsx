@@ -205,7 +205,7 @@ export function PhotoCredits({ photos }: { photos: Photo[] }) {
   });
   if (!credits.length) return null;
   return (
-    <p className="mt-3 text-[12px] leading-snug text-muted">
+    <p className="mt-3 break-words text-[12px] leading-snug text-muted">
       Фото:{" "}
       {credits.map((c, i) => (
         <span key={i}>
