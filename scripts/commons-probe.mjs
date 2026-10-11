@@ -11,11 +11,12 @@
  * Результат: outdir/candidates.json (все кандидаты с оценкой), outdir/thumbs/<slug>/<n>.jpg (превью для просмотра глазами),
  * outdir/summary.txt. Нужен доступ в интернет — в CI он есть.
  */
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const [, , PLACES, OUT, ...rest] = process.argv;
 if (!PLACES || !OUT) { console.error("node scripts/commons-probe.mjs places.json outdir [--only=a,b]"); process.exit(2); }
 const ONLY = (rest.find((a) => a.startsWith("--only=")) ?? "").slice(7).split(",").filter(Boolean);
+const THUMBS_ONLY = rest.includes("--thumbs-only"); // дозагрузить недостающие превью по готовому outdir/candidates.json (кандидатов с оценкой от 4,5)
 const TOP = 6; // сколько кандидатов оставляем на место
 const UA = "KidsGoPhotoAudit/1.0 (https://kids-go.fun; https://github.com/mburzhinsky-hub/kid_go) node";
 const COMMONS = "https://commons.wikimedia.org/w/api.php";
@@ -158,8 +159,8 @@ function score(p, c, meta, sv) {
 }
 
 mkdirSync(OUT, { recursive: true });
-const places = JSON.parse(readFileSync(PLACES, "utf8")).filter((p) => !ONLY.length || ONLY.includes(p.slug));
-const result = {};
+const places = THUMBS_ONLY ? [] : JSON.parse(readFileSync(PLACES, "utf8")).filter((p) => !ONLY.length || ONLY.includes(p.slug));
+const result = THUMBS_ONLY ? JSON.parse(readFileSync(`${OUT}/candidates.json`, "utf8")) : {};
 let n = 0;
 for (const p of places) {
   n++;
@@ -188,16 +189,18 @@ for (const p of places) {
   result[p.slug] = { title: p.title, type: p.type, town: p.town, wikidata: wd ? { id: wd.id, label: wd.label, category: wd.cat ?? null } : null, pool: pool.size, candidates: picked };
   console.log(`${String(n).padStart(3)}/${places.length} ${p.slug}: пул ${pool.size}, подходит ${cands.length}, оставлено ${picked.length}${wd ? ` · wikidata ${wd.id}` : ""}`);
 }
-writeFileSync(`${OUT}/candidates.json`, JSON.stringify(result, null, 1));
+if (!THUMBS_ONLY) writeFileSync(`${OUT}/candidates.json`, JSON.stringify(result, null, 1));
 
 // превью для просмотра глазами (стандартная ширина 330 px)
 mkdirSync(`${OUT}/thumbs`, { recursive: true });
-const jobs = Object.entries(result).flatMap(([slug, r]) => r.candidates.map((c, i) => ({ slug, i, c })));
+const jobs = Object.entries(result)
+  .flatMap(([slug, r]) => r.candidates.map((c, i) => ({ slug, i, c })))
+  .filter(({ slug, i, c }) => !existsSync(`${OUT}/thumbs/${slug}/${i}.jpg`) && (!THUMBS_ONLY || c.score >= 4.5));
 let ji = 0, thumbFail = 0;
 async function thumb({ slug, i, c }) {
   const file = c.title.replace(/^File:/, "");
   const url = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=330`;
-  for (let a = 1; a <= 4; a++) {
+  for (let a = 1; a <= 6; a++) {
     try {
       const res = await fetch(url, { headers: { "user-agent": UA }, signal: AbortSignal.timeout(30000) });
       if (!res.ok) throw new Error("HTTP " + res.status);
@@ -205,11 +208,11 @@ async function thumb({ slug, i, c }) {
       mkdirSync(`${OUT}/thumbs/${slug}`, { recursive: true });
       writeFileSync(`${OUT}/thumbs/${slug}/${i}.jpg`, buf);
       return;
-    } catch { await sleep(1000 * a); }
+    } catch { await sleep(2000 * a); }
   }
   thumbFail++;
 }
-await Promise.all(Array.from({ length: 3 }, async () => { while (ji < jobs.length) await thumb(jobs[ji++]); }));
+await Promise.all(Array.from({ length: THUMBS_ONLY ? 1 : 3 }, async () => { while (ji < jobs.length) await thumb(jobs[ji++]); }));
 
 // сводка
 const vals = Object.values(result);
@@ -224,5 +227,5 @@ const lines = [
   "",
   ...Object.entries(result).map(([s, r]) => `${s}\t${r.type}\t${r.candidates.length}\t${r.candidates[0]?.score ?? "-"}`),
 ];
-writeFileSync(`${OUT}/summary.txt`, lines.join("\n"));
+if (!THUMBS_ONLY) writeFileSync(`${OUT}/summary.txt`, lines.join("\n"));
 console.log(lines.slice(0, 6).join("\n"));
