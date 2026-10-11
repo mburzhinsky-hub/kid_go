@@ -7,7 +7,7 @@ import type { Photo, Place, PlanStop, TransportId } from "@/lib/types";
 import { multiRouteUrl } from "@/lib/route-url";
 import { buildPlan, chainLabel, type StopInput } from "@/lib/plan";
 import { SmartImage } from "@/components/ui/SmartImage";
-import { BackButton, ShareButton } from "@/components/place/PhotoGallery";
+import { BackButton, ShareButton, PhotoCredits } from "@/components/place/PhotoGallery";
 import { AdventureTimeline } from "./AdventureTimeline";
 import { StickyCTA } from "@/components/place/PlaceCTA";
 import { IconRocket } from "@/components/icons/brand-icons";
@@ -252,6 +252,10 @@ function AdventureViewInner(props: AdventureViewProps) {
           </div>
         </section>
         {props.children}
+      </div>
+
+      <div className="px-4">
+        <PhotoCredits photos={cover ? [cover] : []} />
       </div>
 
       <ReplaceSheet

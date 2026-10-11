@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Share, X } from "lucide-react";
 import { BackButton as SharedBackButton } from "@/components/ui/BackButton";
-import type { Photo } from "@/lib/types";
+import type { Photo, PhotoCredit } from "@/lib/types";
+import { cn } from "@/lib/cn";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { FavoriteButton } from "@/components/ui/FavoriteButton";
 import { RatingBadge } from "@/components/ui/badges";
@@ -42,11 +43,17 @@ export function HeroGallery({
   return (
     <div className="relative">
       <div ref={ref} className="no-scrollbar flex h-[340px] [@media(max-height:760px)]:h-[260px] snap-x snap-mandatory overflow-x-auto rounded-b-[30px]">
-        {photos.map((p, i) => (
-          <button key={i} onClick={() => setOpen(i)} className="relative h-full w-full shrink-0 snap-center" aria-label={`Фото ${i + 1}: ${p.alt}`}>
-            <SmartImage photo={p} tint={tint} emoji={emoji} sizes="(max-width: 480px) 100vw, 480px" priority={i === 0} quality={75} className="absolute inset-0" />
-          </button>
-        ))}
+        {photos.map((p, i) =>
+          p.src ? (
+            <button key={i} onClick={() => setOpen(i)} className="relative h-full w-full shrink-0 snap-center" aria-label={`Фото ${i + 1}: ${p.alt}`}>
+              <SmartImage photo={p} tint={tint} emoji={emoji} sizes="(max-width: 480px) 100vw, 480px" priority={i === 0} quality={75} className="absolute inset-0" />
+            </button>
+          ) : (
+            <div key={i} className="relative h-full w-full shrink-0 snap-center">
+              <SmartImage photo={p} tint={tint} emoji={emoji} sizes="(max-width: 480px) 100vw, 480px" className="absolute inset-0" />
+            </div>
+          ),
+        )}
       </div>
       <div className="pointer-events-none absolute inset-x-0 top-0 h-28 rounded-t-none bg-gradient-to-b from-black/30 to-transparent" />
       <div className="absolute inset-x-4 top-[max(14px,env(safe-area-inset-top))] flex items-center justify-between">
@@ -57,9 +64,11 @@ export function HeroGallery({
         </div>
       </div>
       {rating != null && rating > 0 && <RatingBadge rating={rating} count={count && count > 0 ? count : undefined} tone="pill" className="absolute bottom-4 left-4" />}
-      <span className="absolute bottom-4 right-4 inline-flex h-9 items-center rounded-full bg-black/45 px-3.5 text-[15px] font-semibold text-white">
-        {index + 1}/{photos.length}
-      </span>
+      {photos.length > 1 && (
+        <span className="absolute bottom-4 right-4 inline-flex h-9 items-center rounded-full bg-black/45 px-3.5 text-[15px] font-semibold text-white">
+          {index + 1}/{photos.length}
+        </span>
+      )}
       {open !== null && <Lightbox photos={photos} start={open} tint={tint} emoji={emoji} onClose={() => setOpen(null)} />}
     </div>
   );
@@ -100,9 +109,14 @@ export function PhotoGallery({ photos, tint, emoji }: { photos: Photo[]; tint: s
   const rest = photos.length - 5;
   return (
     <>
-      <div className="grid grid-cols-[1.45fr_1fr_1fr_1fr] gap-2">
+      <div
+        className={cn(
+          "grid gap-2",
+          thumbs.length >= 4 ? "grid-cols-[1.45fr_1fr_1fr_1fr]" : thumbs.length === 3 ? "grid-cols-3" : thumbs.length === 2 ? "grid-cols-2" : "grid-cols-1",
+        )}
+      >
         {thumbs.map((p, i) => (
-          <button key={i} onClick={() => setOpen(i + 1)} className="press relative h-[84px] overflow-hidden rounded-[12px]" aria-label={`Открыть фото: ${p.alt}`}>
+          <button key={i} onClick={() => setOpen(i + 1)} className={cn("press relative overflow-hidden rounded-[12px]", thumbs.length >= 3 ? "h-[84px]" : "h-[116px]")} aria-label={`Открыть фото: ${p.alt}`}>
             <SmartImage photo={p} tint={tint} emoji={emoji} sizes="140px" className="absolute inset-0" />
             {i === thumbs.length - 1 && rest > 0 && (
               <span className="absolute inset-0 grid place-items-center bg-black/45 text-[22px] font-semibold text-white">+{rest}</span>
@@ -149,7 +163,57 @@ function Lightbox({ photos, start, tint, emoji, onClose }: { photos: Photo[]; st
           </div>
         ))}
       </div>
-      <p className="px-4 pb-[max(20px,env(safe-area-inset-bottom))] pt-3 text-center text-[14px] text-white/80">{photos[i]?.alt}</p>
+      <div className="px-4 pb-[max(20px,env(safe-area-inset-bottom))] pt-3 text-center text-white/80">
+        <p className="text-[14px]">{photos[i]?.alt}</p>
+        {photos[i]?.credit && <p className="mt-1 text-[12px] text-white/60"><CreditLine credit={photos[i].credit!} /></p>}
+      </div>
     </div>
+  );
+}
+
+const extProps = { target: "_blank", rel: "noopener noreferrer" } as const;
+
+/** «Автор, лицензия»: обе части ссылки (страница снимка и текст лицензии). */
+function CreditLine({ credit }: { credit: PhotoCredit }) {
+  return (
+    <>
+      <a href={credit.url} {...extProps} className="underline underline-offset-2">
+        {credit.author}
+      </a>
+      ,{" "}
+      {credit.licenseUrl ? (
+        <a href={credit.licenseUrl} {...extProps} className="underline underline-offset-2">
+          {credit.license}
+        </a>
+      ) : (
+        <span>{credit.license === "Public domain" ? "общественное достояние" : credit.license}</span>
+      )}
+    </>
+  );
+}
+
+/** Авторы снимков под галереей: условие свободных лицензий (CC BY, CC BY-SA). Если снимков нет — ничего не показываем. */
+export function PhotoCredits({ photos }: { photos: Photo[] }) {
+  const seen = new Set<string>();
+  const credits = photos.flatMap((p) => {
+    const c = p.credit;
+    if (!c) return [];
+    const key = `${c.author}|${c.license}`;
+    if (seen.has(key)) return [];
+    seen.add(key);
+    return [c];
+  });
+  if (!credits.length) return null;
+  return (
+    <p className="mt-3 text-[12px] leading-snug text-muted">
+      Фото:{" "}
+      {credits.map((c, i) => (
+        <span key={i}>
+          {i > 0 && "; "}
+          <CreditLine credit={c} />
+        </span>
+      ))}
+      . Wikimedia Commons, снимки уменьшены и обрезаны.
+    </p>
   );
 }

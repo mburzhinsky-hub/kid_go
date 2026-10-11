@@ -4,6 +4,7 @@ import { buildPlaces } from "./extra";
 import { isPublishableBasePlace, trustForBasePlace } from "./trust";
 import { auditForPlace, isAuditedPublicPlace, trustedPlaceTags } from "./source-audit";
 import { applyEditorialFacts } from "./editorial";
+import { applyRealPhotos } from "./place-photos";
 
 /**
  * Демо-база мест (Москва). Названия известных мест реальные, часть заведений
@@ -1720,7 +1721,8 @@ export const places: Place[] = [
   ),
 ]
   .filter((p) => !REMOVED_EDITORIAL_SLUGS.has(p.slug))
-  .map(applyEditorialFacts);
+  .map(applyEditorialFacts)
+  .map(applyRealPhotos);
 
 export const placeById = new Map(places.map((p) => [p.id, p]));
 export const placeBySlug = new Map(places.map((p) => [p.slug, p]));

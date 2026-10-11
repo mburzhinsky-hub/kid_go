@@ -25,6 +25,20 @@ const coverOf = (slug: string): Photo => {
   return { ...p.photos[0] };
 };
 
+/** Обложки уже выбранных приключений: у двух приключений не должно быть одной и той же картинки. */
+const usedCovers = new Set<string>();
+
+/**
+ * Обложка по первому месту маршрута: настоящее фото этого места (если приключения начинаются в одном месте,
+ * второму достаётся другой его снимок), а если свободных снимков нет — тематическая картинка из подборки.
+ */
+const pickCover = (firstSlug: string, fallback: Photo): Photo => {
+  const own = placeBySlug.get(firstSlug)?.photos.find((c) => c.src && c.kind === "commons" && !usedCovers.has(c.src));
+  const cover = own ? { ...own } : fallback;
+  usedCovers.add(cover.src);
+  return cover;
+};
+
 /**
  * Curated adventures use only places that remain publishable after the Block 1 trust audit.
  * Recommendation percentages were removed: real social proof must come from real user data later.
@@ -282,7 +296,7 @@ const seeds: AdventureSeed[] = [
     tagline: "Пряники, Lego и советское детство",
     description:
       "Три небольших музея в одном городе: чаепитие и мастер-класс по пряникам, музей Lego с интерактивным городом и «Назад в СССР» с вещами и игрушками времён бабушек и дедушек. Всё под крышей — день подходит и для дождя.",
-    cover: coverOf("muzey-lego-lets-go-zvenigorod"),
+    cover: ph(PH.museumChildDisplay, "Ребёнок в музее"),
     emoji: "🧱",
     tint: "#EEE5FE",
     start: "11:00",
@@ -331,7 +345,7 @@ export const adventures: Adventure[] = seeds.map((s, i) => {
     title: s.title,
     tagline: s.tagline,
     description: s.description,
-    cover_image: s.cover,
+    cover_image: pickCover(s.steps[0].slug, s.cover),
     tint: s.tint,
     emoji: s.emoji,
     age_min: s.ageOverride?.[0] ?? plan.ageMin,

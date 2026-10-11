@@ -175,7 +175,7 @@ export function CabinetScreen() {
           <Row icon={<Trash2 size={20} className="text-red-ink" />} label="Удалить кабинет" onClick={() => setDel(true)} />
         </div>
         <p className="mt-4 text-center text-[13px] text-muted">
-          <Link href="/rules/" className="underline">Правила</Link> · <Link href="/privacy/" className="underline">Конфиденциальность</Link>
+          <Link href="/rules/" className="underline">Правила</Link> · <Link href="/privacy/" className="underline">Конфиденциальность</Link> · <Link href="/photo-credits/" className="underline">Авторы фото</Link>
         </p>
       </section>
 
