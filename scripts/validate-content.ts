@@ -83,7 +83,8 @@ for (const p of places) {
   if (unknown.has("kids_menu") && /детск.{0,10}меню/.test(tags)) fail(`${prefix}: unverified kids-menu claim leaked into tags`);
   if (unknown.has("booking_required") && /по записи|нужна запись|запись/.test(tags)) fail(`${prefix}: unverified booking claim leaked into tags`);
   for (const photo of p.photos) {
-    if (!photo.src || !photo.alt) fail(`${prefix}: photo without src/alt`);
+    // пустой src допустим только как единственная иллюстрация вместо фото (у места нет настоящих снимков)
+    if (!photo.alt || (!photo.src && !(p.photos.length === 1 && photo.kind === "demo"))) fail(`${prefix}: photo without src/alt`);
     if (!photo.kind) warn(`${prefix}: photo kind is unknown`);
   }
 }

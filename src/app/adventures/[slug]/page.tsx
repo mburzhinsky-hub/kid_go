@@ -5,7 +5,7 @@ import { AdventureView } from "@/components/adventure/AdventureView";
 import { AdventureCard } from "@/components/cards/AdventureCard";
 import { adventureCardData } from "@/lib/cards";
 import { formatAgeRange, formatDuration, formatBudget } from "@/lib/format";
-import { ogImageUrl } from "@/lib/image-loader";
+import { ogImageUrl, schemaImageUrl } from "@/lib/image-loader";
 
 type AdventurePageProps = { params: Promise<{ slug: string }> };
 
@@ -42,12 +42,13 @@ export default async function AdventurePage({ params }: AdventurePageProps) {
     .sort((p, q) => q.s - p.s)
     .map((p) => p.x);
 
+  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kids-go.fun";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "TouristTrip",
     name: a.title,
     description: a.description,
-    image: a.cover_image.src,
+    ...(schemaImageUrl(a.cover_image.src, site) ? { image: schemaImageUrl(a.cover_image.src, site) } : {}),
     touristType: "Семьи с детьми",
     itinerary: {
       "@type": "ItemList",

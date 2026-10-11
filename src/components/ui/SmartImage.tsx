@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { Photo } from "@/lib/types";
 import { cn } from "@/lib/cn";
+import { commonsInfo, commonsThumb } from "@/lib/commons";
 
 interface Props {
   photo: Photo;
@@ -24,6 +25,8 @@ const LOCAL_PHOTOS = process.env.NEXT_PUBLIC_PHOTOS_LOCAL === "1";
 
 /** Запасной адрес: если своей копии фото нет на сервере, пробуем оригинал (один размер, без оптимизации). */
 function remoteSrc(src: string) {
+  const cm = LOCAL_PHOTOS ? commonsInfo(src) : null;
+  if (cm) return commonsThumb(cm.file, 960);
   return LOCAL_PHOTOS && src.startsWith("https://images.unsplash.com/") ? `${src}?w=960&q=70&auto=format&fit=crop&cs=tinysrgb` : undefined;
 }
 

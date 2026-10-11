@@ -47,7 +47,7 @@ export interface ParkingInfo {
   checked_at: string;
 }
 export type PlaceVerifiedField = "identity" | "address" | "price" | "opening_hours";
-export type PhotoKind = "official" | "partner" | "creator" | "ugc" | "stock" | "demo";
+export type PhotoKind = "official" | "partner" | "creator" | "ugc" | "stock" | "demo" | "commons";
 export type ParentInfoField =
   | "stroller_friendly"
   | "baby_room"
@@ -92,12 +92,23 @@ export type ExperienceTag =
 /** Часы работы: индекс 0 — понедельник. null — выходной. */
 export type OpeningHours = ([string, string] | null)[];
 
+/** Автор и лицензия снимка: обязательны для фото из Wikimedia Commons (CC BY, CC BY-SA). */
+export interface PhotoCredit {
+  author: string;
+  /** Короткое имя лицензии, например «CC BY-SA 4.0». */
+  license: string;
+  licenseUrl?: string;
+  /** Страница файла на Wikimedia Commons. */
+  url: string;
+}
+
 export interface Photo {
-  /** id фото на CDN (сейчас Unsplash). */
+  /** id фото на CDN (сейчас Unsplash) или адрес снимка на Wikimedia Commons (см. lib/commons.ts). Пусто — у места нет фото, показываем иллюстрацию. */
   src: string;
   alt: string;
-  /** Источник визуала: stock/demo не должен восприниматься как фотография конкретного места. */
+  /** Источник визуала: stock/demo не должен восприниматься как фотография конкретного места; commons — настоящий снимок этого места. */
   kind?: PhotoKind;
+  credit?: PhotoCredit;
 }
 
 export interface Place {

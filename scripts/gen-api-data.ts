@@ -6,6 +6,7 @@
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { places } from "../src/lib/data/places";
+import { commonsInfo } from "../src/lib/commons";
 
 const dir = new URL("../api/data/", import.meta.url);
 mkdirSync(dir, { recursive: true });
@@ -20,7 +21,7 @@ for (const p of all) {
   slugs.push(p.slug);
   const src = p.photos?.[0]?.src ?? "";
   const m = src.match(/^https:\/\/images\.unsplash\.com\/(photo-[0-9a-zA-Z_-]+)/);
-  index[p.slug] = { n: p.title, p: m ? m[1] : null };
+  index[p.slug] = { n: p.title, p: m ? m[1] : (commonsInfo(src)?.id ?? null) };
 }
 writeFileSync(new URL("places.json", dir), JSON.stringify(slugs));
 writeFileSync(new URL("place-index.json", dir), JSON.stringify(index));

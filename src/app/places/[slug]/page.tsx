@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { CalendarDays, UtensilsCrossed } from "lucide-react";
 import { repo } from "@/lib/data/repository";
 import { allPlaces } from "@/lib/data/repository";
-import { HeroGallery, PhotoGallery } from "@/components/place/PhotoGallery";
+import { HeroGallery, PhotoCredits, PhotoGallery } from "@/components/place/PhotoGallery";
 import { InfoGrid } from "@/components/place/InfoGrid";
 import { ParentInfo } from "@/components/place/ParentInfo";
 import { WhatNext } from "@/components/place/WhatNext";
@@ -21,7 +21,7 @@ import { AroundLink } from "@/components/place/AroundLink";
 import { isOutside } from "@/lib/outside";
 import { categoryDef, placeTypeName } from "@/lib/catalog";
 import { formatAgeRange, formatPrice } from "@/lib/format";
-import { ogImageUrl } from "@/lib/image-loader";
+import { ogImageUrl, schemaImageUrl } from "@/lib/image-loader";
 
 type PlacePageProps = { params: Promise<{ slug: string }> };
 
@@ -63,12 +63,15 @@ export default async function PlacePage({ params }: PlacePageProps) {
   const priceVerified = verified.has("price");
   const hoursVerified = verified.has("opening_hours");
 
+  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kids-go.fun";
+  const images = place.photos.map((p) => schemaImageUrl(p.src, site)).filter((u): u is string => !!u);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": place.category === "cafe" ? "Restaurant" : place.category === "shop" ? "Store" : place.category === "museum" ? "Museum" : "TouristAttraction",
     name: place.title,
     description: place.description,
-    image: place.photos.map((p) => p.src),
+    ...(images.length ? { image: images } : {}),
     ...(addressVerified
       ? {
           address: { "@type": "PostalAddress", streetAddress: place.address, addressLocality: place.region === "mo" ? place.town ?? "Московская область" : "Москва", addressCountry: "RU" },
@@ -132,6 +135,7 @@ export default async function PlacePage({ params }: PlacePageProps) {
             <PhotoGallery photos={place.photos} tint={place.tint} emoji={place.emoji} />
           </div>
         )}
+        <PhotoCredits photos={place.photos} />
 
         {addressVerified && <AddressCard place={place} />}
 

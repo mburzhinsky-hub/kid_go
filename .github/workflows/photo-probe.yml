@@ -1,0 +1,50 @@
+name: Photo probe
+
+# Разовый поиск настоящих фото мест в Wikimedia Commons (scripts/commons-probe.mjs).
+# Результат (кандидаты и превью) кладётся в ветку data/photo-candidates, чтобы его можно было посмотреть без доступа к Wikimedia.
+# Если в ветке уже есть candidates.json, поиск не повторяется: докачиваются только недостающие превью.
+on:
+  push:
+    branches: [ci/photo-probe]
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Прошлый результат (если есть)
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          # сообщение коммита с «[full]» — искать заново, иначе докачать только недостающие превью
+          if ! echo "$COMMIT_MSG" | grep -q '\[full\]'; then
+            git clone -q --depth=1 --branch data/photo-candidates "https://github.com/${{ github.repository }}" "$RUNNER_TEMP/out" || true
+          fi
+          rm -rf "$RUNNER_TEMP/out/.git"
+      - name: Список мест
+        run: npx tsx scripts/export-photo-places.ts > "$RUNNER_TEMP/places.json"
+      - name: Поиск в Commons (или докачка превью)
+        run: |
+          if [ -f "$RUNNER_TEMP/out/candidates.json" ]; then
+            node scripts/commons-probe.mjs "$RUNNER_TEMP/places.json" "$RUNNER_TEMP/out" --thumbs-only
+          else
+            node scripts/commons-probe.mjs "$RUNNER_TEMP/places.json" "$RUNNER_TEMP/out"
+          fi
+      - name: Публикация результата в ветку
+        run: |
+          cd "$RUNNER_TEMP/out"
+          git init -q
+          git checkout -q -b data/photo-candidates
+          git add -A
+          git -c user.name="photo-probe" -c user.email="photo-probe@users.noreply.github.com" commit -qm "Кандидаты фото из Wikimedia Commons"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" data/photo-candidates

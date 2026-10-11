@@ -180,7 +180,8 @@ for (const p of allPlaces) {
   if (!p.photos.length) E(k, "нет фото");
   const srcs = new Set<string>();
   for (const ph of p.photos) {
-    if (!ph.src) E(k, "пустой src у фото");
+    // пустой src — осознанная иллюстрация вместо фото (у места нет настоящих снимков, см. data/place-photos.ts); её проверяет audit:photos
+    if (!ph.src && !(p.photos.length === 1 && ph.kind === "demo")) E(k, "пустой src у фото");
     if (!ph.alt || !ph.alt.trim()) E(k, `нет alt у фото ${ph.src}`);
     if (srcs.has(ph.src)) E(k, `фото повторяется внутри места: ${ph.src}`);
     srcs.add(ph.src);
@@ -316,7 +317,8 @@ for (const e of getEventsSeed()) {
   const TECH = /подтвержд|[Сс]татус|источник|проверен|аудит|в карточке|\bdemo\b|демо\b|OSM|OpenStreetMap|в файле|confidence|иллюстраци/i;
   for (const p of allPlaces) {
     const cover = p.photos[0]?.src;
-    if (!cover) E(p.slug, "нет фото");
+    if (!p.photos.length) E(p.slug, "нет фото");
+    else if (!cover) continue; // иллюстрация вместо фото: повторов быть не может
     else if (covers.has(cover)) E(p.slug, `первое фото совпадает с «${covers.get(cover)}»`);
     else covers.set(cover, p.slug);
     for (const ph of p.photos) if (TECH.test(ph.alt)) E(p.slug, `служебное слово в подписи к фото: «${ph.alt}»`);
