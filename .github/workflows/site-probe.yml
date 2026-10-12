@@ -15,13 +15,14 @@ jobs:
       - name: Probe
         shell: bash
         run: |
+          set +e +o pipefail
           set -u
           SITE=https://kids-go.fun
           probe() {
-            local name="$1" ua="$2" url="$3"
+            local name="$1" ua="$2" url="$3"; shift 3
             rm -f /tmp/body /tmp/hdr
             local w
-            w=$(curl -sS -L --max-time 40 -A "$ua" -D /tmp/hdr -o /tmp/body \
+            w=$(curl -sS -L --max-time 40 -A "$ua" "$@" -D /tmp/hdr -o /tmp/body \
               -w 'code=%{http_code} size=%{size_download} ttfb=%{time_starttransfer}s total=%{time_total}s http=%{http_version} ip=%{remote_ip} redirects=%{num_redirects} final=%{url_effective}' "$url" 2>&1) || true
             local hs
             hs=$(grep -iE '^(HTTP/|content-type|content-length|content-encoding|server|location|cache-control|set-cookie|via|x-|cf-)' /tmp/hdr 2>/dev/null | tr -d '\r' | tr '\n' '|' | cut -c1-700)
@@ -37,5 +38,6 @@ jobs:
           probe "WhatsApp /"           'WhatsApp/2.23.20.0 A' "$SITE/"
           probe "facebook /"           'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)' "$SITE/"
           probe "TelegramBot og.jpg"   'TelegramBot (like TwitterBot)' "$SITE/og.jpg"
+          probe "TelegramBot / http1.1+gzip" 'TelegramBot (like TwitterBot)' "$SITE/" --http1.1 -H 'Accept-Encoding: gzip, deflate'
           probe "TelegramBot http://"  'TelegramBot (like TwitterBot)' "http://kids-go.fun/"
           probe "TelegramBot sitemap"  'TelegramBot (like TwitterBot)' "$SITE/sitemap.xml"
