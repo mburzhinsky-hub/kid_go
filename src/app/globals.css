@@ -146,6 +146,94 @@
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 
+/* ───── Промоблок главной: анимированный маршрут (components/home/RouteArt.tsx) ─────
+   Состояния на корне .kgr: data-s = pre (до запуска) → play (собирается ≈ 3 с) → live (спокойная жизнь);
+   data-paused — блок не на экране, всё стоит; data-go — нажали кнопку (импульс по дороге ≈ 0,3 с).
+   Базовые стили = готовая статичная картинка (так видно без анимации и без JS), всё остальное — поверх. */
+.kgr-card {
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(168, 140, 255, 0.34) 0%, rgba(168, 140, 255, 0) 62%),
+    radial-gradient(90% 70% at 100% 100%, rgba(255, 120, 190, 0.16) 0%, rgba(255, 120, 190, 0) 60%),
+    radial-gradient(70% 60% at 0% 0%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 70%),
+    linear-gradient(140deg, #fbf9ff 0%, #f1ecff 55%, #e9f1ff 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85), 0 1px 2px rgba(60, 40, 140, 0.06), 0 18px 36px -18px rgba(110, 76, 230, 0.4);
+}
+.kgr-grad {
+  background: linear-gradient(90deg, #ff2e88 0%, #b23cf0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  width: fit-content;
+}
+/* белый текст на кнопке: самый светлый цвет градиента даёт контраст ≥ 4,5:1 */
+.kgr-btn {
+  background: linear-gradient(180deg, #e01873 0%, #c41265 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), 0 12px 22px -8px rgba(255, 46, 136, 0.7);
+}
+.kgr-art {
+  position: absolute; right: 0; top: 0; height: 100%; width: min(46%, 210px);
+  overflow: visible; pointer-events: none;
+}
+.kgr-piece { transform-box: fill-box; transform-origin: 50% 100%; }
+.kgr-node, .kgr-starpiece, .kgr-sparkpiece { transform-origin: 50% 50%; }
+.kgr-draw { stroke-dasharray: 1 1.02; }
+/* на самых узких экранах декор упрощается: остаются дорога, точки, кафе и геометка */
+@media (max-width: 349px) { .kgr-sm-hide { display: none; } }
+.kgr-run, .kgr-burst, .kgr-flash { opacity: 0; }
+.kgr-star, .kgr-flash { transform-box: fill-box; transform-origin: 50% 50%; }
+.kgr-sway { transform-box: fill-box; transform-origin: 50% 100%; }
+.kgr-pin { transform-box: fill-box; transform-origin: 50% 100%; }
+
+/* до запуска: объектов нет, дорога не нарисована */
+.kgr[data-s="pre"] .kgr-piece { opacity: 0; }
+.kgr[data-s="pre"] .kgr-draw { stroke-dashoffset: 1.02; }
+
+/* сборка: карточка уже появилась (animate-rise), дальше дорога, объекты по очереди, звёздочка последней */
+.kgr[data-s="play"] .kgr-draw { animation: kgr-draw 1.05s cubic-bezier(0.42, 0, 0.58, 1) 0.25s backwards; }
+.kgr[data-s="play"] .kgr-piece { animation: kgr-pop 0.6s var(--ease-spring) var(--d, 0ms) backwards; }
+.kgr[data-s="play"] .kgr-soft { animation: kgr-soft 0.8s var(--ease-out) var(--d, 0ms) backwards; }
+.kgr[data-s="play"] .kgr-pinpiece { animation: kgr-drop 0.6s var(--ease-spring) var(--d, 0ms) backwards; }
+.kgr[data-s="play"] .kgr-starpiece { animation: kgr-star-in 0.55s var(--ease-spring) var(--d, 0ms) backwards; }
+.kgr[data-s="play"] .kgr-flash { animation: kgr-flash 1.1s ease-out 1.88s backwards; }
+@keyframes kgr-draw { from { stroke-dashoffset: 1.02; } to { stroke-dashoffset: 0; } }
+@keyframes kgr-pop { from { opacity: 0; transform: scale(0.45) translateY(5px); } to { opacity: 1; transform: none; } }
+@keyframes kgr-soft { from { opacity: 0; transform: translateY(5px) scale(0.92); } to { opacity: 1; transform: none; } }
+@keyframes kgr-drop { from { opacity: 0; transform: translateY(-12px) scale(0.86); } to { opacity: 1; transform: none; } }
+@keyframes kgr-star-in { from { opacity: 0; transform: scale(0.2) rotate(-40deg); } to { opacity: 1; transform: none; } }
+@keyframes kgr-flash { 0% { opacity: 0; transform: scale(0.4); } 30% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0; transform: scale(1.55); } }
+
+/* спокойная жизнь: пульс звезды, лёгкое покачивание, редкий огонёк по дороге */
+.kgr[data-s="live"] .kgr-star { animation: kgr-pulse 3.4s ease-in-out infinite; }
+.kgr[data-s="live"] .kgr-pin { animation: kgr-float 4.2s ease-in-out infinite; }
+.kgr[data-s="live"] .kgr-sway { animation: kgr-sway 5.2s ease-in-out var(--sd, 0ms) infinite; }
+.kgr[data-s="live"] .kgr-run { animation: kgr-run 7.5s cubic-bezier(0.4, 0, 0.3, 1) 1.5s infinite; }
+@keyframes kgr-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.09); } }
+@keyframes kgr-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.6px); } }
+@keyframes kgr-sway { 0%, 100% { transform: rotate(-1.3deg); } 50% { transform: rotate(1.3deg); } }
+@keyframes kgr-run {
+  0% { stroke-dashoffset: 0; opacity: 0; }
+  5% { opacity: 1; }
+  34% { opacity: 1; }
+  40%, 100% { stroke-dashoffset: -1; opacity: 0; }
+}
+
+/* нажатие: точки подсвечиваются по порядку, по дороге бежит импульс, звезда вспыхивает. Всё ≤ 350 мс, переход не ждёт. */
+.kgr[data-go] .kgr-burst { animation: kgr-burst 0.3s cubic-bezier(0.35, 0.1, 0.3, 1) both; }
+.kgr[data-go] .kgr-node { animation: kgr-node 0.16s ease-out var(--nd, 0ms) both; }
+.kgr[data-go] .kgr-flash { animation: kgr-flash-go 0.3s ease-out 0.04s both; }
+@keyframes kgr-burst { 0% { stroke-dashoffset: 0.2; opacity: 1; } 88% { opacity: 1; } 100% { stroke-dashoffset: -1; opacity: 0; } }
+@keyframes kgr-node { 0% { transform: scale(1); } 45% { transform: scale(1.38); } 100% { transform: scale(1); } }
+@keyframes kgr-flash-go { 0% { opacity: 0; transform: scale(0.6); } 60% { opacity: 0.95; transform: scale(1.1); } 100% { opacity: 0; transform: scale(1.3); } }
+
+.kgr[data-paused] * { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .kgr *, .kgr *::before { animation: none !important; }
+  .kgr[data-s="pre"] .kgr-piece { opacity: 1; }
+  .kgr[data-s="pre"] .kgr-draw { stroke-dashoffset: 0; }
+  .kgr .kgr-run, .kgr .kgr-burst, .kgr .kgr-flash { display: none; }
+}
+
 /* Заставка первого захода: пока включена метка html[data-first] (src/lib/first-visit.ts), закрывает экран; без метки — плавно гаснет.
    z-index ниже сторожа загрузки, чтобы при зависании его экран был сверху. */
 #kg-splash {
