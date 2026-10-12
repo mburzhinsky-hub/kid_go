@@ -55,3 +55,26 @@ jobs:
             code=$(curl -sS --max-time 40 -o /dev/null -w '%{http_code}' "$u")
             echo "::notice title=live canonical::$u code=$code ${c:-NO-CANONICAL}"
           done
+      - name: Robots and sitemap as Googlebot
+        shell: bash
+        run: |
+          set +e +o pipefail
+          UA='Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+          for u in https://kids-go.fun/robots.txt https://kids-go.fun/sitemap.xml; do
+            h=$(curl -sS --max-time 40 -A "$UA" -D - -o /tmp/b "$u" | tr -d '\r' | grep -iE '^(HTTP/|content-type|content-length|content-encoding|x-robots-tag|last-modified|etag|cache-control)' | tr '\n' '|')
+            echo "::notice title=googlebot $u::$h size=$(wc -c </tmp/b)"
+          done
+          curl -sS --max-time 40 -A "$UA" https://kids-go.fun/robots.txt | head -20 | tr '\n' '|' | sed 's/^/::notice title=robots body::/'
+          echo
+          lm=$(curl -sS --max-time 40 -A "$UA" https://kids-go.fun/sitemap.xml | grep -o '<lastmod>[^<]*' | sort -u | head -3 | tr '\n' ' ')
+          echo "::notice title=sitemap lastmod::$lm runner_date=$(date -u +%FT%TZ)"
+          # хвост файла: нет ли обрыва
+          curl -sS --max-time 40 -A "$UA" https://kids-go.fun/sitemap.xml | tail -c 200 | tr '\n' ' ' | sed 's/^/::notice title=sitemap tail::/'
+          echo
+          python3 - <<'PY'
+          import urllib.request, xml.dom.minidom
+          r=urllib.request.Request('https://kids-go.fun/sitemap.xml',headers={'User-Agent':'Googlebot/2.1'})
+          d=urllib.request.urlopen(r,timeout=40).read()
+          xml.dom.minidom.parseString(d)
+          print('::notice title=sitemap xml parse::OK bytes=%d'%len(d))
+          PY
