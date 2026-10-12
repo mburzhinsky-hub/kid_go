@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { SearchBar } from "@/components/home/SearchBar";
 import { CategoryScroller } from "@/components/home/CategoryScroller";
@@ -14,6 +15,9 @@ import { OnboardingNudge } from "@/components/home/OnboardingNudge";
 import { ParentsPicks } from "@/components/home/ParentsPicks";
 import { SourceScope } from "@/components/social/SourceScope";
 import { repo } from "@/lib/data/repository";
+
+// Адрес главной без параметров (utm_*, fbclid и т. п.) — единственный для поиска.
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 // Погода и афиша меняются в течение дня — обновляем страницу раз в 30 минут (ISR).
 export const revalidate = 1800;
