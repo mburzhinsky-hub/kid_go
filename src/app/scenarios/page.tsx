@@ -9,6 +9,7 @@ import { plural } from "@/lib/format";
 export const metadata: Metadata = {
   title: "Ситуации: куда пойти с детьми, если…",
   description: "Дождь, мороз, до дневного сна, с бабушкой, день рождения, бесплатно, выезд за город — готовый день под любую ситуацию.",
+  alternates: { canonical: "/scenarios" },
 };
 
 const ORDER: ScenarioGroup[] = ["weather", "time", "trip", "party", "mood", "occasion", "effort"];
