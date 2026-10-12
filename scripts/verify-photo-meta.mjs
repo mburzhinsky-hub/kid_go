@@ -79,6 +79,7 @@ for (let i = 0; i < entries.length; i += 25) {
 }
 
 console.log(`Снимков проверено: ${entries.length}, без замечаний по файлу: ${ok}`);
+console.log(`::notice::Сверка с Commons: снимков ${entries.length}, найдено и проверено ${ok}, ошибок ${errors.length}, предупреждений ${warns.length}`);
 for (const w of warns) { console.log("  ·", w); console.log(`::warning::${w}`); }
 for (const e of errors) { console.log("  ✗", e); console.log(`::error::${e}`); }
 if (errors.length) process.exit(1);
