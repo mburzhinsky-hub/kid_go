@@ -16,6 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     { url: SITE, lastModified: now, changeFrequency: "daily", priority: 1 },
     { url: `${SITE}/adventures`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE}/scenarios`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE}/map`, lastModified: now, priority: 0.6 },
     ...adventures.map((a) => ({ url: `${SITE}/adventures/${a.slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8 })),
     ...creators.map((c) => ({ url: `${SITE}/@${c.username}/`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.6 })),
