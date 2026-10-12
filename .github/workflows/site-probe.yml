@@ -41,3 +41,17 @@ jobs:
           probe "TelegramBot / http1.1+gzip" 'TelegramBot (like TwitterBot)' "$SITE/" --http1.1 -H 'Accept-Encoding: gzip, deflate'
           probe "TelegramBot http://"  'TelegramBot (like TwitterBot)' "http://kids-go.fun/"
           probe "TelegramBot sitemap"  'TelegramBot (like TwitterBot)' "$SITE/sitemap.xml"
+      - name: Sitemap and canonical
+        shell: bash
+        run: |
+          set +e +o pipefail
+          curl -sS --max-time 40 -A 'Googlebot/2.1' --compressed https://kids-go.fun/sitemap.xml -o /tmp/sm.xml
+          total=$(grep -c '<loc>' /tmp/sm.xml)
+          noslash=$(grep -o '<loc>[^<]*</loc>' /tmp/sm.xml | grep -vc '/</loc>')
+          first=$(grep -o '<loc>[^<]*</loc>' /tmp/sm.xml | head -3 | tr '\n' ' ')
+          echo "::notice title=live sitemap::urls=$total without_trailing_slash=$noslash first=$first"
+          for u in https://kids-go.fun/ https://kids-go.fun/scenarios/ https://kids-go.fun/places/abramtsevo/; do
+            c=$(curl -sS --max-time 40 --compressed "$u" | grep -o '<link rel="canonical" href="[^"]*"' | head -1)
+            code=$(curl -sS --max-time 40 -o /dev/null -w '%{http_code}' "$u")
+            echo "::notice title=live canonical::$u code=$code ${c:-NO-CANONICAL}"
+          done
