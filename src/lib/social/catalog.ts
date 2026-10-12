@@ -72,11 +72,18 @@ export type CoverArt = { kind: "photo"; tile: CoverTile } | { kind: "collage"; t
 
 const tileOf = (p: Place): CoverTile => ({ photo: p.photos[0], tint: p.tint, emoji: p.emoji });
 
+/** У места есть настоящее фото (а не иллюстрация вместо него). */
+export const hasPhoto = (p: Place) => !!p.photos[0]?.src;
+
 export function coverOf(c: Collection, placed: PlacedItem[]): CoverArt {
-  const first = placed[0]?.place;
-  if (c.cover.kind === "collage" && placed.length >= 2) return { kind: "collage", tiles: placed.slice(0, 4).map((x) => tileOf(x.place)) };
+  // обложка — по возможности настоящее фото: места без снимков показывают иллюстрацию, и такая обложка выглядит пустой
+  const withPhoto = placed.filter((x) => hasPhoto(x.place));
+  const first = withPhoto[0]?.place ?? placed[0]?.place;
+  if (c.cover.kind === "collage" && withPhoto.length >= 2) return { kind: "collage", tiles: withPhoto.slice(0, 4).map((x) => tileOf(x.place)) };
+  if (c.cover.kind === "collage" && placed.length >= 2 && !withPhoto.length) return { kind: "collage", tiles: placed.slice(0, 4).map((x) => tileOf(x.place)) };
   const slug = c.cover.kind === "place" ? c.cover.slug : undefined;
-  const chosen = (slug && placed.find((x) => x.place.slug === slug)?.place) || first;
+  const picked = slug ? placed.find((x) => x.place.slug === slug)?.place : undefined;
+  const chosen = (picked && hasPhoto(picked) ? picked : undefined) || first;
   if (chosen) return { kind: "photo", tile: tileOf(chosen) };
   if (c.cover_image) return { kind: "photo", tile: { photo: c.cover_image, tint: "#FFE3EE", emoji: "🗺️" } };
   return { kind: "photo", tile: { photo: { src: "", alt: c.title }, tint: "#FFE3EE", emoji: "🗺️" } };

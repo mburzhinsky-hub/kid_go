@@ -189,7 +189,8 @@ function useAreaPopular(seed: Place[], extra: Place[]) {
   return useMemo(() => {
     const places = (seed.length ? seed : allPlaces).concat(extra.length ? extra : []);
     const pool = places.filter((p) => p.category !== "cafe" && p.category !== "shop");
-    const quality = (p: Place) => p.rating * 2 + Math.log10(p.review_count + 1) + (p.is_hit ? 1 : 0);
+    // места с настоящим фото — вперёд: иллюстрация вместо снимка на первом экране выглядит пустой
+    const quality = (p: Place) => p.rating * 2 + Math.log10(p.review_count + 1) + (p.is_hit ? 1 : 0) + (p.photos[0]?.src ? 6 : 0);
     if (okrug) {
       const mins = (p: Place) => travelToPlace(origin, p, transport).minutes;
       const r = orderByArea(pool, (p) => p, okrug, quality, { enough: 4, fallback: (a, b) => mins(a) - mins(b) });

@@ -14,6 +14,7 @@
     "audit:areas": "tsx scripts/audit-areas.ts",
     "audit:places": "tsx scripts/audit-places.ts",
     "audit:photos": "tsx scripts/audit-photos.ts",
+    "verify:photos": "node scripts/verify-photo-meta.mjs",
     "audit:coverage": "tsx scripts/audit-coverage.ts",
     "audit:doc": "tsx scripts/audit-scenarios.ts --quick --doc",
     "audit:logic": "tsx scripts/audit-logic.ts",

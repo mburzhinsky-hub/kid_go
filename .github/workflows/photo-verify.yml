@@ -1,0 +1,22 @@
+name: Photo verify
+
+# Сверка place-photos.json с Wikimedia Commons: файлы есть, лицензии и авторы совпадают (scripts/verify-photo-meta.mjs).
+# Запускается пушем в ветку ci/photo-verify или вручную. В основной сборке не участвует: ей нужен доступ к Wikimedia.
+on:
+  push:
+    branches: [ci/photo-verify]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/verify-photo-meta.mjs
