@@ -6,10 +6,12 @@ import { useFamily } from "@/lib/store";
 import { locationMode } from "@/lib/location";
 import { kidLabel } from "@/lib/format";
 import { GeoScope } from "@/components/location/GeoScope";
+import { RouteArt, runRouteBurst, useRouteAnimation } from "./RouteArt";
 
 /**
  * Главное действие главной: «Собрать наш день». Всё остальное (поиск, карта, каталог) — вторично.
- * Над кнопкой — видимый выбор «Москва / Москва + область», под текстом — дети из профиля.
+ * Над кнопкой — видимый выбор «Москва / Москва + область». Справа — маленький анимированный маршрут (RouteArt).
+ * Дети из профиля и охват «с областью» подмешиваются в то же описание, без лишних строк: высота блока не прыгает.
  */
 export function HomeCta() {
   const kids = useFamily((s) => s.children);
@@ -18,34 +20,39 @@ export function HomeCta() {
   const geoScope = useFamily((s) => s.geoScope);
   const region = locationMode(origin) === "any" && geoScope === "moscow-region";
   const who = kids.map(kidLabel).join(" · ");
+  const { ref, phase } = useRouteAnimation();
+
+  const lead = hydrated && who ? `Учтём: ${who}. ` : "";
+  const text = lead
+    ? `${lead}${region ? "Места, еда и маршрут — и за городом." : "Подберём места, еду и маршрут."}`
+    : region
+      ? "Подберём места, еду и маршрут для всей семьи — в том числе с выездом за город."
+      : "Подберём интересные места, вкусную еду и удобный маршрут для всей семьи.";
+
   return (
     <section aria-labelledby="home-cta-title" className="px-4">
       <GeoScope where="home" />
-      <div
-        className="relative mt-3 overflow-hidden rounded-[28px] p-5 text-white shadow-[0_16px_32px_-14px_rgba(139,61,240,0.6)]"
-        style={{ background: "linear-gradient(125deg,#FF2E88 0%,#B23CF0 55%,#6A3DF5 100%)" }}
-      >
-        <svg aria-hidden className="absolute -right-8 -top-10 h-44 w-44 opacity-20 animate-spin-slow" viewBox="0 0 100 100">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <rect key={i} x="47" y="2" width="6" height="22" rx="3" fill="#fff" transform={`rotate(${i * 30} 50 50)`} />
-          ))}
-        </svg>
-        <span className="absolute right-5 top-4 text-[38px] animate-bob" aria-hidden>
-          🎈
+      <div ref={ref} data-s={phase} className="kgr kgr-card relative mt-3 flex min-h-[276px] flex-col overflow-hidden rounded-[28px] px-[18px] pb-[18px] pt-4 animate-rise">
+        <RouteArt />
+        <span className="relative z-10 inline-flex h-7 w-fit items-center gap-1.5 rounded-full bg-purple/10 px-2.5 text-[13px] font-bold text-purple-ink">
+          <Sparkles size={14} strokeWidth={2.4} aria-hidden /> Идеи для семейного дня
         </span>
-        <span className="inline-flex h-7 items-center gap-1 rounded-full bg-black/20 px-2.5 text-[13px] font-semibold">
-          <Sparkles size={14} /> 3 готовых варианта дня
-        </span>
-        <h2 id="home-cta-title" className="tight mt-3 max-w-[260px] text-[28px] font-[850] leading-[1.05]">
-          Что будем делать сегодня?
+        <h2 id="home-cta-title" className="tight relative z-10 mt-3 text-[26px] font-[850] leading-[1.06] text-ink max-[349px]:max-w-[9.5rem] min-[375px]:text-[27px]">
+          Куда отправимся <span className="kgr-grad block">сегодня?</span>
         </h2>
-        <p className="mt-2 max-w-[290px] text-[15px] leading-snug text-white/90">
-          {hydrated && who ? `Учтём: ${who}. ` : ""}
-          Куда пойти, где поесть и как ехать — одним маршрутом, за полминуты.
-        </p>
-        {region && <p className="mt-1.5 max-w-[290px] text-[13px] leading-snug text-white/80">С областью: на полдня и дольше предложим выезд за город.</p>}
-        <Link href="/planner" className="press mt-4 inline-flex h-12 items-center gap-2 rounded-full bg-white pl-5 pr-4 text-[17px] font-bold text-pink-ink">
-          Собрать наш день <ArrowRight size={20} strokeWidth={2.5} />
+        <p className="relative z-10 mb-2 mt-2 max-w-[min(12.25rem,64%)] text-pretty text-[14px] leading-[1.38] text-ink-2">{text}</p>
+        <Link
+          href="/planner"
+          onPointerDown={(e) => {
+            if (e.button === 0) runRouteBurst(ref.current);
+          }}
+          onPointerCancel={() => ref.current?.removeAttribute("data-go")}
+          onClick={(e) => {
+            if (e.detail === 0) runRouteBurst(ref.current); // с клавиатуры pointerdown не бывает
+          }}
+          className="kgr-btn press relative z-10 mt-auto inline-flex h-12 w-fit items-center gap-2 rounded-full pl-[18px] pr-3.5 text-[16px] font-bold text-white max-[349px]:h-11 max-[349px]:pl-4 max-[349px]:pr-3 max-[349px]:text-[15px]"
+        >
+          Собрать наш день <ArrowRight size={19} strokeWidth={2.6} aria-hidden />
         </Link>
       </div>
     </section>
