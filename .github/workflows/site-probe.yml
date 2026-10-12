@@ -1,0 +1,41 @@
+name: site-probe
+
+# Диагностика: как kids-go.fun отвечает краулерам превью (Telegram, VK, WhatsApp, Facebook) и обычному браузеру.
+# Запускается пушем в ветку ci/site-probe или вручную. Результат — в аннотациях задачи.
+on:
+  push:
+    branches: [ci/site-probe]
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probe
+        shell: bash
+        run: |
+          set -u
+          SITE=https://kids-go.fun
+          probe() {
+            local name="$1" ua="$2" url="$3"
+            rm -f /tmp/body /tmp/hdr
+            local w
+            w=$(curl -sS -L --max-time 40 -A "$ua" -D /tmp/hdr -o /tmp/body \
+              -w 'code=%{http_code} size=%{size_download} ttfb=%{time_starttransfer}s total=%{time_total}s http=%{http_version} ip=%{remote_ip} redirects=%{num_redirects} final=%{url_effective}' "$url" 2>&1) || true
+            local hs
+            hs=$(grep -iE '^(HTTP/|content-type|content-length|content-encoding|server|location|cache-control|set-cookie|via|x-|cf-)' /tmp/hdr 2>/dev/null | tr -d '\r' | tr '\n' '|' | cut -c1-700)
+            local og
+            og=$(head -c 65536 /tmp/body 2>/dev/null | grep -o '<meta property="og:[a-z:]*" content="[^"]\{0,60\}' | head -4 | tr '\n' ' ')
+            echo "::notice title=probe $name::$w || $hs || og: ${og:-NONE}"
+          }
+          BROWSER='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36'
+          probe "browser /"            "$BROWSER" "$SITE/"
+          probe "TelegramBot /"        'TelegramBot (like TwitterBot)' "$SITE/"
+          probe "TelegramBot adventure" 'TelegramBot (like TwitterBot)' "$SITE/adventures/dozhdiku-nazlo"
+          probe "vkShare /"            'Mozilla/5.0 (compatible; vkShare; +http://vk.com/dev/Share)' "$SITE/"
+          probe "WhatsApp /"           'WhatsApp/2.23.20.0 A' "$SITE/"
+          probe "facebook /"           'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)' "$SITE/"
+          probe "TelegramBot og.jpg"   'TelegramBot (like TwitterBot)' "$SITE/og.jpg"
+          probe "TelegramBot http://"  'TelegramBot (like TwitterBot)' "http://kids-go.fun/"
+          probe "TelegramBot sitemap"  'TelegramBot (like TwitterBot)' "$SITE/sitemap.xml"
