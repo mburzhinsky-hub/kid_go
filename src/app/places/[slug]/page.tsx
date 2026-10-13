@@ -9,6 +9,7 @@ import { ParentInfo } from "@/components/place/ParentInfo";
 import { WhatNext } from "@/components/place/WhatNext";
 import { PlaceCTA, PlaceIntentRow } from "@/components/place/PlaceCTA";
 import { AddressCard } from "@/components/place/AddressCard";
+import { SiteLink } from "@/components/place/SiteLink";
 import { OpenStatus } from "@/components/place/OpenStatus";
 import { ReadMore } from "@/components/place/ReadMore";
 import { Reviews } from "@/components/place/Reviews";
@@ -150,6 +151,8 @@ export default async function PlacePage({ params }: PlacePageProps) {
             {place.category === "cafe" ? "Посмотреть меню" : "Где поесть / меню"}
           </a>
         )}
+
+        <SiteLink place={place} />
 
         {placeEvents.length > 0 && (
           <section className="mt-8">
