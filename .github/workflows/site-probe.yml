@@ -78,3 +78,13 @@ jobs:
           xml.dom.minidom.parseString(d)
           print('::notice title=sitemap xml parse::OK bytes=%d'%len(d))
           PY
+      - name: Live site button
+        shell: bash
+        run: |
+          set +e +o pipefail
+          for s in kidzania-aviapark depo-food-hall tsaritsyno-verevochny-park air-arena-rigamoll termy-odintsovo skalodrom-skala-siti misti-park-odintsovo hippo-land-odintsovo muzey-nazad-v-sssr-zvenigorod muzey-lego-lets-go-zvenigorod unaboom-odintsovo mega-himki-detskie-zony ribambelle-vremena-goda littles-kids-play-cafe vasilchuki-chaihona-afimall vasilchuki-chaihona-dmitriya-ulyanova vasilchuki-chaihona-metropolis abramtsevo; do
+            html=$(curl -sS --max-time 40 --compressed "https://kids-go.fun/places/$s/")
+            has=$(echo "$html" | grep -c 'Сайт места')
+            href=$(echo "$html" | grep -o '<a href="[^"]*"[^>]*rel="noopener"[^>]*>' | head -1 | grep -o 'href="[^"]*"')
+            echo "::notice title=live site-button $s::button=$has $href"
+          done
