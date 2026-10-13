@@ -11,7 +11,7 @@
   },
   "centralny-detsky-magazin": {
     "source": "https://cdm-moscow.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-13",
     "status": "reviewed",
     "identity": true,
     "address": false,
@@ -105,7 +105,7 @@
   },
   "muzey-transporta": {
     "source": "https://mtmuseum.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-13",
     "status": "reviewed",
     "identity": true,
     "address": true,
@@ -123,7 +123,7 @@
   },
   "moskovsky-planetariy": {
     "source": "https://planetarium-moscow.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-13",
     "status": "reviewed",
     "identity": true,
     "address": true,
@@ -183,7 +183,7 @@
   },
   "muzey-kosmonavtiki": {
     "source": "https://kosmo-museum.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-13",
     "status": "reviewed",
     "identity": true,
     "address": true,
@@ -203,7 +203,7 @@
   },
   "paleontologichesky-muzey": {
     "source": "https://www.paleo.ru/museum/visitors/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-13",
     "status": "reviewed",
     "identity": true,
     "address": false,
@@ -221,7 +221,7 @@
   },
   "vdnh": {
     "source": "https://vdnh.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-13",
     "status": "reviewed",
     "identity": true,
     "address": false,
@@ -239,7 +239,7 @@
   },
   "aptekarsky-ogorod": {
     "source": "https://hortus.msu.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-13",
     "status": "reviewed",
     "identity": true,
     "address": true,
@@ -381,7 +381,7 @@
   },
   "zoolandia-kryuchkovo": {
     "source": "https://zoolandia-istra.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-13",
     "status": "reviewed",
     "identity": true,
     "address": true,
@@ -423,7 +423,7 @@
   },
   "air-arena-rigamoll": {
     "source": "https://airarena.ru/batutnyy-park",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-13",
     "status": "reviewed",
     "identity": true,
     "address": false,
@@ -786,7 +786,7 @@
   },
   "dom-muzey-prishvina-dunino": {
     "source": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-13",
     "status": "reviewed",
     "identity": true,
     "address": true,
