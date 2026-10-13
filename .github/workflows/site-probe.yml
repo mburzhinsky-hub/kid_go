@@ -88,3 +88,13 @@ jobs:
             href=$(echo "$html" | grep -o '<a href="[^"]*"[^>]*rel="noopener"[^>]*>' | head -1 | grep -o 'href="[^"]*"')
             echo "::notice title=live site-button $s::button=$has $href"
           done
+      - name: Live site button summary
+        shell: bash
+        run: |
+          set +e +o pipefail
+          ok=""; miss=""
+          for s in unaboom-odintsovo mega-himki-detskie-zony ribambelle-vremena-goda littles-kids-play-cafe vasilchuki-chaihona-afimall vasilchuki-chaihona-dmitriya-ulyanova vasilchuki-chaihona-metropolis abramtsevo; do
+            n=$(curl -sS --max-time 40 --compressed "https://kids-go.fun/places/$s/" | grep -c 'Сайт места')
+            if [ "$n" -gt 0 ]; then ok="$ok $s"; else miss="$miss $s"; fi
+          done
+          echo "::notice title=live site-button summary::WITH:$ok || WITHOUT:$miss"
