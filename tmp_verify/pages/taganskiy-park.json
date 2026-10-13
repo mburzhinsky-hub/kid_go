@@ -1,0 +1,17 @@
+{
+ "slug": "taganskiy-park",
+ "pages": [
+  {
+   "url": "https://taganskipark.ru/",
+   "final": "https://taganskipark.ru/",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "url": "https://taganpark.ru/",
+   "final": "https://taganpark.ru/",
+   "status": 0,
+   "error": "ENOTFOUND"
+  }
+ ]
+}

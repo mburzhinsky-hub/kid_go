@@ -1,0 +1,17 @@
+{
+ "slug": "kolomna-pastila-muzey",
+ "pages": [
+  {
+   "url": "https://pastila.ru/",
+   "final": "https://pastila.ru/",
+   "status": 0,
+   "error": "ECONNREFUSED"
+  },
+  {
+   "url": "https://www.pastila.ru/",
+   "final": "https://www.pastila.ru/",
+   "status": 0,
+   "error": "ECONNREFUSED"
+  }
+ ]
+}

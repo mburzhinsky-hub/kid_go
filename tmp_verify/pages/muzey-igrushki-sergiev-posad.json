@@ -1,0 +1,17 @@
+{
+ "slug": "muzey-igrushki-sergiev-posad",
+ "pages": [
+  {
+   "url": "https://museum-toy.ru/",
+   "final": "https://museum-toy.ru/",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "url": "https://www.museumtoy.ru/",
+   "final": "https://www.museumtoy.ru/",
+   "status": 0,
+   "error": "ENOTFOUND"
+  }
+ ]
+}

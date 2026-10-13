@@ -1,0 +1,17 @@
+{
+ "slug": "ostrov-mechty",
+ "pages": [
+  {
+   "url": "https://ostrovmechty.com/",
+   "final": "https://ostrovmechty.com/",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "url": "https://ostrovmechty.ru/",
+   "final": "https://ostrovmechty.ru/",
+   "status": 0,
+   "error": "ERR_SSL_SSL/TLS_ALERT_HANDSHAKE_FAILURE"
+  }
+ ]
+}

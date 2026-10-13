@@ -1,0 +1,17 @@
+{
+ "slug": "lyublino-usadba",
+ "pages": [
+  {
+   "url": "https://lublino.ru/",
+   "final": "https://lublino.ru/",
+   "status": 0,
+   "error": "ECONNREFUSED"
+  },
+  {
+   "url": "https://usadba-lublino.ru/",
+   "final": "https://usadba-lublino.ru/",
+   "status": 0,
+   "error": "ENOTFOUND"
+  }
+ ]
+}
