@@ -27,21 +27,32 @@ async function get(url, ms = 20000) {
   }
 }
 
-function robotsDisallows(robotsText, path) {
+function robotsDisallows(robotsText, pathWithQuery) {
   const lines = robotsText.split(/\r?\n/).map((l) => l.replace(/#.*/, "").trim());
   let applies = false;
+  let seenRule = false;
   const rules = [];
   for (const l of lines) {
     const m = l.match(/^([A-Za-z-]+)\s*:\s*(.*)$/);
     if (!m) continue;
     const k = m[1].toLowerCase();
-    if (k === "user-agent") applies = m[2].trim() === "*";
-    else if (applies && k === "disallow" && m[2].trim()) rules.push(m[2].trim());
+    if (k === "user-agent") {
+      if (seenRule) { applies = false; seenRule = false; }
+      if (m[2].trim() === "*") applies = true;
+    } else if (k === "disallow" || k === "allow") {
+      seenRule = true;
+      if (applies && k === "disallow" && m[2].trim()) rules.push(m[2].trim());
+    }
   }
-  return rules.some((r) => path.startsWith(r.replace(/\*.*$/, "")) && r !== "/" ? true : r === "/");
+  // правило с * и $: превращаем в регулярное выражение; «Disallow: /» закрывает всё
+  return rules.some((r) => {
+    if (r === "/") return true;
+    const re = new RegExp("^" + r.replace(/[.+?^{}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*").replace(/\$$/, "$"));
+    return re.test(pathWithQuery);
+  });
 }
 
-const BAD_EMAIL = /\.(png|jpe?g|gif|svg|webp|css|js|woff2?)$|@2x|sentry|wixpress|example\.|domain\.|email\.com$|yourmail|name@/i;
+const BAD_EMAIL = /^email@email\.|\.(png|jpe?g|gif|svg|webp|css|js|woff2?)$|@2x|sentry|wixpress|example\.|domain\.|email\.com$|yourmail|name@/i;
 function cfDecode(hex) {
   const key = parseInt(hex.slice(0, 2), 16);
   let out = "";
@@ -50,7 +61,7 @@ function cfDecode(hex) {
 }
 function extract(html) {
   const emails = new Set();
-  for (const m of html.matchAll(/mailto:([^"'?>\s]+)/gi)) emails.add(decodeURIComponent(m[1]).trim());
+  for (const m of html.matchAll(/mailto:(?:mailto:)?([^"'?>\s]+)/gi)) { try { emails.add(decodeURIComponent(m[1]).trim()); } catch {} }
   for (const m of html.matchAll(/data-cfemail="([0-9a-f]+)"/gi)) emails.add(cfDecode(m[1]));
   for (const m of html.matchAll(/\/cdn-cgi\/l\/email-protection#([0-9a-f]+)/gi)) emails.add(cfDecode(m[1]));
   for (const m of html.matchAll(/[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}/g)) emails.add(m[0]);
@@ -84,7 +95,7 @@ for (const s of sites) {
   const origin = new URL(s.url).origin;
   const robots = await get(origin + "/robots.txt", 10000);
   const robotsText = robots.ok && /text\/plain/i.test(robots.ct || "") ? robots.text : "";
-  const allowed = (url) => !robotsText || !robotsDisallows(robotsText, new URL(url).pathname);
+  const allowed = (url) => !robotsText || !robotsDisallows(robotsText, new URL(url).pathname + new URL(url).search);
   const home = await get(s.url);
   if (!home.ok) {
     rec.notes.push(`главная: ${home.status || home.error}`);
