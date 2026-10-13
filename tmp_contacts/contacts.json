@@ -49,13 +49,7 @@
   "phones": [],
   "contactPages": [],
   "notes": [
-   "robots запрещает /",
-   "robots запрещает /kontakty/",
-   "robots запрещает /kontakty",
-   "robots запрещает /contacts",
-   "robots запрещает /contacts/",
-   "robots запрещает /contact",
-   "robots запрещает /press"
+   "главная: UND_ERR_CONNECT_TIMEOUT"
   ]
  },
  {
@@ -69,17 +63,12 @@
   ],
   "site": "https://zoolandia-istra.ru/",
   "emails": [],
-  "phones": [],
+  "phones": [
+   "89269777913",
+   "+7 926 977 79 13"
+  ],
   "contactPages": [],
-  "notes": [
-   "robots запрещает /",
-   "robots запрещает /kontakty",
-   "robots запрещает /kontakty/",
-   "robots запрещает /contacts",
-   "robots запрещает /contacts/",
-   "robots запрещает /contact",
-   "robots запрещает /press"
-  ]
+  "notes": []
  },
  {
   "host": "airarena.ru",
@@ -270,18 +259,22 @@
    }
   ],
   "site": "https://letsgo-museum.ru/",
-  "emails": [],
-  "phones": [],
+  "emails": [
+   {
+    "email": "mailo:letsgomuseum@yandex.ru",
+    "page": "https://letsgo-museum.ru/"
+   },
+   {
+    "email": "letsgomuseum@yandex.ru",
+    "page": "https://letsgo-museum.ru/"
+   }
+  ],
+  "phones": [
+   "+7 (906) 773-61-37",
+   "+79067736137"
+  ],
   "contactPages": [],
-  "notes": [
-   "robots запрещает /",
-   "robots запрещает /kontakty",
-   "robots запрещает /kontakty/",
-   "robots запрещает /contacts",
-   "robots запрещает /contacts/",
-   "robots запрещает /contact",
-   "robots запрещает /press"
-  ]
+  "notes": []
  },
  {
   "host": "ussrmuseum.ru",
@@ -293,18 +286,22 @@
    }
   ],
   "site": "https://ussrmuseum.ru/",
-  "emails": [],
-  "phones": [],
-  "contactPages": [],
-  "notes": [
-   "robots запрещает /",
-   "robots запрещает /contacts/",
-   "robots запрещает /kontakty",
-   "robots запрещает /kontakty/",
-   "robots запрещает /contacts",
-   "robots запрещает /contact",
-   "robots запрещает /press"
-  ]
+  "emails": [
+   {
+    "email": "zvenmuz@mail.ru",
+    "page": "https://ussrmuseum.ru/"
+   }
+  ],
+  "phones": [
+   "89057066075",
+   "8 (905) 706-60-75",
+   "+7 (905) 706 60 75"
+  ],
+  "contactPages": [
+   "https://ussrmuseum.ru/contacts/",
+   "https://ussrmuseum.ru/contacts"
+  ],
+  "notes": []
  },
  {
   "host": "mooncatpark.ru",
@@ -320,14 +317,7 @@
   "phones": [],
   "contactPages": [],
   "notes": [
-   "robots запрещает /",
-   "robots запрещает /about/",
-   "robots запрещает /contacts/",
-   "robots запрещает /kontakty",
-   "robots запрещает /kontakty/",
-   "robots запрещает /contacts",
-   "robots запрещает /contact",
-   "robots запрещает /press"
+   "главная: ETIMEDOUT"
   ]
  },
  {
@@ -362,18 +352,19 @@
    }
   ],
   "site": "https://star-lab.org/",
-  "emails": [],
-  "phones": [],
+  "emails": [
+   {
+    "email": "starlab.info.park@gmail.com",
+    "page": "https://star-lab.org/"
+   }
+  ],
+  "phones": [
+   "82139005666",
+   "+79031304058",
+   "+79031304054"
+  ],
   "contactPages": [],
-  "notes": [
-   "robots запрещает /",
-   "robots запрещает /kontakty",
-   "robots запрещает /kontakty/",
-   "robots запрещает /contacts",
-   "robots запрещает /contacts/",
-   "robots запрещает /contact",
-   "robots запрещает /press"
-  ]
+  "notes": []
  },
  {
   "host": "detmir.ru",
@@ -388,15 +379,7 @@
   "emails": [],
   "phones": [],
   "contactPages": [],
-  "notes": [
-   "robots запрещает /",
-   "robots запрещает /kontakty",
-   "robots запрещает /kontakty/",
-   "robots запрещает /contacts",
-   "robots запрещает /contacts/",
-   "robots запрещает /contact",
-   "robots запрещает /press"
-  ]
+  "notes": []
  },
  {
   "host": "kidzaniamoscow.ru",
@@ -410,15 +393,11 @@
   "site": "https://kidzaniamoscow.ru/",
   "emails": [
    {
-    "email": "mailto:events@kidzania.ru",
+    "email": "events@kidzania.ru",
     "page": "https://kidzaniamoscow.ru/"
    },
    {
     "email": "kai@kidzania.ru",
-    "page": "https://kidzaniamoscow.ru/"
-   },
-   {
-    "email": "events@kidzania.ru",
     "page": "https://kidzaniamoscow.ru/"
    },
    {
@@ -451,20 +430,39 @@
    }
   ],
   "site": "https://depomoscow.ru/",
-  "emails": [],
-  "phones": [],
-  "contactPages": [],
-  "notes": [
-   "robots запрещает /",
-   "robots запрещает /about/",
-   "robots запрещает /partners/",
-   "robots запрещает /contacts/",
-   "robots запрещает /kontakty",
-   "robots запрещает /kontakty/",
-   "robots запрещает /contacts",
-   "robots запрещает /contact",
-   "robots запрещает /press"
-  ]
+  "emails": [
+   {
+    "email": "info@depomoscow.ru",
+    "page": "https://depomoscow.ru/contacts/"
+   },
+   {
+    "email": "arenda@depo.moscow",
+    "page": "https://depomoscow.ru/contacts/"
+   },
+   {
+    "email": "info@fdepo.ru",
+    "page": "https://depomoscow.ru/contacts/"
+   },
+   {
+    "email": "pr@depomoscow.ru",
+    "page": "https://depomoscow.ru/contacts/"
+   },
+   {
+    "email": "marketing@depomoscow.ru",
+    "page": "https://depomoscow.ru/contacts/"
+   }
+  ],
+  "phones": [
+   "+7(495)788-88-10",
+   "+74957888810",
+   "+7 (495) 788-88-10"
+  ],
+  "contactPages": [
+   "https://depomoscow.ru/about/",
+   "https://depomoscow.ru/partners/",
+   "https://depomoscow.ru/contacts/"
+  ],
+  "notes": []
  },
  {
   "host": "tsaritsyno-museum.ru",
@@ -476,23 +474,52 @@
    }
   ],
   "site": "https://tsaritsyno-museum.ru/",
-  "emails": [],
-  "phones": [],
-  "contactPages": [],
-  "notes": [
-   "robots запрещает /",
-   "robots запрещает /the_museum/contact/",
-   "robots запрещает /the_museum/press-center/news/moscow-museum-week-2026/",
-   "robots запрещает /the_museum/press-center/news/",
-   "robots запрещает /events/special/p/sponsory-i-partnery/",
-   "robots запрещает /the_museum/about/",
-   "robots запрещает /kontakty",
-   "robots запрещает /kontakty/",
-   "robots запрещает /contacts",
-   "robots запрещает /contacts/",
-   "robots запрещает /contact",
-   "robots запрещает /press"
-  ]
+  "emails": [
+   {
+    "email": "buro_ts@culture.mos.ru",
+    "page": "https://tsaritsyno-museum.ru/the_museum/contact/"
+   },
+   {
+    "email": "comifo_ts@culture.mos.ru",
+    "page": "https://tsaritsyno-museum.ru/the_museum/contact/"
+   },
+   {
+    "email": "sport_ts@culture.mos.ru",
+    "page": "https://tsaritsyno-museum.ru/the_museum/contact/"
+   },
+   {
+    "email": "tsaritsynomuseum@culture.mos.ru",
+    "page": "https://tsaritsyno-museum.ru/the_museum/contact/"
+   },
+   {
+    "email": "press.tsaritsyno@culture.mos.ru",
+    "page": "https://tsaritsyno-museum.ru/the_museum/contact/"
+   },
+   {
+    "email": "personal_ts@culture.mos.ru",
+    "page": "https://tsaritsyno-museum.ru/the_museum/contact/"
+   },
+   {
+    "email": "tsaritsyno@culture.mos.ru",
+    "page": "https://tsaritsyno-museum.ru/the_museum/contact/"
+   },
+   {
+    "email": "pilenkovaop@culture.mos.ru",
+    "page": "https://tsaritsyno-museum.ru/events/special/p/sponsory-i-partnery/"
+   }
+  ],
+  "phones": [
+   "+74953224433",
+   "+7 495 322 44 33",
+   "+7 495 322-44-33"
+  ],
+  "contactPages": [
+   "https://tsaritsyno-museum.ru/the_museum/contact/",
+   "https://tsaritsyno-museum.ru/the_museum/press-center/news/moscow-museum-week-2026/",
+   "https://tsaritsyno-museum.ru/the_museum/press-center/news/",
+   "https://tsaritsyno-museum.ru/events/special/p/sponsory-i-partnery/"
+  ],
+  "notes": []
  },
  {
   "host": "dreamkids.moscow",
@@ -543,18 +570,23 @@
    }
   ],
   "site": "https://russkoepodvorie.com/",
-  "emails": [],
-  "phones": [],
+  "emails": [
+   {
+    "email": "manager@russkoepodvorie.com",
+    "page": "https://russkoepodvorie.com/"
+   },
+   {
+    "email": "catering@russkoepodvorie.com",
+    "page": "https://russkoepodvorie.com/kontakty/"
+   }
+  ],
+  "phones": [
+   "+7 495 319-52-50",
+   "+79671504649",
+   "+7 967 150-46-49"
+  ],
   "contactPages": [],
-  "notes": [
-   "robots запрещает /",
-   "robots запрещает /kontakty/",
-   "robots запрещает /kontakty",
-   "robots запрещает /contacts",
-   "robots запрещает /contacts/",
-   "robots запрещает /contact",
-   "robots запрещает /press"
-  ]
+  "notes": []
  },
  {
   "host": "chaihona.ru",
@@ -576,18 +608,29 @@
    }
   ],
   "site": "https://chaihona.ru/",
-  "emails": [],
-  "phones": [],
-  "contactPages": [],
-  "notes": [
-   "robots запрещает /",
-   "robots запрещает /kontakty",
-   "robots запрещает /kontakty/",
-   "robots запрещает /contacts",
-   "robots запрещает /contacts/",
-   "robots запрещает /contact",
-   "robots запрещает /press"
-  ]
+  "emails": [
+   {
+    "email": "info@resproject.ru",
+    "page": "https://chaihona.ru/"
+   },
+   {
+    "email": "marketing@resproject.ru",
+    "page": "https://chaihona.ru/contact"
+   },
+   {
+    "email": "franch@resproject.ru",
+    "page": "https://chaihona.ru/contact"
+   }
+  ],
+  "phones": [
+   "+7 (495) 186-31-17",
+   "+7 (495) 234-02-34",
+   "+7 (495) 234-02-33"
+  ],
+  "contactPages": [
+   "https://chaihona.ru/contact"
+  ],
+  "notes": []
  },
  {
   "host": "xn--e1asbf2d.xn--p1ai",
@@ -625,10 +668,6 @@
   "emails": [
    {
     "email": "event@ribambelle.ru",
-    "page": "https://ribambelle.ru/"
-   },
-   {
-    "email": "email@email.ru",
     "page": "https://ribambelle.ru/"
    },
    {
@@ -815,19 +854,23 @@
    }
   ],
   "site": "https://repastcafe.com/",
-  "emails": [],
-  "phones": [],
-  "contactPages": [],
-  "notes": [
-   "robots запрещает /",
-   "robots запрещает /about/",
-   "robots запрещает /contacts/",
-   "robots запрещает /kontakty",
-   "robots запрещает /kontakty/",
-   "robots запрещает /contacts",
-   "robots запрещает /contact",
-   "robots запрещает /press"
-  ]
+  "emails": [
+   {
+    "email": "repastkafe@mail.ru",
+    "page": "https://repastcafe.com/contacts/"
+   }
+  ],
+  "phones": [
+   "89997171717",
+   "8 999 717 17 17",
+   "+79997171717"
+  ],
+  "contactPages": [
+   "https://repastcafe.com/about/",
+   "https://repastcafe.com/contacts/",
+   "https://repastcafe.com/contacts"
+  ],
+  "notes": []
  },
  {
   "host": "localkids.clients.site",
