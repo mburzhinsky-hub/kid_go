@@ -1,0 +1,385 @@
+[
+ {
+  "host": "skala-city.ru",
+  "url": "https://www.skala-city.ru/",
+  "places": [
+   {
+    "slug": "skalodrom-skala-siti",
+    "title": "Скалодром «Скала Сити»",
+    "category": "active"
+   }
+  ]
+ },
+ {
+  "host": "pandapark.org",
+  "url": "https://pandapark.org/",
+  "places": [
+   {
+    "slug": "panda-park-sokolniki",
+    "title": "Верёвочный парк «Панда Парк»",
+    "category": "active"
+   },
+   {
+    "slug": "pandapark-meshchersky",
+    "title": "ПандаПарк Мещерский",
+    "category": "active"
+   },
+   {
+    "slug": "pandapark-fili",
+    "title": "ПандаПарк Фили",
+    "category": "active"
+   }
+  ]
+ },
+ {
+  "host": "zoolandia-istra.ru",
+  "url": "https://zoolandia-istra.ru/",
+  "places": [
+   {
+    "slug": "zoolandia-kryuchkovo",
+    "title": "Контактный зоопарк «Зооландия»",
+    "category": "animals"
+   }
+  ]
+ },
+ {
+  "host": "airarena.ru",
+  "url": "https://airarena.ru/",
+  "places": [
+   {
+    "slug": "air-arena-rigamoll",
+    "title": "Air Arena — батутный парк в «РигаМолле»",
+    "category": "play"
+   }
+  ]
+ },
+ {
+  "host": "zvenmuseum.ru",
+  "url": "https://zvenmuseum.ru/",
+  "places": [
+   {
+    "slug": "muzey-materinstva-ilinskoe",
+    "title": "Музей материнства и младенчества",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "mistyparkodi.ru",
+  "url": "https://mistyparkodi.ru/",
+  "places": [
+   {
+    "slug": "misti-park-odintsovo",
+    "title": "Мисти Парк Одинцово",
+    "category": "play"
+   }
+  ]
+ },
+ {
+  "host": "hippo-land.ru",
+  "url": "https://www.hippo-land.ru/",
+  "places": [
+   {
+    "slug": "hippo-land-odintsovo",
+    "title": "HIPPO Land Одинцово",
+    "category": "play"
+   }
+  ]
+ },
+ {
+  "host": "unaboom.ru",
+  "url": "https://unaboom.ru/",
+  "places": [
+   {
+    "slug": "unaboom-odintsovo",
+    "title": "Юнабум",
+    "category": "play"
+   }
+  ]
+ },
+ {
+  "host": "therms.ru",
+  "url": "https://therms.ru/",
+  "places": [
+   {
+    "slug": "termy-odintsovo",
+    "title": "Термы Одинцово",
+    "category": "active"
+   }
+  ]
+ },
+ {
+  "host": "letsgo-museum.ru",
+  "url": "https://letsgo-museum.ru/",
+  "places": [
+   {
+    "slug": "muzey-lego-lets-go-zvenigorod",
+    "title": "Музей LEt’s GO",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "ussrmuseum.ru",
+  "url": "https://ussrmuseum.ru/",
+  "places": [
+   {
+    "slug": "muzey-nazad-v-sssr-zvenigorod",
+    "title": "Музей «Назад в СССР»",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "mooncatpark.ru",
+  "url": "https://mooncatpark.ru/",
+  "places": [
+   {
+    "slug": "lunny-kot-zelenograd",
+    "title": "Лунный Кот",
+    "category": "play"
+   }
+  ]
+ },
+ {
+  "host": "zelenopark.kidburg.ru",
+  "url": "https://zelenopark.kidburg.ru/",
+  "places": [
+   {
+    "slug": "kidburg-zelenopark",
+    "title": "КидБург Зеленопарк",
+    "category": "play"
+   }
+  ]
+ },
+ {
+  "host": "star-lab.org",
+  "url": "https://star-lab.org/",
+  "places": [
+   {
+    "slug": "mega-himki-detskie-zony",
+    "title": "StarLab в МЕГА Химки",
+    "category": "play"
+   }
+  ]
+ },
+ {
+  "host": "detmir.ru",
+  "url": "https://www.detmir.ru/",
+  "places": [
+   {
+    "slug": "detmir-mega-himki",
+    "title": "Детский мир в МЕГА Химки",
+    "category": "shop"
+   }
+  ]
+ },
+ {
+  "host": "kidzaniamoscow.ru",
+  "url": "https://kidzaniamoscow.ru/",
+  "places": [
+   {
+    "slug": "kidzania-aviapark",
+    "title": "Кидзания в «Авиапарке»",
+    "category": "play"
+   }
+  ]
+ },
+ {
+  "host": "depomoscow.ru",
+  "url": "https://depomoscow.ru/",
+  "places": [
+   {
+    "slug": "depo-food-hall",
+    "title": "Фуд-холл «Депо»",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "tsaritsyno-museum.ru",
+  "url": "https://tsaritsyno-museum.ru/",
+  "places": [
+   {
+    "slug": "tsaritsyno-verevochny-park",
+    "title": "Верёвочный парк в Царицыно",
+    "category": "active"
+   }
+  ]
+ },
+ {
+  "host": "dreamkids.moscow",
+  "url": "https://dreamkids.moscow/",
+  "places": [
+   {
+    "slug": "dream-kids",
+    "title": "Dream Kids",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "julydetyam.ru",
+  "url": "https://julydetyam.ru/",
+  "places": [
+   {
+    "slug": "iyul-detyam",
+    "title": "Июль Детям",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "russkoepodvorie.com",
+  "url": "https://russkoepodvorie.com/",
+  "places": [
+   {
+    "slug": "russkoe-podvorye",
+    "title": "Русское Подворье",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "chaihona.ru",
+  "url": "https://chaihona.ru/",
+  "places": [
+   {
+    "slug": "vasilchuki-chaihona-dmitriya-ulyanova",
+    "title": "Vasilchuki Chaihona №1 — Дмитрия Ульянова",
+    "category": "cafe"
+   },
+   {
+    "slug": "vasilchuki-chaihona-afimall",
+    "title": "Vasilchuki Chaihona №1 — Афимолл",
+    "category": "cafe"
+   },
+   {
+    "slug": "vasilchuki-chaihona-metropolis",
+    "title": "Vasilchuki Chaihona №1 — Метрополис",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "xn--e1asbf2d.xn--p1ai",
+  "url": "https://xn--e1asbf2d.xn--p1ai/",
+  "places": [
+   {
+    "slug": "piero-zilart",
+    "title": "Пьеро",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "ribambelle.ru",
+  "url": "https://ribambelle.ru/",
+  "places": [
+   {
+    "slug": "ribambelle-vremena-goda",
+    "title": "Ribambelle — Времена года",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "cafe-kitchen.ru",
+  "url": "https://cafe-kitchen.ru/",
+  "places": [
+   {
+    "slug": "kitchen-khodynka",
+    "title": "Kitchen — Ходынка",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "cafe-anderson.ru",
+  "url": "https://cafe-anderson.ru/",
+  "places": [
+   {
+    "slug": "anderson-ostrovityanova",
+    "title": "АндерСон — Островитянова",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "kids-castle.pro",
+  "url": "https://kids-castle.pro/",
+  "places": [
+   {
+    "slug": "kids-castle-mitino",
+    "title": "Kids Castle — Митино",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "klich.moscow",
+  "url": "https://klich.moscow/",
+  "places": [
+   {
+    "slug": "klich-zilart",
+    "title": "KLICH",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "repastcafe.com",
+  "url": "https://repastcafe.com/",
+  "places": [
+   {
+    "slug": "repast-cafe",
+    "title": "Repast Cafe",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "localkids.clients.site",
+  "url": "https://localkids.clients.site/",
+  "places": [
+   {
+    "slug": "local-kids-vnukovo",
+    "title": "Local Kids",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "littleskids.com",
+  "url": "https://littleskids.com/",
+  "places": [
+   {
+    "slug": "littles-kids-play-cafe",
+    "title": "Littles Kids Play Cafe",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "jooiecafe.ru",
+  "url": "https://jooiecafe.ru/",
+  "places": [
+   {
+    "slug": "jooie-presnya",
+    "title": "Jooie — Пресня",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "tuttalavita.ru",
+  "url": "https://tuttalavita.ru/",
+  "places": [
+   {
+    "slug": "tutta-la-vita",
+    "title": "Tutta La Vita",
+    "category": "cafe"
+   }
+  ]
+ }
+]
