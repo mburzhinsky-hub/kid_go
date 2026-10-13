@@ -1,0 +1,7080 @@
+[
+ {
+  "slug": "piratskaya-ploshchadka",
+  "title": "Площадка «Стройка» в Нескучном саду",
+  "category": "play",
+  "town": "Москва",
+  "address": "Нескучный сад, вход между Ленинским проспектом, 22 и 24",
+  "hours": [
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 0,
+  "source": "https://vk.com/@gorkypark-igrovye-ploschadki-v-neskuchnom-sadu-chast-1",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://vk.com/@gorkypark-igrovye-ploschadki-v-neskuchnom-sadu-chast-1",
+   "address": "https://vk.com/@gorkypark-igrovye-ploschadki-v-neskuchnom-sadu-chast-1"
+  }
+ },
+ {
+  "slug": "park-sokolniki",
+  "title": "Парк Сокольники",
+  "category": "park",
+  "town": "Москва",
+  "address": "ул. Сокольнический Вал, 1, стр. 1",
+  "hours": [
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 0,
+  "source": "https://parksokolniki.mos.ru/",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://parksokolniki.mos.ru/"
+  }
+ },
+ {
+  "slug": "park-gorkogo",
+  "title": "Парк Горького",
+  "category": "park",
+  "town": "Москва",
+  "address": "ул. Крымский Вал, 9",
+  "hours": [
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 0,
+  "source": "https://parkgorkogo.ru/",
+  "verified_fields": [
+   "identity",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://parkgorkogo.ru/",
+   "opening_hours": "https://parkgorkogo.ru/faq/"
+  }
+ },
+ {
+  "slug": "park-zaryadye",
+  "title": "Парк Зарядье",
+  "category": "park",
+  "town": "Москва",
+  "address": "ул. Варварка, 6, стр. 1",
+  "hours": [
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 500,
+  "family_budget": 900,
+  "source": "https://welcome.zaryadyepark.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://welcome.zaryadyepark.ru/",
+   "address": "https://welcome.zaryadyepark.ru/"
+  }
+ },
+ {
+  "slug": "kolomenskoe",
+  "title": "Коломенское",
+  "category": "park",
+  "town": "Москва",
+  "address": "пр-т Андропова, 39",
+  "hours": [
+   [
+    "07:00",
+    "24:00"
+   ],
+   [
+    "07:00",
+    "24:00"
+   ],
+   [
+    "07:00",
+    "24:00"
+   ],
+   [
+    "07:00",
+    "24:00"
+   ],
+   [
+    "07:00",
+    "24:00"
+   ],
+   [
+    "07:00",
+    "24:00"
+   ],
+   [
+    "07:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 400,
+  "family_budget": 600,
+  "source": "https://mgomz.ru/kolomenskoe",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://mgomz.ru/kolomenskoe"
+  }
+ },
+ {
+  "slug": "aptekarsky-ogorod",
+  "title": "Аптекарский огород",
+  "category": "park",
+  "town": "Москва",
+  "address": "пр-т Мира, 26, стр. 1",
+  "hours": [
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "price_min": 350,
+  "price_max": 600,
+  "family_budget": 1800,
+  "source": "https://hortus.msu.ru/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "price",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://hortus.msu.ru/",
+   "address": "https://hortus.msu.ru/",
+   "price": "https://hortus.msu.ru/ticketprice.html",
+   "opening_hours": "https://hortus.msu.ru/"
+  }
+ },
+ {
+  "slug": "vdnh",
+  "title": "ВДНХ",
+  "category": "park",
+  "town": "Москва",
+  "address": "пр-т Мира, 119",
+  "hours": [
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 0,
+  "source": "https://vdnh.ru/",
+  "verified_fields": [
+   "identity",
+   "price",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://vdnh.ru/",
+   "price": "https://vdnh.ru/visitors/about/",
+   "opening_hours": "https://vdnh.ru/visitors/about/"
+  }
+ },
+ {
+  "slug": "paleontologichesky-muzey",
+  "title": "Палеонтологический музей",
+  "category": "museum",
+  "town": "Москва",
+  "address": "ул. Профсоюзная, 123",
+  "hours": [
+   null,
+   null,
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 300,
+  "price_max": 600,
+  "family_budget": 1600,
+  "source": "https://www.paleo.ru/museum/visitors/",
+  "verified_fields": [
+   "identity",
+   "price",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://www.paleo.ru/museum/visitors/",
+   "price": "https://www.paleo.ru/museum/visitors/",
+   "opening_hours": "https://www.paleo.ru/museum/visitors/"
+  }
+ },
+ {
+  "slug": "muzey-kosmonavtiki",
+  "title": "Музей космонавтики",
+  "category": "museum",
+  "town": "Москва",
+  "address": "пр-т Мира, 111",
+  "hours": [
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 500,
+  "family_budget": 1500,
+  "source": "https://kosmo-museum.ru/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "price",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://kosmo-museum.ru/",
+   "address": "https://kosmo-museum.ru/",
+   "price": "https://kosmo-museum.ru/static_pages/stoimost-biletov",
+   "opening_hours": "https://kosmo-museum.ru/static_pages/stoimost-biletov"
+  }
+ },
+ {
+  "slug": "darvinovsky-muzey",
+  "title": "Дарвиновский музей",
+  "category": "museum",
+  "town": "Москва",
+  "address": "ул. Вавилова, 57",
+  "hours": [
+   null,
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 600,
+  "family_budget": 1800,
+  "source": "https://www.darwinmuseum.ru/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "price",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://www.darwinmuseum.ru/",
+   "address": "https://www.darwinmuseum.ru/price",
+   "price": "https://www.darwinmuseum.ru/price",
+   "opening_hours": "https://www.darwinmuseum.ru/price"
+  }
+ },
+ {
+  "slug": "eksperimentanium",
+  "title": "Экспериментаниум",
+  "category": "museum",
+  "town": "Москва",
+  "address": "Ленинградский просп., 80, к. 11",
+  "hours": [
+   [
+    "09:30",
+    "20:00"
+   ],
+   [
+    "09:30",
+    "20:00"
+   ],
+   [
+    "09:30",
+    "20:00"
+   ],
+   [
+    "09:30",
+    "20:00"
+   ],
+   [
+    "09:30",
+    "20:00"
+   ],
+   [
+    "09:30",
+    "20:00"
+   ],
+   [
+    "09:30",
+    "20:00"
+   ]
+  ],
+  "price_min": 750,
+  "price_max": 950,
+  "family_budget": 3400,
+  "source": "https://experimentanium.ru/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://experimentanium.ru/",
+   "address": "https://experimentanium.ru/visitors/",
+   "opening_hours": "https://experimentanium.ru/visitors/"
+  }
+ },
+ {
+  "slug": "moskovsky-planetariy",
+  "title": "Московский планетарий",
+  "category": "museum",
+  "town": "Москва",
+  "address": "ул. Садовая-Кудринская, 5, стр. 1",
+  "hours": [
+   [
+    "10:00",
+    "21:00"
+   ],
+   null,
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ]
+  ],
+  "price_min": 350,
+  "price_max": 1100,
+  "family_budget": 3600,
+  "source": "https://planetarium-moscow.ru/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "price",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://planetarium-moscow.ru/",
+   "address": "https://planetarium-moscow.ru/contacts",
+   "price": "https://planetarium-moscow.ru/visitors/prices",
+   "opening_hours": "https://planetarium-moscow.ru/contacts"
+  }
+ },
+ {
+  "slug": "muzey-transporta",
+  "title": "Музей транспорта Москвы",
+  "category": "museum",
+  "town": "Москва",
+  "address": "Новорязанская ул., 27",
+  "hours": [
+   null,
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ]
+  ],
+  "price_min": 300,
+  "price_max": 500,
+  "family_budget": 1400,
+  "source": "https://mtmuseum.ru/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://mtmuseum.ru/",
+   "address": "https://mtmuseum.ru/contacts/",
+   "opening_hours": "https://mtmuseum.ru/contacts/"
+  }
+ },
+ {
+  "slug": "moskovsky-zoopark",
+  "title": "Московский зоопарк",
+  "category": "animals",
+  "town": "Москва",
+  "address": "ул. Большая Грузинская, 1",
+  "hours": [
+   [
+    "07:30",
+    "19:00"
+   ],
+   [
+    "07:30",
+    "19:00"
+   ],
+   [
+    "07:30",
+    "19:00"
+   ],
+   [
+    "07:30",
+    "19:00"
+   ],
+   [
+    "07:30",
+    "19:00"
+   ],
+   [
+    "07:30",
+    "19:00"
+   ],
+   [
+    "07:30",
+    "19:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 2000,
+  "family_budget": 1800,
+  "source": "https://moscowzoo.ru/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "price",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://moscowzoo.ru/",
+   "address": "https://moscowzoo.ru/",
+   "price": "https://moscowzoo.ru/visitors/tickets",
+   "opening_hours": "https://moscowzoo.ru/visitors/tickets"
+  }
+ },
+ {
+  "slug": "moskvarium",
+  "title": "Москвариум",
+  "category": "animals",
+  "town": "Москва",
+  "address": "пр-т Мира, 119, ВДНХ",
+  "hours": [
+   null,
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 1700,
+  "family_budget": 6400,
+  "source": "https://moskvarium.ru/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "price",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://moskvarium.ru/",
+   "address": "https://moskvarium.ru/contacts/",
+   "price": "https://moskvarium.ru/prices/",
+   "opening_hours": "https://moskvarium.ru/contacts/"
+  }
+ },
+ {
+  "slug": "skalodrom-skala-siti",
+  "title": "Скалодром «Скала Сити»",
+  "category": "active",
+  "town": "Москва",
+  "address": "Кутузовский проспект, 36, стр. 13/14",
+  "hours": [
+   [
+    "15:00",
+    "23:00"
+   ],
+   [
+    "15:00",
+    "23:00"
+   ],
+   [
+    "15:00",
+    "23:00"
+   ],
+   [
+    "15:00",
+    "23:00"
+   ],
+   [
+    "15:00",
+    "23:00"
+   ],
+   [
+    "11:00",
+    "22:00"
+   ],
+   [
+    "11:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 800,
+  "price_max": 1200,
+  "family_budget": 2200,
+  "source": "https://www.skala-city.ru/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://www.skala-city.ru/",
+   "address": "https://skala-city.ru/contact",
+   "opening_hours": "https://skala-city.ru/contact"
+  }
+ },
+ {
+  "slug": "panda-park-sokolniki",
+  "title": "Верёвочный парк «Панда Парк»",
+  "category": "active",
+  "town": "Москва",
+  "address": "Парк Сокольники, 5-й Лучевой просек",
+  "hours": [
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ]
+  ],
+  "price_min": 500,
+  "price_max": 1300,
+  "family_budget": 2400,
+  "source": "https://pandapark.org/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://pandapark.org/",
+   "address": "https://pandapark.org/",
+   "opening_hours": "https://pandapark.org/pandapark-sokolniki/"
+  }
+ },
+ {
+  "slug": "centralny-detsky-magazin",
+  "title": "Центральный Детский Магазин",
+  "category": "shop",
+  "town": "Москва",
+  "address": "Театральный пр-д, 5/1",
+  "hours": [
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 5000,
+  "family_budget": 2500,
+  "source": "https://cdm-moscow.ru/",
+  "verified_fields": [
+   "identity",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://cdm-moscow.ru/",
+   "opening_hours": "https://cdm-moscow.ru/visit"
+  }
+ },
+ {
+  "slug": "arkhangelskoe",
+  "title": "Усадьба «Архангельское»",
+  "category": "park",
+  "town": "Красногорск",
+  "address": "Московская область, Красногорск, п. Архангельское",
+  "hours": [
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 150,
+  "family_budget": 800,
+  "source": "https://arhangelskoe.su/for_visitor/working_hours/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://arhangelskoe.su/for_visitor/working_hours/",
+   "address": "https://arhangelskoe.su/for_visitor/working_hours/"
+  }
+ },
+ {
+  "slug": "norway-park-krasnogorsk",
+  "title": "Верёвочный парк Norway Park Красногорск",
+  "category": "active",
+  "town": "Красногорск",
+  "address": "Московская область, Красногорск, ул. Ленина, 11А (детский городок «Сказочный»)",
+  "hours": [
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 1500,
+  "price_max": 2700,
+  "family_budget": 8000,
+  "source": "https://welcome.mosreg.ru/ideas/progulki-na-vysote-devatietaznogo-doma",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://welcome.mosreg.ru/ideas/progulki-na-vysote-devatietaznogo-doma",
+   "address": "https://welcome.mosreg.ru/ideas/progulki-na-vysote-devatietaznogo-doma"
+  }
+ },
+ {
+  "slug": "zoolandia-kryuchkovo",
+  "title": "Контактный зоопарк «Зооландия»",
+  "category": "animals",
+  "town": "Истра",
+  "address": "Московская область, Истринский район, д. Крючково, 38",
+  "hours": [
+   null,
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 600,
+  "family_budget": 2200,
+  "source": "https://zoolandia-istra.ru/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "price",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://zoolandia-istra.ru/",
+   "address": "https://zoolandia-istra.ru/",
+   "price": "https://zoolandia-istra.ru/",
+   "opening_hours": "https://zoolandia-istra.ru/"
+  }
+ },
+ {
+  "slug": "muzey-novy-ierusalim",
+  "title": "Музей «Новый Иерусалим»",
+  "category": "museum",
+  "town": "Истра",
+  "address": "Московская область, Истра, Ново-Иерусалимская наб., 1",
+  "hours": [
+   null,
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 600,
+  "family_budget": 2000,
+  "source": "https://njerusalem.ru/posetitelyam/rezhim-raboty/",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://njerusalem.ru/posetitelyam/rezhim-raboty/"
+  }
+ },
+ {
+  "slug": "air-arena-rigamoll",
+  "title": "Air Arena — батутный парк в «РигаМолле»",
+  "category": "play",
+  "town": "Красногорск",
+  "address": "Московская область, Красногорск, Новорижское шоссе, 23 км, вл2с2 (ТРЦ «РигаМолл», 4 этаж)",
+  "hours": [
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 700,
+  "price_max": 1100,
+  "family_budget": 3000,
+  "source": "https://airarena.ru/batutnyy-park",
+  "verified_fields": [
+   "identity",
+   "price",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://airarena.ru/batutnyy-park",
+   "price": "https://airarena.ru/batutnyy-park",
+   "opening_hours": "https://airarena.ru/batutnyy-park"
+  }
+ },
+ {
+  "slug": "muzey-tekhniki-zadorozhnogo",
+  "title": "Музей техники Вадима Задорожного",
+  "category": "museum",
+  "town": "Красногорск",
+  "address": "Московская область, Красногорск, п. Архангельское, Ильинское шоссе, 4 км, с8",
+  "hours": [
+   null,
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "price_min": 650,
+  "price_max": 1300,
+  "family_budget": 3500,
+  "source": "https://tmuseum.ru/kontakty/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://tmuseum.ru/kontakty/",
+   "address": "https://tmuseum.ru/kontakty/"
+  }
+ },
+ {
+  "slug": "muzey-materinstva-ilinskoe",
+  "title": "Музей материнства и младенчества",
+  "category": "museum",
+  "town": "Красногорск",
+  "address": "Московская область, Красногорск, с. Ильинское, ул. Ленина, 3, стр. 1",
+  "hours": [
+   null,
+   [
+    "11:00",
+    "17:00"
+   ],
+   [
+    "11:00",
+    "17:00"
+   ],
+   [
+    "11:00",
+    "17:00"
+   ],
+   [
+    "11:00",
+    "17:00"
+   ],
+   [
+    "11:00",
+    "17:00"
+   ],
+   [
+    "11:00",
+    "17:00"
+   ]
+  ],
+  "price_min": 50,
+  "price_max": 150,
+  "family_budget": 400,
+  "source": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+   "address": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/"
+  }
+ },
+ {
+  "slug": "istrinsky-park-kultury",
+  "title": "Истринский парк культуры и отдыха",
+  "category": "park",
+  "town": "Истра",
+  "address": "Московская область, Истра, Истринский центральный парк культуры и отдыха",
+  "hours": [
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 300,
+  "family_budget": 600,
+  "source": "https://2gis.ru/istra/firm/70000001060278185",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://2gis.ru/istra/firm/70000001060278185",
+   "address": "https://2gis.ru/istra/firm/70000001060278185"
+  }
+ },
+ {
+  "slug": "lucky-llama-istra",
+  "title": "Парк развлечений «Лаки Лама»",
+  "category": "play",
+  "town": "Истра",
+  "address": "Московская область, Истра, пл. Революции, 6, ТОЦ «Бриз», 2 этаж",
+  "hours": [
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 400,
+  "price_max": 900,
+  "family_budget": 1800,
+  "source": "https://2gis.ru/istra/firm/70000001101893486",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://2gis.ru/istra/firm/70000001101893486",
+   "address": "https://2gis.ru/istra/firm/70000001101893486"
+  }
+ },
+ {
+  "slug": "park-patriot-kubinka",
+  "title": "Парк «Патриот»",
+  "category": "park",
+  "town": "Кубинка",
+  "address": "Московская область, Одинцовский округ, территория парка «Патриот», д. 1 (Минское шоссе, 55 км, у Кубинки)",
+  "hours": [
+   null,
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 1000,
+  "family_budget": 3000,
+  "source": "https://parkpatriot.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://parkpatriot.ru/",
+   "address": "https://parkpatriot.ru/"
+  }
+ },
+ {
+  "slug": "detsky-park-malysh-odincovo",
+  "title": "Детский парк «Малыш»",
+  "category": "play",
+  "town": "Одинцово",
+  "address": "Московская область, Одинцово, Красногорское шоссе, 11 (1 этаж)",
+  "hours": [
+   [
+    "11:00",
+    "20:00"
+   ],
+   [
+    "11:00",
+    "20:00"
+   ],
+   [
+    "11:00",
+    "20:00"
+   ],
+   [
+    "11:00",
+    "20:00"
+   ],
+   [
+    "11:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "price_min": 250,
+  "price_max": 600,
+  "family_budget": 1500,
+  "source": "https://2gis.ru/odintsovo/firm/70000001029426020",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://2gis.ru/odintsovo/firm/70000001029426020",
+   "address": "https://2gis.ru/odintsovo/firm/70000001029426020"
+  }
+ },
+ {
+  "slug": "misti-park-odintsovo",
+  "title": "Мисти Парк Одинцово",
+  "category": "play",
+  "town": "Одинцово",
+  "address": "Московская область, Одинцово, с. Юдино, 55Е, ТРЦ «Одипарк»",
+  "hours": [
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 900,
+  "price_max": 1500,
+  "family_budget": 2200,
+  "source": "https://mistyparkodi.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://mistyparkodi.ru/",
+   "address": "https://mistyparkodi.ru/"
+  }
+ },
+ {
+  "slug": "hippo-land-odintsovo",
+  "title": "HIPPO Land Одинцово",
+  "category": "play",
+  "town": "Одинцово",
+  "address": "Московская область, Одинцовский район, п. ВНИИССОК, ул. Кленовая, вл. 1, ТРЦ «Атлас», 3 этаж",
+  "hours": [
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ]
+  ],
+  "price_min": 1300,
+  "price_max": 2400,
+  "family_budget": 4500,
+  "source": "https://www.hippo-land.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://www.hippo-land.ru/",
+   "address": "https://www.hippo-land.ru/"
+  }
+ },
+ {
+  "slug": "unaboom-odintsovo",
+  "title": "Юнабум",
+  "category": "play",
+  "town": "Одинцово",
+  "address": "Московская область, Одинцово, Школьный проезд, 6 (в здании кинотеатра «Юность»)",
+  "hours": [
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 900,
+  "price_max": 1900,
+  "family_budget": 2800,
+  "source": "https://unaboom.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://unaboom.ru/",
+   "address": "https://unaboom.ru/"
+  }
+ },
+ {
+  "slug": "termy-odintsovo",
+  "title": "Термы Одинцово",
+  "category": "active",
+  "town": "Одинцово",
+  "address": "Московская область, Одинцово, Молодёжная ул., 11",
+  "hours": [
+   [
+    "08:00",
+    "24:00"
+   ],
+   [
+    "08:00",
+    "24:00"
+   ],
+   [
+    "08:00",
+    "24:00"
+   ],
+   [
+    "08:00",
+    "24:00"
+   ],
+   [
+    "08:00",
+    "24:00"
+   ],
+   [
+    "08:00",
+    "24:00"
+   ],
+   [
+    "08:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 600,
+  "price_max": 2500,
+  "family_budget": 4500,
+  "source": "https://therms.ru/odincovo",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://therms.ru/odincovo",
+   "address": "https://therms.ru/odincovo"
+  }
+ },
+ {
+  "slug": "pandapark-meshchersky",
+  "title": "ПандаПарк Мещерский",
+  "category": "active",
+  "town": "Одинцово",
+  "address": "Московская область, Одинцовский городской округ, Мещерский парк",
+  "hours": [
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 1500,
+  "price_max": 3000,
+  "family_budget": 5000,
+  "source": "https://pandapark.org/pandapark-mescherskiy/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://pandapark.org/pandapark-mescherskiy/",
+   "address": "https://pandapark.org/pandapark-mescherskiy/"
+  }
+ },
+ {
+  "slug": "huskyland-nazarevo",
+  "title": "Этнопарк «Хаски Лэнд»",
+  "category": "animals",
+  "town": "Назарьево",
+  "address": "Московская область, Одинцовский городской округ, пос. Назарьево",
+  "hours": [
+   null,
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "price_min": 900,
+  "price_max": 1900,
+  "family_budget": 4500,
+  "source": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
+   "address": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend"
+  }
+ },
+ {
+  "slug": "muzey-lego-lets-go-zvenigorod",
+  "title": "Музей LEt’s GO",
+  "category": "museum",
+  "town": "Звенигород",
+  "address": "Московская область, Звенигород, Ратехинское шоссе, 1С (территория «Таёжные дачи»)",
+  "hours": [
+   null,
+   null,
+   null,
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 450,
+  "price_max": 700,
+  "family_budget": 2000,
+  "source": "https://letsgo-museum.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://letsgo-museum.ru/",
+   "address": "https://letsgo-museum.ru/"
+  }
+ },
+ {
+  "slug": "muzey-russkogo-deserta-zvenigorod",
+  "title": "Музей русского десерта",
+  "category": "museum",
+  "town": "Звенигород",
+  "address": "Московская область, Звенигород, ул. Фрунзе, 23/2",
+  "hours": [
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "price_min": 200,
+  "price_max": 800,
+  "family_budget": 1800,
+  "source": "https://rusdessertmuseum.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://rusdessertmuseum.ru/",
+   "address": "https://rusdessertmuseum.ru/"
+  }
+ },
+ {
+  "slug": "muzey-nazad-v-sssr-zvenigorod",
+  "title": "Музей «Назад в СССР»",
+  "category": "museum",
+  "town": "Звенигород",
+  "address": "Московская область, Звенигород, ул. Московская, 7/9 (вход с ул. Пролетарской, 2 этаж)",
+  "hours": [
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 600,
+  "price_max": 800,
+  "family_budget": 2200,
+  "source": "https://ussrmuseum.ru/",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://ussrmuseum.ru/"
+  }
+ },
+ {
+  "slug": "usadba-vyazemy-pushkin",
+  "title": "Усадьба Вяземы (музей-заповедник Пушкина)",
+  "category": "park",
+  "town": "Большие Вязёмы",
+  "address": "Московская область, Одинцовский округ, пгт Большие Вязёмы, ул. Институт, 1Б",
+  "hours": [
+   null,
+   null,
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ]
+  ],
+  "price_min": 100,
+  "price_max": 400,
+  "family_budget": 1200,
+  "source": "https://museum-gol.ru/visitors/",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://museum-gol.ru/visitors/"
+  }
+ },
+ {
+  "slug": "park-malevicha-razdory",
+  "title": "Парк Малевича",
+  "category": "park",
+  "town": "Раздоры",
+  "address": "Московская область, Одинцовский городской округ, близ д. Раздоры, Рублёвский проезд",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 450,
+  "family_budget": 700,
+  "source": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/",
+   "address": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/"
+  }
+ },
+ {
+  "slug": "park-razdolye-razdory",
+  "title": "Парк «Раздолье»",
+  "category": "park",
+  "town": "Раздоры",
+  "address": "Московская область, Одинцовский городской округ, д. Раздоры, Рублёвский проезд (парк «Раздолье»)",
+  "hours": [
+   [
+    "08:00",
+    "22:00"
+   ],
+   [
+    "08:00",
+    "22:00"
+   ],
+   [
+    "08:00",
+    "22:00"
+   ],
+   [
+    "08:00",
+    "22:00"
+   ],
+   [
+    "08:00",
+    "22:00"
+   ],
+   [
+    "08:00",
+    "22:00"
+   ],
+   [
+    "08:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 1000,
+  "family_budget": 1500,
+  "source": "https://odinparki.ru/parks/?id=2991",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://odinparki.ru/parks/?id=2991",
+   "address": "https://odinparki.ru/parks/?id=2991"
+  }
+ },
+ {
+  "slug": "dom-muzey-prishvina-dunino",
+  "title": "Дом-музей М. М. Пришвина в Дунине",
+  "category": "museum",
+  "town": "Дунино",
+  "address": "Московская область, Одинцовский район, д. Дунино, д. 2",
+  "hours": [
+   null,
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 200,
+  "price_max": 300,
+  "family_budget": 900,
+  "source": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "price",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
+   "address": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
+   "price": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
+   "opening_hours": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/"
+  }
+ },
+ {
+  "slug": "lunny-kot-zelenograd",
+  "title": "Лунный Кот",
+  "category": "play",
+  "town": "Зеленоград",
+  "address": "Москва, Зеленоград, Савёлкинский проезд, 4 к1, ТЦ «Савёлки», 2 этаж",
+  "hours": [
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ]
+  ],
+  "price_min": 800,
+  "price_max": 1800,
+  "family_budget": 2500,
+  "source": "https://mooncatpark.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://mooncatpark.ru/",
+   "address": "https://mooncatpark.ru/"
+  }
+ },
+ {
+  "slug": "muzey-lozhki-solnechnogorsk",
+  "title": "Музей «Ложки»",
+  "category": "museum",
+  "town": "Ложки",
+  "address": "Московская область, городской округ Солнечногорск, д. Ложки, Центральная ул., 9 (Дом культуры «Ложки»)",
+  "hours": [
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 100,
+  "price_max": 350,
+  "family_budget": 900,
+  "source": "https://welcome.mosreg.ru/ideas/muzej-lozki",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://welcome.mosreg.ru/ideas/muzej-lozki",
+   "address": "https://welcome.mosreg.ru/ideas/muzej-lozki"
+  }
+ },
+ {
+  "slug": "dolgoprudnensky-muzey",
+  "title": "Долгопрудненский историко-художественный музей",
+  "category": "museum",
+  "town": "Долгопрудный",
+  "address": "Московская область, Долгопрудный, ул. Циолковского, 34",
+  "hours": [
+   null,
+   null,
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "12:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 100,
+  "price_max": 200,
+  "family_budget": 500,
+  "source": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei",
+   "address": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei"
+  }
+ },
+ {
+  "slug": "kidburg-zelenopark",
+  "title": "КидБург Зеленопарк",
+  "category": "play",
+  "town": "Ржавки (рядом с Зеленоградом)",
+  "address": "Московская область, Ржавки, 2-й микрорайон, с20, ТРЦ «Zеленопарк» (18 км Ленинградского шоссе)",
+  "hours": [
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "price_min": 2450,
+  "price_max": 3500,
+  "family_budget": 6000,
+  "source": "https://zelenopark.kidburg.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://zelenopark.kidburg.ru/",
+   "address": "https://zelenopark.kidburg.ru/"
+  }
+ },
+ {
+  "slug": "peshki-park",
+  "title": "Пешки Парк",
+  "category": "active",
+  "town": "Пешки",
+  "address": "Московская область, городской округ Солнечногорск, д. Пешки, вл. 3А",
+  "hours": [
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "price_min": 700,
+  "price_max": 2000,
+  "family_budget": 5500,
+  "source": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii",
+   "address": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii"
+  }
+ },
+ {
+  "slug": "teatr-nash-dom-khimki",
+  "title": "Театр «Наш дом»",
+  "category": "museum",
+  "town": "Химки",
+  "address": "Московская область, Химки, ул. Калинина, 2 (большая сцена); ул. Маяковского, 22 (малая сцена)",
+  "hours": [
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 450,
+  "price_max": 1500,
+  "family_budget": 2000,
+  "source": "https://welcome.mosreg.ru/ideas/teatr-nash-dom",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://welcome.mosreg.ru/ideas/teatr-nash-dom",
+   "address": "https://welcome.mosreg.ru/ideas/teatr-nash-dom"
+  }
+ },
+ {
+  "slug": "park-tolstogo-himki",
+  "title": "Парк им. Л. Н. Толстого",
+  "category": "park",
+  "town": "Химки",
+  "address": "Московская область, Химки, Ленинский проспект, 2Б",
+  "hours": [
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 300,
+  "family_budget": 800,
+  "source": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
+   "address": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo"
+  }
+ },
+ {
+  "slug": "park-ekobereg-himki",
+  "title": "Парк «Экоберег»",
+  "category": "park",
+  "town": "Химки",
+  "address": "Московская область, Химки, микрорайон Левобережный",
+  "hours": [
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 0,
+  "source": "https://2gis.ru/khimki/gallery/firm/70000001060565637",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://2gis.ru/khimki/gallery/firm/70000001060565637"
+  }
+ },
+ {
+  "slug": "mega-himki-detskie-zony",
+  "title": "StarLab в МЕГА Химки",
+  "category": "play",
+  "town": "Химки",
+  "address": "Московская область, Химки, микрорайон ИКЕА, корпус 2, ТЦ «МЕГА Химки»",
+  "hours": [
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 900,
+  "price_max": 1600,
+  "family_budget": 3200,
+  "source": "https://star-lab.org/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "price",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://star-lab.org/",
+   "address": "https://star-lab.org/",
+   "price": "https://star-lab.org/",
+   "opening_hours": "https://star-lab.org/"
+  }
+ },
+ {
+  "slug": "detmir-mega-himki",
+  "title": "Детский мир в МЕГА Химки",
+  "category": "shop",
+  "town": "Химки",
+  "address": "Московская область, Химки, ТРЦ «МЕГА-Химки», 2 этаж",
+  "hours": [
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 2000,
+  "source": "https://www.detmir.ru/shops/item/id/176/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://www.detmir.ru/shops/item/id/176/",
+   "address": "https://www.detmir.ru/shops/item/id/176/"
+  }
+ },
+ {
+  "slug": "muzey-igrushki-sergiev-posad",
+  "title": "Музей игрушки в Сергиевом Посаде",
+  "category": "museum",
+  "town": "Сергиев Посад",
+  "address": "Московская область, Сергиев Посад, проспект Красной Армии, 123",
+  "hours": [
+   null,
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ]
+  ],
+  "price_min": 250,
+  "price_max": 500,
+  "family_budget": 1800,
+  "source": "https://ru.wikipedia.org/wiki/Музей_игрушки_(Сергиев_Посад)",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Музей_игрушки_(Сергиев_Посад)",
+   "address": "https://ru.wikipedia.org/wiki/Музей_игрушки_(Сергиев_Посад)"
+  }
+ },
+ {
+  "slug": "abramtsevo",
+  "title": "Музей-заповедник «Абрамцево»",
+  "category": "park",
+  "town": "Абрамцево",
+  "address": "Московская область, Сергиево-Посадский округ, Абрамцево",
+  "hours": [
+   null,
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 500,
+  "family_budget": 2000,
+  "source": "https://ru.wikipedia.org/wiki/Абрамцево_(музей-заповедник)",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Абрамцево_(музей-заповедник)",
+   "address": "https://ru.wikipedia.org/wiki/Абрамцево_(музей-заповедник)"
+  }
+ },
+ {
+  "slug": "melikhovo-chekhov",
+  "title": "Музей-заповедник А. П. Чехова «Мелихово»",
+  "category": "park",
+  "town": "Чехов",
+  "address": "Московская область, Чеховский р-н, с. Мелихово, 1",
+  "hours": [
+   null,
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 100,
+  "family_budget": 500,
+  "source": "https://chekhovmuseum.com/",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://chekhovmuseum.com/"
+  }
+ },
+ {
+  "slug": "ostafyevo-russky-parnas",
+  "title": "Музей-усадьба «Остафьево» — «Русский Парнас»",
+  "category": "park",
+  "town": "Щербинка",
+  "address": "Москва, Щербинка, с. Остафьево, ул. Троицкая, 1а",
+  "hours": [
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 350,
+  "family_budget": 600,
+  "source": "https://2gis.ru/moscow/firm/70000001018325589",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://2gis.ru/moscow/firm/70000001018325589",
+   "address": "https://2gis.ru/moscow/firm/70000001018325589"
+  }
+ },
+ {
+  "slug": "dubrovitsy-znamenskaya-cerkov",
+  "title": "Усадьба Дубровицы и церковь Знамения",
+  "category": "park",
+  "town": "Подольск",
+  "address": "Московская область, г.о. Подольск, пос. Дубровицы, усадьба Дубровицы",
+  "hours": [
+   [
+    "06:30",
+    "17:30"
+   ],
+   [
+    "06:30",
+    "17:30"
+   ],
+   [
+    "06:30",
+    "17:30"
+   ],
+   [
+    "06:30",
+    "17:30"
+   ],
+   [
+    "06:30",
+    "17:30"
+   ],
+   [
+    "06:30",
+    "17:30"
+   ],
+   [
+    "06:30",
+    "17:30"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 200,
+  "source": "https://2gis.ru/moscow/firm/4504127916750444",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://2gis.ru/moscow/firm/4504127916750444",
+   "address": "https://2gis.ru/moscow/firm/4504127916750444"
+  }
+ },
+ {
+  "slug": "park-talalikhina-podolsk",
+  "title": "Парк культуры и отдыха им. В. Талалихина",
+  "category": "park",
+  "town": "Подольск",
+  "address": "Московская область, Подольск, ул. Рабочая, 5г",
+  "hours": [
+   [
+    "07:00",
+    "23:00"
+   ],
+   [
+    "07:00",
+    "23:00"
+   ],
+   [
+    "07:00",
+    "23:00"
+   ],
+   [
+    "07:00",
+    "23:00"
+   ],
+   [
+    "07:00",
+    "23:00"
+   ],
+   [
+    "07:00",
+    "23:00"
+   ],
+   [
+    "07:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 300,
+  "family_budget": 600,
+  "source": "https://2gis.ru/podolsk/firm/70000001006489201",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://2gis.ru/podolsk/firm/70000001006489201",
+   "address": "https://2gis.ru/podolsk/firm/70000001006489201"
+  }
+ },
+ {
+  "slug": "ledovy-dvorec-vityaz-podolsk",
+  "title": "Ледовый дворец «Витязь»",
+  "category": "active",
+  "town": "Подольск",
+  "address": "Московская область, Подольск, ул. Кирова, 63а",
+  "hours": [
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ]
+  ],
+  "price_min": 300,
+  "price_max": 600,
+  "family_budget": 2300,
+  "source": "https://2gis.ru/podolsk/firm/4504127912990222",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://2gis.ru/podolsk/firm/4504127912990222",
+   "address": "https://2gis.ru/podolsk/firm/4504127912990222"
+  }
+ },
+ {
+  "slug": "gorki-leninskie",
+  "title": "Музей-заповедник «Горки Ленинские»",
+  "category": "park",
+  "town": "Горки Ленинские",
+  "address": "Московская область, Ленинский г.о., пгт Горки Ленинские, 1",
+  "hours": [
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 400,
+  "family_budget": 600,
+  "source": "https://2gis.ru/moscow/firm/4504128908501846",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://2gis.ru/moscow/firm/4504128908501846",
+   "address": "https://2gis.ru/moscow/firm/4504128908501846"
+  }
+ },
+ {
+  "slug": "kolomna-pastila-muzey",
+  "title": "Музей истории «Коломенская пастила»",
+  "category": "museum",
+  "town": "Коломна",
+  "address": "Московская область, Коломна, ул. Посадская, 13а",
+  "hours": [
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 400,
+  "price_max": 500,
+  "family_budget": 1800,
+  "source": "https://2gis.ru/kolomna/firm/70000001023964852",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://2gis.ru/kolomna/firm/70000001023964852",
+   "address": "https://2gis.ru/kolomna/firm/70000001023964852"
+  }
+ },
+ {
+  "slug": "kolomna-kreml",
+  "title": "Коломенский кремль",
+  "category": "park",
+  "town": "Коломна",
+  "address": "Московская область, Коломна, Коломенский кремль, ул. Лажечникова, 5",
+  "hours": [
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 300,
+  "family_budget": 600,
+  "source": "https://2gis.ru/kolomna/firm/70000001034360438",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://2gis.ru/kolomna/firm/70000001034360438",
+   "address": "https://2gis.ru/kolomna/firm/70000001034360438"
+  }
+ },
+ {
+  "slug": "kolomna-muzey-lyubimoy-igrushki",
+  "title": "Музей любимой игрушки",
+  "category": "museum",
+  "town": "Коломна",
+  "address": "Московская область, Коломна, ул. Москворецкая, 20",
+  "hours": [
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ],
+   [
+    "11:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 150,
+  "price_max": 250,
+  "family_budget": 700,
+  "source": "https://2gis.ru/kolomna/firm/70000001023926045",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://2gis.ru/kolomna/firm/70000001023926045",
+   "address": "https://2gis.ru/kolomna/firm/70000001023926045"
+  }
+ },
+ {
+  "slug": "troitsk-zarechye",
+  "title": "Зона отдыха «Заречье»",
+  "category": "park",
+  "town": "Троицк",
+  "address": "Москва, Троицк, зона отдыха «Заречье», ул. Прибрежная, 7",
+  "hours": [
+   [
+    "08:00",
+    "23:00"
+   ],
+   [
+    "08:00",
+    "23:00"
+   ],
+   [
+    "08:00",
+    "23:00"
+   ],
+   [
+    "08:00",
+    "23:00"
+   ],
+   [
+    "08:00",
+    "23:00"
+   ],
+   [
+    "08:00",
+    "23:00"
+   ],
+   [
+    "08:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 500,
+  "family_budget": 600,
+  "source": "https://yandex.ru/maps/org/zarechye/163370592762/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://yandex.ru/maps/org/zarechye/163370592762/",
+   "address": "https://yandex.ru/maps/org/zarechye/163370592762/"
+  }
+ },
+ {
+  "slug": "natashinsky-park-lyubertsy",
+  "title": "Наташинский парк (Наташинские пруды)",
+  "category": "park",
+  "town": "Люберцы",
+  "address": "Московская область, Люберцы, Наташинский парк",
+  "hours": [
+   [
+    "09:00",
+    "23:00"
+   ],
+   [
+    "09:00",
+    "23:00"
+   ],
+   [
+    "09:00",
+    "23:00"
+   ],
+   [
+    "09:00",
+    "23:00"
+   ],
+   [
+    "09:00",
+    "23:00"
+   ],
+   [
+    "09:00",
+    "23:00"
+   ],
+   [
+    "09:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 400,
+  "family_budget": 800,
+  "source": "https://2gis.ru/lyubertsy/firm/70000001022981485",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://2gis.ru/lyubertsy/firm/70000001022981485",
+   "address": "https://2gis.ru/lyubertsy/firm/70000001022981485"
+  }
+ },
+ {
+  "slug": "politehnichesky-muzey",
+  "title": "Политехнический музей",
+  "category": "museum",
+  "town": "Тверской",
+  "address": "Москва, Новая площадь, 3/4, стр. 1",
+  "hours": [
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "price_min": 300,
+  "price_max": 800,
+  "family_budget": 2600,
+  "source": "https://ru.wikipedia.org/wiki/Политехнический_музей",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Политехнический_музей",
+   "address": "https://ru.wikipedia.org/wiki/Политехнический_музей"
+  }
+ },
+ {
+  "slug": "muzey-moskvy",
+  "title": "Музей Москвы",
+  "category": "museum",
+  "town": "Хамовники",
+  "address": "Москва, Зубовский бульвар, 2",
+  "hours": [
+   null,
+   [
+    "11:00",
+    "20:00"
+   ],
+   [
+    "11:00",
+    "20:00"
+   ],
+   [
+    "11:00",
+    "20:00"
+   ],
+   [
+    "11:00",
+    "20:00"
+   ],
+   [
+    "11:00",
+    "20:00"
+   ],
+   [
+    "11:00",
+    "20:00"
+   ]
+  ],
+  "price_min": 250,
+  "price_max": 600,
+  "family_budget": 1900,
+  "source": "https://ru.wikipedia.org/wiki/Музей_Москвы",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Музей_Москвы",
+   "address": "https://ru.wikipedia.org/wiki/Музей_Москвы"
+  }
+ },
+ {
+  "slug": "muzey-pobedy",
+  "title": "Музей Победы",
+  "category": "museum",
+  "town": "Дорогомилово",
+  "address": "Москва, площадь Победы, 3",
+  "hours": [
+   null,
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 500,
+  "family_budget": 1500,
+  "source": "https://ru.wikipedia.org/wiki/Центральный_музей_Великой_Отечественной_войны",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Центральный_музей_Великой_Отечественной_войны",
+   "address": "https://ru.wikipedia.org/wiki/Центральный_музей_Великой_Отечественной_войны"
+  }
+ },
+ {
+  "slug": "zoomuzey-msu",
+  "title": "Зоологический музей МГУ",
+  "category": "museum",
+  "town": "Тверской",
+  "address": "Москва, Большая Никитская ул., 2",
+  "hours": [
+   null,
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ]
+  ],
+  "price_min": 200,
+  "price_max": 500,
+  "family_budget": 1500,
+  "source": "https://ru.wikipedia.org/wiki/Зоологический_музей_МГУ",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Зоологический_музей_МГУ",
+   "address": "https://ru.wikipedia.org/wiki/Зоологический_музей_МГУ"
+  }
+ },
+ {
+  "slug": "gim",
+  "title": "Государственный исторический музей",
+  "category": "museum",
+  "town": "Тверской",
+  "address": "Москва, Красная площадь, 1",
+  "hours": [
+   [
+    "10:00",
+    "18:00"
+   ],
+   null,
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 300,
+  "price_max": 700,
+  "family_budget": 2400,
+  "source": "https://ru.wikipedia.org/wiki/Государственный_исторический_музей",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Государственный_исторический_музей",
+   "address": "https://ru.wikipedia.org/wiki/Государственный_исторический_музей"
+  }
+ },
+ {
+  "slug": "tretyakovka-lavrushinsky",
+  "title": "Третьяковская галерея (Лаврушинский)",
+  "category": "museum",
+  "town": "Замоскворечье",
+  "address": "Москва, Лаврушинский пер., 10",
+  "hours": [
+   null,
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 400,
+  "price_max": 700,
+  "family_budget": 2200,
+  "source": "https://ru.wikipedia.org/wiki/Государственная_Третьяковская_галерея",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Государственная_Третьяковская_галерея",
+   "address": "https://ru.wikipedia.org/wiki/Государственная_Третьяковская_галерея"
+  }
+ },
+ {
+  "slug": "pushkinsky-muzey",
+  "title": "Пушкинский музей (главное здание)",
+  "category": "museum",
+  "town": "Хамовники",
+  "address": "Москва, ул. Волхонка, 12",
+  "hours": [
+   null,
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 300,
+  "price_max": 600,
+  "family_budget": 2000,
+  "source": "https://ru.wikipedia.org/wiki/Государственный_музей_изобразительных_искусств_имени_А._С._Пушкина",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Государственный_музей_изобразительных_искусств_имени_А._С._Пушкина",
+   "address": "https://ru.wikipedia.org/wiki/Государственный_музей_изобразительных_искусств_имени_А._С._Пушкина"
+  }
+ },
+ {
+  "slug": "teatr-obrazcova",
+  "title": "Театр кукол имени Образцова",
+  "category": "museum",
+  "town": "Мещанский",
+  "address": "Москва, Садовая-Самотёчная ул., 3",
+  "hours": [
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 500,
+  "price_max": 1500,
+  "family_budget": 3200,
+  "source": "https://puppet.ru/",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://puppet.ru/"
+  }
+ },
+ {
+  "slug": "cirk-nikulina",
+  "title": "Цирк Никулина на Цветном бульваре",
+  "category": "museum",
+  "town": "Мещанский",
+  "address": "Москва, Цветной бульвар, 13",
+  "hours": [
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 800,
+  "price_max": 3000,
+  "family_budget": 6500,
+  "source": "https://circusnikulin.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://circusnikulin.ru/",
+   "address": "https://circusnikulin.ru/"
+  }
+ },
+ {
+  "slug": "bolshoy-moscow-cirk",
+  "title": "Большой Московский государственный цирк",
+  "category": "museum",
+  "town": "Раменки (ЗАО)",
+  "address": "Москва, проспект Вернадского, 7",
+  "hours": [
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 800,
+  "price_max": 3500,
+  "family_budget": 7000,
+  "source": "https://bigcirk.moscow/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://bigcirk.moscow/",
+   "address": "https://bigcirk.moscow/"
+  }
+ },
+ {
+  "slug": "teatr-sats",
+  "title": "Музыкальный театр имени Наталии Сац",
+  "category": "museum",
+  "town": "Раменки (ЗАО)",
+  "address": "Москва, проспект Вернадского, 5",
+  "hours": [
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 600,
+  "price_max": 2500,
+  "family_budget": 5500,
+  "source": "https://teatr-sats.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://teatr-sats.ru/",
+   "address": "https://teatr-sats.ru/"
+  }
+ },
+ {
+  "slug": "ugolok-durova",
+  "title": "Театр зверей имени Дурова («Уголок Дурова»)",
+  "category": "animals",
+  "town": "Мещанский",
+  "address": "Москва, ул. Дурова, 4",
+  "hours": [
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ],
+   [
+    "11:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 700,
+  "price_max": 2200,
+  "family_budget": 4500,
+  "source": "https://www.ugolokdurova.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://www.ugolokdurova.ru/",
+   "address": "https://www.ugolokdurova.ru/"
+  }
+ },
+ {
+  "slug": "dom-muzey-vasnecova",
+  "title": "Дом-музей В. М. Васнецова",
+  "category": "museum",
+  "town": "Мещанский",
+  "address": "Москва, переулок Васнецова, 13",
+  "hours": [
+   null,
+   null,
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ],
+   [
+    "10:00",
+    "17:00"
+   ]
+  ],
+  "price_min": 150,
+  "price_max": 400,
+  "family_budget": 1100,
+  "source": "https://ru.wikipedia.org/wiki/Дом-музей_В._М._Васнецова",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Дом-музей_В._М._Васнецова",
+   "address": "https://ru.wikipedia.org/wiki/Дом-музей_В._М._Васнецова"
+  }
+ },
+ {
+  "slug": "ostankino-tower",
+  "title": "Останкинская башня: смотровая площадка",
+  "category": "museum",
+  "town": "Останкинский",
+  "address": "Москва, ул. Академика Королёва, 15",
+  "hours": [
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ]
+  ],
+  "price_min": 1000,
+  "price_max": 1700,
+  "family_budget": 5500,
+  "source": "https://ru.wikipedia.org/wiki/Останкинская_телебашня",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Останкинская_телебашня",
+   "address": "https://ru.wikipedia.org/wiki/Останкинская_телебашня"
+  }
+ },
+ {
+  "slug": "panorama360-federation",
+  "title": "«Панорама360» в башне «Федерация»",
+  "category": "museum",
+  "town": "Пресненский",
+  "address": "Москва, Пресненская наб., 12",
+  "hours": [
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 900,
+  "price_max": 1700,
+  "family_budget": 4500,
+  "source": "https://ru.wikipedia.org/wiki/Башня_Федерация",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Башня_Федерация"
+  }
+ },
+ {
+  "slug": "kidzania-aviapark",
+  "title": "Кидзания в «Авиапарке»",
+  "category": "play",
+  "town": "Хорошёвский",
+  "address": "Москва, Ходынский бульвар, 4 (ТРЦ «Авиапарк»)",
+  "hours": [
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "price_min": 1500,
+  "price_max": 2800,
+  "family_budget": 5500,
+  "source": "https://kidzaniamoscow.ru/",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://kidzaniamoscow.ru/"
+  }
+ },
+ {
+  "slug": "katok-vdnh",
+  "title": "Каток на ВДНХ",
+  "category": "active",
+  "town": "Алексеевский",
+  "address": "Москва, проспект Мира, 119 (ВДНХ)",
+  "hours": [
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 400,
+  "price_max": 900,
+  "family_budget": 3000,
+  "source": "https://ru.wikipedia.org/wiki/ВДНХ",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/ВДНХ"
+  }
+ },
+ {
+  "slug": "katok-park-gorkogo",
+  "title": "Каток в парке Горького",
+  "category": "active",
+  "town": "Якиманка",
+  "address": "Москва, Крымский Вал, 9 (парк Горького)",
+  "hours": [
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 400,
+  "price_max": 900,
+  "family_budget": 3000,
+  "source": "https://ru.wikipedia.org/wiki/Центральный_парк_культуры_и_отдыха_имени_Горького",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Центральный_парк_культуры_и_отдыха_имени_Горького",
+   "address": "https://ru.wikipedia.org/wiki/Центральный_парк_культуры_и_отдыха_имени_Горького"
+  }
+ },
+ {
+  "slug": "depo-food-hall",
+  "title": "Фуд-холл «Депо»",
+  "category": "cafe",
+  "town": "Беговой",
+  "address": "Москва, Лесная ул., 20",
+  "hours": [
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 300,
+  "price_max": 800,
+  "family_budget": 2000,
+  "source": "https://depomoscow.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://depomoscow.ru/",
+   "address": "https://depomoscow.ru/"
+  }
+ },
+ {
+  "slug": "danilovsky-rynok",
+  "title": "Даниловский рынок",
+  "category": "cafe",
+  "town": "Даниловский",
+  "address": "Москва, ул. Мытная, 74",
+  "hours": [
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 250,
+  "price_max": 700,
+  "family_budget": 1700,
+  "source": "https://ru.wikipedia.org/wiki/Даниловский_рынок",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Даниловский_рынок",
+   "address": "https://ru.wikipedia.org/wiki/Даниловский_рынок"
+  }
+ },
+ {
+  "slug": "dom-knigi-arbat",
+  "title": "Московский дом книги на Новом Арбате",
+  "category": "shop",
+  "town": "Арбат",
+  "address": "Москва, Новый Арбат, 8",
+  "hours": [
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 1500,
+  "family_budget": 1000,
+  "source": "https://ru.wikipedia.org/wiki/Московский_дом_книги",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Московский_дом_книги",
+   "address": "https://ru.wikipedia.org/wiki/Московский_дом_книги"
+  }
+ },
+ {
+  "slug": "biblio-globus",
+  "title": "«Библио-Глобус»",
+  "category": "shop",
+  "town": "Мещанский",
+  "address": "Москва, ул. Мясницкая, 6/3, стр. 3",
+  "hours": [
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 1500,
+  "family_budget": 1000,
+  "source": "https://ru.wikipedia.org/wiki/Библио-Глобус",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Библио-Глобус",
+   "address": "https://ru.wikipedia.org/wiki/Библио-Глобус"
+  }
+ },
+ {
+  "slug": "park-druzhby",
+  "title": "Парк Дружбы",
+  "category": "park",
+  "town": "Левобережный (САО)",
+  "address": "Москва, район Левобережный, между Ленинградским шоссе, Фестивальной и Флотской улицами",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://walking.sport.mos.ru/parkdruzhby/",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://walking.sport.mos.ru/parkdruzhby/"
+  }
+ },
+ {
+  "slug": "park-fili",
+  "title": "Филёвский парк",
+  "category": "park",
+  "town": "Фили-Давыдково (ЗАО)",
+  "address": "Москва, Филёвский парк (между Новозаводской и Большой Филёвской улицами)",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 500,
+  "family_budget": 800,
+  "source": "https://parkfili.ru/",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://parkfili.ru/"
+  }
+ },
+ {
+  "slug": "pandapark-fili",
+  "title": "ПандаПарк Фили",
+  "category": "active",
+  "town": "Фили-Давыдково (ЗАО)",
+  "address": "Москва, парк культуры и отдыха «Фили»",
+  "hours": [
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 800,
+  "price_max": 2500,
+  "family_budget": 4500,
+  "source": "https://pandapark.org/pandapark-fili/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://pandapark.org/pandapark-fili/",
+   "address": "https://pandapark.org/pandapark-fili/"
+  }
+ },
+ {
+  "slug": "krylatskie-kholmy",
+  "title": "Парк «Крылатские холмы»",
+  "category": "park",
+  "town": "Крылатское (ЗАО)",
+  "address": "Москва, район Крылатское, Крылатские холмы",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Крылатские_холмы",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Крылатские_холмы",
+   "address": "https://ru.wikipedia.org/wiki/Крылатские_холмы"
+  }
+ },
+ {
+  "slug": "park-pobedy-poklonnaya-gora",
+  "title": "Парк Победы на Поклонной горе",
+  "category": "park",
+  "town": "Дорогомилово (ЗАО)",
+  "address": "Москва, площадь Победы, 3Г",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 400,
+  "source": "https://ru.wikipedia.org/wiki/Парк_Победы_(Москва)",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Парк_Победы_(Москва)",
+   "address": "https://ru.wikipedia.org/wiki/Парк_Победы_(Москва)"
+  }
+ },
+ {
+  "slug": "park-hodynskoe-pole",
+  "title": "Парк «Ходынское поле»",
+  "category": "park",
+  "town": "Хорошёвский (САО)",
+  "address": "Москва, между Ленинградским проспектом, Беговой улицей и Хорошёвским шоссе",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 400,
+  "source": "https://ru.wikipedia.org/wiki/Ходынское_поле_(парк)",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Ходынское_поле_(парк)",
+   "address": "https://ru.wikipedia.org/wiki/Ходынское_поле_(парк)"
+  }
+ },
+ {
+  "slug": "park-severnoe-tushino",
+  "title": "Парк «Северное Тушино»",
+  "category": "park",
+  "town": "Северное Тушино (СЗАО)",
+  "address": "Москва, ул. Свободы, 56, стр. 1 (главный вход)",
+  "hours": [
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 500,
+  "family_budget": 700,
+  "source": "https://mosparks.ru/about/park-severnoe-tushino",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://mosparks.ru/about/park-severnoe-tushino",
+   "address": "https://mosparks.ru/about/park-severnoe-tushino"
+  }
+ },
+ {
+  "slug": "tsaritsyno-park",
+  "title": "Музей-заповедник «Царицыно» (парк)",
+  "category": "park",
+  "town": "Царицыно (ЮАО)",
+  "address": "Москва, ул. Дольская, 1",
+  "hours": [
+   [
+    "06:00",
+    "24:00"
+   ],
+   [
+    "06:00",
+    "24:00"
+   ],
+   [
+    "06:00",
+    "24:00"
+   ],
+   [
+    "06:00",
+    "24:00"
+   ],
+   [
+    "06:00",
+    "24:00"
+   ],
+   [
+    "06:00",
+    "24:00"
+   ],
+   [
+    "06:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 500,
+  "family_budget": 1200,
+  "source": "https://tsaritsyno-museum.ru/kids-2/kids-infrastructure/",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://tsaritsyno-museum.ru/kids-2/kids-infrastructure/"
+  }
+ },
+ {
+  "slug": "tsaritsyno-verevochny-park",
+  "title": "Верёвочный парк в Царицыно",
+  "category": "active",
+  "town": "Царицыно (ЮАО)",
+  "address": "Москва, музей-заповедник «Царицыно», ул. Дольская, 1",
+  "hours": [
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ],
+   [
+    "10:00",
+    "19:00"
+   ]
+  ],
+  "price_min": 1000,
+  "price_max": 2000,
+  "family_budget": 4000,
+  "source": "https://tsaritsyno-museum.ru/park/sport/verevochnyj-park/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://tsaritsyno-museum.ru/park/sport/verevochnyj-park/",
+   "address": "https://tsaritsyno-museum.ru/park/sport/verevochnyj-park/"
+  }
+ },
+ {
+  "slug": "ostrov-mechty",
+  "title": "Парк развлечений «Остров мечты»",
+  "category": "play",
+  "town": "Нагатинский Затон (ЮАО)",
+  "address": "Москва, проспект Андропова, 1",
+  "hours": [
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 2800,
+  "price_max": 4500,
+  "family_budget": 12000,
+  "source": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
+   "address": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8"
+  }
+ },
+ {
+  "slug": "pokrovskoe-streshnevo",
+  "title": "Парк «Покровское-Стрешнево»",
+  "category": "park",
+  "town": "Покровское-Стрешнево (СЗАО)",
+  "address": "Москва, район Покровское-Стрешнево, 5-й Войковский проезд, 2 (усадьба и лесопарк)",
+  "hours": [
+   [
+    "07:00",
+    "23:00"
+   ],
+   [
+    "07:00",
+    "23:00"
+   ],
+   [
+    "07:00",
+    "23:00"
+   ],
+   [
+    "07:00",
+    "23:00"
+   ],
+   [
+    "07:00",
+    "23:00"
+   ],
+   [
+    "07:00",
+    "23:00"
+   ],
+   [
+    "07:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://museum.cpm.moscow/museums/278",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://museum.cpm.moscow/museums/278",
+   "address": "https://museum.cpm.moscow/museums/278"
+  }
+ },
+ {
+  "slug": "akvapark-moreon",
+  "title": "Аквапарк «Мореон»",
+  "category": "active",
+  "town": "Ясенево (ЮЗАО)",
+  "address": "Москва, ул. Голубинская, 16",
+  "hours": [
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 1950,
+  "price_max": 4250,
+  "family_budget": 9000,
+  "source": "https://more-on.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://more-on.ru/",
+   "address": "https://more-on.ru/"
+  }
+ },
+ {
+  "slug": "bitsevsky-les",
+  "title": "Битцевский лес (Битцевский парк)",
+  "category": "park",
+  "town": "Ясенево (ЮЗАО)",
+  "address": "Москва, природно-исторический парк «Битцевский лес» (район Ясенево, ЮЗАО и ЮАО)",
+  "hours": [
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://um.mos.ru/places/prirodno-istoricheskiy-park-bittsevskiy-les/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://um.mos.ru/places/prirodno-istoricheskiy-park-bittsevskiy-les/",
+   "address": "https://um.mos.ru/places/prirodno-istoricheskiy-park-bittsevskiy-les/"
+  }
+ },
+ {
+  "slug": "izmailovsky-park",
+  "title": "Измайловский парк",
+  "category": "park",
+  "town": "Измайлово (ВАО)",
+  "address": "Москва, район Измайлово, Измайловское шоссе",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 400,
+  "source": "https://ru.wikipedia.org/wiki/Измайловский_парк",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Измайловский_парк",
+   "address": "https://ru.wikipedia.org/wiki/Измайловский_парк"
+  }
+ },
+ {
+  "slug": "kuskovo",
+  "title": "Усадьба «Кусково»",
+  "category": "park",
+  "town": "Вешняки (ВАО)",
+  "address": "Москва, ул. Юности, 2",
+  "hours": [
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 500,
+  "family_budget": 900,
+  "source": "https://ru.wikipedia.org/wiki/Кусково",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Кусково",
+   "address": "https://ru.wikipedia.org/wiki/Кусково"
+  }
+ },
+ {
+  "slug": "neskuchny-sad",
+  "title": "Нескучный сад",
+  "category": "park",
+  "town": "Хамовники / Донской",
+  "address": "Москва, Ленинский проспект, вдоль Москвы-реки",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Нескучный_сад",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Нескучный_сад",
+   "address": "https://ru.wikipedia.org/wiki/Нескучный_сад"
+  }
+ },
+ {
+  "slug": "muzeon",
+  "title": "Парк искусств «Музеон»",
+  "category": "park",
+  "town": "Якиманка",
+  "address": "Москва, Крымский Вал, 2",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Музеон",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Музеон"
+  }
+ },
+ {
+  "slug": "sad-ermitazh",
+  "title": "Сад «Эрмитаж»",
+  "category": "park",
+  "town": "Тверской",
+  "address": "Москва, Каретный Ряд, 3",
+  "hours": [
+   [
+    "08:00",
+    "22:00"
+   ],
+   [
+    "08:00",
+    "22:00"
+   ],
+   [
+    "08:00",
+    "22:00"
+   ],
+   [
+    "08:00",
+    "22:00"
+   ],
+   [
+    "08:00",
+    "22:00"
+   ],
+   [
+    "08:00",
+    "22:00"
+   ],
+   [
+    "08:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 500,
+  "source": "https://www.mosgorsad.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://www.mosgorsad.ru/",
+   "address": "https://www.mosgorsad.ru/"
+  }
+ },
+ {
+  "slug": "taganskiy-park",
+  "title": "Таганский парк",
+  "category": "park",
+  "town": "Таганский",
+  "address": "Москва, Таганская ул., Таганский парк",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Таганский_парк",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Таганский_парк",
+   "address": "https://ru.wikipedia.org/wiki/Таганский_парк"
+  }
+ },
+ {
+  "slug": "gbs-ran",
+  "title": "Главный ботанический сад РАН",
+  "category": "park",
+  "town": "Останкинский",
+  "address": "Москва, Ботаническая ул., 4",
+  "hours": [
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 400,
+  "family_budget": 900,
+  "source": "https://gbsad.ru/",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://gbsad.ru/"
+  }
+ },
+ {
+  "slug": "vorobyovy-gory",
+  "title": "Воробьёвы горы: смотровая и набережная",
+  "category": "park",
+  "town": "Раменки / Хамовники",
+  "address": "Москва, Воробьёвское шоссе, смотровая площадка",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 400,
+  "family_budget": 700,
+  "source": "https://ru.wikipedia.org/wiki/Воробьёвы_горы_(Москва)",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Воробьёвы_горы_(Москва)"
+  }
+ },
+ {
+  "slug": "kuzminki-park",
+  "title": "Парк «Кузьминки»",
+  "category": "park",
+  "town": "Кузьминки (ЮВАО)",
+  "address": "Москва, район Кузьминки, Кузьминский лесопарк",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 350,
+  "source": "https://ru.wikipedia.org/wiki/Кузьминки_(парк)",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Кузьминки_(парк)",
+   "address": "https://ru.wikipedia.org/wiki/Кузьминки_(парк)"
+  }
+ },
+ {
+  "slug": "vorontsovsky-park",
+  "title": "Воронцовский парк",
+  "category": "park",
+  "town": "Обручевский (ЮЗАО)",
+  "address": "Москва, ул. Воронцовские Пруды",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Воронцовский_парк",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Воронцовский_парк"
+  }
+ },
+ {
+  "slug": "park-luzhniki",
+  "title": "Парк «Лужники»",
+  "category": "park",
+  "town": "Хамовники",
+  "address": "Москва, Лужнецкая наб., 24",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 300,
+  "family_budget": 500,
+  "source": "https://www.luzhniki.ru/",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://www.luzhniki.ru/"
+  }
+ },
+ {
+  "slug": "lefortovsky-park",
+  "title": "Лефортовский парк",
+  "category": "park",
+  "town": "Лефортово (ЮВАО)",
+  "address": "Москва, Лефортовский парк, Красноказарменная ул.",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Лефортовский_парк",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Лефортовский_парк",
+   "address": "https://ru.wikipedia.org/wiki/Лефортовский_парк"
+  }
+ },
+ {
+  "slug": "lyublino-usadba",
+  "title": "Усадьба Люблино",
+  "category": "park",
+  "town": "Люблино (ЮВАО)",
+  "address": "Москва, Люблино, ул. Летняя / Люблинский парк",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Люблино_(усадьба)",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Люблино_(усадьба)",
+   "address": "https://ru.wikipedia.org/wiki/Люблино_(усадьба)"
+  }
+ },
+ {
+  "slug": "park-850-moscow",
+  "title": "Парк 850-летия Москвы",
+  "category": "park",
+  "town": "Марьино (ЮВАО)",
+  "address": "Москва, район Марьино, Братиславская ул.",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Парк_850-летия_Москвы",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Парк_850-летия_Москвы",
+   "address": "https://ru.wikipedia.org/wiki/Парк_850-летия_Москвы"
+  }
+ },
+ {
+  "slug": "borisovskie-prudy",
+  "title": "Борисовские пруды",
+  "category": "park",
+  "town": "Орехово-Борисово (ЮАО)",
+  "address": "Москва, Борисовские пруды, Борисовский проезд",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Борисовские_пруды",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Борисовские_пруды",
+   "address": "https://ru.wikipedia.org/wiki/Борисовские_пруды"
+  }
+ },
+ {
+  "slug": "izmailovsky-kreml",
+  "title": "Измайловский кремль",
+  "category": "museum",
+  "town": "Измайлово (ВАО)",
+  "address": "Москва, Измайловское шоссе, 73ж",
+  "hours": [
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ],
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 500,
+  "family_budget": 1800,
+  "source": "https://ru.wikipedia.org/wiki/Измайловский_кремль",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Измайловский_кремль",
+   "address": "https://ru.wikipedia.org/wiki/Измайловский_кремль"
+  }
+ },
+ {
+  "slug": "terletsky-park",
+  "title": "Терлецкий лесопарк",
+  "category": "park",
+  "town": "Перово / Новогиреево (ВАО)",
+  "address": "Москва, Терлецкий лесопарк, ул. Мартеновская",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Терлецкий_парк",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Терлецкий_парк",
+   "address": "https://ru.wikipedia.org/wiki/Терлецкий_парк"
+  }
+ },
+ {
+  "slug": "muzey-zhd-tehniki",
+  "title": "Музей железнодорожной техники на Рижском",
+  "category": "museum",
+  "town": "Алексеевский (СВАО)",
+  "address": "Москва, Рижская площадь, 3 (у Рижского вокзала)",
+  "hours": [
+   null,
+   null,
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 300,
+  "family_budget": 900,
+  "source": "https://museum.cpm.moscow/museums/430",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://museum.cpm.moscow/museums/430",
+   "address": "https://museum.cpm.moscow/museums/430"
+  }
+ },
+ {
+  "slug": "losiny-ostrov",
+  "title": "Национальный парк «Лосиный остров»",
+  "category": "park",
+  "town": "Лосиноостровский (СВАО)",
+  "address": "Москва, национальный парк «Лосиный остров», Лосиноостровская",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 400,
+  "source": "https://losinyiostrov.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://losinyiostrov.ru/",
+   "address": "https://losinyiostrov.ru/"
+  }
+ },
+ {
+  "slug": "lianozovsky-park",
+  "title": "Лианозовский парк",
+  "category": "park",
+  "town": "Лианозово (СВАО)",
+  "address": "Москва, Лианозовский парк, ул. Малая Ново-Алексеевская",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Лианозовский_парк",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Лианозовский_парк",
+   "address": "https://ru.wikipedia.org/wiki/Лианозовский_парк"
+  }
+ },
+ {
+  "slug": "ostankino-usadba",
+  "title": "Останкинская усадьба Шереметевых",
+  "category": "museum",
+  "town": "Останкинский (СВАО)",
+  "address": "Москва, 1-я Останкинская ул., 5",
+  "hours": [
+   null,
+   null,
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 600,
+  "family_budget": 1700,
+  "source": "https://ru.wikipedia.org/wiki/Останкино_(усадьба)",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Останкино_(усадьба)",
+   "address": "https://ru.wikipedia.org/wiki/Останкино_(усадьба)"
+  }
+ },
+ {
+  "slug": "timiryazevsky-park",
+  "title": "Тимирязевский парк",
+  "category": "park",
+  "town": "Тимирязевский (САО)",
+  "address": "Москва, Тимирязевская улица, 49",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://yandex.ru/maps/org/timiryazevskiy_park/127468965054/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://yandex.ru/maps/org/timiryazevskiy_park/127468965054/",
+   "address": "https://yandex.ru/maps/org/timiryazevskiy_park/127468965054/"
+  }
+ },
+ {
+  "slug": "park-severny-rechnoy",
+  "title": "Парк Северного речного вокзала",
+  "category": "park",
+  "town": "Левобережный (САО)",
+  "address": "Москва, Ленинградское шоссе, 51",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Северный_речной_вокзал",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Северный_речной_вокзал",
+   "address": "https://ru.wikipedia.org/wiki/Северный_речной_вокзал"
+  }
+ },
+ {
+  "slug": "serebryany-bor",
+  "title": "Серебряный Бор",
+  "category": "park",
+  "town": "Хорошёво-Мнёвники (СЗАО)",
+  "address": "Москва, Серебряный Бор, Таманская ул.",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 400,
+  "source": "https://xn--90ah2agcb.xn--p1ai/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://xn--90ah2agcb.xn--p1ai/",
+   "address": "https://xn--90ah2agcb.xn--p1ai/"
+  }
+ },
+ {
+  "slug": "stroginskaya-poima",
+  "title": "Строгинская пойма",
+  "category": "park",
+  "town": "Строгино (СЗАО)",
+  "address": "Москва, ул. Маршала Катукова, напротив д. 26",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/",
+   "address": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/"
+  }
+ },
+ {
+  "slug": "mitinsky-park",
+  "title": "Митинский ландшафтный парк",
+  "category": "park",
+  "town": "Митино (СЗАО)",
+  "address": "Москва, Митино, Митинский ландшафтный парк",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Митино",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Митино",
+   "address": "https://ru.wikipedia.org/wiki/Митино"
+  }
+ },
+ {
+  "slug": "borodinskaya-panorama",
+  "title": "Музей-панорама «Бородинская битва»",
+  "category": "museum",
+  "town": "Дорогомилово (ЗАО)",
+  "address": "Москва, Кутузовский проспект, 38",
+  "hours": [
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   null,
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "price_min": 200,
+  "price_max": 500,
+  "family_budget": 1400,
+  "source": "https://www.1812panorama.ru/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://www.1812panorama.ru/",
+   "address": "https://www.1812panorama.ru/"
+  }
+ },
+ {
+  "slug": "mosfilm-excursion",
+  "title": "Киностудия «Мосфильм»: экскурсия",
+  "category": "museum",
+  "town": "Раменки (ЗАО)",
+  "address": "Москва, ул. Мосфильмовская, 1",
+  "hours": [
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   [
+    "10:00",
+    "18:00"
+   ],
+   null,
+   null
+  ],
+  "price_min": 780,
+  "price_max": 960,
+  "family_budget": 4000,
+  "source": "https://www.mosfilm.ru/excursions/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://www.mosfilm.ru/excursions/",
+   "address": "https://www.mosfilm.ru/excursions/"
+  }
+ },
+ {
+  "slug": "shkolnoe-ozero-zelenograd",
+  "title": "Парк «Школьное озеро»",
+  "category": "park",
+  "town": "Зеленоград",
+  "address": "Москва, Зеленоград, Школьное озеро",
+  "hours": [
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ],
+   [
+    "06:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 0,
+  "price_max": 0,
+  "family_budget": 300,
+  "source": "https://ru.wikipedia.org/wiki/Зеленоград",
+  "verified_fields": [
+   "identity"
+  ],
+  "field_sources": {
+   "identity": "https://ru.wikipedia.org/wiki/Зеленоград"
+  }
+ },
+ {
+  "slug": "dream-kids",
+  "title": "Dream Kids",
+  "category": "cafe",
+  "town": "Можайский",
+  "address": "Москва, Гжатская ул., 5, корп. 8",
+  "hours": [
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 600,
+  "price_max": 2200,
+  "family_budget": 4800,
+  "source": "https://dreamkids.moscow/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://dreamkids.moscow/",
+   "address": "https://dreamkids.moscow/",
+   "opening_hours": "https://dreamkids.moscow/"
+  }
+ },
+ {
+  "slug": "iyul-detyam",
+  "title": "Июль Детям",
+  "category": "cafe",
+  "town": "Южное Бутово",
+  "address": "Москва, ул. Поляны, 5",
+  "hours": [
+   [
+    "12:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ],
+   [
+    "09:00",
+    "21:00"
+   ]
+  ],
+  "price_min": 650,
+  "price_max": 1800,
+  "family_budget": 4200,
+  "source": "https://julydetyam.ru/onas",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://julydetyam.ru/onas",
+   "address": "https://julydetyam.ru/onas",
+   "opening_hours": "https://julydetyam.ru/onas"
+  }
+ },
+ {
+  "slug": "russkoe-podvorye",
+  "title": "Русское Подворье",
+  "category": "cafe",
+  "town": "Зюзино",
+  "address": "Москва, Симферопольский б-р, 16, корп. 1",
+  "hours": [
+   [
+    "12:00",
+    "24:00"
+   ],
+   [
+    "12:00",
+    "24:00"
+   ],
+   [
+    "12:00",
+    "24:00"
+   ],
+   [
+    "12:00",
+    "24:00"
+   ],
+   [
+    "12:00",
+    "24:00"
+   ],
+   [
+    "12:00",
+    "24:00"
+   ],
+   [
+    "12:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 800,
+  "price_max": 2200,
+  "family_budget": 4800,
+  "source": "https://russkoepodvorie.com/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://russkoepodvorie.com/",
+   "address": "https://russkoepodvorie.com/"
+  }
+ },
+ {
+  "slug": "vasilchuki-chaihona-dmitriya-ulyanova",
+  "title": "Vasilchuki Chaihona №1 — Дмитрия Ульянова",
+  "category": "cafe",
+  "town": "Котловка",
+  "address": "Москва, ул. Дмитрия Ульянова, 51",
+  "hours": [
+   [
+    "11:00",
+    "24:00"
+   ],
+   [
+    "11:00",
+    "24:00"
+   ],
+   [
+    "11:00",
+    "24:00"
+   ],
+   [
+    "11:00",
+    "24:00"
+   ],
+   [
+    "11:00",
+    "24:00"
+   ],
+   [
+    "11:00",
+    "24:00"
+   ],
+   [
+    "11:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 900,
+  "price_max": 2500,
+  "family_budget": 5200,
+  "source": "https://chaihona.ru/restaurants/dmitriya-ulyanova-51",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://chaihona.ru/restaurants/dmitriya-ulyanova-51",
+   "address": "https://chaihona.ru/restaurants/dmitriya-ulyanova-51",
+   "opening_hours": "https://chaihona.ru/restaurants/dmitriya-ulyanova-51"
+  }
+ },
+ {
+  "slug": "vasilchuki-chaihona-afimall",
+  "title": "Vasilchuki Chaihona №1 — Афимолл",
+  "category": "cafe",
+  "town": "Пресненский",
+  "address": "Москва, Пресненская наб., 2, ТРЦ «Афимолл Сити», 5 этаж",
+  "hours": [
+   [
+    "10:00",
+    "24:00"
+   ],
+   [
+    "10:00",
+    "24:00"
+   ],
+   [
+    "10:00",
+    "24:00"
+   ],
+   [
+    "10:00",
+    "24:00"
+   ],
+   [
+    "10:00",
+    "24:00"
+   ],
+   [
+    "10:00",
+    "24:00"
+   ],
+   [
+    "10:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 900,
+  "price_max": 2500,
+  "family_budget": 5200,
+  "source": "https://chaihona.ru/restaurants/trc-afimoll-siti",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://chaihona.ru/restaurants/trc-afimoll-siti",
+   "address": "https://chaihona.ru/restaurants/trc-afimoll-siti",
+   "opening_hours": "https://chaihona.ru/restaurants/trc-afimoll-siti"
+  }
+ },
+ {
+  "slug": "vasilchuki-chaihona-metropolis",
+  "title": "Vasilchuki Chaihona №1 — Метрополис",
+  "category": "cafe",
+  "town": "Войковский",
+  "address": "Москва, Ленинградское ш., 16А, стр. 4, ТЦ «Метрополис», 3 этаж",
+  "hours": [
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "24:00"
+   ],
+   [
+    "10:00",
+    "24:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 900,
+  "price_max": 2500,
+  "family_budget": 5200,
+  "source": "https://chaihona.ru/restaurants/leningradskoe-sosse-16a",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://chaihona.ru/restaurants/leningradskoe-sosse-16a",
+   "address": "https://chaihona.ru/restaurants/leningradskoe-sosse-16a",
+   "opening_hours": "https://chaihona.ru/restaurants/leningradskoe-sosse-16a"
+  }
+ },
+ {
+  "slug": "piero-zilart",
+  "title": "Пьеро",
+  "category": "cafe",
+  "town": "Даниловский",
+  "address": "Москва, б-р Братьев Весниных, 1",
+  "hours": [
+   [
+    "12:00",
+    "22:00"
+   ],
+   [
+    "12:00",
+    "22:00"
+   ],
+   [
+    "12:00",
+    "22:00"
+   ],
+   [
+    "12:00",
+    "22:00"
+   ],
+   [
+    "12:00",
+    "23:00"
+   ],
+   [
+    "11:00",
+    "23:00"
+   ],
+   [
+    "11:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 900,
+  "price_max": 2500,
+  "family_budget": 5200,
+  "source": "https://xn--e1asbf2d.xn--p1ai/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://xn--e1asbf2d.xn--p1ai/",
+   "address": "https://xn--e1asbf2d.xn--p1ai/"
+  }
+ },
+ {
+  "slug": "ribambelle-vremena-goda",
+  "title": "Ribambelle — Времена года",
+  "category": "cafe",
+  "town": "Фили-Давыдково",
+  "address": "Москва, Кутузовский пр-т, 48, Галереи «Времена года», 3 этаж",
+  "hours": [
+   [
+    "11:00",
+    "22:00"
+   ],
+   [
+    "11:00",
+    "22:00"
+   ],
+   [
+    "11:00",
+    "22:00"
+   ],
+   [
+    "11:00",
+    "22:00"
+   ],
+   [
+    "11:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 1000,
+  "price_max": 2800,
+  "family_budget": 5800,
+  "source": "https://ribambelle.ru/kontakty",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://ribambelle.ru/kontakty",
+   "address": "https://ribambelle.ru/kontakty",
+   "opening_hours": "https://ribambelle.ru/kontakty"
+  }
+ },
+ {
+  "slug": "kitchen-khodynka",
+  "title": "Kitchen — Ходынка",
+  "category": "cafe",
+  "town": "Хорошёвский",
+  "address": "Москва, ул. Гризодубовой, 4, корп. 4",
+  "hours": [
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 800,
+  "price_max": 2200,
+  "family_budget": 4800,
+  "source": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/",
+   "address": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/",
+   "opening_hours": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/"
+  }
+ },
+ {
+  "slug": "anderson-ostrovityanova",
+  "title": "АндерСон — Островитянова",
+  "category": "cafe",
+  "town": "Обручевский",
+  "address": "Москва, ул. Островитянова, 5",
+  "hours": [
+   [
+    "08:30",
+    "22:00"
+   ],
+   [
+    "08:30",
+    "22:00"
+   ],
+   [
+    "08:30",
+    "22:00"
+   ],
+   [
+    "08:30",
+    "22:00"
+   ],
+   [
+    "08:30",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 700,
+  "price_max": 2000,
+  "family_budget": 4400,
+  "source": "https://cafe-anderson.ru/cafe/ostrov/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://cafe-anderson.ru/cafe/ostrov/",
+   "address": "https://cafe-anderson.ru/cafe/ostrov/",
+   "opening_hours": "https://cafe-anderson.ru/cafe/ostrov/"
+  }
+ },
+ {
+  "slug": "kids-castle-mitino",
+  "title": "Kids Castle — Митино",
+  "category": "cafe",
+  "town": "Митино",
+  "address": "Москва, Новотушинский пр-д, 10, корп. 2, ТЦ «Родник», 2 этаж",
+  "hours": [
+   [
+    "12:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "21:00"
+   ]
+  ],
+  "price_min": 900,
+  "price_max": 2500,
+  "family_budget": 5200,
+  "source": "https://kids-castle.pro/mitino",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://kids-castle.pro/mitino",
+   "address": "https://kids-castle.pro/mitino",
+   "opening_hours": "https://kids-castle.pro/mitino"
+  }
+ },
+ {
+  "slug": "klich-zilart",
+  "title": "KLICH",
+  "category": "cafe",
+  "town": "Даниловский",
+  "address": "Москва, наб. Марка Шагала, 1, корп. 2",
+  "hours": [
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ],
+   [
+    "10:00",
+    "24:00"
+   ],
+   [
+    "10:00",
+    "24:00"
+   ],
+   [
+    "10:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 1000,
+  "price_max": 2800,
+  "family_budget": 5800,
+  "source": "https://klich.moscow/kontakty",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://klich.moscow/kontakty",
+   "address": "https://klich.moscow/kontakty",
+   "opening_hours": "https://klich.moscow/kontakty"
+  }
+ },
+ {
+  "slug": "repast-cafe",
+  "title": "Repast Cafe",
+  "category": "cafe",
+  "town": "Филёвский Парк",
+  "address": "Москва, Большая Филёвская ул., 21, корп. 2",
+  "hours": [
+   [
+    "11:00",
+    "23:00"
+   ],
+   [
+    "11:00",
+    "23:00"
+   ],
+   [
+    "11:00",
+    "23:00"
+   ],
+   [
+    "11:00",
+    "23:00"
+   ],
+   [
+    "11:00",
+    "23:00"
+   ],
+   [
+    "11:00",
+    "23:00"
+   ],
+   [
+    "11:00",
+    "23:00"
+   ]
+  ],
+  "price_min": 800,
+  "price_max": 1900,
+  "family_budget": 4300,
+  "source": "https://repastcafe.com/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://repastcafe.com/",
+   "address": "https://repastcafe.com/",
+   "opening_hours": "https://repastcafe.com/"
+  }
+ },
+ {
+  "slug": "local-kids-vnukovo",
+  "title": "Local Kids",
+  "category": "cafe",
+  "town": "Внуково",
+  "address": "Москва, б-р Андрея Тарковского, 9",
+  "hours": [
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 900,
+  "price_max": 2200,
+  "family_budget": 4800,
+  "source": "https://localkids.clients.site/",
+  "verified_fields": [
+   "identity",
+   "address"
+  ],
+  "field_sources": {
+   "identity": "https://localkids.clients.site/",
+   "address": "https://localkids.clients.site/"
+  }
+ },
+ {
+  "slug": "littles-kids-play-cafe",
+  "title": "Littles Kids Play Cafe",
+  "category": "cafe",
+  "town": "Пресненский",
+  "address": "Москва, ул. Сергея Макеева, 9, корп. 1",
+  "hours": [
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ],
+   [
+    "09:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 900,
+  "price_max": 2300,
+  "family_budget": 4900,
+  "source": "https://littleskids.com/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://littleskids.com/",
+   "address": "https://littleskids.com/",
+   "opening_hours": "https://littleskids.com/"
+  }
+ },
+ {
+  "slug": "jooie-presnya",
+  "title": "Jooie — Пресня",
+  "category": "cafe",
+  "town": "Пресненский",
+  "address": "Москва, Расторгуевский пер., 3А",
+  "hours": [
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ],
+   [
+    "10:00",
+    "22:00"
+   ]
+  ],
+  "price_min": 800,
+  "price_max": 2200,
+  "family_budget": 4600,
+  "source": "https://jooiecafe.ru/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://jooiecafe.ru/",
+   "address": "https://jooiecafe.ru/",
+   "opening_hours": "https://jooiecafe.ru/"
+  }
+ },
+ {
+  "slug": "tutta-la-vita",
+  "title": "Tutta La Vita",
+  "category": "cafe",
+  "town": "Замоскворечье",
+  "address": "Москва, ул. Большая Ордынка, 20, стр. 7",
+  "hours": [
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ],
+   [
+    "00:00",
+    "24:00"
+   ]
+  ],
+  "price_min": 1000,
+  "price_max": 2600,
+  "family_budget": 5400,
+  "source": "https://tuttalavita.ru/",
+  "verified_fields": [
+   "identity",
+   "address",
+   "opening_hours"
+  ],
+  "field_sources": {
+   "identity": "https://tuttalavita.ru/",
+   "address": "https://tuttalavita.ru/",
+   "opening_hours": "https://tuttalavita.ru/"
+  }
+ }
+]

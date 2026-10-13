@@ -1,0 +1,29 @@
+name: facts-probe
+
+# Сверка часов, цен и адресов с официальными сайтами мест. Результат — tmp_verify/facts.json в этой же ветке.
+on:
+  push:
+    branches: [ci/facts-probe]
+    paths: [scripts/collect-facts.mjs, tmp_verify/places.json, .github/workflows/facts-probe.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Collect
+        run: node scripts/collect-facts.mjs
+      - name: Save result to branch
+        run: |
+          git config user.name "facts-probe"
+          git config user.email "noreply@github.com"
+          git add tmp_verify/facts.json
+          git commit -m "facts-probe: результат сбора"
+          git push origin HEAD:ci/facts-probe
