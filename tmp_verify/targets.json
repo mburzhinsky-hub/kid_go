@@ -1,0 +1,436 @@
+[
+{
+"slug": "vdnh",
+"urls": [
+"https://vdnh.ru/visitors/about/",
+"https://vdnh.ru/contacts/"
+],
+"follow": false
+},
+{
+"slug": "eksperimentanium",
+"urls": [
+"https://experimentanium.ru/visitors/",
+"https://experimentanium.ru/prices/",
+"https://experimentanium.ru/schedule-tickets/"
+],
+"follow": false
+},
+{
+"slug": "skalodrom-skala-siti",
+"urls": [
+"https://skala-city.ru/contact",
+"https://www.skala-city.ru/price"
+],
+"follow": false
+},
+{
+"slug": "muzey-novy-ierusalim",
+"urls": [
+"https://njerusalem.ru/posetitelyam/rezhim-raboty/",
+"https://njerusalem.ru/posetitelyam/tickets/",
+"https://njerusalem.ru/posetitelyam/edinyj-bilet-na-vse-vystavki/"
+],
+"follow": false
+},
+{
+"slug": "air-arena-rigamoll",
+"urls": [
+"https://airarena.ru/batutnyy-park",
+"https://airarena.ru/kontakty"
+],
+"follow": false
+},
+{
+"slug": "muzey-materinstva-ilinskoe",
+"urls": [
+"https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+"https://zvenmuseum.ru/posetitelyam/rezhim-raboty/",
+"https://zvenmuseum.ru/posetitelyam/bilety/"
+],
+"follow": false
+},
+{
+"slug": "kidburg-zelenopark",
+"urls": [
+"https://zelenopark.kidburg.ru/",
+"https://zelenopark.kidburg.ru/contacts"
+],
+"follow": false
+},
+{
+"slug": "kidzania-aviapark",
+"urls": [
+"https://kidzaniamoscow.ru/"
+],
+"follow": true
+},
+{
+"slug": "ugolok-durova",
+"urls": [
+"https://www.ugolokdurova.ru/contacts/",
+"https://www.ugolokdurova.ru/"
+],
+"follow": false
+},
+{
+"slug": "gbs-ran",
+"urls": [
+"https://gbsad.ru/pravila-posesheniya",
+"https://gbsad.ru/fondovaya-oranzhereya-bilety-i-abonementy",
+"https://gbsad.ru/contact"
+],
+"follow": false
+},
+{
+"slug": "borodinskaya-panorama",
+"urls": [
+"https://www.1812panorama.ru/contacts",
+"http://1812panorama.ru/content/bilety"
+],
+"follow": false
+},
+{
+"slug": "piero-zilart",
+"urls": [
+"https://xn--e1asbf2d.xn--p1ai/contacts"
+],
+"follow": false
+},
+{
+"slug": "tutta-la-vita",
+"urls": [
+"https://tuttalavita.ru/kontakty"
+],
+"follow": false
+},
+{
+"slug": "muzey-zhd-tehniki",
+"urls": [
+"https://museum.cpm.moscow/museums/430",
+"https://museum.cpm.moscow/contacts/"
+],
+"follow": false
+},
+{
+"slug": "teatr-obrazcova",
+"urls": [
+"https://puppet.ru/visitors/posetitelyam"
+],
+"follow": false
+},
+{
+"slug": "tsaritsyno-verevochny-park",
+"urls": [
+"https://tsaritsyno-museum.ru/park/sport/verevochnyj-park/",
+"https://tsaritsyno-museum.ru/the_museum/prices-and-benefits/"
+],
+"follow": false
+},
+{
+"slug": "akvapark-moreon",
+"urls": [
+"https://more-on.ru/tarifs/",
+"https://more-on.ru/contacts/"
+],
+"follow": false
+},
+{
+"slug": "mosfilm-excursion",
+"urls": [
+"https://www.mosfilm.ru/excursions/"
+],
+"follow": false
+},
+{
+"slug": "melikhovo-chekhov",
+"urls": [
+"https://chekhovmuseum.com/visitor/price",
+"https://chekhovmuseum.com/visitor"
+],
+"follow": false
+},
+{
+"slug": "dom-muzey-prishvina-dunino",
+"urls": [
+"https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
+"https://goslitmuz.ru/visitors/ticket_price/"
+],
+"follow": false
+},
+{
+"slug": "russkoe-podvorye",
+"urls": [
+"https://russkoepodvorie.com/kontakty/"
+],
+"follow": false
+},
+{
+"slug": "termy-odintsovo",
+"urls": [
+"https://therms.ru/odincovo"
+],
+"follow": false
+},
+{
+"slug": "moskvarium",
+"urls": [
+"https://moskvarium.ru/contacts/",
+"https://moskvarium.ru/prices/"
+],
+"follow": false
+},
+{
+"slug": "politehnichesky-muzey",
+"urls": [
+"https://polytech.ru/",
+"https://polymus.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "muzey-moskvy",
+"urls": [
+"https://mosmuseum.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "muzey-pobedy",
+"urls": [
+"https://victorymuseum.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "zoomuzey-msu",
+"urls": [
+"https://zmmu.msu.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "gim",
+"urls": [
+"https://shm.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "tretyakovka-lavrushinsky",
+"urls": [
+"https://www.tretyakovgallery.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "pushkinsky-muzey",
+"urls": [
+"https://pushkinmuseum.art/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "ostankino-tower",
+"urls": [
+"https://tvtower.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "panorama360-federation",
+"urls": [
+"https://panorama360.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "danilovsky-rynok",
+"urls": [
+"https://danilovsky.market/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "dom-knigi-arbat",
+"urls": [
+"https://mdk-arbat.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "biblio-globus",
+"urls": [
+"https://biblio-globus.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "kuskovo",
+"urls": [
+"https://kuskovo.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "ostankino-usadba",
+"urls": [
+"https://ostankino-museum.ru/",
+"https://ostankino.org.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "izmailovsky-kreml",
+"urls": [
+"https://kremlin-izmailovo.com/",
+"https://www.kremlin-izmailovo.com/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "lyublino-usadba",
+"urls": [
+"https://lublino.ru/",
+"https://usadba-lublino.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "abramtsevo",
+"urls": [
+"https://abramtsevo.net/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "gorki-leninskie",
+"urls": [
+"https://gorki-leninskie.ru/",
+"https://www.gorki-museum.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "kolomna-kreml",
+"urls": [
+"https://kolomna-kreml.ru/",
+"https://kolomnakreml.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "ostafyevo-russky-parnas",
+"urls": [
+"https://ostafievo.ru/",
+"https://www.ostafievo.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "ostrov-mechty",
+"urls": [
+"https://ostrovmechty.com/",
+"https://ostrovmechty.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "taganskiy-park",
+"urls": [
+"https://taganskipark.ru/",
+"https://taganpark.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "dubrovitsy-znamenskaya-cerkov",
+"urls": [
+"https://dubrovitsy.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "muzey-igrushki-sergiev-posad",
+"urls": [
+"https://museum-toy.ru/",
+"https://www.museumtoy.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "kolomna-pastila-muzey",
+"urls": [
+"https://pastila.ru/",
+"https://www.pastila.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "kolomna-muzey-lyubimoy-igrushki",
+"urls": [
+"https://kolomnaigrushka.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "dom-muzey-vasnecova",
+"urls": [
+"https://www.tretyakovgallery.ru/visit/vasnetsov/",
+"https://vasnetsov.org/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "park-pobedy-poklonnaya-gora",
+"urls": [
+"https://poklonnaya-gora.ru/",
+"https://www.victorymuseum.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "katok-vdnh",
+"urls": [
+"https://vdnh.ru/"
+],
+"follow": true,
+"discover": true
+},
+{
+"slug": "ledovy-dvorec-vityaz-podolsk",
+"urls": [
+"https://vityaz-podolsk.ru/"
+],
+"follow": true,
+"discover": true
+}
+]

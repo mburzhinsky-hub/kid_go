@@ -1,10 +1,10 @@
 name: facts-probe
 
-# Сверка часов, цен и адресов с официальными сайтами мест. Результат — tmp_verify/facts.json в этой же ветке.
+# Сверка часов, цен и адресов с официальными сайтами мест. Результат — tmp_verify/pages/*.json в этой же ветке.
 on:
   push:
     branches: [ci/facts-probe]
-    paths: [scripts/collect-facts.mjs, tmp_verify/places.json, .github/workflows/facts-probe.yml]
+    paths: [scripts/fetch-targets.mjs, tmp_verify/targets.json, .github/workflows/facts-probe.yml]
 
 permissions:
   contents: write
@@ -19,11 +19,11 @@ jobs:
         with:
           node-version: 22
       - name: Collect
-        run: node scripts/collect-facts.mjs
+        run: node scripts/fetch-targets.mjs
       - name: Save result to branch
         run: |
           git config user.name "facts-probe"
           git config user.email "noreply@github.com"
-          git add tmp_verify/facts.json
-          git commit -m "facts-probe: результат сбора"
+          git add tmp_verify/pages
+          git commit -m "facts-probe: страницы второй сверки"
           git push origin HEAD:ci/facts-probe
