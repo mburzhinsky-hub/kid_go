@@ -1,0 +1,23 @@
+{
+ "slug": "norway-park-krasnogorsk",
+ "pages": [
+  {
+   "url": "https://norwaypark.ru/",
+   "final": "https://norwaypark.ru/",
+   "status": 0,
+   "error": "UND_ERR_CONNECT_TIMEOUT"
+  },
+  {
+   "url": "https://norway-park.ru/",
+   "final": "https://norway-park.ru/",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "url": "https://www.norwaypark.ru/",
+   "final": "https://www.norwaypark.ru/",
+   "status": 0,
+   "error": "UND_ERR_CONNECT_TIMEOUT"
+  }
+ ]
+}
