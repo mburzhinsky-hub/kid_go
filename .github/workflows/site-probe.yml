@@ -98,3 +98,15 @@ jobs:
             if [ "$n" -gt 0 ]; then ok="$ok $s"; else miss="$miss $s"; fi
           done
           echo "::notice title=live site-button summary::WITH:$ok || WITHOUT:$miss"
+      - name: Live venues check
+        shell: bash
+        run: |
+          set +e +o pipefail
+          UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36'
+          out=""
+          for h in kidzaniamoscow.ru depomoscow.ru tsaritsyno-museum.ru airarena.ru therms.ru skala-city.ru mistyparkodi.ru hippo-land.ru ussrmuseum.ru letsgo-museum.ru unaboom.ru star-lab.org ribambelle.ru littleskids.com chaihona.ru; do
+            body=$(curl -sS -L --max-time 30 -A "$UA" -o /tmp/v.html -w '%{http_code} %{url_effective} %{time_total}s' "https://$h/" 2>&1)
+            title=$(tr '\n' ' ' </tmp/v.html | grep -o '<title[^>]*>[^<]*' | head -1 | sed 's/<title[^>]*>//' | cut -c1-70)
+            out="$out$h => $body | $title%0A"
+          done
+          echo "::notice title=live venues::%0A$out"
