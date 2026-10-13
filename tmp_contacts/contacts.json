@@ -1,0 +1,933 @@
+[
+ {
+  "host": "skala-city.ru",
+  "places": [
+   {
+    "slug": "skalodrom-skala-siti",
+    "title": "Скалодром «Скала Сити»",
+    "category": "active"
+   }
+  ],
+  "site": "https://www.skala-city.ru/",
+  "emails": [
+   {
+    "email": "skalatown@gmail.com",
+    "page": "https://www.skala-city.ru/"
+   }
+  ],
+  "phones": [
+   "+79661129377",
+   "+7 (966) 112-93-77",
+   "+7 966 112 93 77"
+  ],
+  "contactPages": [
+   "https://www.skala-city.ru/contact"
+  ],
+  "notes": []
+ },
+ {
+  "host": "pandapark.org",
+  "places": [
+   {
+    "slug": "panda-park-sokolniki",
+    "title": "Верёвочный парк «Панда Парк»",
+    "category": "active"
+   },
+   {
+    "slug": "pandapark-meshchersky",
+    "title": "ПандаПарк Мещерский",
+    "category": "active"
+   },
+   {
+    "slug": "pandapark-fili",
+    "title": "ПандаПарк Фили",
+    "category": "active"
+   }
+  ],
+  "site": "https://pandapark.org/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /kontakty/",
+   "robots запрещает /kontakty",
+   "robots запрещает /contacts",
+   "robots запрещает /contacts/",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "zoolandia-istra.ru",
+  "places": [
+   {
+    "slug": "zoolandia-kryuchkovo",
+    "title": "Контактный зоопарк «Зооландия»",
+    "category": "animals"
+   }
+  ],
+  "site": "https://zoolandia-istra.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /kontakty",
+   "robots запрещает /kontakty/",
+   "robots запрещает /contacts",
+   "robots запрещает /contacts/",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "airarena.ru",
+  "places": [
+   {
+    "slug": "air-arena-rigamoll",
+    "title": "Air Arena — батутный парк в «РигаМолле»",
+    "category": "play"
+   }
+  ],
+  "site": "https://airarena.ru/",
+  "emails": [
+   {
+    "email": "info@airarena.ru",
+    "page": "https://airarena.ru/"
+   }
+  ],
+  "phones": [
+   "+79689580000",
+   "+7 (968) 958-00-00",
+   "+7 (495) 150-80-87"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "zvenmuseum.ru",
+  "places": [
+   {
+    "slug": "muzey-materinstva-ilinskoe",
+    "title": "Музей материнства и младенчества",
+    "category": "museum"
+   }
+  ],
+  "site": "https://zvenmuseum.ru/",
+  "emails": [
+   {
+    "email": "mk_zvenigorod-museum@mosreg.ru",
+    "page": "https://zvenmuseum.ru/"
+   }
+  ],
+  "phones": [
+   "89851812785",
+   "8 (985) 181-27-85",
+   "89919300196"
+  ],
+  "contactPages": [
+   "https://zvenmuseum.ru/o-muzee/partnery-muzeya/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "mistyparkodi.ru",
+  "places": [
+   {
+    "slug": "misti-park-odintsovo",
+    "title": "Мисти Парк Одинцово",
+    "category": "play"
+   }
+  ],
+  "site": "https://mistyparkodi.ru/",
+  "emails": [
+   {
+    "email": "prazdnik@mistyparkodi.ru",
+    "page": "https://mistyparkodi.ru/kontakty"
+   },
+   {
+    "email": "dir@mistyparkodi.ru",
+    "page": "https://mistyparkodi.ru/kontakty"
+   },
+   {
+    "email": "pr@mistyparkodi.ru",
+    "page": "https://mistyparkodi.ru/kontakty"
+   }
+  ],
+  "phones": [
+   "+74996479964",
+   "+7 (499) 647 99 64",
+   "+7 (999) 999-99-99"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "hippo-land.ru",
+  "places": [
+   {
+    "slug": "hippo-land-odintsovo",
+    "title": "HIPPO Land Одинцово",
+    "category": "play"
+   }
+  ],
+  "site": "https://www.hippo-land.ru/",
+  "emails": [
+   {
+    "email": "infoatlas@hippo-land.ru",
+    "page": "https://www.hippo-land.ru/"
+   }
+  ],
+  "phones": [
+   "+74951345858",
+   "+7 495 134-58-58"
+  ],
+  "contactPages": [
+   "https://www.hippo-land.ru/contacty/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "unaboom.ru",
+  "places": [
+   {
+    "slug": "unaboom-odintsovo",
+    "title": "Юнабум",
+    "category": "play"
+   }
+  ],
+  "site": "https://unaboom.ru/",
+  "emails": [
+   {
+    "email": "unaboom@ya.ru",
+    "page": "https://unaboom.ru/"
+   },
+   {
+    "email": "unaboom@yandex.ru",
+    "page": "https://unaboom.ru/"
+   }
+  ],
+  "phones": [
+   "+79804697927",
+   "+7(000)000-0000",
+   "89804697927"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "therms.ru",
+  "places": [
+   {
+    "slug": "termy-odintsovo",
+    "title": "Термы Одинцово",
+    "category": "active"
+   }
+  ],
+  "site": "https://therms.ru/",
+  "emails": [
+   {
+    "email": "adminvidnoe@therms.ru",
+    "page": "https://therms.ru/"
+   },
+   {
+    "email": "adminm@therms.ru",
+    "page": "https://therms.ru/"
+   },
+   {
+    "email": "admin.odincovo@therms.ru",
+    "page": "https://therms.ru/"
+   },
+   {
+    "email": "admin.sevas@therms.ru",
+    "page": "https://therms.ru/"
+   },
+   {
+    "email": "ulyanovsk@therms.ru",
+    "page": "https://therms.ru/"
+   }
+  ],
+  "phones": [
+   "+7(495)-859-03-04",
+   "+7 928 152-78-86",
+   "+7 (495) 847-03-04"
+  ],
+  "contactPages": [
+   "https://therms.ru/contacts",
+   "https://therms.ru/contacts/",
+   "https://therms.ru/contact"
+  ],
+  "notes": []
+ },
+ {
+  "host": "letsgo-museum.ru",
+  "places": [
+   {
+    "slug": "muzey-lego-lets-go-zvenigorod",
+    "title": "Музей LEt’s GO",
+    "category": "museum"
+   }
+  ],
+  "site": "https://letsgo-museum.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /kontakty",
+   "robots запрещает /kontakty/",
+   "robots запрещает /contacts",
+   "robots запрещает /contacts/",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "ussrmuseum.ru",
+  "places": [
+   {
+    "slug": "muzey-nazad-v-sssr-zvenigorod",
+    "title": "Музей «Назад в СССР»",
+    "category": "museum"
+   }
+  ],
+  "site": "https://ussrmuseum.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /contacts/",
+   "robots запрещает /kontakty",
+   "robots запрещает /kontakty/",
+   "robots запрещает /contacts",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "mooncatpark.ru",
+  "places": [
+   {
+    "slug": "lunny-kot-zelenograd",
+    "title": "Лунный Кот",
+    "category": "play"
+   }
+  ],
+  "site": "https://mooncatpark.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /about/",
+   "robots запрещает /contacts/",
+   "robots запрещает /kontakty",
+   "robots запрещает /kontakty/",
+   "robots запрещает /contacts",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "zelenopark.kidburg.ru",
+  "places": [
+   {
+    "slug": "kidburg-zelenopark",
+    "title": "КидБург Зеленопарк",
+    "category": "play"
+   }
+  ],
+  "site": "https://zelenopark.kidburg.ru/",
+  "emails": [],
+  "phones": [
+   "+74991130862",
+   "+7 (499) 113-08-62",
+   "+74994905656"
+  ],
+  "contactPages": [
+   "https://zelenopark.kidburg.ru/contacts",
+   "https://zelenopark.kidburg.ru/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "star-lab.org",
+  "places": [
+   {
+    "slug": "mega-himki-detskie-zony",
+    "title": "StarLab в МЕГА Химки",
+    "category": "play"
+   }
+  ],
+  "site": "https://star-lab.org/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /kontakty",
+   "robots запрещает /kontakty/",
+   "robots запрещает /contacts",
+   "robots запрещает /contacts/",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "detmir.ru",
+  "places": [
+   {
+    "slug": "detmir-mega-himki",
+    "title": "Детский мир в МЕГА Химки",
+    "category": "shop"
+   }
+  ],
+  "site": "https://www.detmir.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /kontakty",
+   "robots запрещает /kontakty/",
+   "robots запрещает /contacts",
+   "robots запрещает /contacts/",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "kidzaniamoscow.ru",
+  "places": [
+   {
+    "slug": "kidzania-aviapark",
+    "title": "Кидзания в «Авиапарке»",
+    "category": "play"
+   }
+  ],
+  "site": "https://kidzaniamoscow.ru/",
+  "emails": [
+   {
+    "email": "mailto:events@kidzania.ru",
+    "page": "https://kidzaniamoscow.ru/"
+   },
+   {
+    "email": "kai@kidzania.ru",
+    "page": "https://kidzaniamoscow.ru/"
+   },
+   {
+    "email": "events@kidzania.ru",
+    "page": "https://kidzaniamoscow.ru/"
+   },
+   {
+    "email": "party@kidzania.ru",
+    "page": "https://kidzaniamoscow.ru/"
+   },
+   {
+    "email": "customer@kidzania.ru",
+    "page": "https://kidzaniamoscow.ru/"
+   }
+  ],
+  "phones": [
+   "+74952325439",
+   "+7 (495) 232-54-39",
+   "+7 (495) 232 54 39"
+  ],
+  "contactPages": [
+   "https://kidzaniamoscow.ru/about",
+   "https://kidzaniamoscow.ru/skidkipartnery"
+  ],
+  "notes": []
+ },
+ {
+  "host": "depomoscow.ru",
+  "places": [
+   {
+    "slug": "depo-food-hall",
+    "title": "Фуд-холл «Депо»",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://depomoscow.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /about/",
+   "robots запрещает /partners/",
+   "robots запрещает /contacts/",
+   "robots запрещает /kontakty",
+   "robots запрещает /kontakty/",
+   "robots запрещает /contacts",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "tsaritsyno-museum.ru",
+  "places": [
+   {
+    "slug": "tsaritsyno-verevochny-park",
+    "title": "Верёвочный парк в Царицыно",
+    "category": "active"
+   }
+  ],
+  "site": "https://tsaritsyno-museum.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /the_museum/contact/",
+   "robots запрещает /the_museum/press-center/news/moscow-museum-week-2026/",
+   "robots запрещает /the_museum/press-center/news/",
+   "robots запрещает /events/special/p/sponsory-i-partnery/",
+   "robots запрещает /the_museum/about/",
+   "robots запрещает /kontakty",
+   "robots запрещает /kontakty/",
+   "robots запрещает /contacts",
+   "robots запрещает /contacts/",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "dreamkids.moscow",
+  "places": [
+   {
+    "slug": "dream-kids",
+    "title": "Dream Kids",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://dreamkids.moscow/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "julydetyam.ru",
+  "places": [
+   {
+    "slug": "iyul-detyam",
+    "title": "Июль Детям",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://julydetyam.ru/",
+  "emails": [
+   {
+    "email": "july-detyam@yandex.ru",
+    "page": "https://julydetyam.ru/kontakty"
+   }
+  ],
+  "phones": [
+   "+7 (916) 727-27-07",
+   "84206003432",
+   "85206003432"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "russkoepodvorie.com",
+  "places": [
+   {
+    "slug": "russkoe-podvorye",
+    "title": "Русское Подворье",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://russkoepodvorie.com/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /kontakty/",
+   "robots запрещает /kontakty",
+   "robots запрещает /contacts",
+   "robots запрещает /contacts/",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "chaihona.ru",
+  "places": [
+   {
+    "slug": "vasilchuki-chaihona-dmitriya-ulyanova",
+    "title": "Vasilchuki Chaihona №1 — Дмитрия Ульянова",
+    "category": "cafe"
+   },
+   {
+    "slug": "vasilchuki-chaihona-afimall",
+    "title": "Vasilchuki Chaihona №1 — Афимолл",
+    "category": "cafe"
+   },
+   {
+    "slug": "vasilchuki-chaihona-metropolis",
+    "title": "Vasilchuki Chaihona №1 — Метрополис",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://chaihona.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /kontakty",
+   "robots запрещает /kontakty/",
+   "robots запрещает /contacts",
+   "robots запрещает /contacts/",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "xn--e1asbf2d.xn--p1ai",
+  "places": [
+   {
+    "slug": "piero-zilart",
+    "title": "Пьеро",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://xn--e1asbf2d.xn--p1ai/",
+  "emails": [],
+  "phones": [
+   "+74951207071",
+   "+7 (495) 120-70-71",
+   "+79251114521"
+  ],
+  "contactPages": [
+   "https://xn--e1asbf2d.xn--p1ai/about",
+   "https://xn--e1asbf2d.xn--p1ai/contacts",
+   "https://xn--e1asbf2d.xn--p1ai/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "ribambelle.ru",
+  "places": [
+   {
+    "slug": "ribambelle-vremena-goda",
+    "title": "Ribambelle — Времена года",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://ribambelle.ru/",
+  "emails": [
+   {
+    "email": "event@ribambelle.ru",
+    "page": "https://ribambelle.ru/"
+   },
+   {
+    "email": "email@email.ru",
+    "page": "https://ribambelle.ru/"
+   },
+   {
+    "email": "contact@ribambelle.ru",
+    "page": "https://ribambelle.ru/kontakty"
+   },
+   {
+    "email": "marketing@ribambelle.ru",
+    "page": "https://ribambelle.ru/kontakty"
+   },
+   {
+    "email": "pr@ribambelle.ru",
+    "page": "https://ribambelle.ru/kontakty"
+   }
+  ],
+  "phones": [
+   "+7 (903) 777-77-81"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "cafe-kitchen.ru",
+  "places": [
+   {
+    "slug": "kitchen-khodynka",
+    "title": "Kitchen — Ходынка",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://cafe-kitchen.ru/",
+  "emails": [
+   {
+    "email": "reklama@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/"
+   },
+   {
+    "email": "zakupka@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/"
+   },
+   {
+    "email": "otzyv@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/"
+   },
+   {
+    "email": "bazorkina@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/"
+   },
+   {
+    "email": "hr@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/"
+   },
+   {
+    "email": "banket@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/"
+   },
+   {
+    "email": "welcome@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/"
+   },
+   {
+    "email": "garibaldi@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "alia@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "botsad@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "hodinka@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "kholmy@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "marfino@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "udalcova@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "anoxina@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "reutov@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "zheldor@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   }
+  ],
+  "phones": [
+   "8 800 550 21 79",
+   "+7 (925) 759 0010",
+   "+7 (926) 779-07-70"
+  ],
+  "contactPages": [
+   "https://cafe-kitchen.ru/contacts/",
+   "https://cafe-kitchen.ru/contacts",
+   "https://cafe-kitchen.ru/contact"
+  ],
+  "notes": []
+ },
+ {
+  "host": "cafe-anderson.ru",
+  "places": [
+   {
+    "slug": "anderson-ostrovityanova",
+    "title": "АндерСон — Островитянова",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://cafe-anderson.ru/",
+  "emails": [
+   {
+    "email": "info@anderson-yaroslavl.ru",
+    "page": "https://cafe-anderson.ru/contact"
+   }
+  ],
+  "phones": [
+   "+74951049526",
+   "+7 (495) 104-95-26",
+   "+79095560131"
+  ],
+  "contactPages": [
+   "https://cafe-anderson.ru/contact"
+  ],
+  "notes": []
+ },
+ {
+  "host": "kids-castle.pro",
+  "places": [
+   {
+    "slug": "kids-castle-mitino",
+    "title": "Kids Castle — Митино",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://kids-castle.pro/",
+  "emails": [],
+  "phones": [
+   "+79939031717",
+   "+7-993-903-17-17"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "klich.moscow",
+  "places": [
+   {
+    "slug": "klich-zilart",
+    "title": "KLICH",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://klich.moscow/",
+  "emails": [],
+  "phones": [
+   "+79001559999",
+   "+7(900) 155-99-99",
+   "+7(900)155-99-99"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "repastcafe.com",
+  "places": [
+   {
+    "slug": "repast-cafe",
+    "title": "Repast Cafe",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://repastcafe.com/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /about/",
+   "robots запрещает /contacts/",
+   "robots запрещает /kontakty",
+   "robots запрещает /kontakty/",
+   "robots запрещает /contacts",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "localkids.clients.site",
+  "places": [
+   {
+    "slug": "local-kids-vnukovo",
+    "title": "Local Kids",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://localkids.clients.site/",
+  "emails": [],
+  "phones": [
+   "+79671597575",
+   "+7 967 159 75 75",
+   "+7 (967) 159-75-75"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "littleskids.com",
+  "places": [
+   {
+    "slug": "littles-kids-play-cafe",
+    "title": "Littles Kids Play Cafe",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://littleskids.com/",
+  "emails": [
+   {
+    "email": "info@littleskids.com",
+    "page": "https://littleskids.com/"
+   },
+   {
+    "email": "event@littleskids.com",
+    "page": "https://littleskids.com/contacts"
+   }
+  ],
+  "phones": [
+   "+7 (901) 901-94-41",
+   "+7 (901) 901 94 41",
+   "+7 (925) 264-40-08"
+  ],
+  "contactPages": [
+   "https://littleskids.com/contacts",
+   "https://littleskids.com/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "jooiecafe.ru",
+  "places": [
+   {
+    "slug": "jooie-presnya",
+    "title": "Jooie — Пресня",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://jooiecafe.ru/",
+  "emails": [
+   {
+    "email": "jooie.rassvet@gmail.com",
+    "page": "https://jooiecafe.ru/"
+   },
+   {
+    "email": "jooie.hodynka@gmail.com",
+    "page": "https://jooiecafe.ru/"
+   },
+   {
+    "email": "eventjooie@gmail.com",
+    "page": "https://jooiecafe.ru/"
+   }
+  ],
+  "phones": [
+   "+79032535596",
+   "+7 (903)253-55-96",
+   "+79688808820"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "tuttalavita.ru",
+  "places": [
+   {
+    "slug": "tutta-la-vita",
+    "title": "Tutta La Vita",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://tuttalavita.ru/",
+  "emails": [],
+  "phones": [
+   "+7 (495) 782-18-70",
+   "+7 (495) 114-50-20",
+   "+7 (999) 999-99-99"
+  ],
+  "contactPages": [],
+  "notes": []
+ }
+]
