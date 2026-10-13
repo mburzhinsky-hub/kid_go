@@ -1,0 +1,42 @@
+name: live-check
+
+# Проверка боевого сайта после выкладки: вернулись ли новые часы и цены в страницы мест.
+on:
+  push:
+    branches: [ci/live-check]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check live pages
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import re, urllib.request
+          def page(slug):
+              req = urllib.request.Request(f"https://kids-go.fun/places/{slug}/", headers={"User-Agent": "KidsGoLiveCheck/1.0"})
+              return urllib.request.urlopen(req, timeout=30).read().decode("utf8", "replace").replace('\\"', '"')
+          checks = {
+              "moskvarium": ['["10:00","22:00"],["10:00","22:00"],["10:00","22:00"],["10:00","22:00"],["10:00","22:00"],["10:00","22:00"],["10:00","22:00"]'],
+              "mosfilm-excursion": ['["10:00","18:30"],["10:00","18:30"]', 'в 13:00 и 16:00'],
+              "kidzania-aviapark": ['["12:00","20:00"],["12:00","20:00"]'],
+              "ugolok-durova": ['Театр «Уголок дедушки Дурова»', 'ул. Дурова, 2, стр. 1'],
+              "skalodrom-skala-siti": ['"price_min":950', '"price_max":1400'],
+              "hippo-land-odintsovo": ['"price_min":1290', '"price_max":2390'],
+              "gim": ['["10:00","21:00"],["10:00","21:00"],["10:00","21:00"]'],
+              "tsaritsyno-verevochny-park": ['с 1 мая по 30 сентября'],
+          }
+          for slug, needles in checks.items():
+              try:
+                  html = page(slug)
+              except Exception as e:
+                  print(f"::error title=live {slug}::{e}")
+                  continue
+              res = ", ".join(f"{'OK' if n in html else 'НЕТ'}" for n in needles)
+              level = "notice" if all(n in html for n in needles) else "error"
+              print(f"::{level} title=live {slug}::{res}")
+          PY
