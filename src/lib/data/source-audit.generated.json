@@ -27,20 +27,22 @@
   },
   "panda-park-sokolniki": {
     "source": "https://pandapark.org/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-14",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
       "address",
+      "price",
       "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://pandapark.org/",
       "address": "https://pandapark.org/",
-      "opening_hours": "https://pandapark.org/pandapark-sokolniki/"
+      "opening_hours": "https://pandapark.org/pandapark-sokolniki/",
+      "price": "https://pandapark.org/pandapark-sokolniki/"
     }
   },
   "skalodrom-skala-siti": {
@@ -85,7 +87,7 @@
   },
   "moskovsky-zoopark": {
     "source": "https://moscowzoo.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-14",
     "status": "reviewed",
     "identity": true,
     "address": true,
@@ -259,16 +261,18 @@
   },
   "kolomenskoe": {
     "source": "https://mgomz.ru/kolomenskoe",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-14",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity"
+      "identity",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://mgomz.ru/kolomenskoe"
+      "identity": "https://mgomz.ru/kolomenskoe",
+      "opening_hours": "https://mgomz.ru/kolomenskoe"
     }
   },
   "park-zaryadye": {
@@ -639,20 +643,24 @@
   },
   "pandapark-meshchersky": {
     "source": "https://pandapark.org/pandapark-mescherskiy/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-14",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "price",
+      "opening_hours"
     ],
     "verified_family_fields": [
       "parking"
     ],
     "field_sources": {
       "identity": "https://pandapark.org/pandapark-mescherskiy/",
-      "address": "https://pandapark.org/pandapark-mescherskiy/"
+      "address": "https://pandapark.org/pandapark-mescherskiy/",
+      "price": "https://pandapark.org/pandapark-mescherskiy/",
+      "opening_hours": "https://pandapark.org/pandapark-mescherskiy/"
     }
   },
   "huskyland-nazarevo": {
@@ -806,18 +814,22 @@
   },
   "lunny-kot-zelenograd": {
     "source": "https://mooncatpark.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-14",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "price",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://mooncatpark.ru/",
-      "address": "https://mooncatpark.ru/"
+      "address": "https://mooncatpark.ru/",
+      "price": "https://mooncatpark.ru/",
+      "opening_hours": "https://mooncatpark.ru/"
     }
   },
   "muzey-lozhki-solnechnogorsk": {
@@ -943,7 +955,7 @@
   },
   "mega-himki-detskie-zony": {
     "source": "https://star-lab.org/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-14",
     "status": "reviewed",
     "identity": true,
     "address": true,
@@ -1588,18 +1600,22 @@
   },
   "pandapark-fili": {
     "source": "https://pandapark.org/pandapark-fili/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-14",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "price",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://pandapark.org/pandapark-fili/",
-      "address": "https://pandapark.org/pandapark-fili/"
+      "address": "https://pandapark.org/pandapark-fili/",
+      "price": "https://pandapark.org/pandapark-fili/",
+      "opening_hours": "https://pandapark.org/pandapark-fili/"
     }
   },
   "krylatskie-kholmy": {
@@ -1931,16 +1947,18 @@
   },
   "park-luzhniki": {
     "source": "https://www.luzhniki.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-14",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity"
+      "identity",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://www.luzhniki.ru/"
+      "identity": "https://www.luzhniki.ru/",
+      "opening_hours": "https://www.luzhniki.ru/"
     }
   },
   "lefortovsky-park": {
