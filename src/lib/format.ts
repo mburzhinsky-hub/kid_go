@@ -118,13 +118,45 @@ export const ceilTo = (n: number, step: number) => Math.ceil(n / step) * step;
 
 const DAYS_SHORT = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
-/** «Пн–Вс» / «Вт–Вс» и часы «10:00–22:00». */
+const dayRange = (a: number, b: number) => (a === b ? DAYS_SHORT[a] : `${DAYS_SHORT[a]}–${DAYS_SHORT[b]}`);
+
+/** «12:00» → «12»: в сжатой записи по дням не тянем нули, но только если во всех часах места нет «:30» и подобных. */
+const compactTime = (t: string, whole: boolean) => (whole && t.endsWith(":00") ? String(Number(t.slice(0, -3))) : t);
+
+/**
+ * Режим работы для сетки на странице места.
+ * Часы одинаковы во все рабочие дни → «Пн–Вс» и «10:00–22:00» (если выходной посреди недели — «Пн–Вс, кроме вт»).
+ * Часы разные по дням → каждая группа дней с её часами на своей строке: «Ср–Пт 12–21» и «Сб–Вс 10–21».
+ */
 export function scheduleSummary(hours: OpeningHours): { days: string; time: string } {
   const open = hours.map((h, i) => (h ? i : -1)).filter((i) => i >= 0);
-  const first = hours[open[0]];
-  const isAlways = first && first[0] === "00:00" && first[1] === "24:00";
-  const days = open.length === 7 ? "Пн–Вс" : `${DAYS_SHORT[open[0]]}–${DAYS_SHORT[open[open.length - 1]]}`;
-  return { days, time: isAlways ? "круглосуточно" : first ? `${first[0]}–${first[1]}` : "закрыто" };
+  if (!open.length) return { days: "Пн–Вс", time: "закрыто" };
+
+  // подряд идущие дни с одинаковыми часами
+  const groups: { from: number; to: number; span: [string, string] }[] = [];
+  for (const i of open) {
+    const h = hours[i]!;
+    const last = groups[groups.length - 1];
+    if (last && last.to === i - 1 && last.span[0] === h[0] && last.span[1] === h[1]) last.to = i;
+    else groups.push({ from: i, to: i, span: [h[0], h[1]] });
+  }
+
+  const sameHours = groups.every((g) => g.span[0] === groups[0].span[0] && g.span[1] === groups[0].span[1]);
+  if (sameHours) {
+    const [from, to] = groups[0].span;
+    const time = from === "00:00" && to === "24:00" ? "круглосуточно" : `${from}–${to}`;
+    if (groups.length === 1) return { days: open.length === 7 ? "Пн–Вс" : dayRange(open[0], open[open.length - 1]), time };
+    // выходной посреди недели: «Пн–Вс, кроме вт», а не «Пн–Вс» с неверным намёком, что открыто каждый день
+    const closed = DAYS_SHORT.filter((_, i) => !hours[i]).map((d) => d.toLowerCase());
+    if (closed.length <= 2) return { days: `Пн–Вс, кроме ${closed.join(", ")}`, time };
+    return { days: groups.map((g) => dayRange(g.from, g.to)).join(", "), time };
+  }
+
+  const whole = groups.every((g) => g.span.every((t) => t.endsWith(":00")));
+  return {
+    days: open.length === 7 ? "Пн–Вс" : dayRange(open[0], open[open.length - 1]),
+    time: groups.map((g) => `${dayRange(g.from, g.to)} ${compactTime(g.span[0], whole)}–${compactTime(g.span[1], whole)}`).join("\n"),
+  };
 }
 
 /** Время в Москве — приложение городское, считаем по местному времени. */
