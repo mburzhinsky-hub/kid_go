@@ -1,9 +1,10 @@
 name: live-check
 
-# Проверка боевого сайта после выкладки: вернулись ли новые часы и цены в страницы мест.
+# Проверка боевого сайта после выкладки: подборки «Куда сходить», sitemap, ссылки. Результат — в аннотациях задачи.
 on:
   push:
     branches: [ci/live-check]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -11,21 +12,115 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - name: Check live pages
+      - name: Check landing pages
         shell: bash
         run: |
           python3 - <<'PY'
-          import re, urllib.request
-          def page(slug):
-              req = urllib.request.Request(f"https://kids-go.fun/places/{slug}/", headers={"User-Agent": "KidsGoLiveCheck/1.0"})
-              return urllib.request.urlopen(req, timeout=30).read().decode("utf8", "replace").replace('\\"', '"')
-          html = page("moskvarium")
-          import re
-          m = [x.start() for x in re.finditer(r'opening_hours', html)]
-          print(f"::notice title=moskvarium opening_hours entries::{len(m)}")
-          for k in m[:2]:
-              print(f"::notice title=moskvarium ctx::{html[k:k+260]}")
-          for pat in ['Пн–Вс', 'круглосуточ', '10:00–22:00', 'закрыто', 'Пн закрыто']:
-              print(f"::notice title=moskvarium has {pat}::{pat in html}")
+          import html, json, re, sys, urllib.request, urllib.error, xml.etree.ElementTree as ET
+
+          SITE = "https://kids-go.fun"
+          UA = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+          SLUGS = ["s-rebenkom-3-goda", "s-malyshom-1-2-goda", "s-doshkolnikom-4-6-let", "s-shkolnikom-7-10-let", "v-dozhd", "muzei", "k-zhivotnym", "parki", "v-podmoskovye"]
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, *a, **k):
+                  return None
+          opener = urllib.request.build_opener(NoRedirect)
+
+          def get(path):
+              req = urllib.request.Request(SITE + path, headers={"User-Agent": UA})
+              try:
+                  r = opener.open(req, timeout=40)
+                  return r.status, r.read().decode("utf8", "replace"), dict(r.headers)
+              except urllib.error.HTTPError as e:
+                  return e.code, e.read().decode("utf8", "replace"), dict(e.headers)
+
+          bad = []
+          def check(ok, msg):
+              if not ok:
+                  bad.append(msg)
+              return ok
+
+          def text_of(h):
+              m = re.search(r"<main.*?</main>", h, re.S)
+              m = m.group(0) if m else h
+              m = re.sub(r"<script.*?</script>", "", m, flags=re.S)
+              return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m)))
+
+          lines = []
+          all_places = set()
+          for slug in SLUGS:
+              path = f"/kuda-shodit/{slug}/"
+              code, h, hd = get(path)
+              if not check(code == 200, f"{path}: HTTP {code}"):
+                  lines.append(f"{slug}: HTTP {code}"); continue
+              title = (re.search(r"<title>([^<]*)</title>", h) or [0, ""])[1]
+              canon = (re.search(r'<link rel="canonical" href="([^"]*)"', h) or [0, ""])[1]
+              h1s = re.findall(r"<h1[^>]*>(.*?)</h1>", h)
+              places = sorted(set(re.findall(r'href="/places/([a-z0-9-]+)/"', h)))
+              all_places.update(places)
+              ld = [json.loads(x) for x in re.findall(r'<script type="application/ld\+json">(.*?)</script>', h, re.S)]
+              types = [n.get("@type") for d in ld for n in d.get("@graph", [d])]
+              items = [n for d in ld for n in d.get("@graph", [d]) if n.get("@type") == "ItemList"]
+              t = text_of(h)
+              check(title.endswith(" · Kids Go") and 25 < len(title) < 70, f"{path}: bad title {title!r}")
+              check(canon == SITE + path, f"{path}: canonical {canon!r}")
+              check(len(h1s) == 1, f"{path}: {len(h1s)} h1")
+              check(len(places) >= 6, f"{path}: only {len(places)} place links")
+              check("BreadcrumbList" in types and "ItemList" in types, f"{path}: json-ld types {types}")
+              check(bool(items) and items[0].get("numberOfItems") == len(places), f"{path}: ItemList size {items[0].get('numberOfItems') if items else None} vs {len(places)} links")
+              check("0.0" not in re.sub(r"\d+\.0\d", "", t) or not re.search(r"(?<![\d.])0\.0(?![\d])", t), f"{path}: zero rating text")
+              for sym in ("₽", "бесплат"):
+                  for m in re.finditer(sym, t):
+                      ctx = t[max(0, m.start() - 160):m.start()]
+                      check("Проверено на официальном сайте" in ctx, f"{path}: '{sym}' without verified context near «{t[max(0,m.start()-50):m.start()+20]}»")
+              nofollow = re.search(r'<meta name="robots" content="[^"]*noindex', h)
+              check(not nofollow, f"{path}: noindex")
+              lines.append(f"{slug}: 200, places={len(places)}, ₽={t.count('₽')}, title={title[:60]}")
+          print("::notice title=landings::" + "%0A".join(lines))
+
+          # хаб, главная, ситуации, карточки мест
+          code, h, _ = get("/kuda-shodit/")
+          hub_links = sorted(set(re.findall(r'href="/kuda-shodit/([a-z0-9-]+)/"', h)))
+          check(code == 200 and hub_links == sorted(SLUGS), f"hub: {code}, links={hub_links}")
+          canon = (re.search(r'<link rel="canonical" href="([^"]*)"', h) or [0, ""])[1]
+          check(canon == SITE + "/kuda-shodit/", f"hub canonical {canon!r}")
+          for p in ("/", "/scenarios/"):
+              c, hh, _ = get(p)
+              n = len(set(re.findall(r'href="/kuda-shodit/[a-z0-9-]*/?"', hh)))
+              check(c == 200 and n == 10, f"{p}: code {c}, landing links {n}")
+          for slug in ("moskvarium", "park-gorkogo", "arkhangelskoe"):
+              c, hh, _ = get(f"/places/{slug}/")
+              check(c == 200 and "Это место есть в подборках" in hh, f"/places/{slug}/: code {c}, backlinks block missing")
+          c, _, _ = get("/kuda-shodit/besplatno/")
+          check(c == 404, f"/kuda-shodit/besplatno/ must not be published yet: HTTP {c}")
+          print(f"::notice title=hub and links::hub links={len(hub_links)}; besplatno={c}")
+
+          # sitemap
+          code, x, hd = get("/sitemap.xml")
+          try:
+              root = ET.fromstring(x.encode("utf8"))
+              ns = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
+              locs = [u.find(ns + "loc").text for u in root.findall(ns + "url")]
+          except Exception as e:
+              locs = []; check(False, f"sitemap parse: {e!r}")
+          want = [SITE + "/kuda-shodit/"] + [f"{SITE}/kuda-shodit/{s}/" for s in SLUGS]
+          check(code == 200 and all(w in locs for w in want), f"sitemap: code {code}, missing {[w for w in want if w not in locs]}")
+          check(len(locs) == len(set(locs)) and all(l.endswith("/") for l in locs), "sitemap: duplicates or URLs without trailing slash")
+          print(f"::notice title=sitemap::code={code} urls={len(locs)} ct={hd.get('Content-Type')} landing urls present={sum(w in locs for w in want)}/10")
+
+          # все места из подборок открываются
+          missing = []
+          for s in sorted(all_places):
+              c, _, _ = get(f"/places/{s}/")
+              if c != 200: missing.append((s, c))
+          check(not missing, f"place pages not 200: {missing[:5]}")
+          print(f"::notice title=place links::{len(all_places)} unique places from landings, non-200: {missing}")
+
+          if bad:
+              for b in bad: print(f"::error title=live-check::{b}")
+              sys.exit(1)
+          print("::notice title=live-check result::ALL CHECKS PASSED")
           PY
