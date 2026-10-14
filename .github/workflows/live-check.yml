@@ -124,3 +124,16 @@ jobs:
               sys.exit(1)
           print("::notice title=live-check result::ALL CHECKS PASSED")
           PY
+      - name: Check og:image of landing pages
+        shell: bash
+        run: |
+          set +e
+          out=""
+          for s in s-rebenkom-3-goda s-malyshom-1-2-goda s-doshkolnikom-4-6-let s-shkolnikom-7-10-let v-dozhd muzei k-zhivotnym parki v-podmoskovye; do
+            img=$(curl -s -A 'Mozilla/5.0 (compatible; Googlebot/2.1)' "https://kids-go.fun/kuda-shodit/$s/" | grep -o '<meta property="og:image" content="[^"]*"' | head -1 | sed 's/.*content="//;s/"$//')
+            r=$(curl -s -o /dev/null -I -w '%{http_code} %{content_type} %{size_download}' "$img")
+            out="$out$s: $r $(echo "$img" | cut -c1-90)%0A"
+          done
+          img=$(curl -s "https://kids-go.fun/kuda-shodit/" | grep -o '<meta property="og:image" content="[^"]*"' | head -1 | sed 's/.*content="//;s/"$//')
+          out="${out}hub: $(curl -s -o /dev/null -I -w '%{http_code} %{content_type}' "$img") $img"
+          echo "::notice title=og images::$out"
