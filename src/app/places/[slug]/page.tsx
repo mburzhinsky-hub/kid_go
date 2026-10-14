@@ -22,6 +22,8 @@ import { AroundLink } from "@/components/place/AroundLink";
 import { isOutside } from "@/lib/outside";
 import { categoryDef, placeTypeName } from "@/lib/catalog";
 import { formatAgeRange, formatPrice } from "@/lib/format";
+import { landingsOfPlace } from "@/lib/landings";
+import { LandingChips } from "@/components/landing/LandingChips";
 import { ogImageUrl, schemaImageUrl } from "@/lib/image-loader";
 
 type PlacePageProps = { params: Promise<{ slug: string }> };
@@ -55,6 +57,7 @@ export default async function PlacePage({ params }: PlacePageProps) {
 
   const [nearby, adventures, events] = await Promise.all([repo.nearby(place, { limit: 8 }), repo.listAdventures(), repo.listEvents()]);
   const groups = whatNextGroups(place);
+  const inLandings = landingsOfPlace(place.slug);
   const inAdventures = adventures.filter((a) => a.steps.some((s) => s.place_id === place.id));
   const placeEvents = events.filter((e) => e.place_id === place.id);
   const cat = categoryDef(place.category);
@@ -214,6 +217,13 @@ export default async function PlacePage({ params }: PlacePageProps) {
                 <AdventureCard key={a.id} data={adventureCardData(a)} variant="full" />
               ))}
             </div>
+          </section>
+        )}
+
+        {inLandings.length > 0 && (
+          <section className="-mx-4 mt-9" aria-label="Подборки с этим местом">
+            <h2 className="tight px-4 text-[22px] font-[800]">Это место есть в подборках</h2>
+            <LandingChips items={inLandings} className="mt-3" />
           </section>
         )}
 

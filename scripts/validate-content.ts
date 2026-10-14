@@ -8,7 +8,9 @@ import { adventures } from "../src/lib/data/adventures";
 import { RAW_EVENTS, RAW_PLACES } from "../src/lib/data/extra";
 import { SCENARIO_LIBRARY } from "../src/lib/scenarios";
 import { auditForPlace } from "../src/lib/data/source-audit";
+import { LANDINGS, placesOfLanding, publishedLandings, verifiedFacts } from "../src/lib/landings";
 
+const attractionCategories = ["park", "play", "museum", "active", "animals"];
 const errors: string[] = [];
 const warnings: string[] = [];
 const fail = (m: string) => errors.push(m);
@@ -128,6 +130,42 @@ for (const a of adventures) {
   }
 }
 
+// Посадочные подборки («куда сходить с ребёнком…»): правила не должны ломаться молча и не должны обещать непроверенное.
+{
+  unique("landing slug", LANDINGS.map((l) => l.slug));
+  const ids = new Set(SCENARIO_LIBRARY.map((x) => x.id));
+  const slugs = new Set(LANDINGS.map((l) => l.slug));
+  const published = publishedLandings();
+  if (published.length < 8) fail(`landing pages shrank: ${published.length} published, need at least 8`);
+  for (const l of LANDINGS) {
+    const prefix = `landing ${l.slug}`;
+    const list = placesOfLanding(l);
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(l.slug)) fail(`${prefix}: slug must be latin kebab-case`);
+    if (!l.h1.trim() || !l.lead.trim() || !l.how.trim() || !l.short.trim()) fail(`${prefix}: empty text field`);
+    if (l.title.length < 25 || l.title.length > 55) fail(`${prefix}: title length ${l.title.length} is outside 25..55 (with « · Kids Go» it must fit a search snippet)`);
+    if (l.description.length < 70 || l.description.length > 175) fail(`${prefix}: description length ${l.description.length} is outside 70..175`);
+    if (l.tips.length < 3) fail(`${prefix}: needs at least 3 tips`);
+    for (const r of l.related) if (!slugs.has(r) || r === l.slug) fail(`${prefix}: bad related slug "${r}"`);
+    if (l.scenario && !ids.has(l.scenario)) fail(`${prefix}: unknown scenario "${l.scenario}"`);
+    unique(`${prefix}: places`, list.map((p) => p.slug));
+    if (list.length < l.min) warn(`${prefix}: only ${list.length} places (min ${l.min}), page is not published`);
+    for (const p of list) {
+      if (!attractionCategories.includes(p.category)) fail(`${prefix}: ${p.slug} is not an attraction (${p.category})`);
+      if (l.slug === "besplatno" && (p.price_max !== 0 || !(p.verified_fields ?? []).includes("price"))) fail(`${prefix}: ${p.slug} has no verified free entry`);
+    }
+    if (l.slug !== "besplatno") {
+      const text = [l.description, l.lead, l.how, ...l.tips].join(" ");
+      if (/₽|руб|бесплат/i.test(text)) fail(`${prefix}: text makes a price claim (only the free-entry page may, and only with verified places)`);
+    }
+  }
+  for (const p of places) {
+    const f = verifiedFacts(p);
+    const v = new Set(p.verified_fields ?? []);
+    if (f.price && !v.has("price")) fail(`landing facts: ${p.slug} shows an unverified price`);
+    if ((f.hours || f.hoursByDay) && !v.has("opening_hours")) fail(`landing facts: ${p.slug} shows unverified hours`);
+  }
+}
+
 const eventKeys = new Set<string>();
 for (const e of RAW_EVENTS) {
   const key = JSON.stringify([e.venue, e.title, e.schedule]);
@@ -161,6 +199,7 @@ console.log(`  sourced JSON places: ${RAW_PLACES.length}`);
 console.log(`  adventures: ${adventures.length}`);
 console.log(`  recurring event definitions: ${RAW_EVENTS.length}`);
 console.log(`  scenarios: ${SCENARIO_LIBRARY.length}`);
+console.log(`  landing pages: ${publishedLandings().length} of ${LANDINGS.length}`);
 console.log(`  source-audited places: ${places.filter((p) => auditForPlace(p.slug)?.status === "reviewed").length}`);
 
 for (const w of warnings.slice(0, 30)) console.warn("  ⚠", w);

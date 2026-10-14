@@ -5,6 +5,9 @@ import { ScenarioGrid } from "@/components/home/QuickScenarioCard";
 import { LiveScenarios } from "@/components/home/HomeLive";
 import { GeoScope } from "@/components/location/GeoScope";
 import { plural } from "@/lib/format";
+import { LandingChips } from "@/components/landing/LandingChips";
+import { LANDINGS_HUB } from "@/lib/landings";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {
   title: "Ситуации: куда пойти с детьми, если…",
@@ -52,6 +55,11 @@ export default function ScenariosPage() {
           </div>
         </section>
       ))}
+
+      <section className="mt-8" aria-label="Подборки">
+        <SectionHeader title="Куда сходить" subtitle="Подборки по возрасту, погоде и поводу" href={LANDINGS_HUB} />
+        <LandingChips className="mt-3" />
+      </section>
     </main>
   );
 }
