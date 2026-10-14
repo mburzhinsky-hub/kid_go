@@ -1,0 +1,77 @@
+name: sitemap-probe
+
+# Диагностика: как kids-go.fun отдаёт sitemap.xml. Результат — в аннотациях задачи.
+on:
+  push:
+    branches: [ci/sitemap-probe]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Headers and body
+        shell: bash
+        run: |
+          set +e +o pipefail
+          GB='Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+          GB2='Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/130.0.0.0 Safari/537.36'
+          BR='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36'
+          one() {
+            local name="$1" ua="$2" url="$3"; shift 3
+            rm -f /tmp/h /tmp/b
+            local w
+            w=$(curl -sS --max-time 40 -A "$ua" "$@" -D /tmp/h -o /tmp/b -w 'code=%{http_code} size=%{size_download} http=%{http_version} ip=%{remote_ip} redir=%{num_redirects} ct=%{content_type} final=%{url_effective}' "$url" 2>&1)
+            local hs
+            hs=$(tr -d '\r' </tmp/h | grep -iE '^(HTTP/|content-type|content-length|content-encoding|transfer-encoding|vary|server|location|x-robots-tag|last-modified|etag|cache-control|link|x-)' | tr '\n' '|' | cut -c1-900)
+            echo "::notice title=$name::$w || $hs"
+            echo "::notice title=$name first-bytes::$(head -c 160 /tmp/b | od -An -c | tr -s ' ' | tr -d '\n' | cut -c1-400)"
+          }
+          S=https://kids-go.fun/sitemap.xml
+          one "gb  h2 follow"        "$GB"  $S -L
+          one "gb  h2 nofollow"      "$GB"  $S
+          one "gb2 h2 nofollow"      "$GB2" $S
+          one "gb  http1.1"          "$GB"  $S --http1.1
+          one "gb  http1.1 gzip"     "$GB"  $S --http1.1 -H 'Accept-Encoding: gzip, deflate'
+          one "gb  http1.1 br"       "$GB"  $S --http1.1 -H 'Accept-Encoding: br, gzip'
+          one "browser"              "$BR"  $S
+          one "gb  no-slash host www" "$GB"  https://www.kids-go.fun/sitemap.xml
+          one "gb  http://"          "$GB"  http://kids-go.fun/sitemap.xml
+          one "gb  HEAD"             "$GB"  $S -I
+          one "gb  robots.txt"       "$GB"  https://kids-go.fun/robots.txt
+      - name: Validate XML
+        shell: bash
+        run: |
+          set +e +o pipefail
+          curl -sS --max-time 40 -A 'Googlebot/2.1' --compressed https://kids-go.fun/sitemap.xml -o /tmp/sm.xml
+          python3 - <<'PY'
+          import re, xml.etree.ElementTree as ET
+          raw = open('/tmp/sm.xml','rb').read()
+          print(f"::notice title=xml raw::bytes={len(raw)} bom={raw[:3]==b'\xef\xbb\xbf'} starts={raw[:40]!r}")
+          try:
+              root = ET.fromstring(raw)
+              ns = '{http://www.sitemaps.org/schemas/sitemap/0.9}'
+              locs = [u.find(ns+'loc').text for u in root.findall(ns+'url')]
+              print(f"::notice title=xml parse::OK root={root.tag} urls={len(locs)} unique={len(set(locs))}")
+              bad = [l for l in locs if not l.startswith('https://kids-go.fun')]
+              print(f"::notice title=xml foreign hosts::{bad[:5]}")
+              lm = sorted({u.find(ns+'lastmod').text for u in root.findall(ns+'url') if u.find(ns+'lastmod') is not None})
+              print(f"::notice title=xml lastmod::{lm[:3]}")
+              print(f"::notice title=xml first locs::{locs[:6]}")
+              open('/tmp/locs.txt','w').write("\n".join(locs))
+          except Exception as e:
+              print(f"::error title=xml parse::{e!r}")
+          PY
+      - name: Check URLs from sitemap
+        shell: bash
+        run: |
+          set +e +o pipefail
+          [ -s /tmp/locs.txt ] || { curl -sS --max-time 40 -A 'Googlebot/2.1' --compressed https://kids-go.fun/sitemap.xml | grep -o '<loc>[^<]*' | sed 's/<loc>//' > /tmp/locs.txt; }
+          UA='Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+          total=$(wc -l </tmp/locs.txt)
+          codes=$(while read -r u; do curl -s --max-time 30 -A "$UA" -o /dev/null -w '%{http_code} ' "$u"; done < <(shuf -n 40 --random-source=<(yes) /tmp/locs.txt) | tr ' ' '\n' | sort | uniq -c | tr '\n' ' ')
+          echo "::notice title=sample of 40 urls (of $total)::$codes"
