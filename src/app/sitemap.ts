@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { repo } from "@/lib/data/repository";
 import { SEED_CREATORS } from "@/lib/social/seed";
 import { seedCollectionsOf } from "@/lib/social/catalog";
+import { LANDINGS_HUB, landingHref, publishedLandings } from "@/lib/landings";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kids-go.fun";
 
@@ -19,6 +20,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/adventures/`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE}/scenarios/`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE}/map/`, lastModified: now, priority: 0.6 },
+    { url: `${SITE}${LANDINGS_HUB}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.9 },
+    ...publishedLandings().map((l) => ({ url: `${SITE}${landingHref(l)}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.9 })),
     ...adventures.map((a) => ({ url: `${SITE}/adventures/${a.slug}/`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8 })),
     ...creators.map((c) => ({ url: `${SITE}/@${c.username}/`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.6 })),
     ...collections.map((r) => ({ url: `${SITE}/@${r.author.username}/${r.collection.slug}/`, lastModified: new Date(r.collection.updated_at), changeFrequency: "weekly" as const, priority: 0.8 })),

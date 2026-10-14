@@ -15,6 +15,8 @@ import { OnboardingNudge } from "@/components/home/OnboardingNudge";
 import { ParentsPicks } from "@/components/home/ParentsPicks";
 import { SourceScope } from "@/components/social/SourceScope";
 import { repo } from "@/lib/data/repository";
+import { LandingChips } from "@/components/landing/LandingChips";
+import { LANDINGS_HUB } from "@/lib/landings";
 
 // Адрес главной без параметров (utm_*, fbclid и т. п.) — единственный для поиска.
 export const metadata: Metadata = { alternates: { canonical: "/" } };
@@ -53,6 +55,11 @@ export default async function HomePage() {
           <div className="no-scrollbar snap-x-pad mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-4 pt-1">
             <HomeAdventureCards items={adv.map(adventureCardData)} limit={6} />
           </div>
+        </section>
+
+        <section className="mt-8" aria-label="Подборки">
+          <SectionHeader title="Куда сходить" subtitle="Подборки по возрасту, погоде и поводу" href={LANDINGS_HUB} />
+          <LandingChips className="mt-3" />
         </section>
 
         <section className="mt-8" aria-label="Поиск и карта">

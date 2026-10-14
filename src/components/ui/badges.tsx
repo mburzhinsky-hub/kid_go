@@ -13,6 +13,8 @@ export function RatingBadge({
   tone?: "default" | "pill" | "hit";
   className?: string;
 }) {
+  // 0 — подтверждённого рейтинга нет: звезда с «0.0» выглядела бы как плохая оценка
+  if (!(rating > 0)) return null;
   if (tone === "pill")
     return (
       <span className={cn("inline-flex h-9 items-center gap-1.5 rounded-full bg-white px-3 text-[16px] font-semibold shadow-card", className)}>
