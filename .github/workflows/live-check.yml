@@ -71,7 +71,7 @@ jobs:
               check(len(places) >= 6, f"{path}: only {len(places)} place links")
               check("BreadcrumbList" in types and "ItemList" in types, f"{path}: json-ld types {types}")
               check(bool(items) and items[0].get("numberOfItems") == len(places), f"{path}: ItemList size {items[0].get('numberOfItems') if items else None} vs {len(places)} links")
-              check("0.0" not in re.sub(r"\d+\.0\d", "", t) or not re.search(r"(?<![\d.])0\.0(?![\d])", t), f"{path}: zero rating text")
+              check(not re.search(r"(?<![\d.])0\.0(?!\d)", t), f"{path}: zero rating text")
               for sym in ("₽", "бесплат"):
                   for m in re.finditer(sym, t):
                       ctx = t[max(0, m.start() - 160):m.start()]
