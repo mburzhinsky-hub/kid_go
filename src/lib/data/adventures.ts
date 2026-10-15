@@ -304,7 +304,7 @@ const seeds: AdventureSeed[] = [
     interests: ["construction", "cooking", "science"],
     steps: [
       { slug: "muzey-russkogo-deserta-zvenigorod", duration: 90, travel: 5 },
-      { slug: "muzey-nazad-v-sssr-zvenigorod", duration: 60, travel: 8 },
+      { slug: "muzey-nazad-v-sssr-zvenigorod", duration: 60, travel: 8, note: "Рядом музей «Дом купца»: в оба музея можно сходить по единому билету." },
       { slug: "muzey-lego-lets-go-zvenigorod", duration: 90, note: "Музей Lego открыт с четверга по воскресенье, на экскурсию лучше записаться заранее." },
     ],
   },
