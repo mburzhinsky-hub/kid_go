@@ -1,0 +1,170 @@
+name: dk-check
+
+# Проверка боевого сайта после выкладки «Дома купца»: ждёт конца выкладки, затем смотрит страницу места, снимки и подпись.
+on:
+  push:
+    branches: [ci/dk-check]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Dom kuptsa
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import html, json, os, re, sys, time, urllib.request, urllib.error
+
+          SITE = "https://kids-go.fun"
+          SLUG = "muzey-nazad-v-sssr-zvenigorod"
+          UA = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+          REPO = os.environ["GITHUB_REPOSITORY"]
+
+          def api(path):
+              req = urllib.request.Request(f"https://api.github.com/repos/{REPO}/{path}", headers={"Authorization": "Bearer " + os.environ["GH_TOKEN"], "Accept": "application/vnd.github+json"})
+              return json.load(urllib.request.urlopen(req, timeout=30))
+
+          # ждём окончания выкладки последнего коммита main
+          deadline = time.time() + 34 * 60
+          while True:
+              runs = api("actions/workflows/deploy-hosting.yml/runs?per_page=5&branch=main")["workflow_runs"]
+              r = next((x for x in runs if x["head_sha"].startswith("59b5bdc")), None)
+              if r:
+                  print("deploy:", r["id"], r["head_sha"][:7], r["status"], r["conclusion"], flush=True)
+              if r and r["status"] == "completed":
+                  if r["conclusion"] != "success":
+                      print(f"::error title=deploy::выкладка закончилась как {r['conclusion']}"); sys.exit(1)
+                  break
+              if time.time() > deadline:
+                  print("::error title=deploy::выкладка не закончилась за 34 минуты"); sys.exit(1)
+              time.sleep(30)
+          print(f"::notice title=deploy::{r['id']} {r['head_sha'][:7]} success")
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, *a, **k):
+                  return None
+          opener = urllib.request.build_opener(NoRedirect)
+
+          def get(path_or_url, head=False, tries=3):
+              url = path_or_url if path_or_url.startswith("http") else SITE + path_or_url
+              last = None
+              for _ in range(tries):
+                  req = urllib.request.Request(url, headers={"User-Agent": UA}, method="HEAD" if head else "GET")
+                  try:
+                      r = opener.open(req, timeout=40)
+                      return r.status, r.read() if not head else b"", dict(r.headers)
+                  except urllib.error.HTTPError as e:
+                      return e.code, e.read() if not head else b"", dict(e.headers)
+                  except Exception as e:
+                      last = repr(e); time.sleep(3)
+              print(f"::warning title=network::{url}: {last}")
+              return 0, b"", {}
+
+          def text_of(h):
+              h = re.sub(r"<script.*?</script>", "", h, flags=re.S)
+              mains = re.findall(r"<main.*?</main>", h, re.S)
+              m = " ".join(mains) if mains else h
+              t = html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m)))
+              return re.sub(r" ([.,:;])", r"\1", t)  # пробел, который дали теги вокруг ссылки, перед знаком препинания убираем
+
+          bad = []
+          def check(ok, msg):
+              if not ok: bad.append(msg)
+              return ok
+
+          pdata = json.load(open("src/lib/data/partner-photos.json", encoding="utf8"))
+          DK = "dom-kuptsa-zvenigorod"
+          NV = "muzey-nazad-v-sssr-zvenigorod"
+          ids = [p["i"] for p in pdata[DK]["photos"]]
+          nv_ids = [p["i"] for p in pdata[NV]["photos"]]
+          check(len(ids) == 4 and len(nv_ids) == 7, f"photo counts {len(ids)} / {len(nv_ids)}")
+
+          # страница «Дома купца»
+          code, raw, _ = get(f"/places/{DK}/")
+          h = raw.decode("utf8", "replace")
+          check(code == 200, f"{DK}: HTTP {code}")
+          t = text_of(h)
+          for need in ("Музей «Дом купца»", "Купеческий быт и чай из самовара", "Фото: Музей «Дом купца». Снимки предоставлены музеем, уменьшены.",
+                       "касса работает до 17:00", "Вход со двора, за шлагбаумом", "единый билет в оба музея", "Пн–Вс, кроме вт", "11:00–18:00", "6–12 лет"):
+              check(need in t, f"{DK}: text missing «{need}»")
+          check(re.search(r"1.400.₽ взрослый и 1.000.₽ детский", t) is not None, f"{DK}: price sentence missing")
+          canon = (re.search(r'<link rel="canonical" href="([^"]*)"', h) or [0, ""])[1]
+          check(canon == f"{SITE}/places/{DK}/", f"{DK}: canonical {canon!r}")
+          check(not re.search(r'<meta name="robots" content="[^"]*noindex', h), f"{DK}: noindex")
+          og = (re.search(r'<meta property="og:image" content="([^"]*)"', h) or [0, ""])[1]
+          check(og == f"{SITE}/partner/{ids[0]}-og.jpg", f"{DK}: og:image {og!r}")
+          c, b, hd = get(og)
+          check(c == 200 and hd.get("Content-Type", "").startswith("image/jpeg") and len(b) > 20000, f"{DK}: og image {c} {hd.get('Content-Type')} {len(b)}")
+          ld = re.findall(r'<script type="application/ld\+json">(.*?)</script>', h, re.S)
+          check(any(f"/partner/{ids[0]}-1440.webp" in x for x in ld), f"{DK}: json-ld has no photo")
+          sizes = []
+          for i in ids + nv_ids:
+              for w in (480, 960, 1440):
+                  c, b, hd = get(f"/partner/{i}-{w}.webp")
+                  ok = c == 200 and hd.get("Content-Type", "").startswith("image/webp") and len(b) > 5000 and b[:4] == b"RIFF"
+                  check(ok, f"/partner/{i}-{w}.webp: {c} {hd.get('Content-Type')} {len(b)}")
+                  sizes.append(len(b))
+          print(f"::notice title=dom kuptsa::HTTP {code}; files {len(ids + nv_ids)}x3, bytes min={min(sizes)} max={max(sizes)}; og={og}")
+
+          # «Назад в СССР»
+          c, raw, _ = get(f"/places/{NV}/")
+          tn = text_of(raw.decode("utf8", "replace"))
+          check(c == 200, f"{NV}: HTTP {c}")
+          for need in ("Экскурсии идут весь день без перерыва", "единый билет в оба музея", "Фото: Музей «Назад в СССР». Снимки предоставлены музеем, уменьшены."):
+              check(need in tn, f"{NV}: text missing «{need}»")
+
+          # страница авторов
+          c, raw, _ = get("/photo-credits/")
+          tt = text_of(raw.decode("utf8", "replace"))
+          check(c == 200 and "Музей «Дом купца»: 4 снимка, предоставлены музеем" in tt and "Музей «Назад в СССР»: 7 снимков, предоставлены музеем" in tt, f"/photo-credits/: {c}, partner blocks missing")
+          m = re.search(r"Из Commons — [^.]*\.", tt)
+          check(m is not None and "от самих мест — 11 снимков, 2 места" in m.group(0), f"/photo-credits/ counts: {m.group(0) if m else None}")
+          print(f"::notice title=photo-credits::{c} {m.group(0) if m else 'no counts line'}")
+
+          # sitemap
+          c, raw, _ = get("/sitemap.xml")
+          locs = re.findall(r"<loc>([^<]+)</loc>", raw.decode("utf8", "replace"))
+          check(c == 200 and f"{SITE}/places/{DK}/" in locs, "sitemap: new place missing")
+          check(len(locs) == len(set(locs)) and all(l.endswith("/") for l in locs), "sitemap: duplicates or no trailing slash")
+          print(f"::notice title=sitemap::{c} urls={len(locs)}")
+
+          # маршрут Звенигорода
+          c, raw, _ = get("/adventures/zvenigorod-tri-muzeya/")
+          ta = text_of(raw.decode("utf8", "replace"))
+          check(c == 200 and "Дом купца" in ta, f"adventure zvenigorod-tri-muzeya: {c}, tip missing")
+
+          # подборки «Куда сходить»: «₽» и «бесплатно» только в проверенных строках
+          SLUGS = ["s-rebenkom-3-goda", "s-malyshom-1-2-goda", "s-doshkolnikom-4-6-let", "s-shkolnikom-7-10-let", "v-dozhd", "muzei", "k-zhivotnym", "parki", "v-podmoskovye"]
+          lines = []
+          for slug in SLUGS:
+              c, raw, _ = get(f"/kuda-shodit/{slug}/")
+              th = text_of(raw.decode("utf8", "replace"))
+              check(c == 200, f"/kuda-shodit/{slug}/: HTTP {c}")
+              for sym in ("₽", "бесплат"):
+                  for mm in re.finditer(sym, th):
+                      ctx = th[max(0, mm.start() - 160):mm.start()]
+                      check("Проверено на официальном сайте" in ctx, f"/kuda-shodit/{slug}/: '{sym}' without verified context near «{th[max(0, mm.start()-50):mm.start()+20]}»")
+              check(not re.search(r"(?<![\d.])0\.0(?!\d)", th), f"/kuda-shodit/{slug}/: zero rating text")
+              lines.append(f"{slug}:{c}:dk={'Дом купца' in th}:nv={'Назад в СССР' in th}")
+          print("::notice title=landings::" + "%0A".join(lines))
+          c, _, _ = get("/kuda-shodit/besplatno/")
+          check(c == 404, f"/kuda-shodit/besplatno/ must stay unpublished: HTTP {c}")
+
+          for p_ in ("/", "/adventures/", "/places/muzey-russkogo-deserta-zvenigorod/", "/places/park-gorkogo/"):
+              c, _, _ = get(p_)
+              check(c == 200, f"{p_}: HTTP {c}")
+
+          if bad:
+              for b_ in bad: print(f"::error title=dk-check::{b_}")
+              sys.exit(1)
+          print("::notice title=dk-check result::ALL CHECKS PASSED")
+          PY
