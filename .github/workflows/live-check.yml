@@ -83,6 +83,11 @@ jobs:
               print(f"::notice title=diag ticket::{t[max(0,k-80):k+240]!r}")
               k = t.find("Ср–")
               print(f"::notice title=diag hours::{t[max(0,k-60):k+120]!r}")
+              raw = h
+              print(f"::notice title=diag raw::main={raw.count('<main')} scripts={raw.count('<script')} new={'Билет на весь день' in raw} old={'Билеты: со среды' in raw} hol={'праздничные' in raw}")
+              s2 = re.sub(r"<script.*?</script>", "", raw, flags=re.S)
+              print(f"::notice title=diag stripped::len={len(s2)} head={s2[:200]!r}")
+              print(f"::notice title=diag tail::{s2[-300:]!r}")
               ids = re.findall(r'buildId":"([^"]+)"', h)[:2]
               print(f"::notice title=diag build::{ids}")
 
