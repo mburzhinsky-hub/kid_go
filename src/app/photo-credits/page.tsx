@@ -4,7 +4,7 @@ import { LegalPage, CONTACT_EMAIL } from "@/components/legal/LegalPage";
 import { places } from "@/lib/data/places";
 import { REAL_PHOTOS, commonsPageUrl, licenseUrl } from "@/lib/data/place-photos";
 
-export const metadata: Metadata = { title: "Авторы фото", description: "Кто снял фотографии мест в Kids Go и на каких условиях они опубликованы." };
+export const metadata: Metadata = { title: "Авторы фото", description: "Кто снял фотографии мест в Kids Go и на каких условиях они опубликованы.", alternates: { canonical: "/photo-credits" } };
 
 const ext = { target: "_blank", rel: "noopener noreferrer" } as const;
 const link = "font-semibold text-pink-ink underline";

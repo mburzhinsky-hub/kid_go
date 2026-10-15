@@ -4,6 +4,7 @@ import { PlannerPageClient } from "@/components/route-params";
 export const metadata: Metadata = {
   title: "Придумаем ваш день",
   description: "Дети, время и настроение — и готовые варианты семейного дня.",
+  alternates: { canonical: "/planner" },
 };
 
 export default function PlannerPage() {
