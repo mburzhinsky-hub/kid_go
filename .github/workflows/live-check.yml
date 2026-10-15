@@ -21,7 +21,7 @@ jobs:
           import html, re, sys, time, urllib.request, urllib.error
 
           SITE = "https://kids-go.fun"
-          UA = "Mozilla/5.0 (compatible; KidsGoLiveCheck/1.0)"
+          UA = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 
           def get(path):
               req = urllib.request.Request(SITE + path, headers={"User-Agent": UA})
@@ -64,7 +64,7 @@ jobs:
               "katok-vdnh": ["Билет без проката коньков", "от 1 000 ₽"],
           }
           # ждём выкладку: маркер из последнего PR появляется на странице Лунного Кота
-          deadline = time.time() + 38 * 60
+          deadline = time.time() + 2 * 60
           deployed = False
           while time.time() < deadline:
               code, h = get("/places/lunny-kot-zelenograd/")
@@ -73,7 +73,17 @@ jobs:
                   break
               time.sleep(60)
           if not deployed:
-              print("::error title=deploy::новая версия не появилась за 38 минут")
+              print("::error title=deploy::маркер не найден")
+              code, h = get("/places/lunny-kot-zelenograd/")
+              t = text_of(h)
+              title = (re.search(r"<title>([^<]*)</title>", h) or [0, ""])[1]
+              print(f"::notice title=diag::code={code} len={len(h)} title={title!r} textlen={len(t)}")
+              k = t.find("Билет")
+              print(f"::notice title=diag ticket::{t[max(0,k-80):k+240]!r}")
+              k = t.find("Ср–")
+              print(f"::notice title=diag hours::{t[max(0,k-60):k+120]!r}")
+              ids = re.findall(r'buildId":"([^"]+)"', h)[:2]
+              print(f"::notice title=diag build::{ids}")
 
           bad, ok_n = [], 0
           for slug, needles in EXPECT.items():
