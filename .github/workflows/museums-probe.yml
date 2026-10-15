@@ -1,0 +1,68 @@
+name: museums-probe
+
+# Разовая сверка сайтов двух звенигородских музеев: что там написано про цены, часы и адрес. Результат — в аннотациях задачи.
+on:
+  push:
+    branches: [ci/museums-probe]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Fetch sites
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import html, re, time, urllib.request, urllib.error, urllib.parse
+
+          UA = "KidsGoFactCheck/1.0 (+https://kids-go.fun)"
+          START = ["https://domcupca.ru/", "https://ussrmuseum.ru/", "https://ussrmuseum.ru/price-list/", "https://ussrmuseum.ru/contacts/"]
+
+          def get(url):
+              req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "ru,en;q=0.8"})
+              try:
+                  r = urllib.request.urlopen(req, timeout=30)
+                  raw = r.read(2_500_000)
+                  return r.status, r.geturl(), raw.decode("utf8", "replace")
+              except urllib.error.HTTPError as e:
+                  return e.code, url, ""
+              except Exception as e:
+                  return 0, url, repr(e)
+
+          def text_of(h):
+              h = re.sub(r"<(script|style|noscript|svg).*?</\1>", " ", h, flags=re.S | re.I)
+              return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", h))).strip()
+
+          seen = {}
+          queue = list(START)
+          for host in ("https://domcupca.ru/robots.txt", "https://ussrmuseum.ru/robots.txt"):
+              c, u, t = get(host)
+              print(f"::notice title=robots {host.split('/')[2]}::{c} {t[:400].replace(chr(10), ' | ')}")
+          while queue and len(seen) < 14:
+              url = queue.pop(0)
+              if url in seen: continue
+              c, final, h = get(url)
+              seen[url] = (c, final, h)
+              time.sleep(1.5)
+              if c == 200 and url in START[:2]:
+                  host = urllib.parse.urlparse(url).netloc
+                  for href in re.findall(r'href="([^"#]+)"', h):
+                      u = urllib.parse.urljoin(final, href).split("#")[0]
+                      p = urllib.parse.urlparse(u)
+                      if p.netloc == host and not re.search(r"\.(jpg|jpeg|png|webp|gif|svg|pdf|css|js|ico|xml)$", p.path, re.I) and u not in seen and u not in queue:
+                          queue.append(u)
+
+          KEY = re.compile(r"(₽|руб|билет|цен|стоимост|час[ыо]в? работы|режим|график|открыт|выходн|вторник|адрес|Московск|льгот|бесплатн|дет|экскурс|самовар)", re.I)
+          for url, (c, final, h) in seen.items():
+              t = text_of(h)
+              title = (re.search(r"<title>(.*?)</title>", h, re.S) or [0, ""])[1].strip()
+              sents = re.split(r"(?<=[.!?])\s+", t)
+              hits = [s.strip() for s in sents if KEY.search(s) and len(s) < 400]
+              body = " | ".join(dict.fromkeys(hits))[:5500]
+              print(f"::notice title={urllib.parse.urlparse(url).netloc}{urllib.parse.urlparse(url).path} [{c}] {title[:60]}::len={len(t)} %0A{body.replace(chr(10), ' ')}")
+          PY
