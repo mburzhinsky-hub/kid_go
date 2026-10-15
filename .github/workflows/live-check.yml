@@ -36,8 +36,8 @@ jobs:
           def text_of(h):
               h = re.sub(r"<script.*?</script>", "", h, flags=re.S)
               h = re.sub(r"<style.*?</style>", "", h, flags=re.S)
-              m = re.search(r"<main.*?</main>", h, re.S)
-              m = m.group(0) if m else h
+              ms = re.findall(r"<main.*?</main>", h, re.S)
+              m = " ".join(ms) if ms else h
               t = html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m)))
               return re.sub(r"\s+", " ", t.replace(" ", " ").replace(" ", " "))
 
@@ -65,7 +65,7 @@ jobs:
               "katok-vdnh": ["Билет без проката коньков", "от 1 000 ₽"],
           }
           # ждём выкладку: маркер из последнего PR появляется на странице Лунного Кота
-          deadline = time.time() + 2 * 60
+          deadline = time.time() + 5 * 60
           deployed = False
           while time.time() < deadline:
               code, h = get("/places/lunny-kot-zelenograd/")
