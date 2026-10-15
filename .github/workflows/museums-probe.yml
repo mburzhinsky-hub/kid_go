@@ -39,16 +39,10 @@ jobs:
               return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", h))).strip()
 
           c, base_final, home = get("https://domcupca.ru/")
-          hrefs = []
-          for href in re.findall(r'href="([^"#]+)"', home):
-              u = urllib.parse.urljoin(base_final, href).split("#")[0]
-              if urllib.parse.urlparse(u).netloc == "domcupca.ru" and not re.search(r"\.(jpg|jpeg|png|webp|gif|svg|pdf|css|js|ico|xml|woff2?|gz)$", u, re.I) and "/g/" not in u and "/thumb/" not in u and u not in hrefs:
-                  hrefs.append(u)
-          print("::notice title=domcupca links::" + " | ".join(hrefs)[:3000])
-          for u in hrefs[:12]:
-              time.sleep(1.5)
-              c, final, h = get(u)
-              t = text_of(h)
-              title = (re.search(r"<title>(.*?)</title>", h, re.S) or [0, ""])[1].strip()
-              print(f"::notice title=domcupca {urllib.parse.urlparse(u).path} [{c}] {title[:50]}::len={len(t)} %0A{t[:4500]}")
+          t = text_of(home)
+          print(f"::notice title=domcupca home text [{c}] len={len(t)}::{t[:6000]}")
+          print("::notice title=domcupca all hrefs::" + " | ".join(dict.fromkeys(re.findall(r"""href=["']([^"']+)["']""", home)))[:3500])
+          for path in ("/stoimost-bileta", "/stoimost", "/price", "/kontakty", "/otzyvy"):
+              c2, f2, h2 = get("https://domcupca.ru" + path)
+              print(f"::notice title=domcupca try {path}::{c2} len={len(text_of(h2))}")
           PY
