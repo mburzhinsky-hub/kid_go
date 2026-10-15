@@ -73,7 +73,8 @@ jobs:
               h = re.sub(r"<script.*?</script>", "", h, flags=re.S)
               mains = re.findall(r"<main.*?</main>", h, re.S)
               m = " ".join(mains) if mains else h
-              return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m)))
+              t = html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m)))
+              return re.sub(r" ([.,:;])", r"\1", t)  # пробел, который дали теги вокруг ссылки, перед знаком препинания убираем
 
           bad = []
           def check(ok, msg):
