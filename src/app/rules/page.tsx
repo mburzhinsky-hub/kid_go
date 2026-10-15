@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { LegalPage, CONTACT_EMAIL } from "@/components/legal/LegalPage";
 
-export const metadata: Metadata = { title: "Правила сообщества", description: "Что можно и нельзя в подборках Kids Go." };
+export const metadata: Metadata = { title: "Правила сообщества", description: "Что можно и нельзя в подборках Kids Go.", alternates: { canonical: "/rules" } };
 
 export default function RulesPage() {
   return (

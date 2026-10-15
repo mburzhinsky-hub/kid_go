@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { LegalPage, CONTACT_EMAIL } from "@/components/legal/LegalPage";
 
-export const metadata: Metadata = { title: "Политика конфиденциальности", description: "Какие данные хранит Kids Go и как их удалить." };
+export const metadata: Metadata = { title: "Политика конфиденциальности", description: "Какие данные хранит Kids Go и как их удалить.", alternates: { canonical: "/privacy" } };
 
 export default function PrivacyPage() {
   return (
