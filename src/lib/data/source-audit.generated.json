@@ -309,16 +309,20 @@
   },
   "park-sokolniki": {
     "source": "https://parksokolniki.mos.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-15",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity"
+      "identity",
+      "price",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://parksokolniki.mos.ru/"
+      "identity": "https://parksokolniki.mos.ru/",
+      "price": "https://parksokolniki.mos.ru/",
+      "opening_hours": "https://parksokolniki.mos.ru/"
     }
   },
   "piratskaya-ploshchadka": {
@@ -1143,18 +1147,22 @@
   },
   "kolomna-kreml": {
     "source": "https://2gis.ru/kolomna/firm/70000001034360438",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-15",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "price",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://2gis.ru/kolomna/firm/70000001034360438",
-      "address": "https://2gis.ru/kolomna/firm/70000001034360438"
+      "address": "https://2gis.ru/kolomna/firm/70000001034360438",
+      "price": "https://kolomna-kreml.ru/",
+      "opening_hours": "https://kolomna-kreml.ru/"
     }
   },
   "kolomna-muzey-lyubimoy-igrushki": {
@@ -1207,36 +1215,41 @@
   },
   "politehnichesky-muzey": {
     "source": "https://ru.wikipedia.org/wiki/Политехнический_музей",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-15",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "price"
     ],
     "verified_family_fields": [
-      "stroller_friendly"
+      "stroller_friendly",
+      "booking_required"
     ],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Политехнический_музей",
-      "address": "https://ru.wikipedia.org/wiki/Политехнический_музей"
+      "address": "https://ru.wikipedia.org/wiki/Политехнический_музей",
+      "price": "https://polymus.ru/museum/contacts"
     }
   },
   "muzey-moskvy": {
     "source": "https://ru.wikipedia.org/wiki/Музей_Москвы",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-15",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Музей_Москвы",
-      "address": "https://ru.wikipedia.org/wiki/Музей_Москвы"
+      "address": "https://ru.wikipedia.org/wiki/Музей_Москвы",
+      "opening_hours": "https://mosmuseum.ru/"
     }
   },
   "muzey-pobedy": {
@@ -1295,34 +1308,42 @@
   },
   "tretyakovka-lavrushinsky": {
     "source": "https://ru.wikipedia.org/wiki/Государственная_Третьяковская_галерея",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-15",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "price",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Государственная_Третьяковская_галерея",
-      "address": "https://ru.wikipedia.org/wiki/Государственная_Третьяковская_галерея"
+      "address": "https://ru.wikipedia.org/wiki/Государственная_Третьяковская_галерея",
+      "price": "https://www.tretyakovgallery.ru/",
+      "opening_hours": "https://www.tretyakovgallery.ru/"
     }
   },
   "pushkinsky-muzey": {
     "source": "https://ru.wikipedia.org/wiki/Государственный_музей_изобразительных_искусств_имени_А._С._Пушкина",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-15",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "price",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Государственный_музей_изобразительных_искусств_имени_А._С._Пушкина",
-      "address": "https://ru.wikipedia.org/wiki/Государственный_музей_изобразительных_искусств_имени_А._С._Пушкина"
+      "address": "https://ru.wikipedia.org/wiki/Государственный_музей_изобразительных_искусств_имени_А._С._Пушкина",
+      "price": "https://pushkinmuseum.art/visitors/index.php?lang=ru",
+      "opening_hours": "https://pushkinmuseum.art/visitors/index.php?lang=ru"
     }
   },
   "teatr-obrazcova": {
@@ -1425,18 +1446,20 @@
   },
   "ostankino-tower": {
     "source": "https://ru.wikipedia.org/wiki/Останкинская_телебашня",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-15",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Останкинская_телебашня",
-      "address": "https://ru.wikipedia.org/wiki/Останкинская_телебашня"
+      "address": "https://ru.wikipedia.org/wiki/Останкинская_телебашня",
+      "price": "https://tvtower.ru/"
     }
   },
   "panorama360-federation": {
@@ -1521,50 +1544,56 @@
   },
   "danilovsky-rynok": {
     "source": "https://ru.wikipedia.org/wiki/Даниловский_рынок",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-15",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Даниловский_рынок",
-      "address": "https://ru.wikipedia.org/wiki/Даниловский_рынок"
+      "address": "https://ru.wikipedia.org/wiki/Даниловский_рынок",
+      "opening_hours": "https://danilovsky.market/"
     }
   },
   "dom-knigi-arbat": {
     "source": "https://ru.wikipedia.org/wiki/Московский_дом_книги",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-15",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Московский_дом_книги",
-      "address": "https://ru.wikipedia.org/wiki/Московский_дом_книги"
+      "address": "https://ru.wikipedia.org/wiki/Московский_дом_книги",
+      "opening_hours": "https://mdk-arbat.ru/"
     }
   },
   "biblio-globus": {
     "source": "https://ru.wikipedia.org/wiki/Библио-Глобус",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-15",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Библио-Глобус",
-      "address": "https://ru.wikipedia.org/wiki/Библио-Глобус"
+      "address": "https://ru.wikipedia.org/wiki/Библио-Глобус",
+      "opening_hours": "https://www.biblio-globus.ru/information/page/kontaktnaya-informaciya"
     }
   },
   "park-druzhby": {
