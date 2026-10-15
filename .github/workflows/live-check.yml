@@ -1,6 +1,6 @@
 name: live-check
 
-# Проверка боевого сайта после выкладки: подборки «Куда сходить», sitemap, ссылки. Результат — в аннотациях задачи.
+# Проверка боевого сайта после выкладки: появились ли новые часы и цены на страницах мест. Результат — в аннотациях задачи.
 on:
   push:
     branches: [ci/live-check]
@@ -12,128 +12,95 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
     steps:
-      - name: Check landing pages
+      - name: Wait for deploy and check places
         shell: bash
         run: |
           python3 - <<'PY'
-          import html, json, re, sys, urllib.request, urllib.error, xml.etree.ElementTree as ET
+          import html, re, sys, time, urllib.request, urllib.error
 
           SITE = "https://kids-go.fun"
-          UA = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
-          SLUGS = ["s-rebenkom-3-goda", "s-malyshom-1-2-goda", "s-doshkolnikom-4-6-let", "s-shkolnikom-7-10-let", "v-dozhd", "muzei", "k-zhivotnym", "parki", "v-podmoskovye"]
-
-          class NoRedirect(urllib.request.HTTPRedirectHandler):
-              def redirect_request(self, *a, **k):
-                  return None
-          opener = urllib.request.build_opener(NoRedirect)
+          UA = "Mozilla/5.0 (compatible; KidsGoLiveCheck/1.0)"
 
           def get(path):
               req = urllib.request.Request(SITE + path, headers={"User-Agent": UA})
               try:
-                  r = opener.open(req, timeout=40)
-                  return r.status, r.read().decode("utf8", "replace"), dict(r.headers)
+                  r = urllib.request.urlopen(req, timeout=40)
+                  return r.status, r.read().decode("utf8", "replace")
               except urllib.error.HTTPError as e:
-                  return e.code, e.read().decode("utf8", "replace"), dict(e.headers)
-
-          bad = []
-          def check(ok, msg):
-              if not ok:
-                  bad.append(msg)
-              return ok
+                  return e.code, ""
+              except Exception:
+                  return 0, ""
 
           def text_of(h):
               m = re.search(r"<main.*?</main>", h, re.S)
               m = m.group(0) if m else h
               m = re.sub(r"<script.*?</script>", "", m, flags=re.S)
-              return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m)))
+              t = html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m)))
+              return re.sub(r"\s+", " ", t.replace(" ", " ").replace(" ", " "))
 
-          lines = []
-          all_places = set()
-          for slug in SLUGS:
-              path = f"/kuda-shodit/{slug}/"
-              code, h, hd = get(path)
-              if not check(code == 200, f"{path}: HTTP {code}"):
-                  lines.append(f"{slug}: HTTP {code}"); continue
-              title = (re.search(r"<title>([^<]*)</title>", h) or [0, ""])[1]
-              canon = (re.search(r'<link rel="canonical" href="([^"]*)"', h) or [0, ""])[1]
-              h1s = re.findall(r"<h1[^>]*>(.*?)</h1>", h)
-              places = sorted(set(re.findall(r'href="/places/([a-z0-9-]+)/"', h)))
-              all_places.update(places)
-              ld = [json.loads(x) for x in re.findall(r'<script type="application/ld\+json">(.*?)</script>', h, re.S)]
-              types = [n.get("@type") for d in ld for n in d.get("@graph", [d])]
-              items = [n for d in ld for n in d.get("@graph", [d]) if n.get("@type") == "ItemList"]
+          EXPECT = {
+              "moskovsky-zoopark": ["2 000 ₽", "1 000 ₽", "07:30–19:00"],
+              "kolomenskoe": ["05:30–23:00", "с 10:00 до 18:00"],
+              "park-luzhniki": ["круглосуточно"],
+              "pandapark-fili": ["от 1 190 ₽", "10:00–18:00", "ПандаКлуба"],
+              "panda-park-sokolniki": ["от 1 190 ₽", "10:00–18:00"],
+              "pandapark-meshchersky": ["от 1 190 ₽", "10:00–18:00"],
+              "lunny-kot-zelenograd": ["Ср–Пт 12–21", "Сб–Вс 10–21", "праздничные дни"],
+              "dream-kids": ["800 ₽", "1 400 ₽"],
+              "littles-kids-play-cafe": ["850 ₽"],
+              "anderson-ostrovityanova": ["09:00–22:00"],
+              "park-sokolniki": ["Бесплатно", "круглосуточно", "Зона аттракционов"],
+              "tretyakovka-lavrushinsky": ["до 700 ₽", "Вт–Ср 10–18", "Чт–Сб 10–21", "Вс 10–18"],
+              "pushkinsky-muzey": ["до 1 700 ₽", "Вт–Ср 11–20", "Чт–Пт 11–21", "Сб 10–21", "Вс 11–20"],
+              "muzey-moskvy": ["11:00–21:00", "зависит от экспозиции"],
+              "ostankino-tower": ["от 1 300 ₽", "1 900 ₽", "22–23"],
+              "politehnichesky-muzey": ["Нужна запись", "от 400 ₽", "реконструкции"],
+              "kolomna-kreml": ["Бесплатно", "круглосуточно"],
+              "danilovsky-rynok": ["08:00–21:00"],
+              "dom-knigi-arbat": ["10:00–22:00"],
+              "biblio-globus": ["10:00–21:00"],
+              "katok-vdnh": ["Билет без проката коньков", "от 1 000 ₽"],
+          }
+          # ждём выкладку: маркер из последнего PR появляется на странице Лунного Кота
+          deadline = time.time() + 38 * 60
+          deployed = False
+          while time.time() < deadline:
+              code, h = get("/places/lunny-kot-zelenograd/")
+              if code == 200 and "праздничные дни" in text_of(h):
+                  deployed = True
+                  break
+              time.sleep(60)
+          if not deployed:
+              print("::error title=deploy::новая версия не появилась за 38 минут")
+
+          bad, ok_n = [], 0
+          for slug, needles in EXPECT.items():
+              code, h = get(f"/places/{slug}/")
+              if code != 200:
+                  bad.append(f"{slug}: HTTP {code}"); continue
               t = text_of(h)
-              check(title.endswith(" · Kids Go") and 25 < len(title) < 70, f"{path}: bad title {title!r}")
-              check(canon == SITE + path, f"{path}: canonical {canon!r}")
-              check(len(h1s) == 1, f"{path}: {len(h1s)} h1")
-              check(len(places) >= 6, f"{path}: only {len(places)} place links")
-              check("BreadcrumbList" in types and "ItemList" in types, f"{path}: json-ld types {types}")
-              check(bool(items) and items[0].get("numberOfItems") == len(places), f"{path}: ItemList size {items[0].get('numberOfItems') if items else None} vs {len(places)} links")
-              check(not re.search(r"(?<![\d.])0\.0(?!\d)", t), f"{path}: zero rating text")
-              for sym in ("₽", "бесплат"):
-                  for m in re.finditer(sym, t):
-                      ctx = t[max(0, m.start() - 160):m.start()]
-                      check("Проверено на официальном сайте" in ctx, f"{path}: '{sym}' without verified context near «{t[max(0,m.start()-50):m.start()+20]}»")
-              nofollow = re.search(r'<meta name="robots" content="[^"]*noindex', h)
-              check(not nofollow, f"{path}: noindex")
-              lines.append(f"{slug}: 200, places={len(places)}, ₽={t.count('₽')}, title={title[:60]}")
-          print("::notice title=landings::" + "%0A".join(lines))
-
-          # хаб, главная, ситуации, карточки мест
-          code, h, _ = get("/kuda-shodit/")
-          hub_links = sorted(set(re.findall(r'href="/kuda-shodit/([a-z0-9-]+)/"', h)))
-          check(code == 200 and hub_links == sorted(SLUGS), f"hub: {code}, links={hub_links}")
-          canon = (re.search(r'<link rel="canonical" href="([^"]*)"', h) or [0, ""])[1]
-          check(canon == SITE + "/kuda-shodit/", f"hub canonical {canon!r}")
-          for p in ("/", "/scenarios/"):
-              c, hh, _ = get(p)
-              n = len(set(re.findall(r'href="/kuda-shodit/[a-z0-9-]*/?"', hh)))
-              check(c == 200 and n == 10, f"{p}: code {c}, landing links {n}")
-          for slug in ("moskvarium", "park-gorkogo", "arkhangelskoe"):
-              c, hh, _ = get(f"/places/{slug}/")
-              check(c == 200 and "Это место есть в подборках" in hh, f"/places/{slug}/: code {c}, backlinks block missing")
-          c, _, _ = get("/kuda-shodit/besplatno/")
-          check(c == 404, f"/kuda-shodit/besplatno/ must not be published yet: HTTP {c}")
-          print(f"::notice title=hub and links::hub links={len(hub_links)}; besplatno={c}")
-
-          # sitemap
-          code, x, hd = get("/sitemap.xml")
-          try:
-              root = ET.fromstring(x.encode("utf8"))
-              ns = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
-              locs = [u.find(ns + "loc").text for u in root.findall(ns + "url")]
-          except Exception as e:
-              locs = []; check(False, f"sitemap parse: {e!r}")
-          want = [SITE + "/kuda-shodit/"] + [f"{SITE}/kuda-shodit/{s}/" for s in SLUGS]
-          check(code == 200 and all(w in locs for w in want), f"sitemap: code {code}, missing {[w for w in want if w not in locs]}")
-          check(len(locs) == len(set(locs)) and all(l.endswith("/") for l in locs), "sitemap: duplicates or URLs without trailing slash")
-          print(f"::notice title=sitemap::code={code} urls={len(locs)} ct={hd.get('Content-Type')} landing urls present={sum(w in locs for w in want)}/10")
-
-          # все места из подборок открываются
-          missing = []
-          for s in sorted(all_places):
-              c, _, _ = get(f"/places/{s}/")
-              if c != 200: missing.append((s, c))
-          check(not missing, f"place pages not 200: {missing[:5]}")
-          print(f"::notice title=place links::{len(all_places)} unique places from landings, non-200: {missing}")
-
-          if bad:
-              for b in bad: print(f"::error title=live-check::{b}")
-              sys.exit(1)
-          print("::notice title=live-check result::ALL CHECKS PASSED")
+              miss = [n for n in needles if n not in t]
+              if miss:
+                  bad.append(f"{slug}: нет {miss}")
+              else:
+                  ok_n += 1
+          NOT = {"lunny-kot-zelenograd": ["Ср–Вс 12–21", "Ср–Вс 12:00–21:00"], "panda-park-sokolniki": ["10:00–21:00"], "moskovsky-zoopark": ["07:00–24:00"]}
+          for slug, needles in NOT.items():
+              code, h = get(f"/places/{slug}/")
+              t = text_of(h) if code == 200 else ""
+              for n in needles:
+                  if n in t:
+                      bad.append(f"{slug}: осталось старое {n!r}")
+          for path in ["/", "/kuda-shodit/", "/kuda-shodit/v-dozhd/", "/kuda-shodit/parki/", "/kuda-shodit/muzei/", "/kuda-shodit/v-podmoskovye/", "/sitemap.xml"]:
+              code, h = get(path)
+              if code != 200:
+                  bad.append(f"{path}: HTTP {code}")
+          print(f"::notice title=places ok::{ok_n} из {len(EXPECT)}")
+          for b in bad[:9]:
+              print(f"::error title=problem::{b}")
+          if not bad:
+              print("::notice title=result::всё на месте")
+          sys.exit(1 if bad else 0)
           PY
-      - name: Check og:image of landing pages
-        shell: bash
-        run: |
-          set +e
-          out=""
-          for s in s-rebenkom-3-goda s-malyshom-1-2-goda s-doshkolnikom-4-6-let s-shkolnikom-7-10-let v-dozhd muzei k-zhivotnym parki v-podmoskovye; do
-            img=$(curl -s -A 'Mozilla/5.0 (compatible; Googlebot/2.1)' "https://kids-go.fun/kuda-shodit/$s/" | grep -o '<meta property="og:image" content="[^"]*"' | head -1 | sed 's/.*content="//;s/"$//')
-            r=$(curl -s -o /dev/null -I -w '%{http_code} %{content_type} %{size_download}' "$img")
-            out="$out$s: $r $(echo "$img" | cut -c1-90)%0A"
-          done
-          img=$(curl -s "https://kids-go.fun/kuda-shodit/" | grep -o '<meta property="og:image" content="[^"]*"' | head -1 | sed 's/.*content="//;s/"$//')
-          out="${out}hub: $(curl -s -o /dev/null -I -w '%{http_code} %{content_type}' "$img") $img"
-          echo "::notice title=og images::$out"
