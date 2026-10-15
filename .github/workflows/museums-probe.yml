@@ -38,31 +38,17 @@ jobs:
               h = re.sub(r"<(script|style|noscript|svg).*?</\1>", " ", h, flags=re.S | re.I)
               return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", h))).strip()
 
-          seen = {}
-          queue = list(START)
-          for host in ("https://domcupca.ru/robots.txt", "https://ussrmuseum.ru/robots.txt"):
-              c, u, t = get(host)
-              print(f"::notice title=robots {host.split('/')[2]}::{c} {t[:400].replace(chr(10), ' | ')}")
-          while queue and len(seen) < 14:
-              url = queue.pop(0)
-              if url in seen: continue
-              c, final, h = get(url)
-              seen[url] = (c, final, h)
+          c, base_final, home = get("https://domcupca.ru/")
+          hrefs = []
+          for href in re.findall(r'href="([^"#]+)"', home):
+              u = urllib.parse.urljoin(base_final, href).split("#")[0]
+              if urllib.parse.urlparse(u).netloc == "domcupca.ru" and not re.search(r"\.(jpg|jpeg|png|webp|gif|svg|pdf|css|js|ico|xml|woff2?|gz)$", u, re.I) and "/g/" not in u and "/thumb/" not in u and u not in hrefs:
+                  hrefs.append(u)
+          print("::notice title=domcupca links::" + " | ".join(hrefs)[:3000])
+          for u in hrefs[:12]:
               time.sleep(1.5)
-              if c == 200 and url in START[:2]:
-                  host = urllib.parse.urlparse(url).netloc
-                  for href in re.findall(r'href="([^"#]+)"', h):
-                      u = urllib.parse.urljoin(final, href).split("#")[0]
-                      p = urllib.parse.urlparse(u)
-                      if p.netloc == host and not re.search(r"\.(jpg|jpeg|png|webp|gif|svg|pdf|css|js|ico|xml)$", p.path, re.I) and u not in seen and u not in queue:
-                          queue.append(u)
-
-          KEY = re.compile(r"(₽|руб|билет|цен|стоимост|час[ыо]в? работы|режим|график|открыт|выходн|вторник|адрес|Московск|льгот|бесплатн|дет|экскурс|самовар)", re.I)
-          for url, (c, final, h) in seen.items():
+              c, final, h = get(u)
               t = text_of(h)
               title = (re.search(r"<title>(.*?)</title>", h, re.S) or [0, ""])[1].strip()
-              sents = re.split(r"(?<=[.!?])\s+", t)
-              hits = [s.strip() for s in sents if KEY.search(s) and len(s) < 400]
-              body = " | ".join(dict.fromkeys(hits))[:5500]
-              print(f"::notice title={urllib.parse.urlparse(url).netloc}{urllib.parse.urlparse(url).path} [{c}] {title[:60]}::len={len(t)} %0A{body.replace(chr(10), ' ')}")
+              print(f"::notice title=domcupca {urllib.parse.urlparse(u).path} [{c}] {title[:50]}::len={len(t)} %0A{t[:4500]}")
           PY
