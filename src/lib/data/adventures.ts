@@ -33,7 +33,7 @@ const usedCovers = new Set<string>();
  * второму достаётся другой его снимок), а если свободных снимков нет — тематическая картинка из подборки.
  */
 const pickCover = (firstSlug: string, fallback: Photo): Photo => {
-  const own = placeBySlug.get(firstSlug)?.photos.find((c) => c.src && c.kind === "commons" && !usedCovers.has(c.src));
+  const own = placeBySlug.get(firstSlug)?.photos.find((c) => c.src && (c.kind === "commons" || c.kind === "partner") && !usedCovers.has(c.src));
   const cover = own ? { ...own } : fallback;
   usedCovers.add(cover.src);
   return cover;

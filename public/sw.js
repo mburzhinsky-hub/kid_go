@@ -35,7 +35,7 @@ self.addEventListener("fetch", (e) => {
     return;
   }
 
-  const isAsset = url.pathname.startsWith(BASE + "/_next/static") || url.pathname.startsWith(BASE + "/icons") || url.pathname.startsWith(BASE + "/photos/") || url.hostname === "images.unsplash.com";
+  const isAsset = url.pathname.startsWith(BASE + "/_next/static") || url.pathname.startsWith(BASE + "/icons") || url.pathname.startsWith(BASE + "/photos/") || url.pathname.startsWith(BASE + "/partner/") || url.hostname === "images.unsplash.com";
   if (isAsset) {
     e.respondWith(
       caches.open(VERSION).then(async (c) => {

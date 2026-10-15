@@ -92,21 +92,23 @@ export type ExperienceTag =
 /** Часы работы: индекс 0 — понедельник. null — выходной. */
 export type OpeningHours = ([string, string] | null)[];
 
-/** Автор и лицензия снимка: обязательны для фото из Wikimedia Commons (CC BY, CC BY-SA). */
+/** Автор и лицензия снимка: обязательны для фото из Wikimedia Commons (CC BY, CC BY-SA); для фото от партнёров — кто прислал. */
 export interface PhotoCredit {
   author: string;
-  /** Короткое имя лицензии, например «CC BY-SA 4.0». */
+  /** Короткое имя лицензии, например «CC BY-SA 4.0». У фото от партнёров — «предоставлено музеем» и т. п. */
   license: string;
   licenseUrl?: string;
-  /** Страница файла на Wikimedia Commons. */
+  /** Страница файла на Wikimedia Commons; у фото от партнёров — сайт места. */
   url: string;
+  /** «partner» — фото прислало само место (с его согласия), лицензии Creative Commons здесь нет. */
+  kind?: "partner";
 }
 
 export interface Photo {
-  /** id фото на CDN (сейчас Unsplash) или адрес снимка на Wikimedia Commons (см. lib/commons.ts). Пусто — у места нет фото, показываем иллюстрацию. */
+  /** id фото на CDN (сейчас Unsplash), адрес снимка на Wikimedia Commons (см. lib/commons.ts) или /partner/<id> (см. lib/partner.ts). Пусто — у места нет фото, показываем иллюстрацию. */
   src: string;
   alt: string;
-  /** Источник визуала: stock/demo не должен восприниматься как фотография конкретного места; commons — настоящий снимок этого места. */
+  /** Источник визуала: stock/demo не должен восприниматься как фотография конкретного места; commons — настоящий снимок этого места; partner — фото прислало само место. */
   kind?: PhotoKind;
   credit?: PhotoCredit;
 }

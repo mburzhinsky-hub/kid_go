@@ -4,6 +4,7 @@
  * NEXT_PUBLIC_IMAGE_PROXY — для локальных тестов/офлайн-стендов (подмена CDN).
  */
 import { commonsInfo, commonsThumb } from "./commons";
+import { partnerId } from "./partner";
 
 const PROXY = process.env.NEXT_PUBLIC_IMAGE_PROXY;
 const LOCAL = process.env.NEXT_PUBLIC_PHOTOS_LOCAL === "1";
@@ -11,6 +12,9 @@ const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export default function imageLoader({ src, width, quality }: { src: string; width: number; quality?: number }) {
   if (PROXY) return `${PROXY}/img?w=${width}&src=${encodeURIComponent(src)}`;
+  // фото, присланные местами: копии лежат на самом сайте (public/partner), размеры те же три
+  const pt = partnerId(src);
+  if (pt) return `${BASE}/partner/${pt}-${width <= 480 ? 480 : width <= 960 ? 960 : 1440}.webp`;
   const cm = commonsInfo(src);
   if (cm) {
     if (!LOCAL) return commonsThumb(cm.file, width);
@@ -32,6 +36,8 @@ export default function imageLoader({ src, width, quality }: { src: string; widt
 /** Картинка для превью ссылки (1200×630): своя JPEG-копия, если фото хранятся на сайте, иначе оригинал. */
 export function ogImageUrl(src: string): string {
   if (!src) return `${BASE}/og.jpg`; // у места нет фото: общая картинка сайта
+  const pt = partnerId(src);
+  if (pt) return `${BASE}/partner/${pt}-og.jpg`;
   const cm = commonsInfo(src);
   if (cm) return LOCAL ? `${BASE}/photos/${cm.id}-og.jpg` : commonsThumb(cm.file, 1280);
   if (LOCAL && src.startsWith("https://images.unsplash.com/")) {
@@ -44,6 +50,8 @@ export function ogImageUrl(src: string): string {
 /** Абсолютный адрес снимка для разметки schema.org. Пустой src (у места нет фото) — undefined. */
 export function schemaImageUrl(src: string, site: string): string | undefined {
   if (!src) return undefined;
+  const pt = partnerId(src);
+  if (pt) return `${site}${BASE}/partner/${pt}-1440.webp`;
   const cm = commonsInfo(src);
   if (cm) return LOCAL ? `${site}${BASE}/photos/${cm.id}-1440.webp` : commonsThumb(cm.file, 1280);
   return src;

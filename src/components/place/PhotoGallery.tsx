@@ -173,8 +173,14 @@ function Lightbox({ photos, start, tint, emoji, onClose }: { photos: Photo[]; st
 
 const extProps = { target: "_blank", rel: "noopener noreferrer" } as const;
 
-/** «Автор, лицензия»: обе части ссылки (страница снимка и текст лицензии). */
+/** «Автор, лицензия»: обе части ссылки (страница снимка и текст лицензии). У фото, присланных самим местом, — только автор со ссылкой на его сайт. */
 function CreditLine({ credit }: { credit: PhotoCredit }) {
+  if (credit.kind === "partner")
+    return (
+      <a href={credit.url} {...extProps} className="underline underline-offset-2">
+        {credit.author}
+      </a>
+    );
   return (
     <>
       <a href={credit.url} {...extProps} className="underline underline-offset-2">
@@ -192,7 +198,7 @@ function CreditLine({ credit }: { credit: PhotoCredit }) {
   );
 }
 
-/** Авторы снимков под галереей: условие свободных лицензий (CC BY, CC BY-SA). Если снимков нет — ничего не показываем. */
+/** Авторы снимков под галереей: условие свободных лицензий (CC BY, CC BY-SA) и честная подпись фото от самих мест. Если снимков нет — ничего не показываем. */
 export function PhotoCredits({ photos }: { photos: Photo[] }) {
   const seen = new Set<string>();
   const credits = photos.flatMap((p) => {
@@ -204,6 +210,8 @@ export function PhotoCredits({ photos }: { photos: Photo[] }) {
     return [c];
   });
   if (!credits.length) return null;
+  const partner = credits.find((c) => c.kind === "partner");
+  const notes = [credits.some((c) => c.kind !== "partner") && "Wikimedia Commons, снимки уменьшены и обрезаны.", partner && `Снимки ${partner.license}, уменьшены.`].filter(Boolean).join(" ");
   return (
     <p className="mt-3 break-words text-[12px] leading-snug text-muted">
       Фото:{" "}
@@ -213,7 +221,7 @@ export function PhotoCredits({ photos }: { photos: Photo[] }) {
           <CreditLine credit={c} />
         </span>
       ))}
-      . Wikimedia Commons, снимки уменьшены и обрезаны.
+      . {notes}
     </p>
   );
 }
