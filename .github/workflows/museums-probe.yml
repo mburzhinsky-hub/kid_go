@@ -38,11 +38,9 @@ jobs:
               h = re.sub(r"<(script|style|noscript|svg).*?</\1>", " ", h, flags=re.S | re.I)
               return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", h))).strip()
 
-          c, base_final, home = get("https://domcupca.ru/")
-          t = text_of(home)
-          print(f"::notice title=domcupca home text [{c}] len={len(t)}::{t[:6000]}")
-          print("::notice title=domcupca all hrefs::" + " | ".join(dict.fromkeys(re.findall(r"""href=["']([^"']+)["']""", home)))[:3500])
-          for path in ("/stoimost-bileta", "/stoimost", "/price", "/kontakty", "/otzyvy"):
+          for path in ("/stoimost-bileta", "/kontakty", "/otzyvy"):
               c2, f2, h2 = get("https://domcupca.ru" + path)
-              print(f"::notice title=domcupca try {path}::{c2} len={len(text_of(h2))}")
+              t2 = text_of(h2)
+              i = t2.find("Стоимость") if "stoimost" in path else 0
+              print(f"::notice title=domcupca {path} [{c2}]::{t2[:3000]}")
           PY
