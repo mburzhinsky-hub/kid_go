@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description:
     "Выберите настроение — мы соберём ваш день: готовые семейные приключения, лучшие места для детей в Москве, маршрут, время и бюджет.",
   applicationName: "Kids Go",
+  // Подтверждение прав в Яндекс.Вебмастере (публичный код; тот же код лежит файлом в public/yandex_*.html)
+  verification: { yandex: "ecb6d0a4889299b5" },
   appleWebApp: { capable: true, title: "Kids Go", statusBarStyle: "default" },
   formatDetection: { telephone: false },
   openGraph: {
