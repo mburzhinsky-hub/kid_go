@@ -1,6 +1,6 @@
 name: live-check
 
-# Проверка боевого сайта после выкладки: появились ли новые часы и цены на страницах мест. Результат — в аннотациях задачи.
+# Проверка боевого сайта после выкладки: файл и метатег подтверждения Яндекс.Вебмастера. Результат — в аннотациях задачи.
 on:
   push:
     branches: [ci/live-check]
@@ -12,111 +12,53 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 50
     steps:
-      - name: Wait for deploy and check places
+      - name: Wait for deploy and check
         shell: bash
         run: |
           python3 - <<'PY'
-          import html, re, sys, time, urllib.request, urllib.error
+          import re, sys, time, urllib.request, urllib.error
 
           SITE = "https://kids-go.fun"
-          UA = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+          CODE = "ecb6d0a4889299b5"
+          UA = "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)"
 
           def get(path):
               req = urllib.request.Request(SITE + path, headers={"User-Agent": UA})
               try:
                   r = urllib.request.urlopen(req, timeout=40)
-                  return r.status, r.read().decode("utf8", "replace")
+                  return r.status, r.read().decode("utf8", "replace"), r.headers.get("Content-Type", "")
               except urllib.error.HTTPError as e:
-                  return e.code, ""
+                  return e.code, "", ""
               except Exception:
-                  return 0, ""
+                  return 0, "", ""
 
-          def text_of(h):
-              h = re.sub(r"<script.*?</script>", "", h, flags=re.S)
-              h = re.sub(r"<style.*?</style>", "", h, flags=re.S)
-              ms = re.findall(r"<main.*?</main>", h, re.S)
-              m = " ".join(ms) if ms else h
-              t = html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m)))
-              return re.sub(r"\s+", " ", t.replace(" ", " ").replace(" ", " "))
-
-          EXPECT = {
-              "moskovsky-zoopark": ["2 000 ₽", "1 000 ₽", "07:30–19:00"],
-              "kolomenskoe": ["05:30–23:00", "с 10:00 до 18:00"],
-              "park-luzhniki": ["круглосуточно"],
-              "pandapark-fili": ["от 1 190 ₽", "10:00–18:00", "ПандаКлуба"],
-              "panda-park-sokolniki": ["от 1 190 ₽", "10:00–18:00"],
-              "pandapark-meshchersky": ["от 1 190 ₽", "10:00–18:00"],
-              "lunny-kot-zelenograd": ["Ср–Пт 12–21", "Сб–Вс 10–21", "праздничные дни"],
-              "dream-kids": ["800 ₽", "1 400 ₽"],
-              "littles-kids-play-cafe": ["850 ₽"],
-              "anderson-ostrovityanova": ["09:00–22:00"],
-              "park-sokolniki": ["Бесплатно", "круглосуточно", "Зона аттракционов"],
-              "tretyakovka-lavrushinsky": ["до 700 ₽", "Вт–Ср 10–18", "Чт–Сб 10–21", "Вс 10–18"],
-              "pushkinsky-muzey": ["до 1 700 ₽", "Вт–Ср 11–20", "Чт–Пт 11–21", "Сб 10–21", "Вс 11–20"],
-              "muzey-moskvy": ["11:00–21:00", "зависит от экспозиции"],
-              "ostankino-tower": ["от 1 300 ₽", "1 900 ₽", "22–23"],
-              "politehnichesky-muzey": ["Нужна запись", "от 400 ₽", "реконструкции"],
-              "kolomna-kreml": ["Бесплатно", "круглосуточно"],
-              "danilovsky-rynok": ["08:00–21:00"],
-              "dom-knigi-arbat": ["10:00–22:00"],
-              "biblio-globus": ["10:00–21:00"],
-              "katok-vdnh": ["Билет без проката коньков", "от 1 000 ₽"],
-          }
-          # ждём выкладку: маркер из последнего PR появляется на странице Лунного Кота
-          deadline = time.time() + 5 * 60
-          deployed = False
+          deadline = time.time() + 42 * 60
           while time.time() < deadline:
-              code, h = get("/places/lunny-kot-zelenograd/")
-              if code == 200 and "праздничные дни" in text_of(h):
-                  deployed = True
+              code, body, ct = get(f"/yandex_{CODE}.html")
+              if code == 200 and CODE in body:
                   break
               time.sleep(60)
-          if not deployed:
-              print("::error title=deploy::маркер не найден")
-              code, h = get("/places/lunny-kot-zelenograd/")
-              t = text_of(h)
-              title = (re.search(r"<title>([^<]*)</title>", h) or [0, ""])[1]
-              print(f"::notice title=diag::code={code} len={len(h)} title={title!r} textlen={len(t)}")
-              k = t.find("Билет")
-              print(f"::notice title=diag ticket::{t[max(0,k-80):k+240]!r}")
-              k = t.find("Ср–")
-              print(f"::notice title=diag hours::{t[max(0,k-60):k+120]!r}")
-              raw = h
-              print(f"::notice title=diag raw::main={raw.count('<main')} scripts={raw.count('<script')} new={'Билет на весь день' in raw} old={'Билеты: со среды' in raw} hol={'праздничные' in raw}")
-              s2 = re.sub(r"<script.*?</script>", "", raw, flags=re.S)
-              print(f"::notice title=diag stripped::len={len(s2)} head={s2[:200]!r}")
-              print(f"::notice title=diag tail::{s2[-300:]!r}")
-              ids = re.findall(r'buildId":"([^"]+)"', h)[:2]
-              print(f"::notice title=diag build::{ids}")
 
-          bad, ok_n = [], 0
-          for slug, needles in EXPECT.items():
-              code, h = get(f"/places/{slug}/")
-              if code != 200:
-                  bad.append(f"{slug}: HTTP {code}"); continue
-              t = text_of(h)
-              miss = [n for n in needles if n not in t]
-              if miss:
-                  bad.append(f"{slug}: нет {miss}")
-              else:
-                  ok_n += 1
-          NOT = {"lunny-kot-zelenograd": ["Ср–Вс 12–21", "Ср–Вс 12:00–21:00"], "panda-park-sokolniki": ["10:00–21:00"], "moskovsky-zoopark": ["07:00–24:00"]}
-          for slug, needles in NOT.items():
-              code, h = get(f"/places/{slug}/")
-              t = text_of(h) if code == 200 else ""
-              for n in needles:
-                  if n in t:
-                      bad.append(f"{slug}: осталось старое {n!r}")
-          for path in ["/", "/kuda-shodit/", "/kuda-shodit/v-dozhd/", "/kuda-shodit/parki/", "/kuda-shodit/muzei/", "/kuda-shodit/v-podmoskovye/", "/sitemap.xml"]:
-              code, h = get(path)
-              if code != 200:
-                  bad.append(f"{path}: HTTP {code}")
-          print(f"::notice title=places ok::{ok_n} из {len(EXPECT)}")
-          for b in bad[:9]:
+          bad = []
+          code, body, ct = get(f"/yandex_{CODE}.html")
+          print(f"::notice title=file::code={code} type={ct} body={body.strip()[:200]!r}")
+          if code != 200 or f"Verification: {CODE}" not in body:
+              bad.append("файл подтверждения не отдаётся")
+          for path in ["/", "/kuda-shodit/", "/places/vdnh/"]:
+              c, h, _ = get(path)
+              m = re.search(r'<meta name="yandex-verification" content="([^"]*)"', h)
+              print(f"::notice title=meta {path}::code={c} tag={m.group(1) if m else None}")
+              if c != 200 or not m or m.group(1) != CODE:
+                  bad.append(f"{path}: метатега нет")
+          c, h, _ = get("/robots.txt")
+          print(f"::notice title=robots::code={c} sitemap={'sitemap.xml' in h}")
+          c, h, _ = get("/sitemap.xml")
+          print(f"::notice title=sitemap::code={c} urls={h.count('<loc>')}")
+          for b in bad:
               print(f"::error title=problem::{b}")
           if not bad:
-              print("::notice title=result::всё на месте")
+              print("::notice title=result::файл и метатег на месте")
           sys.exit(1 if bad else 0)
           PY
