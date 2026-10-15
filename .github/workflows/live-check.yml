@@ -34,9 +34,10 @@ jobs:
                   return 0, ""
 
           def text_of(h):
+              h = re.sub(r"<script.*?</script>", "", h, flags=re.S)
+              h = re.sub(r"<style.*?</style>", "", h, flags=re.S)
               m = re.search(r"<main.*?</main>", h, re.S)
               m = m.group(0) if m else h
-              m = re.sub(r"<script.*?</script>", "", m, flags=re.S)
               t = html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m)))
               return re.sub(r"\s+", " ", t.replace(" ", " ").replace(" ", " "))
 
