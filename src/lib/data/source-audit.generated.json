@@ -730,20 +730,20 @@
   },
   "muzey-nazad-v-sssr-zvenigorod": {
     "source": "https://ussrmuseum.ru/",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-15",
     "status": "reviewed",
     "identity": true,
-    "address": false,
+    "address": true,
     "verified_fields": [
       "identity",
-      "price",
+      "address",
       "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ussrmuseum.ru/",
-      "opening_hours": "https://ussrmuseum.ru/contacts/",
-      "price": "https://ussrmuseum.ru/price-list/"
+      "address": "https://ussrmuseum.ru/contacts/",
+      "opening_hours": "https://ussrmuseum.ru/contacts/"
     }
   },
   "usadba-vyazemy-pushkin": {

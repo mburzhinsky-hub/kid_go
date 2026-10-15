@@ -10,7 +10,7 @@ import { demoForecast } from "../src/lib/forecast";
 import { DEFAULT_ORIGIN } from "../src/lib/location";
 import newCafes from "../src/lib/data/extra/msk-family-cafes.places.json";
 
-assert.equal(places.length, 146);
+assert.equal(places.length, 147);
 for (const id of BASELINE_SCENARIO_IDS) assert.ok(SCENARIO_LIBRARY.some((s) => s.id === id), `scenario ${id} must remain`);
 assert.equal(SCENARIO_LIBRARY.length, BASELINE_SCENARIO_IDS.length + ADDED_SCENARIO_IDS.length);
 assert.equal(places.filter((p) => p.menu_url).length, 64);
