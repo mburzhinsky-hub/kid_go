@@ -1,6 +1,6 @@
 name: live-check
 
-# Проверка боевого сайта после выкладки: файл и метатег подтверждения Яндекс.Вебмастера. Результат — в аннотациях задачи.
+# Проверка боевого сайта после выкладки: канонические адреса служебных страниц и noindex у офлайн-страницы.
 on:
   push:
     branches: [ci/live-check]
@@ -8,57 +8,63 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 55
     steps:
-      - name: Wait for deploy and check
+      - name: Wait for deploy to finish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 60
+          for i in $(seq 1 45); do
+            s=$(gh api "repos/${{ github.repository }}/actions/workflows/deploy-hosting.yml/runs?per_page=1" --jq '.workflow_runs[0] | "\(.status) \(.conclusion)"')
+            echo "deploy: $s"
+            case "$s" in completed*) break;; esac
+            sleep 60
+          done
+          echo "::notice title=deploy::$s"
+      - name: Check live pages
         shell: bash
         run: |
           python3 - <<'PY'
-          import re, sys, time, urllib.request, urllib.error
+          import re, sys, urllib.request, urllib.error
 
           SITE = "https://kids-go.fun"
-          CODE = "ecb6d0a4889299b5"
-          UA = "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)"
+          UA = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 
           def get(path):
               req = urllib.request.Request(SITE + path, headers={"User-Agent": UA})
               try:
                   r = urllib.request.urlopen(req, timeout=40)
-                  return r.status, r.read().decode("utf8", "replace"), r.headers.get("Content-Type", "")
+                  return r.status, r.read().decode("utf8", "replace")
               except urllib.error.HTTPError as e:
-                  return e.code, "", ""
+                  return e.code, ""
               except Exception:
-                  return 0, "", ""
-
-          deadline = time.time() + 42 * 60
-          while time.time() < deadline:
-              code, body, ct = get(f"/yandex_{CODE}.html")
-              if code == 200 and CODE in body:
-                  break
-              time.sleep(60)
+                  return 0, ""
 
           bad = []
-          code, body, ct = get(f"/yandex_{CODE}.html")
-          print(f"::notice title=file::code={code} type={ct} body={body.strip()[:200]!r}")
-          if code != 200 or f"Verification: {CODE}" not in body:
-              bad.append("файл подтверждения не отдаётся")
-          for path in ["/", "/kuda-shodit/", "/places/vdnh/"]:
-              c, h, _ = get(path)
-              m = re.search(r'<meta name="yandex-verification" content="([^"]*)"', h)
-              print(f"::notice title=meta {path}::code={c} tag={m.group(1) if m else None}")
-              if c != 200 or not m or m.group(1) != CODE:
-                  bad.append(f"{path}: метатега нет")
-          c, h, _ = get("/robots.txt")
-          print(f"::notice title=robots::code={c} sitemap={'sitemap.xml' in h}")
-          c, h, _ = get("/sitemap.xml")
-          print(f"::notice title=sitemap::code={c} urls={h.count('<loc>')}")
+          for p in ["/planner/", "/photo-credits/", "/privacy/", "/rules/"]:
+              c, h = get(p)
+              m = re.search(r'<link rel="canonical" href="([^"]*)"', h)
+              print(f"::notice title=canonical {p}::code={c} canonical={m.group(1) if m else None}")
+              if c != 200 or not m or m.group(1) != SITE + p:
+                  bad.append(f"{p}: canonical {m.group(1) if m else None}")
+          c, h = get("/offline.html")
+          print(f"::notice title=offline::code={c} noindex={'noindex' in h}")
+          if c != 200 or "noindex" not in h:
+              bad.append("offline.html: нет noindex")
+          # остальное не сломалось
+          for p in ["/", "/kuda-shodit/", "/places/vdnh/", "/sitemap.xml", "/yandex_ecb6d0a4889299b5.html"]:
+              c, h = get(p)
+              if c != 200:
+                  bad.append(f"{p}: HTTP {c}")
           for b in bad:
               print(f"::error title=problem::{b}")
           if not bad:
-              print("::notice title=result::файл и метатег на месте")
+              print("::notice title=result::всё на месте")
           sys.exit(1 if bad else 0)
           PY
