@@ -1,0 +1,142 @@
+name: partner-check
+
+# Проверка боевого сайта после выкладки фото от музея: ждёт конца выкладки, затем смотрит страницу места, снимки и подпись.
+on:
+  push:
+    branches: [ci/partner-check]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check museum page
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import html, json, os, re, sys, time, urllib.request, urllib.error
+
+          SITE = "https://kids-go.fun"
+          SLUG = "muzey-nazad-v-sssr-zvenigorod"
+          UA = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+          REPO = os.environ["GITHUB_REPOSITORY"]
+
+          def api(path):
+              req = urllib.request.Request(f"https://api.github.com/repos/{REPO}/{path}", headers={"Authorization": "Bearer " + os.environ["GH_TOKEN"], "Accept": "application/vnd.github+json"})
+              return json.load(urllib.request.urlopen(req, timeout=30))
+
+          # ждём окончания выкладки последнего коммита main
+          deadline = time.time() + 34 * 60
+          while True:
+              runs = api("actions/workflows/deploy-hosting.yml/runs?per_page=1&branch=main")["workflow_runs"]
+              r = runs[0] if runs else None
+              if r:
+                  print("deploy:", r["id"], r["head_sha"][:7], r["status"], r["conclusion"], flush=True)
+              if r and r["status"] == "completed":
+                  if r["conclusion"] != "success":
+                      print(f"::error title=deploy::выкладка закончилась как {r['conclusion']}"); sys.exit(1)
+                  break
+              if time.time() > deadline:
+                  print("::error title=deploy::выкладка не закончилась за 34 минуты"); sys.exit(1)
+              time.sleep(30)
+          print(f"::notice title=deploy::{r['id']} {r['head_sha'][:7]} success")
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, *a, **k):
+                  return None
+          opener = urllib.request.build_opener(NoRedirect)
+
+          def get(path_or_url, head=False, tries=3):
+              url = path_or_url if path_or_url.startswith("http") else SITE + path_or_url
+              last = None
+              for _ in range(tries):
+                  req = urllib.request.Request(url, headers={"User-Agent": UA}, method="HEAD" if head else "GET")
+                  try:
+                      r = opener.open(req, timeout=40)
+                      return r.status, r.read() if not head else b"", dict(r.headers)
+                  except urllib.error.HTTPError as e:
+                      return e.code, e.read() if not head else b"", dict(e.headers)
+                  except Exception as e:
+                      last = repr(e); time.sleep(3)
+              print(f"::warning title=network::{url}: {last}")
+              return 0, b"", {}
+
+          def text_of(h):
+              h = re.sub(r"<script.*?</script>", "", h, flags=re.S)
+              mains = re.findall(r"<main.*?</main>", h, re.S)
+              m = " ".join(mains) if mains else h
+              return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m)))
+
+          bad = []
+          def check(ok, msg):
+              if not ok: bad.append(msg)
+              return ok
+
+          data = json.load(open("src/lib/data/partner-photos.json", encoding="utf8"))[SLUG]
+          ids = [p["i"] for p in data["photos"]]
+
+          code, raw, _ = get(f"/places/{SLUG}/")
+          h = raw.decode("utf8", "replace")
+          check(code == 200, f"page: HTTP {code}")
+          t = text_of(h)
+          check("Фото: Музей «Назад в СССР». Снимки предоставлены музеем, уменьшены." in t, "credit line not found in page text")
+          check("Музей положительных эмоций и воспоминаний" in t, "new subtitle missing")
+          check("сувенирная лавка и буфет" in t.replace("Читать полностью", "") or "сувенирная лавка и буфет" in h, "description (лавка и буфет) missing")
+          check("Интерактивный музей советского детства" not in h, "old subtitle still present")
+          canon = (re.search(r'<link rel="canonical" href="([^"]*)"', h) or [0, ""])[1]
+          check(canon == f"{SITE}/places/{SLUG}/", f"canonical {canon!r}")
+          check(not re.search(r'<meta name="robots" content="[^"]*noindex', h), "noindex on page")
+          og = (re.search(r'<meta property="og:image" content="([^"]*)"', h) or [0, ""])[1]
+          check(og == f"{SITE}/partner/{ids[0]}-og.jpg", f"og:image {og!r}")
+          c, b, hd = get(og)
+          check(c == 200 and hd.get("Content-Type", "").startswith("image/jpeg") and len(b) > 20000, f"og image: {c} {hd.get('Content-Type')} {len(b)}")
+          for i in ids:
+              check(f"/partner/{i}-" in h, f"photo {i} not referenced in HTML/json-ld")
+          ld = re.findall(r'<script type="application/ld\+json">(.*?)</script>', h, re.S)
+          check(any(f"/partner/{ids[0]}-1440.webp" in x for x in ld), "json-ld images missing partner photo")
+
+          sizes = []
+          for i in ids:
+              for w in (480, 960, 1440):
+                  c, b, hd = get(f"/partner/{i}-{w}.webp")
+                  ok = c == 200 and hd.get("Content-Type", "").startswith("image/webp") and len(b) > 5000 and b[:4] == b"RIFF"
+                  check(ok, f"/partner/{i}-{w}.webp: {c} {hd.get('Content-Type')} {len(b)}")
+                  sizes.append(len(b))
+          print(f"::notice title=museum page::HTTP {code}; photos {len(ids)}x3 files, bytes min={min(sizes)} max={max(sizes)}; og={og}")
+
+          # страница авторов
+          c, raw, _ = get("/photo-credits/")
+          tt = text_of(raw.decode("utf8", "replace"))
+          check(c == 200 and "Музей «Назад в СССР»: 7 снимков, предоставлены музеем" in tt, f"/photo-credits/: {c}, partner block missing")
+          check("Из Commons —" in tt and "от самих мест — 7 снимков, 1 место" in tt, "/photo-credits/: counts line wrong")
+          m = re.search(r"Из Commons — [^.]*\.", tt)
+          print(f"::notice title=photo-credits::{c} {m.group(0) if m else 'no counts line'}")
+
+          # Commons-подпись у другого места не сломалась
+          c, raw, _ = get("/places/park-gorkogo/")
+          tg = text_of(raw.decode("utf8", "replace"))
+          check(c == 200 and "Wikimedia Commons, снимки уменьшены и обрезаны." in tg, f"park-gorkogo credit text: {c}")
+          check("Снимки предоставлены" not in tg, "park-gorkogo: partner wording leaked")
+
+          # сервис-воркер знает про /partner/
+          c, raw, hd = get("/sw.js")
+          check(c == 200 and "/partner/" in raw.decode("utf8", "replace"), f"sw.js: {c}, /partner/ missing")
+
+          # лёгкая проверка соседних страниц
+          for p in ("/", "/adventures/", "/places/muzey-russkogo-deserta-zvenigorod/", "/sitemap.xml"):
+              c, _, _ = get(p)
+              check(c == 200, f"{p}: HTTP {c}")
+
+          if bad:
+              for b_ in bad: print(f"::error title=partner-check::{b_}")
+              sys.exit(1)
+          print("::notice title=partner-check result::ALL CHECKS PASSED")
+          PY
