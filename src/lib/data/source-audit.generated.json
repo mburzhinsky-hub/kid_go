@@ -357,18 +357,22 @@
   },
   "arkhangelskoe": {
     "source": "https://arhangelskoe.su/for_visitor/working_hours/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://arhangelskoe.su/for_visitor/working_hours/",
-      "address": "https://arhangelskoe.su/for_visitor/working_hours/"
+      "address": "https://arhangelskoe.su/for_visitor/working_hours/",
+      "opening_hours": "https://arhangelskoe.su/for_visitor/working_hours/",
+      "price": "https://arhangelskoe.su/for_visitor/"
     }
   },
   "norway-park-krasnogorsk": {
@@ -449,20 +453,22 @@
   },
   "muzey-tekhniki-zadorozhnogo": {
     "source": "https://tmuseum.ru/kontakty/",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://tmuseum.ru/kontakty/",
       "address": "https://tmuseum.ru/kontakty/",
-      "opening_hours": "https://tmuseum.ru/kontakty/"
+      "opening_hours": "https://tmuseum.ru/kontakty/",
+      "price": "https://tmuseum.ru/czeny/"
     }
   },
   "muzey-materinstva-ilinskoe": {
@@ -609,20 +615,22 @@
   },
   "unaboom-odintsovo": {
     "source": "https://unaboom.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "price"
     ],
     "verified_family_fields": [
       "kids_menu"
     ],
     "field_sources": {
       "identity": "https://unaboom.ru/",
-      "address": "https://unaboom.ru/"
+      "address": "https://unaboom.ru/",
+      "price": "https://unaboom.ru/"
     }
   },
   "termy-odintsovo": {
@@ -687,14 +695,15 @@
   },
   "muzey-lego-lets-go-zvenigorod": {
     "source": "https://letsgo-museum.ru/",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [
       "parking",
@@ -703,7 +712,8 @@
     "field_sources": {
       "identity": "https://letsgo-museum.ru/",
       "address": "https://letsgo-museum.ru/",
-      "opening_hours": "https://letsgo-museum.ru/"
+      "opening_hours": "https://letsgo-museum.ru/",
+      "price": "https://letsgo-museum.ru/"
     }
   },
   "muzey-russkogo-deserta-zvenigorod": {
@@ -748,18 +758,20 @@
   },
   "usadba-vyazemy-pushkin": {
     "source": "https://museum-gol.ru/visitors/",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
       "identity",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://museum-gol.ru/visitors/",
-      "opening_hours": "https://museum-gol.ru/visitors/tickets/"
+      "opening_hours": "https://museum-gol.ru/visitors/tickets/",
+      "price": "https://museum-gol.ru/visitors/tickets/"
     }
   },
   "park-malevicha-razdory": {
@@ -856,18 +868,20 @@
   },
   "dolgoprudnensky-muzey": {
     "source": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei",
-      "address": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei"
+      "address": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei",
+      "price": "https://dolgoprudnymuseum.ru/tseny-i-uslugi/"
     }
   },
   "kidburg-zelenopark": {
@@ -892,20 +906,24 @@
   },
   "peshki-park": {
     "source": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [
       "parking"
     ],
     "field_sources": {
       "identity": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii",
-      "address": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii"
+      "address": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii",
+      "opening_hours": "https://peshki-park.ru/contacts/",
+      "price": "https://peshki-park.ru/attractions/tseny/"
     }
   },
   "teatr-nash-dom-khimki": {
@@ -1013,18 +1031,20 @@
   },
   "abramtsevo": {
     "source": "https://ru.wikipedia.org/wiki/Абрамцево_(музей-заповедник)",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Абрамцево_(музей-заповедник)",
-      "address": "https://ru.wikipedia.org/wiki/Абрамцево_(музей-заповедник)"
+      "address": "https://ru.wikipedia.org/wiki/Абрамцево_(музей-заповедник)",
+      "opening_hours": "https://abramtsevo.net/kontakti/proezd.html"
     }
   },
   "melikhovo-chekhov": {
@@ -1129,20 +1149,22 @@
   },
   "kolomna-pastila-muzey": {
     "source": "https://2gis.ru/kolomna/firm/70000001023964852",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [
       "booking_required"
     ],
     "field_sources": {
       "identity": "https://2gis.ru/kolomna/firm/70000001023964852",
-      "address": "https://2gis.ru/kolomna/firm/70000001023964852"
+      "address": "https://2gis.ru/kolomna/firm/70000001023964852",
+      "opening_hours": "https://kolomnapastila.ru/contacts/"
     }
   },
   "kolomna-kreml": {
@@ -1272,38 +1294,42 @@
   },
   "zoomuzey-msu": {
     "source": "https://ru.wikipedia.org/wiki/Зоологический_музей_МГУ",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Зоологический_музей_МГУ",
       "address": "https://ru.wikipedia.org/wiki/Зоологический_музей_МГУ",
-      "opening_hours": "http://zmmu.org/"
+      "opening_hours": "http://zmmu.org/",
+      "price": "http://zmmu.org/"
     }
   },
   "gim": {
     "source": "https://ru.wikipedia.org/wiki/Государственный_исторический_музей",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Государственный_исторический_музей",
       "address": "https://ru.wikipedia.org/wiki/Государственный_исторический_музей",
-      "opening_hours": "https://shm.ru/visit/kontakty-i-rezhim-raboty/"
+      "opening_hours": "https://shm.ru/visit/kontakty-i-rezhim-raboty/",
+      "price": "https://shm.ru/visit/tickets/gim/"
     }
   },
   "tretyakovka-lavrushinsky": {
@@ -1430,18 +1456,20 @@
   },
   "dom-muzey-vasnecova": {
     "source": "https://ru.wikipedia.org/wiki/Дом-музей_В._М._Васнецова",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Дом-музей_В._М._Васнецова",
-      "address": "https://ru.wikipedia.org/wiki/Дом-музей_В._М._Васнецова"
+      "address": "https://ru.wikipedia.org/wiki/Дом-музей_В._М._Васнецова",
+      "opening_hours": "https://www.tretyakovgallery.ru/for-visitors/museums/dom-muzey-v-vasnetsova/"
     }
   },
   "ostankino-tower": {
@@ -1464,34 +1492,40 @@
   },
   "panorama360-federation": {
     "source": "https://ru.wikipedia.org/wiki/Башня_Федерация",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
       "identity",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [
       "parking"
     ],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Башня_Федерация",
-      "opening_hours": "https://pnr360.ru/bilety-i-tseny/"
+      "opening_hours": "https://pnr360.ru/bilety-i-tseny/",
+      "price": "https://pnr360.ru/bilety-i-tseny/"
     }
   },
   "kidzania-aviapark": {
     "source": "https://kidzaniamoscow.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity"
+      "identity",
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://kidzaniamoscow.ru/"
+      "identity": "https://kidzaniamoscow.ru/",
+      "opening_hours": "https://kidzaniamoscow.ru/",
+      "price": "https://kidzaniamoscow.ru/"
     }
   },
   "katok-vdnh": {
@@ -1713,13 +1747,14 @@
   },
   "tsaritsyno-park": {
     "source": "https://tsaritsyno-museum.ru/kids-2/kids-infrastructure/",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
       "identity",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [
       "baby_room",
@@ -1727,7 +1762,8 @@
     ],
     "field_sources": {
       "identity": "https://tsaritsyno-museum.ru/kids-2/kids-infrastructure/",
-      "opening_hours": "https://tsaritsyno-museum.ru/the_museum/prices-and-benefits/"
+      "opening_hours": "https://tsaritsyno-museum.ru/the_museum/prices-and-benefits/",
+      "price": "https://tsaritsyno-museum.ru/the_museum/prices-and-benefits/"
     }
   },
   "tsaritsyno-verevochny-park": {
@@ -1786,14 +1822,15 @@
   },
   "akvapark-moreon": {
     "source": "https://more-on.ru/",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [
       "parking"
@@ -1801,7 +1838,8 @@
     "field_sources": {
       "identity": "https://more-on.ru/",
       "address": "https://more-on.ru/",
-      "opening_hours": "https://more-on.ru/tarifs/"
+      "opening_hours": "https://more-on.ru/tarifs/",
+      "price": "https://more-on.ru/tarifs/"
     }
   },
   "bitsevsky-les": {
@@ -1838,20 +1876,24 @@
   },
   "kuskovo": {
     "source": "https://ru.wikipedia.org/wiki/Кусково",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-16",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [
       "stroller_friendly"
     ],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Кусково",
-      "address": "https://ru.wikipedia.org/wiki/Кусково"
+      "address": "https://ru.wikipedia.org/wiki/Кусково",
+      "opening_hours": "https://kuskovo.ru/posetitelyam/rezhim-raboty-muzeya/",
+      "price": "https://kuskovo.ru/posetitelyam/stoimost_biletov/"
     }
   },
   "neskuchny-sad": {

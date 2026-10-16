@@ -86,7 +86,7 @@
       0,
       500
     ],
-    "family_budget": 900,
+    "family_budget": 1000,
     "age": [
       2,
       12
@@ -102,7 +102,7 @@
     "parking": false,
     "booking": false,
     "hours": [
-      "10:00-18:00",
+      null,
       "10:00-18:00",
       "10:00-18:00",
       "10:00-18:00",
