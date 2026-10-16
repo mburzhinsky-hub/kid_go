@@ -1,0 +1,987 @@
+[
+{
+"n": 1,
+"slug": "abramtsevo",
+"group": "D",
+"name": "Музей-заповедник «Абрамцево»",
+"town": "Абрамцево",
+"link": "https://abramtsevo.net/kontakti/proezd.html",
+"cands": []
+},
+{
+"n": 2,
+"slug": "kuskovo",
+"group": "D",
+"name": "Усадьба «Кусково»",
+"town": "Вешняки (ВАО)",
+"link": "https://kuskovo.ru/posetitelyam/rezhim-raboty-muzeya/",
+"cands": []
+},
+{
+"n": 3,
+"slug": "arkhangelskoe",
+"group": "D",
+"name": "Усадьба «Архангельское»",
+"town": "Красногорск",
+"link": "https://arhangelskoe.su/for_visitor/working_hours/",
+"cands": []
+},
+{
+"n": 4,
+"slug": "gbs-ran",
+"group": "D",
+"name": "Главный ботанический сад РАН",
+"town": "Останкинский",
+"link": "https://gbsad.ru/",
+"cands": []
+},
+{
+"n": 5,
+"slug": "kidzania-aviapark",
+"group": "D",
+"name": "Кидзания в «Авиапарке»",
+"town": "Хорошёвский",
+"link": "https://kidzaniamoscow.ru/",
+"cands": []
+},
+{
+"n": 6,
+"slug": "muzey-zhd-tehniki",
+"group": "F",
+"name": "Музей железнодорожной техники на Рижском",
+"town": "Алексеевский (СВАО)",
+"link": "https://museum.cpm.moscow/museums/430",
+"cands": []
+},
+{
+"n": 7,
+"slug": "depo-food-hall",
+"group": "F",
+"name": "Фуд-холл «Депо»",
+"town": "Беговой",
+"link": "https://depomoscow.ru/",
+"cands": []
+},
+{
+"n": 8,
+"slug": "usadba-vyazemy-pushkin",
+"group": "F",
+"name": "Усадьба Вяземы (музей-заповедник Пушкина)",
+"town": "Большие Вязёмы",
+"link": "https://museum-gol.ru/visitors/",
+"cands": []
+},
+{
+"n": 9,
+"slug": "local-kids-vnukovo",
+"group": "F",
+"name": "Local Kids",
+"town": "Внуково",
+"link": "https://localkids.clients.site/",
+"cands": []
+},
+{
+"n": 10,
+"slug": "vasilchuki-chaihona-metropolis",
+"group": "F",
+"name": "Vasilchuki Chaihona №1 — Метрополис",
+"town": "Войковский",
+"link": "https://chaihona.ru/restaurants/leningradskoe-sosse-16a",
+"cands": []
+},
+{
+"n": 11,
+"slug": "klich-zilart",
+"group": "F",
+"name": "KLICH",
+"town": "Даниловский",
+"link": "https://klich.moscow/kontakty",
+"cands": []
+},
+{
+"n": 12,
+"slug": "piero-zilart",
+"group": "F",
+"name": "Пьеро",
+"town": "Даниловский",
+"link": "https://xn--e1asbf2d.xn--p1ai/",
+"cands": []
+},
+{
+"n": 13,
+"slug": "tutta-la-vita",
+"group": "F",
+"name": "Tutta La Vita",
+"town": "Замоскворечье",
+"link": "https://tuttalavita.ru/",
+"cands": []
+},
+{
+"n": 14,
+"slug": "muzey-lego-lets-go-zvenigorod",
+"group": "F",
+"name": "Музей LEt’s GO",
+"town": "Звенигород",
+"link": "https://letsgo-museum.ru/",
+"cands": []
+},
+{
+"n": 15,
+"slug": "russkoe-podvorye",
+"group": "F",
+"name": "Русское Подворье",
+"town": "Зюзино",
+"link": "https://russkoepodvorie.com/",
+"cands": []
+},
+{
+"n": 16,
+"slug": "vasilchuki-chaihona-dmitriya-ulyanova",
+"group": "F",
+"name": "Vasilchuki Chaihona №1 — Дмитрия Ульянова",
+"town": "Котловка",
+"link": "https://chaihona.ru/restaurants/dmitriya-ulyanova-51",
+"cands": []
+},
+{
+"n": 17,
+"slug": "muzey-materinstva-ilinskoe",
+"group": "F",
+"name": "Музей материнства и младенчества",
+"town": "Красногорск",
+"link": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+"cands": []
+},
+{
+"n": 18,
+"slug": "muzey-tekhniki-zadorozhnogo",
+"group": "F",
+"name": "Музей техники Вадима Задорожного",
+"town": "Красногорск",
+"link": "https://tmuseum.ru/kontakty/",
+"cands": []
+},
+{
+"n": 19,
+"slug": "park-patriot-kubinka",
+"group": "F",
+"name": "Парк «Патриот»",
+"town": "Кубинка",
+"link": "https://parkpatriot.ru/",
+"cands": []
+},
+{
+"n": 20,
+"slug": "losiny-ostrov",
+"group": "F",
+"name": "Национальный парк «Лосиный остров»",
+"town": "Лосиноостровский (СВАО)",
+"link": "https://losinyiostrov.ru/",
+"cands": []
+},
+{
+"n": 21,
+"slug": "ugolok-durova",
+"group": "F",
+"name": "Театр зверей имени Дурова («Уголок Дурова»)",
+"town": "Мещанский",
+"link": "https://www.ugolokdurova.ru/",
+"cands": []
+},
+{
+"n": 22,
+"slug": "teatr-obrazcova",
+"group": "F",
+"name": "Театр кукол имени Образцова",
+"town": "Мещанский",
+"link": "https://puppet.ru/",
+"cands": []
+},
+{
+"n": 23,
+"slug": "cirk-nikulina",
+"group": "F",
+"name": "Цирк Никулина на Цветном бульваре",
+"town": "Мещанский",
+"link": "https://circusnikulin.ru/",
+"cands": []
+},
+{
+"n": 24,
+"slug": "kids-castle-mitino",
+"group": "F",
+"name": "Kids Castle — Митино",
+"town": "Митино",
+"link": "https://kids-castle.pro/mitino",
+"cands": []
+},
+{
+"n": 25,
+"slug": "muzey-transporta",
+"group": "F",
+"name": "Музей транспорта Москвы",
+"town": "Москва",
+"link": "https://mtmuseum.ru/",
+"cands": []
+},
+{
+"n": 26,
+"slug": "park-gorkogo",
+"group": "F",
+"name": "Парк Горького",
+"town": "Москва",
+"link": "https://parkgorkogo.ru/",
+"cands": [
+"https://park-gorkogo.com/"
+]
+},
+{
+"n": 27,
+"slug": "park-zaryadye",
+"group": "F",
+"name": "Парк Зарядье",
+"town": "Москва",
+"link": "https://welcome.zaryadyepark.ru/",
+"cands": []
+},
+{
+"n": 28,
+"slug": "centralny-detsky-magazin",
+"group": "F",
+"name": "Центральный Детский Магазин",
+"town": "Москва",
+"link": "https://cdm-moscow.ru/",
+"cands": []
+},
+{
+"n": 29,
+"slug": "misti-park-odintsovo",
+"group": "F",
+"name": "Мисти Парк Одинцово",
+"town": "Одинцово",
+"link": "https://mistyparkodi.ru/",
+"cands": []
+},
+{
+"n": 30,
+"slug": "termy-odintsovo",
+"group": "F",
+"name": "Термы Одинцово",
+"town": "Одинцово",
+"link": "https://therms.ru/odincovo",
+"cands": []
+},
+{
+"n": 31,
+"slug": "unaboom-odintsovo",
+"group": "F",
+"name": "Юнабум",
+"town": "Одинцово",
+"link": "https://unaboom.ru/",
+"cands": []
+},
+{
+"n": 32,
+"slug": "pokrovskoe-streshnevo",
+"group": "F",
+"name": "Парк «Покровское-Стрешнево»",
+"town": "Покровское-Стрешнево (СЗАО)",
+"link": "https://museum.cpm.moscow/museums/278",
+"cands": []
+},
+{
+"n": 33,
+"slug": "jooie-presnya",
+"group": "F",
+"name": "Jooie — Пресня",
+"town": "Пресненский",
+"link": "https://jooiecafe.ru/",
+"cands": []
+},
+{
+"n": 34,
+"slug": "vasilchuki-chaihona-afimall",
+"group": "F",
+"name": "Vasilchuki Chaihona №1 — Афимолл",
+"town": "Пресненский",
+"link": "https://chaihona.ru/restaurants/trc-afimoll-siti",
+"cands": []
+},
+{
+"n": 35,
+"slug": "bolshoy-moscow-cirk",
+"group": "F",
+"name": "Большой Московский государственный цирк",
+"town": "Раменки (ЗАО)",
+"link": "https://bigcirk.moscow/",
+"cands": []
+},
+{
+"n": 36,
+"slug": "teatr-sats",
+"group": "F",
+"name": "Музыкальный театр имени Наталии Сац",
+"town": "Раменки (ЗАО)",
+"link": "https://teatr-sats.ru/",
+"cands": []
+},
+{
+"n": 37,
+"slug": "kidburg-zelenopark",
+"group": "F",
+"name": "КидБург Зеленопарк",
+"town": "Ржавки (рядом с Зеленоградом)",
+"link": "https://zelenopark.kidburg.ru/",
+"cands": []
+},
+{
+"n": 38,
+"slug": "park-severnoe-tushino",
+"group": "F",
+"name": "Парк «Северное Тушино»",
+"town": "Северное Тушино (СЗАО)",
+"link": "https://mosparks.ru/about/park-severnoe-tushino",
+"cands": []
+},
+{
+"n": 39,
+"slug": "stroginskaya-poima",
+"group": "F",
+"name": "Строгинская пойма",
+"town": "Строгино (СЗАО)",
+"link": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/",
+"cands": []
+},
+{
+"n": 40,
+"slug": "sad-ermitazh",
+"group": "F",
+"name": "Сад «Эрмитаж»",
+"town": "Тверской",
+"link": "https://www.mosgorsad.ru/",
+"cands": []
+},
+{
+"n": 41,
+"slug": "ribambelle-vremena-goda",
+"group": "F",
+"name": "Ribambelle — Времена года",
+"town": "Фили-Давыдково",
+"link": "https://ribambelle.ru/kontakty",
+"cands": []
+},
+{
+"n": 42,
+"slug": "park-fili",
+"group": "F",
+"name": "Филёвский парк",
+"town": "Фили-Давыдково (ЗАО)",
+"link": "https://parkfili.ru/",
+"cands": []
+},
+{
+"n": 43,
+"slug": "repast-cafe",
+"group": "F",
+"name": "Repast Cafe",
+"town": "Филёвский Парк",
+"link": "https://repastcafe.com/",
+"cands": []
+},
+{
+"n": 44,
+"slug": "detmir-mega-himki",
+"group": "F",
+"name": "Детский мир в МЕГА Химки",
+"town": "Химки",
+"link": "https://www.detmir.ru/shops/item/id/176/",
+"cands": []
+},
+{
+"n": 45,
+"slug": "serebryany-bor",
+"group": "F",
+"name": "Серебряный Бор",
+"town": "Хорошёво-Мнёвники (СЗАО)",
+"link": "https://xn--90ah2agcb.xn--p1ai/",
+"cands": []
+},
+{
+"n": 46,
+"slug": "kitchen-khodynka",
+"group": "F",
+"name": "Kitchen — Ходынка",
+"town": "Хорошёвский",
+"link": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/",
+"cands": []
+},
+{
+"n": 47,
+"slug": "tsaritsyno-park",
+"group": "F",
+"name": "Музей-заповедник «Царицыно» (парк)",
+"town": "Царицыно (ЮАО)",
+"link": "https://tsaritsyno-museum.ru/kids-2/kids-infrastructure/",
+"cands": []
+},
+{
+"n": 48,
+"slug": "melikhovo-chekhov",
+"group": "F",
+"name": "Музей-заповедник А. П. Чехова «Мелихово»",
+"town": "Чехов",
+"link": "https://chekhovmuseum.com/",
+"cands": []
+},
+{
+"n": 49,
+"slug": "iyul-detyam",
+"group": "F",
+"name": "Июль Детям",
+"town": "Южное Бутово",
+"link": "https://julydetyam.ru/onas",
+"cands": []
+},
+{
+"n": 50,
+"slug": "akvapark-moreon",
+"group": "F",
+"name": "Аквапарк «Мореон»",
+"town": "Ясенево (ЮЗАО)",
+"link": "https://more-on.ru/",
+"cands": []
+},
+{
+"n": 51,
+"slug": "gorki-leninskie",
+"group": "A",
+"name": "Музей-заповедник «Горки Ленинские»",
+"town": "Горки Ленинские",
+"link": "https://2gis.ru/moscow/firm/4504128908501846",
+"cands": [
+"https://shm.ru/"
+]
+},
+{
+"n": 52,
+"slug": "dolgoprudnensky-muzey",
+"group": "A",
+"name": "Долгопрудненский историко-художественный музей",
+"town": "Долгопрудный",
+"link": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei",
+"cands": []
+},
+{
+"n": 53,
+"slug": "muzey-pobedy",
+"group": "A",
+"name": "Музей Победы",
+"town": "Дорогомилово",
+"link": "https://ru.wikipedia.org/wiki/Центральный_музей_Великой_Отечественной_войны",
+"cands": [
+"https://victorymuseum.ru/"
+]
+},
+{
+"n": 54,
+"slug": "park-pobedy-poklonnaya-gora",
+"group": "A",
+"name": "Парк Победы на Поклонной горе",
+"town": "Дорогомилово (ЗАО)",
+"link": "https://ru.wikipedia.org/wiki/Парк_Победы_(Москва)",
+"cands": [
+"https://victorymuseum.ru/"
+]
+},
+{
+"n": 55,
+"slug": "shkolnoe-ozero-zelenograd",
+"group": "A",
+"name": "Парк «Школьное озеро»",
+"town": "Зеленоград",
+"link": "https://ru.wikipedia.org/wiki/Зеленоград",
+"cands": []
+},
+{
+"n": 56,
+"slug": "izmailovsky-kreml",
+"group": "A",
+"name": "Измайловский кремль",
+"town": "Измайлово (ВАО)",
+"link": "https://ru.wikipedia.org/wiki/Измайловский_кремль",
+"cands": [
+"https://kremlin-izmailovo.com/"
+]
+},
+{
+"n": 57,
+"slug": "izmailovsky-park",
+"group": "A",
+"name": "Измайловский парк",
+"town": "Измайлово (ВАО)",
+"link": "https://ru.wikipedia.org/wiki/Измайловский_парк",
+"cands": []
+},
+{
+"n": 58,
+"slug": "istrinsky-park-kultury",
+"group": "A",
+"name": "Истринский парк культуры и отдыха",
+"town": "Истра",
+"link": "https://2gis.ru/istra/firm/70000001060278185",
+"cands": []
+},
+{
+"n": 59,
+"slug": "lucky-llama-istra",
+"group": "A",
+"name": "Парк развлечений «Лаки Лама»",
+"town": "Истра",
+"link": "https://2gis.ru/istra/firm/70000001101893486",
+"cands": [
+"https://luckyllama.ru/"
+]
+},
+{
+"n": 60,
+"slug": "kolomna-pastila-muzey",
+"group": "A",
+"name": "Музей истории «Коломенская пастила»",
+"town": "Коломна",
+"link": "https://2gis.ru/kolomna/firm/70000001023964852",
+"cands": [
+"https://kolomnapastila.ru/"
+]
+},
+{
+"n": 61,
+"slug": "kolomna-muzey-lyubimoy-igrushki",
+"group": "A",
+"name": "Музей любимой игрушки",
+"town": "Коломна",
+"link": "https://2gis.ru/kolomna/firm/70000001023926045",
+"cands": []
+},
+{
+"n": 62,
+"slug": "norway-park-krasnogorsk",
+"group": "A",
+"name": "Верёвочный парк Norway Park Красногорск",
+"town": "Красногорск",
+"link": "https://welcome.mosreg.ru/ideas/progulki-na-vysote-devatietaznogo-doma",
+"cands": [
+"https://norwaypark.ru/"
+]
+},
+{
+"n": 63,
+"slug": "krylatskie-kholmy",
+"group": "A",
+"name": "Парк «Крылатские холмы»",
+"town": "Крылатское (ЗАО)",
+"link": "https://ru.wikipedia.org/wiki/Крылатские_холмы",
+"cands": []
+},
+{
+"n": 64,
+"slug": "kuzminki-park",
+"group": "A",
+"name": "Парк «Кузьминки»",
+"town": "Кузьминки (ЮВАО)",
+"link": "https://ru.wikipedia.org/wiki/Кузьминки_(парк)",
+"cands": []
+},
+{
+"n": 65,
+"slug": "park-druzhby",
+"group": "A",
+"name": "Парк Дружбы",
+"town": "Левобережный (САО)",
+"link": "https://walking.sport.mos.ru/parkdruzhby/",
+"cands": []
+},
+{
+"n": 66,
+"slug": "park-severny-rechnoy",
+"group": "A",
+"name": "Парк Северного речного вокзала",
+"town": "Левобережный (САО)",
+"link": "https://ru.wikipedia.org/wiki/Северный_речной_вокзал",
+"cands": []
+},
+{
+"n": 67,
+"slug": "lefortovsky-park",
+"group": "A",
+"name": "Лефортовский парк",
+"town": "Лефортово (ЮВАО)",
+"link": "https://ru.wikipedia.org/wiki/Лефортовский_парк",
+"cands": []
+},
+{
+"n": 68,
+"slug": "lianozovsky-park",
+"group": "A",
+"name": "Лианозовский парк",
+"town": "Лианозово (СВАО)",
+"link": "https://ru.wikipedia.org/wiki/Лианозовский_парк",
+"cands": []
+},
+{
+"n": 69,
+"slug": "muzey-lozhki-solnechnogorsk",
+"group": "A",
+"name": "Музей «Ложки»",
+"town": "Ложки",
+"link": "https://welcome.mosreg.ru/ideas/muzej-lozki",
+"cands": []
+},
+{
+"n": 70,
+"slug": "natashinsky-park-lyubertsy",
+"group": "A",
+"name": "Наташинский парк (Наташинские пруды)",
+"town": "Люберцы",
+"link": "https://2gis.ru/lyubertsy/firm/70000001022981485",
+"cands": []
+},
+{
+"n": 71,
+"slug": "lyublino-usadba",
+"group": "A",
+"name": "Усадьба Люблино",
+"town": "Люблино (ЮВАО)",
+"link": "https://ru.wikipedia.org/wiki/Люблино_(усадьба)",
+"cands": []
+},
+{
+"n": 72,
+"slug": "park-850-moscow",
+"group": "A",
+"name": "Парк 850-летия Москвы",
+"town": "Марьино (ЮВАО)",
+"link": "https://ru.wikipedia.org/wiki/Парк_850-летия_Москвы",
+"cands": []
+},
+{
+"n": 73,
+"slug": "dom-muzey-vasnecova",
+"group": "A",
+"name": "Дом-музей В. М. Васнецова",
+"town": "Мещанский",
+"link": "https://ru.wikipedia.org/wiki/Дом-музей_В._М._Васнецова",
+"cands": [
+"https://www.tretyakovgallery.ru/"
+]
+},
+{
+"n": 74,
+"slug": "mitinsky-park",
+"group": "A",
+"name": "Митинский ландшафтный парк",
+"town": "Митино (СЗАО)",
+"link": "https://ru.wikipedia.org/wiki/Митино",
+"cands": []
+},
+{
+"n": 75,
+"slug": "piratskaya-ploshchadka",
+"group": "A",
+"name": "Площадка «Стройка» в Нескучном саду",
+"town": "Москва",
+"link": "https://vk.com/@gorkypark-igrovye-ploschadki-v-neskuchnom-sadu-chast-1",
+"cands": []
+},
+{
+"n": 76,
+"slug": "ostrov-mechty",
+"group": "A",
+"name": "Парк развлечений «Остров мечты»",
+"town": "Нагатинский Затон (ЮАО)",
+"link": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
+"cands": [
+"https://dreamisland.ru/"
+]
+},
+{
+"n": 77,
+"slug": "huskyland-nazarevo",
+"group": "A",
+"name": "Этнопарк «Хаски Лэнд»",
+"town": "Назарьево",
+"link": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
+"cands": [
+"https://huskyland.ru/"
+]
+},
+{
+"n": 78,
+"slug": "vorontsovsky-park",
+"group": "A",
+"name": "Воронцовский парк",
+"town": "Обручевский (ЮЗАО)",
+"link": "https://ru.wikipedia.org/wiki/Воронцовский_парк",
+"cands": []
+},
+{
+"n": 79,
+"slug": "detsky-park-malysh-odincovo",
+"group": "A",
+"name": "Детский парк «Малыш»",
+"town": "Одинцово",
+"link": "https://2gis.ru/odintsovo/firm/70000001029426020",
+"cands": []
+},
+{
+"n": 80,
+"slug": "borisovskie-prudy",
+"group": "A",
+"name": "Борисовские пруды",
+"town": "Орехово-Борисово (ЮАО)",
+"link": "https://ru.wikipedia.org/wiki/Борисовские_пруды",
+"cands": []
+},
+{
+"n": 81,
+"slug": "ostankino-usadba",
+"group": "A",
+"name": "Останкинская усадьба Шереметевых",
+"town": "Останкинский (СВАО)",
+"link": "https://ru.wikipedia.org/wiki/Останкино_(усадьба)",
+"cands": [
+"https://ostankino-museum.ru/"
+]
+},
+{
+"n": 82,
+"slug": "terletsky-park",
+"group": "A",
+"name": "Терлецкий лесопарк",
+"town": "Перово / Новогиреево (ВАО)",
+"link": "https://ru.wikipedia.org/wiki/Терлецкий_парк",
+"cands": []
+},
+{
+"n": 83,
+"slug": "peshki-park",
+"group": "A",
+"name": "Пешки Парк",
+"town": "Пешки",
+"link": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii",
+"cands": [
+"https://peshkipark.ru/"
+]
+},
+{
+"n": 84,
+"slug": "ledovy-dvorec-vityaz-podolsk",
+"group": "A",
+"name": "Ледовый дворец «Витязь»",
+"town": "Подольск",
+"link": "https://2gis.ru/podolsk/firm/4504127912990222",
+"cands": []
+},
+{
+"n": 85,
+"slug": "park-talalikhina-podolsk",
+"group": "A",
+"name": "Парк культуры и отдыха им. В. Талалихина",
+"town": "Подольск",
+"link": "https://2gis.ru/podolsk/firm/70000001006489201",
+"cands": []
+},
+{
+"n": 86,
+"slug": "dubrovitsy-znamenskaya-cerkov",
+"group": "A",
+"name": "Усадьба Дубровицы и церковь Знамения",
+"town": "Подольск",
+"link": "https://2gis.ru/moscow/firm/4504127916750444",
+"cands": []
+},
+{
+"n": 87,
+"slug": "panorama360-federation",
+"group": "A",
+"name": "«Панорама360» в башне «Федерация»",
+"town": "Пресненский",
+"link": "https://ru.wikipedia.org/wiki/Башня_Федерация",
+"cands": [
+"https://panorama360.ru/"
+]
+},
+{
+"n": 88,
+"slug": "park-razdolye-razdory",
+"group": "A",
+"name": "Парк «Раздолье»",
+"town": "Раздоры",
+"link": "https://odinparki.ru/parks/?id=2991",
+"cands": []
+},
+{
+"n": 89,
+"slug": "park-malevicha-razdory",
+"group": "A",
+"name": "Парк Малевича",
+"town": "Раздоры",
+"link": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/",
+"cands": []
+},
+{
+"n": 90,
+"slug": "vorobyovy-gory",
+"group": "A",
+"name": "Воробьёвы горы: смотровая и набережная",
+"town": "Раменки / Хамовники",
+"link": "https://ru.wikipedia.org/wiki/Воробьёвы_горы_(Москва)",
+"cands": []
+},
+{
+"n": 91,
+"slug": "muzey-igrushki-sergiev-posad",
+"group": "A",
+"name": "Музей игрушки в Сергиевом Посаде",
+"town": "Сергиев Посад",
+"link": "https://ru.wikipedia.org/wiki/Музей_игрушки_(Сергиев_Посад)",
+"cands": []
+},
+{
+"n": 92,
+"slug": "taganskiy-park",
+"group": "A",
+"name": "Таганский парк",
+"town": "Таганский",
+"link": "https://ru.wikipedia.org/wiki/Таганский_парк",
+"cands": []
+},
+{
+"n": 93,
+"slug": "gim",
+"group": "A",
+"name": "Государственный исторический музей",
+"town": "Тверской",
+"link": "https://ru.wikipedia.org/wiki/Государственный_исторический_музей",
+"cands": [
+"https://shm.ru/"
+]
+},
+{
+"n": 94,
+"slug": "zoomuzey-msu",
+"group": "A",
+"name": "Зоологический музей МГУ",
+"town": "Тверской",
+"link": "https://ru.wikipedia.org/wiki/Зоологический_музей_МГУ",
+"cands": [
+"https://zmmu.msu.ru/"
+]
+},
+{
+"n": 95,
+"slug": "timiryazevsky-park",
+"group": "A",
+"name": "Тимирязевский парк",
+"town": "Тимирязевский (САО)",
+"link": "https://yandex.ru/maps/org/timiryazevskiy_park/127468965054/",
+"cands": []
+},
+{
+"n": 96,
+"slug": "troitsk-zarechye",
+"group": "A",
+"name": "Зона отдыха «Заречье»",
+"town": "Троицк",
+"link": "https://yandex.ru/maps/org/zarechye/163370592762/",
+"cands": []
+},
+{
+"n": 97,
+"slug": "neskuchny-sad",
+"group": "A",
+"name": "Нескучный сад",
+"town": "Хамовники / Донской",
+"link": "https://ru.wikipedia.org/wiki/Нескучный_сад",
+"cands": [
+"https://park-gorkogo.com/"
+]
+},
+{
+"n": 98,
+"slug": "park-ekobereg-himki",
+"group": "A",
+"name": "Парк «Экоберег»",
+"town": "Химки",
+"link": "https://2gis.ru/khimki/gallery/firm/70000001060565637",
+"cands": []
+},
+{
+"n": 99,
+"slug": "park-tolstogo-himki",
+"group": "A",
+"name": "Парк им. Л. Н. Толстого",
+"town": "Химки",
+"link": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
+"cands": []
+},
+{
+"n": 100,
+"slug": "teatr-nash-dom-khimki",
+"group": "A",
+"name": "Театр «Наш дом»",
+"town": "Химки",
+"link": "https://welcome.mosreg.ru/ideas/teatr-nash-dom",
+"cands": []
+},
+{
+"n": 101,
+"slug": "park-hodynskoe-pole",
+"group": "A",
+"name": "Парк «Ходынское поле»",
+"town": "Хорошёвский (САО)",
+"link": "https://ru.wikipedia.org/wiki/Ходынское_поле_(парк)",
+"cands": []
+},
+{
+"n": 102,
+"slug": "ostafyevo-russky-parnas",
+"group": "A",
+"name": "Музей-усадьба «Остафьево» — «Русский Парнас»",
+"town": "Щербинка",
+"link": "https://2gis.ru/moscow/firm/70000001018325589",
+"cands": [
+"https://ostafyevo.su/"
+]
+},
+{
+"n": 103,
+"slug": "katok-park-gorkogo",
+"group": "A",
+"name": "Каток в парке Горького",
+"town": "Якиманка",
+"link": "https://ru.wikipedia.org/wiki/Центральный_парк_культуры_и_отдыха_имени_Горького",
+"cands": [
+"https://park-gorkogo.com/"
+]
+},
+{
+"n": 104,
+"slug": "muzeon",
+"group": "A",
+"name": "Парк искусств «Музеон»",
+"town": "Якиманка",
+"link": "https://ru.wikipedia.org/wiki/Музеон",
+"cands": [
+"https://muzeon.ru/"
+]
+},
+{
+"n": 105,
+"slug": "bitsevsky-les",
+"group": "A",
+"name": "Битцевский лес (Битцевский парк)",
+"town": "Ясенево (ЮЗАО)",
+"link": "https://um.mos.ru/places/prirodno-istoricheskiy-park-bittsevskiy-les/",
+"cands": []
+}
+]

@@ -1,0 +1,31 @@
+name: afd-probe
+
+# Разовая сверка часов и цен мест из списка A/D/F с официальными сайтами. Результат — tmp_verify/pages/*.json в этой же ветке.
+on:
+  push:
+    branches: [ci/afd-probe]
+    paths: [scripts/afd-resolve.mjs, scripts/fetch-targets.mjs, tmp_verify/afd_input.json, .github/workflows/afd-probe.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Resolve official sites
+        run: node scripts/afd-resolve.mjs
+      - name: Collect pages
+        run: node scripts/fetch-targets.mjs
+      - name: Save result to branch
+        run: |
+          git config user.name "afd-probe"
+          git config user.email "noreply@github.com"
+          git add tmp_verify
+          git commit -m "afd-probe: страницы сверки A/D/F"
+          git push origin HEAD:ci/afd-probe
