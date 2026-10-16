@@ -18,6 +18,7 @@
     "audit:coverage": "tsx scripts/audit-coverage.ts",
     "audit:doc": "tsx scripts/audit-scenarios.ts --quick --doc",
     "audit:logic": "tsx scripts/audit-logic.ts",
+    "digest": "tsx scripts/weekly-digest.ts",
     "validate:data": "tsx scripts/validate-content.ts",
     "prebuild": "node scripts/copy-maplibre.mjs",
     "predev": "node scripts/copy-maplibre.mjs"
