@@ -1,0 +1,11 @@
+{
+ "slug": "huskyland-nazarevo",
+ "pages": [
+  {
+   "url": "https://huskyland.ru/",
+   "final": "https://huskyland.ru/",
+   "status": 0,
+   "error": "CERT_HAS_EXPIRED"
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+{
+ "slug": "muzey-igrushki-sergiev-posad",
+ "pages": [
+  {
+   "url": "http://museumot.info/",
+   "final": "http://museumot.info/",
+   "status": 0,
+   "error": "ETIMEDOUT"
+  }
+ ]
+}

@@ -1,0 +1,961 @@
+[
+ {
+  "slug": "abramtsevo",
+  "urls": [
+   "https://abramtsevo.net/kontakti/proezd.html"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "kuskovo",
+  "urls": [
+   "https://kuskovo.ru/posetitelyam/rezhim-raboty-muzeya/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "arkhangelskoe",
+  "urls": [
+   "https://arhangelskoe.su/for_visitor/working_hours/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "gbs-ran",
+  "urls": [
+   "https://gbsad.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "kidzania-aviapark",
+  "urls": [
+   "https://kidzaniamoscow.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "muzey-zhd-tehniki",
+  "urls": [
+   "https://museum.cpm.moscow/museums/430"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "depo-food-hall",
+  "urls": [
+   "https://depomoscow.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "usadba-vyazemy-pushkin",
+  "urls": [
+   "https://museum-gol.ru/visitors/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "local-kids-vnukovo",
+  "urls": [
+   "https://localkids.clients.site/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "vasilchuki-chaihona-metropolis",
+  "urls": [
+   "https://chaihona.ru/restaurants/leningradskoe-sosse-16a"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "klich-zilart",
+  "urls": [
+   "https://klich.moscow/kontakty"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "piero-zilart",
+  "urls": [
+   "https://xn--e1asbf2d.xn--p1ai/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "tutta-la-vita",
+  "urls": [
+   "https://tuttalavita.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "muzey-lego-lets-go-zvenigorod",
+  "urls": [
+   "https://letsgo-museum.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "russkoe-podvorye",
+  "urls": [
+   "https://russkoepodvorie.com/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "vasilchuki-chaihona-dmitriya-ulyanova",
+  "urls": [
+   "https://chaihona.ru/restaurants/dmitriya-ulyanova-51"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "muzey-materinstva-ilinskoe",
+  "urls": [
+   "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "muzey-tekhniki-zadorozhnogo",
+  "urls": [
+   "https://tmuseum.ru/kontakty/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-patriot-kubinka",
+  "urls": [
+   "https://parkpatriot.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "losiny-ostrov",
+  "urls": [
+   "https://losinyiostrov.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "ugolok-durova",
+  "urls": [
+   "https://www.ugolokdurova.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "teatr-obrazcova",
+  "urls": [
+   "https://puppet.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "cirk-nikulina",
+  "urls": [
+   "https://circusnikulin.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "kids-castle-mitino",
+  "urls": [
+   "https://kids-castle.pro/mitino"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "muzey-transporta",
+  "urls": [
+   "https://mtmuseum.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-gorkogo",
+  "urls": [
+   "https://parkgorkogo.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-gorkogo__1",
+  "urls": [
+   "https://park-gorkogo.com/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-zaryadye",
+  "urls": [
+   "https://welcome.zaryadyepark.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "centralny-detsky-magazin",
+  "urls": [
+   "https://cdm-moscow.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "misti-park-odintsovo",
+  "urls": [
+   "https://mistyparkodi.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "termy-odintsovo",
+  "urls": [
+   "https://therms.ru/odincovo"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "unaboom-odintsovo",
+  "urls": [
+   "https://unaboom.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "pokrovskoe-streshnevo",
+  "urls": [
+   "https://museum.cpm.moscow/museums/278"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "jooie-presnya",
+  "urls": [
+   "https://jooiecafe.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "vasilchuki-chaihona-afimall",
+  "urls": [
+   "https://chaihona.ru/restaurants/trc-afimoll-siti"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "bolshoy-moscow-cirk",
+  "urls": [
+   "https://bigcirk.moscow/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "teatr-sats",
+  "urls": [
+   "https://teatr-sats.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "kidburg-zelenopark",
+  "urls": [
+   "https://zelenopark.kidburg.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-severnoe-tushino",
+  "urls": [
+   "https://mosparks.ru/about/park-severnoe-tushino"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "stroginskaya-poima",
+  "urls": [
+   "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "sad-ermitazh",
+  "urls": [
+   "https://www.mosgorsad.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "ribambelle-vremena-goda",
+  "urls": [
+   "https://ribambelle.ru/kontakty"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-fili",
+  "urls": [
+   "https://parkfili.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "repast-cafe",
+  "urls": [
+   "https://repastcafe.com/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "detmir-mega-himki",
+  "urls": [
+   "https://www.detmir.ru/shops/item/id/176/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "serebryany-bor",
+  "urls": [
+   "https://xn--90ah2agcb.xn--p1ai/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "kitchen-khodynka",
+  "urls": [
+   "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "tsaritsyno-park",
+  "urls": [
+   "https://tsaritsyno-museum.ru/kids-2/kids-infrastructure/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "melikhovo-chekhov",
+  "urls": [
+   "https://chekhovmuseum.com/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "iyul-detyam",
+  "urls": [
+   "https://julydetyam.ru/onas"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "akvapark-moreon",
+  "urls": [
+   "https://more-on.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "gorki-leninskie",
+  "urls": [
+   "https://shm.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "gorki-leninskie__1",
+  "urls": [
+   "https://id.sber.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "gorki-leninskie__2",
+  "urls": [
+   "https://otello.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "gorki-leninskie__3",
+  "urls": [
+   "https://2gis.am/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "dolgoprudnensky-muzey",
+  "urls": [
+   "https://dolgoprudnymuseum.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "dolgoprudnensky-muzey__1",
+  "urls": [
+   "http://dolgoprudnymuseum.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "muzey-pobedy",
+  "urls": [
+   "https://victorymuseum.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-pobedy-poklonnaya-gora",
+  "urls": [
+   "https://victorymuseum.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "shkolnoe-ozero-zelenograd",
+  "urls": [
+   "https://www.zelao.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "izmailovsky-kreml",
+  "urls": [
+   "https://kremlin-izmailovo.com/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "izmailovsky-kreml__1",
+  "urls": [
+   "http://kremlin-izmailovo.com"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "izmailovsky-park",
+  "urls": [
+   "https://www.izmailovsky-park.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "istrinsky-park-kultury",
+  "urls": [
+   "https://id.sber.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "istrinsky-park-kultury__1",
+  "urls": [
+   "https://otello.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "istrinsky-park-kultury__2",
+  "urls": [
+   "https://2gis.am/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "lucky-llama-istra",
+  "urls": [
+   "https://luckyllama.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "lucky-llama-istra__1",
+  "urls": [
+   "https://id.sber.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "lucky-llama-istra__2",
+  "urls": [
+   "https://wa.me/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "lucky-llama-istra__3",
+  "urls": [
+   "https://max.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "kolomna-pastila-muzey",
+  "urls": [
+   "https://kolomnapastila.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "kolomna-pastila-muzey__1",
+  "urls": [
+   "https://id.sber.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "kolomna-pastila-muzey__2",
+  "urls": [
+   "https://otello.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "kolomna-pastila-muzey__3",
+  "urls": [
+   "https://2gis.am/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "kolomna-muzey-lyubimoy-igrushki",
+  "urls": [
+   "https://id.sber.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "kolomna-muzey-lyubimoy-igrushki__1",
+  "urls": [
+   "https://wa.me/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "kolomna-muzey-lyubimoy-igrushki__2",
+  "urls": [
+   "https://otello.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "norway-park-krasnogorsk",
+  "urls": [
+   "https://norwaypark.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "norway-park-krasnogorsk__1",
+  "urls": [
+   "https://norwaypark-krasnogorsk.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-druzhby",
+  "urls": [
+   "https://walking.sport.mos.ru/parkdruzhby/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-severny-rechnoy",
+  "urls": [
+   "https://severny-rechnoy-vokzal.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "natashinsky-park-lyubertsy",
+  "urls": [
+   "https://id.sber.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "natashinsky-park-lyubertsy__1",
+  "urls": [
+   "https://otello.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "natashinsky-park-lyubertsy__2",
+  "urls": [
+   "https://2gis.am/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "dom-muzey-vasnecova",
+  "urls": [
+   "https://www.tretyakovgallery.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "dom-muzey-vasnecova__1",
+  "urls": [
+   "http://www.tretyakovgallery.ru/for-visitors/museums/dom-muzey-v-vasnetsova/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "piratskaya-ploshchadka",
+  "urls": [
+   "https://sb.scorecardresearch.com/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "ostrov-mechty",
+  "urls": [
+   "https://dreamisland.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "huskyland-nazarevo",
+  "urls": [
+   "https://huskyland.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "huskyland-nazarevo__1",
+  "urls": [
+   "https://xacku.land/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "detsky-park-malysh-odincovo",
+  "urls": [
+   "https://id.sber.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "detsky-park-malysh-odincovo__1",
+  "urls": [
+   "https://otello.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "detsky-park-malysh-odincovo__2",
+  "urls": [
+   "https://2gis.am/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "ostankino-usadba",
+  "urls": [
+   "https://ostankino-museum.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "ostankino-usadba__1",
+  "urls": [
+   "http://www.ostankino-museum.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "peshki-park",
+  "urls": [
+   "https://peshkipark.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "peshki-park__1",
+  "urls": [
+   "https://peshki-park.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "peshki-park__2",
+  "urls": [
+   "https://www.peshki-park.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "ledovy-dvorec-vityaz-podolsk",
+  "urls": [
+   "https://id.sber.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "ledovy-dvorec-vityaz-podolsk__1",
+  "urls": [
+   "https://otello.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "ledovy-dvorec-vityaz-podolsk__2",
+  "urls": [
+   "https://2gis.am/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-talalikhina-podolsk",
+  "urls": [
+   "https://id.sber.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-talalikhina-podolsk__1",
+  "urls": [
+   "https://otello.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-talalikhina-podolsk__2",
+  "urls": [
+   "https://2gis.am/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "dubrovitsy-znamenskaya-cerkov",
+  "urls": [
+   "https://id.sber.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "dubrovitsy-znamenskaya-cerkov__1",
+  "urls": [
+   "https://otello.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "dubrovitsy-znamenskaya-cerkov__2",
+  "urls": [
+   "https://2gis.am/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "panorama360-federation",
+  "urls": [
+   "https://panorama360.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "panorama360-federation__1",
+  "urls": [
+   "http://www.federationtower.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-razdolye-razdory",
+  "urls": [
+   "https://odinparki.ru/parks/?id=2991"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "muzey-igrushki-sergiev-posad",
+  "urls": [
+   "http://museumot.info/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "gim",
+  "urls": [
+   "https://shm.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "gim__1",
+  "urls": [
+   "https://www.shm.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "zoomuzey-msu",
+  "urls": [
+   "https://zmmu.msu.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "zoomuzey-msu__1",
+  "urls": [
+   "http://zmmu.msu.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "zoomuzey-msu__2",
+  "urls": [
+   "http://zmmu.msu.ru/en"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "timiryazevsky-park",
+  "urls": [
+   "http://ogp.me/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "timiryazevsky-park__1",
+  "urls": [
+   "https://yandex.kz/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "timiryazevsky-park__2",
+  "urls": [
+   "https://vk.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "troitsk-zarechye",
+  "urls": [
+   "http://www.zmsk.ru"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "neskuchny-sad",
+  "urls": [
+   "https://park-gorkogo.com/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-ekobereg-himki",
+  "urls": [
+   "https://id.sber.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-ekobereg-himki__1",
+  "urls": [
+   "https://otello.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-ekobereg-himki__2",
+  "urls": [
+   "https://2gis.am/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-tolstogo-himki",
+  "urls": [
+   "https://resize.tripster.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-tolstogo-himki__1",
+  "urls": [
+   "https://www.google.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-tolstogo-himki__2",
+  "urls": [
+   "https://ev.economy.gov.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "teatr-nash-dom-khimki",
+  "urls": [
+   "https://teatr-nashdom.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "park-hodynskoe-pole",
+  "urls": [
+   "https://parkhodynka.ru"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "ostafyevo-russky-parnas",
+  "urls": [
+   "https://ostafyevo.su/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "ostafyevo-russky-parnas__1",
+  "urls": [
+   "https://id.sber.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "ostafyevo-russky-parnas__2",
+  "urls": [
+   "https://otello.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "ostafyevo-russky-parnas__3",
+  "urls": [
+   "https://2gis.am/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "katok-park-gorkogo",
+  "urls": [
+   "https://park-gorkogo.com/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "muzeon",
+  "urls": [
+   "https://muzeon.ru/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "bitsevsky-les",
+  "urls": [
+   "https://um.mos.ru/places/prirodno-istoricheskiy-park-bittsevskiy-les/"
+  ],
+  "follow": true
+ },
+ {
+  "slug": "bitsevsky-les__1",
+  "urls": [
+   "http://bitsevskipark.ru/"
+  ],
+  "follow": true
+ }
+]

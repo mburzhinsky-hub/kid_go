@@ -1,0 +1,532 @@
+[
+ {
+  "slug": "gorki-leninskie",
+  "page": "https://2gis.ru/moscow/firm/4504128908501846",
+  "status": 200,
+  "external": [
+   "https://id.sber.ru/",
+   "https://otello.ru/",
+   "https://2gis.am/"
+  ]
+ },
+ {
+  "slug": "dolgoprudnensky-muzey",
+  "page": "https://welcome.mosreg.ru/museums/dolgoprudnenskiy_muzei",
+  "status": 200,
+  "external": [
+   "https://dolgoprudnymuseum.ru/",
+   "http://dolgoprudnymuseum.ru/"
+  ]
+ },
+ {
+  "slug": "muzey-pobedy",
+  "wiki": "Центральный музей Великой Отечественной войны",
+  "p856": [
+   "https://victorymuseum.ru/"
+  ]
+ },
+ {
+  "slug": "park-pobedy-poklonnaya-gora",
+  "wiki": "Парк Победы (Москва)",
+  "p856": []
+ },
+ {
+  "slug": "shkolnoe-ozero-zelenograd",
+  "wiki": "Зеленоград",
+  "p856": [
+   "https://www.zelao.ru/"
+  ]
+ },
+ {
+  "slug": "izmailovsky-kreml",
+  "wiki": "Измайловский кремль",
+  "p856": [
+   "http://kremlin-izmailovo.com"
+  ]
+ },
+ {
+  "slug": "izmailovsky-park",
+  "wiki": "Измайловский парк",
+  "p856": [
+   "https://www.izmailovsky-park.ru/"
+  ]
+ },
+ {
+  "slug": "istrinsky-park-kultury",
+  "page": "https://2gis.ru/istra/firm/70000001060278185",
+  "status": 200,
+  "external": [
+   "https://id.sber.ru/",
+   "https://otello.ru/",
+   "https://2gis.am/"
+  ]
+ },
+ {
+  "slug": "lucky-llama-istra",
+  "page": "https://2gis.ru/istra/firm/70000001101893486",
+  "status": 200,
+  "external": [
+   "https://id.sber.ru/",
+   "https://wa.me/",
+   "https://max.ru/"
+  ]
+ },
+ {
+  "slug": "kolomna-pastila-muzey",
+  "page": "https://2gis.ru/kolomna/firm/70000001023964852",
+  "status": 200,
+  "external": [
+   "https://id.sber.ru/",
+   "https://otello.ru/",
+   "https://2gis.am/"
+  ]
+ },
+ {
+  "slug": "kolomna-muzey-lyubimoy-igrushki",
+  "page": "https://2gis.ru/kolomna/firm/70000001023926045",
+  "status": 200,
+  "external": [
+   "https://id.sber.ru/",
+   "https://wa.me/",
+   "https://otello.ru/"
+  ]
+ },
+ {
+  "slug": "norway-park-krasnogorsk",
+  "page": "https://welcome.mosreg.ru/ideas/progulki-na-vysote-devatietaznogo-doma",
+  "status": 200,
+  "external": [
+   "https://norwaypark-krasnogorsk.ru/"
+  ]
+ },
+ {
+  "slug": "krylatskie-kholmy",
+  "wiki": "Крылатские холмы",
+  "p856": []
+ },
+ {
+  "slug": "krylatskie-kholmy",
+  "search": "Крылатские холмы",
+  "p856": []
+ },
+ {
+  "slug": "krylatskie-kholmy",
+  "unresolved": true
+ },
+ {
+  "slug": "kuzminki-park",
+  "wiki": "Кузьминки (парк)",
+  "p856": []
+ },
+ {
+  "slug": "kuzminki-park",
+  "search": "Кузьминки (парк)",
+  "p856": []
+ },
+ {
+  "slug": "kuzminki-park",
+  "unresolved": true
+ },
+ {
+  "slug": "park-druzhby",
+  "search": "Парк Дружбы",
+  "p856": []
+ },
+ {
+  "slug": "park-severny-rechnoy",
+  "wiki": "Северный речной вокзал",
+  "p856": [
+   "https://severny-rechnoy-vokzal.ru/"
+  ]
+ },
+ {
+  "slug": "lefortovsky-park",
+  "wiki": "Лефортовский парк",
+  "p856": []
+ },
+ {
+  "slug": "lefortovsky-park",
+  "search": "Лефортовский парк",
+  "p856": []
+ },
+ {
+  "slug": "lefortovsky-park",
+  "unresolved": true
+ },
+ {
+  "slug": "lianozovsky-park",
+  "wiki": "Лианозовский парк",
+  "p856": []
+ },
+ {
+  "slug": "lianozovsky-park",
+  "search": "Лианозово (парк культуры и отдыха)",
+  "p856": []
+ },
+ {
+  "slug": "lianozovsky-park",
+  "unresolved": true
+ },
+ {
+  "slug": "muzey-lozhki-solnechnogorsk",
+  "page": "https://welcome.mosreg.ru/ideas/muzej-lozki",
+  "status": 200,
+  "external": []
+ },
+ {
+  "slug": "muzey-lozhki-solnechnogorsk",
+  "search": "Музей ложки",
+  "p856": []
+ },
+ {
+  "slug": "muzey-lozhki-solnechnogorsk",
+  "unresolved": true
+ },
+ {
+  "slug": "natashinsky-park-lyubertsy",
+  "page": "https://2gis.ru/lyubertsy/firm/70000001022981485",
+  "status": 200,
+  "external": [
+   "https://id.sber.ru/",
+   "https://otello.ru/",
+   "https://2gis.am/"
+  ]
+ },
+ {
+  "slug": "lyublino-usadba",
+  "wiki": "Люблино (усадьба)",
+  "p856": []
+ },
+ {
+  "slug": "lyublino-usadba",
+  "search": "Люблино (усадьба)",
+  "p856": []
+ },
+ {
+  "slug": "lyublino-usadba",
+  "unresolved": true
+ },
+ {
+  "slug": "park-850-moscow",
+  "wiki": "Парк 850-летия Москвы",
+  "p856": []
+ },
+ {
+  "slug": "park-850-moscow",
+  "search": "Парк 850-летия Москвы",
+  "p856": []
+ },
+ {
+  "slug": "park-850-moscow",
+  "unresolved": true
+ },
+ {
+  "slug": "dom-muzey-vasnecova",
+  "wiki": "Дом-музей В. М. Васнецова",
+  "p856": [
+   "http://www.tretyakovgallery.ru/for-visitors/museums/dom-muzey-v-vasnetsova/"
+  ]
+ },
+ {
+  "slug": "mitinsky-park",
+  "wiki": "Митино",
+  "p856": []
+ },
+ {
+  "slug": "mitinsky-park",
+  "search": "Ландшафтный парк «Митино»",
+  "p856": []
+ },
+ {
+  "slug": "mitinsky-park",
+  "unresolved": true
+ },
+ {
+  "slug": "piratskaya-ploshchadka",
+  "page": "https://vk.com/@gorkypark-igrovye-ploschadki-v-neskuchnom-sadu-chast-1",
+  "status": 200,
+  "external": [
+   "https://sb.scorecardresearch.com/"
+  ]
+ },
+ {
+  "slug": "ostrov-mechty",
+  "page": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
+  "status": 200,
+  "external": []
+ },
+ {
+  "slug": "huskyland-nazarevo",
+  "page": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
+  "status": 200,
+  "external": [
+   "https://xacku.land/"
+  ]
+ },
+ {
+  "slug": "vorontsovsky-park",
+  "wiki": "Воронцовский парк",
+  "p856": []
+ },
+ {
+  "slug": "vorontsovsky-park",
+  "search": "Воронцовский парк",
+  "p856": []
+ },
+ {
+  "slug": "vorontsovsky-park",
+  "unresolved": true
+ },
+ {
+  "slug": "detsky-park-malysh-odincovo",
+  "page": "https://2gis.ru/odintsovo/firm/70000001029426020",
+  "status": 200,
+  "external": [
+   "https://id.sber.ru/",
+   "https://otello.ru/",
+   "https://2gis.am/"
+  ]
+ },
+ {
+  "slug": "borisovskie-prudy",
+  "wiki": "Борисовские пруды",
+  "p856": []
+ },
+ {
+  "slug": "borisovskie-prudy",
+  "search": "Борисовские пруды",
+  "p856": []
+ },
+ {
+  "slug": "borisovskie-prudy",
+  "unresolved": true
+ },
+ {
+  "slug": "ostankino-usadba",
+  "wiki": "Останкино (усадьба)",
+  "p856": [
+   "http://www.ostankino-museum.ru/"
+  ]
+ },
+ {
+  "slug": "terletsky-park",
+  "wiki": "Терлецкий парк",
+  "p856": []
+ },
+ {
+  "slug": "terletsky-park",
+  "search": "Терлецкий парк",
+  "p856": []
+ },
+ {
+  "slug": "terletsky-park",
+  "unresolved": true
+ },
+ {
+  "slug": "peshki-park",
+  "page": "https://welcome.mosreg.ru/ideas/odin-iz-samyh-krupnyh-verevocnyh-parkov-rossii",
+  "status": 200,
+  "external": [
+   "https://peshki-park.ru/",
+   "https://www.peshki-park.ru/"
+  ]
+ },
+ {
+  "slug": "ledovy-dvorec-vityaz-podolsk",
+  "page": "https://2gis.ru/podolsk/firm/4504127912990222",
+  "status": 200,
+  "external": [
+   "https://id.sber.ru/",
+   "https://otello.ru/",
+   "https://2gis.am/"
+  ]
+ },
+ {
+  "slug": "park-talalikhina-podolsk",
+  "page": "https://2gis.ru/podolsk/firm/70000001006489201",
+  "status": 200,
+  "external": [
+   "https://id.sber.ru/",
+   "https://otello.ru/",
+   "https://2gis.am/"
+  ]
+ },
+ {
+  "slug": "dubrovitsy-znamenskaya-cerkov",
+  "page": "https://2gis.ru/moscow/firm/4504127916750444",
+  "status": 200,
+  "external": [
+   "https://id.sber.ru/",
+   "https://otello.ru/",
+   "https://2gis.am/"
+  ]
+ },
+ {
+  "slug": "panorama360-federation",
+  "wiki": "Башня Федерация",
+  "p856": [
+   "http://www.federationtower.ru/"
+  ]
+ },
+ {
+  "slug": "park-razdolye-razdory",
+  "search": "Парк Малевича",
+  "p856": []
+ },
+ {
+  "slug": "park-malevicha-razdory",
+  "page": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/",
+  "status": 502,
+  "external": []
+ },
+ {
+  "slug": "park-malevicha-razdory",
+  "search": "Парк Малевича",
+  "p856": []
+ },
+ {
+  "slug": "park-malevicha-razdory",
+  "unresolved": true
+ },
+ {
+  "slug": "vorobyovy-gory",
+  "wiki": "Воробьёвы горы (Москва)",
+  "p856": []
+ },
+ {
+  "slug": "vorobyovy-gory",
+  "search": "Воробьёвы горы (станция метро)",
+  "p856": []
+ },
+ {
+  "slug": "vorobyovy-gory",
+  "unresolved": true
+ },
+ {
+  "slug": "muzey-igrushki-sergiev-posad",
+  "wiki": "Музей игрушки (Сергиев Посад)",
+  "p856": [
+   "http://museumot.info/"
+  ]
+ },
+ {
+  "slug": "taganskiy-park",
+  "wiki": "Таганский парк",
+  "p856": []
+ },
+ {
+  "slug": "taganskiy-park",
+  "search": "Таганский парк",
+  "p856": []
+ },
+ {
+  "slug": "taganskiy-park",
+  "unresolved": true
+ },
+ {
+  "slug": "gim",
+  "wiki": "Государственный исторический музей",
+  "p856": [
+   "https://www.shm.ru/",
+   "https://shm.ru/"
+  ]
+ },
+ {
+  "slug": "zoomuzey-msu",
+  "wiki": "Зоологический музей МГУ",
+  "p856": [
+   "http://zmmu.msu.ru/",
+   "http://zmmu.msu.ru/en"
+  ]
+ },
+ {
+  "slug": "timiryazevsky-park",
+  "page": "https://yandex.ru/maps/org/timiryazevskiy_park/127468965054/",
+  "status": 200,
+  "external": [
+   "http://ogp.me/",
+   "https://yandex.kz/",
+   "https://vk.ru/"
+  ]
+ },
+ {
+  "slug": "troitsk-zarechye",
+  "page": "https://yandex.ru/maps/org/zarechye/163370592762/",
+  "status": 204,
+  "external": []
+ },
+ {
+  "slug": "troitsk-zarechye",
+  "search": "Замоскворечье (административный район)",
+  "p856": [
+   "http://www.zmsk.ru"
+  ]
+ },
+ {
+  "slug": "neskuchny-sad",
+  "wiki": "Нескучный сад",
+  "p856": []
+ },
+ {
+  "slug": "park-ekobereg-himki",
+  "page": "https://2gis.ru/khimki/gallery/firm/70000001060565637",
+  "status": 200,
+  "external": [
+   "https://id.sber.ru/",
+   "https://otello.ru/",
+   "https://2gis.am/"
+  ]
+ },
+ {
+  "slug": "park-tolstogo-himki",
+  "page": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
+  "status": 200,
+  "external": [
+   "https://resize.tripster.ru/",
+   "https://www.google.ru/",
+   "https://ev.economy.gov.ru/"
+  ]
+ },
+ {
+  "slug": "teatr-nash-dom-khimki",
+  "page": "https://welcome.mosreg.ru/ideas/teatr-nash-dom",
+  "status": 200,
+  "external": [
+   "https://teatr-nashdom.ru/"
+  ]
+ },
+ {
+  "slug": "park-hodynskoe-pole",
+  "wiki": "Ходынское поле (парк)",
+  "p856": [
+   "https://parkhodynka.ru"
+  ]
+ },
+ {
+  "slug": "ostafyevo-russky-parnas",
+  "page": "https://2gis.ru/moscow/firm/70000001018325589",
+  "status": 200,
+  "external": [
+   "https://id.sber.ru/",
+   "https://otello.ru/",
+   "https://2gis.am/"
+  ]
+ },
+ {
+  "slug": "katok-park-gorkogo",
+  "wiki": "Центральный парк культуры и отдыха имени Горького",
+  "p856": []
+ },
+ {
+  "slug": "muzeon",
+  "wiki": "Музеон",
+  "p856": []
+ },
+ {
+  "slug": "bitsevsky-les",
+  "search": "Битцевский лес",
+  "p856": [
+   "http://bitsevskipark.ru/"
+  ]
+ }
+]

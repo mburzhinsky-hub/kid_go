@@ -1,0 +1,11 @@
+{
+ "slug": "panorama360-federation__1",
+ "pages": [
+  {
+   "url": "http://www.federationtower.ru/",
+   "final": "http://www.federationtower.ru/",
+   "status": 0,
+   "error": "UND_ERR_CONNECT_TIMEOUT"
+  }
+ ]
+}

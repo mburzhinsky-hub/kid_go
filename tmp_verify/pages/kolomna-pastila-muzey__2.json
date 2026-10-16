@@ -1,0 +1,13 @@
+{
+ "slug": "kolomna-pastila-muzey__2",
+ "pages": [
+  {
+   "url": "https://otello.ru/",
+   "final": "https://id.sber.ru/CSAFront/oidc/authorize.do?scope=openid%20api/v1/userdata%20api/v1/badgeinfo-provider%20avatar%20email%20email_confirmed%20mobile%20gender%20name%20birthdate%20offline_access%20prime_subscription%20bonus_balance&client_id=3f1ad3f2-6914-469a-8dfa-a866bcdae877&response_type=code&client_type=PRIVATE&redirect_uri=https://otello.ru/api/auth/sberid&nonce=3f1ad3f2-6914-469a-8dfa-a866bcdae877&state=eyJyZXR1cm5fdXJpIjoiaHR0cHM6Ly9vdGVsbG8ucnUvP2F1dGhfY2FsbGJhY2tfc291cmNlPXNiZXJfYXV0b2xvZ2luIiwic2JlcmlkX2lkIjoiM2YxYWQzZjItNjkxNC00NjlhLThkZmEtYTg2NmJjZGFlODc3In0%3D&prompt=light&machineClick=aggressivelogin&logUid=fc938015a8c38878cef7d5d9986520fa",
+   "status": 200,
+   "title": "Сбер ID",
+   "ld": [],
+   "text": "Сбер ID"
+  }
+ ]
+}
