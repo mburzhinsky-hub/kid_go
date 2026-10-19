@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { YM_ID, cleanHitUrl, cleanReferrer, isPrivatePath, isTrackedHost } from "@/lib/metrika";
+import { YM_ID, cleanHitUrl, cleanReferrer, isPrivatePath, isSafeToStart, isTrackedHost } from "@/lib/metrika";
 
 /**
  * Яндекс Метрика (счётчик из src/lib/metrika.ts). Только просмотры страниц, без Вебвизора, карты кликов,
@@ -32,8 +32,15 @@ export function YandexMetrika() {
       /* без localStorage считаем как обычного посетителя */
     }
     const w = window as YmWindow;
+    const loc = window.location;
 
     if (!ready.current) {
+      // Тег сам шлёт служебный запрос с полным адресом из строки браузера, поэтому на «грязном» адресе (kids=, поиск, хотелки,
+      // кабинеты) счётчик не запускаем вовсе. Он стартует при первом переходе на чистый адрес.
+      if (!isSafeToStart(loc.pathname, loc.search, loc.hash)) {
+        prevUrl.current = isPrivatePath(pathname) ? "" : cleanHitUrl(loc.origin, pathname, "", false);
+        return;
+      }
       ready.current = true;
       const ym: Ym =
         w.ym ??
@@ -51,6 +58,9 @@ export function YandexMetrika() {
       document.head.appendChild(s);
       ym(YM_ID, "init", {
         defer: true,
+        // адрес и реферер задаём сами (запасная защита: даже если тег возьмёт их из настроек, а не из строки браузера)
+        url: cleanHitUrl(loc.origin, loc.pathname, loc.search, true),
+        referrer: cleanReferrer(document.referrer, loc.origin),
         webvisor: false,
         clickmap: false,
         trackLinks: false,
@@ -64,10 +74,10 @@ export function YandexMetrika() {
       first.current = false;
       return;
     }
-    const url = cleanHitUrl(window.location.origin, pathname, window.location.search, first.current);
-    const referer = first.current ? cleanReferrer(document.referrer, window.location.origin) : prevUrl.current;
+    const url = cleanHitUrl(loc.origin, pathname, loc.search, first.current);
+    const referer = prevUrl.current || (first.current ? cleanReferrer(document.referrer, loc.origin) : "");
     w.ym?.(YM_ID, "hit", url, { title: document.title, referer });
-    prevUrl.current = cleanHitUrl(window.location.origin, pathname, "", false);
+    prevUrl.current = cleanHitUrl(loc.origin, pathname, "", false);
     first.current = false;
   }, [pathname]);
 
