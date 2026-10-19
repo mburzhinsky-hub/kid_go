@@ -1,0 +1,139 @@
+== A. заголовки ключевых страниц (User-Agent: YandexBot)
+
+/  ->  200  (1.65 c, 839317 байт)
+   server: nginx
+   content-type: text/html
+   content-length: 839317
+   last-modified: Mon, 19 Oct 2026 12:00:39 GMT
+   etag: "cce95-65e30433127c0"
+   title/canonical/robots/длина: ('Kids Go — куда пойти с детьми сегодня', 'https://kids-go.fun/', '', 748819)
+
+/robots.txt  ->  200  (0.56 c, 251 байт)
+   server: nginx
+   content-type: text/plain
+   content-length: 251
+   last-modified: Mon, 19 Oct 2026 12:00:39 GMT
+   etag: "fb-65e30433127c0"
+
+/sitemap.xml  ->  200  (0.74 c, 31335 байт)
+   server: nginx
+   content-type: text/xml
+   content-length: 31335
+   last-modified: Mon, 19 Oct 2026 12:00:39 GMT
+   etag: "7a67-65e30433127c0"
+
+/planner/  ->  200  (0.76 c, 32396 байт)
+   server: nginx
+   content-type: text/html
+   content-length: 32396
+   last-modified: Mon, 19 Oct 2026 12:00:39 GMT
+   etag: "7e8c-65e30433127c0"
+   title/canonical/robots/длина: ('Придумаем ваш день · Kids Go', 'https://kids-go.fun/planner/', '', 31273)
+
+/places/abramtsevo/  ->  200  (0.97 c, 110919 байт)
+   server: nginx
+   content-type: text/html
+   content-length: 110919
+   last-modified: Mon, 19 Oct 2026 12:00:39 GMT
+   etag: "1b147-65e30433127c0"
+   title/canonical/robots/длина: ('Музей-заповедник «Абрамцево» — усадьба с парком, «избушка на курьих ножках» и мастерские ·', 'https://kids-go.fun/places/abramtsevo/', '', 104982)
+
+/kuda-shodit/  ->  200  (0.86 c, 58876 байт)
+   server: nginx
+   content-type: text/html
+   content-length: 58876
+   last-modified: Mon, 19 Oct 2026 12:00:39 GMT
+   etag: "e5fc-65e30433127c0"
+   title/canonical/robots/длина: ('Куда сходить с ребёнком в Москве: подборки · Kids Go', 'https://kids-go.fun/kuda-shodit/', '', 53818)
+
+/kuda-shodit/muzei/  ->  200  (1.00 c, 268528 байт)
+   server: nginx
+   content-type: text/html
+   content-length: 268528
+   last-modified: Mon, 19 Oct 2026 12:00:39 GMT
+   etag: "418f0-65e30433127c0"
+   title/canonical/robots/длина: ('Музеи для детей в Москве: куда пойти с ребёнком · Kids Go', 'https://kids-go.fun/kuda-shodit/muzei/', '', 246738)
+
+/yandex_ecb6d0a4889299b5.html  ->  200  (0.61 c, 162 байт)
+   server: nginx
+   content-type: text/html
+   content-length: 162
+   last-modified: Mon, 19 Oct 2026 12:00:39 GMT
+   etag: "a2-65e30433127c0"
+   title/canonical/robots/длина: ('', '', '', 162)
+
+== B. статус по методам и User-Agent (GET / HEAD)
+url | UA | GET | HEAD
+/ | yandex | 200 | 200
+/ | chrome | 200 | 200
+/ | curl | 200 | 200
+/robots.txt | yandex | 200 | 200
+/robots.txt | chrome | 200 | 200
+/robots.txt | curl | 200 | 200
+/sitemap.xml | yandex | 200 | 200
+/sitemap.xml | chrome | 200 | 200
+/sitemap.xml | curl | 200 | 200
+/planner/ | yandex | 200 | 200
+/planner/ | chrome | 200 | 200
+/planner/ | curl | 200 | 200
+/places/abramtsevo/ | yandex | 200 | 200
+/places/abramtsevo/ | chrome | 200 | 200
+/places/abramtsevo/ | curl | 200 | 200
+/kuda-shodit/ | yandex | 200 | 200
+/kuda-shodit/ | chrome | 200 | 200
+/kuda-shodit/ | curl | 200 | 200
+
+== C. 503 на HEAD: серии запросов (5 раз, пауза 1 с)
+HEAD /planner/: 200 200 200 200 200
+GET /planner/: 200 200 200 200 200
+HEAD /planner/results/: 200 200 200 200 200
+GET /planner/results/: 200 200 200 200 200
+HEAD /planner/results/?kids=3~7&duration=half&mood=active&budget=: 200 200 200 200 200
+GET /planner/results/?kids=3~7&duration=half&mood=active&budget=: 200 200 200 200 200
+HEAD /: 200 200 200 200 200
+GET /: 200 200 200 200 200
+
+== D. редиректы и граничные случаи
+http://kids-go.fun/
+   301 http://kids-go.fun/  =>  200 https://kids-go.fun:443/
+   title/canonical/robots/длина: ('Kids Go — куда пойти с детьми сегодня', 'https://kids-go.fun/', '', 748819)
+http://www.kids-go.fun/
+   301 http://www.kids-go.fun/  =>  301 https://www.kids-go.fun:443/  =>  200 https://kids-go.fun/
+   title/canonical/robots/длина: ('Kids Go — куда пойти с детьми сегодня', 'https://kids-go.fun/', '', 748819)
+https://www.kids-go.fun/
+   301 https://www.kids-go.fun/  =>  200 https://kids-go.fun/
+   title/canonical/robots/длина: ('Kids Go — куда пойти с детьми сегодня', 'https://kids-go.fun/', '', 748819)
+https://kids-go.fun/planner
+   301 https://kids-go.fun/planner  =>  200 https://kids-go.fun/planner/
+   title/canonical/robots/длина: ('Придумаем ваш день · Kids Go', 'https://kids-go.fun/planner/', '', 31273)
+https://kids-go.fun/places/abramtsevo
+   301 https://kids-go.fun/places/abramtsevo  =>  200 https://kids-go.fun/places/abramtsevo/
+   title/canonical/robots/длина: ('Музей-заповедник «Абрамцево» — усадьба с парком, «избушка на курьих ножках» и мастерские ·', 'https://kids-go.fun/places/abramtsevo/', '', 104982)
+https://kids-go.fun/index.html
+   200 https://kids-go.fun/index.html
+   title/canonical/robots/длина: ('Kids Go — куда пойти с детьми сегодня', 'https://kids-go.fun/', '', 748819)
+https://kids-go.fun//
+   200 https://kids-go.fun//
+   title/canonical/robots/длина: ('Kids Go — куда пойти с детьми сегодня', 'https://kids-go.fun/', '', 748819)
+https://kids-go.fun/net-takoj-stranicy/
+   404 https://kids-go.fun/net-takoj-stranicy/
+https://kids-go.fun/places/net-takogo-mesta/
+   404 https://kids-go.fun/places/net-takogo-mesta/
+https://kids-go.fun/?utm_source=tg&utm_medium=social
+   200 https://kids-go.fun/?utm_source=tg&utm_medium=social
+   title/canonical/robots/длина: ('Kids Go — куда пойти с детьми сегодня', 'https://kids-go.fun/', '', 748819)
+https://kids-go.fun/robots.txt
+   200 https://kids-go.fun/robots.txt
+https://kids-go.fun/sitemap.xml
+   200 https://kids-go.fun/sitemap.xml
+
+== E. DNS и сертификат
+kids-go.fun ['31.31.196.139']
+www.kids-go.fun ['31.31.196.139']
+TLS: TLSv1.3 | до: Apr 25 13:54:18 2027 GMT | издатель: GlobalSign nv-sa | SAN: ['www.kids-go.fun', 'autodiscover.kids-go.fun', 'mail.kids-go.fun', 'owa.kids-go.fun', 'kids-go.fun']
+
+== F. карта сайта: все адреса глазами YandexBot
+адресов в sitemap.xml: 182 | статус: 200
+с проблемами: 0
+
+готово
