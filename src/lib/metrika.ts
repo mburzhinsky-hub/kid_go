@@ -18,6 +18,19 @@ const PRIVATE_PREFIXES = ["/admin", "/cabinet", "/import", "/profile", "/api"];
 /** Метки рекламных ссылок — единственные параметры адреса, которые разрешено отправлять. */
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
 
+/**
+ * Можно ли запускать счётчик на ЭТОЙ странице. Сам тег Метрики при загрузке отправляет служебный запрос (`nohit`)
+ * с полным адресом из строки браузера, и повлиять на него нельзя. Поэтому счётчик стартует только тогда, когда в адресе
+ * нет ничего, кроме utm_*: ни `kids=`, ни поиска, ни хотелок, ни якоря, и страница не из закрытых разделов.
+ * Если человек пришёл по такой ссылке, счётчик запустится позже, при первом переходе на чистый адрес.
+ */
+export function isSafeToStart(pathname: string, search: string, hash: string): boolean {
+  if (isPrivatePath(pathname)) return false;
+  if (hash && hash !== "#") return false;
+  for (const k of new URLSearchParams(search).keys()) if (!UTM_KEYS.includes(k)) return false;
+  return true;
+}
+
 export function isTrackedHost(hostname: string): boolean {
   return TRACKED_HOSTS.includes(hostname.toLowerCase());
 }

@@ -4,7 +4,7 @@
  *   npx tsx scripts/test-metrika.ts
  */
 import assert from "node:assert/strict";
-import { YM_ID, cleanHitUrl, cleanReferrer, isPrivatePath, isTrackedHost } from "../src/lib/metrika";
+import { YM_ID, cleanHitUrl, cleanReferrer, isPrivatePath, isSafeToStart, isTrackedHost } from "../src/lib/metrika";
 
 const O = "https://kids-go.fun";
 
@@ -36,6 +36,22 @@ assert.equal(cleanHitUrl(O, "/kuda-shodit/s-malyshom/", "", true), O + "/kuda-sh
 // закрытые разделы
 for (const p of ["/admin", "/admin/events", "/cabinet", "/cabinet/places", "/import", "/profile", "/api/x"]) assert.ok(isPrivatePath(p), p);
 for (const p of ["/", "/places/kuskovo", "/planner/results", "/privacy", "/importance", "/profiles-of-places"]) assert.ok(!isPrivatePath(p), p);
+
+// запускать счётчик можно только на чистом адресе: тег сам шлёт служебный запрос с полным адресом из строки браузера
+assert.ok(isSafeToStart("/", "", ""));
+assert.ok(isSafeToStart("/", "?utm_source=tg&utm_medium=social&utm_campaign=x", ""));
+assert.ok(isSafeToStart("/kuda-shodit/s-malyshom/", "", "#"));
+for (const [p, q, h] of [
+  ["/planner/results/", "?kids=6:animals,2:fairy&duration=mid", ""],
+  ["/", "?kids=3", ""],
+  ["/", "?utm_source=tg&kids=3", ""],
+  ["/search/", "?q=с+ребёнком", ""],
+  ["/day/", "?steps=a,b&title=Наш+день", ""],
+  ["/", "", "#kids=3"],
+  ["/profile/", "", ""],
+  ["/admin", "?attempt=1", ""],
+  ["/import/", "?c=x", ""],
+] as const) assert.ok(!isSafeToStart(p, q, h), p + q + h);
 
 // реферер: свои страницы без query, чужие как есть, мусор пропадает
 assert.equal(cleanReferrer(O + "/planner/results?kids=3~7", O), O + "/planner/results");
