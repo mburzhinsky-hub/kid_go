@@ -1,0 +1,5292 @@
+[
+ {
+  "n": 1,
+  "name": "Музей-заповедник «Абрамцево»",
+  "tokens": [
+   "t:10:00",
+   "t:18:00",
+   "t:19:00",
+   "p:30"
+  ],
+  "pages": [
+   {
+    "url": "https://abramtsevo.net/kontakti/proezd.html",
+    "final": "https://abramtsevo.net/kontakti/proezd.html",
+    "status": 200,
+    "len": 7611,
+    "hit": 4
+   },
+   {
+    "url": "https://abramtsevo.net/kontakti/bileti.html",
+    "final": "https://abramtsevo.net/kontakti/bileti.html",
+    "status": 200,
+    "len": 7525,
+    "hit": 1
+   },
+   {
+    "url": "https://muzei.ru/111/services_ex_3/service/219/?date=2026-10-19",
+    "final": "https://muzei.ru/111/services_ex_3/service/219/?date=2026-10-19",
+    "status": 200,
+    "len": 5070,
+    "hit": 3
+   },
+   {
+    "url": "https://www.abramtsevo.net/kontakti/voprosi.html",
+    "final": "https://www.abramtsevo.net/kontakti/voprosi.html",
+    "status": 200,
+    "len": 5413,
+    "hit": 2
+   },
+   {
+    "url": "https://abramtsevo.net/",
+    "final": "https://abramtsevo.net/",
+    "status": 200,
+    "len": 3383,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://abramtsevo.net/kontakti/proezd.html",
+    "ctx": "ок можно в удобном и просторном помещении. режим работы: • пн–пт, вс: 10:00:17:45 • сб: 10:00:18:45 обеденный перерыв (пн–чт): 13:00:13:45 п"
+   },
+   "t:18:00": {
+    "url": "https://abramtsevo.net/kontakti/proezd.html",
+    "ctx": "сещения дольше. летний график работы: • экспозиции открыты с 10:00 до 18:00 (среда – пятница, воскресенье), по субботам — с 10:00 до 19:00. "
+   },
+   "t:19:00": {
+    "url": "https://abramtsevo.net/kontakti/proezd.html",
+    "ctx": ":00 до 18:00 (среда – пятница, воскресенье), по субботам — с 10:00 до 19:00. выходные дни: понедельник, вторник. • студия-мастерская и полен"
+   },
+   "p:30": {
+    "url": "https://abramtsevo.net/kontakti/proezd.html",
+    "ctx": "полчаса до окончания работы. продажа билетов в парк прекращается в 17:30, по субботам — в 18:30. * время начала последней экскурсии по главн"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 2,
+  "name": "Усадьба «Кусково»",
+  "tokens": [
+   "t:10:00",
+   "t:18:00",
+   "t:17:30",
+   "t:16:00",
+   "t:15:30",
+   "p:100",
+   "p:50",
+   "p:250",
+   "p:200",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://kuskovo.ru/posetitelyam/rezhim-raboty-muzeya/",
+    "final": "https://kuskovo.ru/posetitelyam/rezhim-raboty-muzeya/",
+    "status": 200,
+    "len": 2705,
+    "hit": 5
+   },
+   {
+    "url": "https://kuskovo.ru/posetitelyam/stoimost_biletov/",
+    "final": "https://kuskovo.ru/posetitelyam/stoimost_biletov/",
+    "status": 200,
+    "len": 14034,
+    "hit": 6
+   },
+   {
+    "url": "https://kuskovo.ru/posetitelyam/independent_visit/",
+    "final": "https://kuskovo.ru/posetitelyam/independent_visit/",
+    "status": 200,
+    "len": 7995,
+    "hit": 1
+   },
+   {
+    "url": "https://kuskovo.ru/",
+    "final": "https://kuskovo.ru/",
+    "status": 200,
+    "len": 7802,
+    "hit": 5
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://kuskovo.ru/posetitelyam/rezhim-raboty-muzeya/",
+    "ctx": " день архитектурно-парковый ансамбль (территория регулярного парка) с 10:00 до 18:00, вход до 17:30; купить билет обращаем ваше внимание, чт"
+   },
+   "t:18:00": {
+    "url": "https://kuskovo.ru/posetitelyam/rezhim-raboty-muzeya/",
+    "ctx": "итектурно-парковый ансамбль (территория регулярного парка) с 10:00 до 18:00, вход до 17:30; купить билет обращаем ваше внимание, что при пок"
+   },
+   "t:17:30": {
+    "url": "https://kuskovo.ru/posetitelyam/rezhim-raboty-muzeya/",
+    "ctx": "вый ансамбль (территория регулярного парка) с 10:00 до 18:00, вход до 17:30; купить билет обращаем ваше внимание, что при покупке билета в п"
+   },
+   "t:16:00": {
+    "url": "https://kuskovo.ru/posetitelyam/rezhim-raboty-muzeya/",
+    "ctx": "ьоны дополнительный в парк приобретать не требуется дворец с 10:00 до 16:00, вход до 15:30 (закрыт 20 октября); купить билет грот с 10:00 до"
+   },
+   "t:15:30": {
+    "url": "https://kuskovo.ru/posetitelyam/rezhim-raboty-muzeya/",
+    "ctx": "ьный в парк приобретать не требуется дворец с 10:00 до 16:00, вход до 15:30 (закрыт 20 октября); купить билет грот с 10:00 до 16:00, вход до"
+   },
+   "p:100": {
+    "url": "https://kuskovo.ru/posetitelyam/stoimost_biletov/",
+    "ctx": "ндартный прейскурант архитектурно-парковый ансамбль xviii века (парк) 100,00 руб. / **50,00 руб. / ***бесплатно купить билет обращаем ваше в"
+   },
+   "p:50": {
+    "url": "https://kuskovo.ru/posetitelyam/stoimost_biletov/",
+    "ctx": "рант архитектурно-парковый ансамбль xviii века (парк) 100,00 руб. / **50,00 руб. / ***бесплатно купить билет обращаем ваше внимание, что при"
+   },
+   "p:250": {
+    "url": "https://kuskovo.ru/posetitelyam/stoimost_biletov/",
+    "ctx": "входной билет в парк приобретать не требуется. дворец 500,00 руб. / **250,00 руб. / ***бесплатно купить билет выставка \"храм добродетели душ"
+   },
+   "p:200": {
+    "url": "https://kuskovo.ru/posetitelyam/stoimost_biletov/",
+    "ctx": "в восточной антресоли дворца (открыта в летний сезон) 300,00 руб. / **200,00 руб. / ***бесплатно купить билет грот 300,00 руб. / **200,00 ру"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://kuskovo.ru/posetitelyam/stoimost_biletov/",
+    "ctx": "о-парковый ансамбль xviii века (парк) 100,00 руб. / **50,00 руб. / ***бесплатно купить билет обращаем ваше внимание, что при покупке входног"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 3,
+  "name": "Усадьба «Архангельское»",
+  "tokens": [
+   "t:12:10",
+   "t:10:00",
+   "t:20:00",
+   "t:19:00",
+   "t:18:00",
+   "t:17:30",
+   "p:300",
+   "p:150",
+   "p:500",
+   "p:600",
+   "p:800"
+  ],
+  "pages": [
+   {
+    "url": "https://arhangelskoe.su/for_visitor/working_hours/",
+    "final": "https://arhangelskoe.su/for_visitor/working_hours/",
+    "status": 200,
+    "len": 6050,
+    "hit": 5
+   },
+   {
+    "url": "https://arhangelskoe.su/for_visitor/",
+    "final": "https://arhangelskoe.su/for_visitor/",
+    "status": 200,
+    "len": 65774,
+    "hit": 8
+   },
+   {
+    "url": "https://arhangelskoe.su/",
+    "final": "https://arhangelskoe.su/",
+    "status": 200,
+    "len": 5498,
+    "hit": 4
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://arhangelskoe.su/for_visitor/working_hours/",
+    "ctx": "ке - выходные дни. для посещений открыт только парк. парк ежедневно – 10:00:20:00 вход до 19:00, продажа билетов на входных кассах с 10:00 д"
+   },
+   "t:20:00": {
+    "url": "https://arhangelskoe.su/for_visitor/working_hours/",
+    "ctx": "ыходные дни. для посещений открыт только парк. парк ежедневно – 10:00:20:00 вход до 19:00, продажа билетов на входных кассах с 10:00 до 19:0"
+   },
+   "t:19:00": {
+    "url": "https://arhangelskoe.su/for_visitor/working_hours/",
+    "ctx": "ля посещений открыт только парк. парк ежедневно – 10:00:20:00 вход до 19:00, продажа билетов на входных кассах с 10:00 до 19:00 нахождение п"
+   },
+   "t:18:00": {
+    "url": "https://arhangelskoe.su/for_visitor/working_hours/",
+    "ctx": "т на реставрацию. западный флигель дворца вторник-воскресенье – 10:00:18:00 вход до 17:30, продажа билетов на входных кассах до 17:00 и в ка"
+   },
+   "t:17:30": {
+    "url": "https://arhangelskoe.su/for_visitor/working_hours/",
+    "ctx": "ию. западный флигель дворца вторник-воскресенье – 10:00:18:00 вход до 17:30, продажа билетов на входных кассах до 17:00 и в кассе флигеля до"
+   },
+   "p:300": {
+    "url": "https://arhangelskoe.su/for_visitor/",
+    "ctx": "ьных мероприятий стоимость входного билета в парк может быть изменена 300* 150 2. колоннада - в ыставка \"архангельское. территория впечатлен"
+   },
+   "p:150": {
+    "url": "https://arhangelskoe.su/for_visitor/",
+    "ctx": "мероприятий стоимость входного билета в парк может быть изменена 300* 150 2. колоннада - в ыставка \"архангельское. территория впечатлений\", "
+   },
+   "p:800": {
+    "url": "https://arhangelskoe.su/for_visitor/",
+    "ctx": "оме последнего вторника каждого месяца). вход на экспозиции до 17:30. 800500 900 1300500 250600 800 **для прохода по льготным и бесплатным б"
+   }
+  },
+  "missing": [
+   "t:12:10",
+   "p:500",
+   "p:600"
+  ]
+ },
+ {
+  "n": 4,
+  "name": "Главный ботанический сад РАН",
+  "tokens": [
+   "t:08:00",
+   "t:22:00",
+   "t:10:00",
+   "t:17:00",
+   "t:16:30",
+   "p:400",
+   "p:500",
+   "p:300",
+   "p:600",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://gbsad.ru/doc/2026/posetitel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%93%D0%91%D0%A1%20%D0%A0%D0%90%D0%9D.PDF",
+    "status": 200,
+    "skip": "binary application/pdf"
+   },
+   {
+    "url": "https://gbsad.ru/fondovaya-oranzhereya-bilety-i-abonementy",
+    "final": "https://gbsad.ru/fondovaya-oranzhereya-bilety-i-abonementy",
+    "status": 200,
+    "len": 7145,
+    "hit": 8
+   },
+   {
+    "url": "https://gbsad.ru/news/main-news/61-uvazhaemye-posetiteli-glavnogo-botanicheskogo-sada-sad-rabotaet-ezhednevno-bez-vyhodnyh-s-8-00-do-22-00.html",
+    "final": "https://gbsad.ru/news/main-news/61-uvazhaemye-posetiteli-glavnogo-botanicheskogo-sada-sad-rabotaet-ezhednevno-bez-vyhodnyh-s-8-00-do-22-00.html",
+    "status": 200,
+    "len": 4984,
+    "hit": 4
+   },
+   {
+    "url": "https://gbsad.ru/exkursii",
+    "final": "https://gbsad.ru/exkursii",
+    "status": 200,
+    "len": 7663,
+    "hit": 3
+   },
+   {
+    "url": "https://gbsad.ru/",
+    "final": "https://gbsad.ru/",
+    "status": 200,
+    "len": 3761,
+    "hit": 1
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://gbsad.ru/fondovaya-oranzhereya-bilety-i-abonementy",
+    "ctx": " недели время работы примечание понедельник - санитарный день вторник 10:00 – 17:00 (касса работает до 16:30) среда 10:00 – 17:00 (касса раб"
+   },
+   "t:17:00": {
+    "url": "https://gbsad.ru/fondovaya-oranzhereya-bilety-i-abonementy",
+    "ctx": "время работы примечание понедельник - санитарный день вторник 10:00 – 17:00 (касса работает до 16:30) среда 10:00 – 17:00 (касса работает до"
+   },
+   "t:16:30": {
+    "url": "https://gbsad.ru/fondovaya-oranzhereya-bilety-i-abonementy",
+    "ctx": "онедельник - санитарный день вторник 10:00 – 17:00 (касса работает до 16:30) среда 10:00 – 17:00 (касса работает до 16:30) четверг 10:00 – 1"
+   },
+   "p:400": {
+    "url": "https://gbsad.ru/fondovaya-oranzhereya-bilety-i-abonementy",
+    "ctx": "тегория билета будние дни выходные дни примечание взрослые посетители 400₽ 500 ₽ действителен на проход один раз. действителен в день приобр"
+   },
+   "p:500": {
+    "url": "https://gbsad.ru/fondovaya-oranzhereya-bilety-i-abonementy",
+    "ctx": "ия билета будние дни выходные дни примечание взрослые посетители 400₽ 500 ₽ действителен на проход один раз. действителен в день приобретени"
+   },
+   "p:300": {
+    "url": "https://gbsad.ru/fondovaya-oranzhereya-bilety-i-abonementy",
+    "ctx": "й билет (студенты, школьники, пенсионеры, многодетные родители) 250 ₽ 300 ₽ действителен на проход один раз. действителен в день приобретени"
+   },
+   "p:600": {
+    "url": "https://gbsad.ru/fondovaya-oranzhereya-bilety-i-abonementy",
+    "ctx": "руб. включая входной билет. стоимость билета для льготных категорий - 600 руб. включая входной билет. заявки на групповые экскурсии по оранж"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://gbsad.ru/fondovaya-oranzhereya-bilety-i-abonementy",
+    "ctx": " участники военных действий, дети из многодетных семей, дети до 7 лет бесплатно бесплатно при предъявлении документа подтверждающего льготу."
+   },
+   "t:08:00": {
+    "url": "https://gbsad.ru/news/main-news/61-uvazhaemye-posetiteli-glavnogo-botanicheskogo-sada-sad-rabotaet-ezhednevno-bez-vyhodnyh-s-8-00-do-22-00.html",
+    "ctx": "ли главного ботанического сада! сад работает ежедневно без выходных с 08:00 до 22:00. о нас цели и задачи история гбс официальная информация"
+   },
+   "t:22:00": {
+    "url": "https://gbsad.ru/news/main-news/61-uvazhaemye-posetiteli-glavnogo-botanicheskogo-sada-sad-rabotaet-ezhednevno-bez-vyhodnyh-s-8-00-do-22-00.html",
+    "ctx": "го ботанического сада! сад работает ежедневно без выходных с 08:00 до 22:00. о нас цели и задачи история гбс официальная информация устав но"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 5,
+  "name": "Кидзания в «Авиапарке»",
+  "tokens": [
+   "t:12:00",
+   "t:20:00",
+   "p:1910",
+   "p:3610",
+   "p:1190"
+  ],
+  "pages": [
+   {
+    "url": "https://kidzaniamoscow.ru/",
+    "final": "https://kidzaniamoscow.ru/",
+    "status": 200,
+    "len": 115242,
+    "hit": 5
+   }
+  ],
+  "found": {
+   "t:12:00": {
+    "url": "https://kidzaniamoscow.ru/",
+    "ctx": "билет формат работы кидзании кай!⁣⁣ ⁣⁣ часы работы парка: ежедневно с 12:00 до 20:00 12 октября - наш парк закрыт для посещения. путешествие"
+   },
+   "t:20:00": {
+    "url": "https://kidzaniamoscow.ru/",
+    "ctx": "мат работы кидзании кай!⁣⁣ ⁣⁣ часы работы парка: ежедневно с 12:00 до 20:00 12 октября - наш парк закрыт для посещения. путешествие реализуе"
+   },
+   "p:1910": {
+    "url": "https://kidzaniamoscow.ru/",
+    "ctx": " в новости на нашем сайте пн вт ср чт пт сб вс малыш от 2 до 3 лет от 1910 ₽ ребенок от 4 до 16 лет взрослый от 17 лет расписание активносте"
+   },
+   "p:3610": {
+    "url": "https://kidzaniamoscow.ru/",
+    "ctx": "но вход в парк возможен только в сопровождении ребенка 12:00:20:00 от 3610 ₽ от 1190 ₽ 12 октября — парк закрыт для посещения (технический д"
+   },
+   "p:1190": {
+    "url": "https://kidzaniamoscow.ru/",
+    "ctx": "парк возможен только в сопровождении ребенка 12:00:20:00 от 3610 ₽ от 1190 ₽ 12 октября — парк закрыт для посещения (технический день) подро"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 6,
+  "name": "Музей железнодорожной техники на Рижском",
+  "tokens": [],
+  "pages": [
+   {
+    "url": "https://archnadzor.ru/2023/02/26/muzey-uehal-istoriya-ostalas/",
+    "final": "https://archnadzor.ru/2023/02/26/muzey-uehal-istoriya-ostalas/",
+    "status": 200,
+    "len": 12191,
+    "hit": 0
+   },
+   {
+    "url": "https://www.mskagency.ru/materials/3542160",
+    "final": "https://www.mskagency.ru/materials/3542160",
+    "status": 200,
+    "len": 4641,
+    "hit": 0
+   },
+   {
+    "url": "https://company.rzd.ru/ru/9353/page/105554?id=1035",
+    "status": 0,
+    "error": "UND_ERR_CONNECT_TIMEOUT"
+   }
+  ],
+  "found": {},
+  "missing": []
+ },
+ {
+  "n": 7,
+  "name": "Фуд-холл «Депо»",
+  "tokens": [
+   "t:10:00",
+   "t:23:00",
+   "t:02:00",
+   "t:13:10",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://depomoscow.ru/news/rezhim-raboty-fudmolla-1.html",
+    "final": "https://depomoscow.ru/news/rezhim-raboty-fudmolla-1.html",
+    "status": 200,
+    "len": 2898,
+    "hit": 4
+   },
+   {
+    "url": "https://depomoscow.ru/news/vhod-v-fudmoll-depomoskva-vsegda-besplatnyi-i-svobodnyi.html",
+    "final": "https://depomoscow.ru/news/vhod-v-fudmoll-depomoskva-vsegda-besplatnyi-i-svobodnyi.html",
+    "status": 200,
+    "len": 2576,
+    "hit": 4
+   },
+   {
+    "url": "https://depomoscow.ru/",
+    "final": "https://depomoscow.ru/",
+    "status": 200,
+    "len": 45092,
+    "hit": 3
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://depomoscow.ru/news/rezhim-raboty-fudmolla-1.html",
+    "ctx": "ие. обратите внимание, что режим работы будет изменён: 12 октября – с 10:00 до 23:00; 13 октября – с 10:00 до 00:00; 14 октября – с 10:00 до"
+   },
+   "t:23:00": {
+    "url": "https://depomoscow.ru/news/rezhim-raboty-fudmolla-1.html",
+    "ctx": "ите внимание, что режим работы будет изменён: 12 октября – с 10:00 до 23:00; 13 октября – с 10:00 до 00:00; 14 октября – с 10:00 до 00:00; 1"
+   },
+   "t:02:00": {
+    "url": "https://depomoscow.ru/news/rezhim-raboty-fudmolla-1.html",
+    "ctx": "0:00 до 00:00; 15 октября – с 10:00 до 23:00; 16 октября – с 10:00 до 02:00; 17 октября – с 10:00 до 02:00; 18 октября – с 10:00 до 23:00. с"
+   },
+   "t:13:10": {
+    "url": "https://depomoscow.ru/news/rezhim-raboty-fudmolla-1.html",
+    "ctx": "утка главная новости режим работы фудмолла режим работы фудмолла дата 13:10.2026 уважаемые гости, международный футбольный турнир лига чемпи"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://depomoscow.ru/news/vhod-v-fudmoll-depomoskva-vsegda-besplatnyi-i-svobodnyi.html",
+    "ctx": " вход в фудмолл «депо.москва» всегда бесплатный и свободный! - депо лесная крупнейшая площадка в москве c"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 8,
+  "name": "Усадьба Вяземы (музей-заповедник Пушкина)",
+  "tokens": [
+   "t:10:00",
+   "t:17:00",
+   "p:120",
+   "p:200",
+   "p:100",
+   "p:1670",
+   "p:920",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://museum-gol.ru/visitors/",
+    "final": "https://museum-gol.ru/visitors/",
+    "status": 200,
+    "len": 3673,
+    "hit": 2
+   },
+   {
+    "url": "https://museum-gol.ru/visitors/tickets/",
+    "final": "https://museum-gol.ru/visitors/tickets/",
+    "status": 200,
+    "len": 6042,
+    "hit": 8
+   },
+   {
+    "url": "https://museum-gol.ru/",
+    "final": "https://museum-gol.ru/",
+    "status": 200,
+    "len": 5443,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://museum-gol.ru/visitors/",
+    "ctx": "для слабовидящих график работы пн-вт: выходной (кроме парка) ср-пт: с 10:00 до 17:00 сб-вс: с 10:00 до 17:00 музей- заповедник а. с. пушкина"
+   },
+   "t:17:00": {
+    "url": "https://museum-gol.ru/visitors/",
+    "ctx": "видящих график работы пн-вт: выходной (кроме парка) ср-пт: с 10:00 до 17:00 сб-вс: с 10:00 до 17:00 музей- заповедник а. с. пушкина вяземы-з"
+   },
+   "p:120": {
+    "url": "https://museum-gol.ru/visitors/tickets/",
+    "ctx": "ападный флигель пушкинская карта: да бесплатный проход: есть взрослые 120₽ до 1670₽ льготные категории* 120₽ до 920₽ иностранные граждане 12"
+   },
+   "p:200": {
+    "url": "https://museum-gol.ru/visitors/tickets/",
+    "ctx": "а: мифы и реальность» 1 этаж взрослые 250₽ 1 этаж льготные категории* 200₽ 1 этаж иностранные граждане 350₽ 2 этаж взрослые 200₽ 2 этаж льго"
+   },
+   "p:100": {
+    "url": "https://museum-gol.ru/visitors/tickets/",
+    "ctx": "транные граждане 350₽ 2 этаж взрослые 200₽ 2 этаж льготные категории* 100₽ 2 этаж иностранные граждане 350₽ выставки в цокольном этаже дворц"
+   },
+   "p:1670": {
+    "url": "https://museum-gol.ru/visitors/tickets/",
+    "ctx": "флигель пушкинская карта: да бесплатный проход: есть взрослые 120₽ до 1670₽ льготные категории* 120₽ до 920₽ иностранные граждане 120₽ до 28"
+   },
+   "p:920": {
+    "url": "https://museum-gol.ru/visitors/tickets/",
+    "ctx": "атный проход: есть взрослые 120₽ до 1670₽ льготные категории* 120₽ до 920₽ иностранные граждане 120₽ до 2870₽ входные билеты входной билет н"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://museum-gol.ru/visitors/tickets/",
+    "ctx": "ещения: территория парка захарово, усадебный дом пушкинская карта: да бесплатный проход: есть взрослые 400₽ льготные категории* 300₽ иностра"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 9,
+  "name": "Local Kids",
+  "tokens": [
+   "t:09:00",
+   "t:22:00",
+   "t:09:07",
+   "p:1500"
+  ],
+  "pages": [
+   {
+    "url": "https://localkids.clients.site/",
+    "final": "https://localkids.clients.site/",
+    "status": 200,
+    "len": 4804,
+    "hit": 0
+   },
+   {
+    "url": "https://gde-kafe.ru/catalog/local-kids/",
+    "final": "https://gde-kafe.ru/catalog/local-kids/",
+    "status": 200,
+    "len": 6723,
+    "hit": 2
+   },
+   {
+    "url": "https://tomesto.ru/moskva/places/local-kids",
+    "final": "https://tomesto.ru/moskva/places/local-kids",
+    "status": 200,
+    "len": 3939,
+    "hit": 1
+   }
+  ],
+  "found": {
+   "t:09:00": {
+    "url": "https://gde-kafe.ru/catalog/local-kids/",
+    "ctx": "н http://local-kids.clients.site не указан график работы понедельник: 09:00:22:00 вторник: 09:00:22:00 среда: 09:00:22:00 четверг: 09:00:22:"
+   },
+   "t:22:00": {
+    "url": "https://gde-kafe.ru/catalog/local-kids/",
+    "ctx": "://local-kids.clients.site не указан график работы понедельник: 09:00:22:00 вторник: 09:00:22:00 среда: 09:00:22:00 четверг: 09:00:22:00 пят"
+   },
+   "p:1500": {
+    "url": "https://tomesto.ru/moskva/places/local-kids",
+    "ctx": "u москва б-р андрея тарковского, д. 9 м. рассказовка (1.7 км, 24 мин) 1500 руб. 1500 ₽ заказать столик режим работы \"local kids\" пн вт ср чт"
+   }
+  },
+  "missing": [
+   "t:09:07"
+  ]
+ },
+ {
+  "n": 10,
+  "name": "Vasilchuki Chaihona №1 — Метрополис",
+  "tokens": [
+   "t:10:00",
+   "t:23:00",
+   "t:00:00",
+   "p:500",
+   "p:750",
+   "p:850"
+  ],
+  "pages": [
+   {
+    "url": "https://chaihona.ru/restaurants/leningradskoe-sosse-16a",
+    "final": "https://chaihona.ru/restaurants/leningradskoe-sosse-16a",
+    "status": 200,
+    "len": 28331,
+    "hit": 3
+   },
+   {
+    "url": "https://static.chaihona.ru/69f05cd203a06.pdf",
+    "status": 200,
+    "skip": "binary application/pdf"
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://chaihona.ru/restaurants/leningradskoe-sosse-16a",
+    "ctx": "рана ленинградское шоссе, 16ас4. тц metropolis, 3 этаж часы работы пн 10:00 23:00 вт 10:00 23:00 ср 10:00 23:00 чт 10:00 23:00 пт 10:00 00:0"
+   },
+   "t:23:00": {
+    "url": "https://chaihona.ru/restaurants/leningradskoe-sosse-16a",
+    "ctx": "енинградское шоссе, 16ас4. тц metropolis, 3 этаж часы работы пн 10:00 23:00 вт 10:00 23:00 ср 10:00 23:00 чт 10:00 23:00 пт 10:00 00:00 сб 1"
+   },
+   "t:00:00": {
+    "url": "https://chaihona.ru/restaurants/leningradskoe-sosse-16a",
+    "ctx": " пн 10:00 23:00 вт 10:00 23:00 ср 10:00 23:00 чт 10:00 23:00 пт 10:00 00:00 сб 10:00 00:00 вс 10:00 23:00 +7 (495) 234-0-233 vasilchuki chai"
+   }
+  },
+  "missing": [
+   "p:500",
+   "p:750",
+   "p:850"
+  ]
+ },
+ {
+  "n": 11,
+  "name": "KLICH",
+  "tokens": [
+   "t:10:00",
+   "t:23:00",
+   "t:00:00",
+   "t:05:10",
+   "p:800",
+   "p:1200",
+   "p:1300"
+  ],
+  "pages": [
+   {
+    "url": "https://klich.moscow/kontakty",
+    "final": "https://klich.moscow/kontakty",
+    "status": 200,
+    "len": 2151,
+    "hit": 3
+   },
+   {
+    "url": "https://klich.moscow/images/menu/05-10-2026/menyu-klich-osnovnoedlya-sajtakukhnya.pdf",
+    "status": 200,
+    "skip": "binary application/pdf"
+   },
+   {
+    "url": "https://klich.moscow/",
+    "final": "https://klich.moscow/",
+    "status": 200,
+    "len": 2163,
+    "hit": 3
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://klich.moscow/kontakty",
+    "ctx": "и к содержимому о нас атмосфера меню команда детская комната контакты 10:00 – 23:00 (вс-чт) 10:00 – 00:00 (пт-сб) наб. марка шагала, д.1, к."
+   },
+   "t:23:00": {
+    "url": "https://klich.moscow/kontakty",
+    "ctx": "ржимому о нас атмосфера меню команда детская комната контакты 10:00 – 23:00 (вс-чт) 10:00 – 00:00 (пт-сб) наб. марка шагала, д.1, к.2 +7(900"
+   },
+   "t:00:00": {
+    "url": "https://klich.moscow/kontakty",
+    "ctx": "а меню команда детская комната контакты 10:00 – 23:00 (вс-чт) 10:00 – 00:00 (пт-сб) наб. марка шагала, д.1, к.2 +7(900) 155-99-99 заброниров"
+   }
+  },
+  "missing": [
+   "t:05:10",
+   "p:800",
+   "p:1200",
+   "p:1300"
+  ]
+ },
+ {
+  "n": 12,
+  "name": "Пьеро",
+  "tokens": [
+   "t:12:00",
+   "t:22:00",
+   "t:23:00",
+   "t:11:00",
+   "p:250",
+   "p:420",
+   "p:410",
+   "p:920"
+  ],
+  "pages": [
+   {
+    "url": "https://xn--e1asbf2d.xn--p1ai/contacts",
+    "final": "https://xn--e1asbf2d.xn--p1ai/contacts",
+    "status": 200,
+    "len": 1637,
+    "hit": 4
+   },
+   {
+    "url": "https://xn--e1asbf2d.xn--p1ai/menu",
+    "final": "https://xn--e1asbf2d.xn--p1ai/menu",
+    "status": 200,
+    "len": 884,
+    "hit": 0
+   },
+   {
+    "url": "https://xn--e1asbf2d.xn--p1ai/api/menu/public?refresh=0",
+    "final": "https://xn--e1asbf2d.xn--p1ai/api/menu/public?refresh=0",
+    "status": 200,
+    "len": 132841,
+    "hit": 8
+   },
+   {
+    "url": "https://xn--e1asbf2d.xn--p1ai/",
+    "final": "https://xn--e1asbf2d.xn--p1ai/",
+    "status": 200,
+    "len": 1779,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "t:12:00": {
+    "url": "https://xn--e1asbf2d.xn--p1ai/contacts",
+    "ctx": "сква, бульвар братьев весниных, 1 +7 (495) 120-70-71 график работы пн 12:00 — 22:00 вт 12:00 — 22:00 ср 12:00 — 22:00 чт 12:00 — 22:00 пт 12"
+   },
+   "t:22:00": {
+    "url": "https://xn--e1asbf2d.xn--p1ai/contacts",
+    "ctx": "львар братьев весниных, 1 +7 (495) 120-70-71 график работы пн 12:00 — 22:00 вт 12:00 — 22:00 ср 12:00 — 22:00 чт 12:00 — 22:00 пт 12:00 — 23"
+   },
+   "t:23:00": {
+    "url": "https://xn--e1asbf2d.xn--p1ai/contacts",
+    "ctx": "— 22:00 вт 12:00 — 22:00 ср 12:00 — 22:00 чт 12:00 — 22:00 пт 12:00 — 23:00 сб 11:00 — 23:00 вс 11:00 — 22:00 забронировать построить маршру"
+   },
+   "t:11:00": {
+    "url": "https://xn--e1asbf2d.xn--p1ai/contacts",
+    "ctx": "т 12:00 — 22:00 ср 12:00 — 22:00 чт 12:00 — 22:00 пт 12:00 — 23:00 сб 11:00 — 23:00 вс 11:00 — 22:00 забронировать построить маршрут как про"
+   },
+   "p:250": {
+    "url": "https://xn--e1asbf2d.xn--p1ai/api/menu/public?refresh=0",
+    "ctx": "/items/0018f1aa4171236d1c832718f6e0418d.png\",\"detailurl\":\"\",\"weight\":\"250 gram\",\"categoryid\":\"d195a609-1067-4946-a27b-740bc5938d1f\",\"categor"
+   },
+   "p:420": {
+    "url": "https://xn--e1asbf2d.xn--p1ai/api/menu/public?refresh=0",
+    "ctx": "litanskaya-picca\",\"sort\":8,\"tags\":[\"neo-pizza\"]},{\"id\":\"28f29aa8-b011-420d-b445-3d240e5eb8d5\",\"name\":\"римская пицца\",\"slug\":\"rimskaya-picca\""
+   },
+   "p:410": {
+    "url": "https://xn--e1asbf2d.xn--p1ai/api/menu/public?refresh=0",
+    "ctx": "ed1da00a7bc4\",\"title\":\"пельмешки с бульоном\",\"description\":\"\",\"price\":410,\"image\":\"https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.r"
+   },
+   "p:920": {
+    "url": "https://xn--e1asbf2d.xn--p1ai/api/menu/public?refresh=0",
+    "ctx": "42ba-a998-3027aa809e50.selstorage.ru/piero/109323/images/items/fe653c29204373a36a188857bcd486de.png\",\"detailurl\":\"\",\"weight\":\"245 gram\",\"cat"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 13,
+  "name": "Tutta La Vita",
+  "tokens": [
+   "p:700",
+   "p:1000",
+   "p:1600",
+   "k:круглосуточ"
+  ],
+  "pages": [
+   {
+    "url": "https://tuttalavita.ru/kontakty",
+    "final": "https://tuttalavita.ru/kontakty",
+    "status": 200,
+    "len": 2866,
+    "hit": 1
+   },
+   {
+    "url": "https://tuttalavita.ru/images/menu/autumn_menu_2026.pdf",
+    "status": 200,
+    "skip": "binary application/pdf"
+   },
+   {
+    "url": "https://tuttalavita.ru/menyu",
+    "final": "https://tuttalavita.ru/menyu",
+    "status": 200,
+    "len": 2311,
+    "hit": 0
+   },
+   {
+    "url": "https://tuttalavita.ru/",
+    "final": "https://tuttalavita.ru/",
+    "status": 200,
+    "len": 5429,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://tuttalavita.ru/kontakty",
+    "ctx": "смотра адреса в браузере должен быть включен javascript. режим работы круглосуточно оферта на бронирование политика обработки персональных д"
+   }
+  },
+  "missing": [
+   "p:700",
+   "p:1000",
+   "p:1600"
+  ]
+ },
+ {
+  "n": 14,
+  "name": "Музей LEt’s GO",
+  "tokens": [
+   "t:10:00",
+   "t:19:00",
+   "t:18:30",
+   "p:700",
+   "p:600",
+   "p:450",
+   "p:1700",
+   "p:3500",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://letsgo-museum.ru/",
+    "final": "https://letsgo-museum.ru/",
+    "status": 200,
+    "len": 6108,
+    "hit": 9
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://letsgo-museum.ru/",
+    "ctx": " музея и кассы музей открыт для посещения с четверга по воскресенье с 10:00 до 19:00. вход посетителей в музей и продажа билетов в кассе пре"
+   },
+   "t:19:00": {
+    "url": "https://letsgo-museum.ru/",
+    "ctx": "кассы музей открыт для посещения с четверга по воскресенье с 10:00 до 19:00. вход посетителей в музей и продажа билетов в кассе прекращаются"
+   },
+   "t:18:30": {
+    "url": "https://letsgo-museum.ru/",
+    "ctx": "продажа билетов в кассе прекращаются за полчаса до закрытия музея — в 18:30. посещение музея детьми дети младше 14 лет могут посетить музей "
+   },
+   "p:700": {
+    "url": "https://letsgo-museum.ru/",
+    "ctx": "т для групп от 1 до 15 человек, по экспозиции \"город и гарри поттер\" 1700 рублей / за группу входной билет в музей оплачивается отдельно. эк"
+   },
+   "p:600": {
+    "url": "https://letsgo-museum.ru/",
+    "ctx": "я. взрослый — 700 рублей дети до 3-х лет — бесплатно дети до 18 лет — 600 рублей льготный — 450 рублей инвалиды i и ii групп — бесплатно пер"
+   },
+   "p:450": {
+    "url": "https://letsgo-museum.ru/",
+    "ctx": "ей дети до 3-х лет — бесплатно дети до 18 лет — 600 рублей льготный — 450 рублей инвалиды i и ii групп — бесплатно перед покупкой билета про"
+   },
+   "p:1700": {
+    "url": "https://letsgo-museum.ru/",
+    "ctx": "ут для групп от 1 до 15 человек, по экспозиции \"город и гарри поттер\" 1700 рублей / за группу входной билет в музей оплачивается отдельно. э"
+   },
+   "p:3500": {
+    "url": "https://letsgo-museum.ru/",
+    "ctx": "лагаемой даты посещения. для групп от 1 до 15 человек, по всему музею 3500 рублей/за группу входной билет в музей оплачивается отдельно. экс"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://letsgo-museum.ru/",
+    "ctx": "редполагаемой даты посещения. взрослый — 700 рублей дети до 3-х лет — бесплатно дети до 18 лет — 600 рублей льготный — 450 рублей инвалиды i"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 15,
+  "name": "Русское Подворье",
+  "tokens": [
+   "t:12:00",
+   "t:00:00",
+   "p:690",
+   "p:890",
+   "p:1210"
+  ],
+  "pages": [
+   {
+    "url": "https://russkoepodvorie.com/kontakty/",
+    "final": "https://russkoepodvorie.com/kontakty/",
+    "status": 200,
+    "len": 6759,
+    "hit": 2
+   },
+   {
+    "url": "https://russkoepodvorie.com/wp-content/uploads/2026/08/Osnovnoe-menyu.pdf",
+    "skip": "robots"
+   },
+   {
+    "url": "https://russkoepodvorie.com/delivery/",
+    "final": "https://russkoepodvorie.com/delivery/",
+    "status": 200,
+    "len": 18363,
+    "hit": 5
+   },
+   {
+    "url": "https://russkoepodvorie.com/",
+    "final": "https://russkoepodvorie.com/",
+    "status": 200,
+    "len": 10988,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "t:12:00": {
+    "url": "https://russkoepodvorie.com/kontakty/",
+    "ctx": " к. 1 м. каховская / м. севастопольская / м. варшавская время работы: 12:00 — 00:00 напишите нам русское подворье в max русское подворье в t"
+   },
+   "t:00:00": {
+    "url": "https://russkoepodvorie.com/kontakty/",
+    "ctx": " каховская / м. севастопольская / м. варшавская время работы: 12:00 — 00:00 напишите нам русское подворье в max русское подворье в telegram "
+   },
+   "p:690": {
+    "url": "https://russkoepodvorie.com/delivery/",
+    "ctx": "г. заказать на яндекс.еде солянка мясная сборная подается со сметаной 690 ₽ 350 г. заказать на яндекс.еде борщ с говядиной подается со смета"
+   },
+   "p:890": {
+    "url": "https://russkoepodvorie.com/delivery/",
+    "ctx": "еликокняжеская» *цена указана за кг. примерный вес стерляди 2,5-4 кг 8890 ₽ 1000 г. заказать на яндекс.еде большое мясное ассорти гриль антр"
+   },
+   "p:1210": {
+    "url": "https://russkoepodvorie.com/delivery/",
+    "ctx": "еде щучьи котлеты с картофельным пюре, щучьей икрой и соусом бер блан 1210 ₽ 300 г. заказать на яндекс.еде горячие кушанья из мяса и птицы п"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 16,
+  "name": "Vasilchuki Chaihona №1 — Дмитрия Ульянова",
+  "tokens": [
+   "t:11:00",
+   "t:00:00",
+   "p:500",
+   "p:750",
+   "p:850"
+  ],
+  "pages": [
+   {
+    "url": "https://chaihona.ru/restaurants/dmitriya-ulyanova-51",
+    "final": "https://chaihona.ru/restaurants/dmitriya-ulyanova-51",
+    "status": 200,
+    "len": 27741,
+    "hit": 2
+   },
+   {
+    "url": "https://static.chaihona.ru/69f05cd203a06.pdf",
+    "status": 200,
+    "skip": "binary application/pdf"
+   }
+  ],
+  "found": {
+   "t:11:00": {
+    "url": "https://chaihona.ru/restaurants/dmitriya-ulyanova-51",
+    "ctx": "стол расположение ресторана улица дмитрия ульянова, 51 часы работы пн 11:00 00:00 вт 11:00 00:00 ср 11:00 00:00 чт 11:00 00:00 пт 11:00 00:0"
+   },
+   "t:00:00": {
+    "url": "https://chaihona.ru/restaurants/dmitriya-ulyanova-51",
+    "ctx": "асположение ресторана улица дмитрия ульянова, 51 часы работы пн 11:00 00:00 вт 11:00 00:00 ср 11:00 00:00 чт 11:00 00:00 пт 11:00 00:00 сб 1"
+   }
+  },
+  "missing": [
+   "p:500",
+   "p:750",
+   "p:850"
+  ]
+ },
+ {
+  "n": 17,
+  "name": "Музей материнства и младенчества",
+  "tokens": [
+   "t:11:00",
+   "t:17:00",
+   "p:70"
+  ],
+  "pages": [
+   {
+    "url": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+    "final": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+    "status": 200,
+    "len": 12156,
+    "hit": 3
+   }
+  ],
+  "found": {
+   "t:11:00": {
+    "url": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+    "ctx": " — с 10:00 до 18:00 (билеты в кассе до 17:30) суббота-воскресенье — с 11:00 до 19:00 (билеты в кассе до 18:30) схема проезда электропоезд 1."
+   },
+   "t:17:00": {
+    "url": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+    "ctx": "режим работы вторник – пятница, воскресенье – 10:00 - 17:30 (касса до 17:00) суббота – 10:00 - 18:00 (касса до 17:30) понедельник – выходной"
+   },
+   "p:70": {
+    "url": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+    "ctx": ",\"sameas\":[\"https:\\/\\/vk.com\\/zvenistmuseum\",\"https:\\/\\/ok.ru\\/group\\/70000002046383\",\"https:\\/\\/dzen.ru\\/id\\/6239af670ee50c7a02d374db\",\"htt"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 18,
+  "name": "Музей техники Вадима Задорожного",
+  "tokens": [
+   "t:01:10",
+   "t:10:00",
+   "t:19:00",
+   "t:18:00",
+   "t:20:00",
+   "p:1300",
+   "p:650",
+   "p:2900",
+   "p:3400"
+  ],
+  "pages": [
+   {
+    "url": "https://tmuseum.ru/kontakty/",
+    "final": "https://tmuseum.ru/kontakty/",
+    "status": 200,
+    "len": 7794,
+    "hit": 5
+   },
+   {
+    "url": "https://tmuseum.ru/czeny/",
+    "final": "https://tmuseum.ru/czeny/",
+    "status": 200,
+    "len": 10116,
+    "hit": 6
+   },
+   {
+    "url": "https://tmuseum.ru/",
+    "final": "https://tmuseum.ru/",
+    "status": 200,
+    "len": 7816,
+    "hit": 5
+   }
+  ],
+  "found": {
+   "t:01:10": {
+    "url": "https://tmuseum.ru/kontakty/",
+    "ctx": "495) 662-38-18 почта: info@tmuseum.ru внимание! график работы музея с 01:10.2026 г понедельник — выходной, санитарный день вторник — пятница"
+   },
+   "t:10:00": {
+    "url": "https://tmuseum.ru/kontakty/",
+    "ctx": "0.2026 г понедельник — выходной, санитарный день вторник — пятница: с 10:00 до 19:00 (касса и магазины до 18:00) выходные и праздничные: с 1"
+   },
+   "t:19:00": {
+    "url": "https://tmuseum.ru/kontakty/",
+    "ctx": "понедельник — выходной, санитарный день вторник — пятница: с 10:00 до 19:00 (касса и магазины до 18:00) выходные и праздничные: с 10:00 до 2"
+   },
+   "t:18:00": {
+    "url": "https://tmuseum.ru/kontakty/",
+    "ctx": "итарный день вторник — пятница: с 10:00 до 19:00 (касса и магазины до 18:00) выходные и праздничные: с 10:00 до 20:00 (кассы и магазины до 1"
+   },
+   "t:20:00": {
+    "url": "https://tmuseum.ru/kontakty/",
+    "ctx": " 19:00 (касса и магазины до 18:00) выходные и праздничные: с 10:00 до 20:00 (кассы и магазины до 19:00) внимание! запись на экскурсии произв"
+   },
+   "p:1300": {
+    "url": "https://tmuseum.ru/czeny/",
+    "ctx": " уличная территория более 1000 экспонатов, с самолетами и вертолетами 1300 ₽ купить семейный билет ( 2+1 ) полный доступ ко всем экспозициям"
+   },
+   "p:650": {
+    "url": "https://tmuseum.ru/czeny/",
+    "ctx": "ц военной техники детская площадка и жд вагон с военно-полевой кухней 650 ₽ купить подарочный комплексный билет (срок действия 180 дней) пол"
+   },
+   "p:2900": {
+    "url": "https://tmuseum.ru/czeny/",
+    "ctx": "+ авиация + уличная территория 2 взрослых +1 ребенок (от 7 до 17 лет) 2900 ₽ купить семейный билет ( 2+2 ) полный доступ ко всем экспозициям"
+   },
+   "p:3400": {
+    "url": "https://tmuseum.ru/czeny/",
+    "ctx": " авиация + уличная территория 2 взрослых + 2 ребенка (от 7 до 17 лет) 3400 ₽ купить уличная экспозиция 3,5 га уличной территории с самолетам"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 19,
+  "name": "Парк «Патриот»",
+  "tokens": [
+   "t:10:00",
+   "t:18:00",
+   "t:19:00",
+   "p:1100",
+   "p:550",
+   "p:375",
+   "p:230",
+   "p:275"
+  ],
+  "pages": [
+   {
+    "url": "https://parkpatriot.ru/",
+    "final": "https://parkpatriot.ru/",
+    "status": 200,
+    "len": 22985,
+    "hit": 4
+   },
+   {
+    "url": "https://parkpatriot.ru/o-parke/tseny-na-poseshchenie/biletnaya-programma/",
+    "final": "https://parkpatriot.ru/o-parke/tseny-na-poseshchenie/biletnaya-programma/",
+    "status": 200,
+    "len": 6381,
+    "hit": 8
+   },
+   {
+    "url": "https://parkpatriot.ru/o-parke/tseny-na-poseshchenie/",
+    "final": "https://parkpatriot.ru/o-parke/tseny-na-poseshchenie/",
+    "status": 200,
+    "len": 6956,
+    "hit": 3
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://parkpatriot.ru/",
+    "ctx": " javascript. 8 (800) 511-14:18 купить билет тур 360&deg; вт. - пт.: с 10:00 до 18:00 сб. - вс.: с 10:00 до 19:00 пн.: выходной режим работы "
+   },
+   "t:18:00": {
+    "url": "https://parkpatriot.ru/",
+    "ctx": "pt. 8 (800) 511-14:18 купить билет тур 360&deg; вт. - пт.: с 10:00 до 18:00 сб. - вс.: с 10:00 до 19:00 пн.: выходной режим работы касс купи"
+   },
+   "t:19:00": {
+    "url": "https://parkpatriot.ru/",
+    "ctx": " билет тур 360&deg; вт. - пт.: с 10:00 до 18:00 сб. - вс.: с 10:00 до 19:00 пн.: выходной режим работы касс купить билет тур 360&deg; о парк"
+   },
+   "p:375": {
+    "url": "https://parkpatriot.ru/",
+    "ctx": "ирмой renault в 1934 – 1935 годах... ссср бм-21 «град» на шасси «урал-375д» реактивная система залпового огня (рсзо) калибра 122 мм — «град»"
+   },
+   "p:1100": {
+    "url": "https://parkpatriot.ru/o-parke/tseny-na-poseshchenie/biletnaya-programma/",
+    "ctx": "ого музея — от 1,5 часов на посещение цены: взрослый «единый билет» — 1100 руб детский «единый билет» (07:17 лет) — 550 руб льготный «единый"
+   },
+   "p:550": {
+    "url": "https://parkpatriot.ru/o-parke/tseny-na-poseshchenie/biletnaya-programma/",
+    "ctx": "рослый «единый билет» — 1100 руб детский «единый билет» (07:17 лет) — 550 руб льготный «единый билет» — 550 руб купить единый билет «комплек"
+   },
+   "p:230": {
+    "url": "https://parkpatriot.ru/o-parke/tseny-na-poseshchenie/biletnaya-programma/",
+    "ctx": "посещение. цены: взрослый билет — 450 руб детский билет (07:17 лет) — 230 руб льготный билет — 230 руб купить билет в танковый музей «музейн"
+   },
+   "p:275": {
+    "url": "https://parkpatriot.ru/o-parke/tseny-na-poseshchenie/biletnaya-programma/",
+    "ctx": "посещение. цены: взрослый билет — 550 руб детский билет (07:17 лет) — 275 руб льготный билет — 275 руб купить билет на музейную площадку № 1"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 20,
+  "name": "Национальный парк «Лосиный остров»",
+  "tokens": [
+   "t:10:00",
+   "t:18:00",
+   "t:17:00",
+   "t:15:00",
+   "t:14:30",
+   "p:700",
+   "p:500"
+  ],
+  "pages": [
+   {
+    "url": "https://losinyiostrov.ru/turizm-i-otdykh/informatsionnye-materialy/",
+    "final": "https://losinyiostrov.ru/turizm-i-otdykh/informatsionnye-materialy/",
+    "status": 200,
+    "len": 8425,
+    "hit": 5
+   },
+   {
+    "url": "https://losinyiostrov.ru/about/dokumenty/informatsiya-o-platnykh-uslugakh/",
+    "final": "https://losinyiostrov.ru/about/dokumenty/informatsiya-o-platnykh-uslugakh/",
+    "status": 200,
+    "len": 3531,
+    "hit": 1
+   },
+   {
+    "url": "https://losinyiostrov.ru/ekotsentry/tsarskaya-okhota/interaktivnaya-ekskursiya-po-ekologicheskomu-tsentru-tsarskaya-okhota/",
+    "final": "https://losinyiostrov.ru/ekotsentry/tsarskaya-okhota/interaktivnaya-ekskursiya-po-ekologicheskomu-tsentru-tsarskaya-okhota/",
+    "status": 200,
+    "len": 6315,
+    "hit": 4
+   },
+   {
+    "url": "https://losinyiostrov.ru/",
+    "final": "https://losinyiostrov.ru/",
+    "status": 200,
+    "len": 6088,
+    "hit": 1
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://losinyiostrov.ru/turizm-i-otdykh/informatsionnye-materialy/",
+    "ctx": "станция»: г. мытищи, кропоткинский проезд. в зимний период. вт - вс с 10:00 до 15:00. касса работает до 14:30. понедельник - санитарный день"
+   },
+   "t:18:00": {
+    "url": "https://losinyiostrov.ru/turizm-i-otdykh/informatsionnye-materialy/",
+    "ctx": "а: г. москва, поперечный просек, д. 1г. понедельник - четверг 09:00 - 18:00, перерыв 13:00 - 13:33 пятница 09:00 - 15:45, перерыв 13:00 - 13"
+   },
+   "t:17:00": {
+    "url": "https://losinyiostrov.ru/turizm-i-otdykh/informatsionnye-materialy/",
+    "ctx": "ик - санитарный день. в летний период. будние дни: вт - пт с 10:00 до 17:00. касса работает до 16:30. выходные дни: сб - вс с 10:00 до 18:00"
+   },
+   "t:15:00": {
+    "url": "https://losinyiostrov.ru/turizm-i-otdykh/informatsionnye-materialy/",
+    "ctx": " г. мытищи, кропоткинский проезд. в зимний период. вт - вс с 10:00 до 15:00. касса работает до 14:30. понедельник - санитарный день. в летни"
+   },
+   "t:14:30": {
+    "url": "https://losinyiostrov.ru/turizm-i-otdykh/informatsionnye-materialy/",
+    "ctx": " проезд. в зимний период. вт - вс с 10:00 до 15:00. касса работает до 14:30. понедельник - санитарный день. в летний период. будние дни: вт "
+   },
+   "p:700": {
+    "url": "https://losinyiostrov.ru/ekotsentry/tsarskaya-okhota/interaktivnaya-ekskursiya-po-ekologicheskomu-tsentru-tsarskaya-okhota/",
+    "ctx": "в составе экскурсионной группы в сопровождении экскурсовода. взрослый 700 ₽ детский 500 ₽ парковка (+ 350 ₽ ) 700 ₽ 0 ₽ билеты вы можете при"
+   },
+   "p:500": {
+    "url": "https://losinyiostrov.ru/ekotsentry/tsarskaya-okhota/interaktivnaya-ekskursiya-po-ekologicheskomu-tsentru-tsarskaya-okhota/",
+    "ctx": "урсионной группы в сопровождении экскурсовода. взрослый 700 ₽ детский 500 ₽ парковка (+ 350 ₽ ) 700 ₽ 0 ₽ билеты вы можете приобрести при вх"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 21,
+  "name": "Театр зверей имени Дурова («Уголок Дурова»)",
+  "tokens": [
+   "t:11:00",
+   "t:19:00"
+  ],
+  "pages": [
+   {
+    "url": "https://www.ugolokdurova.ru/playbill/",
+    "final": "https://www.ugolokdurova.ru/playbill/",
+    "status": 200,
+    "len": 17350,
+    "hit": 1
+   },
+   {
+    "url": "https://bilet.mos.ru/venues/215211/",
+    "final": "https://bilet.mos.ru/venues/215211/",
+    "status": 200,
+    "len": 76211,
+    "hit": 1
+   },
+   {
+    "url": "https://www.ugolokdurova.ru/",
+    "final": "https://www.ugolokdurova.ru/",
+    "status": 200,
+    "len": 8217,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "t:11:00": {
+    "url": "https://www.ugolokdurova.ru/playbill/",
+    "ctx": "ьшая сцена 55 мин. без антракта 1+ счастливый день емели купить билет 11:00 купить билет музей 25-30 мин. 4+ экскурсии в музее купить билет "
+   }
+  },
+  "missing": [
+   "t:19:00"
+  ]
+ },
+ {
+  "n": 22,
+  "name": "Театр кукол имени Образцова",
+  "tokens": [
+   "t:10:00",
+   "t:19:00"
+  ],
+  "pages": [
+   {
+    "url": "https://puppet.ru/",
+    "final": "https://puppet.ru/",
+    "status": 200,
+    "len": 3525,
+    "hit": 2
+   },
+   {
+    "url": "https://puppet.ru/afisha",
+    "final": "https://puppet.ru/afisha",
+    "status": 200,
+    "len": 7497,
+    "hit": 2
+   },
+   {
+    "url": "https://puppet.ru/museum/ekspoziciya",
+    "final": "https://puppet.ru/museum/ekspoziciya",
+    "status": 200,
+    "len": 3155,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://puppet.ru/",
+    "ctx": "театра +7 (495) 699-53-73 +7 (495) 699-59-79 ежедневно без перерыва с 10:00 до 19:00 администраторы +7 (495) 699-33-10 официальные билетные "
+   },
+   "t:19:00": {
+    "url": "https://puppet.ru/",
+    "ctx": " (495) 699-53-73 +7 (495) 699-59-79 ежедневно без перерыва с 10:00 до 19:00 администраторы +7 (495) 699-33-10 официальные билетные операторы"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 23,
+  "name": "Цирк Никулина на Цветном бульваре",
+  "tokens": [
+   "t:11:00",
+   "t:19:00",
+   "t:15:00",
+   "t:16:00",
+   "t:10:30",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://circusnikulin.ru/tickets",
+    "final": "https://circusnikulin.ru/tickets",
+    "status": 200,
+    "len": 7838,
+    "hit": 5
+   },
+   {
+    "url": "https://circusnikulin.ru/",
+    "final": "https://circusnikulin.ru/",
+    "status": 200,
+    "len": 469,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "t:11:00": {
+    "url": "https://circusnikulin.ru/tickets",
+    "ctx": "тов на декабрь 2026г. и январь 2027г. режим работы касс: ежедневно, с 11:00 до 19:00, перерыв с 15:00:16:00 благодарим вас за понимание! ждё"
+   },
+   "t:19:00": {
+    "url": "https://circusnikulin.ru/tickets",
+    "ctx": "кабрь 2026г. и январь 2027г. режим работы касс: ежедневно, с 11:00 до 19:00, перерыв с 15:00:16:00 благодарим вас за понимание! ждём вас в ц"
+   },
+   "t:15:00": {
+    "url": "https://circusnikulin.ru/tickets",
+    "ctx": "варь 2027г. режим работы касс: ежедневно, с 11:00 до 19:00, перерыв с 15:00:16:00 благодарим вас за понимание! ждём вас в цирке! администрац"
+   },
+   "t:16:00": {
+    "url": "https://circusnikulin.ru/tickets",
+    "ctx": "027г. режим работы касс: ежедневно, с 11:00 до 19:00, перерыв с 15:00:16:00 благодарим вас за понимание! ждём вас в цирке! администрация цир"
+   },
+   "t:10:30": {
+    "url": "https://circusnikulin.ru/tickets",
+    "ctx": "с 15:00 до 16:00. в дни утренних представлений кассы цирка работают с 10:30 до 19:00 отдел бронирования, где вы можете получить информацию и"
+   }
+  },
+  "missing": [
+   "k:бесплатн|свободн"
+  ]
+ },
+ {
+  "n": 24,
+  "name": "Kids Castle — Митино",
+  "tokens": [
+   "t:12:00",
+   "t:21:00",
+   "t:10:00",
+   "t:22:00",
+   "p:1550",
+   "p:1650",
+   "p:1800",
+   "p:200",
+   "p:310",
+   "p:280",
+   "p:420",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://kids-castle.pro/mitino",
+    "final": "https://kids-castle.pro/mitino",
+    "status": 200,
+    "len": 12652,
+    "hit": 9
+   },
+   {
+    "url": "https://kids-castle.pro/menu",
+    "final": "https://kids-castle.pro/menu",
+    "status": 200,
+    "len": 8836,
+    "hit": 9
+   }
+  ],
+  "found": {
+   "t:12:00": {
+    "url": "https://kids-castle.pro/mitino",
+    "ctx": ", к. 2, 2 этаж, рядом со станцией метро «волоколамская». ждём вас: пн 12:00—21:00, вт-чт и вс 10:00—21:00, пт сб 10:00 —22:00. нажимайте на "
+   },
+   "t:21:00": {
+    "url": "https://kids-castle.pro/mitino",
+    "ctx": ", 2 этаж, рядом со станцией метро «волоколамская». ждём вас: пн 12:00—21:00, вт-чт и вс 10:00—21:00, пт сб 10:00 —22:00. нажимайте на части "
+   },
+   "t:10:00": {
+    "url": "https://kids-castle.pro/mitino",
+    "ctx": " станцией метро «волоколамская». ждём вас: пн 12:00—21:00, вт-чт и вс 10:00—21:00, пт сб 10:00 —22:00. нажимайте на части замка и изучайте ч"
+   },
+   "t:22:00": {
+    "url": "https://kids-castle.pro/mitino",
+    "ctx": "ская». ждём вас: пн 12:00—21:00, вт-чт и вс 10:00—21:00, пт сб 10:00 —22:00. нажимайте на части замка и изучайте что есть в парке! я дракон "
+   },
+   "p:1550": {
+    "url": "https://kids-castle.pro/mitino",
+    "ctx": "дного билета будние дни: • 1 час - 900 ₽ • 2 часа - 1350 ₽ • 3 часа - 1550 ₽ каждый последующий час +200 ₽ пятница: • 1 час - 1050 ₽ • 2 час"
+   },
+   "p:1650": {
+    "url": "https://kids-castle.pro/mitino",
+    "ctx": "щий час +200 ₽ пятница: • 1 час - 1050 ₽ • 2 часа - 1450 ₽ • 3 часа - 1650 ₽ выходные и праздничные дни: • 1 час - 1100 ₽ • 2 часа - 1600 ₽ "
+   },
+   "p:1800": {
+    "url": "https://kids-castle.pro/mitino",
+    "ctx": "дные и праздничные дни: • 1 час - 1100 ₽ • 2 часа - 1600 ₽ • 3 часа - 1800 ₽ каждый последующий час +200 ₽ оплата только за деток от 1 года "
+   },
+   "p:200": {
+    "url": "https://kids-castle.pro/mitino",
+    "ctx": "с - 900 ₽ • 2 часа - 1350 ₽ • 3 часа - 1550 ₽ каждый последующий час +200 ₽ пятница: • 1 час - 1050 ₽ • 2 часа - 1450 ₽ • 3 часа - 1650 ₽ вы"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://kids-castle.pro/mitino",
+    "ctx": "с +200 ₽ оплата только за деток от 1 года до 14 лет, а родителям вход бесплатный проведение праздника 1. условия проведения мероприятия в об"
+   },
+   "p:310": {
+    "url": "https://kids-castle.pro/menu",
+    "ctx": "г 170 руб макарошки детские в сливочном соусе с сыром моцарелла 200 г 310 руб шашлычок из куриной грудки с картофелем фри 150/150/30 г 640 р"
+   },
+   "p:280": {
+    "url": "https://kids-castle.pro/menu",
+    "ctx": "еческом стиле 270 г 680 руб теплый салат с ростбифом и грибным соусом 280 г 920 руб mикс-салат с креветками и авокадо в соусе манго-чили 250"
+   },
+   "p:420": {
+    "url": "https://kids-castle.pro/menu",
+    "ctx": "еченым картофелем 340 г 2600 руб супы куриный суп-лапша с яйцом 350 г 420 руб крем-суп из шампиньонов 500 г 610 руб борщ 410 г 610 руб суп с"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 25,
+  "name": "Музей транспорта Москвы",
+  "tokens": [
+   "t:10:00",
+   "t:20:00",
+   "t:21:00",
+   "p:700",
+   "p:490"
+  ],
+  "pages": [
+   {
+    "url": "https://mtmuseum.ru/contacts/",
+    "final": "https://mtmuseum.ru/contacts/",
+    "status": 200,
+    "len": 4304,
+    "hit": 3
+   },
+   {
+    "url": "https://new.mtmuseum.ru/",
+    "final": "https://new.mtmuseum.ru/",
+    "status": 200,
+    "len": 29094,
+    "hit": 4
+   },
+   {
+    "url": "https://amom.ru/news/2026/09/muzej-transporta.html",
+    "final": "https://amom.ru/news/2026/09/muzej-transporta.html",
+    "status": 200,
+    "len": 6936,
+    "hit": 4
+   },
+   {
+    "url": "https://new.mtmuseum.ru/benefits",
+    "final": "https://new.mtmuseum.ru/benefits",
+    "status": 200,
+    "len": 6983,
+    "hit": 1
+   },
+   {
+    "url": "https://mtmuseum.ru/",
+    "final": "https://mtmuseum.ru/",
+    "status": 200,
+    "len": 5559,
+    "hit": 4
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://mtmuseum.ru/contacts/",
+    "ctx": "летов в кассах прекращается за 2 часа до закрытия музея. вт / ср / чт 10:00 20:00 пт / сб / вс 10:00 21:00 северный речной вокзал москва, ле"
+   },
+   "t:20:00": {
+    "url": "https://mtmuseum.ru/contacts/",
+    "ctx": "в кассах прекращается за 2 часа до закрытия музея. вт / ср / чт 10:00 20:00 пт / сб / вс 10:00 21:00 северный речной вокзал москва, ленингра"
+   },
+   "t:21:00": {
+    "url": "https://mtmuseum.ru/contacts/",
+    "ctx": "2 часа до закрытия музея. вт / ср / чт 10:00 20:00 пт / сб / вс 10:00 21:00 северный речной вокзал москва, ленинградское ш., 51 показать на "
+   },
+   "p:700": {
+    "url": "https://new.mtmuseum.ru/",
+    "ctx": "урсию. каждый дополнительный сопровождающий оплачивает входной билет (700 ₽) и экскурсию по взрослому тарифу (500 или 800 ₽ в зависимости от"
+   }
+  },
+  "missing": [
+   "p:490"
+  ]
+ },
+ {
+  "n": 26,
+  "name": "Парк Горького",
+  "tokens": [
+   "t:12:08",
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://parkgorkogo.ru/faq/",
+    "final": "https://parkgorkogo.ru/faq/",
+    "status": 200,
+    "len": 5293,
+    "hit": 2
+   },
+   {
+    "url": "https://parkgorkogo.ru/",
+    "final": "https://parkgorkogo.ru/",
+    "status": 200,
+    "len": 10359,
+    "hit": 2
+   },
+   {
+    "url": "https://peshkom.moscow/places/gorky-park",
+    "final": "https://peshkom.moscow/places/gorky-park",
+    "status": 200,
+    "len": 4244,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://parkgorkogo.ru/faq/",
+    "ctx": "лей в час какие часы работы парка горького? каждый день парк работает круглосуточно, о временном закрытии из-за плохой погоды мы оперативно "
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://parkgorkogo.ru/faq/",
+    "ctx": "с оплатой, просим обратиться за помощью к парковщику. первые 15 минут бесплатно будние дни с понедельника по четверг (с 09:00 до 22:00) 400 "
+   }
+  },
+  "missing": [
+   "t:12:08"
+  ]
+ },
+ {
+  "n": 27,
+  "name": "Парк Зарядье",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://www.zaryadyepark.ru/times-working/",
+    "status": 0,
+    "error": "UND_ERR_CONNECT_TIMEOUT"
+   },
+   {
+    "url": "https://www.zaryadyepark.ru/questions/",
+    "status": 0,
+    "error": "UND_ERR_CONNECT_TIMEOUT"
+   },
+   {
+    "url": "https://welcome.zaryadyepark.ru/documents",
+    "final": "https://welcome.zaryadyepark.ru/documents",
+    "status": 200,
+    "len": 4502,
+    "hit": 0
+   },
+   {
+    "url": "https://www.zaryadyepark.ru/",
+    "status": 0,
+    "error": "UND_ERR_CONNECT_TIMEOUT"
+   }
+  ],
+  "found": {},
+  "missing": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ]
+ },
+ {
+  "n": 28,
+  "name": "Центральный Детский Магазин",
+  "tokens": [
+   "t:10:00",
+   "t:22:00",
+   "t:23:00",
+   "p:399",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://cdm-moscow.ru/",
+    "final": "https://cdm-moscow.ru/",
+    "status": 200,
+    "len": 147207,
+    "hit": 4
+   },
+   {
+    "url": "https://cdm-moscow.ru/visit",
+    "final": "https://cdm-moscow.ru/visit",
+    "status": 200,
+    "len": 20526,
+    "hit": 5
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://cdm-moscow.ru/",
+    "ctx": "ти партнёрам правила аудиогид смотровая площадка время работы вс-чт — 10:00:22:00 пт-сб — 10:00:23:00 кинотеатр «формула кино на лубянке» с "
+   },
+   "t:22:00": {
+    "url": "https://cdm-moscow.ru/",
+    "ctx": "тнёрам правила аудиогид смотровая площадка время работы вс-чт — 10:00:22:00 пт-сб — 10:00:23:00 кинотеатр «формула кино на лубянке» с 10:00 "
+   },
+   "t:23:00": {
+    "url": "https://cdm-moscow.ru/",
+    "ctx": "гид смотровая площадка время работы вс-чт — 10:00:22:00 пт-сб — 10:00:23:00 кинотеатр «формула кино на лубянке» с 10:00 до 03:30 поиск по са"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://cdm-moscow.ru/",
+    "ctx": "ayground с уникальными вещами сезона осень-зима 25 сентября 2026 года бесплатный мастер-класс в кафе wizards & owls 16 октября 2026 года «фь"
+   },
+   "p:399": {
+    "url": "https://cdm-moscow.ru/visit",
+    "ctx": "город можно при помощи подзорных труб. стоимость посещения составляет 399 рублей. билет с открытой датой и действителен в любой день. правил"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 29,
+  "name": "Мисти Парк Одинцово",
+  "tokens": [
+   "t:10:00",
+   "t:22:00",
+   "p:1950",
+   "p:2250",
+   "p:2700",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://mistyparkodi.ru/",
+    "final": "https://mistyparkodi.ru/",
+    "status": 200,
+    "len": 4476,
+    "hit": 3
+   },
+   {
+    "url": "https://welcome.mosreg.ru/ideas/park-razvlecenij-misti-park",
+    "final": "https://welcome.mosreg.ru/ideas/park-razvlecenij-misti-park",
+    "status": 200,
+    "len": 10485,
+    "hit": 6
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://mistyparkodi.ru/",
+    "ctx": "ваш город одинцово? да ✓ выбрать другой город работаем без выходных с 10:00 до 22:00 ваш город: одинцово парк праздники ресторан цены контак"
+   },
+   "t:22:00": {
+    "url": "https://mistyparkodi.ru/",
+    "ctx": " одинцово? да ✓ выбрать другой город работаем без выходных с 10:00 до 22:00 ваш город: одинцово парк праздники ресторан цены контакты афиша "
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://mistyparkodi.ru/",
+    "ctx": "ных детских развлечений единый безлимитный билет для детей взрослые - бесплатно 30 уникальные игровые комплексы площадка для малышей 6 для д"
+   },
+   "p:1950": {
+    "url": "https://welcome.mosreg.ru/ideas/park-razvlecenij-misti-park",
+    "ctx": "оприятий. теги #впечатления стоимость безлимитный билет в понедельник 1950 ₽ безлимитный билет в будни (со вторника по пятницу) 2250 ₽ безли"
+   },
+   "p:2250": {
+    "url": "https://welcome.mosreg.ru/ideas/park-razvlecenij-misti-park",
+    "ctx": "понедельник 1950 ₽ безлимитный билет в будни (со вторника по пятницу) 2250 ₽ безлимитный билет в выходные и праздничные дни 2700 ₽ вход для "
+   },
+   "p:2700": {
+    "url": "https://welcome.mosreg.ru/ideas/park-razvlecenij-misti-park",
+    "ctx": "ика по пятницу) 2250 ₽ безлимитный билет в выходные и праздничные дни 2700 ₽ вход для детей до 1 года и для взрослых бесплатно контакты адре"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 30,
+  "name": "Термы Одинцово",
+  "tokens": [
+   "t:08:00",
+   "t:00:00",
+   "t:18:00",
+   "p:2000",
+   "p:2800",
+   "p:2500",
+   "p:3300",
+   "p:480",
+   "p:2240",
+   "p:620",
+   "p:2640"
+  ],
+  "pages": [
+   {
+    "url": "https://therms.ru/odincovo",
+    "final": "https://therms.ru/odincovo",
+    "status": 200,
+    "len": 100282,
+    "hit": 4
+   }
+  ],
+  "found": {
+   "t:08:00": {
+    "url": "https://therms.ru/odincovo",
+    "ctx": "дежная д. 11\",\"telephone\":\"+7 (495) 004-60-84\",\"openinghours\":[\"mo-su 08:00:00:00:00:00\",\"mo-su 08:00:00:00:00:00\",\"mo-su 08:00:00:00:00:00\""
+   },
+   "t:00:00": {
+    "url": "https://therms.ru/odincovo",
+    "ctx": "ная д. 11\",\"telephone\":\"+7 (495) 004-60-84\",\"openinghours\":[\"mo-su 08:00:00:00:00:00\",\"mo-su 08:00:00:00:00:00\",\"mo-su 08:00:00:00:00:00\",\"m"
+   },
+   "t:18:00": {
+    "url": "https://therms.ru/odincovo",
+    "ctx": "в день рождения стоимость посещения в будни всего 600 руб./час (пт до 18:00) купить абонемент войти в личный кабинет термальный бассейн с ги"
+   },
+   "p:480": {
+    "url": "https://therms.ru/odincovo",
+    "ctx": "оровья — одинцово»\",\"url\":\"https://therms.ru/api/v2/public-files/4ec1a480-3673-406a-8925-7b370124bc18.pdf\",\"item_type\":\"link\",\"content\":null"
+   }
+  },
+  "missing": [
+   "p:2000",
+   "p:2800",
+   "p:2500",
+   "p:3300",
+   "p:2240",
+   "p:620",
+   "p:2640"
+  ]
+ },
+ {
+  "n": 31,
+  "name": "Юнабум",
+  "tokens": [
+   "t:10:00",
+   "t:22:00",
+   "p:900",
+   "p:1400",
+   "p:1300",
+   "p:1900",
+   "p:2000"
+  ],
+  "pages": [
+   {
+    "url": "https://unaboom.ru/",
+    "final": "https://unaboom.ru/",
+    "status": 200,
+    "len": 43556,
+    "hit": 7
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://unaboom.ru/",
+    "ctx": "бум по адресу: г. одинцово, школьный проезд, 6. режим работы кассы: с 10:00 до 20:50. назад дни рождения и праздники дни рождения и праздник"
+   },
+   "t:22:00": {
+    "url": "https://unaboom.ru/",
+    "ctx": "ес: мо, г. одинцово, школьный проезд, 6 работаем ежедневно с 10:00 до 22:00 made on tilda "
+   },
+   "p:900": {
+    "url": "https://unaboom.ru/",
+    "ctx": "90 кг купить билеты назад билет в юнабум будние дни на один час 1000₽ 900₽ билет в юнабум будние дни на весь день 1500₽ 1400₽ билет в юнабум"
+   },
+   "p:1400": {
+    "url": "https://unaboom.ru/",
+    "ctx": "и на один час 1000₽ 900₽ билет в юнабум будние дни на весь день 1500₽ 1400₽ билет в юнабум выходные дни на один час 1400₽ 1300₽ билет в юнаб"
+   },
+   "p:1300": {
+    "url": "https://unaboom.ru/",
+    "ctx": "а весь день 1500₽ 1400₽ билет в юнабум выходные дни на один час 1400₽ 1300₽ билет в юнабум выходные дни на весь день 2000₽ 1900₽ стоимость б"
+   },
+   "p:1900": {
+    "url": "https://unaboom.ru/",
+    "ctx": "а один час 1400₽ 1300₽ билет в юнабум выходные дни на весь день 2000₽ 1900₽ стоимость билетов в игровой центр билеты в игровой центр скидки "
+   },
+   "p:2000": {
+    "url": "https://unaboom.ru/",
+    "ctx": " дни на один час 1400₽ 1300₽ билет в юнабум выходные дни на весь день 2000₽ 1900₽ стоимость билетов в игровой центр билеты в игровой центр с"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 32,
+  "name": "Парк «Покровское-Стрешнево»",
+  "tokens": [
+   "t:07:00",
+   "t:23:00",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://museum.cpm.moscow/museums/278",
+    "final": "https://museum.cpm.moscow/museums/278",
+    "status": 200,
+    "len": 50095,
+    "hit": 3
+   }
+  ],
+  "found": {
+   "t:07:00": {
+    "url": "https://museum.cpm.moscow/museums/278",
+    "ctx": "арк «покровское-стрешнево» теги: #покровскоестрешнево режим работы пн 07:00:23:00 вт 07:00:23:00 ср 07:00:23:00 чт 07:00:23:00 пт 07:00:23:0"
+   },
+   "t:23:00": {
+    "url": "https://museum.cpm.moscow/museums/278",
+    "ctx": "окровское-стрешнево» теги: #покровскоестрешнево режим работы пн 07:00:23:00 вт 07:00:23:00 ср 07:00:23:00 чт 07:00:23:00 пт 07:00:23:00 сб 0"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://museum.cpm.moscow/museums/278",
+    "ctx": ":23:00 пт 07:00:23:00 сб 07:00:23:00 вс 07:00:23:00 стоимость билета: бесплатно бесплатное посещение для участников: посещение бесплатное ос"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 33,
+  "name": "Jooie — Пресня",
+  "tokens": [
+   "t:10:00",
+   "t:22:00",
+   "p:420",
+   "p:490",
+   "p:690",
+   "p:890"
+  ],
+  "pages": [
+   {
+    "url": "https://jooiecafe.ru/",
+    "final": "https://jooiecafe.ru/",
+    "status": 200,
+    "len": 2526,
+    "hit": 2
+   },
+   {
+    "url": "https://jooiecafe.ru/menyu",
+    "final": "https://jooiecafe.ru/menyu",
+    "status": 200,
+    "len": 3100,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://jooiecafe.ru/",
+    "ctx": " улица 1905 года, ул. расторгуевский переулок, 3а часы работы: пн-вс: 10:00 – 22:00 телефон: +7965 114 15 85 почта: jooie.hodynka@gmail.com "
+   },
+   "t:22:00": {
+    "url": "https://jooiecafe.ru/",
+    "ctx": "905 года, ул. расторгуевский переулок, 3а часы работы: пн-вс: 10:00 – 22:00 телефон: +7965 114 15 85 почта: jooie.hodynka@gmail.com адрес: г"
+   }
+  },
+  "missing": [
+   "p:420",
+   "p:490",
+   "p:690",
+   "p:890"
+  ]
+ },
+ {
+  "n": 34,
+  "name": "Vasilchuki Chaihona №1 — Афимолл",
+  "tokens": [
+   "t:10:00",
+   "t:00:00",
+   "p:350",
+   "p:500",
+   "p:550",
+   "p:650"
+  ],
+  "pages": [
+   {
+    "url": "https://chaihona.ru/restaurants/trc-afimoll-siti",
+    "final": "https://chaihona.ru/restaurants/trc-afimoll-siti",
+    "status": 200,
+    "len": 27689,
+    "hit": 2
+   },
+   {
+    "url": "https://static.chaihona.ru/6a29ea28da7aa.pdf",
+    "status": 200,
+    "skip": "binary application/pdf"
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://chaihona.ru/restaurants/trc-afimoll-siti",
+    "ctx": "на пресненская набережная, 2. трц афимолл сити, 5 этаж часы работы пн 10:00 00:00 вт 10:00 00:00 ср 10:00 00:00 чт 10:00 00:00 пт 10:00 00:0"
+   },
+   "t:00:00": {
+    "url": "https://chaihona.ru/restaurants/trc-afimoll-siti",
+    "ctx": "сненская набережная, 2. трц афимолл сити, 5 этаж часы работы пн 10:00 00:00 вт 10:00 00:00 ср 10:00 00:00 чт 10:00 00:00 пт 10:00 00:00 сб 1"
+   }
+  },
+  "missing": [
+   "p:350",
+   "p:500",
+   "p:550",
+   "p:650"
+  ]
+ },
+ {
+  "n": 35,
+  "name": "Большой Московский государственный цирк",
+  "tokens": [
+   "p:1500"
+  ],
+  "pages": [
+   {
+    "url": "https://bigcirk.moscow/",
+    "final": "https://bigcirk.moscow/",
+    "status": 200,
+    "len": 5504,
+    "hit": 0
+   },
+   {
+    "url": "https://www.greatcircus.ru/",
+    "skip": "robots"
+   },
+   {
+    "url": "https://msk.kassir.ru/shou/sovsem-bolshoy",
+    "final": "https://msk.kassir.ru/shou/sovsem-bolshoy",
+    "status": 200,
+    "len": 144251,
+    "hit": 1
+   }
+  ],
+  "found": {
+   "p:1500": {
+    "url": "https://msk.kassir.ru/shou/sovsem-bolshoy",
+    "ctx": "· театр · цирк / клоунада шоу · театр · цирк / клоунада топ билеты от 1500 ₽ билеты от 1500 ₽ организатор мероприятия: гуп «большой московск"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 36,
+  "name": "Музыкальный театр имени Наталии Сац",
+  "tokens": [
+   "p:2500"
+  ],
+  "pages": [
+   {
+    "url": "https://teatr-sats.ru/kontakty",
+    "final": "https://teatr-sats.ru/kontakty",
+    "status": 200,
+    "len": 2331,
+    "hit": 0
+   },
+   {
+    "url": "https://teatr-sats.ru/afisha",
+    "final": "https://teatr-sats.ru/afisha",
+    "status": 200,
+    "len": 16535,
+    "hit": 0
+   },
+   {
+    "url": "https://teatr-sats.ru/tickets",
+    "final": "https://teatr-sats.ru/tickets",
+    "status": 200,
+    "len": 29287,
+    "hit": 0
+   },
+   {
+    "url": "https://teatr-sats.ru/",
+    "final": "https://teatr-sats.ru/",
+    "status": 200,
+    "len": 2865,
+    "hit": 0
+   }
+  ],
+  "found": {},
+  "missing": [
+   "p:2500"
+  ]
+ },
+ {
+  "n": 37,
+  "name": "КидБург Зеленопарк",
+  "tokens": [
+   "t:10:00",
+   "t:20:00",
+   "p:2760",
+   "p:3300",
+   "p:3760",
+   "p:6070",
+   "p:2750",
+   "p:850"
+  ],
+  "pages": [
+   {
+    "url": "https://zelenopark.kidburg.ru/contacts",
+    "final": "https://zelenopark.kidburg.ru/contacts",
+    "status": 200,
+    "len": 2660,
+    "hit": 2
+   },
+   {
+    "url": "https://zelenopark.kidburg.ru/free-entrance",
+    "final": "https://zelenopark.kidburg.ru/free-entrance",
+    "status": 200,
+    "len": 5501,
+    "hit": 6
+   },
+   {
+    "url": "https://zelenopark.kidburg.ru/",
+    "final": "https://zelenopark.kidburg.ru/",
+    "status": 200,
+    "len": 6660,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://zelenopark.kidburg.ru/contacts",
+    "ctx": "копирован, напишите нам в мессенджере макс график работы: ежедневно с 10:00 до 20:00 больше кидбургов в москве трц «хорошо!» кидбург игра и "
+   },
+   "t:20:00": {
+    "url": "https://zelenopark.kidburg.ru/contacts",
+    "ctx": ", напишите нам в мессенджере макс график работы: ежедневно с 10:00 до 20:00 больше кидбургов в москве трц «хорошо!» кидбург игра и еда кидбу"
+   },
+   "p:2760": {
+    "url": "https://zelenopark.kidburg.ru/free-entrance",
+    "ctx": " от 4 до 14 лет безлимитная игра документы для игры стартовый капитал 2760 ₽ продвинутый детский от 4 до 14 лет безлимитная игра документы д"
+   },
+   "p:3300": {
+    "url": "https://zelenopark.kidburg.ru/free-entrance",
+    "ctx": "окументы для игры удвоенный стартовый капитал кулинарный мастер-класс 3300 ₽ премиальный детский от 4 до 14 лет приоритетный вход с персонал"
+   },
+   "p:3760": {
+    "url": "https://zelenopark.kidburg.ru/free-entrance",
+    "ctx": "нты для игры удвоенный стартовый капитал два кулинарных мастер-класса 3760 ₽ сопровождающий взрослый от 18 лет посещение города профессий уч"
+   },
+   "p:6070": {
+    "url": "https://zelenopark.kidburg.ru/free-entrance",
+    "ctx": "мастер-класс слайм билет для сопровождающего бутылка воды для ребёнка 6070 ₽ малыш детский от 1 до 3 лет безлимитная игра с мастером малышей"
+   },
+   "p:2750": {
+    "url": "https://zelenopark.kidburg.ru/free-entrance",
+    "ctx": "астером малышей билет для взрослого сопровождающего стартовый капитал 2750 ₽ кулинарный детский от 4 до 14 лет безлимитная игра документы дл"
+   },
+   "p:850": {
+    "url": "https://zelenopark.kidburg.ru/free-entrance",
+    "ctx": " наборах, совместно с ребёнком вход и выход из города без ограничений 850 ₽ дополнительные опции поздравление именинника со сцены 1500 ₽ кул"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 38,
+  "name": "Парк «Северное Тушино»",
+  "tokens": [
+   "p:500",
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://mosparks.ru/about/park-severnoe-tushino",
+    "final": "https://mosparks.ru/about/park-severnoe-tushino",
+    "status": 200,
+    "len": 2808,
+    "hit": 1
+   },
+   {
+    "url": "https://sevtushino.ru/news/district/severnoe-tushino-park-summer-program/",
+    "final": "https://sevtushino.ru/news/district/severnoe-tushino-park-summer-program/",
+    "status": 200,
+    "len": 2159,
+    "hit": 1
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://mosparks.ru/about/park-severnoe-tushino",
+    "ctx": "ив на карте your browser does not support the video tag. время работы круглосуточно описание парк «северное тушино» расположен в районе «сев"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://sevtushino.ru/news/district/severnoe-tushino-park-summer-program/",
+    "ctx": "ткрыл ... новости района парк «северное тушино» открыл летний сезон с бесплатными мероприятиями 02 июня 2026 парк «северное тушино» вошёл в "
+   }
+  },
+  "missing": [
+   "p:500"
+  ]
+ },
+ {
+  "n": 39,
+  "name": "Строгинская пойма",
+  "tokens": [
+   "t:06:00",
+   "t:23:00",
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://amoskva.com/places/341469",
+    "final": "https://amoskva.com/places/341469",
+    "status": 200,
+    "len": 3965,
+    "hit": 2
+   },
+   {
+    "url": "https://www.timeout.ru/msk/place/3617",
+    "final": "https://www.timeout.ru/msk/place/3617",
+    "status": 200,
+    "len": 2795,
+    "hit": 1
+   },
+   {
+    "url": "https://russpass.ru/place/66ebc3b650a468abf6d00392",
+    "final": "https://russpass.ru/place/66ebc3b650a468abf6d00392",
+    "status": 200,
+    "len": 31193,
+    "hit": 0
+   },
+   {
+    "url": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/",
+    "final": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/",
+    "status": 200,
+    "len": 4547,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://amoskva.com/places/341469",
+    "ctx": "p; строгинская пойма строгинская пойма телефон отсутствует ежедневно: круглосуточно 149 на карте фото отзывы сообщить об ошибке информация о"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://amoskva.com/places/341469",
+    "ctx": " сегодня завтра на неделе на выходных в октябре , в ноябре с ребенком бесплатно или недорого лучшие события учреждения государственные учреж"
+   }
+  },
+  "missing": [
+   "t:06:00",
+   "t:23:00"
+  ]
+ },
+ {
+  "n": 40,
+  "name": "Сад «Эрмитаж»",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://mosgorsad.ru/garden/chasto-zadavaemy-voprosy/",
+    "final": "https://mosgorsad.ru/garden/chasto-zadavaemy-voprosy/",
+    "status": 200,
+    "len": 2824,
+    "hit": 1
+   },
+   {
+    "url": "https://mosgorsad.ru/rest/",
+    "final": "https://mosgorsad.ru/rest/",
+    "status": 200,
+    "len": 3073,
+    "hit": 1
+   },
+   {
+    "url": "https://mosgorsad.ru/events/index.php",
+    "final": "https://mosgorsad.ru/events/index.php",
+    "status": 200,
+    "len": 8316,
+    "hit": 1
+   },
+   {
+    "url": "https://www.culture.ru/institutes/35295/moskovskii-gorodskoi-sad-ermitazh",
+    "status": 0,
+    "error": "UND_ERR_CONNECT_TIMEOUT"
+   },
+   {
+    "url": "https://www.mosgorsad.ru/",
+    "final": "https://www.mosgorsad.ru/",
+    "status": 200,
+    "len": 3287,
+    "hit": 1
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://mosgorsad.ru/garden/chasto-zadavaemy-voprosy/",
+    "ctx": "93 м, «каретный ряд» - 380 м. 2. в какие часы работает сад «эрмитаж»? круглосуточно. 3. есть ли на территории общественный туалет? как его н"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://mosgorsad.ru/events/index.php",
+    "ctx": "ачало в 12:30. встреча у белого фонтана перед главным входом. участие бесплатное. регистрация по ссылке. московский джазовый фестиваль 2026 "
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 41,
+  "name": "Ribambelle — Времена года",
+  "tokens": [
+   "t:11:00",
+   "t:22:00",
+   "t:10:00",
+   "p:1800",
+   "p:2800"
+  ],
+  "pages": [
+   {
+    "url": "https://ribambelle.ru/vremenagoda",
+    "final": "https://ribambelle.ru/vremenagoda",
+    "status": 200,
+    "len": 6702,
+    "hit": 5
+   },
+   {
+    "url": "https://ribambelle.ru/ru-menu-vremena-goda",
+    "final": "https://ribambelle.ru/ru-menu-vremena-goda",
+    "status": 200,
+    "len": 5883,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "t:11:00": {
+    "url": "https://ribambelle.ru/vremenagoda",
+    "ctx": "й ресторан ribambelle времена года забронировать столик меню пн-пт: с 11:00 до 22:00 сб-вс: с 10:00 до 22:00 кутузовский проспект, 48 галере"
+   },
+   "t:22:00": {
+    "url": "https://ribambelle.ru/vremenagoda",
+    "ctx": "праздничные блюда контакты en +7 (903) 777-77-81 ежедневно с 10:00 до 22:00 заказать звонок бронирование хэллоуин коллекция сладостей вечери"
+   },
+   "t:10:00": {
+    "url": "https://ribambelle.ru/vremenagoda",
+    "ctx": "абрикаты праздничные блюда контакты en +7 (903) 777-77-81 ежедневно с 10:00 до 22:00 заказать звонок бронирование хэллоуин коллекция сладост"
+   },
+   "p:1800": {
+    "url": "https://ribambelle.ru/vremenagoda",
+    "ctx": " всего дня с детьми работают весёлые и чуткие аниматоры. будние дни — 1800 ₽ безлимит выходные — 2800 ₽ безлимит в просторных, светлых и сти"
+   },
+   "p:2800": {
+    "url": "https://ribambelle.ru/vremenagoda",
+    "ctx": "т весёлые и чуткие аниматоры. будние дни — 1800 ₽ безлимит выходные — 2800 ₽ безлимит в просторных, светлых и стильных залах вы можете прове"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 42,
+  "name": "Филёвский парк",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://parkfili.ru/",
+    "final": "https://parkfili.ru/",
+    "status": 200,
+    "len": 4865,
+    "hit": 1
+   },
+   {
+    "url": "https://parkfili.ru/tpost/uphj1ma621-v-parke-fili-proidyot-kosmicheskii-festi",
+    "final": "https://parkfili.ru/tpost/uphj1ma621-v-parke-fili-proidyot-kosmicheskii-festi",
+    "status": 200,
+    "len": 1136,
+    "hit": 1
+   },
+   {
+    "url": "https://www.afisha.ru/msk/park/fili-271/",
+    "final": "https://www.afisha.ru/msk/park/fili-271/",
+    "status": 200,
+    "len": 5294,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://parkfili.ru/",
+    "ctx": "дного творчества. подробнее парки (и их службы безопасности) работают круглосуточно. график работы администрации парков: понедельник-четверг"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://parkfili.ru/tpost/uphj1ma621-v-parke-fili-proidyot-kosmicheskii-festi",
+    "ctx": ""
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 43,
+  "name": "Repast Cafe",
+  "tokens": [
+   "t:11:00",
+   "t:23:00",
+   "p:750",
+   "p:1200",
+   "p:1900"
+  ],
+  "pages": [
+   {
+    "url": "https://repastcafe.com/",
+    "final": "https://repastcafe.com/",
+    "status": 200,
+    "len": 3119,
+    "hit": 5
+   }
+  ],
+  "found": {
+   "t:11:00": {
+    "url": "https://repastcafe.com/",
+    "ctx": "рес: ул.б.филевская 21/2, москва телефон: 8999 717 17 17 часы работы: 11:00 – 23:00 &rarr; телефон телеграм "
+   },
+   "t:23:00": {
+    "url": "https://repastcafe.com/",
+    "ctx": "б.филевская 21/2, москва телефон: 8999 717 17 17 часы работы: 11:00 – 23:00 &rarr; телефон телеграм "
+   },
+   "p:750": {
+    "url": "https://repastcafe.com/",
+    "ctx": "\"},\"thumbnailurl\":\"http://repastcafe.com/wp-content/uploads/2026/04/1775058507657.jpg\",\"datepublished\":\"2020-04-22t08:34:57+00:00\",\"datemodi"
+   },
+   "p:1200": {
+    "url": "https://repastcafe.com/",
+    "ctx": "ают. repastcafe меню куриные крылышки bbq 800 ₽ мидии в соусе блю-чиз 1200 ₽ цезарь с курицей 750 ₽ оливье с копчёной говядиной 650 ₽ теплый"
+   },
+   "p:1900": {
+    "url": "https://repastcafe.com/",
+    "ctx": "салат с языком 800 ₽ куриные котлеты с пюре 750 ₽ шатобриан с овощами 1900 ₽ брокколи по-азиатски 350 ₽ картофель бэби с грибами 400 ₽ спаге"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 44,
+  "name": "Детский мир в МЕГА Химки",
+  "tokens": [
+   "t:10:00",
+   "t:23:00"
+  ],
+  "pages": [
+   {
+    "url": "https://www.detmir.ru/shops/item/id/176/",
+    "final": "https://www.detmir.ru/shops/item/id/176/",
+    "status": 200,
+    "len": 5188,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://www.detmir.ru/shops/item/id/176/",
+    "ctx": " к списку магазинов детский мир — химки, трц «мега-химки» ежедневно с 10:00 до 23:00 детский мир — химки, трц «мега-химки» ежедневно с 10:00"
+   },
+   "t:23:00": {
+    "url": "https://www.detmir.ru/shops/item/id/176/",
+    "ctx": " магазинов детский мир — химки, трц «мега-химки» ежедневно с 10:00 до 23:00 детский мир — химки, трц «мега-химки» ежедневно с 10:00 до 23:00"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 45,
+  "name": "Серебряный Бор",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://xn--90ah2agcb.xn--p1ai/",
+    "final": "https://xn--90ah2agcb.xn--p1ai/",
+    "status": 200,
+    "len": 13051,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://xn--90ah2agcb.xn--p1ai/",
+    "ctx": " яндекс.карте въезд въезд по пропускам или по заявке. вход бесплатный круглосуточный. по территории парка ходит общественный транспорт. заяв"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://xn--90ah2agcb.xn--p1ai/",
+    "ctx": "в будни и 200р/час в выходные) посмотреть на яндекс.карте и городская бесплатная за 500м до входа возле азс посмотреть на яндекс.карте въезд"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 46,
+  "name": "Kitchen — Ходынка",
+  "tokens": [
+   "t:09:00",
+   "t:22:00",
+   "p:680",
+   "p:690",
+   "p:730",
+   "p:1100"
+  ],
+  "pages": [
+   {
+    "url": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/",
+    "final": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/",
+    "status": 200,
+    "len": 19272,
+    "hit": 2
+   },
+   {
+    "url": "https://cafe-kitchen.ru/wp-content/uploads/2026/09/osnovnoe-menyu_2026.pdf",
+    "status": 200,
+    "skip": "binary application/pdf"
+   }
+  ],
+  "found": {
+   "t:09:00": {
+    "url": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/",
+    "ctx": "ть на ходынке hodinka@1kitchen.ru (kitchen) +7 (926) 021 0880 пн-вс с 09:00 до 22:00 адрес telegram забронировать kitchen на ходынке — самое"
+   },
+   "t:22:00": {
+    "url": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/",
+    "ctx": "ынке hodinka@1kitchen.ru (kitchen) +7 (926) 021 0880 пн-вс с 09:00 до 22:00 адрес telegram забронировать kitchen на ходынке — самое большое "
+   }
+  },
+  "missing": [
+   "p:680",
+   "p:690",
+   "p:730",
+   "p:1100"
+  ]
+ },
+ {
+  "n": 47,
+  "name": "Музей-заповедник «Царицыно» (парк)",
+  "tokens": [
+   "t:06:00",
+   "t:00:00",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://tsaritsyno-museum.ru/the_museum/prices-and-benefits/",
+    "final": "https://tsaritsyno-museum.ru/the_museum/prices-and-benefits/",
+    "status": 200,
+    "len": 22786,
+    "hit": 3
+   }
+  ],
+  "found": {
+   "t:06:00": {
+    "url": "https://tsaritsyno-museum.ru/the_museum/prices-and-benefits/",
+    "ctx": "рный дом будет закрыт для посещения с 12:00 до 16:00. парк работает с 06:00 до 00:00. вход свободный. запрещается проходить в парк с любыми "
+   },
+   "t:00:00": {
+    "url": "https://tsaritsyno-museum.ru/the_museum/prices-and-benefits/",
+    "ctx": "/tsaritsyno-museum.ru/#website\"},\"datepublished\":\"2017-09-04t15:29:37+00:00\",\"datemodified\":\"2026-10-19t08:09:20+00:00\",\"description\":\"купит"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://tsaritsyno-museum.ru/the_museum/prices-and-benefits/",
+    "ctx": "иметь при себе социальную карту москвича или карту «москвёнок». право бесплатного прохода предоставляется в случае успешной верификации карт"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 48,
+  "name": "Музей-заповедник А. П. Чехова «Мелихово»",
+  "tokens": [
+   "t:10:00",
+   "t:17:00",
+   "t:16:45",
+   "t:01:01",
+   "p:300",
+   "p:200",
+   "p:500"
+  ],
+  "pages": [
+   {
+    "url": "https://chekhovmuseum.com/en/contacts",
+    "final": "https://chekhovmuseum.com/en/contacts",
+    "status": 200,
+    "len": 12552,
+    "hit": 4
+   },
+   {
+    "url": "https://api.chekhovmuseum.com/upload/iblock/c53/x5tevla0o18oo76w2zu36jor6icqmptf/Perechen-uslug-ot-01.01.2026.pdf",
+    "status": 200,
+    "skip": "binary application/pdf"
+   },
+   {
+    "url": "https://chekhovmuseum.com/",
+    "final": "https://chekhovmuseum.com/",
+    "status": 200,
+    "len": 16955,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://chekhovmuseum.com/en/contacts",
+    "ctx": "ict, melikhovo village schedule monday is a day off tuesday to sunday 10:00 to 17:00 ticket counter is open before 16:45 closed for cleaning"
+   },
+   "t:17:00": {
+    "url": "https://chekhovmuseum.com/en/contacts",
+    "ctx": "khovo village schedule monday is a day off tuesday to sunday 10:00 to 17:00 ticket counter is open before 16:45 closed for cleaning on the l"
+   },
+   "t:16:45": {
+    "url": "https://chekhovmuseum.com/en/contacts",
+    "ctx": "ay off tuesday to sunday 10:00 to 17:00 ticket counter is open before 16:45 closed for cleaning on the last friday of every month order excu"
+   },
+   "p:200": {
+    "url": "https://chekhovmuseum.com/en/contacts",
+    "ctx": "\"id\":114,\"name\":115,\"link\":53,\"preview_picture\":116,\"innerlink\":82},\"5200\",\"московские новости\",\"/upload/iblock/981/9l1xu08umurvneq7lerakif9"
+   },
+   "p:300": {
+    "url": "https://chekhovmuseum.com/",
+    "ctx": "йта [[\"shallowreactive\",1],{\"data\":2,\"state\":288,\"once\":299,\"_errors\":300,\"serverrendered\":64,\"path\":302,\"pinia\":303},[\"shallowreactive\",3],"
+   }
+  },
+  "missing": [
+   "t:01:01",
+   "p:500"
+  ]
+ },
+ {
+  "n": 49,
+  "name": "Июль Детям",
+  "tokens": [
+   "t:12:00",
+   "t:21:00",
+   "t:10:00",
+   "t:09:00",
+   "p:650",
+   "p:850"
+  ],
+  "pages": [
+   {
+    "url": "https://julydetyam.ru/igrovaya",
+    "final": "https://julydetyam.ru/igrovaya",
+    "status": 200,
+    "len": 4174,
+    "hit": 6
+   },
+   {
+    "url": "https://julydetyam.ru/semeynyy-restoran",
+    "final": "https://julydetyam.ru/semeynyy-restoran",
+    "status": 200,
+    "len": 3057,
+    "hit": 4
+   }
+  ],
+  "found": {
+   "t:12:00": {
+    "url": "https://julydetyam.ru/igrovaya",
+    "ctx": "727-2707 адрес: москва, бутово, улица поляны, дом 5 график работы пн: 12:00:21:00 вт - пт: 10:00:21:00 сб, вс: 09:00:21:00 © июль детям 2025"
+   },
+   "t:21:00": {
+    "url": "https://julydetyam.ru/igrovaya",
+    "ctx": "07 адрес: москва, бутово, улица поляны, дом 5 график работы пн: 12:00:21:00 вт - пт: 10:00:21:00 сб, вс: 09:00:21:00 © июль детям 2025 празд"
+   },
+   "t:10:00": {
+    "url": "https://julydetyam.ru/igrovaya",
+    "ctx": "а, бутово, улица поляны, дом 5 график работы пн: 12:00:21:00 вт - пт: 10:00:21:00 сб, вс: 09:00:21:00 © июль детям 2025 праздники в июль дет"
+   },
+   "t:09:00": {
+    "url": "https://julydetyam.ru/igrovaya",
+    "ctx": "яны, дом 5 график работы пн: 12:00:21:00 вт - пт: 10:00:21:00 сб, вс: 09:00:21:00 © июль детям 2025 праздники в июль детям детский день рожд"
+   },
+   "p:650": {
+    "url": "https://julydetyam.ru/igrovaya",
+    "ctx": "ть меню стоимость игровая зона открыта ежедневно, стоимость посещения 650 руб. в час по будням и 850 руб. в час в выходные дни. праздник в и"
+   },
+   "p:850": {
+    "url": "https://julydetyam.ru/igrovaya",
+    "ctx": "она открыта ежедневно, стоимость посещения 650 руб. в час по будням и 850 руб. в час в выходные дни. праздник в июль детям оставьте ваши кон"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 50,
+  "name": "Аквапарк «Мореон»",
+  "tokens": [
+   "t:10:00",
+   "t:22:00",
+   "t:09:00",
+   "p:3590",
+   "p:3990",
+   "p:2290",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://aquapark.more-on.ru/",
+    "final": "https://aquapark.more-on.ru/",
+    "status": 200,
+    "len": 53374,
+    "hit": 7
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://aquapark.more-on.ru/",
+    "ctx": " ₽ дети 110&minus;150 см 2500 2150 ₽ малыши до 110 см 490 0 ₽ будни с 10:00 до 22:00. выходные с 09:00 до 22:00 безлимитный абонемент на мес"
+   },
+   "t:22:00": {
+    "url": "https://aquapark.more-on.ru/",
+    "ctx": "10&minus;150 см 2500 2150 ₽ малыши до 110 см 490 0 ₽ будни с 10:00 до 22:00. выходные с 09:00 до 22:00 безлимитный абонемент на месяц по тар"
+   },
+   "t:09:00": {
+    "url": "https://aquapark.more-on.ru/",
+    "ctx": "00 2150 ₽ малыши до 110 см 490 0 ₽ будни с 10:00 до 22:00. выходные с 09:00 до 22:00 безлимитный абонемент на месяц по тарифу аквапарк + тер"
+   },
+   "p:3590": {
+    "url": "https://aquapark.more-on.ru/",
+    "ctx": "от 150 см 3700 3050 ₽ купить аквапарк + термы взрослые от 150 см 4500 3590 ₽ дети 110&minus;150 см 2500 2150 ₽ малыши до 110 см 490 0 ₽ будн"
+   },
+   "p:3990": {
+    "url": "https://aquapark.more-on.ru/",
+    "ctx": "\":null,\"value\":3590,\"oldvalue\":4500},\"weekend\":{\"prefix\":null,\"value\":3990,\"oldvalue\":4300},\"holidays\":{\"prefix\":null,\"value\":2590,\"oldvalue"
+   },
+   "p:2290": {
+    "url": "https://aquapark.more-on.ru/",
+    "ctx": "\":null,\"value\":2150,\"oldvalue\":2500},\"weekend\":{\"prefix\":null,\"value\":2290,\"oldvalue\":2500},\"holidays\":{\"prefix\":null,\"value\":1850,\"oldvalue"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://aquapark.more-on.ru/",
+    "ctx": "00 ₽ купить горячие акции в аквапарке и термах мореон малыши отдыхают бесплатно! подарите всей семье яркий день в аквапарке и термах мореон!"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 51,
+  "name": "Музей-заповедник «Горки Ленинские»",
+  "tokens": [
+   "t:10:00",
+   "t:19:00",
+   "t:09:00",
+   "t:20:00",
+   "t:21:00",
+   "t:23:00",
+   "p:150",
+   "p:800",
+   "p:250",
+   "p:200",
+   "p:500",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://mgorki.ru/",
+    "final": "https://mgorki.ru/",
+    "status": 200,
+    "len": 14703,
+    "hit": 6
+   },
+   {
+    "url": "https://mgorki.ru/posetitelyam/obshhaya-informacziya/",
+    "final": "https://mgorki.ru/posetitelyam/obshhaya-informacziya/",
+    "status": 200,
+    "len": 9923,
+    "hit": 5
+   },
+   {
+    "url": "https://mgorki.ru/posetitelyam/stoimost-biletov-lgotnye-kategorii/",
+    "final": "https://mgorki.ru/posetitelyam/stoimost-biletov-lgotnye-kategorii/",
+    "status": 200,
+    "len": 19137,
+    "hit": 9
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://mgorki.ru/",
+    "ctx": "оты: музеи: выходные: понедельник, вторник рабочие: среда-воскресенье 10:00:19:00 парковая территория: ежедневно 09:00:21:00 спланировать ви"
+   },
+   "t:19:00": {
+    "url": "https://mgorki.ru/",
+    "ctx": "узеи: выходные: понедельник, вторник рабочие: среда-воскресенье 10:00:19:00 парковая территория: ежедневно 09:00:21:00 спланировать визит об"
+   },
+   "t:09:00": {
+    "url": "https://mgorki.ru/",
+    "ctx": "рабочие: среда-воскресенье 10:00:19:00 парковая территория: ежедневно 09:00:21:00 спланировать визит общая информация о музее заказ экскурси"
+   },
+   "t:21:00": {
+    "url": "https://mgorki.ru/",
+    "ctx": "е: среда-воскресенье 10:00:19:00 парковая территория: ежедневно 09:00:21:00 спланировать визит общая информация о музее заказ экскурсий и му"
+   },
+   "p:800": {
+    "url": "https://mgorki.ru/",
+    "ctx": "0 ₽ званный вечер в усадьбе музей-усадьба «горки» узнать подробнее 0+ 800 ₽ гуляем в горках музей-усадьба «горки» узнать подробнее 8+ 800 ₽ "
+   },
+   "p:500": {
+    "url": "https://mgorki.ru/",
+    "ctx": "узее крестьянского быта. музей крестьянского быта узнать подробнее 6+ 500 ₽ музейная программа «пасха — праздник праздников» 12 апреля право"
+   },
+   "t:20:00": {
+    "url": "https://mgorki.ru/posetitelyam/obshhaya-informacziya/",
+    "ctx": "вно с 09:00 до 21:00 с 1 сентября по 30 апреля - ежедневно с 09:00 до 20:00 остальная часть парка: с 1 мая по 31 августа - ежедневно с 09:00"
+   },
+   "t:23:00": {
+    "url": "https://mgorki.ru/posetitelyam/obshhaya-informacziya/",
+    "ctx": "0 остальная часть парка: с 1 мая по 31 августа - ежедневно с 09:00 до 23:00 с 1 сентября по 30 апреля - ежедневно с 09:00 до 21:00 федеральн"
+   },
+   "p:150": {
+    "url": "https://mgorki.ru/posetitelyam/stoimost-biletov-lgotnye-kategorii/",
+    "ctx": "з посещения основной экспозиции (без экскурсионного сопровождения 0-00150-00 50-00 08:00:10:00 19:00 — 23:00 родители с детьми до 4-х лет 20"
+   },
+   "p:200": {
+    "url": "https://mgorki.ru/posetitelyam/stoimost-biletov-lgotnye-kategorii/",
+    "ctx": "00150-00 50-00 08:00:10:00 19:00 — 23:00 родители с детьми до 4-х лет 200-00 цена указана на 1 (одного) человека 00:00 00:00 2. билет на пос"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://mgorki.ru/posetitelyam/stoimost-biletov-lgotnye-kategorii/",
+    "ctx": "дан, имеющих право на льготу документ, подтверждающий право на льготу бесплатное посещение всех выставок и экспозиций граждане, удостоенные "
+   }
+  },
+  "missing": [
+   "p:250"
+  ]
+ },
+ {
+  "n": 52,
+  "name": "Долгопрудненский историко-художественный музей",
+  "tokens": [
+   "t:10:00",
+   "t:19:00",
+   "t:12:00",
+   "t:21:00",
+   "t:18:00",
+   "t:01:09",
+   "p:200",
+   "p:100",
+   "p:80"
+  ],
+  "pages": [
+   {
+    "url": "https://dolgoprudnymuseum.ru/nashi-koordinaty/",
+    "final": "https://dolgoprudnymuseum.ru/nashi-koordinaty/",
+    "status": 200,
+    "len": 7862,
+    "hit": 5
+   },
+   {
+    "url": "https://dolgoprudnymuseum.ru/tseny-i-uslugi/",
+    "final": "https://dolgoprudnymuseum.ru/tseny-i-uslugi/",
+    "status": 200,
+    "len": 20876,
+    "hit": 5
+   },
+   {
+    "url": "https://dolgoprudnymuseum.ru/",
+    "final": "https://dolgoprudnymuseum.ru/",
+    "status": 200,
+    "len": 10053,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://dolgoprudnymuseum.ru/nashi-koordinaty/",
+    "ctx": "гостевая адрес и время работы время работы: среда, пятница, суббота с 10:00 до 19:00 четверг с 12:00 до 21:00 воскресенье с 10:00 до 18:00. "
+   },
+   "t:19:00": {
+    "url": "https://dolgoprudnymuseum.ru/nashi-koordinaty/",
+    "ctx": "адрес и время работы время работы: среда, пятница, суббота с 10:00 до 19:00 четверг с 12:00 до 21:00 воскресенье с 10:00 до 18:00. выходной:"
+   },
+   "t:12:00": {
+    "url": "https://dolgoprudnymuseum.ru/nashi-koordinaty/",
+    "ctx": "боты время работы: среда, пятница, суббота с 10:00 до 19:00 четверг с 12:00 до 21:00 воскресенье с 10:00 до 18:00. выходной: понедельник, вт"
+   },
+   "t:21:00": {
+    "url": "https://dolgoprudnymuseum.ru/nashi-koordinaty/",
+    "ctx": "я работы: среда, пятница, суббота с 10:00 до 19:00 четверг с 12:00 до 21:00 воскресенье с 10:00 до 18:00. выходной: понедельник, вторник пос"
+   },
+   "t:18:00": {
+    "url": "https://dolgoprudnymuseum.ru/nashi-koordinaty/",
+    "ctx": "бота с 10:00 до 19:00 четверг с 12:00 до 21:00 воскресенье с 10:00 до 18:00. выходной: понедельник, вторник последняя среда каждого месяца —"
+   },
+   "p:200": {
+    "url": "https://dolgoprudnymuseum.ru/tseny-i-uslugi/",
+    "ctx": "до 17 лет — для пенсионеров — для студентов дневных отделений 1 билет 200100 80 80 2 посещение экспозиций, выставок без экскурсионного обслу"
+   },
+   "p:100": {
+    "url": "https://dolgoprudnymuseum.ru/tseny-i-uslugi/",
+    "ctx": "17 лет — для пенсионеров — для студентов дневных отделений 1 билет 200100 80 80 2 посещение экспозиций, выставок без экскурсионного обслужив"
+   },
+   "p:80": {
+    "url": "https://dolgoprudnymuseum.ru/tseny-i-uslugi/",
+    "ctx": "ет — для пенсионеров — для студентов дневных отделений 1 билет 200100 80 80 2 посещение экспозиций, выставок без экскурсионного обслуживания"
+   }
+  },
+  "missing": [
+   "t:01:09"
+  ]
+ },
+ {
+  "n": 53,
+  "name": "Музей Победы",
+  "tokens": [
+   "t:13:00",
+   "t:21:00",
+   "t:10:00",
+   "t:19:30",
+   "p:450",
+   "p:600",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://victorymuseum.ru/about/contacts/",
+    "final": "https://victorymuseum.ru/about/contacts/",
+    "status": 200,
+    "len": 3060,
+    "hit": 4
+   },
+   {
+    "url": "https://victorymuseum.ru/for-visitors/prices/",
+    "final": "https://victorymuseum.ru/for-visitors/prices/",
+    "status": 200,
+    "len": 10718,
+    "hit": 2
+   },
+   {
+    "url": "https://victorymuseum.ru/",
+    "final": "https://victorymuseum.ru/",
+    "status": 200,
+    "len": 8740,
+    "hit": 4
+   }
+  ],
+  "found": {
+   "t:13:00": {
+    "url": "https://victorymuseum.ru/about/contacts/",
+    "ctx": "победы музей г.о.р.а. понедельник выходной день выходной день вторник 13:00 — 21:00 10:00 — 21:00 среда 10:00 — 21:00 10:00 — 21:00 четверг "
+   },
+   "t:21:00": {
+    "url": "https://victorymuseum.ru/about/contacts/",
+    "ctx": "узей г.о.р.а. понедельник выходной день выходной день вторник 13:00 — 21:00 10:00 — 21:00 среда 10:00 — 21:00 10:00 — 21:00 четверг 10:00 — "
+   },
+   "t:10:00": {
+    "url": "https://victorymuseum.ru/about/contacts/",
+    "ctx": ".о.р.а. понедельник выходной день выходной день вторник 13:00 — 21:00 10:00 — 21:00 среда 10:00 — 21:00 10:00 — 21:00 четверг 10:00 — 21:00 "
+   },
+   "t:19:30": {
+    "url": "https://victorymuseum.ru/about/contacts/",
+    "ctx": "1:00 обратите внимание! продажа билетов в музей победы прекращается в 19:30 вход посетителей и продажа билетов в музей г.о.р.а. прекращаются"
+   },
+   "p:450": {
+    "url": "https://victorymuseum.ru/for-visitors/prices/",
+    "ctx": "коны выставочной галереи. доступно по пушкинской карте купить билет — 450 информация о льготах музей г.о.р.а. включает: посещение всех локац"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://victorymuseum.ru/for-visitors/prices/",
+    "ctx": "едерации и стран еаэс). представители дипломатического корпуса. право бесплатного посещения. вход на постоянные и временные экспозиции, кром"
+   },
+   "p:600": {
+    "url": "https://victorymuseum.ru/",
+    "ctx": "ии. где : 1-й этаж когда : вторник-воскресенье 10:00:21:00 билет : от 600 ₽ выбрать билет экскурсии путь к победе 1418 дней подвига: от бойц"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 54,
+  "name": "Парк Победы на Поклонной горе",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://poklonnaya.gbuador.ru/",
+    "status": 0,
+    "error": "ERR_TLS_CERT_ALTNAME_INVALID"
+   },
+   {
+    "url": "https://museum.cpm.moscow/museums/233",
+    "final": "https://museum.cpm.moscow/museums/233",
+    "status": 200,
+    "len": 57496,
+    "hit": 1
+   }
+  ],
+  "found": {
+   "k:бесплатн|свободн": {
+    "url": "https://museum.cpm.moscow/museums/233",
+    "ctx": ":24:00 пт 00:00:24:00 сб 00:00:24:00 вс 00:00:24:00 стоимость билета: бесплатно бесплатное посещение для участников: особенности посещения н"
+   }
+  },
+  "missing": [
+   "k:круглосуточ"
+  ]
+ },
+ {
+  "n": 55,
+  "name": "Парк «Школьное озеро»",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://xn--b1aesfkbbawel.xn--p1ai/vodojomy-v-rabote/ozero-shkolnoe-kryukovskiy-prud/",
+    "final": "https://xn--b1aesfkbbawel.xn--p1ai/vodojomy-v-rabote/ozero-shkolnoe-kryukovskiy-prud/",
+    "status": 200,
+    "len": 6237,
+    "hit": 1
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://xn--b1aesfkbbawel.xn--p1ai/vodojomy-v-rabote/ozero-shkolnoe-kryukovskiy-prud/",
+    "ctx": " московских водоотводящих систем +7495 657 87 03 диспетчерская служба круглосуточно center@mosvodostok.net +7495 657 87 38 канцелярия cancel"
+   }
+  },
+  "missing": [
+   "k:бесплатн|свободн"
+  ]
+ },
+ {
+  "n": 56,
+  "name": "Измайловский кремль",
+  "tokens": [
+   "t:09:00",
+   "t:21:00",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://www.kremlin-izmailovo.com/",
+    "final": "https://www.kremlin-izmailovo.com/",
+    "status": 200,
+    "len": 2695,
+    "hit": 2
+   },
+   {
+    "url": "https://www.kremlin-izmailovo.com/faq",
+    "final": "https://www.kremlin-izmailovo.com/faq",
+    "status": 200,
+    "len": 4907,
+    "hit": 3
+   }
+  ],
+  "found": {
+   "t:09:00": {
+    "url": "https://www.kremlin-izmailovo.com/",
+    "ctx": "ную экскурсию по кремлю. забронировать территория открыта ежедневно с 09:00 до 21:00 график работы каждого музея индивидуален. агентство « м"
+   },
+   "t:21:00": {
+    "url": "https://www.kremlin-izmailovo.com/",
+    "ctx": "рсию по кремлю. забронировать территория открыта ежедневно с 09:00 до 21:00 график работы каждого музея индивидуален. агентство « министерст"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://www.kremlin-izmailovo.com/faq",
+    "ctx": "просы стоимость входа на территорию кремля? вход на территорию кремля бесплатный (за исключением проводимых крупных праздников, например, су"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 57,
+  "name": "Измайловский парк",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://www.izmailovsky-park.ru/pravila-poseshcheniya",
+    "final": "https://www.izmailovsky-park.ru/pravila-poseshcheniya",
+    "status": 200,
+    "len": 36319,
+    "hit": 2
+   },
+   {
+    "url": "https://www.afisha.ru/msk/park/izmaylovskiy-park-301/",
+    "final": "https://www.afisha.ru/msk/park/izmaylovskiy-park-301/",
+    "status": 200,
+    "len": 10670,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://www.izmailovsky-park.ru/pravila-poseshcheniya",
+    "ctx": "и (или) доступе на территорию парка. 1.6. парк открыт для посетителей круглосуточно, за исключением случаев, предусмотренных настоящими прав"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://www.izmailovsky-park.ru/pravila-poseshcheniya",
+    "ctx": ""
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 58,
+  "name": "Истринский парк культуры и отдыха",
+  "tokens": [
+   "t:05:00",
+   "t:24:00",
+   "p:300"
+  ],
+  "pages": [
+   {
+    "url": "https://istra-parki.ru/",
+    "final": "https://istra-parki.ru/",
+    "status": 200,
+    "len": 41,
+    "hit": 0
+   },
+   {
+    "url": "https://istra-parki.ru/central-nyj-gorodskoj-park/",
+    "final": "https://istra-parki.ru/central-nyj-gorodskoj-park/",
+    "status": 200,
+    "len": 28,
+    "hit": 0
+   }
+  ],
+  "found": {},
+  "missing": [
+   "t:05:00",
+   "t:24:00",
+   "p:300"
+  ]
+ },
+ {
+  "n": 59,
+  "name": "Парк развлечений «Лаки Лама»",
+  "tokens": [
+   "t:10:00",
+   "t:22:00",
+   "p:700",
+   "p:1000",
+   "p:1500"
+  ],
+  "pages": [
+   {
+    "url": "https://lucky-llama.ru/",
+    "final": "https://lucky-llama.ru/",
+    "status": 200,
+    "len": 2607,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://lucky-llama.ru/",
+    "ctx": "ица, 7 ст1, 2 этаж телефон: +7 (993) 245‑70‑17 время работы: пн-вс: с 10:00 до 22:00 подробнее дмитров, трц «арус» адрес: ул. профессиональн"
+   },
+   "t:22:00": {
+    "url": "https://lucky-llama.ru/",
+    "ctx": "1, 2 этаж телефон: +7 (993) 245‑70‑17 время работы: пн-вс: с 10:00 до 22:00 подробнее дмитров, трц «арус» адрес: ул. профессиональная улица,"
+   }
+  },
+  "missing": [
+   "p:700",
+   "p:1000",
+   "p:1500"
+  ]
+ },
+ {
+  "n": 60,
+  "name": "Музей истории «Коломенская пастила»",
+  "tokens": [
+   "t:10:00",
+   "t:20:00",
+   "t:12:10",
+   "p:1100",
+   "p:1200",
+   "p:1000",
+   "p:800"
+  ],
+  "pages": [
+   {
+    "url": "https://kolomnapastila.ru/contacts/",
+    "final": "https://kolomnapastila.ru/contacts/",
+    "status": 200,
+    "len": 1376,
+    "hit": 2
+   },
+   {
+    "url": "https://kolomnapastila.ru/museum/",
+    "final": "https://kolomnapastila.ru/museum/",
+    "status": 200,
+    "len": 1892,
+    "hit": 1
+   },
+   {
+    "url": "https://kolomnapastila.ru/chaepitie-s-dostoevskim-3/",
+    "final": "https://kolomnapastila.ru/chaepitie-s-dostoevskim-3/",
+    "status": 200,
+    "len": 2838,
+    "hit": 4
+   },
+   {
+    "url": "https://kolomnapastila.ru/",
+    "final": "https://kolomnapastila.ru/",
+    "status": 200,
+    "len": 4112,
+    "hit": 1
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://kolomnapastila.ru/contacts/",
+    "ctx": "сть, город коломна, посадская улица, дом 13а музей открыт ежедневно с 10:00 до 20:00 +7958 284 92 00 info@kolomnaposad.ru kolomnaposad.ru по"
+   },
+   "t:20:00": {
+    "url": "https://kolomnapastila.ru/contacts/",
+    "ctx": "д коломна, посадская улица, дом 13а музей открыт ежедневно с 10:00 до 20:00 +7958 284 92 00 info@kolomnaposad.ru kolomnaposad.ru подписаться"
+   },
+   "p:1100": {
+    "url": "https://kolomnapastila.ru/chaepitie-s-dostoevskim-3/",
+    "ctx": "ые в письмах xix века формулы приветствия и прощания. взрослый билет: 1100 руб/чел (будни) 1200 руб/чел (выходные) запись на программу: 8958"
+   },
+   "p:1200": {
+    "url": "https://kolomnapastila.ru/chaepitie-s-dostoevskim-3/",
+    "ctx": " формулы приветствия и прощания. взрослый билет: 1100 руб/чел (будни) 1200 руб/чел (выходные) запись на программу: 8958 558 51 58 8958 284 9"
+   },
+   "p:1000": {
+    "url": "https://kolomnapastila.ru/chaepitie-s-dostoevskim-3/",
+    "ctx": "51 58 8958 284 92 00 детский билет ( 3 – 16 лет): 900 руб/чел (будни) 1000 руб/чел (выходные) социальный билет 800 руб./чел. (будни) продолж"
+   },
+   "p:800": {
+    "url": "https://kolomnapastila.ru/chaepitie-s-dostoevskim-3/",
+    "ctx": "16 лет): 900 руб/чел (будни) 1000 руб/чел (выходные) социальный билет 800 руб./чел. (будни) продолжительность программы: 1 час максимальное "
+   }
+  },
+  "missing": [
+   "t:12:10"
+  ]
+ },
+ {
+  "n": 61,
+  "name": "Музей любимой игрушки",
+  "tokens": [
+   "t:11:00",
+   "t:18:00",
+   "p:350",
+   "p:250"
+  ],
+  "pages": [
+   {
+    "url": "https://www.kolomnavisit.ru/ru/guide-block/museums_objects_displays/museum-favorite-toys/",
+    "final": "https://www.kolomnavisit.ru/ru/guide-block/museums_objects_displays/museum-favorite-toys/",
+    "status": 200,
+    "len": 2695,
+    "hit": 2
+   },
+   {
+    "url": "https://welcome.mosreg.ru/museums/putesestvie-v-detstvo",
+    "final": "https://welcome.mosreg.ru/museums/putesestvie-v-detstvo",
+    "status": 200,
+    "len": 11066,
+    "hit": 4
+   },
+   {
+    "url": "https://welcome.mosreg.ru/stories/kolomna-dla-detej-sladkaa-pastila-tajny-selka-i-park-s-olenami",
+    "final": "https://welcome.mosreg.ru/stories/kolomna-dla-detej-sladkaa-pastila-tajny-selka-i-park-s-olenami",
+    "status": 200,
+    "len": 22716,
+    "hit": 3
+   }
+  ],
+  "found": {
+   "t:11:00": {
+    "url": "https://www.kolomnavisit.ru/ru/guide-block/museums_objects_displays/museum-favorite-toys/",
+    "ctx": "у гостю открыть для себя мир реальных игрушек! режим работы: вт-вс: с 11:00 до 18:00 контакты: телефон: +7(910) 468-13:14 , адрес: г. коломн"
+   },
+   "t:18:00": {
+    "url": "https://www.kolomnavisit.ru/ru/guide-block/museums_objects_displays/museum-favorite-toys/",
+    "ctx": "ткрыть для себя мир реальных игрушек! режим работы: вт-вс: с 11:00 до 18:00 контакты: телефон: +7(910) 468-13:14 , адрес: г. коломна, ул. мо"
+   },
+   "p:350": {
+    "url": "https://welcome.mosreg.ru/museums/putesestvie-v-detstvo",
+    "ctx": " осмотр (детский билет) 250 ₽ самостоятельный осмотр (взрослый билет) 350 ₽ мастер-классы 350 ₽ контакты адрес коломна, ул. москворецкая, 20"
+   },
+   "p:250": {
+    "url": "https://welcome.mosreg.ru/museums/putesestvie-v-detstvo",
+    "ctx": " чайной. теги #музеи стоимость самостоятельный осмотр (детский билет) 250 ₽ самостоятельный осмотр (взрослый билет) 350 ₽ мастер-классы 350 "
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 62,
+  "name": "Верёвочный парк Norway Park Красногорск",
+  "tokens": [
+   "t:16:10",
+   "t:10:00",
+   "t:18:00",
+   "t:24:10",
+   "t:01:11",
+   "p:2600",
+   "p:3000",
+   "p:3500",
+   "p:1500",
+   "p:5800"
+  ],
+  "pages": [
+   {
+    "url": "https://norwaypark.ru/krasnogorsk",
+    "status": 403
+   }
+  ],
+  "found": {},
+  "missing": [
+   "t:16:10",
+   "t:10:00",
+   "t:18:00",
+   "t:24:10",
+   "t:01:11",
+   "p:2600",
+   "p:3000",
+   "p:3500",
+   "p:1500",
+   "p:5800"
+  ]
+ },
+ {
+  "n": 63,
+  "name": "Парк «Крылатские холмы»",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://krylopark.ru/visitors/",
+    "final": "https://krylopark.ru/visitors/",
+    "status": 200,
+    "len": 9290,
+    "hit": 1
+   },
+   {
+    "url": "https://www.afisha.ru/msk/park/krylatskie-holmy-307/",
+    "final": "https://www.afisha.ru/msk/park/krylatskie-holmy-307/",
+    "status": 200,
+    "len": 5896,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:бесплатн|свободн": {
+    "url": "https://krylopark.ru/visitors/",
+    "ctx": " в парк крылатские холмы правила посещения парка парк открыт для всех бесплатно природа — это бесценный подарок, который мы бережем вместе с"
+   },
+   "k:круглосуточ": {
+    "url": "https://www.afisha.ru/msk/park/krylatskie-holmy-307/",
+    "ctx": " карте адрес москва, крылатские холмы цены вход свободный часы работы круглосуточно статус работает круглосуточно рестораны рядом смотреть в"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 64,
+  "name": "Парк «Кузьминки»",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://park-kuzminki.ru/faq/",
+    "final": "https://park-kuzminki.ru/faq/",
+    "status": 200,
+    "len": 4227,
+    "hit": 2
+   },
+   {
+    "url": "https://www.afisha.ru/msk/park/kuzminki-lyublino-216/",
+    "final": "https://www.afisha.ru/msk/park/kuzminki-lyublino-216/",
+    "status": 200,
+    "len": 11366,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://park-kuzminki.ru/faq/",
+    "ctx": "ому режиму работает парк? музей-заповедник «кузьминки-люблино» открыт круглосуточно можно ли посетить усадьбу «кузьминки»? на данный момент "
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://park-kuzminki.ru/faq/",
+    "ctx": ""
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 65,
+  "name": "Парк Дружбы",
+  "tokens": [
+   "t:07:00",
+   "t:23:00",
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://mosparks.ru/places/druzhby/dog-space",
+    "status": 404
+   },
+   {
+    "url": "https://museum.cpm.moscow/museums/284",
+    "final": "https://museum.cpm.moscow/museums/284",
+    "status": 200,
+    "len": 28520,
+    "hit": 3
+   },
+   {
+    "url": "https://mosparks.ru/about/park-druzhby",
+    "status": 404
+   }
+  ],
+  "found": {
+   "t:07:00": {
+    "url": "https://museum.cpm.moscow/museums/284",
+    "ctx": "окзала теги: #паркдружбы #парксеверногоречноговокзала режим работы пн 07:00:23:00 вт 07:00:23:00 ср 07:00:23:00 чт 07:00:23:00 пт 07:00:23:0"
+   },
+   "t:23:00": {
+    "url": "https://museum.cpm.moscow/museums/284",
+    "ctx": " теги: #паркдружбы #парксеверногоречноговокзала режим работы пн 07:00:23:00 вт 07:00:23:00 ср 07:00:23:00 чт 07:00:23:00 пт 07:00:23:00 сб 0"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://museum.cpm.moscow/museums/284",
+    "ctx": ":23:00 пт 07:00:23:00 сб 07:00:23:00 вс 07:00:23:00 стоимость билета: бесплатно бесплатное посещение для участников: всегда в рамках указанн"
+   }
+  },
+  "missing": [
+   "k:круглосуточ"
+  ]
+ },
+ {
+  "n": 66,
+  "name": "Парк Северного речного вокзала",
+  "tokens": [
+   "t:07:00",
+   "t:23:00",
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://old.mosgortrans.ru/passenger/river-station-rules/",
+    "final": "https://old.mosgortrans.ru/passenger/river-station-rules/",
+    "status": 200,
+    "len": 26032,
+    "hit": 1
+   },
+   {
+    "url": "https://museum.cpm.moscow/museums/284",
+    "final": "https://museum.cpm.moscow/museums/284",
+    "status": 200,
+    "len": 28520,
+    "hit": 3
+   },
+   {
+    "url": "https://ruscatalog.org/moskva/1779792-park-severnogo-rechnogo-vokzala/",
+    "final": "https://ruscatalog.org/moskva/1779792-park-severnogo-rechnogo-vokzala/",
+    "status": 200,
+    "len": 143,
+    "hit": 0
+   },
+   {
+    "url": "https://transport.mos.ru/reka/river_stations",
+    "status": 0,
+    "error": "UND_ERR_CONNECT_TIMEOUT"
+   }
+  ],
+  "found": {
+   "k:бесплатн|свободн": {
+    "url": "https://old.mosgortrans.ru/passenger/river-station-rules/",
+    "ctx": ""
+   },
+   "t:07:00": {
+    "url": "https://museum.cpm.moscow/museums/284",
+    "ctx": "окзала теги: #паркдружбы #парксеверногоречноговокзала режим работы пн 07:00:23:00 вт 07:00:23:00 ср 07:00:23:00 чт 07:00:23:00 пт 07:00:23:0"
+   },
+   "t:23:00": {
+    "url": "https://museum.cpm.moscow/museums/284",
+    "ctx": " теги: #паркдружбы #парксеверногоречноговокзала режим работы пн 07:00:23:00 вт 07:00:23:00 ср 07:00:23:00 чт 07:00:23:00 пт 07:00:23:00 сб 0"
+   }
+  },
+  "missing": [
+   "k:круглосуточ"
+  ]
+ },
+ {
+  "n": 67,
+  "name": "Лефортовский парк",
+  "tokens": [
+   "t:05:00",
+   "t:24:00",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://sadbaumana.ru/about-the-garden/rules-of-conduct/pravila-poseshcheniya-lifortovskogo-parka",
+    "final": "https://sadbaumana.ru/about-the-garden/rules-of-conduct/pravila-poseshcheniya-lifortovskogo-parka",
+    "status": 200,
+    "len": 23283,
+    "hit": 2
+   },
+   {
+    "url": "https://um.mos.ru/places/lefortovskiy_park/",
+    "final": "https://um.mos.ru/places/lefortovskiy_park/",
+    "status": 200,
+    "len": 97392,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "t:05:00": {
+    "url": "https://sadbaumana.ru/about-the-garden/rules-of-conduct/pravila-poseshcheniya-lifortovskogo-parka",
+    "ctx": "я посетителей в парке. 2.1. парк открыт для посетителей ежедневно – с 05:00 часов до 24.00 часов, за исключением случаев, предусмотренных в "
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://sadbaumana.ru/about-the-garden/rules-of-conduct/pravila-poseshcheniya-lifortovskogo-parka",
+    "ctx": "го согласования с администрацией парка; - самодеятельные (платные или бесплатные) мероприятия историко-культурной направленности, туристско-"
+   }
+  },
+  "missing": [
+   "t:24:00"
+  ]
+ },
+ {
+  "n": 68,
+  "name": "Лианозовский парк",
+  "tokens": [
+   "t:05:00",
+   "t:23:00",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://www.liapark.ru/site/contact",
+    "final": "https://www.liapark.ru/site/contact",
+    "status": 200,
+    "len": 3823,
+    "hit": 3
+   }
+  ],
+  "found": {
+   "t:05:00": {
+    "url": "https://www.liapark.ru/site/contact",
+    "ctx": "ад график работы парка: график работы лианозовского парка ежедневно с 05:00 до 23:00 вход бесплатный ландшафтный заказник «лианозовский» — к"
+   },
+   "t:23:00": {
+    "url": "https://www.liapark.ru/site/contact",
+    "ctx": " работы парка: график работы лианозовского парка ежедневно с 05:00 до 23:00 вход бесплатный ландшафтный заказник «лианозовский» — круглосуто"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://www.liapark.ru/site/contact",
+    "ctx": "ка: график работы лианозовского парка ежедневно с 05:00 до 23:00 вход бесплатный ландшафтный заказник «лианозовский» — круглосуточно, вход б"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 69,
+  "name": "Музей «Ложки»",
+  "tokens": [
+   "t:10:00",
+   "t:20:00",
+   "t:11:00",
+   "t:19:00",
+   "p:200",
+   "p:100",
+   "p:1000",
+   "p:350"
+  ],
+  "pages": [
+   {
+    "url": "https://xn--80atdujec4e.xn--80asehdb/node/6406",
+    "final": "https://xn--80atdujec4e.xn--80asehdb/node/6406",
+    "status": 200,
+    "len": 3647,
+    "hit": 5
+   },
+   {
+    "url": "https://welcome.mosreg.ru/ideas/muzej-lozki",
+    "final": "https://welcome.mosreg.ru/ideas/muzej-lozki",
+    "status": 200,
+    "len": 9124,
+    "hit": 8
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://xn--80atdujec4e.xn--80asehdb/node/6406",
+    "ctx": " открыт для посещения (самостоятельного осмотра) ежедневно! в будни с 10:00 до 20:00, в выходные с 11:00 до 19:00. экскурсионное обслуживани"
+   },
+   "t:20:00": {
+    "url": "https://xn--80atdujec4e.xn--80asehdb/node/6406",
+    "ctx": "ля посещения (самостоятельного осмотра) ежедневно! в будни с 10:00 до 20:00, в выходные с 11:00 до 19:00. экскурсионное обслуживание, интера"
+   },
+   "t:11:00": {
+    "url": "https://xn--80atdujec4e.xn--80asehdb/node/6406",
+    "ctx": "оятельного осмотра) ежедневно! в будни с 10:00 до 20:00, в выходные с 11:00 до 19:00. экскурсионное обслуживание, интерактивные программы и "
+   },
+   "t:19:00": {
+    "url": "https://xn--80atdujec4e.xn--80asehdb/node/6406",
+    "ctx": "о осмотра) ежедневно! в будни с 10:00 до 20:00, в выходные с 11:00 до 19:00. экскурсионное обслуживание, интерактивные программы и мастер-кл"
+   },
+   "p:1000": {
+    "url": "https://xn--80atdujec4e.xn--80asehdb/node/6406",
+    "ctx": "го экспозиция постоянно пополняется, сегодня в ней представлено более 1000 экспонатов разных эпох, в том числе артефакты 8 века и уникальная"
+   },
+   "p:200": {
+    "url": "https://welcome.mosreg.ru/ideas/muzej-lozki",
+    "ctx": "#впечатления стоимость самостоятельное посещение музея (для взрослых) 200 ₽ самостоятельное посещение музея (для детей и пенсионеров) 100 ₽ "
+   },
+   "p:100": {
+    "url": "https://welcome.mosreg.ru/ideas/muzej-lozki",
+    "ctx": "слых) 200 ₽ самостоятельное посещение музея (для детей и пенсионеров) 100 ₽ обзорная экскурсия (индивидуальная: цена указана за группу от 1 "
+   },
+   "p:350": {
+    "url": "https://welcome.mosreg.ru/ideas/muzej-lozki",
+    "ctx": "человек) 250 ₽ чаепитие с интерактивной программой 300 ₽ мастер-класс 350 ₽ контакты адрес городской округ солнечногорск, деревня ложки, цен"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 70,
+  "name": "Наташинский парк (Наташинские пруды)",
+  "tokens": [
+   "t:09:00",
+   "t:23:00",
+   "t:15:10",
+   "p:450",
+   "p:300",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://welcome.mosreg.ru/stories/lubercy-za-odin-den-unikal-nye-muzejnye-eksponaty-uutnye-parki-i-razvlecenia-dla-detej",
+    "final": "https://welcome.mosreg.ru/stories/lubercy-za-odin-den-unikal-nye-muzejnye-eksponaty-uutnye-parki-i-razvlecenia-dla-detej",
+    "status": 200,
+    "len": 23393,
+    "hit": 4
+   },
+   {
+    "url": "https://attra-grad.ru/",
+    "final": "https://attra-grad.ru/",
+    "status": 200,
+    "len": 1444,
+    "hit": 3
+   },
+   {
+    "url": "https://xn----8sbbqaaudnec9chh7f2f.xn--p1ai/natashinskij-park/",
+    "final": "https://xn----8sbbqaaudnec9chh7f2f.xn--p1ai/natashinskij-park/",
+    "status": 200,
+    "len": 6074,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "t:09:00": {
+    "url": "https://welcome.mosreg.ru/stories/lubercy-za-odin-den-unikal-nye-muzejnye-eksponaty-uutnye-parki-i-razvlecenia-dla-detej",
+    "ctx": ""
+   },
+   "p:450": {
+    "url": "https://welcome.mosreg.ru/stories/lubercy-za-odin-den-unikal-nye-muzejnye-eksponaty-uutnye-parki-i-razvlecenia-dla-detej",
+    "ctx": "primaryimage\", \"inlanguage\": \"ru-ru\", \"url\": \"/cache/thumbs/thumb_600_450_2431780037.jpg\", \"width\": 600, \"height\": 450, \"caption\": \"люберцы "
+   },
+   "p:300": {
+    "url": "https://welcome.mosreg.ru/stories/lubercy-za-odin-den-unikal-nye-muzejnye-eksponaty-uutnye-parki-i-razvlecenia-dla-detej",
+    "ctx": "лей (льготный); билет на все постоянные экспозиции или все выставки – 300 рублей (полный), 150 рублей (льготный); экскурсия – от 1300 рублей"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://welcome.mosreg.ru/stories/lubercy-za-odin-den-unikal-nye-muzejnye-eksponaty-uutnye-parki-i-razvlecenia-dla-detej",
+    "ctx": "-797-91-51 сайт: https://люберецкие-парки.рф/natashinskij-park/ цена: бесплатно наташинский парк наташинский парк – это одно из популярных м"
+   }
+  },
+  "missing": [
+   "t:23:00",
+   "t:15:10"
+  ]
+ },
+ {
+  "n": 71,
+  "name": "Усадьба Люблино",
+  "tokens": [
+   "t:10:00",
+   "t:18:00",
+   "t:17:30",
+   "p:500",
+   "p:250",
+   "k:круглосуточ"
+  ],
+  "pages": [
+   {
+    "url": "https://park-kuzminki.ru/lublino/what-to-do/pered-pokhodom-v-muzey-utochnite-rezhim-raboty/",
+    "final": "https://park-kuzminki.ru/lublino/what-to-do/pered-pokhodom-v-muzey-utochnite-rezhim-raboty/",
+    "status": 200,
+    "len": 5863,
+    "hit": 3
+   },
+   {
+    "url": "https://park-kuzminki.ru/lublino/what-to-do/kompleksnyy-vkhodnoy-bilet-vo-dvorets-n-a-durasova-1-y-i-3-y-etazhi/",
+    "final": "https://park-kuzminki.ru/lublino/what-to-do/kompleksnyy-vkhodnoy-bilet-vo-dvorets-n-a-durasova-1-y-i-3-y-etazhi/",
+    "status": 200,
+    "len": 5924,
+    "hit": 3
+   },
+   {
+    "url": "https://park-kuzminki.ru/faq/",
+    "final": "https://park-kuzminki.ru/faq/",
+    "status": 200,
+    "len": 4227,
+    "hit": 1
+   },
+   {
+    "url": "https://park-kuzminki.ru/lublino/",
+    "final": "https://park-kuzminki.ru/lublino/",
+    "status": 200,
+    "len": 9324,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://park-kuzminki.ru/lublino/what-to-do/pered-pokhodom-v-muzey-utochnite-rezhim-raboty/",
+    "ctx": "сетители! музей-усадьба люблино работает со вторника по воскресенье с 10:00 до 18:00 часов. касса закрывается в 17:30. понедельник – выходно"
+   },
+   "t:18:00": {
+    "url": "https://park-kuzminki.ru/lublino/what-to-do/pered-pokhodom-v-muzey-utochnite-rezhim-raboty/",
+    "ctx": " музей-усадьба люблино работает со вторника по воскресенье с 10:00 до 18:00 часов. касса закрывается в 17:30. понедельник – выходной. обраща"
+   },
+   "t:17:30": {
+    "url": "https://park-kuzminki.ru/lublino/what-to-do/pered-pokhodom-v-muzey-utochnite-rezhim-raboty/",
+    "ctx": "о вторника по воскресенье с 10:00 до 18:00 часов. касса закрывается в 17:30. понедельник – выходной. обращаем ваше внимание. 2 октября дворе"
+   },
+   "p:500": {
+    "url": "https://park-kuzminki.ru/lublino/what-to-do/kompleksnyy-vkhodnoy-bilet-vo-dvorets-n-a-durasova-1-y-i-3-y-etazhi/",
+    "ctx": " музей. касса музея закрывается в 17:30. купить билет цена взрослый - 500 рублей льготный - 250 рублей другие занятия в парке все выставки э"
+   },
+   "p:250": {
+    "url": "https://park-kuzminki.ru/lublino/what-to-do/kompleksnyy-vkhodnoy-bilet-vo-dvorets-n-a-durasova-1-y-i-3-y-etazhi/",
+    "ctx": "крывается в 17:30. купить билет цена взрослый - 500 рублей льготный - 250 рублей другие занятия в парке все выставки экскурсии парк 55+ маст"
+   },
+   "k:круглосуточ": {
+    "url": "https://park-kuzminki.ru/faq/",
+    "ctx": "ому режиму работает парк? музей-заповедник «кузьминки-люблино» открыт круглосуточно можно ли посетить усадьбу «кузьминки»? на данный момент "
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 72,
+  "name": "Парк 850-летия Москвы",
+  "tokens": [
+   "t:08:00",
+   "t:23:00",
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://www.afisha.ru/msk/park/850-letiya-moskvy-1224/",
+    "final": "https://www.afisha.ru/msk/park/850-letiya-moskvy-1224/",
+    "status": 200,
+    "len": 2659,
+    "hit": 2
+   },
+   {
+    "url": "https://museum.cpm.moscow/museums/592",
+    "final": "https://museum.cpm.moscow/museums/592",
+    "status": 200,
+    "len": 23049,
+    "hit": 3
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://www.afisha.ru/msk/park/850-letiya-moskvy-1224/",
+    "ctx": "поречная цены вход свободный официальный сайт park850.net часы работы круглосуточно статус работает круглосуточно рестораны рядом смотреть в"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://www.afisha.ru/msk/park/850-letiya-moskvy-1224/",
+    "ctx": ""
+   },
+   "t:08:00": {
+    "url": "https://museum.cpm.moscow/museums/592",
+    "ctx": "узея: парк 850-летия москвы теги: #парк850летиямосквы режим работы пн 08:00:23:00 вт 08:00:23:00 ср 08:00:23:00 чт 08:00:23:00 пт 08:00:23:0"
+   },
+   "t:23:00": {
+    "url": "https://museum.cpm.moscow/museums/592",
+    "ctx": "парк 850-летия москвы теги: #парк850летиямосквы режим работы пн 08:00:23:00 вт 08:00:23:00 ср 08:00:23:00 чт 08:00:23:00 пт 08:00:23:00 сб 0"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 73,
+  "name": "Дом-музей В. М. Васнецова",
+  "tokens": [
+   "t:10:00",
+   "t:17:00",
+   "t:16:00",
+   "p:400",
+   "p:250"
+  ],
+  "pages": [
+   {
+    "url": "https://www.tretyakovgallery.ru/for-visitors/museums/dom-muzey-v-vasnetsova/",
+    "final": "https://www.tretyakovgallery.ru/for-visitors/museums/dom-muzey-v-vasnetsova/",
+    "status": 200,
+    "len": 1558,
+    "hit": 3
+   },
+   {
+    "url": "https://www.tretyakovgallery.ru/exhibitions/o/dom-muzey-viktora-vasnetsova_/",
+    "final": "https://www.tretyakovgallery.ru/exhibitions/o/dom-muzey-viktora-vasnetsova_/",
+    "status": 200,
+    "len": 254,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://www.tretyakovgallery.ru/for-visitors/museums/dom-muzey-v-vasnetsova/",
+    "ctx": "ро проспект мира метро сухаревская +7 (495) 681-13:29 вс, ср, пт, сб: 10:00 — 17:00 (кассы и вход до 16:00) пн, вт: выходной чт: 10:00 — 17:"
+   },
+   "t:17:00": {
+    "url": "https://www.tretyakovgallery.ru/for-visitors/museums/dom-muzey-v-vasnetsova/",
+    "ctx": "ект мира метро сухаревская +7 (495) 681-13:29 вс, ср, пт, сб: 10:00 — 17:00 (кассы и вход до 16:00) пн, вт: выходной чт: 10:00 — 17:00 (касс"
+   },
+   "t:16:00": {
+    "url": "https://www.tretyakovgallery.ru/for-visitors/museums/dom-muzey-v-vasnetsova/",
+    "ctx": "кая +7 (495) 681-13:29 вс, ср, пт, сб: 10:00 — 17:00 (кассы и вход до 16:00) пн, вт: выходной чт: 10:00 — 17:00 (кассы и вход до 16:00), кро"
+   }
+  },
+  "missing": [
+   "p:400",
+   "p:250"
+  ]
+ },
+ {
+  "n": 74,
+  "name": "Митинский ландшафтный парк",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://mitino.bapark.ru/informaciya/oficialnaya-informaciya/pravila-poseshcheniya/",
+    "final": "https://mitino.bapark.ru/informaciya/oficialnaya-informaciya/pravila-poseshcheniya/",
+    "status": 200,
+    "len": 22902,
+    "hit": 2
+   },
+   {
+    "url": "https://www.putevka.com/moskva/moskva/sight/landshaftnyj-park-mitino",
+    "final": "https://www.putevka.com/moskva/moskva/sight/landshaftnyj-park-mitino",
+    "status": 200,
+    "len": 19892,
+    "hit": 2
+   },
+   {
+    "url": "https://mitino.bapark.ru/",
+    "final": "https://mitino.bapark.ru/",
+    "status": 200,
+    "len": 4773,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://mitino.bapark.ru/informaciya/oficialnaya-informaciya/pravila-poseshcheniya/",
+    "ctx": "да и нахождения посетителей в парке. 2.1. парк открыт для посетителей круглосуточно, за исключением случаев, предусмотренных в пункте 1.6 на"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://mitino.bapark.ru/informaciya/oficialnaya-informaciya/pravila-poseshcheniya/",
+    "ctx": "ного согласования с администрацией парка; самодеятельные (платные или бесплатные) мероприятия историко-культурной направленности, туристско-"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 75,
+  "name": "Площадка «Стройка» в Нескучном саду",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://parkgorkogo.ru/faq/",
+    "final": "https://parkgorkogo.ru/faq/",
+    "status": 200,
+    "len": 5293,
+    "hit": 2
+   },
+   {
+    "url": "https://www.mos.ru/upload/documents/oiv/moskva_detishkam.pdf",
+    "status": 200,
+    "skip": "binary application/pdf; charset=UTF-8"
+   },
+   {
+    "url": "https://kudamoscow.ru/place/neskuchnyj-sad/",
+    "final": "https://kudamoscow.ru/place/neskuchnyj-sad/",
+    "status": 200,
+    "len": 11831,
+    "hit": 2
+   },
+   {
+    "url": "https://parkgorkogo.ru/areas/neskuchny-garden/",
+    "final": "https://parkgorkogo.ru/areas/neskuchny-garden/",
+    "status": 200,
+    "len": 5416,
+    "hit": 1
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://parkgorkogo.ru/faq/",
+    "ctx": "лей в час какие часы работы парка горького? каждый день парк работает круглосуточно, о временном закрытии из-за плохой погоды мы оперативно "
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://parkgorkogo.ru/faq/",
+    "ctx": "с оплатой, просим обратиться за помощью к парковщику. первые 15 минут бесплатно будние дни с понедельника по четверг (с 09:00 до 22:00) 400 "
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 76,
+  "name": "Парк развлечений «Остров мечты»",
+  "tokens": [
+   "t:12:00",
+   "t:22:00",
+   "t:10:00",
+   "p:2800"
+  ],
+  "pages": [
+   {
+    "url": "https://dreamisland.ru/tickets",
+    "final": "https://dreamisland.ru/tickets",
+    "status": 200,
+    "len": 50203,
+    "hit": 4
+   }
+  ],
+  "found": {
+   "t:12:00": {
+    "url": "https://dreamisland.ru/tickets",
+    "ctx": " билеты парк развлечений 65 головокружительных аттракционов и 5 шоу с 12:00 до 22:00 купить от 2800₽ картинг шикана сочетание скорости, адре"
+   },
+   "t:22:00": {
+    "url": "https://dreamisland.ru/tickets",
+    "ctx": "арк развлечений 65 головокружительных аттракционов и 5 шоу с 12:00 до 22:00 купить от 2800₽ картинг шикана сочетание скорости, адреналина и "
+   },
+   "t:10:00": {
+    "url": "https://dreamisland.ru/tickets",
+    "ctx": "00₽ картинг шикана сочетание скорости, адреналина и острых ощущений с 10:00 до 23:00 бронировать moscow hall многофункциональный концертный "
+   },
+   "p:2800": {
+    "url": "https://dreamisland.ru/tickets",
+    "ctx": "65 головокружительных аттракционов и 5 шоу с 12:00 до 22:00 купить от 2800₽ картинг шикана сочетание скорости, адреналина и острых ощущений "
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 77,
+  "name": "Этнопарк «Хаски Лэнд»",
+  "tokens": [
+   "t:10:00",
+   "t:19:00",
+   "t:20:00",
+   "p:5000",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://xacku.land/nazarevo",
+    "final": "https://xacku.land/nazarevo",
+    "status": 200,
+    "len": 8627,
+    "hit": 5
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://xacku.land/nazarevo",
+    "ctx": " раздолье правила безопасности блог работаем: пн — выходной вт-пт — с 10:00 до 19:00 сб-вс — с 10:00 до 20:00 пакетная стоимость: 5000₽ вклю"
+   },
+   "t:19:00": {
+    "url": "https://xacku.land/nazarevo",
+    "ctx": " правила безопасности блог работаем: пн — выходной вт-пт — с 10:00 до 19:00 сб-вс — с 10:00 до 20:00 пакетная стоимость: 5000₽ включает – по"
+   },
+   "t:20:00": {
+    "url": "https://xacku.land/nazarevo",
+    "ctx": "г работаем: пн — выходной вт-пт — с 10:00 до 19:00 сб-вс — с 10:00 до 20:00 пакетная стоимость: 5000₽ включает – посещение парка – катание н"
+   },
+   "p:5000": {
+    "url": "https://xacku.land/nazarevo",
+    "ctx": "вт-пт — с 10:00 до 19:00 сб-вс — с 10:00 до 20:00 пакетная стоимость: 5000₽ включает – посещение парка – катание на упряжке *дети до 3х лет "
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://xacku.land/nazarevo",
+    "ctx": "о телефону: +7495 255 54 53 * для детей до 3 лет короткие дистанции — бесплатно, длинные дистанции — не предусмотрены катания на собачьих уп"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 78,
+  "name": "Воронцовский парк",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://usadba-vorontsovo.ru/kontakty/",
+    "final": "https://usadba-vorontsovo.ru/kontakty/",
+    "status": 200,
+    "len": 3877,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://usadba-vorontsovo.ru/kontakty/",
+    "ctx": "117630, г. москва, воронцовский парк, д. 7 режим работы парк работает круглосуточно вход свободный партнёры копирайт © 2014—2026, гаук «усад"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://usadba-vorontsovo.ru/kontakty/",
+    "ctx": ""
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 79,
+  "name": "Детский парк «Малыш»",
+  "tokens": [
+   "t:08:00",
+   "t:21:00",
+   "t:11:00",
+   "t:20:00",
+   "t:10:00",
+   "p:600"
+  ],
+  "pages": [
+   {
+    "url": "https://funparks.ru/verevochnyj-park-na-iskusstvennykh-oporakh-detskij-park-malysh",
+    "final": "https://funparks.ru/verevochnyj-park-na-iskusstvennykh-oporakh-detskij-park-malysh",
+    "status": 200,
+    "len": 1870,
+    "hit": 3
+   }
+  ],
+  "found": {
+   "t:20:00": {
+    "url": "https://funparks.ru/verevochnyj-park-na-iskusstvennykh-oporakh-detskij-park-malysh",
+    "ctx": "ения при перестёгивании участника. часы работы: будние дни с 12:00 до 20:00 выходные и праздничные дни с 10:00 до 20:00 цены: будние дни оди"
+   },
+   "t:10:00": {
+    "url": "https://funparks.ru/verevochnyj-park-na-iskusstvennykh-oporakh-detskij-park-malysh",
+    "ctx": "часы работы: будние дни с 12:00 до 20:00 выходные и праздничные дни с 10:00 до 20:00 цены: будние дни один уровень - 350 рублей два уровня -"
+   },
+   "p:600": {
+    "url": "https://funparks.ru/verevochnyj-park-na-iskusstvennykh-oporakh-detskij-park-malysh",
+    "ctx": "овня - 500 рублей выходные дни один уровень - 400 рублей два уровня - 600 рублей контакты: веревочный парк funparks одинцово адрес: московск"
+   }
+  },
+  "missing": [
+   "t:08:00",
+   "t:21:00",
+   "t:11:00"
+  ]
+ },
+ {
+  "n": 80,
+  "name": "Борисовские пруды",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://thecity.m24.ru/articles/10874",
+    "final": "https://thecity.m24.ru/articles/10874",
+    "status": 200,
+    "len": 5824,
+    "hit": 1
+   },
+   {
+    "url": "https://tsaritsyno-museum.ru/park/borisovskie-prudy/",
+    "final": "https://tsaritsyno-museum.ru/park/borisovskie-prudy/",
+    "status": 200,
+    "len": 7573,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "k:бесплатн|свободн": {
+    "url": "https://thecity.m24.ru/articles/10874",
+    "ctx": " где загорать в москве бесплатно: 5 пляжей с шезлонгами – сити { \"@context\": \"https://schema."
+   }
+  },
+  "missing": [
+   "k:круглосуточ"
+  ]
+ },
+ {
+  "n": 81,
+  "name": "Останкинская усадьба Шереметевых",
+  "tokens": [
+   "t:10:00",
+   "t:18:00",
+   "t:17:30",
+   "t:20:10",
+   "t:16:00",
+   "t:15:30",
+   "p:450",
+   "p:300",
+   "p:750",
+   "p:550",
+   "p:600",
+   "p:900",
+   "p:1050",
+   "p:1500",
+   "p:1300"
+  ],
+  "pages": [
+   {
+    "url": "https://ostankino-museum.ru/rezhim-rabotyi-muzeya",
+    "final": "https://ostankino-museum.ru/rezhim-rabotyi-muzeya",
+    "status": 200,
+    "len": 2225,
+    "hit": 5
+   },
+   {
+    "url": "https://kuskovo.ru/muzej/oficial_nye_dokumenty/",
+    "final": "https://kuskovo.ru/muzej/oficial_nye_dokumenty/",
+    "status": 200,
+    "len": 6442,
+    "hit": 1
+   },
+   {
+    "url": "https://kuskovo.ru/images/1_NEW/1_PDF/scan_20260930_160811-2-19_compressed-szhatyj.pdf",
+    "status": 200,
+    "skip": "binary application/pdf"
+   },
+   {
+    "url": "https://www.ostankino-museum.ru/biletyi-vyistavochnyie-zalyi",
+    "final": "https://www.ostankino-museum.ru/biletyi-vyistavochnyie-zalyi",
+    "status": 200,
+    "len": 5484,
+    "hit": 0
+   },
+   {
+    "url": "https://www.ostankino-museum.ru/kompleksnaya-ekskursiya",
+    "final": "https://www.ostankino-museum.ru/kompleksnaya-ekskursiya",
+    "status": 200,
+    "len": 2967,
+    "hit": 0
+   },
+   {
+    "url": "https://ostankino-museum.ru/",
+    "final": "https://ostankino-museum.ru/",
+    "status": 200,
+    "len": 1846,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://ostankino-museum.ru/rezhim-rabotyi-muzeya",
+    "ctx": "ожно только в составе экскурсионных групп. павильоны будут работать с 10:00 до 16:00, кассы - с 10:00 до 15:30. график работы музея: вторник"
+   },
+   "t:18:00": {
+    "url": "https://ostankino-museum.ru/rezhim-rabotyi-muzeya",
+    "ctx": "я: вторник, среда, четверг, пятница, суббота, воскресенье: с 10:00 до 18:00, кассы до 17:30. выходной день: понедельник. последний вторник м"
+   },
+   "t:17:30": {
+    "url": "https://ostankino-museum.ru/rezhim-rabotyi-muzeya",
+    "ctx": "а, четверг, пятница, суббота, воскресенье: с 10:00 до 18:00, кассы до 17:30. выходной день: понедельник. последний вторник месяца - санитарн"
+   },
+   "t:16:00": {
+    "url": "https://ostankino-museum.ru/rezhim-rabotyi-muzeya",
+    "ctx": "ко в составе экскурсионных групп. павильоны будут работать с 10:00 до 16:00, кассы - с 10:00 до 15:30. график работы музея: вторник, среда, "
+   },
+   "t:15:30": {
+    "url": "https://ostankino-museum.ru/rezhim-rabotyi-muzeya",
+    "ctx": " групп. павильоны будут работать с 10:00 до 16:00, кассы - с 10:00 до 15:30. график работы музея: вторник, среда, четверг, пятница, суббота,"
+   },
+   "p:300": {
+    "url": "https://kuskovo.ru/muzej/oficial_nye_dokumenty/",
+    "ctx": "ектов подкатегория документации приказ о внесении изменений в приказ №300од подкатегория документации приказ об утверждении правил проката ш"
+   }
+  },
+  "missing": [
+   "t:20:10",
+   "p:450",
+   "p:750",
+   "p:550",
+   "p:600",
+   "p:900",
+   "p:1050",
+   "p:1500",
+   "p:1300"
+  ]
+ },
+ {
+  "n": 82,
+  "name": "Терлецкий лесопарк",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://terletskypark.ru/o-nas/",
+    "final": "https://terletskypark.ru/o-nas/",
+    "status": 200,
+    "len": 23144,
+    "hit": 2
+   },
+   {
+    "url": "https://terletskypark.ru/",
+    "final": "https://terletskypark.ru/",
+    "status": 200,
+    "len": 2113,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://terletskypark.ru/o-nas/",
+    "ctx": " на прием можно в рабочее время через секретаря. режим работы парка : круглосуточно, вход свободный как добраться до администрации гаук г. м"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://terletskypark.ru/o-nas/",
+    "ctx": ""
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 83,
+  "name": "Пешки Парк",
+  "tokens": [
+   "t:10:00",
+   "t:20:00",
+   "p:2000",
+   "p:2400",
+   "p:2200",
+   "p:1350",
+   "p:850",
+   "p:660"
+  ],
+  "pages": [
+   {
+    "url": "https://peshki-park.ru/attractions/tseny/",
+    "final": "https://peshki-park.ru/attractions/tseny/",
+    "status": 200,
+    "len": 3312,
+    "hit": 8
+   },
+   {
+    "url": "https://peshki-park.ru/contacts/",
+    "final": "https://peshki-park.ru/contacts/",
+    "status": 200,
+    "len": 2334,
+    "hit": 2
+   },
+   {
+    "url": "https://peshki-park.ru/",
+    "final": "https://peshki-park.ru/",
+    "status": 200,
+    "len": 7613,
+    "hit": 3
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://peshki-park.ru/attractions/tseny/",
+    "ctx": ""
+   },
+   "t:20:00": {
+    "url": "https://peshki-park.ru/attractions/tseny/",
+    "ctx": ""
+   },
+   "p:2000": {
+    "url": "https://peshki-park.ru/attractions/tseny/",
+    "ctx": "евочный парк: взрослые: выходные и праздники - 2400 руб. будние дни - 2000 руб. в стоимость включены все трассы. дети от 10 до 14 лет: выход"
+   },
+   "p:2400": {
+    "url": "https://peshki-park.ru/attractions/tseny/",
+    "ctx": "акты партнерам цены веревочный парк: взрослые: выходные и праздники - 2400 руб. будние дни - 2000 руб. в стоимость включены все трассы. дети"
+   },
+   "p:2200": {
+    "url": "https://peshki-park.ru/attractions/tseny/",
+    "ctx": "сть включены все трассы. дети от 10 до 14 лет: выходные и праздники - 2200 руб. будние дни - 1800 руб. в стоимость включены все трассы. дети"
+   },
+   "p:1350": {
+    "url": "https://peshki-park.ru/attractions/tseny/",
+    "ctx": "мость включены все трассы. дети от 5 до 9 лет: выходные и праздники - 1350 руб. будние дни - 1100 руб. в стоимость включены две детские трас"
+   },
+   "p:850": {
+    "url": "https://peshki-park.ru/attractions/tseny/",
+    "ctx": "белая и белая+) аттракционы: гигантские качели выходные и праздники - 850 руб. будние дни - 650 руб. скалодром выходные и праздники - 660 ру"
+   },
+   "p:660": {
+    "url": "https://peshki-park.ru/attractions/tseny/",
+    "ctx": "ики - 850 руб. будние дни - 650 руб. скалодром выходные и праздники - 660 руб. будние дни - 550 руб. скидки: семья от 4‐х человек - 10% груп"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 84,
+  "name": "Ледовый дворец «Витязь»",
+  "tokens": [
+   "t:09:00",
+   "t:21:00",
+   "p:350",
+   "p:300",
+   "p:50",
+   "p:250",
+   "p:1000"
+  ],
+  "pages": [
+   {
+    "url": "https://icepodolsk.ru/",
+    "final": "https://icepodolsk.ru/",
+    "status": 200,
+    "len": 22691,
+    "hit": 7
+   }
+  ],
+  "found": {
+   "t:09:00": {
+    "url": "https://icepodolsk.ru/",
+    "ctx": " всем вопросам мы ответим вам по телефонам 8 (4967) 65-40-30 (пн-пт с 09:00 до 18:00), 8 (4967) 65-40-18 (пн-вс с 09:00 до 21:00) спорт хокк"
+   },
+   "t:21:00": {
+    "url": "https://icepodolsk.ru/",
+    "ctx": "5-40-30 (пн-пт с 09:00 до 18:00), 8 (4967) 65-40-18 (пн-вс с 09:00 до 21:00) спорт хоккей фигурное катание гимнастика тяжелая атлетика баске"
+   },
+   "p:350": {
+    "url": "https://icepodolsk.ru/",
+    "ctx": "ает на массовые катания: ❄️ ❄️ ❄️ ⛸стоимость билета: — взрослый билет 350 рублей, — детский билет 300 рублей (дети до 14 лет), 💫 проход на "
+   },
+   "p:300": {
+    "url": "https://icepodolsk.ru/",
+    "ctx": "❄️ ❄️ ⛸стоимость билета: — взрослый билет 350 рублей, — детский билет 300 рублей (дети до 14 лет), 💫 проход на трибуны платный — 50 рублей."
+   },
+   "p:50": {
+    "url": "https://icepodolsk.ru/",
+    "ctx": "корпусе расположен конференц-зал. для питания команд – уютное кафе на 50 мест. в распоряжении гостей и зрителей находится 5500 мест, разделе"
+   },
+   "p:250": {
+    "url": "https://icepodolsk.ru/",
+    "ctx": "право на льготы‼️ правила поведения про коньки ⛸⛸ 💫 прокат коньков — 250 рублей 💫 залоговая стоимость за пару 1000 рублей (наличными!!!!) "
+   },
+   "p:1000": {
+    "url": "https://icepodolsk.ru/",
+    "ctx": "ньки ⛸⛸ 💫 прокат коньков — 250 рублей 💫 залоговая стоимость за пару 1000 рублей (наличными!!!!) вносится в пункте проката и возвращается п"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 85,
+  "name": "Парк культуры и отдыха им. В. Талалихина",
+  "tokens": [
+   "t:07:00",
+   "t:23:00",
+   "t:12:00",
+   "t:20:00",
+   "t:11:00",
+   "t:21:00",
+   "p:200",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://welcome.mosreg.ru/ideas/park-kul-tury-i-otdyha-im-v-talalihina",
+    "final": "https://welcome.mosreg.ru/ideas/park-kul-tury-i-otdyha-im-v-talalihina",
+    "status": 200,
+    "len": 9463,
+    "hit": 7
+   },
+   {
+    "url": "https://ru.ruwiki.ru/wiki/Парк_имени_В._Талалихина",
+    "status": 401
+   },
+   {
+    "url": "https://www.podolskpark.ru/",
+    "status": 0,
+    "error": "ERR_SSL_TLSV1_ALERT_INTERNAL_ERROR"
+   }
+  ],
+  "found": {
+   "t:07:00": {
+    "url": "https://welcome.mosreg.ru/ideas/park-kul-tury-i-otdyha-im-v-talalihina",
+    "ctx": "стоимость услуг парк культуры и отдыха имени в. талалихина работает с 07:00 до 23:00. график работы аттракционов: со вторника по пятницу – с"
+   },
+   "t:23:00": {
+    "url": "https://welcome.mosreg.ru/ideas/park-kul-tury-i-otdyha-im-v-talalihina",
+    "ctx": " услуг парк культуры и отдыха имени в. талалихина работает с 07:00 до 23:00. график работы аттракционов: со вторника по пятницу – с 12:00 до"
+   },
+   "t:12:00": {
+    "url": "https://welcome.mosreg.ru/ideas/park-kul-tury-i-otdyha-im-v-talalihina",
+    "ctx": "7:00 до 23:00. график работы аттракционов: со вторника по пятницу – с 12:00 до 20:00 в субботу и воскресенье – с 11:00 до 21:00 выходной – п"
+   },
+   "t:20:00": {
+    "url": "https://welcome.mosreg.ru/ideas/park-kul-tury-i-otdyha-im-v-talalihina",
+    "ctx": "3:00. график работы аттракционов: со вторника по пятницу – с 12:00 до 20:00 в субботу и воскресенье – с 11:00 до 21:00 выходной – понедельни"
+   },
+   "t:11:00": {
+    "url": "https://welcome.mosreg.ru/ideas/park-kul-tury-i-otdyha-im-v-talalihina",
+    "ctx": "со вторника по пятницу – с 12:00 до 20:00 в субботу и воскресенье – с 11:00 до 21:00 выходной – понедельник стоимость аттракционов - от 50 д"
+   },
+   "t:21:00": {
+    "url": "https://welcome.mosreg.ru/ideas/park-kul-tury-i-otdyha-im-v-talalihina",
+    "ctx": "ка по пятницу – с 12:00 до 20:00 в субботу и воскресенье – с 11:00 до 21:00 выходной – понедельник стоимость аттракционов - от 50 до 200 руб"
+   },
+   "p:200": {
+    "url": "https://welcome.mosreg.ru/ideas/park-kul-tury-i-otdyha-im-v-talalihina",
+    "ctx": "скве он совершил ночной таран и уничтожил вражеский бомбардировщик. в 2006 году в парке началась полномасштабная реконструкция. появились но"
+   }
+  },
+  "missing": [
+   "k:бесплатн|свободн"
+  ]
+ },
+ {
+  "n": 86,
+  "name": "Усадьба Дубровицы и церковь Знамения",
+  "tokens": [
+   "t:08:00",
+   "t:17:30",
+   "t:20:00",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://www.dubrovitsy-hram.ru/raspisanie-bogosluzheniy-v-hrame-znamenie",
+    "final": "https://www.dubrovitsy-hram.ru/raspisanie-bogosluzheniy-v-hrame-znamenie",
+    "status": 200,
+    "len": 5746,
+    "hit": 3
+   },
+   {
+    "url": "https://www.dubrovitsy-hram.ru/ekskursii",
+    "final": "https://www.dubrovitsy-hram.ru/ekskursii",
+    "status": 200,
+    "len": 4370,
+    "hit": 0
+   },
+   {
+    "url": "https://welcome.mosreg.ru/stories/top-dostoprimechatelnostey-podolska",
+    "final": "https://welcome.mosreg.ru/stories/top-dostoprimechatelnostey-podolska",
+    "status": 200,
+    "len": 19888,
+    "hit": 2
+   },
+   {
+    "url": "https://www.dubrovitsy-hram.ru/kontakty",
+    "final": "https://www.dubrovitsy-hram.ru/kontakty",
+    "status": 200,
+    "len": 2873,
+    "hit": 0
+   },
+   {
+    "url": "https://www.dubrovitsy-hram.ru/",
+    "final": "https://www.dubrovitsy-hram.ru/",
+    "status": 200,
+    "len": 5759,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "t:08:00": {
+    "url": "https://www.dubrovitsy-hram.ru/raspisanie-bogosluzheniy-v-hrame-znamenie",
+    "ctx": "ужений в храме «знамение» богослужения совершаются ежедневно. утром в 08:00, вечером в 16:30. таинства (крещение, венчание, елеосвящение) и "
+   },
+   "t:17:30": {
+    "url": "https://www.dubrovitsy-hram.ru/raspisanie-bogosluzheniy-v-hrame-znamenie",
+    "ctx": "нности со священником. храм открыт для посещений ежедневно с 08:00 до 17:30 (если есть праздничная вечерняя служба то до 20:00). октября 202"
+   },
+   "t:20:00": {
+    "url": "https://www.dubrovitsy-hram.ru/raspisanie-bogosluzheniy-v-hrame-znamenie",
+    "ctx": "едневно с 08:00 до 17:30 (если есть праздничная вечерняя служба то до 20:00). октября 2026 « предыдущий следующий » дата праздник служба 1 о"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://welcome.mosreg.ru/stories/top-dostoprimechatelnostey-podolska",
+    "ctx": " округ подольск, поселок дубровицы контакты: +7 (496) 765-16:44 цены: бесплатно сайт: https://www.dubrovitsy-hram.ru/ церковь знамения пресв"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 87,
+  "name": "«Панорама360» в башне «Федерация»",
+  "tokens": [
+   "t:11:00",
+   "t:21:00",
+   "t:22:00",
+   "t:10:00",
+   "p:1000",
+   "p:2000",
+   "p:2900",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://pnr360.ru/bilety-i-tseny/",
+    "final": "https://pnr360.ru/bilety-i-tseny/",
+    "status": 200,
+    "len": 6706,
+    "hit": 8
+   },
+   {
+    "url": "https://pnr360.ru/",
+    "final": "https://pnr360.ru/",
+    "status": 200,
+    "len": 9264,
+    "hit": 5
+   }
+  ],
+  "found": {
+   "t:11:00": {
+    "url": "https://pnr360.ru/bilety-i-tseny/",
+    "ctx": "одные билеты при покупке на сайте на сайте акция будние дни, сеанс на 11:00 будние дни, сеанс на 11:00 до 31 октября 2900 ₽ 1000 ₽ будние дн"
+   },
+   "t:21:00": {
+    "url": "https://pnr360.ru/bilety-i-tseny/",
+    "ctx": "ы с 12:00 до 19:00 2900 ₽ 2000 ₽ будние дни, сеанс на 20:00 (пн-чт) / 21:00 (пт) будние дни, сеанс на 20:00 (пн-чт) / 21:00 (пт) до 31 октяб"
+   },
+   "t:22:00": {
+    "url": "https://pnr360.ru/bilety-i-tseny/",
+    "ctx": ""
+   },
+   "t:10:00": {
+    "url": "https://pnr360.ru/bilety-i-tseny/",
+    "ctx": "(пт) до 31 октября 2900 ₽ 1000 ₽ выходные и праздничные дни, сеанс на 10:00 выходные и праздничные дни, сеанс на 10:00 до 31 октября 2900 ₽ "
+   },
+   "p:1000": {
+    "url": "https://pnr360.ru/bilety-i-tseny/",
+    "ctx": "10—22 билеты и цены цена ниже — эмоций больше! купить билет 2900 ₽ от 1000 ₽ входные билеты при покупке на сайте на сайте акция будние дни, "
+   },
+   "p:2000": {
+    "url": "https://pnr360.ru/bilety-i-tseny/",
+    "ctx": "и, сеансы с 12:00 до 19:00 будние дни, сеансы с 12:00 до 19:00 2900 ₽ 2000 ₽ будние дни, сеанс на 20:00 (пн-чт) / 21:00 (пт) будние дни, сеа"
+   },
+   "p:2900": {
+    "url": "https://pnr360.ru/bilety-i-tseny/",
+    "ctx": "жедневно: 10—22 билеты и цены цена ниже — эмоций больше! купить билет 2900 ₽ от 1000 ₽ входные билеты при покупке на сайте на сайте акция бу"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://pnr360.ru/bilety-i-tseny/",
+    "ctx": "сква-сити. актуальные цены и расписание сеансов. детям до 1 года вход бесплатно.\",\"inlanguage\":\"ru-ru\",\"potentialaction\":[{\"@type\":\"readacti"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 88,
+  "name": "Парк «Раздолье»",
+  "tokens": [
+   "t:11:00",
+   "t:21:00",
+   "t:10:00",
+   "t:21:30",
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://odinparki.ru/faq/",
+    "final": "https://odinparki.ru/faq/",
+    "status": 200,
+    "len": 2140,
+    "hit": 6
+   },
+   {
+    "url": "https://odinparki.ru/parks/?id=2991",
+    "final": "https://odinparki.ru/parks/?id=2991",
+    "status": 200,
+    "len": 3076,
+    "hit": 5
+   },
+   {
+    "url": "https://www.gletcher.com/aktualno/novosti/otkrytie-novogo-parka-razdole-/",
+    "status": 0,
+    "error": "DEPTH_ZERO_SELF_SIGNED_CERT"
+   }
+  ],
+  "found": {
+   "t:11:00": {
+    "url": "https://odinparki.ru/faq/",
+    "ctx": "аздолье : открыт круглосуточно. режим работы инфраструктуры: — будни: 11:00 — 21:00 — выходные и праздничные дни: 10:00 — 21:30 парк малевич"
+   },
+   "t:21:00": {
+    "url": "https://odinparki.ru/faq/",
+    "ctx": ": открыт круглосуточно. режим работы инфраструктуры: — будни: 11:00 — 21:00 — выходные и праздничные дни: 10:00 — 21:30 парк малевича : откр"
+   },
+   "t:10:00": {
+    "url": "https://odinparki.ru/faq/",
+    "ctx": " инфраструктуры: — будни: 11:00 — 21:00 — выходные и праздничные дни: 10:00 — 21:30 парк малевича : открыт круглосуточно. режим работы инфра"
+   },
+   "t:21:30": {
+    "url": "https://odinparki.ru/faq/",
+    "ctx": "руктуры: — будни: 11:00 — 21:00 — выходные и праздничные дни: 10:00 — 21:30 парк малевича : открыт круглосуточно. режим работы инфраструктур"
+   },
+   "k:круглосуточ": {
+    "url": "https://odinparki.ru/faq/",
+    "ctx": "о. пожалуйста, ознакомьтесь с графиком работы: парк раздолье : открыт круглосуточно. режим работы инфраструктуры: — будни: 11:00 — 21:00 — в"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://odinparki.ru/faq/",
+    "ctx": "ы инфраструктуры: 10:00 — 21:00 2. есть ли парковка в парке раздолье? бесплатная парковка парка раздолье, находящаяся со стороны тсж «барвих"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 89,
+  "name": "Парк Малевича",
+  "tokens": [
+   "t:09:30",
+   "t:22:00",
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://odinparki.ru/faq/",
+    "final": "https://odinparki.ru/faq/",
+    "status": 200,
+    "len": 2140,
+    "hit": 4
+   },
+   {
+    "url": "https://visitmo.ru/node/park-malevicha/",
+    "final": "https://visitmo.ru/node/park-malevicha/",
+    "status": 200,
+    "len": 2254,
+    "hit": 0
+   },
+   {
+    "url": "https://welcome.mosreg.ru/news/v-parke-malevica-otkryli-novyj-ekspozicionnyj-marsrut-11683",
+    "final": "https://welcome.mosreg.ru/news/v-parke-malevica-otkryli-novyj-ekspozicionnyj-marsrut-11683",
+    "status": 200,
+    "len": 6590,
+    "hit": 1
+   },
+   {
+    "url": "https://odinparki.ru/",
+    "final": "https://odinparki.ru/",
+    "status": 200,
+    "len": 3814,
+    "hit": 4
+   }
+  ],
+  "found": {
+   "t:09:30": {
+    "url": "https://odinparki.ru/faq/",
+    "ctx": "алевича : открыт круглосуточно. режим работы инфраструктуры: — будни: 09:30 — 22:00 — выходные и праздничные дни: 09:30 — 22:00 городской па"
+   },
+   "t:22:00": {
+    "url": "https://odinparki.ru/faq/",
+    "ctx": ": открыт круглосуточно. режим работы инфраструктуры: — будни: 09:30 — 22:00 — выходные и праздничные дни: 09:30 — 22:00 городской парк звени"
+   },
+   "k:круглосуточ": {
+    "url": "https://odinparki.ru/faq/",
+    "ctx": "о. пожалуйста, ознакомьтесь с графиком работы: парк раздолье : открыт круглосуточно. режим работы инфраструктуры: — будни: 11:00 — 21:00 — в"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://odinparki.ru/faq/",
+    "ctx": "ы инфраструктуры: 10:00 — 21:00 2. есть ли парковка в парке раздолье? бесплатная парковка парка раздолье, находящаяся со стороны тсж «барвих"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 90,
+  "name": "Воробьёвы горы: смотровая и набережная",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://www.park-gorkogo.ru/faq/",
+    "final": "https://www.park-gorkogo.ru/faq/",
+    "status": 200,
+    "len": 5293,
+    "hit": 2
+   },
+   {
+    "url": "https://www.mn.ru/smart/vorobievy-gory-v-moskve",
+    "final": "https://www.mn.ru/smart/vorobievy-gory-v-moskve",
+    "status": 200,
+    "len": 110667,
+    "hit": 2
+   },
+   {
+    "url": "https://parkgorkogo.ru/",
+    "final": "https://parkgorkogo.ru/",
+    "status": 200,
+    "len": 10359,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://www.park-gorkogo.ru/faq/",
+    "ctx": "лей в час какие часы работы парка горького? каждый день парк работает круглосуточно, о временном закрытии из-за плохой погоды мы оперативно "
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://www.park-gorkogo.ru/faq/",
+    "ctx": "с оплатой, просим обратиться за помощью к парковщику. первые 15 минут бесплатно будние дни с понедельника по четверг (с 09:00 до 22:00) 400 "
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 91,
+  "name": "Музей игрушки в Сергиевом Посаде",
+  "tokens": [
+   "t:10:00",
+   "t:18:00",
+   "t:17:30",
+   "p:400",
+   "p:300",
+   "p:350",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://museumot.info/grafik/",
+    "final": "https://museumot.info/grafik/",
+    "status": 200,
+    "len": 2255,
+    "hit": 3
+   },
+   {
+    "url": "https://museumot.info/ceny/",
+    "final": "https://museumot.info/ceny/",
+    "status": 200,
+    "len": 1921,
+    "hit": 0
+   },
+   {
+    "url": "https://museumot.info/wp-content/uploads/2025/05/%D0%9F%D1%80%D0%B5%D0%B9%D1%81%D0%BA%D1%83%D1%80%D0%B0%D0%BD%D1%822025.pdf",
+    "status": 200,
+    "skip": "binary application/pdf"
+   },
+   {
+    "url": "https://museumot.info/",
+    "final": "https://museumot.info/",
+    "status": 200,
+    "len": 17214,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://museumot.info/grafik/",
+    "ctx": " работает: вторник, среда, четверг, пятница, суббота, воскресенье — с 10:00 до 18:00 касса работает: вторник, среда, четверг, пятница, суббо"
+   },
+   "t:18:00": {
+    "url": "https://museumot.info/grafik/",
+    "ctx": ": вторник, среда, четверг, пятница, суббота, воскресенье — с 10:00 до 18:00 касса работает: вторник, среда, четверг, пятница, суббота, воскр"
+   },
+   "t:17:30": {
+    "url": "https://museumot.info/grafik/",
+    "ctx": ": вторник, среда, четверг, пятница, суббота, воскресенье — с 10:00 до 17:30 выходные дни: понедельник последняя пятница каждого месяца — сан"
+   }
+  },
+  "missing": [
+   "p:400",
+   "p:300",
+   "p:350",
+   "k:бесплатн|свободн"
+  ]
+ },
+ {
+  "n": 92,
+  "name": "Таганский парк",
+  "tokens": [
+   "t:07:00",
+   "t:23:00",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://museum.cpm.moscow/museums/132",
+    "final": "https://museum.cpm.moscow/museums/132",
+    "status": 200,
+    "len": 70920,
+    "hit": 3
+   },
+   {
+    "url": "https://www.afisha.ru/msk/park/taganskiy-park-242/",
+    "final": "https://www.afisha.ru/msk/park/taganskiy-park-242/",
+    "status": 200,
+    "len": 3730,
+    "hit": 3
+   },
+   {
+    "url": "https://parktaganskiy.ru/",
+    "status": 403
+   }
+  ],
+  "found": {
+   "t:07:00": {
+    "url": "https://museum.cpm.moscow/museums/132",
+    "ctx": " пкио «таганский» теги: #таганскийпарк #парктаганский режим работы пн 07:00:23:00 вт 07:00:23:00 ср 07:00:23:00 чт 07:00:23:00 пт 07:00:23:0"
+   },
+   "t:23:00": {
+    "url": "https://museum.cpm.moscow/museums/132",
+    "ctx": "«таганский» теги: #таганскийпарк #парктаганский режим работы пн 07:00:23:00 вт 07:00:23:00 ср 07:00:23:00 чт 07:00:23:00 пт 07:00:23:00 сб 0"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://museum.cpm.moscow/museums/132",
+    "ctx": "0 пт 07:00:23:00 сб 07:00:23:00 вс 07:00:23:00 стоимость билета: вход бесплатный бесплатное посещение для участников: посещение бесплатное о"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 93,
+  "name": "Государственный исторический музей",
+  "tokens": [
+   "t:10:00",
+   "t:19:00",
+   "t:21:00",
+   "p:700",
+   "p:350",
+   "p:2000",
+   "p:1000",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://shm.ru/visit/kontakty-i-rezhim-raboty/",
+    "final": "https://shm.ru/visit/kontakty-i-rezhim-raboty/",
+    "status": 200,
+    "len": 9086,
+    "hit": 3
+   },
+   {
+    "url": "https://shm.ru/visit/tickets/gim/",
+    "final": "https://shm.ru/visit/tickets/gim/",
+    "status": 200,
+    "len": 5619,
+    "hit": 5
+   },
+   {
+    "url": "https://shm.ru/museum/gim/",
+    "final": "https://shm.ru/museum/gim/",
+    "status": 200,
+    "len": 9392,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://shm.ru/visit/kontakty-i-rezhim-raboty/",
+    "ctx": "етствии с графиком работы музея график работы понедельник, 19 октября 10:00:19:00 вторник, 20 октября выходной среда, 21 октября 10:00:19:00"
+   },
+   "t:19:00": {
+    "url": "https://shm.ru/visit/kontakty-i-rezhim-raboty/",
+    "ctx": "и с графиком работы музея график работы понедельник, 19 октября 10:00:19:00 вторник, 20 октября выходной среда, 21 октября 10:00:19:00 четве"
+   },
+   "t:21:00": {
+    "url": "https://shm.ru/visit/kontakty-i-rezhim-raboty/",
+    "ctx": "ября выходной среда, 21 октября 10:00:19:00 четверг, 22 октября 10:00:21:00 пятница, 23 октября 10:00:21:00 суббота, 24 октября 10:00:21:00 "
+   },
+   "p:700": {
+    "url": "https://shm.ru/visit/tickets/gim/",
+    "ctx": " документ, подтверждающий право на льготу взрослые граждане рф и еаэс 700 ₽ держатели пушкинской карты от 18 до 22 лет 700 ₽ граждане других"
+   },
+   "p:350": {
+    "url": "https://shm.ru/visit/tickets/gim/",
+    "ctx": "ругих государств 2000 ₽ дети от 7 до 17 лет, граждане рф и стран еаэс 350 ₽ от 7 до 17 лет, граждане других государств 1000 ₽ держатели пушк"
+   },
+   "p:2000": {
+    "url": "https://shm.ru/visit/tickets/gim/",
+    "ctx": "ели пушкинской карты от 18 до 22 лет 700 ₽ граждане других государств 2000 ₽ дети от 7 до 17 лет, граждане рф и стран еаэс 350 ₽ от 7 до 17 "
+   },
+   "p:1000": {
+    "url": "https://shm.ru/visit/tickets/gim/",
+    "ctx": "дане рф и стран еаэс 350 ₽ от 7 до 17 лет, граждане других государств 1000 ₽ держатели пушкинской карты от 14 до 17 лет. только в кассе музе"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://shm.ru/visit/tickets/gim/",
+    "ctx": " казачества купить билет правила возврата для получения льготного или бесплатного билета необходимо предоставить документ, подтверждающий пр"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 94,
+  "name": "Зоологический музей МГУ",
+  "tokens": [
+   "t:10:00",
+   "t:18:00",
+   "t:12:00",
+   "t:20:00",
+   "p:500",
+   "p:200",
+   "p:300",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://zmmu.org/time",
+    "final": "https://zmmu.org/time",
+    "status": 200,
+    "len": 1119,
+    "hit": 4
+   },
+   {
+    "url": "https://www.zmmu.org/tickets",
+    "final": "https://www.zmmu.org/tickets",
+    "status": 200,
+    "len": 17429,
+    "hit": 8
+   },
+   {
+    "url": "https://zmmu.org/",
+    "final": "https://zmmu.org/",
+    "status": 200,
+    "len": 42907,
+    "hit": 8
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://zmmu.org/time",
+    "ctx": "музее часы работы контакты режим работы понедельник — выходной вт.: с 10:00 до 18:00 (вход до 17:00) ср.: с 10:00 до 18:00 (вход до 17:00) ч"
+   },
+   "t:18:00": {
+    "url": "https://zmmu.org/time",
+    "ctx": "ы работы контакты режим работы понедельник — выходной вт.: с 10:00 до 18:00 (вход до 17:00) ср.: с 10:00 до 18:00 (вход до 17:00) чт.: с 12:"
+   },
+   "t:12:00": {
+    "url": "https://zmmu.org/time",
+    "ctx": "до 18:00 (вход до 17:00) ср.: с 10:00 до 18:00 (вход до 17:00) чт.: с 12:00 до 20:00 (вход до 19:00) пт.: с 10:00 до 18:00 (вход до 17:00) с"
+   },
+   "t:20:00": {
+    "url": "https://zmmu.org/time",
+    "ctx": "(вход до 17:00) ср.: с 10:00 до 18:00 (вход до 17:00) чт.: с 12:00 до 20:00 (вход до 19:00) пт.: с 10:00 до 18:00 (вход до 17:00) сб.: с 10:"
+   },
+   "p:500": {
+    "url": "https://www.zmmu.org/tickets",
+    "ctx": " весенних каникул и майских праздников входной билет взрослый билет – 500 руб. льготный билет для школьников и студентов – 200 руб. льготный"
+   },
+   "p:200": {
+    "url": "https://www.zmmu.org/tickets",
+    "ctx": "взрослый билет – 500 руб. льготный билет для школьников и студентов – 200 руб. льготный билет для пенсионеров и многодетных родителей – 300 "
+   },
+   "p:300": {
+    "url": "https://www.zmmu.org/tickets",
+    "ctx": "в – 200 руб. льготный билет для пенсионеров и многодетных родителей – 300 руб. входные билеты можно купить в кассе музея или онлайн сборные "
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://www.zmmu.org/tickets",
+    "ctx": " – педагог. сопровождающие (не более двух человек на группу) проходят бесплатно. поддержание дисциплины — обязанность педагога, который нахо"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 95,
+  "name": "Тимирязевский парк",
+  "tokens": [
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://www.timacad.ru/stati/timiriazevskii-les-na-samom-dele-i-ne-les-i-ne-park-a-bolshaia-laboratoriia",
+    "final": "https://www.timacad.ru/stati/timiriazevskii-les-na-samom-dele-i-ne-les-i-ne-park-a-bolshaia-laboratoriia",
+    "status": 200,
+    "len": 96007,
+    "hit": 0
+   },
+   {
+    "url": "https://www.timacad.ru/uploads/files/20240131/1706688567_5.3%283%29%20-%20%D1%81%D1%82%D1%80.12.pdf",
+    "status": 200,
+    "skip": "binary application/pdf"
+   }
+  ],
+  "found": {},
+  "missing": [
+   "k:бесплатн|свободн"
+  ]
+ },
+ {
+  "n": 96,
+  "name": "Зона отдыха «Заречье»",
+  "tokens": [
+   "t:23:00",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://zarechyepool.ru/",
+    "final": "https://zarechyepool.ru/",
+    "status": 200,
+    "len": 2557,
+    "hit": 0
+   }
+  ],
+  "found": {},
+  "missing": [
+   "t:23:00",
+   "k:бесплатн|свободн"
+  ]
+ },
+ {
+  "n": 97,
+  "name": "Нескучный сад",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://parkgorkogo.ru/areas/neskuchny-garden/",
+    "final": "https://parkgorkogo.ru/areas/neskuchny-garden/",
+    "status": 200,
+    "len": 5416,
+    "hit": 1
+   },
+   {
+    "url": "https://www.park-gorkogo.ru/faq/",
+    "final": "https://www.park-gorkogo.ru/faq/",
+    "status": 200,
+    "len": 5293,
+    "hit": 2
+   },
+   {
+    "url": "https://kudamoscow.ru/place/neskuchnyj-sad/",
+    "final": "https://kudamoscow.ru/place/neskuchnyj-sad/",
+    "status": 200,
+    "len": 11831,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://parkgorkogo.ru/areas/neskuchny-garden/",
+    "ctx": "й сад воробьевы горы адрес: г. москва крымский вал, д.9 время работы: круглосуточно телефон: +7495 995-00:20 (13130) e-mail: parkgorkogo@cul"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://www.park-gorkogo.ru/faq/",
+    "ctx": "с оплатой, просим обратиться за помощью к парковщику. первые 15 минут бесплатно будние дни с понедельника по четверг (с 09:00 до 22:00) 400 "
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 98,
+  "name": "Парк «Экоберег»",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://www.parkihimki.ru/park_ecobereg",
+    "final": "https://www.parkihimki.ru/park_ecobereg",
+    "status": 200,
+    "len": 5519,
+    "hit": 1
+   },
+   {
+    "url": "https://www.putevka.com/moskva/khimki/sight/park-eko-bereg",
+    "final": "https://www.putevka.com/moskva/khimki/sight/park-eko-bereg",
+    "status": 200,
+    "len": 15205,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://www.parkihimki.ru/park_ecobereg",
+    "ctx": " химкинский лесопарк музей афиши контакты парк экоберег режим работы: круглосуточно адрес: г.о. химки, мкр. левобережный, парк экоберег что "
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://www.putevka.com/moskva/khimki/sight/park-eko-bereg",
+    "ctx": "к добраться назад @wirestock рабочее время: круглосуточно. стоимость: бесплатно. парк «эко берег» в химках – это благоустроенная парковая зо"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 99,
+  "name": "Парк им. Л. Н. Толстого",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://parkihimki.ru/pkio_tolstogo",
+    "final": "https://parkihimki.ru/pkio_tolstogo",
+    "status": 200,
+    "len": 8141,
+    "hit": 2
+   },
+   {
+    "url": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
+    "final": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
+    "status": 200,
+    "len": 15999,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://parkihimki.ru/pkio_tolstogo",
+    "ctx": "кий лесопарк музей афиши контакты пкио им. л.н.толстого режим работы: круглосуточно адрес: г.о. химки, ленинский проспект, пкио им. л.н. тол"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://parkihimki.ru/pkio_tolstogo",
+    "ctx": "й - 350 р. детский - 400 р. от 2х лет ростом до 150см детям до 2х лет бесплатно время работы: с 10:00 до 22:00 контактный телефон: +7(925)69"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 100,
+  "name": "Театр «Наш дом»",
+  "tokens": [
+   "t:10:00",
+   "t:18:00",
+   "t:14:00",
+   "t:15:00"
+  ],
+  "pages": [
+   {
+    "url": "https://teatr-nashdom.ru/afisha/",
+    "final": "https://teatr-nashdom.ru/afisha/",
+    "status": 200,
+    "len": 146744,
+    "hit": 4
+   },
+   {
+    "url": "https://teatr-nashdom.ru/news/afisha-oktjabr-2026/",
+    "final": "https://teatr-nashdom.ru/news/afisha-oktjabr-2026/",
+    "status": 200,
+    "len": 4007,
+    "hit": 4
+   }
+  ],
+  "found": {
+   "t:10:00": {
+    "url": "https://teatr-nashdom.ru/afisha/",
+    "ctx": "сса работает в следующие даты: каждый день, без выходных часы работы: 10:00 до 18:00, перерыв с 14:00 до 15:00 адрес кассы: касса находиться"
+   },
+   "t:18:00": {
+    "url": "https://teatr-nashdom.ru/afisha/",
+    "ctx": "влева художник по свету — екатерина болотова\",\"startdate\":\"2026-10-17t18:00+03:00\",\"location\":{\"@type\":\"place\",\"name\":\"химкинский драматичес"
+   },
+   "t:14:00": {
+    "url": "https://teatr-nashdom.ru/afisha/",
+    "ctx": "ва художник- иллюстратор — катерина рябинина\",\"startdate\":\"2026-10-25t14:00+03:00\",\"location\":{\"@type\":\"place\",\"name\":\"химкинский драматичес"
+   },
+   "t:15:00": {
+    "url": "https://teatr-nashdom.ru/afisha/",
+    "ctx": "дрей осипов звукорежиссер — сергей корольков\",\"startdate\":\"2026-11-01t15:00+03:00\",\"location\":{\"@type\":\"place\",\"name\":\"химкинский драматичес"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 101,
+  "name": "Парк «Ходынское поле»",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://kudamoscow.ru/place/park-hodynskoe-pole/",
+    "final": "https://kudamoscow.ru/place/park-hodynskoe-pole/",
+    "status": 200,
+    "len": 14204,
+    "hit": 2
+   },
+   {
+    "url": "https://parkhodynka.ru/contacts.php",
+    "final": "https://parkhodynka.ru/contacts.php",
+    "status": 200,
+    "len": 1982,
+    "hit": 0
+   },
+   {
+    "url": "https://parkhodynka.ru/",
+    "final": "https://parkhodynka.ru/",
+    "status": 200,
+    "len": 2582,
+    "hit": 0
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://kudamoscow.ru/place/park-hodynskoe-pole/",
+    "ctx": " № 84, 318 и 818. станция метро цска режим работы режим работы пн–вс: круглосуточно цены на билеты билеты бесплатно телефон телефон +7 (495)"
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://kudamoscow.ru/place/park-hodynskoe-pole/",
+    "ctx": "ение ресторанов и кафе размещение мест и площадок размещение баннеров бесплатные события бесплатные выставки в москве бесплатные фестивали в"
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 102,
+  "name": "Музей-усадьба «Остафьево» — «Русский Парнас»",
+  "tokens": [
+   "t:08:00",
+   "t:23:00",
+   "t:10:00",
+   "t:18:00",
+   "t:21:00",
+   "t:12:00",
+   "p:150",
+   "p:350",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://ostafyevomuseum.ru/visitors/work-mode/",
+    "status": 0,
+    "error": "UND_ERR_CONNECT_TIMEOUT"
+   },
+   {
+    "url": "https://ostafyevomuseum.ru/",
+    "status": 0,
+    "error": "UND_ERR_CONNECT_TIMEOUT"
+   },
+   {
+    "url": "https://ostafyevomuseum.ru/visitors/tickets/",
+    "status": 0,
+    "error": "UND_ERR_CONNECT_TIMEOUT"
+   }
+  ],
+  "found": {},
+  "missing": [
+   "t:08:00",
+   "t:23:00",
+   "t:10:00",
+   "t:18:00",
+   "t:21:00",
+   "t:12:00",
+   "p:150",
+   "p:350",
+   "k:бесплатн|свободн"
+  ]
+ },
+ {
+  "n": 103,
+  "name": "Каток в парке Горького",
+  "tokens": [],
+  "pages": [
+   {
+    "url": "https://parkgorkogo.ru/rinks/",
+    "final": "https://parkgorkogo.ru/rinks/",
+    "status": 200,
+    "len": 8748,
+    "hit": 0
+   },
+   {
+    "url": "https://park-gorkogo.ru/news/",
+    "final": "https://park-gorkogo.ru/news/",
+    "status": 200,
+    "len": 7589,
+    "hit": 0
+   }
+  ],
+  "found": {},
+  "missing": []
+ },
+ {
+  "n": 104,
+  "name": "Парк искусств «Музеон»",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://www.park-gorkogo.ru/faq/",
+    "final": "https://www.park-gorkogo.ru/faq/",
+    "status": 200,
+    "len": 5293,
+    "hit": 2
+   },
+   {
+    "url": "https://kudamoscow.ru/place/park-iskusstv-muzeon/",
+    "final": "https://kudamoscow.ru/place/park-iskusstv-muzeon/",
+    "status": 200,
+    "len": 14647,
+    "hit": 1
+   },
+   {
+    "url": "https://parkgorkogo.ru/",
+    "final": "https://parkgorkogo.ru/",
+    "status": 200,
+    "len": 10359,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:круглосуточ": {
+    "url": "https://www.park-gorkogo.ru/faq/",
+    "ctx": "лей в час какие часы работы парка горького? каждый день парк работает круглосуточно, о временном закрытии из-за плохой погоды мы оперативно "
+   },
+   "k:бесплатн|свободн": {
+    "url": "https://www.park-gorkogo.ru/faq/",
+    "ctx": "с оплатой, просим обратиться за помощью к парковщику. первые 15 минут бесплатно будние дни с понедельника по четверг (с 09:00 до 22:00) 400 "
+   }
+  },
+  "missing": []
+ },
+ {
+  "n": 105,
+  "name": "Битцевский лес (Битцевский парк)",
+  "tokens": [
+   "k:круглосуточ",
+   "k:бесплатн|свободн"
+  ],
+  "pages": [
+   {
+    "url": "https://museum.cpm.moscow/museums/291",
+    "final": "https://museum.cpm.moscow/museums/291",
+    "status": 200,
+    "len": 1740,
+    "hit": 1
+   },
+   {
+    "url": "https://kudamoscow.ru/place/park-bittsevskij-les/",
+    "final": "https://kudamoscow.ru/place/park-bittsevskij-les/",
+    "status": 200,
+    "len": 9000,
+    "hit": 2
+   }
+  ],
+  "found": {
+   "k:бесплатн|свободн": {
+    "url": "https://museum.cpm.moscow/museums/291",
+    "ctx": ":24:00 пт 00:00:24:00 сб 00:00:24:00 вс 00:00:24:00 стоимость билета: бесплатно бесплатное посещение для участников: особенности посещения п"
+   },
+   "k:круглосуточ": {
+    "url": "https://kudamoscow.ru/place/park-bittsevskij-les/",
+    "ctx": "воясеневская ясенево битцевский парк режим работы режим работы пн–вс: круглосуточно цены на билеты билеты бесплатно телефон телефон +7 (916)"
+   }
+  },
+  "missing": []
+ }
+]

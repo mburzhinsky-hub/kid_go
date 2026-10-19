@@ -1,0 +1,3 @@
+# https://klich.moscow/
+# final https://klich.moscow/
+й картой в современном квартале зиларт, москва {"joomla.jtext":{"error":"ошибка","message":"сообщение","notice":"внимание","warning":"предупреждение","jclose":"закрыть","jok":"ок","jopen":"открыть"},"system.paths":{"root":"","rootfull":"https:\/\/klich.moscow\/","base":"","basefull":"https:\/\/klich.moscow\/"},"csrf.token":"1bffe21e2f23292ba12d3b96edb222d8"} {"@context":"https://schema.org","@graph":[{"@type":"organization","

@@ -1,0 +1,3 @@
+# https://klich.moscow/kontakty
+# final https://klich.moscow/kontakty
+менном жк зиларт в москве на наб. марка шагала {"joomla.jtext":{"error":"ошибка","message":"сообщение","notice":"внимание","warning":"предупреждение","jclose":"закрыть","jok":"ок","jopen":"открыть"},"system.paths":{"root":"","rootfull":"https:\/\/klich.moscow\/","base":"","basefull":"https:\/\/klich.moscow\/"},"csrf.token":"74ea3c79995db8a048a7416a3cc92869"} {"@context":"https://schema.org","@graph":[{"@type":"organization","

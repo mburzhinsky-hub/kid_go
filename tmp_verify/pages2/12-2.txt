@@ -1,0 +1,11 @@
+# https://xn--e1asbf2d.xn--p1ai/api/menu/public?refresh=0
+# final https://xn--e1asbf2d.xn--p1ai/api/menu/public?refresh=0
+-863c-ad32575993b2","dishid":"db553097-e12a-4727-863c-ad32575993b2","title":"говяжья вырезка 100гр","description":"состав: говядина, фокачча, оливковое масло. *цена указана за 100г вырезки","price":1290,"image":"https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/piero/109323/images/items/ca7c4aee735c55cb46c704b8ae1f2fe1.png","detailurl":"","weight":"186 gram","categoryid":"bc82a5b5-8822-49
+---
+9-4adc-aa73-80a6c6e3d5f9","dishid":"9e692309-c8f9-4adc-aa73-80a6c6e3d5f9","title":"стриплойн 100гр","description":"состав: говядина, фокачча, оливковое масло. *цена указана за 100г стриплойна","price":1490,"image":"https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/piero/109323/images/items/bb5d3024896c125d9510b83576e5cf79.png","detailurl":"","weight":"186 gram","categoryid":"bc82a5b5-8822
+---
+9d18a08","dishid":"a4f2b817-5c3b-47ae-849f-65f0c9d18a08","title":"командорский кальмар 100гр","description":"состав: кальмар, фокачча, оливковое масло, лимон. *цена указана за 100г кальмара","price":690,"image":"https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/piero/109323/images/items/fc4f82aaf9f647ba1d6b60ed6f2749f4.png","detailurl":"","weight":"180 gram","categoryid":"bc82a5b5-8822-49
+---
+4078-8e34-3644ec32684f","dishid":"29461352-5c31-4078-8e34-3644ec32684f","title":"лосось 100гр","description":"состав: лосось, фокачча, оливковое масло, лимон. *цена указана за 100г лосося","price":1100,"image":"https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/piero/109323/images/items/a23601169348d2b92dc7472f710aeaca.png","detailurl":"","weight":"161 gram","categoryid":"bc82a5b5-8822-498
+---
+_941d0d1a-a3f8-4c91-a390-8c85b4127e64","dishid":"941d0d1a-a3f8-4c91-a390-8c85b4127e64","title":"осьминог 100гр","description":"состав: осьминог, багет, лимон. *цена указана за 100г осьминога","price":1490,"image":"https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/piero/109323/images/items/fb56dfaefcfb6611b5e8ee9cde1939cb.png","detailurl":"","weight":"160 gram","categoryid":"bc82a5b5-8822-
