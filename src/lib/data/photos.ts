@@ -445,7 +445,6 @@ export const PLACE_PHOTOS: Record<string, PhotoPick> = {
   "zoomuzey-msu": pick("Зоологический музей", ["crocodileSkeleton", "skeletonAnimal", "whaleMuseum", "museumPeople"]),
   gim: pick("Исторический музей", ["bigClock", "statuesSkylight", "museumHallward", "museumGirlPillars"]),
   "borodinskaya-panorama": pick("Музей-панорама", ["wwiDiorama", "memorialFlags", "museumChildExhibit", "museumHallward"]),
-  "muzey-zhd-tehniki": pick("Музей железных дорог", ["trainSteam1", "trainSteam2", "bigClock", "museumPeople"]),
   "izmailovsky-kreml": pick("Сказочные терема и сувениры", ["woodenHouse", "toyShelves", "churchArch", "toyCloseup"]),
   "muzey-igrushki-sergiev-posad": pick("Музей игрушки", ["toyShelves", "toyBoats", "teddyBow", "toyCloseup"]),
   "kolomna-muzey-lyubimoy-igrushki": pick("Музей игрушки", ["teddyPink", "toyCloseup", "plushBasket", "teddies"]),
