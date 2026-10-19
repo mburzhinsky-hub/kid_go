@@ -1,0 +1,26 @@
+name: seo-probe
+
+# Разовая проверка боевого сайта глазами поискового робота (индексация в Яндексе). Только чтение.
+on:
+  push:
+    branches: [ci/seo-probe]
+    paths: [scripts/seo-probe.py, .github/workflows/seo-probe.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe
+        run: python3 scripts/seo-probe.py
+      - name: Save result to branch
+        run: |
+          git config user.name "seo-probe"
+          git config user.email "noreply@github.com"
+          git add -f seo-probe
+          git commit -m "seo-probe: результат проверки"
+          git push origin HEAD:ci/seo-probe
