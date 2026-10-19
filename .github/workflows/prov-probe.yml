@@ -24,6 +24,6 @@ jobs:
         run: |
           git config user.name "prov-probe"
           git config user.email "noreply@github.com"
-          git add tmp_verify/prov-result.json
+          git add tmp_verify/prov-result2.json tmp_verify/pages2
           git commit -m "prov-probe: результат сверки источников"
           git push origin HEAD:ci/prov-probe

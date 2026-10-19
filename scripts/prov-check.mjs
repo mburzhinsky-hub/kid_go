@@ -1,5 +1,6 @@
 // Сверка таблицы проверки: открывает страницы-источники и ищет в них часы и цены, заявленные в строке.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+mkdirSync("tmp_verify/pages2", { recursive: true });
 const UA = "KidsGoFactCheck/1.0 (+https://kids-go.fun)";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const input = JSON.parse(readFileSync("tmp_verify/prov_input.json", "utf8"));
@@ -70,10 +71,17 @@ for (const row of input) {
     if (!robotsCache.has(host)) { const r = await get(`${u.protocol}//${host}/robots.txt`, 10000); robotsCache.set(host, r.ok && /user-agent/i.test(r.text) ? r.text : ""); }
     if (robotsDisallows(robotsCache.get(host), u.pathname + u.search)) { rec.pages.push({ url, skip: "robots" }); continue; }
     const wait = (lastHit.get(host) ?? 0) + 700 - Date.now(); if (wait > 0) await sleep(wait);
-    const r = await get(url); lastHit.set(host, Date.now());
+    let r = await get(url); if (!r.ok && (r.status === 0 || r.status >= 500)) { await sleep(6000); r = await get(url); } lastHit.set(host, Date.now());
     if (!r.ok) { rec.pages.push({ url, status: r.status, error: r.error }); continue; }
     if (/pdf|image\//i.test(r.ct)) { rec.pages.push({ url, status: r.status, skip: "binary " + r.ct }); continue; }
     const text = plain(r.text);
+    {
+      const re = /(режим|график|часы работы|время работы|работает|открыт|закрыт|круглосуточ|билет|стоимост|цена|цены|тариф|вход|бесплатн|свободн|₽|руб)/g;
+      const wins = []; let m;
+      while ((m = re.exec(text))) { const a = Math.max(0, m.index - 160), b = Math.min(text.length, m.index + 240); if (wins.length && a <= wins[wins.length - 1][1]) wins[wins.length - 1][1] = b; else wins.push([a, b]); }
+      let sn = wins.map(([a, b]) => text.slice(a, b)).join("\n---\n"); if (sn.length > 30000) sn = sn.slice(0, 30000);
+      writeFileSync(`tmp_verify/pages2/${row.n}-${rec.pages.length}.txt`, `# ${url}\n# final ${r.url}\n${sn}`);
+    }
     const hit = [];
     for (const tk of toks) if (has(text, tk)) { hit.push(tk); if (!rec.found[tk]) { const needle = tk.startsWith("t:") ? tk.slice(2) : tk.startsWith("p:") ? tk.slice(2) : tk === "k:круглосуточ" ? "круглосуточ" : "бесплатн"; const i = text.indexOf(needle); rec.found[tk] = { url, ctx: i >= 0 ? text.slice(Math.max(0, i - 70), i + 70) : "" }; } }
     rec.pages.push({ url, final: r.url, status: r.status, len: text.length, hit: hit.length });
@@ -83,4 +91,4 @@ for (const row of input) {
   console.log(row.n, row.name.slice(0, 30), `${toks.length - rec.missing.length}/${toks.length}`);
 }
 mkdirSync("tmp_verify", { recursive: true });
-writeFileSync("tmp_verify/prov-result.json", JSON.stringify(out, null, 1));
+writeFileSync("tmp_verify/prov-result2.json", JSON.stringify(out, null, 1));
