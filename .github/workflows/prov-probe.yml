@@ -1,0 +1,29 @@
+name: prov-probe
+
+# Разовая сверка таблицы «Проверено 2026-10-19»: открывает страницы-источники и ищет в них заявленные часы и цены.
+on:
+  push:
+    branches: [ci/prov-probe]
+    paths: [scripts/prov-check.mjs, tmp_verify/prov_input.json, .github/workflows/prov-probe.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check sources
+        run: node scripts/prov-check.mjs
+      - name: Save result to branch
+        run: |
+          git config user.name "prov-probe"
+          git config user.email "noreply@github.com"
+          git add tmp_verify/prov-result.json
+          git commit -m "prov-probe: результат сверки источников"
+          git push origin HEAD:ci/prov-probe
