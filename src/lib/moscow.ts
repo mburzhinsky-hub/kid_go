@@ -102,7 +102,6 @@ export const OKRUG_OVERRIDE: Record<string, string> = {
   "neskuchny-sad": "cao", // Якиманка / Нескучный сад
   kuskovo: "vao", // район Вешняки
   "poni-klub-podkova": "uzao", // Битцевский лес
-  "muzey-zhd-tehniki": "svao", // Рижский вокзал — Алексеевский район
   "serebryany-bor": "szao", // Хорошёво-Мнёвники
   "mitinsky-park": "szao", // Митино — за МКАД, но в Москве
   "bolshoy-moscow-cirk": "zao", // пр-т Вернадского, 7 — район Раменки (ЗАО)

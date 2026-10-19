@@ -11,18 +11,20 @@
   },
   "centralny-detsky-magazin": {
     "source": "https://cdm-moscow.ru/",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
       "identity",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://cdm-moscow.ru/",
-      "opening_hours": "https://cdm-moscow.ru/visit"
+      "opening_hours": "https://cdm-moscow.ru/visit",
+      "price": "https://cdm-moscow.ru/visit"
     }
   },
   "panda-park-sokolniki": {
@@ -107,20 +109,22 @@
   },
   "muzey-transporta": {
     "source": "https://mtmuseum.ru/",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://mtmuseum.ru/",
       "address": "https://mtmuseum.ru/contacts/",
-      "opening_hours": "https://mtmuseum.ru/contacts/"
+      "opening_hours": "https://mtmuseum.ru/contacts/",
+      "price": "https://new.mtmuseum.ru/benefits"
     }
   },
   "moskovsky-planetariy": {
@@ -539,20 +543,22 @@
   },
   "park-patriot-kubinka": {
     "source": "https://parkpatriot.ru/",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://parkpatriot.ru/",
       "address": "https://parkpatriot.ru/",
-      "opening_hours": "https://parkpatriot.ru/"
+      "opening_hours": "https://parkpatriot.ru/",
+      "price": "https://parkpatriot.ru/o-parke/tseny-na-poseshchenie/biletnaya-programma/"
     }
   },
   "detsky-park-malysh-odincovo": {
@@ -677,20 +683,22 @@
   },
   "huskyland-nazarevo": {
     "source": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [
       "parking"
     ],
     "field_sources": {
       "identity": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
-      "address": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend"
+      "address": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
+      "opening_hours": "https://xacku.land/nazarevo"
     }
   },
   "muzey-lego-lets-go-zvenigorod": {
@@ -776,36 +784,40 @@
   },
   "park-malevicha-razdory": {
     "source": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [
       "parking"
     ],
     "field_sources": {
       "identity": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/",
-      "address": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/"
+      "address": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/",
+      "opening_hours": "https://odinparki.ru/faq/"
     }
   },
   "park-razdolye-razdory": {
     "source": "https://odinparki.ru/parks/?id=2991",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://odinparki.ru/parks/?id=2991",
-      "address": "https://odinparki.ru/parks/?id=2991"
+      "address": "https://odinparki.ru/parks/?id=2991",
+      "opening_hours": "https://odinparki.ru/faq/"
     }
   },
   "dom-muzey-prishvina-dunino": {
@@ -850,20 +862,22 @@
   },
   "muzey-lozhki-solnechnogorsk": {
     "source": "https://welcome.mosreg.ru/ideas/muzej-lozki",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [
       "booking_required"
     ],
     "field_sources": {
       "identity": "https://welcome.mosreg.ru/ideas/muzej-lozki",
-      "address": "https://welcome.mosreg.ru/ideas/muzej-lozki"
+      "address": "https://welcome.mosreg.ru/ideas/muzej-lozki",
+      "opening_hours": "https://xn--80atdujec4e.xn--80asehdb/node/6406"
     }
   },
   "dolgoprudnensky-muzey": {
@@ -886,14 +900,15 @@
   },
   "kidburg-zelenopark": {
     "source": "https://zelenopark.kidburg.ru/",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [
       "booking_required"
@@ -901,7 +916,8 @@
     "field_sources": {
       "identity": "https://zelenopark.kidburg.ru/",
       "address": "https://zelenopark.kidburg.ru/",
-      "opening_hours": "https://zelenopark.kidburg.ru/"
+      "opening_hours": "https://zelenopark.kidburg.ru/",
+      "price": "https://zelenopark.kidburg.ru/free-entrance"
     }
   },
   "peshki-park": {
@@ -944,13 +960,14 @@
   },
   "park-tolstogo-himki": {
     "source": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [
       "stroller_friendly",
@@ -958,21 +975,24 @@
     ],
     "field_sources": {
       "identity": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
-      "address": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo"
+      "address": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
+      "opening_hours": "https://parkihimki.ru/pkio_tolstogo"
     }
   },
   "park-ekobereg-himki": {
     "source": "https://2gis.ru/khimki/gallery/firm/70000001060565637",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity"
+      "identity",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://2gis.ru/khimki/gallery/firm/70000001060565637"
+      "identity": "https://2gis.ru/khimki/gallery/firm/70000001060565637",
+      "opening_hours": "https://www.parkihimki.ru/park_ecobereg"
     }
   },
   "mega-himki-detskie-zony": {
@@ -1015,18 +1035,20 @@
   },
   "muzey-igrushki-sergiev-posad": {
     "source": "https://ru.wikipedia.org/wiki/Музей_игрушки_(Сергиев_Посад)",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Музей_игрушки_(Сергиев_Посад)",
-      "address": "https://ru.wikipedia.org/wiki/Музей_игрушки_(Сергиев_Посад)"
+      "address": "https://ru.wikipedia.org/wiki/Музей_игрушки_(Сергиев_Посад)",
+      "opening_hours": "https://museumot.info/grafik/"
     }
   },
   "abramtsevo": {
@@ -1081,18 +1103,20 @@
   },
   "dubrovitsy-znamenskaya-cerkov": {
     "source": "https://2gis.ru/moscow/firm/4504127916750444",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://2gis.ru/moscow/firm/4504127916750444",
-      "address": "https://2gis.ru/moscow/firm/4504127916750444"
+      "address": "https://2gis.ru/moscow/firm/4504127916750444",
+      "opening_hours": "https://www.dubrovitsy-hram.ru/raspisanie-bogosluzheniy-v-hrame-znamenie"
     }
   },
   "park-talalikhina-podolsk": {
@@ -1276,20 +1300,22 @@
   },
   "muzey-pobedy": {
     "source": "https://ru.wikipedia.org/wiki/Центральный_музей_Великой_Отечественной_войны",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Центральный_музей_Великой_Отечественной_войны",
       "address": "https://ru.wikipedia.org/wiki/Центральный_музей_Великой_Отечественной_войны",
-      "opening_hours": "https://victorymuseum.ru/about/contacts/"
+      "opening_hours": "https://victorymuseum.ru/about/contacts/",
+      "price": "https://victorymuseum.ru/for-visitors/prices/"
     }
   },
   "zoomuzey-msu": {
@@ -1403,8 +1429,8 @@
     }
   },
   "bolshoy-moscow-cirk": {
-    "source": "https://bigcirk.moscow/",
-    "checked_at": "2026-10-05",
+    "source": "https://www.greatcircus.ru/",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
@@ -1416,8 +1442,8 @@
       "booking_required"
     ],
     "field_sources": {
-      "identity": "https://bigcirk.moscow/",
-      "address": "https://bigcirk.moscow/"
+      "identity": "https://www.greatcircus.ru/",
+      "address": "https://www.greatcircus.ru/"
     }
   },
   "teatr-sats": {
@@ -1492,7 +1518,7 @@
   },
   "panorama360-federation": {
     "source": "https://ru.wikipedia.org/wiki/Башня_Федерация",
-    "checked_at": "2026-10-16",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": false,
@@ -1646,19 +1672,21 @@
   },
   "park-fili": {
     "source": "https://parkfili.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity"
+      "identity",
+      "opening_hours"
     ],
     "verified_family_fields": [
       "baby_room",
       "parking"
     ],
     "field_sources": {
-      "identity": "https://parkfili.ru/"
+      "identity": "https://parkfili.ru/",
+      "opening_hours": "https://parkfili.ru/"
     }
   },
   "pandapark-fili": {
@@ -1683,18 +1711,20 @@
   },
   "krylatskie-kholmy": {
     "source": "https://ru.wikipedia.org/wiki/Крылатские_холмы",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Крылатские_холмы",
-      "address": "https://ru.wikipedia.org/wiki/Крылатские_холмы"
+      "address": "https://ru.wikipedia.org/wiki/Крылатские_холмы",
+      "price": "https://krylopark.ru/visitors/"
     }
   },
   "park-pobedy-poklonnaya-gora": {
@@ -1731,18 +1761,20 @@
   },
   "park-severnoe-tushino": {
     "source": "https://mosparks.ru/about/park-severnoe-tushino",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://mosparks.ru/about/park-severnoe-tushino",
-      "address": "https://mosparks.ru/about/park-severnoe-tushino"
+      "address": "https://mosparks.ru/about/park-severnoe-tushino",
+      "opening_hours": "https://mosparks.ru/about/park-severnoe-tushino"
     }
   },
   "tsaritsyno-park": {
@@ -1788,18 +1820,20 @@
   },
   "ostrov-mechty": {
     "source": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
-      "address": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8"
+      "address": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
+      "opening_hours": "https://dreamisland.ru/tickets"
     }
   },
   "pokrovskoe-streshnevo": {
@@ -1860,18 +1894,20 @@
   },
   "izmailovsky-park": {
     "source": "https://ru.wikipedia.org/wiki/Измайловский_парк",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Измайловский_парк",
-      "address": "https://ru.wikipedia.org/wiki/Измайловский_парк"
+      "address": "https://ru.wikipedia.org/wiki/Измайловский_парк",
+      "opening_hours": "https://www.izmailovsky-park.ru/pravila-poseshcheniya"
     }
   },
   "kuskovo": {
@@ -1898,48 +1934,54 @@
   },
   "neskuchny-sad": {
     "source": "https://ru.wikipedia.org/wiki/Нескучный_сад",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Нескучный_сад",
-      "address": "https://ru.wikipedia.org/wiki/Нескучный_сад"
+      "address": "https://ru.wikipedia.org/wiki/Нескучный_сад",
+      "opening_hours": "https://parkgorkogo.ru/areas/neskuchny-garden/"
     }
   },
   "muzeon": {
     "source": "https://ru.wikipedia.org/wiki/Музеон",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity"
+      "identity",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://ru.wikipedia.org/wiki/Музеон"
+      "identity": "https://ru.wikipedia.org/wiki/Музеон",
+      "opening_hours": "https://www.park-gorkogo.ru/faq/"
     }
   },
   "sad-ermitazh": {
     "source": "https://www.mosgorsad.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://www.mosgorsad.ru/",
-      "address": "https://www.mosgorsad.ru/"
+      "address": "https://www.mosgorsad.ru/",
+      "opening_hours": "https://mosgorsad.ru/garden/chasto-zadavaemy-voprosy/"
     }
   },
   "taganskiy-park": {
@@ -1974,46 +2016,54 @@
   },
   "vorobyovy-gory": {
     "source": "https://ru.wikipedia.org/wiki/Воробьёвы_горы_(Москва)",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity"
+      "identity",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://ru.wikipedia.org/wiki/Воробьёвы_горы_(Москва)"
+      "identity": "https://ru.wikipedia.org/wiki/Воробьёвы_горы_(Москва)",
+      "opening_hours": "https://www.park-gorkogo.ru/faq/"
     }
   },
   "kuzminki-park": {
     "source": "https://ru.wikipedia.org/wiki/Кузьминки_(парк)",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Кузьминки_(парк)",
-      "address": "https://ru.wikipedia.org/wiki/Кузьминки_(парк)"
+      "address": "https://ru.wikipedia.org/wiki/Кузьминки_(парк)",
+      "opening_hours": "https://park-kuzminki.ru/faq/"
     }
   },
   "vorontsovsky-park": {
     "source": "https://ru.wikipedia.org/wiki/Воронцовский_парк",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity"
+      "identity",
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://ru.wikipedia.org/wiki/Воронцовский_парк"
+      "identity": "https://ru.wikipedia.org/wiki/Воронцовский_парк",
+      "opening_hours": "https://usadba-vorontsovo.ru/kontakty/",
+      "price": "https://usadba-vorontsovo.ru/kontakty/"
     }
   },
   "park-luzhniki": {
@@ -2034,34 +2084,40 @@
   },
   "lefortovsky-park": {
     "source": "https://ru.wikipedia.org/wiki/Лефортовский_парк",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Лефортовский_парк",
-      "address": "https://ru.wikipedia.org/wiki/Лефортовский_парк"
+      "address": "https://ru.wikipedia.org/wiki/Лефортовский_парк",
+      "opening_hours": "https://sadbaumana.ru/about-the-garden/rules-of-conduct/pravila-poseshcheniya-lifortovskogo-parka"
     }
   },
   "lyublino-usadba": {
     "source": "https://ru.wikipedia.org/wiki/Люблино_(усадьба)",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Люблино_(усадьба)",
-      "address": "https://ru.wikipedia.org/wiki/Люблино_(усадьба)"
+      "address": "https://ru.wikipedia.org/wiki/Люблино_(усадьба)",
+      "opening_hours": "https://park-kuzminki.ru/faq/",
+      "price": "https://park-kuzminki.ru/lublino/what-to-do/kompleksnyy-vkhodnoy-bilet-vo-dvorets-n-a-durasova-1-y-i-3-y-etazhi/"
     }
   },
   "park-850-moscow": {
@@ -2116,34 +2172,22 @@
   },
   "terletsky-park": {
     "source": "https://ru.wikipedia.org/wiki/Терлецкий_парк",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Терлецкий_парк",
-      "address": "https://ru.wikipedia.org/wiki/Терлецкий_парк"
-    }
-  },
-  "muzey-zhd-tehniki": {
-    "source": "https://museum.cpm.moscow/museums/430",
-    "checked_at": "2026-10-05",
-    "status": "reviewed",
-    "identity": true,
-    "address": true,
-    "verified_fields": [
-      "identity",
-      "address"
-    ],
-    "verified_family_fields": [],
-    "field_sources": {
-      "identity": "https://museum.cpm.moscow/museums/430",
-      "address": "https://museum.cpm.moscow/museums/430"
+      "address": "https://ru.wikipedia.org/wiki/Терлецкий_парк",
+      "opening_hours": "https://terletskypark.ru/o-nas/",
+      "price": "https://terletskypark.ru/o-nas/"
     }
   },
   "losiny-ostrov": {
@@ -2164,18 +2208,22 @@
   },
   "lianozovsky-park": {
     "source": "https://ru.wikipedia.org/wiki/Лианозовский_парк",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Лианозовский_парк",
-      "address": "https://ru.wikipedia.org/wiki/Лианозовский_парк"
+      "address": "https://ru.wikipedia.org/wiki/Лианозовский_парк",
+      "opening_hours": "https://www.liapark.ru/site/contact",
+      "price": "https://www.liapark.ru/site/contact"
     }
   },
   "ostankino-usadba": {
@@ -2262,18 +2310,20 @@
   },
   "mitinsky-park": {
     "source": "https://ru.wikipedia.org/wiki/Митино",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Митино",
-      "address": "https://ru.wikipedia.org/wiki/Митино"
+      "address": "https://ru.wikipedia.org/wiki/Митино",
+      "opening_hours": "https://mitino.bapark.ru/informaciya/oficialnaya-informaciya"
     }
   },
   "borodinskaya-panorama": {
