@@ -1,0 +1,25 @@
+name: indexnow
+
+# Сообщает Яндексу о страницах сайта (IndexNow). Запускается вручную после выкладки: gh workflow run indexnow.yml --ref main
+on:
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: "Только проверить ключ и карту сайта, ничего не отправлять"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: IndexNow
+        run: node scripts/indexnow.mjs ${{ inputs.dry && '--dry' || '' }}

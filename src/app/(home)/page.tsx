@@ -34,9 +34,20 @@ export default async function HomePage() {
 
   const cafes = places.filter((p) => p.category === "cafe").slice(0, 6);
 
+  // Разметка сайта для поиска: название и организация (Яндекс и Google берут из неё имя сайта в выдаче)
+  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kids-go.fun";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "WebSite", "@id": `${site}/#website`, name: "Kids Go", alternateName: "Kids Go — куда пойти с детьми", url: `${site}/`, inLanguage: "ru-RU", publisher: { "@id": `${site}/#org` } },
+      { "@type": "Organization", "@id": `${site}/#org`, name: "Kids Go", url: `${site}/`, logo: `${site}/icons/icon-512.png` },
+    ],
+  };
+
   return (
     <SourceScope source="HOME">
       <main className="pb-28">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <h1 className="sr-only">Kids Go — куда пойти с детьми сегодня</h1>
         <AppHeader />
         <HomeCta />
