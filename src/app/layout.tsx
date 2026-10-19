@@ -7,6 +7,7 @@ import { BottomNavigation } from "@/components/layout/BottomNavigation";
 import { BOOT_WATCHDOG } from "@/lib/boot-watchdog";
 import { firstVisitScript } from "@/lib/first-visit";
 import { Logo } from "@/components/ui/Logo";
+import { YandexMetrika } from "@/components/analytics/YandexMetrika";
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kids-go.fun";
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </div>
           <BottomNavigation />
+          <YandexMetrika />
         </Providers>
       </body>
     </html>
