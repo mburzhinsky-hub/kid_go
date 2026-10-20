@@ -1,0 +1,3411 @@
+[
+ {
+  "host": "parksokolniki.mos.ru",
+  "places": [
+   {
+    "slug": "park-sokolniki",
+    "title": "Парк Сокольники",
+    "category": "park"
+   }
+  ],
+  "site": "https://parksokolniki.mos.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "главная: UND_ERR_CONNECT_TIMEOUT"
+  ]
+ },
+ {
+  "host": "parkgorkogo.ru",
+  "places": [
+   {
+    "slug": "park-gorkogo",
+    "title": "Парк Горького",
+    "category": "park"
+   },
+   {
+    "slug": "neskuchny-sad",
+    "title": "Нескучный сад",
+    "category": "park"
+   }
+  ],
+  "site": "https://parkgorkogo.ru/",
+  "emails": [
+   {
+    "email": "parkgorkogo@culture.mos.ru",
+    "page": "https://parkgorkogo.ru/"
+   },
+   {
+    "email": "zakupki.parkgorkogo@culture.mos.ru",
+    "page": "https://parkgorkogo.ru/contacts/"
+   }
+  ],
+  "phones": [
+   "+7 495 995-00-20",
+   "+74959950020"
+  ],
+  "contactPages": [
+   "https://parkgorkogo.ru/about/",
+   "https://parkgorkogo.ru/contacts/",
+   "https://parkgorkogo.ru/contacts"
+  ],
+  "notes": []
+ },
+ {
+  "host": "welcome.zaryadyepark.ru",
+  "places": [
+   {
+    "slug": "park-zaryadye",
+    "title": "Парк Зарядье",
+    "category": "park"
+   }
+  ],
+  "site": "https://welcome.zaryadyepark.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "главная: UND_ERR_CONNECT_TIMEOUT"
+  ]
+ },
+ {
+  "host": "mgomz.ru",
+  "places": [
+   {
+    "slug": "kolomenskoe",
+    "title": "Коломенское",
+    "category": "park"
+   }
+  ],
+  "site": "https://mgomz.ru/kolomenskoe",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "главная: fetch failed"
+  ]
+ },
+ {
+  "host": "hortus.msu.ru",
+  "places": [
+   {
+    "slug": "aptekarsky-ogorod",
+    "title": "Аптекарский огород",
+    "category": "park"
+   }
+  ],
+  "site": "https://hortus.msu.ru/",
+  "emails": [
+   {
+    "email": "info@hortus.msu.ru",
+    "page": "https://hortus.msu.ru/"
+   },
+   {
+    "email": "excursions@hortus.msu.ru",
+    "page": "https://hortus.msu.ru/contacts.html"
+   },
+   {
+    "email": "edubgmu@gmail.com",
+    "page": "https://hortus.msu.ru/contacts.html"
+   },
+   {
+    "email": "tickets@hortus.msu.ru",
+    "page": "https://hortus.msu.ru/contacts.html"
+   },
+   {
+    "email": "eva@hortus.msu.ru",
+    "page": "https://hortus.msu.ru/contacts.html"
+   },
+   {
+    "email": "pr.hortus@yandex.ru",
+    "page": "https://hortus.msu.ru/contacts.html"
+   },
+   {
+    "email": "partner@hortus.msu.ru",
+    "page": "https://hortus.msu.ru/contacts.html"
+   },
+   {
+    "email": "masterclass@hortus.msu.ru",
+    "page": "https://hortus.msu.ru/contacts.html"
+   },
+   {
+    "email": "680-72-22info@hortus.msu.ru",
+    "page": "https://hortus.msu.ru/contacts.html"
+   }
+  ],
+  "phones": [
+   "+7 (495) 680-67-65",
+   "+7 (495) 680-72-22",
+   "+7 (967) 178-18-77"
+  ],
+  "contactPages": [
+   "https://hortus.msu.ru/about.html",
+   "https://hortus.msu.ru/about-history.html",
+   "https://hortus.msu.ru/about-status.html",
+   "https://hortus.msu.ru/about-ratings.html"
+  ],
+  "notes": []
+ },
+ {
+  "host": "vdnh.ru",
+  "places": [
+   {
+    "slug": "vdnh",
+    "title": "ВДНХ",
+    "category": "park"
+   }
+  ],
+  "site": "https://vdnh.ru/",
+  "emails": [
+   {
+    "email": "info@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "tickets@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "press@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "app@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "admin_museum@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "tour_registration@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "museum@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "expo@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "events@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "souvenirs@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "adv@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "partners@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "rabota@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "info@moskvarium.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "tour@atom.museum",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "loyalty@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "lektorij@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "ngoncharova@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "kantropov@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "zamnieva@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "rent@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "it@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "doverie@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "orionpr@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "orionpartners@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "orion@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "cosmos@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   },
+   {
+    "email": "museum_slovo@vdnh.ru",
+    "page": "https://vdnh.ru/"
+   }
+  ],
+  "phones": [
+   "8(495) 544-34-00",
+   "+74957483420",
+   "+7(495)748-34-20"
+  ],
+  "contactPages": [
+   "https://vdnh.ru/contacts/",
+   "https://vdnh.ru/contacts"
+  ],
+  "notes": []
+ },
+ {
+  "host": "paleo.ru",
+  "places": [
+   {
+    "slug": "paleontologichesky-muzey",
+    "title": "Палеонтологический музей",
+    "category": "museum"
+   }
+  ],
+  "site": "https://www.paleo.ru/museum/visitors/",
+  "emails": [],
+  "phones": [
+   "+7(916) 996-81-34"
+  ],
+  "contactPages": [
+   "https://www.paleo.ru/museum/contacts/",
+   "https://www.paleo.ru/museum/about/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "kosmo-museum.ru",
+  "places": [
+   {
+    "slug": "muzey-kosmonavtiki",
+    "title": "Музей космонавтики",
+    "category": "museum"
+   }
+  ],
+  "site": "https://kosmo-museum.ru/",
+  "emails": [
+   {
+    "email": "museikosmonavtiki@culture.mos.ru",
+    "page": "https://kosmo-museum.ru/contacts"
+   },
+   {
+    "email": "zarubkinad@culture.mos.ru",
+    "page": "https://kosmo-museum.ru/contacts"
+   },
+   {
+    "email": "prmk@culture.mos.ru",
+    "page": "https://kosmo-museum.ru/press_office"
+   }
+  ],
+  "phones": [
+   "+7 499 750-23-00",
+   "+7 499 750 23 00",
+   "+7 (499) 750-23-00"
+  ],
+  "contactPages": [
+   "https://kosmo-museum.ru/contacts",
+   "https://kosmo-museum.ru/press_office",
+   "https://kosmo-museum.ru/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "darwinmuseum.ru",
+  "places": [
+   {
+    "slug": "darvinovsky-muzey",
+    "title": "Дарвиновский музей",
+    "category": "museum"
+   }
+  ],
+  "site": "https://www.darwinmuseum.ru/",
+  "emails": [
+   {
+    "email": "museumdarvin@culture.mos.ru",
+    "page": "https://www.darwinmuseum.ru/"
+   },
+   {
+    "email": "info@darwinmuseum.ru",
+    "page": "https://www.darwinmuseum.ru/"
+   },
+   {
+    "email": "anna@darwinmuseum.ru",
+    "page": "https://www.darwinmuseum.ru/section/english-version/about-us?eng"
+   },
+   {
+    "email": "tatkub@darwinmuseum.ru",
+    "page": "https://www.darwinmuseum.ru/section/english-version/about-us?eng"
+   },
+   {
+    "email": "inter@darwinmuseum.ru",
+    "page": "https://www.darwinmuseum.ru/section/english-version/about-us?eng"
+   }
+  ],
+  "phones": [
+   "8 (499) 783-22-53",
+   "8 (499) 134-61-24",
+   "8 (499) 724-19-64"
+  ],
+  "contactPages": [
+   "https://www.darwinmuseum.ru/section/partnery-muzeya",
+   "https://www.darwinmuseum.ru/section/english-version/about-us?eng"
+  ],
+  "notes": []
+ },
+ {
+  "host": "experimentanium.ru",
+  "places": [
+   {
+    "slug": "eksperimentanium",
+    "title": "Экспериментаниум",
+    "category": "museum"
+   }
+  ],
+  "site": "https://experimentanium.ru/",
+  "emails": [
+   {
+    "email": "enjoy@experimentanium.ru",
+    "page": "https://experimentanium.ru/"
+   },
+   {
+    "email": "maxim@experimentanium.ru",
+    "page": "https://experimentanium.ru/o-muzee/contacts/"
+   },
+   {
+    "email": "mshatina@experimentanium.ru",
+    "page": "https://experimentanium.ru/o-muzee/contacts/"
+   },
+   {
+    "email": "cafe@experimentanium.ru",
+    "page": "https://experimentanium.ru/o-muzee/contacts/"
+   },
+   {
+    "email": "shop@experimentanium.ru",
+    "page": "https://experimentanium.ru/o-muzee/contacts/"
+   }
+  ],
+  "phones": [
+   "+7 (495) 120-05-20",
+   "+7(495) 159-15-09"
+  ],
+  "contactPages": [
+   "https://experimentanium.ru/o-muzee/contacts/",
+   "https://experimentanium.ru/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "planetarium-moscow.ru",
+  "places": [
+   {
+    "slug": "moskovsky-planetariy",
+    "title": "Московский планетарий",
+    "category": "museum"
+   }
+  ],
+  "site": "https://planetarium-moscow.ru/",
+  "emails": [
+   {
+    "email": "info@planetarium-moscow.ru",
+    "page": "https://planetarium-moscow.ru/contacts"
+   },
+   {
+    "email": "cafe@planetarium-moscow.ru",
+    "page": "https://planetarium-moscow.ru/contacts"
+   },
+   {
+    "email": "lunarium@planetarium-moscow.ru",
+    "page": "https://planetarium-moscow.ru/contacts"
+   }
+  ],
+  "phones": [
+   "+74952217690",
+   "+7 495 221 76 90",
+   "+7 (495) 221-76-90"
+  ],
+  "contactPages": [
+   "https://planetarium-moscow.ru/contacts",
+   "https://planetarium-moscow.ru/about",
+   "https://planetarium-moscow.ru/about/history",
+   "https://planetarium-moscow.ru/about/halls"
+  ],
+  "notes": []
+ },
+ {
+  "host": "mtmuseum.ru",
+  "places": [
+   {
+    "slug": "muzey-transporta",
+    "title": "Музей транспорта Москвы",
+    "category": "museum"
+   }
+  ],
+  "site": "https://mtmuseum.ru/",
+  "emails": [
+   {
+    "email": "partners@mtmuseum.ru",
+    "page": "https://mtmuseum.ru/"
+   },
+   {
+    "email": "pr@mtmuseum.ru",
+    "page": "https://mtmuseum.ru/"
+   },
+   {
+    "email": "service@mtmuseum.ru",
+    "page": "https://mtmuseum.ru/"
+   },
+   {
+    "email": "followme@mtmuseum.ru",
+    "page": "https://mtmuseum.ru/"
+   },
+   {
+    "email": "tickets@mtmuseum.ru",
+    "page": "https://mtmuseum.ru/"
+   },
+   {
+    "email": "hr@mtmuseum.ru",
+    "page": "https://mtmuseum.ru/"
+   },
+   {
+    "email": "event@mtmuseum.ru",
+    "page": "https://mtmuseum.ru/partners/"
+   },
+   {
+    "email": "patronage@mtmuseum.ru",
+    "page": "https://mtmuseum.ru/partners/"
+   },
+   {
+    "email": "example@mail.com",
+    "page": "https://mtmuseum.ru/aboutus"
+   }
+  ],
+  "phones": [
+   "+74953692675",
+   "+7 (495) 369-26-75",
+   "+79916449118"
+  ],
+  "contactPages": [
+   "https://mtmuseum.ru/partners/",
+   "https://mtmuseum.ru/contacts/",
+   "https://mtmuseum.ru/aboutus"
+  ],
+  "notes": []
+ },
+ {
+  "host": "moscowzoo.ru",
+  "places": [
+   {
+    "slug": "moskovsky-zoopark",
+    "title": "Московский зоопарк",
+    "category": "animals"
+   }
+  ],
+  "site": "https://moscowzoo.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /kontakty",
+   "robots запрещает /kontakty/",
+   "robots запрещает /contacts",
+   "robots запрещает /contacts/",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "moskvarium.ru",
+  "places": [
+   {
+    "slug": "moskvarium",
+    "title": "Москвариум",
+    "category": "animals"
+   }
+  ],
+  "site": "https://moskvarium.ru/",
+  "emails": [],
+  "phones": [
+   "+74996777777",
+   "8 (499) 677-77-77",
+   "84996777777"
+  ],
+  "contactPages": [
+   "https://moskvarium.ru/about/news/",
+   "https://moskvarium.ru/about/",
+   "https://moskvarium.ru/about/sout/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "pandapark.org",
+  "places": [
+   {
+    "slug": "panda-park-sokolniki",
+    "title": "Верёвочный парк «Панда Парк»",
+    "category": "active"
+   },
+   {
+    "slug": "pandapark-meshchersky",
+    "title": "ПандаПарк Мещерский",
+    "category": "active"
+   },
+   {
+    "slug": "pandapark-fili",
+    "title": "ПандаПарк Фили",
+    "category": "active"
+   }
+  ],
+  "site": "https://pandapark.org/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "главная: UND_ERR_CONNECT_TIMEOUT"
+  ]
+ },
+ {
+  "host": "cdm-moscow.ru",
+  "places": [
+   {
+    "slug": "centralny-detsky-magazin",
+    "title": "Центральный Детский Магазин",
+    "category": "shop"
+   }
+  ],
+  "site": "https://cdm-moscow.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [
+   "https://cdm-moscow.ru/partners"
+  ],
+  "notes": []
+ },
+ {
+  "host": "arhangelskoe.su",
+  "places": [
+   {
+    "slug": "arkhangelskoe",
+    "title": "Усадьба «Архангельское»",
+    "category": "park"
+   }
+  ],
+  "site": "https://arhangelskoe.su/for_visitor/working_hours/",
+  "emails": [
+   {
+    "email": "dir@arhangelskoe.su",
+    "page": "https://arhangelskoe.su/contacts/"
+   },
+   {
+    "email": "dranichkina.os@arhangelskoe.su",
+    "page": "https://arhangelskoe.su/contacts/"
+   },
+   {
+    "email": "grineva.lv@arhangelskoe.su",
+    "page": "https://arhangelskoe.su/contacts/"
+   },
+   {
+    "email": "nestertseva.ov@arhangelskoe.su",
+    "page": "https://arhangelskoe.su/contacts/"
+   },
+   {
+    "email": "goronesko.mn@arhangelskoe.su",
+    "page": "https://arhangelskoe.su/contacts/"
+   },
+   {
+    "email": "korotun.ts@arhangelskoe.su",
+    "page": "https://arhangelskoe.su/contacts/"
+   },
+   {
+    "email": "press@arhangelskoe.su",
+    "page": "https://arhangelskoe.su/contacts/press-area/"
+   }
+  ],
+  "phones": [
+   "+7 (498) 653-86-60",
+   "+74985689580",
+   "+7 (498) 568-95-80"
+  ],
+  "contactPages": [
+   "https://arhangelskoe.su/news/press/",
+   "https://arhangelskoe.su/contacts/",
+   "https://arhangelskoe.su/contacts/map/",
+   "https://arhangelskoe.su/contacts/press-area/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "welcome.mosreg.ru",
+  "places": [
+   {
+    "slug": "norway-park-krasnogorsk",
+    "title": "Верёвочный парк Norway Park Красногорск",
+    "category": "active"
+   },
+   {
+    "slug": "huskyland-nazarevo",
+    "title": "Этнопарк «Хаски Лэнд»",
+    "category": "animals"
+   },
+   {
+    "slug": "muzey-lozhki-solnechnogorsk",
+    "title": "Музей «Ложки»",
+    "category": "museum"
+   },
+   {
+    "slug": "dolgoprudnensky-muzey",
+    "title": "Долгопрудненский историко-художественный музей",
+    "category": "museum"
+   },
+   {
+    "slug": "peshki-park",
+    "title": "Пешки Парк",
+    "category": "active"
+   },
+   {
+    "slug": "teatr-nash-dom-khimki",
+    "title": "Театр «Наш дом»",
+    "category": "museum"
+   }
+  ],
+  "site": "https://welcome.mosreg.ru/ideas/progulki-na-vysote-devatietaznogo-doma",
+  "emails": [],
+  "phones": [
+   "82748211042",
+   "+78001006048",
+   "+7 (800) 100-60-48"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "zoolandia-istra.ru",
+  "places": [
+   {
+    "slug": "zoolandia-kryuchkovo",
+    "title": "Контактный зоопарк «Зооландия»",
+    "category": "animals"
+   }
+  ],
+  "site": "https://zoolandia-istra.ru/",
+  "emails": [],
+  "phones": [
+   "89269777913",
+   "+7 926 977 79 13"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "njerusalem.ru",
+  "places": [
+   {
+    "slug": "muzey-novy-ierusalim",
+    "title": "Музей «Новый Иерусалим»",
+    "category": "museum"
+   }
+  ],
+  "site": "https://njerusalem.ru/posetitelyam/rezhim-raboty/",
+  "emails": [
+   {
+    "email": "mk_njerusalem@mosreg.ru",
+    "page": "https://njerusalem.ru/posetitelyam/rezhim-raboty/"
+   },
+   {
+    "email": "mk_nj_tour@mosreg.ru",
+    "page": "https://njerusalem.ru/posetitelyam/rezhim-raboty/"
+   },
+   {
+    "email": "mk_nj_press@mosreg.ru",
+    "page": "https://njerusalem.ru/posetitelyam/rezhim-raboty/"
+   },
+   {
+    "email": "mk_nj_event@mosreg.ru",
+    "page": "https://njerusalem.ru/posetitelyam/rezhim-raboty/"
+   },
+   {
+    "email": "mk_mni_information@mosreg.ru",
+    "page": "https://njerusalem.ru/kontakty/kontaktnaya-informaciya/"
+   },
+   {
+    "email": "mk_nj_exponarium@mosreg.ru",
+    "page": "https://njerusalem.ru/kontakty/kontaktnaya-informaciya/"
+   }
+  ],
+  "phones": [
+   "+74983140236",
+   "+7 (498) 314-02-36",
+   "+74983140230"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "tmuseum.ru",
+  "places": [
+   {
+    "slug": "muzey-tekhniki-zadorozhnogo",
+    "title": "Музей техники Вадима Задорожного",
+    "category": "museum"
+   }
+  ],
+  "site": "https://tmuseum.ru/kontakty/",
+  "emails": [
+   {
+    "email": "info@tmuseum.ru",
+    "page": "https://tmuseum.ru/kontakty/"
+   },
+   {
+    "email": "s.alekseev@tmuseum.ru",
+    "page": "https://tmuseum.ru/kontakty/"
+   },
+   {
+    "email": "visit@tmuseum.ru",
+    "page": "https://tmuseum.ru/kontakty/"
+   },
+   {
+    "email": "events@tmuseum.ru",
+    "page": "https://tmuseum.ru/kontakty/"
+   },
+   {
+    "email": "s.katasonova@tmuseum.ru",
+    "page": "https://tmuseum.ru/kontakty/"
+   },
+   {
+    "email": "o.katasonova@tmuseum.ru",
+    "page": "https://tmuseum.ru/kontakty/"
+   }
+  ],
+  "phones": [
+   "+7 (495) 662-38-18",
+   "8 (800) 500-70-00",
+   "+7 (968) 087-87-94"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "zvenmuseum.ru",
+  "places": [
+   {
+    "slug": "muzey-materinstva-ilinskoe",
+    "title": "Музей материнства и младенчества",
+    "category": "museum"
+   }
+  ],
+  "site": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+  "emails": [
+   {
+    "email": "mk_zvenigorod-museum@mosreg.ru",
+    "page": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/"
+   }
+  ],
+  "phones": [
+   "89851812785",
+   "8(985)181-27-85",
+   "89919300196"
+  ],
+  "contactPages": [
+   "https://zvenmuseum.ru/o-muzee/partnery-muzeya/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "parkpatriot.ru",
+  "places": [
+   {
+    "slug": "park-patriot-kubinka",
+    "title": "Парк «Патриот»",
+    "category": "park"
+   }
+  ],
+  "site": "https://parkpatriot.ru/",
+  "emails": [
+   {
+    "email": "info@mtaf.ru",
+    "page": "https://parkpatriot.ru/"
+   },
+   {
+    "email": "mtaf@mail.ru",
+    "page": "https://parkpatriot.ru/o-parke/about_education.php"
+   }
+  ],
+  "phones": [
+   "+78005111418",
+   "8 (800) 511-14-18",
+   "+7(498) 697-67-57"
+  ],
+  "contactPages": [
+   "https://parkpatriot.ru/o-parke/partners/",
+   "https://parkpatriot.ru/o-parke/about_education.php"
+  ],
+  "notes": []
+ },
+ {
+  "host": "rusdessertmuseum.ru",
+  "places": [
+   {
+    "slug": "muzey-russkogo-deserta-zvenigorod",
+    "title": "Музей русского десерта",
+    "category": "museum"
+   }
+  ],
+  "site": "https://rusdessertmuseum.ru/",
+  "emails": [
+   {
+    "email": "feina.t@yandex.ru",
+    "page": "https://rusdessertmuseum.ru/"
+   },
+   {
+    "email": "rusdesert@yandex.ru",
+    "page": "https://rusdessertmuseum.ru/"
+   }
+  ],
+  "phones": [
+   "84705882352",
+   "+7 (968) 897-35-59",
+   "+79166014257"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "museum-gol.ru",
+  "places": [
+   {
+    "slug": "usadba-vyazemy-pushkin",
+    "title": "Усадьба Вяземы (музей-заповедник Пушкина)",
+    "category": "park"
+   }
+  ],
+  "site": "https://museum-gol.ru/visitors/",
+  "emails": [
+   {
+    "email": "mk_museum-gol@mosreg.ru",
+    "page": "https://museum-gol.ru/visitors/"
+   }
+  ],
+  "phones": [
+   "+74955982404",
+   "+7 (495) 598-24-04",
+   "+74986989800"
+  ],
+  "contactPages": [
+   "https://museum-gol.ru/contacts/",
+   "https://museum-gol.ru/contacts",
+   "https://museum-gol.ru/contact"
+  ],
+  "notes": []
+ },
+ {
+  "host": "kp.ru",
+  "places": [
+   {
+    "slug": "park-malevicha-razdory",
+    "title": "Парк Малевича",
+    "category": "park"
+   }
+  ],
+  "site": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/",
+  "emails": [
+   {
+    "email": "travel@kp.ru",
+    "page": "https://www.kp.ru/russia/reklama/"
+   }
+  ],
+  "phones": [
+   "+7 (495) 637-65-16"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "odinparki.ru",
+  "places": [
+   {
+    "slug": "park-razdolye-razdory",
+    "title": "Парк «Раздолье»",
+    "category": "park"
+   }
+  ],
+  "site": "https://odinparki.ru/parks/?id=2991",
+  "emails": [
+   {
+    "email": "dp@odinparki.ru",
+    "page": "https://odinparki.ru/parks/?id=2991"
+   },
+   {
+    "email": "info@park-razdolye.ru",
+    "page": "https://odinparki.ru/contact/"
+   },
+   {
+    "email": "sov26@mail.ru",
+    "page": "https://odinparki.ru/contact/"
+   }
+  ],
+  "phones": [
+   "+74951280206",
+   "+7 495 128-02-06",
+   "+7 991 145-42-16"
+  ],
+  "contactPages": [
+   "https://odinparki.ru/about/",
+   "https://odinparki.ru/parks/?id=2991&amp;m=about",
+   "https://odinparki.ru/contact/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "goslitmuz.ru",
+  "places": [
+   {
+    "slug": "dom-muzey-prishvina-dunino",
+    "title": "Дом-музей М. М. Пришвина в Дунине",
+    "category": "museum"
+   }
+  ],
+  "site": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
+  "emails": [
+   {
+    "email": "ex@goslitmuz.ru",
+    "page": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/"
+   }
+  ],
+  "phones": [
+   "+7 495 695-53-08"
+  ],
+  "contactPages": [
+   "https://goslitmuz.ru/contacts/",
+   "https://goslitmuz.ru/contacts"
+  ],
+  "notes": []
+ },
+ {
+  "host": "mooncatpark.ru",
+  "places": [
+   {
+    "slug": "lunny-kot-zelenograd",
+    "title": "Лунный Кот",
+    "category": "play"
+   }
+  ],
+  "site": "https://mooncatpark.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "главная: ETIMEDOUT"
+  ]
+ },
+ {
+  "host": "zelenopark.kidburg.ru",
+  "places": [
+   {
+    "slug": "kidburg-zelenopark",
+    "title": "КидБург Зеленопарк",
+    "category": "play"
+   }
+  ],
+  "site": "https://zelenopark.kidburg.ru/",
+  "emails": [],
+  "phones": [
+   "+74991130862",
+   "+7 (499) 113-08-62",
+   "+74994905656"
+  ],
+  "contactPages": [
+   "https://zelenopark.kidburg.ru/contacts",
+   "https://zelenopark.kidburg.ru/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "putevka.com",
+  "places": [
+   {
+    "slug": "park-tolstogo-himki",
+    "title": "Парк им. Л. Н. Толстого",
+    "category": "park"
+   }
+  ],
+  "site": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
+  "emails": [
+   {
+    "email": "info@putevka.com",
+    "page": "https://www.putevka.com/all-contacts"
+   },
+   {
+    "email": "partner@putevka.com",
+    "page": "https://www.putevka.com/all-contacts"
+   },
+   {
+    "email": "941@putevka.com",
+    "page": "https://www.putevka.com/all-contacts"
+   },
+   {
+    "email": "900@putevka.com",
+    "page": "https://www.putevka.com/all-contacts"
+   },
+   {
+    "email": "director@putevka.com",
+    "page": "https://www.putevka.com/all-contacts"
+   }
+  ],
+  "phones": [
+   "+7 499 703-01-20",
+   "+74997030120",
+   "88003334199"
+  ],
+  "contactPages": [
+   "https://www.putevka.com/contacts",
+   "https://www.putevka.com/contacts/booking",
+   "https://www.putevka.com/all-contacts",
+   "https://www.putevka.com/contacts/review"
+  ],
+  "notes": []
+ },
+ {
+  "host": "parkihimki.ru",
+  "places": [
+   {
+    "slug": "park-ekobereg-himki",
+    "title": "Парк «Экоберег»",
+    "category": "park"
+   }
+  ],
+  "site": "https://www.parkihimki.ru/park_ecobereg",
+  "emails": [
+   {
+    "email": "parki.himki@mail.ru",
+    "page": "https://www.parkihimki.ru/park_ecobereg"
+   }
+  ],
+  "phones": [
+   "+74955724694",
+   "+7(495) 572-46-94"
+  ],
+  "contactPages": [
+   "https://www.parkihimki.ru/about"
+  ],
+  "notes": []
+ },
+ {
+  "host": "star-lab.org",
+  "places": [
+   {
+    "slug": "mega-himki-detskie-zony",
+    "title": "StarLab в МЕГА Химки",
+    "category": "play"
+   }
+  ],
+  "site": "https://star-lab.org/",
+  "emails": [
+   {
+    "email": "starlab.info.park@gmail.com",
+    "page": "https://star-lab.org/"
+   }
+  ],
+  "phones": [
+   "82139005666",
+   "+79031304058",
+   "+79031304054"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "detmir.ru",
+  "places": [
+   {
+    "slug": "detmir-mega-himki",
+    "title": "Детский мир в МЕГА Химки",
+    "category": "shop"
+   }
+  ],
+  "site": "https://www.detmir.ru/shops/item/id/176/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "museumot.info",
+  "places": [
+   {
+    "slug": "muzey-igrushki-sergiev-posad",
+    "title": "Музей игрушки в Сергиевом Посаде",
+    "category": "museum"
+   }
+  ],
+  "site": "https://museumot.info/grafik/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "главная: ETIMEDOUT"
+  ]
+ },
+ {
+  "host": "abramtsevo.net",
+  "places": [
+   {
+    "slug": "abramtsevo",
+    "title": "Музей-заповедник «Абрамцево»",
+    "category": "park"
+   }
+  ],
+  "site": "https://abramtsevo.net/kontakti/proezd.html",
+  "emails": [],
+  "phones": [
+   "8 (496) 543-24-70",
+   "8 (916) 278-45-42",
+   "8-916-278-45-42"
+  ],
+  "contactPages": [
+   "https://abramtsevo.net/tour/aboutmuseum.html",
+   "https://abramtsevo.net/kontakti/partners.html"
+  ],
+  "notes": []
+ },
+ {
+  "host": "chekhovmuseum.com",
+  "places": [
+   {
+    "slug": "melikhovo-chekhov",
+    "title": "Музей-заповедник А. П. Чехова «Мелихово»",
+    "category": "park"
+   }
+  ],
+  "site": "https://chekhovmuseum.com/",
+  "emails": [
+   {
+    "email": "kult@chekhovmuseum.com",
+    "page": "https://chekhovmuseum.com/contacts"
+   },
+   {
+    "email": "razv@chekhovmuseum.com",
+    "page": "https://chekhovmuseum.com/contacts"
+   },
+   {
+    "email": "mk_melikhovo@mosreg.ru",
+    "page": "https://chekhovmuseum.com/contacts"
+   },
+   {
+    "email": "mk_mel_bez@mosreg.ru",
+    "page": "https://chekhovmuseum.com/contacts"
+   },
+   {
+    "email": "mk_mel_fin@mosreg.ru",
+    "page": "https://chekhovmuseum.com/contacts"
+   },
+   {
+    "email": "mk_mel_razv@mosreg.ru",
+    "page": "https://chekhovmuseum.com/contacts"
+   },
+   {
+    "email": "mk_mel_fond@mosreg.ru",
+    "page": "https://chekhovmuseum.com/contacts"
+   },
+   {
+    "email": "mk_mel_nauka@mosreg.ru",
+    "page": "https://chekhovmuseum.com/contacts"
+   }
+  ],
+  "phones": [
+   "+79057812910",
+   "8 (905) 781-29-10",
+   "84967276256"
+  ],
+  "contactPages": [
+   "https://chekhovmuseum.com/contacts",
+   "https://chekhovmuseum.com/museum/about",
+   "https://chekhovmuseum.com/theater/about"
+  ],
+  "notes": []
+ },
+ {
+  "host": "dubrovitsy-hram.ru",
+  "places": [
+   {
+    "slug": "dubrovitsy-znamenskaya-cerkov",
+    "title": "Усадьба Дубровицы и церковь Знамения",
+    "category": "park"
+   }
+  ],
+  "site": "https://www.dubrovitsy-hram.ru/raspisanie-bogosluzheniy-v-hrame-znamenie",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "главная: ETIMEDOUT"
+  ]
+ },
+ {
+  "host": "kolomnapastila.ru",
+  "places": [
+   {
+    "slug": "kolomna-pastila-muzey",
+    "title": "Музей истории «Коломенская пастила»",
+    "category": "museum"
+   }
+  ],
+  "site": "https://kolomnapastila.ru/contacts/",
+  "emails": [
+   {
+    "email": "info@kolomnaposad.ru",
+    "page": "https://kolomnapastila.ru/contacts/"
+   }
+  ],
+  "phones": [
+   "+7 958 284 92 00"
+  ],
+  "contactPages": [
+   "https://kolomnapastila.ru/contacts",
+   "https://kolomnapastila.ru/contact"
+  ],
+  "notes": []
+ },
+ {
+  "host": "kolomna-kreml.ru",
+  "places": [
+   {
+    "slug": "kolomna-kreml",
+    "title": "Коломенский кремль",
+    "category": "park"
+   }
+  ],
+  "site": "https://kolomna-kreml.ru/",
+  "emails": [
+   {
+    "email": "info@kolomna-kreml.ru",
+    "page": "https://kolomna-kreml.ru/"
+   },
+   {
+    "email": "liga-tur@list.ru",
+    "page": "https://kolomna-kreml.ru/"
+   },
+   {
+    "email": "fond@kolomna-kreml.ru",
+    "page": "https://kolomna-kreml.ru/"
+   }
+  ],
+  "phones": [
+   "+74966120337",
+   "8 (496) 612-03-37",
+   "+74966121662"
+  ],
+  "contactPages": [
+   "https://kolomna-kreml.ru/contact-us/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "polymus.ru",
+  "places": [
+   {
+    "slug": "politehnichesky-muzey",
+    "title": "Политехнический музей",
+    "category": "museum"
+   }
+  ],
+  "site": "https://polymus.ru/museum/contacts",
+  "emails": [
+   {
+    "email": "visit@polytech.one",
+    "page": "https://polymus.ru/museum/contacts"
+   },
+   {
+    "email": "info@polytech.one",
+    "page": "https://polymus.ru/museum/contacts"
+   },
+   {
+    "email": "press@polytech.one",
+    "page": "https://polymus.ru/museum/contacts"
+   },
+   {
+    "email": "vozvrat@polytech.one",
+    "page": "https://polymus.ru/museum/contacts"
+   },
+   {
+    "email": "visitvn@polytech.one",
+    "page": "https://polymus.ru/museum/contacts"
+   },
+   {
+    "email": "chz@polytech.one",
+    "page": "https://polymus.ru/museum/contacts"
+   },
+   {
+    "email": "ydetei@polytech.one",
+    "page": "https://polymus.ru/museum/contacts"
+   },
+   {
+    "email": "partnership@polytech.one",
+    "page": "https://polymus.ru/museum/contacts"
+   }
+  ],
+  "phones": [
+   "+7 495 780 60 27",
+   "+7 495 730 54 38",
+   "+7 916 008 12 32"
+  ],
+  "contactPages": [
+   "https://polymus.ru/partners/",
+   "https://polymus.ru/partners",
+   "https://polymus.ru/press-center",
+   "https://polymus.ru/press-center/press-release"
+  ],
+  "notes": []
+ },
+ {
+  "host": "mosmuseum.ru",
+  "places": [
+   {
+    "slug": "muzey-moskvy",
+    "title": "Музей Москвы",
+    "category": "museum"
+   }
+  ],
+  "site": "https://mosmuseum.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "главная: 403"
+  ]
+ },
+ {
+  "host": "victorymuseum.ru",
+  "places": [
+   {
+    "slug": "muzey-pobedy",
+    "title": "Музей Победы",
+    "category": "museum"
+   }
+  ],
+  "site": "https://victorymuseum.ru/about/contacts/",
+  "emails": [
+   {
+    "email": "info@victorymuseum.ru",
+    "page": "https://victorymuseum.ru/about/contacts/"
+   },
+   {
+    "email": "zakaz@victorymuseum.ru",
+    "page": "https://victorymuseum.ru/about/contacts/"
+   },
+   {
+    "email": "press@cmvov.ru",
+    "page": "https://victorymuseum.ru/about/press/"
+   },
+   {
+    "email": "press@victorymuseum.ru",
+    "page": "https://victorymuseum.ru/about/press/"
+   },
+   {
+    "email": "marketing@victorymuseum.ru",
+    "page": "https://victorymuseum.ru/partnership/partners/"
+   },
+   {
+    "email": "kustov@cmvov.ru",
+    "page": "https://victorymuseum.ru/about/contacts/management-team/"
+   },
+   {
+    "email": "nikonenko@cmvov.ru",
+    "page": "https://victorymuseum.ru/about/contacts/management-team/"
+   },
+   {
+    "email": "kolegaev@cmvov.ru",
+    "page": "https://victorymuseum.ru/about/contacts/management-team/"
+   },
+   {
+    "email": "denisova@victorymuseum.ru",
+    "page": "https://victorymuseum.ru/about/contacts/management-team/"
+   },
+   {
+    "email": "yudina@victorymuseum.ru",
+    "page": "https://victorymuseum.ru/about/contacts/management-team/"
+   },
+   {
+    "email": "pomykanova@victorymuseum.ru",
+    "page": "https://victorymuseum.ru/about/contacts/management-team/"
+   },
+   {
+    "email": "gumenyk@victorymuseum.ru",
+    "page": "https://victorymuseum.ru/about/contacts/management-team/"
+   },
+   {
+    "email": "n.ovcharova@victorymuseum.ru",
+    "page": "https://victorymuseum.ru/about/contacts/management-team/"
+   },
+   {
+    "email": "kopaeva@victorymuseum.ru",
+    "page": "https://victorymuseum.ru/about/contacts/management-team/"
+   },
+   {
+    "email": "shmakova@victorymuseum.ru",
+    "page": "https://victorymuseum.ru/about/contacts/management-team/"
+   },
+   {
+    "email": "parhomchuk@cmvov.ru",
+    "page": "https://victorymuseum.ru/about/contacts/management-team/"
+   }
+  ],
+  "phones": [
+   "+7 (495) 449-81-81",
+   "+74994498181",
+   "+7 (499) 449-81-81"
+  ],
+  "contactPages": [
+   "https://victorymuseum.ru/about/",
+   "https://victorymuseum.ru/about/feedback/",
+   "https://victorymuseum.ru/about/press/",
+   "https://victorymuseum.ru/partnership/partners/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "zmmu.org",
+  "places": [
+   {
+    "slug": "zoomuzey-msu",
+    "title": "Зоологический музей МГУ",
+    "category": "museum"
+   }
+  ],
+  "site": "http://zmmu.org/",
+  "emails": [
+   {
+    "email": "olimp-zmmu@org.msu.ru",
+    "page": "http://zmmu.org/"
+   },
+   {
+    "email": "zmmu@zmmu.msu.ru",
+    "page": "http://zmmu.org/"
+   },
+   {
+    "email": "kovaleva@zmmu.msu.ru",
+    "page": "http://zmmu.org/"
+   },
+   {
+    "email": "olimp.zmmu@org.msu.ru",
+    "page": "http://zmmu.org/"
+   },
+   {
+    "email": "support@ticketscloud.org",
+    "page": "http://zmmu.org/"
+   },
+   {
+    "email": "excurs@zmmu.msu.ru",
+    "page": "http://zmmu.org/"
+   },
+   {
+    "email": "press@zmmu.msu.ru",
+    "page": "http://zmmu.org/contacts"
+   }
+  ],
+  "phones": [
+   "8 (495)629-48-56",
+   "8(495)629-48-56",
+   "8(495)629-39-48"
+  ],
+  "contactPages": [
+   "http://zmmu.org/about",
+   "http://zmmu.org/contacts",
+   "http://zmmu.org/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "shm.ru",
+  "places": [
+   {
+    "slug": "gim",
+    "title": "Государственный исторический музей",
+    "category": "museum"
+   }
+  ],
+  "site": "https://shm.ru/visit/kontakty-i-rezhim-raboty/",
+  "emails": [
+   {
+    "email": "visitor@shm.ru",
+    "page": "https://shm.ru/visit/kontakty-i-rezhim-raboty/"
+   },
+   {
+    "email": "rating@mail.ru",
+    "page": "https://shm.ru/visit/kontakty-i-rezhim-raboty/"
+   },
+   {
+    "email": "ponomarevamg@shm.ru",
+    "page": "https://shm.ru/missiya-i-organizatsiya/press-sluzhba/"
+   },
+   {
+    "email": "pressagim@yandex.ru",
+    "page": "https://shm.ru/missiya-i-organizatsiya/press-sluzhba/"
+   },
+   {
+    "email": "lemigovama@shm.ru",
+    "page": "https://shm.ru/missiya-i-organizatsiya/partnery-i-sponsory/"
+   },
+   {
+    "email": "sarkisovavn@shm.ru",
+    "page": "https://shm.ru/missiya-i-organizatsiya/partnery-i-sponsory/"
+   }
+  ],
+  "phones": [
+   "+74956923731",
+   "+7 (495) 692-37-31",
+   "+74956982497"
+  ],
+  "contactPages": [
+   "https://shm.ru/missiya-i-organizatsiya/press-sluzhba/",
+   "https://shm.ru/missiya-i-organizatsiya/partnery-i-sponsory/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "tretyakovgallery.ru",
+  "places": [
+   {
+    "slug": "tretyakovka-lavrushinsky",
+    "title": "Третьяковская галерея (Лаврушинский)",
+    "category": "museum"
+   },
+   {
+    "slug": "dom-muzey-vasnecova",
+    "title": "Дом-музей В. М. Васнецова",
+    "category": "museum"
+   }
+  ],
+  "site": "https://www.tretyakovgallery.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [
+   "https://www.tretyakovgallery.ru/contacts",
+   "https://www.tretyakovgallery.ru/contacts/",
+   "https://www.tretyakovgallery.ru/contact"
+  ],
+  "notes": []
+ },
+ {
+  "host": "pushkinmuseum.art",
+  "places": [
+   {
+    "slug": "pushkinsky-muzey",
+    "title": "Пушкинский музей (главное здание)",
+    "category": "museum"
+   }
+  ],
+  "site": "https://pushkinmuseum.art/visitors/index.php?lang=ru",
+  "emails": [
+   {
+    "email": "museyon@arts-museum.ru",
+    "page": "https://pushkinmuseum.art/museum/info/contacts/index.php?lang=ru"
+   },
+   {
+    "email": "pushkinyouth@arts-museum.ru",
+    "page": "https://pushkinmuseum.art/museum/info/contacts/index.php?lang=ru"
+   },
+   {
+    "email": "finearts@arts-museum.ru",
+    "page": "https://pushkinmuseum.art/museum/info/contacts/index.php?lang=ru"
+   },
+   {
+    "email": "anna.ragulina@arts-museum.ru",
+    "page": "https://pushkinmuseum.art/museum/info/contacts/index.php?lang=ru"
+   },
+   {
+    "email": "kadr@arts-museum.ru",
+    "page": "https://pushkinmuseum.art/museum/info/contacts/index.php?lang=ru"
+   },
+   {
+    "email": "tickets@arts-museum.ru",
+    "page": "https://pushkinmuseum.art/museum/info/contacts/index.php?lang=ru"
+   },
+   {
+    "email": "excurs@arts-museum.ru",
+    "page": "https://pushkinmuseum.art/museum/info/contacts/index.php?lang=ru"
+   },
+   {
+    "email": "press@arts-museum.ru",
+    "page": "https://pushkinmuseum.art/museum/info/contacts/index.php?lang=ru"
+   },
+   {
+    "email": "museum4all@arts-museum.ru",
+    "page": "https://pushkinmuseum.art/museum/info/contacts/index.php?lang=ru"
+   },
+   {
+    "email": "friends@arts-museum.ru",
+    "page": "https://pushkinmuseum.art/museum/info/contacts/index.php?lang=ru"
+   },
+   {
+    "email": "nadezda.bogdanova@arts-museum.ru",
+    "page": "https://pushkinmuseum.art/museum/info/contacts/index.php?lang=ru"
+   },
+   {
+    "email": "evgenia.takinashvili@pushkinmuseum.art",
+    "page": "https://pushkinmuseum.art/museum/info/press/index.php?lang=ru"
+   }
+  ],
+  "phones": [
+   "+7 (495) 697-95-78",
+   "+7 (495) 697-15-46",
+   "+74956099520"
+  ],
+  "contactPages": [
+   "https://pushkinmuseum.art/museum/history/about_museum/index.php?lang=ru",
+   "https://pushkinmuseum.art/museum/history/about_collection/index.php?lang=ru",
+   "https://pushkinmuseum.art/museum/info/contacts/index.php?lang=ru",
+   "https://pushkinmuseum.art/museum/info/press/index.php?lang=ru"
+  ],
+  "notes": []
+ },
+ {
+  "host": "puppet.ru",
+  "places": [
+   {
+    "slug": "teatr-obrazcova",
+    "title": "Театр кукол имени Образцова",
+    "category": "museum"
+   }
+  ],
+  "site": "https://puppet.ru/",
+  "emails": [
+   {
+    "email": "info@puppet.ru",
+    "page": "https://puppet.ru/"
+   },
+   {
+    "email": "pr@puppet.ru",
+    "page": "https://puppet.ru/"
+   }
+  ],
+  "phones": [
+   "+7 (495) 699-16-56",
+   "+7 (495) 699-53-73",
+   "+7 (495) 699-59-79"
+  ],
+  "contactPages": [
+   "https://puppet.ru/about/news",
+   "https://puppet.ru/about/news/cirk-na-nityah-pobyval-v-indii",
+   "https://puppet.ru/about/news/prazdnik-kazhdyy-den-final-festivalya-obraz-i-yubiley-studii-teatra-kukol-obrazcova",
+   "https://puppet.ru/about/news/chetvyortyy-festival-obraz-prazdnik-detskogo-tvorchestva-teatra-kukol-i-sceny"
+  ],
+  "notes": []
+ },
+ {
+  "host": "circusnikulin.ru",
+  "places": [
+   {
+    "slug": "cirk-nikulina",
+    "title": "Цирк Никулина на Цветном бульваре",
+    "category": "museum"
+   }
+  ],
+  "site": "https://circusnikulin.ru/",
+  "emails": [
+   {
+    "email": "info@circusnikulin.ru",
+    "page": "https://circusnikulin.ru/"
+   },
+   {
+    "email": "ticket@profticket.ru",
+    "page": "https://circusnikulin.ru/contacts"
+   },
+   {
+    "email": "lsamoilova@circusnikulin.ru",
+    "page": "https://circusnikulin.ru/contacts"
+   },
+   {
+    "email": "pr@circusnikulin.ru",
+    "page": "https://circusnikulin.ru/contacts"
+   }
+  ],
+  "phones": [
+   "+7 (495) 628-8349",
+   "+7 (495) 621-1281",
+   "+7 (495) 628-83-49"
+  ],
+  "contactPages": [
+   "https://circusnikulin.ru/about",
+   "https://circusnikulin.ru/contacts"
+  ],
+  "notes": []
+ },
+ {
+  "host": "greatcircus.ru",
+  "places": [
+   {
+    "slug": "bolshoy-moscow-cirk",
+    "title": "Большой Московский государственный цирк",
+    "category": "museum"
+   }
+  ],
+  "site": "https://www.greatcircus.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "robots запрещает /",
+   "robots запрещает /kontakty",
+   "robots запрещает /kontakty/",
+   "robots запрещает /contacts",
+   "robots запрещает /contacts/",
+   "robots запрещает /contact",
+   "robots запрещает /press"
+  ]
+ },
+ {
+  "host": "teatr-sats.ru",
+  "places": [
+   {
+    "slug": "teatr-sats",
+    "title": "Музыкальный театр имени Наталии Сац",
+    "category": "museum"
+   }
+  ],
+  "site": "https://teatr-sats.ru/",
+  "emails": [
+   {
+    "email": "rating@mail.ru",
+    "page": "https://teatr-sats.ru/"
+   },
+   {
+    "email": "teatr@teatr-sats.ru",
+    "page": "https://teatr-sats.ru/kontakty"
+   },
+   {
+    "email": "administrator@teatr-sats.ru",
+    "page": "https://teatr-sats.ru/kontakty"
+   },
+   {
+    "email": "partnership@teatr-sats.ru",
+    "page": "https://teatr-sats.ru/kontakty"
+   },
+   {
+    "email": "ndaragan@mail.ru",
+    "page": "https://teatr-sats.ru/kontakty"
+   },
+   {
+    "email": "almazami@gmail.com",
+    "page": "https://teatr-sats.ru/contacts"
+   }
+  ],
+  "phones": [
+   "+74951202515",
+   "8 (495) 120-25-15",
+   "8 (495) 930-63-64"
+  ],
+  "contactPages": [
+   "https://teatr-sats.ru/pressa",
+   "https://teatr-sats.ru/contacts"
+  ],
+  "notes": []
+ },
+ {
+  "host": "ugolokdurova.ru",
+  "places": [
+   {
+    "slug": "ugolok-durova",
+    "title": "Театр «Уголок дедушки Дурова»",
+    "category": "animals"
+   }
+  ],
+  "site": "https://www.ugolokdurova.ru/",
+  "emails": [],
+  "phones": [
+   "+7 (495) 631-30-47",
+   "+7 495 631-44-63",
+   "+7 495 631-30-47"
+  ],
+  "contactPages": [
+   "https://www.ugolokdurova.ru/about/",
+   "https://www.ugolokdurova.ru/contacts/",
+   "https://www.ugolokdurova.ru/about/history/",
+   "https://www.ugolokdurova.ru/about/dinasty/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "tvtower.ru",
+  "places": [
+   {
+    "slug": "ostankino-tower",
+    "title": "Останкинская башня: смотровая площадка",
+    "category": "museum"
+   }
+  ],
+  "site": "https://tvtower.ru/",
+  "emails": [
+   {
+    "email": "337m@rtrn.ru",
+    "page": "https://tvtower.ru/"
+   },
+   {
+    "email": "9152949221@rtrn.ru",
+    "page": "https://tvtower.ru/contacts/"
+   },
+   {
+    "email": "7nebo@rtrn.ru",
+    "page": "https://tvtower.ru/contacts/"
+   },
+   {
+    "email": "concerthall@rtrn.ru",
+    "page": "https://tvtower.ru/contacts/"
+   },
+   {
+    "email": "smi_msk@rtrn.ru",
+    "page": "https://tvtower.ru/contacts/"
+   },
+   {
+    "email": "mf@rtrn.ru",
+    "page": "https://tvtower.ru/contacts/"
+   }
+  ],
+  "phones": [
+   "84959266111",
+   "+7 (495) 926-61-11",
+   "+74959266111"
+  ],
+  "contactPages": [
+   "https://tvtower.ru/contacts/",
+   "https://tvtower.ru/contacts"
+  ],
+  "notes": [
+   "robots запрещает /partners/openair/",
+   "robots запрещает /partners/mediafacade/"
+  ]
+ },
+ {
+  "host": "pnr360.ru",
+  "places": [
+   {
+    "slug": "panorama360-federation",
+    "title": "«Панорама360» в башне «Федерация»",
+    "category": "museum"
+   }
+  ],
+  "site": "https://pnr360.ru/bilety-i-tseny/",
+  "emails": [
+   {
+    "email": "welcome@pnr360.ru",
+    "page": "https://pnr360.ru/bilety-i-tseny/"
+   }
+  ],
+  "phones": [
+   "+74951519494",
+   "+7 (495) 151-94-94",
+   "+7 495 151-94-94"
+  ],
+  "contactPages": [
+   "https://pnr360.ru/contact"
+  ],
+  "notes": []
+ },
+ {
+  "host": "danilovsky.market",
+  "places": [
+   {
+    "slug": "danilovsky-rynok",
+    "title": "Даниловский рынок",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://danilovsky.market/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "главная: ENOTFOUND"
+  ]
+ },
+ {
+  "host": "mdk-arbat.ru",
+  "places": [
+   {
+    "slug": "dom-knigi-arbat",
+    "title": "Московский дом книги на Новом Арбате",
+    "category": "shop"
+   }
+  ],
+  "site": "https://mdk-arbat.ru/",
+  "emails": [
+   {
+    "email": "internet.magazin@culture.mos.ru",
+    "page": "https://mdk-arbat.ru/"
+   },
+   {
+    "email": "news_mdk@culture.mos.ru",
+    "page": "https://mdk-arbat.ru/info/3"
+   }
+  ],
+  "phones": [
+   "+74957893591",
+   "+7 (495) 789-35-91",
+   "+74956481768"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "biblio-globus.ru",
+  "places": [
+   {
+    "slug": "biblio-globus",
+    "title": "«Библио-Глобус»",
+    "category": "shop"
+   }
+  ],
+  "site": "https://www.biblio-globus.ru/information/page/kontaktnaya-informaciya",
+  "emails": [
+   {
+    "email": "web.logist@bgshop.ru",
+    "page": "https://www.biblio-globus.ru/information/page/kontaktnaya-informaciya"
+   },
+   {
+    "email": "mail@biblio-globus.ru",
+    "page": "https://www.biblio-globus.ru/information/page/kontaktnaya-informaciya"
+   },
+   {
+    "email": "info@biblio-globus.ru",
+    "page": "https://www.biblio-globus.ru/information/page/kontaktnaya-informaciya"
+   }
+  ],
+  "phones": [
+   "+74957811912",
+   "+7 (499) 685-19-00",
+   "+74996851900"
+  ],
+  "contactPages": [
+   "https://www.biblio-globus.ru/mediacenter/about"
+  ],
+  "notes": []
+ },
+ {
+  "host": "walking.sport.mos.ru",
+  "places": [
+   {
+    "slug": "park-druzhby",
+    "title": "Парк Дружбы",
+    "category": "park"
+   }
+  ],
+  "site": "https://walking.sport.mos.ru/parkdruzhby/",
+  "emails": [
+   {
+    "email": "info@moscow.sport",
+    "page": "https://walking.sport.mos.ru/parkdruzhby/"
+   },
+   {
+    "email": "press@moscow.sport",
+    "page": "https://walking.sport.mos.ru/parkdruzhby/"
+   }
+  ],
+  "phones": [
+   "+7 495 901-02-27"
+  ],
+  "contactPages": [
+   "https://walking.sport.mos.ru/contacts",
+   "https://walking.sport.mos.ru/contacts/",
+   "https://walking.sport.mos.ru/contact"
+  ],
+  "notes": []
+ },
+ {
+  "host": "parkfili.ru",
+  "places": [
+   {
+    "slug": "park-fili",
+    "title": "Филёвский парк",
+    "category": "park"
+   }
+  ],
+  "site": "https://parkfili.ru/",
+  "emails": [
+   {
+    "email": "parkfili@culture.mos.ru",
+    "page": "https://parkfili.ru/"
+   }
+  ],
+  "phones": [
+   "+7 (499) 145-00-00",
+   "+74991450000",
+   "+7 (499) 145 00 00"
+  ],
+  "contactPages": [
+   "https://parkfili.ru/contacts",
+   "https://parkfili.ru/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "krylopark.ru",
+  "places": [
+   {
+    "slug": "krylatskie-kholmy",
+    "title": "Парк «Крылатские холмы»",
+    "category": "park"
+   }
+  ],
+  "site": "https://krylopark.ru/visitors/",
+  "emails": [
+   {
+    "email": "info@khills.info",
+    "page": "https://krylopark.ru/visitors/"
+   }
+  ],
+  "phones": [],
+  "contactPages": [
+   "https://krylopark.ru/about/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "mosparks.ru",
+  "places": [
+   {
+    "slug": "park-severnoe-tushino",
+    "title": "Парк «Северное Тушино»",
+    "category": "park"
+   }
+  ],
+  "site": "https://mosparks.ru/about/park-severnoe-tushino",
+  "emails": [
+   {
+    "email": "mpksevtushino@culture.mos.ru",
+    "page": "https://mosparks.ru/about/park-severnoe-tushino"
+   },
+   {
+    "email": "priemnaja@culture.mos.ru",
+    "page": "https://mosparks.ru/officials/contacts/"
+   }
+  ],
+  "phones": [
+   "+7(499)493-00-00",
+   "+7(495) 640-73-55",
+   "+7(499)493-00-06"
+  ],
+  "contactPages": [
+   "https://mosparks.ru/about",
+   "https://mosparks.ru/about/",
+   "https://mosparks.ru/officials/contacts/",
+   "https://mosparks.ru/about/pokrovkiy-bereg"
+  ],
+  "notes": []
+ },
+ {
+  "host": "russpass.ru",
+  "places": [
+   {
+    "slug": "ostrov-mechty",
+    "title": "Парк развлечений «Остров мечты»",
+    "category": "play"
+   }
+  ],
+  "site": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
+  "emails": [],
+  "phones": [
+   "82049767191",
+   "86023755871",
+   "89570723112"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "museum.cpm.moscow",
+  "places": [
+   {
+    "slug": "pokrovskoe-streshnevo",
+    "title": "Парк «Покровское-Стрешнево»",
+    "category": "park"
+   }
+  ],
+  "site": "https://museum.cpm.moscow/museums/278",
+  "emails": [
+   {
+    "email": "museum.org@yandex.ru",
+    "page": "https://museum.cpm.moscow/contacts"
+   }
+  ],
+  "phones": [
+   "8-903-542-04-57",
+   "8-968-577-7397"
+  ],
+  "contactPages": [
+   "https://museum.cpm.moscow/contacts",
+   "https://museum.cpm.moscow/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "more-on.ru",
+  "places": [
+   {
+    "slug": "akvapark-moreon",
+    "title": "Аквапарк «Мореон»",
+    "category": "active"
+   }
+  ],
+  "site": "https://more-on.ru/",
+  "emails": [
+   {
+    "email": "moreon@more-on.ru",
+    "page": "https://more-on.ru/"
+   },
+   {
+    "email": "event@more-on.ru",
+    "page": "https://more-on.ru/contacts/"
+   },
+   {
+    "email": "arenda@more-on.ru",
+    "page": "https://more-on.ru/contacts/"
+   }
+  ],
+  "phones": [
+   "+7 (495) 481-60-60",
+   "+74954816060",
+   "+7 495 481-60-60"
+  ],
+  "contactPages": [
+   "https://more-on.ru/contacts/",
+   "https://more-on.ru/contacts"
+  ],
+  "notes": []
+ },
+ {
+  "host": "um.mos.ru",
+  "places": [
+   {
+    "slug": "bitsevsky-les",
+    "title": "Битцевский лес (Битцевский парк)",
+    "category": "park"
+   }
+  ],
+  "site": "https://um.mos.ru/places/prirodno-istoricheskiy-park-bittsevskiy-les/",
+  "emails": [
+   {
+    "email": "um.info@mos.ru",
+    "page": "https://um.mos.ru/places/prirodno-istoricheskiy-park-bittsevskiy-les/"
+   },
+   {
+    "email": "u003eum.info@mos.ru",
+    "page": "https://um.mos.ru/places/prirodno-istoricheskiy-park-bittsevskiy-les/"
+   }
+  ],
+  "phones": [
+   "89960727188",
+   "83483116743",
+   "83863402736"
+  ],
+  "contactPages": [
+   "https://um.mos.ru/about/",
+   "https://um.mos.ru/about-application/",
+   "https://um.mos.ru/partners/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "izmailovsky-park.ru",
+  "places": [
+   {
+    "slug": "izmailovsky-park",
+    "title": "Измайловский парк",
+    "category": "park"
+   }
+  ],
+  "site": "https://www.izmailovsky-park.ru/pravila-poseshcheniya",
+  "emails": [
+   {
+    "email": "parkizmailovskiy@culture.mos.ru",
+    "page": "https://www.izmailovsky-park.ru/pravila-poseshcheniya"
+   }
+  ],
+  "phones": [
+   "8 (499) 530-16-62"
+  ],
+  "contactPages": [
+   "https://www.izmailovsky-park.ru/contacts"
+  ],
+  "notes": []
+ },
+ {
+  "host": "kuskovo.ru",
+  "places": [
+   {
+    "slug": "kuskovo",
+    "title": "Усадьба «Кусково»",
+    "category": "park"
+   }
+  ],
+  "site": "https://kuskovo.ru/posetitelyam/rezhim-raboty-muzeya/",
+  "emails": [
+   {
+    "email": "zakaz@kuskovo.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "museum_kuskovo@mail.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "pr@kuskovo.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "avdoninsv@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "ovchinnikovaoa1@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "grigorevaey@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "ereminaoi1@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "gribovaim@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "kovalskayaeb@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "osipovanp1@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "semchenkosa@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "pr@ostankino-museum.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "usadbakuskovo@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "tarasovava@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "kamyninamd@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "zhukovaab2@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "vasinaa6@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "ostankinokuskovo@yandex.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "ionovaos@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "dementevaev2@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "ivanovamn7@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   },
+   {
+    "email": "ayrievaky@culture.mos.ru",
+    "page": "https://kuskovo.ru/muzej/kontakty/"
+   }
+  ],
+  "phones": [
+   "+74953753131",
+   "+7 495 375 31 31",
+   "+7 495 370 01 50"
+  ],
+  "contactPages": [
+   "https://kuskovo.ru/muzej/dlya_pressy/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "park-gorkogo.ru",
+  "places": [
+   {
+    "slug": "muzeon",
+    "title": "Парк искусств «Музеон»",
+    "category": "park"
+   },
+   {
+    "slug": "vorobyovy-gory",
+    "title": "Воробьёвы горы: смотровая и набережная",
+    "category": "park"
+   }
+  ],
+  "site": "https://www.park-gorkogo.ru/faq/",
+  "emails": [
+   {
+    "email": "parkgorkogo@culture.mos.ru",
+    "page": "https://www.park-gorkogo.ru/faq/"
+   },
+   {
+    "email": "zakupki.parkgorkogo@culture.mos.ru",
+    "page": "https://www.park-gorkogo.ru/contacts"
+   }
+  ],
+  "phones": [
+   "+7 495 995-00-20",
+   "+74959950020"
+  ],
+  "contactPages": [
+   "https://www.park-gorkogo.ru/contacts",
+   "https://www.park-gorkogo.ru/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "mosgorsad.ru",
+  "places": [
+   {
+    "slug": "sad-ermitazh",
+    "title": "Сад «Эрмитаж»",
+    "category": "park"
+   }
+  ],
+  "site": "https://www.mosgorsad.ru/",
+  "emails": [
+   {
+    "email": "sadermitazh@culture.mos.ru",
+    "page": "https://www.mosgorsad.ru/contacts/"
+   },
+   {
+    "email": "press@mosgorsad.ru",
+    "page": "https://www.mosgorsad.ru/contacts/"
+   }
+  ],
+  "phones": [
+   "+7 (495) 699-08-49",
+   "+7(495)699-08-49",
+   "+7(495)699-04-32"
+  ],
+  "contactPages": [
+   "https://www.mosgorsad.ru/contacts/",
+   "https://www.mosgorsad.ru/contacts"
+  ],
+  "notes": []
+ },
+ {
+  "host": "gbsad.ru",
+  "places": [
+   {
+    "slug": "gbs-ran",
+    "title": "Главный ботанический сад РАН",
+    "category": "park"
+   }
+  ],
+  "site": "https://gbsad.ru/",
+  "emails": [
+   {
+    "email": "info@gbsad.ru",
+    "page": "https://gbsad.ru/"
+   },
+   {
+    "email": "law@gbsad.ru",
+    "page": "https://gbsad.ru/contact"
+   }
+  ],
+  "phones": [
+   "+7 499 977 91 45",
+   "+7 499 977-91-45",
+   "+7-966-145-72-47"
+  ],
+  "contactPages": [
+   "https://gbsad.ru/nashi-partnery",
+   "https://gbsad.ru/pressa-o-nas",
+   "https://gbsad.ru/contact"
+  ],
+  "notes": []
+ },
+ {
+  "host": "park-kuzminki.ru",
+  "places": [
+   {
+    "slug": "kuzminki-park",
+    "title": "Парк «Кузьминки»",
+    "category": "park"
+   },
+   {
+    "slug": "lyublino-usadba",
+    "title": "Усадьба Люблино",
+    "category": "park"
+   }
+  ],
+  "site": "https://park-kuzminki.ru/faq/",
+  "emails": [
+   {
+    "email": "parkkuzminki@culture.mos.ru",
+    "page": "https://park-kuzminki.ru/faq/"
+   },
+   {
+    "email": "zakaz@park-kuzminki.ru",
+    "page": "https://park-kuzminki.ru/faq/"
+   },
+   {
+    "email": "pr@park-kuzminki.ru",
+    "page": "https://park-kuzminki.ru/press-sluzhba/"
+   },
+   {
+    "email": "example@email.zone",
+    "page": "https://park-kuzminki.ru/kontakty/"
+   }
+  ],
+  "phones": [
+   "+74991753369",
+   "+7 499 175-33-69",
+   "+7 (499) 175-33-69"
+  ],
+  "contactPages": [
+   "https://park-kuzminki.ru/press-sluzhba/",
+   "https://park-kuzminki.ru/contacts"
+  ],
+  "notes": []
+ },
+ {
+  "host": "usadba-vorontsovo.ru",
+  "places": [
+   {
+    "slug": "vorontsovsky-park",
+    "title": "Воронцовский парк",
+    "category": "park"
+   }
+  ],
+  "site": "https://usadba-vorontsovo.ru/kontakty/",
+  "emails": [
+   {
+    "email": "usadbavorontsovo@culture.mos.ru",
+    "page": "https://usadba-vorontsovo.ru/kontakty/"
+   },
+   {
+    "email": "matlakhav@culture.mos.ru",
+    "page": "https://usadba-vorontsovo.ru/kontakty/"
+   },
+   {
+    "email": "protasevichmv@culture.mos.ru",
+    "page": "https://usadba-vorontsovo.ru/kontakty/"
+   },
+   {
+    "email": "priemnaja@culture.mos.ru",
+    "page": "https://usadba-vorontsovo.ru/kontakty/"
+   }
+  ],
+  "phones": [
+   "+7-495-580-26-78",
+   "+74959360092",
+   "+7 495 936-00-92"
+  ],
+  "contactPages": [
+   "https://usadba-vorontsovo.ru/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "luzhniki.ru",
+  "places": [
+   {
+    "slug": "park-luzhniki",
+    "title": "Парк «Лужники»",
+    "category": "park"
+   }
+  ],
+  "site": "https://www.luzhniki.ru/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "главная: UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+  ]
+ },
+ {
+  "host": "sadbaumana.ru",
+  "places": [
+   {
+    "slug": "lefortovsky-park",
+    "title": "Лефортовский парк",
+    "category": "park"
+   }
+  ],
+  "site": "https://sadbaumana.ru/about-the-garden/rules-of-conduct/pravila-poseshcheniya-lifortovskogo-parka",
+  "emails": [],
+  "phones": [
+   "8-495-918-03-61",
+   "8-495-918-03-81",
+   "8-495-676-75-65"
+  ],
+  "contactPages": [
+   "https://sadbaumana.ru/about-the-garden/official-information",
+   "https://sadbaumana.ru/about-the-garden/about-the-garden",
+   "https://sadbaumana.ru/about-the-garden/rules-of-conduct/pravila-poseshcheniya-sada-im-baumana",
+   "https://sadbaumana.ru/about-the-garden/zakupki"
+  ],
+  "notes": []
+ },
+ {
+  "host": "kremlin-izmailovo.com",
+  "places": [
+   {
+    "slug": "izmailovsky-kreml",
+    "title": "Измайловский кремль",
+    "category": "museum"
+   }
+  ],
+  "site": "https://www.kremlin-izmailovo.com/kontakty",
+  "emails": [
+   {
+    "email": "event@i-kremlin.ru",
+    "page": "https://www.kremlin-izmailovo.com/kontakty"
+   },
+   {
+    "email": "pressa@i-kremlin.ru",
+    "page": "https://www.kremlin-izmailovo.com/kontakty"
+   }
+  ],
+  "phones": [
+   "+7 (495) 215-54-37",
+   "+7(999) 999-99-99"
+  ],
+  "contactPages": [
+   "https://www.kremlin-izmailovo.com/contact"
+  ],
+  "notes": []
+ },
+ {
+  "host": "terletskypark.ru",
+  "places": [
+   {
+    "slug": "terletsky-park",
+    "title": "Терлецкий лесопарк",
+    "category": "park"
+   }
+  ],
+  "site": "https://terletskypark.ru/o-nas/",
+  "emails": [
+   {
+    "email": "lrjg-parkterletsky@culture.mos.ru",
+    "page": "https://terletskypark.ru/o-nas/"
+   }
+  ],
+  "phones": [
+   "+7 (495) 309-53-42",
+   "+7-(495)-309-53-42",
+   "+7-(495)-309-51-63"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "losinyiostrov.ru",
+  "places": [
+   {
+    "slug": "losiny-ostrov",
+    "title": "Национальный парк «Лосиный остров»",
+    "category": "park"
+   }
+  ],
+  "site": "https://losinyiostrov.ru/",
+  "emails": [
+   {
+    "email": "info@elkisland.ru",
+    "page": "https://losinyiostrov.ru/"
+   },
+   {
+    "email": "your@email.here",
+    "page": "https://losinyiostrov.ru/"
+   }
+  ],
+  "phones": [
+   "+7(495)323-88-85",
+   "+7 (495) 323-88-85"
+  ],
+  "contactPages": [
+   "https://losinyiostrov.ru/about/",
+   "https://losinyiostrov.ru/press/",
+   "https://losinyiostrov.ru/about/map/",
+   "https://losinyiostrov.ru/about/istoriya-parka/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "liapark.ru",
+  "places": [
+   {
+    "slug": "lianozovsky-park",
+    "title": "Лианозовский парк",
+    "category": "park"
+   }
+  ],
+  "site": "https://www.liapark.ru/site/contact",
+  "emails": [
+   {
+    "email": "parklianozovskiy@culture.mos.ru",
+    "page": "https://www.liapark.ru/site/contact"
+   },
+   {
+    "email": "artliapark@culture.mos.ru",
+    "page": "https://www.liapark.ru/site/contact"
+   },
+   {
+    "email": "prliapark@culture.mos.ru",
+    "page": "https://www.liapark.ru/site/contact"
+   }
+  ],
+  "phones": [
+   "+74992007044",
+   "+7 (499) 200-70-44",
+   "+74999083500"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "ostankino-museum.ru",
+  "places": [
+   {
+    "slug": "ostankino-usadba",
+    "title": "Останкинская усадьба Шереметевых",
+    "category": "museum"
+   }
+  ],
+  "site": "https://ostankino-museum.ru/rezhim-rabotyi-muzeya",
+  "emails": [
+   {
+    "email": "info@ostankino-museum.ru",
+    "page": "https://ostankino-museum.ru/rezhim-rabotyi-muzeya"
+   },
+   {
+    "email": "museiostankino@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "usadbakuskovo@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "ovchinnikovaoa1@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "grigorevaey@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "tarasovava@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "kamyninamd@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "ereminaoi1@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "gribovaim@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "dementevaev2@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "ionovaos@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "tenkinalv@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "mitnikma@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "shevchenkopa@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "pr@kuskovo.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "pr@ostankino-museum.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   },
+   {
+    "email": "ayrievaky@culture.mos.ru",
+    "page": "https://ostankino-museum.ru/kontaktyi"
+   }
+  ],
+  "phones": [
+   "+7 (495) 602 18 52",
+   "+7(495) 615-00-04",
+   "+7(495)602-18-52"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "xn--90ah2agcb.xn--p1ai",
+  "places": [
+   {
+    "slug": "serebryany-bor",
+    "title": "Серебряный Бор",
+    "category": "park"
+   }
+  ],
+  "site": "https://xn--90ah2agcb.xn--p1ai/",
+  "emails": [],
+  "phones": [
+   "+7 (985) 992-19-65",
+   "+7 (916) 123-17-39",
+   "+7 (499)-199-01-10"
+  ],
+  "contactPages": [
+   "https://xn--90ah2agcb.xn--p1ai/about-serbor"
+  ],
+  "notes": []
+ },
+ {
+  "host": "mospriroda.ru",
+  "places": [
+   {
+    "slug": "stroginskaya-poima",
+    "title": "Строгинская пойма",
+    "category": "park"
+   }
+  ],
+  "site": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/",
+  "emails": [],
+  "phones": [
+   "81383119174",
+   "80647229145",
+   "80366854797"
+  ],
+  "contactPages": [
+   "https://mospriroda.ru/about/",
+   "https://mospriroda.ru/about/locations/",
+   "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/?PAGEN_5=2",
+   "https://mospriroda.ru/about/history/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "mitino.bapark.ru",
+  "places": [
+   {
+    "slug": "mitinsky-park",
+    "title": "Митинский ландшафтный парк",
+    "category": "park"
+   }
+  ],
+  "site": "https://mitino.bapark.ru/informaciya/oficialnaya-informaciya",
+  "emails": [
+   {
+    "email": "parkbabushkinskiy@culture.mos.ru",
+    "page": "https://mitino.bapark.ru/informaciya/oficialnaya-informaciya/"
+   },
+   {
+    "email": "babkapark@mail.ru",
+    "page": "https://mitino.bapark.ru/informaciya/oficialnaya-informaciya/"
+   }
+  ],
+  "phones": [
+   "+7 (499) 184-09-18",
+   "+7 499 184 09 18",
+   "+7 925 133 42 26"
+  ],
+  "contactPages": [
+   "https://mitino.bapark.ru/dosug-i-razvlechenie/partneram-i-reklamodatelyam/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "1812panorama.ru",
+  "places": [
+   {
+    "slug": "borodinskaya-panorama",
+    "title": "Музей-панорама «Бородинская битва»",
+    "category": "museum"
+   }
+  ],
+  "site": "https://www.1812panorama.ru/",
+  "emails": [
+   {
+    "email": "museiborodbitva@culture.mos.ru",
+    "page": "https://www.1812panorama.ru/museum/press-center"
+   },
+   {
+    "email": "zboevskayamy@culture.mos.ru",
+    "page": "https://www.1812panorama.ru/museum/press-center"
+   },
+   {
+    "email": "popiashviliaz@culture.mos.ru",
+    "page": "https://www.1812panorama.ru/contacts"
+   },
+   {
+    "email": "shishkinaeb@culture.mos.ru",
+    "page": "https://www.1812panorama.ru/contacts"
+   },
+   {
+    "email": "zarifullinams@culture.mos.ru",
+    "page": "https://www.1812panorama.ru/contacts"
+   },
+   {
+    "email": "kulikovaoi4@culture.mos.ru",
+    "page": "https://www.1812panorama.ru/contacts"
+   },
+   {
+    "email": "lvovsv@culture.mos.ru",
+    "page": "https://www.1812panorama.ru/contacts"
+   },
+   {
+    "email": "khlystovayg@culture.mos.ru",
+    "page": "https://www.1812panorama.ru/contacts"
+   },
+   {
+    "email": "bindalovayv@culture.mos.ru",
+    "page": "https://www.1812panorama.ru/contacts"
+   }
+  ],
+  "phones": [
+   "+7 (499) 148 1927",
+   "+7 (499) 148 1875",
+   "+7 (499) 148 1967"
+  ],
+  "contactPages": [
+   "https://www.1812panorama.ru/museum/press-center",
+   "https://www.1812panorama.ru/contacts",
+   "https://www.1812panorama.ru/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "mosfilm.ru",
+  "places": [
+   {
+    "slug": "mosfilm-excursion",
+    "title": "Киностудия «Мосфильм»: экскурсия",
+    "category": "museum"
+   }
+  ],
+  "site": "https://www.mosfilm.ru/excursions/",
+  "emails": [
+   {
+    "email": "excursion@mosfilm.ru",
+    "page": "https://www.mosfilm.ru/excursions/"
+   },
+   {
+    "email": "public@mosfilm.ru",
+    "page": "https://www.mosfilm.ru/about/press-service/"
+   },
+   {
+    "email": "pr@mosfilm.ru",
+    "page": "https://www.mosfilm.ru/about/press-service/"
+   }
+  ],
+  "phones": [
+   "+7 (499) 143-9599",
+   "+74991439599",
+   "+7(499)143-95-99"
+  ],
+  "contactPages": [
+   "https://www.mosfilm.ru/about/",
+   "https://www.mosfilm.ru/about/director/",
+   "https://www.mosfilm.ru/about/history/",
+   "https://www.mosfilm.ru/about/news/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "dreamkids.moscow",
+  "places": [
+   {
+    "slug": "dream-kids",
+    "title": "Dream Kids",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://dreamkids.moscow/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "julydetyam.ru",
+  "places": [
+   {
+    "slug": "iyul-detyam",
+    "title": "Июль Детям",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://julydetyam.ru/onas",
+  "emails": [
+   {
+    "email": "july-detyam@yandex.ru",
+    "page": "https://julydetyam.ru/kontakty"
+   }
+  ],
+  "phones": [
+   "+7 (916) 727-27-07",
+   "84206003432",
+   "85206003432"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "russkoepodvorie.com",
+  "places": [
+   {
+    "slug": "russkoe-podvorye",
+    "title": "Русское Подворье",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://russkoepodvorie.com/",
+  "emails": [
+   {
+    "email": "manager@russkoepodvorie.com",
+    "page": "https://russkoepodvorie.com/"
+   },
+   {
+    "email": "catering@russkoepodvorie.com",
+    "page": "https://russkoepodvorie.com/kontakty/"
+   }
+  ],
+  "phones": [
+   "+7 495 319-52-50",
+   "+79671504649",
+   "+7 967 150-46-49"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "chaihona.ru",
+  "places": [
+   {
+    "slug": "vasilchuki-chaihona-dmitriya-ulyanova",
+    "title": "Vasilchuki Chaihona №1 — Дмитрия Ульянова",
+    "category": "cafe"
+   },
+   {
+    "slug": "vasilchuki-chaihona-afimall",
+    "title": "Vasilchuki Chaihona №1 — Афимолл",
+    "category": "cafe"
+   },
+   {
+    "slug": "vasilchuki-chaihona-metropolis",
+    "title": "Vasilchuki Chaihona №1 — Метрополис",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://chaihona.ru/restaurants/dmitriya-ulyanova-51",
+  "emails": [
+   {
+    "email": "info@resproject.ru",
+    "page": "https://chaihona.ru/restaurants/dmitriya-ulyanova-51"
+   },
+   {
+    "email": "marketing@resproject.ru",
+    "page": "https://chaihona.ru/contact"
+   },
+   {
+    "email": "franch@resproject.ru",
+    "page": "https://chaihona.ru/contact"
+   }
+  ],
+  "phones": [
+   "+7 (495) 186-31-17",
+   "+7 (495) 234-02-33",
+   "+7 (495) 234-02-34"
+  ],
+  "contactPages": [
+   "https://chaihona.ru/contact"
+  ],
+  "notes": []
+ },
+ {
+  "host": "xn--e1asbf2d.xn--p1ai",
+  "places": [
+   {
+    "slug": "piero-zilart",
+    "title": "Пьеро",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://xn--e1asbf2d.xn--p1ai/",
+  "emails": [],
+  "phones": [
+   "+74951207071",
+   "+7 (495) 120-70-71",
+   "+79251114521"
+  ],
+  "contactPages": [
+   "https://xn--e1asbf2d.xn--p1ai/about",
+   "https://xn--e1asbf2d.xn--p1ai/contacts",
+   "https://xn--e1asbf2d.xn--p1ai/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "ribambelle.ru",
+  "places": [
+   {
+    "slug": "ribambelle-vremena-goda",
+    "title": "Ribambelle — Времена года",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://ribambelle.ru/kontakty",
+  "emails": [
+   {
+    "email": "contact@ribambelle.ru",
+    "page": "https://ribambelle.ru/kontakty"
+   },
+   {
+    "email": "marketing@ribambelle.ru",
+    "page": "https://ribambelle.ru/kontakty"
+   },
+   {
+    "email": "pr@ribambelle.ru",
+    "page": "https://ribambelle.ru/kontakty"
+   },
+   {
+    "email": "event@ribambelle.ru",
+    "page": "https://ribambelle.ru/kontakty"
+   }
+  ],
+  "phones": [
+   "+7 (903) 777-77-81"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "cafe-kitchen.ru",
+  "places": [
+   {
+    "slug": "kitchen-khodynka",
+    "title": "Kitchen — Ходынка",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/",
+  "emails": [
+   {
+    "email": "hodinka@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/"
+   },
+   {
+    "email": "reklama@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/"
+   },
+   {
+    "email": "zakupka@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/"
+   },
+   {
+    "email": "otzyv@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/"
+   },
+   {
+    "email": "bazorkina@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/"
+   },
+   {
+    "email": "hr@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/"
+   },
+   {
+    "email": "banket@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/"
+   },
+   {
+    "email": "welcome@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/"
+   },
+   {
+    "email": "garibaldi@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "alia@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "botsad@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "kholmy@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "marfino@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "udalcova@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "anoxina@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "reutov@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   },
+   {
+    "email": "zheldor@1kitchen.ru",
+    "page": "https://cafe-kitchen.ru/contacts/"
+   }
+  ],
+  "phones": [
+   "+79260210880",
+   "+7 (926) 021 0880",
+   "+7 (925) 759 0010"
+  ],
+  "contactPages": [
+   "https://cafe-kitchen.ru/contacts/",
+   "https://cafe-kitchen.ru/contacts",
+   "https://cafe-kitchen.ru/contact"
+  ],
+  "notes": []
+ },
+ {
+  "host": "cafe-anderson.ru",
+  "places": [
+   {
+    "slug": "anderson-ostrovityanova",
+    "title": "АндерСон — Островитянова",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://cafe-anderson.ru/cafe/ostrov/",
+  "emails": [],
+  "phones": [],
+  "contactPages": [],
+  "notes": [
+   "главная: 404"
+  ]
+ },
+ {
+  "host": "kids-castle.pro",
+  "places": [
+   {
+    "slug": "kids-castle-mitino",
+    "title": "Kids Castle — Митино",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://kids-castle.pro/mitino",
+  "emails": [],
+  "phones": [
+   "+79951001717",
+   "+7 995 100-17-17",
+   "+7-995-100-17-17"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "klich.moscow",
+  "places": [
+   {
+    "slug": "klich-zilart",
+    "title": "KLICH",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://klich.moscow/kontakty",
+  "emails": [],
+  "phones": [
+   "+7(900)155-99-99",
+   "+79001559999",
+   "+7(900) 155-99-99"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "repastcafe.com",
+  "places": [
+   {
+    "slug": "repast-cafe",
+    "title": "Repast Cafe",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://repastcafe.com/",
+  "emails": [
+   {
+    "email": "repastkafe@mail.ru",
+    "page": "https://repastcafe.com/contacts/"
+   }
+  ],
+  "phones": [
+   "89997171717",
+   "8 999 717 17 17",
+   "+79997171717"
+  ],
+  "contactPages": [
+   "https://repastcafe.com/about/",
+   "https://repastcafe.com/contacts/",
+   "https://repastcafe.com/contacts"
+  ],
+  "notes": []
+ },
+ {
+  "host": "localkids.clients.site",
+  "places": [
+   {
+    "slug": "local-kids-vnukovo",
+    "title": "Local Kids",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://localkids.clients.site/",
+  "emails": [],
+  "phones": [
+   "+79671597575",
+   "+7 967 159 75 75",
+   "+7 (967) 159-75-75"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "littleskids.com",
+  "places": [
+   {
+    "slug": "littles-kids-play-cafe",
+    "title": "Littles Kids Play Cafe",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://littleskids.com/",
+  "emails": [
+   {
+    "email": "info@littleskids.com",
+    "page": "https://littleskids.com/"
+   },
+   {
+    "email": "event@littleskids.com",
+    "page": "https://littleskids.com/contacts"
+   }
+  ],
+  "phones": [
+   "+7 (901) 901-94-41",
+   "+7 (901) 901 94 41",
+   "+7 (925) 264-40-08"
+  ],
+  "contactPages": [
+   "https://littleskids.com/contacts",
+   "https://littleskids.com/contacts/"
+  ],
+  "notes": []
+ },
+ {
+  "host": "jooiecafe.ru",
+  "places": [
+   {
+    "slug": "jooie-presnya",
+    "title": "Jooie — Пресня",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://jooiecafe.ru/",
+  "emails": [
+   {
+    "email": "jooie.rassvet@gmail.com",
+    "page": "https://jooiecafe.ru/"
+   },
+   {
+    "email": "jooie.hodynka@gmail.com",
+    "page": "https://jooiecafe.ru/"
+   },
+   {
+    "email": "eventjooie@gmail.com",
+    "page": "https://jooiecafe.ru/"
+   }
+  ],
+  "phones": [
+   "+79032535596",
+   "+7 (903)253-55-96",
+   "+79688808820"
+  ],
+  "contactPages": [],
+  "notes": []
+ },
+ {
+  "host": "tuttalavita.ru",
+  "places": [
+   {
+    "slug": "tutta-la-vita",
+    "title": "Tutta La Vita",
+    "category": "cafe"
+   }
+  ],
+  "site": "https://tuttalavita.ru/",
+  "emails": [],
+  "phones": [
+   "+7 (495) 782-18-70",
+   "+7 (495) 114-50-20",
+   "+7 (999) 999-99-99"
+  ],
+  "contactPages": [],
+  "notes": []
+ }
+]
