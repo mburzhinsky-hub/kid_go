@@ -1,0 +1,30 @@
+name: contacts-2
+
+# Разовый сбор публичных контактов с официальных сайтов мест (для писем с просьбой о фото).
+# Запускается пушем в ветку ci/contacts-2. Результат коммитится в tmp_contacts/contacts.json этой же ветки.
+on:
+  push:
+    branches: [ci/contacts-2]
+    paths: [scripts/collect-contacts.mjs, tmp_contacts/sites.json, .github/workflows/contacts-2.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Collect
+        run: node scripts/collect-contacts.mjs
+      - name: Save result to branch
+        run: |
+          git config user.name "contacts-probe"
+          git config user.email "noreply@github.com"
+          git add tmp_contacts/contacts.json
+          git commit -m "contacts-probe: результат сбора контактов"
+          git push origin HEAD:ci/contacts-2

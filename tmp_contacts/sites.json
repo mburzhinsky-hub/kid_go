@@ -1,0 +1,1156 @@
+[
+ {
+  "host": "parksokolniki.mos.ru",
+  "url": "https://parksokolniki.mos.ru/",
+  "places": [
+   {
+    "slug": "park-sokolniki",
+    "title": "Парк Сокольники",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "parkgorkogo.ru",
+  "url": "https://parkgorkogo.ru/",
+  "places": [
+   {
+    "slug": "park-gorkogo",
+    "title": "Парк Горького",
+    "category": "park"
+   },
+   {
+    "slug": "neskuchny-sad",
+    "title": "Нескучный сад",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "welcome.zaryadyepark.ru",
+  "url": "https://welcome.zaryadyepark.ru/",
+  "places": [
+   {
+    "slug": "park-zaryadye",
+    "title": "Парк Зарядье",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "mgomz.ru",
+  "url": "https://mgomz.ru/kolomenskoe",
+  "places": [
+   {
+    "slug": "kolomenskoe",
+    "title": "Коломенское",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "hortus.msu.ru",
+  "url": "https://hortus.msu.ru/",
+  "places": [
+   {
+    "slug": "aptekarsky-ogorod",
+    "title": "Аптекарский огород",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "vdnh.ru",
+  "url": "https://vdnh.ru/",
+  "places": [
+   {
+    "slug": "vdnh",
+    "title": "ВДНХ",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "paleo.ru",
+  "url": "https://www.paleo.ru/museum/visitors/",
+  "places": [
+   {
+    "slug": "paleontologichesky-muzey",
+    "title": "Палеонтологический музей",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "kosmo-museum.ru",
+  "url": "https://kosmo-museum.ru/",
+  "places": [
+   {
+    "slug": "muzey-kosmonavtiki",
+    "title": "Музей космонавтики",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "darwinmuseum.ru",
+  "url": "https://www.darwinmuseum.ru/",
+  "places": [
+   {
+    "slug": "darvinovsky-muzey",
+    "title": "Дарвиновский музей",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "experimentanium.ru",
+  "url": "https://experimentanium.ru/",
+  "places": [
+   {
+    "slug": "eksperimentanium",
+    "title": "Экспериментаниум",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "planetarium-moscow.ru",
+  "url": "https://planetarium-moscow.ru/",
+  "places": [
+   {
+    "slug": "moskovsky-planetariy",
+    "title": "Московский планетарий",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "mtmuseum.ru",
+  "url": "https://mtmuseum.ru/",
+  "places": [
+   {
+    "slug": "muzey-transporta",
+    "title": "Музей транспорта Москвы",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "moscowzoo.ru",
+  "url": "https://moscowzoo.ru/",
+  "places": [
+   {
+    "slug": "moskovsky-zoopark",
+    "title": "Московский зоопарк",
+    "category": "animals"
+   }
+  ]
+ },
+ {
+  "host": "moskvarium.ru",
+  "url": "https://moskvarium.ru/",
+  "places": [
+   {
+    "slug": "moskvarium",
+    "title": "Москвариум",
+    "category": "animals"
+   }
+  ]
+ },
+ {
+  "host": "pandapark.org",
+  "url": "https://pandapark.org/",
+  "places": [
+   {
+    "slug": "panda-park-sokolniki",
+    "title": "Верёвочный парк «Панда Парк»",
+    "category": "active"
+   },
+   {
+    "slug": "pandapark-meshchersky",
+    "title": "ПандаПарк Мещерский",
+    "category": "active"
+   },
+   {
+    "slug": "pandapark-fili",
+    "title": "ПандаПарк Фили",
+    "category": "active"
+   }
+  ]
+ },
+ {
+  "host": "cdm-moscow.ru",
+  "url": "https://cdm-moscow.ru/",
+  "places": [
+   {
+    "slug": "centralny-detsky-magazin",
+    "title": "Центральный Детский Магазин",
+    "category": "shop"
+   }
+  ]
+ },
+ {
+  "host": "arhangelskoe.su",
+  "url": "https://arhangelskoe.su/for_visitor/working_hours/",
+  "places": [
+   {
+    "slug": "arkhangelskoe",
+    "title": "Усадьба «Архангельское»",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "welcome.mosreg.ru",
+  "url": "https://welcome.mosreg.ru/ideas/progulki-na-vysote-devatietaznogo-doma",
+  "places": [
+   {
+    "slug": "norway-park-krasnogorsk",
+    "title": "Верёвочный парк Norway Park Красногорск",
+    "category": "active"
+   },
+   {
+    "slug": "huskyland-nazarevo",
+    "title": "Этнопарк «Хаски Лэнд»",
+    "category": "animals"
+   },
+   {
+    "slug": "muzey-lozhki-solnechnogorsk",
+    "title": "Музей «Ложки»",
+    "category": "museum"
+   },
+   {
+    "slug": "dolgoprudnensky-muzey",
+    "title": "Долгопрудненский историко-художественный музей",
+    "category": "museum"
+   },
+   {
+    "slug": "peshki-park",
+    "title": "Пешки Парк",
+    "category": "active"
+   },
+   {
+    "slug": "teatr-nash-dom-khimki",
+    "title": "Театр «Наш дом»",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "zoolandia-istra.ru",
+  "url": "https://zoolandia-istra.ru/",
+  "places": [
+   {
+    "slug": "zoolandia-kryuchkovo",
+    "title": "Контактный зоопарк «Зооландия»",
+    "category": "animals"
+   }
+  ]
+ },
+ {
+  "host": "njerusalem.ru",
+  "url": "https://njerusalem.ru/posetitelyam/rezhim-raboty/",
+  "places": [
+   {
+    "slug": "muzey-novy-ierusalim",
+    "title": "Музей «Новый Иерусалим»",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "tmuseum.ru",
+  "url": "https://tmuseum.ru/kontakty/",
+  "places": [
+   {
+    "slug": "muzey-tekhniki-zadorozhnogo",
+    "title": "Музей техники Вадима Задорожного",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "zvenmuseum.ru",
+  "url": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
+  "places": [
+   {
+    "slug": "muzey-materinstva-ilinskoe",
+    "title": "Музей материнства и младенчества",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "parkpatriot.ru",
+  "url": "https://parkpatriot.ru/",
+  "places": [
+   {
+    "slug": "park-patriot-kubinka",
+    "title": "Парк «Патриот»",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "rusdessertmuseum.ru",
+  "url": "https://rusdessertmuseum.ru/",
+  "places": [
+   {
+    "slug": "muzey-russkogo-deserta-zvenigorod",
+    "title": "Музей русского десерта",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "museum-gol.ru",
+  "url": "https://museum-gol.ru/visitors/",
+  "places": [
+   {
+    "slug": "usadba-vyazemy-pushkin",
+    "title": "Усадьба Вяземы (музей-заповедник Пушкина)",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "kp.ru",
+  "url": "https://www.kp.ru/russia/podmoskove/mesta/park-malevicha/",
+  "places": [
+   {
+    "slug": "park-malevicha-razdory",
+    "title": "Парк Малевича",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "odinparki.ru",
+  "url": "https://odinparki.ru/parks/?id=2991",
+  "places": [
+   {
+    "slug": "park-razdolye-razdory",
+    "title": "Парк «Раздолье»",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "goslitmuz.ru",
+  "url": "https://goslitmuz.ru/museums/dom-muzey-m-m-prishvina/",
+  "places": [
+   {
+    "slug": "dom-muzey-prishvina-dunino",
+    "title": "Дом-музей М. М. Пришвина в Дунине",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "mooncatpark.ru",
+  "url": "https://mooncatpark.ru/",
+  "places": [
+   {
+    "slug": "lunny-kot-zelenograd",
+    "title": "Лунный Кот",
+    "category": "play"
+   }
+  ]
+ },
+ {
+  "host": "zelenopark.kidburg.ru",
+  "url": "https://zelenopark.kidburg.ru/",
+  "places": [
+   {
+    "slug": "kidburg-zelenopark",
+    "title": "КидБург Зеленопарк",
+    "category": "play"
+   }
+  ]
+ },
+ {
+  "host": "putevka.com",
+  "url": "https://www.putevka.com/moskva/khimki/sight/park-kultury-i-otdykha-im-tolstogo",
+  "places": [
+   {
+    "slug": "park-tolstogo-himki",
+    "title": "Парк им. Л. Н. Толстого",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "parkihimki.ru",
+  "url": "https://www.parkihimki.ru/park_ecobereg",
+  "places": [
+   {
+    "slug": "park-ekobereg-himki",
+    "title": "Парк «Экоберег»",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "star-lab.org",
+  "url": "https://star-lab.org/",
+  "places": [
+   {
+    "slug": "mega-himki-detskie-zony",
+    "title": "StarLab в МЕГА Химки",
+    "category": "play"
+   }
+  ]
+ },
+ {
+  "host": "detmir.ru",
+  "url": "https://www.detmir.ru/shops/item/id/176/",
+  "places": [
+   {
+    "slug": "detmir-mega-himki",
+    "title": "Детский мир в МЕГА Химки",
+    "category": "shop"
+   }
+  ]
+ },
+ {
+  "host": "museumot.info",
+  "url": "https://museumot.info/grafik/",
+  "places": [
+   {
+    "slug": "muzey-igrushki-sergiev-posad",
+    "title": "Музей игрушки в Сергиевом Посаде",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "abramtsevo.net",
+  "url": "https://abramtsevo.net/kontakti/proezd.html",
+  "places": [
+   {
+    "slug": "abramtsevo",
+    "title": "Музей-заповедник «Абрамцево»",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "chekhovmuseum.com",
+  "url": "https://chekhovmuseum.com/",
+  "places": [
+   {
+    "slug": "melikhovo-chekhov",
+    "title": "Музей-заповедник А. П. Чехова «Мелихово»",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "dubrovitsy-hram.ru",
+  "url": "https://www.dubrovitsy-hram.ru/raspisanie-bogosluzheniy-v-hrame-znamenie",
+  "places": [
+   {
+    "slug": "dubrovitsy-znamenskaya-cerkov",
+    "title": "Усадьба Дубровицы и церковь Знамения",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "kolomnapastila.ru",
+  "url": "https://kolomnapastila.ru/contacts/",
+  "places": [
+   {
+    "slug": "kolomna-pastila-muzey",
+    "title": "Музей истории «Коломенская пастила»",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "kolomna-kreml.ru",
+  "url": "https://kolomna-kreml.ru/",
+  "places": [
+   {
+    "slug": "kolomna-kreml",
+    "title": "Коломенский кремль",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "polymus.ru",
+  "url": "https://polymus.ru/museum/contacts",
+  "places": [
+   {
+    "slug": "politehnichesky-muzey",
+    "title": "Политехнический музей",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "mosmuseum.ru",
+  "url": "https://mosmuseum.ru/",
+  "places": [
+   {
+    "slug": "muzey-moskvy",
+    "title": "Музей Москвы",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "victorymuseum.ru",
+  "url": "https://victorymuseum.ru/about/contacts/",
+  "places": [
+   {
+    "slug": "muzey-pobedy",
+    "title": "Музей Победы",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "zmmu.org",
+  "url": "http://zmmu.org/",
+  "places": [
+   {
+    "slug": "zoomuzey-msu",
+    "title": "Зоологический музей МГУ",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "shm.ru",
+  "url": "https://shm.ru/visit/kontakty-i-rezhim-raboty/",
+  "places": [
+   {
+    "slug": "gim",
+    "title": "Государственный исторический музей",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "tretyakovgallery.ru",
+  "url": "https://www.tretyakovgallery.ru/",
+  "places": [
+   {
+    "slug": "tretyakovka-lavrushinsky",
+    "title": "Третьяковская галерея (Лаврушинский)",
+    "category": "museum"
+   },
+   {
+    "slug": "dom-muzey-vasnecova",
+    "title": "Дом-музей В. М. Васнецова",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "pushkinmuseum.art",
+  "url": "https://pushkinmuseum.art/visitors/index.php?lang=ru",
+  "places": [
+   {
+    "slug": "pushkinsky-muzey",
+    "title": "Пушкинский музей (главное здание)",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "puppet.ru",
+  "url": "https://puppet.ru/",
+  "places": [
+   {
+    "slug": "teatr-obrazcova",
+    "title": "Театр кукол имени Образцова",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "circusnikulin.ru",
+  "url": "https://circusnikulin.ru/",
+  "places": [
+   {
+    "slug": "cirk-nikulina",
+    "title": "Цирк Никулина на Цветном бульваре",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "greatcircus.ru",
+  "url": "https://www.greatcircus.ru/",
+  "places": [
+   {
+    "slug": "bolshoy-moscow-cirk",
+    "title": "Большой Московский государственный цирк",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "teatr-sats.ru",
+  "url": "https://teatr-sats.ru/",
+  "places": [
+   {
+    "slug": "teatr-sats",
+    "title": "Музыкальный театр имени Наталии Сац",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "ugolokdurova.ru",
+  "url": "https://www.ugolokdurova.ru/",
+  "places": [
+   {
+    "slug": "ugolok-durova",
+    "title": "Театр «Уголок дедушки Дурова»",
+    "category": "animals"
+   }
+  ]
+ },
+ {
+  "host": "tvtower.ru",
+  "url": "https://tvtower.ru/",
+  "places": [
+   {
+    "slug": "ostankino-tower",
+    "title": "Останкинская башня: смотровая площадка",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "pnr360.ru",
+  "url": "https://pnr360.ru/bilety-i-tseny/",
+  "places": [
+   {
+    "slug": "panorama360-federation",
+    "title": "«Панорама360» в башне «Федерация»",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "danilovsky.market",
+  "url": "https://danilovsky.market/",
+  "places": [
+   {
+    "slug": "danilovsky-rynok",
+    "title": "Даниловский рынок",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "mdk-arbat.ru",
+  "url": "https://mdk-arbat.ru/",
+  "places": [
+   {
+    "slug": "dom-knigi-arbat",
+    "title": "Московский дом книги на Новом Арбате",
+    "category": "shop"
+   }
+  ]
+ },
+ {
+  "host": "biblio-globus.ru",
+  "url": "https://www.biblio-globus.ru/information/page/kontaktnaya-informaciya",
+  "places": [
+   {
+    "slug": "biblio-globus",
+    "title": "«Библио-Глобус»",
+    "category": "shop"
+   }
+  ]
+ },
+ {
+  "host": "walking.sport.mos.ru",
+  "url": "https://walking.sport.mos.ru/parkdruzhby/",
+  "places": [
+   {
+    "slug": "park-druzhby",
+    "title": "Парк Дружбы",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "parkfili.ru",
+  "url": "https://parkfili.ru/",
+  "places": [
+   {
+    "slug": "park-fili",
+    "title": "Филёвский парк",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "krylopark.ru",
+  "url": "https://krylopark.ru/visitors/",
+  "places": [
+   {
+    "slug": "krylatskie-kholmy",
+    "title": "Парк «Крылатские холмы»",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "mosparks.ru",
+  "url": "https://mosparks.ru/about/park-severnoe-tushino",
+  "places": [
+   {
+    "slug": "park-severnoe-tushino",
+    "title": "Парк «Северное Тушино»",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "russpass.ru",
+  "url": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
+  "places": [
+   {
+    "slug": "ostrov-mechty",
+    "title": "Парк развлечений «Остров мечты»",
+    "category": "play"
+   }
+  ]
+ },
+ {
+  "host": "museum.cpm.moscow",
+  "url": "https://museum.cpm.moscow/museums/278",
+  "places": [
+   {
+    "slug": "pokrovskoe-streshnevo",
+    "title": "Парк «Покровское-Стрешнево»",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "more-on.ru",
+  "url": "https://more-on.ru/",
+  "places": [
+   {
+    "slug": "akvapark-moreon",
+    "title": "Аквапарк «Мореон»",
+    "category": "active"
+   }
+  ]
+ },
+ {
+  "host": "um.mos.ru",
+  "url": "https://um.mos.ru/places/prirodno-istoricheskiy-park-bittsevskiy-les/",
+  "places": [
+   {
+    "slug": "bitsevsky-les",
+    "title": "Битцевский лес (Битцевский парк)",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "izmailovsky-park.ru",
+  "url": "https://www.izmailovsky-park.ru/pravila-poseshcheniya",
+  "places": [
+   {
+    "slug": "izmailovsky-park",
+    "title": "Измайловский парк",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "kuskovo.ru",
+  "url": "https://kuskovo.ru/posetitelyam/rezhim-raboty-muzeya/",
+  "places": [
+   {
+    "slug": "kuskovo",
+    "title": "Усадьба «Кусково»",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "park-gorkogo.ru",
+  "url": "https://www.park-gorkogo.ru/faq/",
+  "places": [
+   {
+    "slug": "muzeon",
+    "title": "Парк искусств «Музеон»",
+    "category": "park"
+   },
+   {
+    "slug": "vorobyovy-gory",
+    "title": "Воробьёвы горы: смотровая и набережная",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "mosgorsad.ru",
+  "url": "https://www.mosgorsad.ru/",
+  "places": [
+   {
+    "slug": "sad-ermitazh",
+    "title": "Сад «Эрмитаж»",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "gbsad.ru",
+  "url": "https://gbsad.ru/",
+  "places": [
+   {
+    "slug": "gbs-ran",
+    "title": "Главный ботанический сад РАН",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "park-kuzminki.ru",
+  "url": "https://park-kuzminki.ru/faq/",
+  "places": [
+   {
+    "slug": "kuzminki-park",
+    "title": "Парк «Кузьминки»",
+    "category": "park"
+   },
+   {
+    "slug": "lyublino-usadba",
+    "title": "Усадьба Люблино",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "usadba-vorontsovo.ru",
+  "url": "https://usadba-vorontsovo.ru/kontakty/",
+  "places": [
+   {
+    "slug": "vorontsovsky-park",
+    "title": "Воронцовский парк",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "luzhniki.ru",
+  "url": "https://www.luzhniki.ru/",
+  "places": [
+   {
+    "slug": "park-luzhniki",
+    "title": "Парк «Лужники»",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "sadbaumana.ru",
+  "url": "https://sadbaumana.ru/about-the-garden/rules-of-conduct/pravila-poseshcheniya-lifortovskogo-parka",
+  "places": [
+   {
+    "slug": "lefortovsky-park",
+    "title": "Лефортовский парк",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "kremlin-izmailovo.com",
+  "url": "https://www.kremlin-izmailovo.com/kontakty",
+  "places": [
+   {
+    "slug": "izmailovsky-kreml",
+    "title": "Измайловский кремль",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "terletskypark.ru",
+  "url": "https://terletskypark.ru/o-nas/",
+  "places": [
+   {
+    "slug": "terletsky-park",
+    "title": "Терлецкий лесопарк",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "losinyiostrov.ru",
+  "url": "https://losinyiostrov.ru/",
+  "places": [
+   {
+    "slug": "losiny-ostrov",
+    "title": "Национальный парк «Лосиный остров»",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "liapark.ru",
+  "url": "https://www.liapark.ru/site/contact",
+  "places": [
+   {
+    "slug": "lianozovsky-park",
+    "title": "Лианозовский парк",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "ostankino-museum.ru",
+  "url": "https://ostankino-museum.ru/rezhim-rabotyi-muzeya",
+  "places": [
+   {
+    "slug": "ostankino-usadba",
+    "title": "Останкинская усадьба Шереметевых",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "xn--90ah2agcb.xn--p1ai",
+  "url": "https://xn--90ah2agcb.xn--p1ai/",
+  "places": [
+   {
+    "slug": "serebryany-bor",
+    "title": "Серебряный Бор",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "mospriroda.ru",
+  "url": "https://mospriroda.ru/about/locations/stroginskaya-poyma-prirodno-istoricheskogo-parka-moskvoretskiy/",
+  "places": [
+   {
+    "slug": "stroginskaya-poima",
+    "title": "Строгинская пойма",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "mitino.bapark.ru",
+  "url": "https://mitino.bapark.ru/informaciya/oficialnaya-informaciya",
+  "places": [
+   {
+    "slug": "mitinsky-park",
+    "title": "Митинский ландшафтный парк",
+    "category": "park"
+   }
+  ]
+ },
+ {
+  "host": "1812panorama.ru",
+  "url": "https://www.1812panorama.ru/",
+  "places": [
+   {
+    "slug": "borodinskaya-panorama",
+    "title": "Музей-панорама «Бородинская битва»",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "mosfilm.ru",
+  "url": "https://www.mosfilm.ru/excursions/",
+  "places": [
+   {
+    "slug": "mosfilm-excursion",
+    "title": "Киностудия «Мосфильм»: экскурсия",
+    "category": "museum"
+   }
+  ]
+ },
+ {
+  "host": "dreamkids.moscow",
+  "url": "https://dreamkids.moscow/",
+  "places": [
+   {
+    "slug": "dream-kids",
+    "title": "Dream Kids",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "julydetyam.ru",
+  "url": "https://julydetyam.ru/onas",
+  "places": [
+   {
+    "slug": "iyul-detyam",
+    "title": "Июль Детям",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "russkoepodvorie.com",
+  "url": "https://russkoepodvorie.com/",
+  "places": [
+   {
+    "slug": "russkoe-podvorye",
+    "title": "Русское Подворье",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "chaihona.ru",
+  "url": "https://chaihona.ru/restaurants/dmitriya-ulyanova-51",
+  "places": [
+   {
+    "slug": "vasilchuki-chaihona-dmitriya-ulyanova",
+    "title": "Vasilchuki Chaihona №1 — Дмитрия Ульянова",
+    "category": "cafe"
+   },
+   {
+    "slug": "vasilchuki-chaihona-afimall",
+    "title": "Vasilchuki Chaihona №1 — Афимолл",
+    "category": "cafe"
+   },
+   {
+    "slug": "vasilchuki-chaihona-metropolis",
+    "title": "Vasilchuki Chaihona №1 — Метрополис",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "xn--e1asbf2d.xn--p1ai",
+  "url": "https://xn--e1asbf2d.xn--p1ai/",
+  "places": [
+   {
+    "slug": "piero-zilart",
+    "title": "Пьеро",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "ribambelle.ru",
+  "url": "https://ribambelle.ru/kontakty",
+  "places": [
+   {
+    "slug": "ribambelle-vremena-goda",
+    "title": "Ribambelle — Времена года",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "cafe-kitchen.ru",
+  "url": "https://cafe-kitchen.ru/cafe/kitchen-na-grizodubovoj-new-2/",
+  "places": [
+   {
+    "slug": "kitchen-khodynka",
+    "title": "Kitchen — Ходынка",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "cafe-anderson.ru",
+  "url": "https://cafe-anderson.ru/cafe/ostrov/",
+  "places": [
+   {
+    "slug": "anderson-ostrovityanova",
+    "title": "АндерСон — Островитянова",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "kids-castle.pro",
+  "url": "https://kids-castle.pro/mitino",
+  "places": [
+   {
+    "slug": "kids-castle-mitino",
+    "title": "Kids Castle — Митино",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "klich.moscow",
+  "url": "https://klich.moscow/kontakty",
+  "places": [
+   {
+    "slug": "klich-zilart",
+    "title": "KLICH",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "repastcafe.com",
+  "url": "https://repastcafe.com/",
+  "places": [
+   {
+    "slug": "repast-cafe",
+    "title": "Repast Cafe",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "localkids.clients.site",
+  "url": "https://localkids.clients.site/",
+  "places": [
+   {
+    "slug": "local-kids-vnukovo",
+    "title": "Local Kids",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "littleskids.com",
+  "url": "https://littleskids.com/",
+  "places": [
+   {
+    "slug": "littles-kids-play-cafe",
+    "title": "Littles Kids Play Cafe",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "jooiecafe.ru",
+  "url": "https://jooiecafe.ru/",
+  "places": [
+   {
+    "slug": "jooie-presnya",
+    "title": "Jooie — Пресня",
+    "category": "cafe"
+   }
+  ]
+ },
+ {
+  "host": "tuttalavita.ru",
+  "url": "https://tuttalavita.ru/",
+  "places": [
+   {
+    "slug": "tutta-la-vita",
+    "title": "Tutta La Vita",
+    "category": "cafe"
+   }
+  ]
+ }
+]
