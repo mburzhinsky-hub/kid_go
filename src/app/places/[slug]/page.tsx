@@ -39,7 +39,8 @@ export async function generateMetadata({ params }: PlacePageProps): Promise<Meta
   const addressVerified = place.verified_fields?.includes("address") ?? false;
   const description = `${place.subtitle}. ${formatAgeRange(place.age_min, place.age_max)}${addressVerified ? `, ${place.address}` : ""}. ${place.description.slice(0, 120)}…`;
   return {
-    title: `${place.title} — ${place.subtitle.toLowerCase()}`,
+    // строчной делаем только первую букву: «Москва-Сити», «Wikimedia» и другие имена собственные в подзаголовке остаются как есть
+    title: `${place.title} — ${place.subtitle.charAt(0).toLowerCase()}${place.subtitle.slice(1)}`,
     description,
     alternates: { canonical: `/places/${place.slug}` },
     openGraph: {
