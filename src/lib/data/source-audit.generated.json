@@ -280,19 +280,23 @@
     }
   },
   "park-zaryadye": {
-    "source": "https://welcome.zaryadyepark.ru/",
-    "checked_at": "2026-10-05",
+    "source": "https://www.zaryadyepark.ru/",
+    "checked_at": "2026-10-28",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://welcome.zaryadyepark.ru/",
-      "address": "https://welcome.zaryadyepark.ru/"
+      "identity": "https://www.zaryadyepark.ru/",
+      "address": "https://welcome.zaryadyepark.ru/",
+      "opening_hours": "https://www.zaryadyepark.ru/times-working/",
+      "price": "https://www.zaryadyepark.ru/questions/"
     }
   },
   "park-gorkogo": {
