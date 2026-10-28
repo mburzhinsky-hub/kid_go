@@ -45,7 +45,7 @@ export const BASE_PLACE_TRUST: Record<string, PlaceTrust> = {
     confidence: "high",
   },
   "park-zaryadye": {
-    source: "https://welcome.zaryadyepark.ru/",
+    source: "https://www.zaryadyepark.ru/",
     sourceName: "Парк Зарядье",
     verifiedAt: VERIFIED_AT,
     confidence: "high",
