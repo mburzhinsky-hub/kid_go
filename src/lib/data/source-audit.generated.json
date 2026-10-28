@@ -2153,8 +2153,8 @@
     }
   },
   "izmailovsky-kreml": {
-    "source": "https://ru.wikipedia.org/wiki/Измайловский_кремль",
-    "checked_at": "2026-10-13",
+    "source": "https://www.kremlin-izmailovo.com/",
+    "checked_at": "2026-10-28",
     "status": "reviewed",
     "identity": true,
     "address": true,
@@ -2165,8 +2165,8 @@
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://ru.wikipedia.org/wiki/Измайловский_кремль",
-      "address": "https://ru.wikipedia.org/wiki/Измайловский_кремль",
+      "identity": "https://www.kremlin-izmailovo.com/",
+      "address": "https://www.kremlin-izmailovo.com/kontakty",
       "opening_hours": "https://www.kremlin-izmailovo.com/kontakty"
     }
   },
