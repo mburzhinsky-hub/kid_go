@@ -1517,7 +1517,7 @@
     }
   },
   "panorama360-federation": {
-    "source": "https://ru.wikipedia.org/wiki/Башня_Федерация",
+    "source": "https://pnr360.ru/",
     "checked_at": "2026-10-19",
     "status": "reviewed",
     "identity": true,

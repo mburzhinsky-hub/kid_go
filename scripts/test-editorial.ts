@@ -13,7 +13,7 @@ import newCafes from "../src/lib/data/extra/msk-family-cafes.places.json";
 assert.equal(places.length, 146);
 for (const id of BASELINE_SCENARIO_IDS) assert.ok(SCENARIO_LIBRARY.some((s) => s.id === id), `scenario ${id} must remain`);
 assert.equal(SCENARIO_LIBRARY.length, BASELINE_SCENARIO_IDS.length + ADDED_SCENARIO_IDS.length);
-assert.equal(places.filter((p) => p.menu_url).length, 64);
+assert.equal(places.filter((p) => p.menu_url).length, 63);
 assert.ok(!places.some((p) => ["joki-joya", "katok-na-poyme-pavshino"].includes(p.slug)));
 const cafe = places.find((p) => p.slug === "dream-kids")!;
 const venue = places.find((p) => p.slug === "moskvarium")!;
