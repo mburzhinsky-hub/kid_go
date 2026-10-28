@@ -790,7 +790,7 @@ const SEED_PLACES: Place[] = [
     tags: ["Космос", "Кино под куполом", "От 4 лет", "В помещении"],
   }),
   place({
-    title: "Музей транспорта Москвы",
+    title: "Музей Транспорта Москвы",
     slug: "muzey-transporta",
     subtitle: "Автобусы, трамваи и кабины машинистов",
     description:
