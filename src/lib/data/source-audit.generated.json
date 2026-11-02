@@ -698,7 +698,8 @@
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [
       "parking"
@@ -706,7 +707,8 @@
     "field_sources": {
       "identity": "https://xacku.land/nazarevo",
       "address": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
-      "opening_hours": "https://xacku.land/nazarevo"
+      "opening_hours": "https://xacku.land/nazarevo",
+      "price": "https://xacku.land/nazarevo"
     }
   },
   "muzey-lego-lets-go-zvenigorod": {
