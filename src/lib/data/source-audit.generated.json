@@ -308,13 +308,15 @@
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://parkgorkogo.ru/",
       "address": "https://parkgorkogo.ru/contacts/",
-      "opening_hours": "https://parkgorkogo.ru/faq/"
+      "opening_hours": "https://parkgorkogo.ru/faq/",
+      "price": "https://parkgorkogo.ru/"
     }
   },
   "park-sokolniki": {
@@ -1947,13 +1949,15 @@
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://parkgorkogo.ru/areas/neskuchny-garden/",
       "address": "https://ru.wikipedia.org/wiki/Нескучный_сад",
-      "opening_hours": "https://parkgorkogo.ru/areas/neskuchny-garden/"
+      "opening_hours": "https://parkgorkogo.ru/areas/neskuchny-garden/",
+      "price": "https://parkgorkogo.ru/areas/neskuchny-garden/"
     }
   },
   "muzeon": {
@@ -1964,12 +1968,14 @@
     "address": false,
     "verified_fields": [
       "identity",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://parkgorkogo.ru/areas/muzeon/",
-      "opening_hours": "https://parkgorkogo.ru/faq/"
+      "opening_hours": "https://parkgorkogo.ru/faq/",
+      "price": "https://parkgorkogo.ru/areas/muzeon/"
     }
   },
   "sad-ermitazh": {
@@ -2028,12 +2034,14 @@
     "address": false,
     "verified_fields": [
       "identity",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://parkgorkogo.ru/areas/sparrow-hills/",
-      "opening_hours": "https://parkgorkogo.ru/faq/"
+      "opening_hours": "https://parkgorkogo.ru/faq/",
+      "price": "https://parkgorkogo.ru/areas/sparrow-hills/"
     }
   },
   "kuzminki-park": {

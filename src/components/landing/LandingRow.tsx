@@ -6,7 +6,7 @@ import { verifiedFacts } from "@/lib/landings";
 
 const where = (p: Place) => (p.indoor && !p.outdoor ? "под крышей" : p.outdoor && !p.indoor ? "на улице" : "в помещении и на улице");
 
-/** Строка подборки: карточка места и подтверждённые факты. Цена и часы — только если сверены с официальным сайтом. */
+/** Строка подборки: карточка места и подтверждённые факты. Цена и часы — только если сверены с официальными данными места. */
 export function LandingRow({ place, trip }: { place: Place; trip?: boolean }) {
   const f = verifiedFacts(place);
   const away = trip && place.region === "mo";
@@ -23,7 +23,7 @@ export function LandingRow({ place, trip }: { place: Place; trip?: boolean }) {
             <span className="font-semibold">{formatAgeRange(place.age_min, place.age_max)}</span> · {where(place)}
             {km != null && <> · за городом, ≈ {km} км от центра по прямой</>}
           </p>
-          {facts.length > 0 && <p className="text-muted">Проверено на официальном сайте{checked}: {facts.join(" · ")}</p>}
+          {facts.length > 0 && <p className="text-muted">Проверено по официальным данным места{checked}: {facts.join(" · ")}</p>}
         </div>
       }
     />
