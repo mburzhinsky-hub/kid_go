@@ -301,17 +301,19 @@
   },
   "park-gorkogo": {
     "source": "https://parkgorkogo.ru/",
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-11-02",
     "status": "reviewed",
     "identity": true,
-    "address": false,
+    "address": true,
     "verified_fields": [
       "identity",
+      "address",
       "opening_hours"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://parkgorkogo.ru/",
+      "address": "https://parkgorkogo.ru/contacts/",
       "opening_hours": "https://parkgorkogo.ru/faq/"
     }
   },
@@ -1937,8 +1939,8 @@
     }
   },
   "neskuchny-sad": {
-    "source": "https://ru.wikipedia.org/wiki/Нескучный_сад",
-    "checked_at": "2026-10-19",
+    "source": "https://parkgorkogo.ru/areas/neskuchny-garden/",
+    "checked_at": "2026-11-02",
     "status": "reviewed",
     "identity": true,
     "address": true,
@@ -1949,14 +1951,14 @@
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://ru.wikipedia.org/wiki/Нескучный_сад",
+      "identity": "https://parkgorkogo.ru/areas/neskuchny-garden/",
       "address": "https://ru.wikipedia.org/wiki/Нескучный_сад",
       "opening_hours": "https://parkgorkogo.ru/areas/neskuchny-garden/"
     }
   },
   "muzeon": {
-    "source": "https://ru.wikipedia.org/wiki/Музеон",
-    "checked_at": "2026-10-19",
+    "source": "https://parkgorkogo.ru/areas/muzeon/",
+    "checked_at": "2026-11-02",
     "status": "reviewed",
     "identity": true,
     "address": false,
@@ -1966,8 +1968,8 @@
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://ru.wikipedia.org/wiki/Музеон",
-      "opening_hours": "https://www.park-gorkogo.ru/faq/"
+      "identity": "https://parkgorkogo.ru/areas/muzeon/",
+      "opening_hours": "https://parkgorkogo.ru/faq/"
     }
   },
   "sad-ermitazh": {
@@ -2019,8 +2021,8 @@
     }
   },
   "vorobyovy-gory": {
-    "source": "https://ru.wikipedia.org/wiki/Воробьёвы_горы_(Москва)",
-    "checked_at": "2026-10-19",
+    "source": "https://parkgorkogo.ru/areas/sparrow-hills/",
+    "checked_at": "2026-11-02",
     "status": "reviewed",
     "identity": true,
     "address": false,
@@ -2030,8 +2032,8 @@
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://ru.wikipedia.org/wiki/Воробьёвы_горы_(Москва)",
-      "opening_hours": "https://www.park-gorkogo.ru/faq/"
+      "identity": "https://parkgorkogo.ru/areas/sparrow-hills/",
+      "opening_hours": "https://parkgorkogo.ru/faq/"
     }
   },
   "kuzminki-park": {
