@@ -690,8 +690,8 @@
     }
   },
   "huskyland-nazarevo": {
-    "source": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
-    "checked_at": "2026-10-19",
+    "source": "https://xacku.land/nazarevo",
+    "checked_at": "2026-11-02",
     "status": "reviewed",
     "identity": true,
     "address": true,
@@ -704,7 +704,7 @@
       "parking"
     ],
     "field_sources": {
-      "identity": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
+      "identity": "https://xacku.land/nazarevo",
       "address": "https://welcome.mosreg.ru/ideas/etnopark-haski-lend",
       "opening_hours": "https://xacku.land/nazarevo"
     }
