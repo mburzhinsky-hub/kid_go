@@ -1965,15 +1965,17 @@
     "checked_at": "2026-11-02",
     "status": "reviewed",
     "identity": true,
-    "address": false,
+    "address": true,
     "verified_fields": [
       "identity",
+      "address",
       "opening_hours",
       "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://parkgorkogo.ru/areas/muzeon/",
+      "address": "https://parking.mos.ru/news/4801/",
       "opening_hours": "https://parkgorkogo.ru/faq/",
       "price": "https://parkgorkogo.ru/areas/muzeon/"
     }
@@ -2031,15 +2033,17 @@
     "checked_at": "2026-11-02",
     "status": "reviewed",
     "identity": true,
-    "address": false,
+    "address": true,
     "verified_fields": [
       "identity",
+      "address",
       "opening_hours",
       "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://parkgorkogo.ru/areas/sparrow-hills/",
+      "address": "https://um.mos.ru/places/vorobyevy_gory/",
       "opening_hours": "https://parkgorkogo.ru/faq/",
       "price": "https://parkgorkogo.ru/areas/sparrow-hills/"
     }
