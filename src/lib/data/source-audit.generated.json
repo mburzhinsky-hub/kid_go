@@ -1166,19 +1166,23 @@
     }
   },
   "gorki-leninskie": {
-    "source": "https://2gis.ru/moscow/firm/4504128908501846",
-    "checked_at": "2026-10-05",
+    "source": "https://mgorki.ru/",
+    "checked_at": "2026-11-02",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://2gis.ru/moscow/firm/4504128908501846",
-      "address": "https://2gis.ru/moscow/firm/4504128908501846"
+      "identity": "https://mgorki.ru/",
+      "address": "https://2gis.ru/moscow/firm/4504128908501846",
+      "opening_hours": "https://mgorki.ru/splanirovat-vizit/",
+      "price": "https://mgorki.ru/posetitelyam/stoimost-biletov-lgotnye-kategorii/"
     }
   },
   "kolomna-pastila-muzey": {
