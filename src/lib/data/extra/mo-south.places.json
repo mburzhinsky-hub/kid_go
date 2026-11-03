@@ -419,6 +419,77 @@
     "confidence": "medium"
   },
   {
+    "title": "Детский центр «Лампа» в Горках Ленинских",
+    "slug": "lampa-gorki-leninskie",
+    "town": "Горки Ленинские",
+    "region": "mo",
+    "address": "Московская область, Ленинский г.о., пгт Горки Ленинские, 1",
+    "lat": 55.5046,
+    "lng": 37.7651,
+    "category": "museum",
+    "subtitle": "Музейный центр с мастерскими и клубами для детей",
+    "description": "Музейный детский центр в Южном флигеле усадьбы, построенном в 1825 году: на двух этажах больше десяти площадок — мастерские, музейный клуб, театральная площадка и исторические программы. Есть зона комфорта для родителей и место для семейных праздников. Билеты от 300 ₽ продают в кассе и на сайте; на бесплатные занятия записываются заранее.",
+    "price": [
+      300,
+      800
+    ],
+    "family_budget": 900,
+    "age": [
+      0,
+      12
+    ],
+    "duration": 90,
+    "indoor": true,
+    "outdoor": false,
+    "activity": 1,
+    "noise": 1,
+    "stroller": true,
+    "baby_room": false,
+    "kids_menu": false,
+    "parking": true,
+    "booking": false,
+    "hours": [
+      null,
+      null,
+      "11:00-17:00",
+      "11:00-17:00",
+      "11:00-17:00",
+      "11:00-17:00",
+      "11:00-17:00"
+    ],
+    "season": [
+      "spring",
+      "summer",
+      "autumn",
+      "winter"
+    ],
+    "weather": [
+      "rain",
+      "cold",
+      "any"
+    ],
+    "interests": [
+      "drawing",
+      "construction",
+      "science"
+    ],
+    "experience": [
+      "workshop",
+      "show"
+    ],
+    "tags": [
+      "Мастерские",
+      "Музейные программы",
+      "Детский центр"
+    ],
+    "hit": false,
+    "photoSet": "museum",
+    "rating": null,
+    "reviews": null,
+    "source": "https://mgorki.ru/detskij-czentr/",
+    "confidence": "medium"
+  },
+  {
     "title": "Музей истории «Коломенская пастила»",
     "slug": "kolomna-pastila-muzey",
     "town": "Коломна",

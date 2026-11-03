@@ -2406,5 +2406,19 @@
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Зеленоград"
     }
+  },
+  "lampa-gorki-leninskie": {
+    "source": "https://mgorki.ru/detskij-czentr/",
+    "checked_at": "2026-11-02",
+    "status": "reviewed",
+    "identity": true,
+    "address": false,
+    "verified_fields": [
+      "identity"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://mgorki.ru/detskij-czentr/"
+    }
   }
 }
