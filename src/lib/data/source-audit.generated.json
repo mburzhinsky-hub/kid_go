@@ -2414,11 +2414,15 @@
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity"
+      "identity",
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://mgorki.ru/detskij-czentr/"
+      "identity": "https://mgorki.ru/detskij-czentr/",
+      "opening_hours": "https://mgorki.ru/detskij-czentr/",
+      "price": "https://mgorki.ru/detskij-czentr/"
     }
   }
 }
