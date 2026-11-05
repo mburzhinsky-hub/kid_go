@@ -189,8 +189,8 @@ const SEM: Record<string, (x: X) => string[]> = {
   "before-nap": (x) => [...(x.rec.end <= 13 * 60 + 10 ? [] : ["позже 13:00"]), ...(x.rec.start < 12 * 60 ? [] : ["старт ближе ко сну"])],
   morning: (x) => (x.rec.start < 12 * 60 ? [] : [`«утро», а старт ${hm(x.rec.start)}`]),
   "breakfast-kids": (x) => [...(x.st[0]?.place.category === "cafe" ? [] : ["первым не кафе"]), ...(x.rec.start <= 11 * 60 ? [] : [`завтрак в ${hm(x.rec.start)}`])],
-  "after-school": (x) => [...(x.rec.wd < 5 ? [] : [`план на ${WD[x.rec.wd]}`]), ...(x.rec.start >= 15 * 60 ? [] : [`«после садика», а старт ${hm(x.rec.start)}`])],
-  "weekday-evening": (x) => (x.rec.wd < 5 ? [] : [`план на ${WD[x.rec.wd]}`]),
+  "after-school": (x) => [...(x.rec.wd < 5 ? [] : [`«после садика», а план на ${WD[x.rec.wd]}`]), ...(x.rec.start >= 15 * 60 ? [] : [`«после садика», а старт ${hm(x.rec.start)}`])],
+  "weekday-evening": (x) => (x.rec.wd < 5 ? [] : [`«вечер буднего дня», а план на ${WD[x.rec.wd]}`]),
   friday: (x) => [...(x.rec.wd === 4 ? [] : [`«вечер пятницы», а план на ${WD[x.rec.wd]}`]), ...(planHasFood(x.plan) ? [] : ["нет ужина"])],
   "big-saturday": (x) => [...(x.rec.wd === 5 ? [] : [`«суббота», а план на ${WD[x.rec.wd]}`]), ...(span(x) >= 270 ? [] : [`«целый день», а ${span(x)} мин`])],
   "slow-sunday": (x) => [...(x.rec.wd === 6 ? [] : [`«воскресенье», а план на ${WD[x.rec.wd]}`]), ...(span(x) >= 150 ? [] : [`всего ${span(x)} мин`])],
@@ -282,12 +282,17 @@ for (const s of SCENARIO_LIBRARY) {
         // главная считает день для сценария тем же правилом, что движок: расхождение — это уже баг
         const sc = scenarioCtx(s, run.ctx);
         const homeTomorrow = sc !== run.ctx.today;
-        if (rec.offset > 0 !== homeTomorrow) f.push(`главная считает «${homeTomorrow ? "завтра" : "сегодня"}», а план — ${rec.offset > 0 ? "завтра" : "сегодня"}`);
+        // исключение — честный перенос: сегодня время было, но ничего не подошло (погода, часы, бюджет); страница результатов об этом пишет
+        if (rec.offset > 0 !== homeTomorrow && !(rec.r.nothingToday && !homeTomorrow)) f.push(`главная считает «${homeTomorrow ? "завтра" : "сегодня"}», а план — ${rec.offset > 0 ? "завтра" : "сегодня"}`);
       }
       const d = durationFlag(s, rec);
       if (d) f.push(d);
       // даты и дни недели смысловых проверок осмысленны, только когда сценарий показан главной; «ручной» запуск — в любой момент
-      for (const m of SEM[s.id]?.(x) ?? []) if (!manual || !/(не весна|не зима|листопад|не конец лета|не каникулы|«[а-я ]+», а [а-я]{2}$|«[а-я ]+», а план на)/.test(m)) f.push(m);
+      // «ручной» запуск в 15:10 не может начаться утром: время старта/обеда для него сегодня не оцениваем
+      const lateManual = manual && rec.offset === 0;
+      for (const m of SEM[s.id]?.(x) ?? [])
+        if (!manual || !/(не весна|не зима|листопад|не конец лета|не каникулы|«[а-я ]+», а [а-я]{2}$|«[а-я ]+», а план на)/.test(m))
+          if (!lateManual || !/^(старт |обед в |завтрак в |«утро», а старт|раньше 11|позже 13|старт ближе|«после садика», а старт)/.test(m)) f.push(m);
     }
     f.forEach((m) => bump(s.id, m));
     list.push(rec);
