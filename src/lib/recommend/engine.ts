@@ -805,6 +805,8 @@ export interface PlannerResult {
   relaxed?: { from: number; to: number; nearest?: number };
   /** Сколько мест-якорей нашлось в заданном радиусе. */
   anchorsNear: number;
+  /** Сегодня время ещё было, но ничего не подошло (погода, часы работы, бюджет) — план собран на завтра. */
+  nothingToday?: boolean;
   /** Поиск по округу: где ищем и насколько строго. */
   area?: { id: string; scope: "strict" | "wide"; anchors: number; /** мест в округе, подходящих по условиям, но не «по теме» ситуации */ offType: number; loose: boolean };
 }
@@ -853,7 +855,7 @@ export function generatePlans(input: PlannerInput, count = 3, offset = 0): Plann
   // честнее собрать на завтра, чем «ничего не нашлось»; страница результатов скажет, что это завтра.
   if (!r.plans.length && !input.dayOffset && r.dayOffset === 0) {
     const t = generateForDay({ ...input, dayOffset: 1 }, count, offset);
-    if (t.plans.length) return t;
+    if (t.plans.length) return { ...t, nothingToday: true };
   }
   return r;
 }

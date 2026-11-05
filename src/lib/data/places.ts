@@ -93,6 +93,8 @@ function place(s: Seed): Place {
     wardrobe: s.wardrobe ?? false,
     weather_tags: weather,
     season_tags: s.season_tags ?? ["spring", "summer", "autumn", "winter"],
+    // все места старого seed — в Москве; явный region нужен фильтрам «Москва / область» и аудиту
+    region: "msk",
     ...s,
     // Старый seed содержал демонстрационные рейтинги/отзывы. Не выдаём их за реальный social proof.
     rating: 0,
@@ -332,7 +334,7 @@ const SEED_PLACES: Place[] = [
     toilets: true,
     wardrobe: false,
     interest_tags: ["construction", "sport", "nature"],
-    experience_tags: ["playzone", "walk"],
+    experience_tags: ["playzone", "walk", "free"],
     tags: ["Бесплатно", "Площадка «Стройка»", "На улице", "Песочница", "2–10 лет"],
   }),
 

@@ -137,6 +137,9 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
   const kidNames = fam.children.map((k) => k.name).filter(Boolean);
   const here = result.area ? okrugById(result.area.id) : undefined;
   const areaEmpty = !!here && result.area?.scope === "strict" && result.plans.length === 0;
+  // «На каток» не зимой: уличные катки ещё закрыты — объясняем, а не «ничего не нашлось»
+  const month = Number(dateISO.slice(5, 7));
+  const rinkOff = !result.plans.length && !!scenario?.constraints?.onlyTypes?.includes("ice_rink") && ![12, 1, 2].includes(month);
   const pickOrigin = (o: Origin) => {
     track("area_switch", { from: here?.id ?? "", to: o.label });
     fam.setOrigin(o);
@@ -167,6 +170,8 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
         <h1 className="tight text-[30px] font-[850] leading-[1.06]">
           {result.plans.length ? (
             anchorPlace ? <>День вокруг «{anchorPlace.title}»</> : <>Мы придумали вам {dayAcc} 💛</>
+          ) : rinkOff ? (
+            <>Уличные катки ещё закрыты</>
           ) : areaEmpty && here ? (
             <>{cap(here.prep)} под это ничего нет</>
           ) : (
@@ -176,12 +181,16 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
         <p className="mt-1.5 text-[16px] leading-snug text-muted">
           {result.plans.length
             ? `Старт ${dayWord} около ${result.startLabel}. Погода ${wxLine} — учли прогноз и дорогу.`
-            : areaEmpty && here
+            : rinkOff
+              ? `Катки в парке Горького и на ВДНХ работают зимой. Круглый год лёд есть в крытом Ледовом дворце «Витязь» в Подольске${input.geoScope === "moscow-region" ? "" : " — добавьте «Москва + область»"}.`
+              : areaEmpty && here
               ? `${scenario ? `Для «${scenario.label}»` : "Под такие условия"} ${here.prep} не нашлось ни одного подходящего места: смотрели возраст детей, выбранные условия, погоду и дорогу. Вот что можно сделать.`
               : "Под такие условия мы не смогли собрать день без компромиссов."}
         </p>
         {realDay !== dayOffset && result.plans.length > 0 && (
-          <p className="mt-2 rounded-[12px] bg-yellow-50 px-3 py-2 text-[14px] text-yellow-ink">Сегодня уже поздно для такого дня — собрали на завтра.</p>
+          <p className="mt-2 rounded-[12px] bg-yellow-50 px-3 py-2 text-[14px] text-yellow-ink">
+            {result.nothingToday ? "На сегодня под эти условия ничего не подошло (погода, часы работы или бюджет) — собрали на завтра." : "Сегодня уже поздно для такого дня — собрали на завтра."}
+          </p>
         )}
 
         <DayPicker forecast={forecast!} value={realDay} hrefFor={(d) => withQuery({ day: d ? String(d) : undefined, offset: undefined })} />
