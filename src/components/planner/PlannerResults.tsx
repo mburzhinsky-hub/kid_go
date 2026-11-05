@@ -182,11 +182,16 @@ export function PlannerResults({ query }: { query: ResultsQuery }) {
           {result.plans.length
             ? `Старт ${dayWord} около ${result.startLabel}. Погода ${wxLine} — учли прогноз и дорогу.`
             : rinkOff
-              ? `Катки в парке Горького и на ВДНХ работают зимой. Круглый год лёд есть в крытом Ледовом дворце «Витязь» в Подольске${input.geoScope === "moscow-region" ? "" : " — добавьте «Москва + область»"}.`
+              ? "Катки в парке Горького и на ВДНХ работают зимой. Круглый год лёд есть в крытом Ледовом дворце «Витязь» в Подольске."
               : areaEmpty && here
               ? `${scenario ? `Для «${scenario.label}»` : "Под такие условия"} ${here.prep} не нашлось ни одного подходящего места: смотрели возраст детей, выбранные условия, погоду и дорогу. Вот что можно сделать.`
               : "Под такие условия мы не смогли собрать день без компромиссов."}
         </p>
+        {rinkOff && getPlaceSync("ledovy-dvorec-vityaz-podolsk") && (
+          <Link href="/places/ledovy-dvorec-vityaz-podolsk" className="press mt-3 inline-flex h-11 items-center rounded-full bg-surface px-4 text-[15px] font-semibold shadow-card">
+            Ледовый дворец «Витязь» →
+          </Link>
+        )}
         {realDay !== dayOffset && result.plans.length > 0 && (
           <p className="mt-2 rounded-[12px] bg-yellow-50 px-3 py-2 text-[14px] text-yellow-ink">
             {result.nothingToday ? "На сегодня под эти условия ничего не подошло (погода, часы работы или бюджет) — собрали на завтра." : "Сегодня уже поздно для такого дня — собрали на завтра."}
