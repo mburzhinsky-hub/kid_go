@@ -291,8 +291,8 @@ export function scorePlace(
   if (c.stroller && !(p.unknown_fields ?? []).includes("stroller_friendly") && !p.stroller_friendly) return null;
   if (c.avoidCategories?.includes(p.category)) return null;
   if (!fitsOnly(p, c)) return null;
-  // сезонное место на улице («На каток») вне сезона не предлагаем вовсе, а не просто ставим ниже
-  if (c.onlyTypes?.length && p.outdoor && !p.indoor && p.season_tags.length < 4 && !p.season_tags.includes(ctx.season)) return null;
+  // сезонное место только на улице (каток, верёвочный парк) вне сезона закрыто: не предлагаем вовсе, а не просто ставим ниже
+  if (p.outdoor && !p.indoor && p.season_tags.length < 4 && !p.season_tags.includes(ctx.season)) return null;
   if (fam?.disliked.includes(p.slug)) return null;
 
   // погода: место только на улице, а весь день плохо — не берём
