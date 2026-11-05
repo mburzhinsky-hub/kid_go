@@ -12,7 +12,7 @@
  * 4. Влияние: меняется ли план при смене ОДНОГО условия (погода, возраст, бюджет, транспорт, место, время, день).
  */
 import { writeFileSync } from "node:fs";
-import { generatePlans, coreFit, BUDGET_MAX, planHasFood } from "../src/lib/recommend/engine";
+import { generatePlans, coreFit, BUDGET_MAX, planHasFood, seasonOf } from "../src/lib/recommend/engine";
 import { buildPlannerInput, type ResultsQuery } from "../src/lib/recommend/build-input";
 import { demoForecast, moscowDateISO, outdoorVerdict, weekdayOf, windowWx, type WxScenario } from "../src/lib/forecast";
 import { isFreeEntry, isOpenDuring, toMinutes } from "../src/lib/format";
@@ -271,6 +271,8 @@ function run(tag: string, query: ResultsQuery, kids: (typeof families)[string], 
       if (at < prevEnd) hard.push(`шаги пересекаются: ${s.place.slug} ${s.start} — ${t}`);
       prevEnd = at + s.duration;
       if (!isOpenDuring(s.place.opening_hours, weekday, at, s.duration)) hard.push(`закрыто: ${s.place.slug} ${s.start} — ${t}`);
+      // уличное сезонное место (каток, верёвочный парк) вне своего сезона закрыто
+      if (s.place.outdoor && !s.place.indoor && s.place.season_tags.length < 4 && !s.place.season_tags.includes(seasonOf(Number(dateISO.slice(5, 7))))) hard.push(`не сезон: ${s.place.slug} (${s.place.season_tags}) ${dateISO} — ${t}`);
       if (!r.partialAge && kids.some((k) => k.age < s.place.age_min || k.age > s.place.age_max)) hard.push(`возраст: ${s.place.slug} — ${t}`);
       if (s.place.outdoor && !s.place.indoor) {
         const v = outdoorVerdict(windowWx(forecast, dateISO, at, at + s.duration), youngest);
