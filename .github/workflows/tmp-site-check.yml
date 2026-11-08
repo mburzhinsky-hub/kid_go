@@ -1,0 +1,48 @@
+name: Tmp site check
+on:
+  push:
+    branches: [tmp-site-check]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: DNS
+        run: |
+          for t in A AAAA NS CNAME; do echo "--- $t kids-go.fun"; dig +short $t kids-go.fun; done
+          echo "--- A www"; dig +short A www.kids-go.fun; echo "--- CNAME www"; dig +short CNAME www.kids-go.fun
+      - name: TLS
+        run: |
+          for h in kids-go.fun www.kids-go.fun; do
+            echo "--- $h"; echo | openssl s_client -servername $h -connect $h:443 2>/dev/null | openssl x509 -noout -subject -issuer -dates -ext subjectAltName 2>&1 | head -8
+          done
+      - name: Redirects and headers
+        run: |
+          for u in http://kids-go.fun/ http://www.kids-go.fun/ https://www.kids-go.fun/ https://kids-go.fun/; do
+            echo "=== $u"; curl -sS -m 30 -o /dev/null -D - -w 'final_code=%{http_code} time=%{time_total}\n' "$u" | grep -i -E "^(HTTP|location|server|x-powered-by|content-type|cache-control|strict-transport|final_code|date)" || true
+          done
+      - name: Core endpoints
+        run: |
+          S=https://kids-go.fun
+          chk(){ code=$(curl -sS -m 30 -o /tmp/o -w '%{http_code}' "$S$1" 2>/dev/null); echo "$code  $1  $(head -c 140 /tmp/o | tr '\n' ' ')"; }
+          chk /; chk /offline.html; chk /sw.js; chk /robots.txt; chk /sitemap.xml; chk /og.jpg; chk /photo-credits/
+          chk /places/ostrov-mechty/; chk /places/arkhangelskoe/; chk /manifest.webmanifest; chk /manifest.json
+          chk "/api/v1/health"; chk "/api/v1/health?deep=1"; chk /c/zzzzzzzzzz/; chk /api/v1/admin/reports; chk /api/moderation.php
+          chk /this-page-does-not-exist-zz/
+      - name: Every page from sitemap
+        run: |
+          curl -sS -m 30 https://kids-go.fun/sitemap.xml -o sm.xml; grep -o '<loc>[^<]*</loc>' sm.xml | sed 's/<[^>]*>//g' > urls.txt; wc -l urls.txt
+          cat urls.txt | xargs -P 8 -I{} sh -c 'c=$(curl -sS -m 30 -o /dev/null -w "%{http_code}" "{}" 2>/dev/null); echo "$c {}"' > res.txt
+          echo "--- status counts"; cut -d' ' -f1 res.txt | sort | uniq -c
+          echo "--- non-200"; grep -v '^200 ' res.txt || echo none
+      - name: Images referenced by place pages
+        run: |
+          grep '/places/' urls.txt 2>/dev/null || true
+          curl -sS -m 30 https://kids-go.fun/sitemap.xml | grep -o '<loc>[^<]*</loc>' | sed 's/<[^>]*>//g' > urls.txt
+          : > assets.txt
+          for u in $(grep -E '/places/|/adventures/' urls.txt); do curl -sS -m 30 "$u" | grep -oE '/(photos|partner|icons)/[A-Za-z0-9_./%-]+\.(jpg|jpeg|png|webp|svg)' >> assets.txt; done
+          sort -u assets.txt > assets-u.txt; wc -l assets-u.txt
+          cat assets-u.txt | xargs -P 10 -I{} sh -c 'c=$(curl -sS -m 30 -o /dev/null -w "%{http_code} %{size_download}" "https://kids-go.fun{}" 2>/dev/null); echo "$c {}"' > ares.txt
+          echo "--- status counts"; cut -d' ' -f1 ares.txt | sort | uniq -c
+          echo "--- not 200 (first 40)"; grep -v '^200 ' ares.txt | head -40 || true
