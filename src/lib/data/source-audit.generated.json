@@ -1833,21 +1833,23 @@
     }
   },
   "ostrov-mechty": {
-    "source": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
-    "checked_at": "2026-10-19",
+    "source": "https://dreamisland.ru/tickets",
+    "checked_at": "2026-11-06",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
+      "identity": "https://dreamisland.ru/tickets",
       "address": "https://russpass.ru/place/66b6012dc06d086f5bc20fb8",
-      "opening_hours": "https://dreamisland.ru/tickets"
+      "opening_hours": "https://dreamisland.ru/tickets",
+      "price": "https://dreamisland.ru/tickets/buy"
     }
   },
   "pokrovskoe-streshnevo": {
