@@ -485,20 +485,22 @@
   },
   "muzey-materinstva-ilinskoe": {
     "source": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-11-06",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
       "address",
-      "opening_hours"
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [],
     "field_sources": {
       "identity": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
       "address": "https://zvenmuseum.ru/muzei-imperatorskogo-imeniya-ilinskoe-usovo/",
-      "opening_hours": "https://zvenmuseum.ru/posetitelyam/rezhim-raboty/"
+      "opening_hours": "https://zvenmuseum.ru/posetitelyam/rezhim-raboty/",
+      "price": "https://zvenmuseum.ru/posetitelyam/bilety/"
     }
   },
   "katok-na-poyme-pavshino": {
