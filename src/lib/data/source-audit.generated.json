@@ -1083,7 +1083,7 @@
   },
   "melikhovo-chekhov": {
     "source": "https://chekhovmuseum.com/",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-11-09",
     "status": "reviewed",
     "identity": true,
     "address": false,
@@ -1446,20 +1446,22 @@
   },
   "bolshoy-moscow-cirk": {
     "source": "https://www.greatcircus.ru/",
-    "checked_at": "2026-10-19",
+    "checked_at": "2026-10-29",
     "status": "reviewed",
     "identity": true,
     "address": true,
     "verified_fields": [
       "identity",
-      "address"
+      "address",
+      "price"
     ],
     "verified_family_fields": [
       "booking_required"
     ],
     "field_sources": {
       "identity": "https://www.greatcircus.ru/",
-      "address": "https://www.greatcircus.ru/"
+      "address": "https://www.greatcircus.ru/",
+      "price": "https://www.greatcircus.ru/#!events"
     }
   },
   "teatr-sats": {
@@ -1571,19 +1573,23 @@
     }
   },
   "katok-vdnh": {
-    "source": "https://ru.wikipedia.org/wiki/ВДНХ",
-    "checked_at": "2026-10-05",
+    "source": "https://vdnh.ru/katok/",
+    "checked_at": "2026-11-10",
     "status": "reviewed",
     "identity": true,
     "address": false,
     "verified_fields": [
-      "identity"
+      "identity",
+      "opening_hours",
+      "price"
     ],
     "verified_family_fields": [
       "parking"
     ],
     "field_sources": {
-      "identity": "https://ru.wikipedia.org/wiki/ВДНХ"
+      "identity": "https://ru.wikipedia.org/wiki/ВДНХ",
+      "opening_hours": "https://vdnh.ru/katok/",
+      "price": "https://vdnh.ru/katok/"
     }
   },
   "katok-park-gorkogo": {
@@ -1638,7 +1644,7 @@
   },
   "dom-knigi-arbat": {
     "source": "https://ru.wikipedia.org/wiki/Московский_дом_книги",
-    "checked_at": "2026-10-15",
+    "checked_at": "2026-11-06",
     "status": "reviewed",
     "identity": true,
     "address": true,
@@ -2077,8 +2083,8 @@
     }
   },
   "vorontsovsky-park": {
-    "source": "https://ru.wikipedia.org/wiki/Воронцовский_парк",
-    "checked_at": "2026-10-19",
+    "source": "https://usadba-vorontsovo.ru/",
+    "checked_at": "2026-11-06",
     "status": "reviewed",
     "identity": true,
     "address": false,
@@ -2089,7 +2095,7 @@
     ],
     "verified_family_fields": [],
     "field_sources": {
-      "identity": "https://ru.wikipedia.org/wiki/Воронцовский_парк",
+      "identity": "https://usadba-vorontsovo.ru/",
       "opening_hours": "https://usadba-vorontsovo.ru/kontakty/",
       "price": "https://usadba-vorontsovo.ru/kontakty/"
     }
@@ -2256,7 +2262,7 @@
   },
   "ostankino-usadba": {
     "source": "https://ru.wikipedia.org/wiki/Останкино_(усадьба)",
-    "checked_at": "2026-10-13",
+    "checked_at": "2026-11-11",
     "status": "reviewed",
     "identity": true,
     "address": true,
@@ -2265,7 +2271,9 @@
       "address",
       "opening_hours"
     ],
-    "verified_family_fields": [],
+    "verified_family_fields": [
+      "parking"
+    ],
     "field_sources": {
       "identity": "https://ru.wikipedia.org/wiki/Останкино_(усадьба)",
       "address": "https://ru.wikipedia.org/wiki/Останкино_(усадьба)",
