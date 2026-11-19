@@ -2436,5 +2436,25 @@
       "opening_hours": "https://mgorki.ru/detskij-czentr/",
       "price": "https://mgorki.ru/detskij-czentr/"
     }
+  },
+  "zvenigorodsky-manezh": {
+    "source": "https://zvenmuseum.ru/manezh/",
+    "checked_at": "2026-11-19",
+    "status": "reviewed",
+    "identity": true,
+    "address": true,
+    "verified_fields": [
+      "identity",
+      "address",
+      "opening_hours",
+      "price"
+    ],
+    "verified_family_fields": [],
+    "field_sources": {
+      "identity": "https://zvenmuseum.ru/manezh/",
+      "address": "https://zvenmuseum.ru/manezh/",
+      "opening_hours": "https://zvenmuseum.ru/manezh/",
+      "price": "https://zvenmuseum.ru/manezh/"
+    }
   }
 }
