@@ -6,7 +6,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { HomeAdventureCards } from "@/components/cards/AreaAdventureCards";
 import { adventureCardData } from "@/lib/cards";
 import { PlaceCarousel } from "@/components/cards/PlaceCard";
-import { EventCard } from "@/components/cards/EventCard";
+import { HomeLiveEvents } from "@/components/events/LiveEvents";
 import { HomeScenarios, HomeWeather, NearbyPopular, NearbyPopularHeader } from "@/components/home/HomeLive";
 import { HomeCta } from "@/components/home/HomeCta";
 import { TripFeedback } from "@/components/home/TripFeedback";
@@ -21,16 +21,11 @@ import { LANDINGS_HUB } from "@/lib/landings";
 // Адрес главной без параметров (utm_*, fbclid и т. п.) — единственный для поиска.
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
-// Погода и афиша меняются в течение дня — обновляем страницу раз в 30 минут (ISR).
-export const revalidate = 1800;
+// В статической выгрузке нет ISR: афиша вычисляется в браузере при открытии страницы.
 
 export default async function HomePage() {
-  const [places, adventures, events] = await Promise.all([repo.listPlaces(), repo.listAdventures(), repo.listEvents()]);
+  const [places, adventures] = await Promise.all([repo.listPlaces(), repo.listAdventures()]);
   const adv = [...adventures].sort((a, b) => (b.recommend_percent ?? 0) - (a.recommend_percent ?? 0));
-
-  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Moscow" }).format(new Date());
-  const placeMap = new Map(places.map((p) => [p.id, p]));
-  const upcoming = events.filter((e) => e.end_at.slice(0, 10) >= today).sort((a, b) => a.start_at.localeCompare(b.start_at));
 
   const cafes = places.filter((p) => p.category === "cafe").slice(0, 6);
 
@@ -96,16 +91,7 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {upcoming.length > 0 && (
-          <section className="mt-8">
-            <SectionHeader title="Что происходит сегодня" subtitle="Шоу, мастер-классы и чтения" />
-            <div className="no-scrollbar snap-x-pad mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-3 pt-1">
-              {upcoming.map((e) => (
-                <EventCard key={e.id} event={e} place={placeMap.get(e.place_id)!} isToday={e.start_at.slice(0, 10) === today} />
-              ))}
-            </div>
-          </section>
-        )}
+        <HomeLiveEvents />
 
         <ForYou />
         <OnboardingNudge />

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CalendarDays, UtensilsCrossed } from "lucide-react";
+import { UtensilsCrossed } from "lucide-react";
 import { repo } from "@/lib/data/repository";
 import { allPlaces } from "@/lib/data/repository";
 import { HeroGallery, PhotoCredits, PhotoGallery } from "@/components/place/PhotoGallery";
@@ -24,6 +24,7 @@ import { categoryDef, placeTypeName } from "@/lib/catalog";
 import { formatAgeRange, formatPrice } from "@/lib/format";
 import { landingsOfPlace } from "@/lib/landings";
 import { LandingChips } from "@/components/landing/LandingChips";
+import { PlaceLiveEvents } from "@/components/events/LiveEvents";
 import { ogImageUrl, schemaImageUrl } from "@/lib/image-loader";
 
 type PlacePageProps = { params: Promise<{ slug: string }> };
@@ -56,11 +57,10 @@ export default async function PlacePage({ params }: PlacePageProps) {
   const place = await repo.getPlace(slug);
   if (!place) notFound();
 
-  const [nearby, adventures, events] = await Promise.all([repo.nearby(place, { limit: 8 }), repo.listAdventures(), repo.listEvents()]);
+  const [nearby, adventures] = await Promise.all([repo.nearby(place, { limit: 8 }), repo.listAdventures()]);
   const groups = whatNextGroups(place);
   const inLandings = landingsOfPlace(place.slug);
   const inAdventures = adventures.filter((a) => a.steps.some((s) => s.place_id === place.id));
-  const placeEvents = events.filter((e) => e.place_id === place.id);
   const cat = categoryDef(place.category);
   const typeLabel = placeTypeName(place.place_type) ?? cat.name;
   const verified = new Set(place.verified_fields ?? []);
@@ -157,32 +157,9 @@ export default async function PlacePage({ params }: PlacePageProps) {
         )}
 
         <SiteLink place={place} />
+        <p className="mt-2 px-1 text-[13px] leading-snug text-muted">Цены, режим работы и программы могут меняться. Перед поездкой уточните информацию на сайте места.</p>
 
-        {placeEvents.length > 0 && (
-          <section className="mt-8">
-            <h2 className="tight text-[22px] font-[800]">Ближайшие события</h2>
-            <ul className="mt-3 space-y-2">
-              {placeEvents.map((e) => (
-                <li key={e.id} className="flex items-center gap-3 rounded-[20px] bg-yellow-50 p-3">
-                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[12px] bg-white text-yellow-ink">
-                    <CalendarDays size={24} className="text-[#d79a00]" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[15px] font-semibold leading-tight">{e.title}</p>
-                    <p className="text-[13px] text-ink-2">
-                      {new Date(e.start_at).toLocaleDateString("ru-RU", { day: "numeric", month: "short", timeZone: "Europe/Moscow" })} · {e.start_at.slice(11, 16)}–{e.end_at.slice(11, 16)} · {e.price ? formatPrice(e.price) : "бесплатно"} · {formatAgeRange(e.age_min, e.age_max)}
-                    </p>
-                    {e.source && (
-                      <a href={e.source} target="_blank" rel="noreferrer" className="mt-0.5 inline-block text-[12px] font-semibold text-muted underline underline-offset-2">
-                        Подробнее о программе
-                      </a>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+        <PlaceLiveEvents placeId={place.id} />
 
         <section className="mt-8">
           <h2 className="tight text-[24px] font-[800]">Для родителей</h2>
