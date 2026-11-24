@@ -129,7 +129,7 @@ export function AdventureCard({
               <b className="font-bold text-ink">{data.recommend}%</b> родителей рекомендуют
             </span>
           ) : (
-            <span className="text-[13px] font-medium text-muted">{data.fromHome ?? "Собрано под вашу семью"}</span>
+            <span className="text-[13px] font-medium text-muted">{data.fromHome ?? "Готовый маршрут Kids Go"}</span>
           )}
           <span className="inline-flex h-10 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-pink pl-4 pr-3 text-[15px] font-semibold text-white shadow-pink transition-transform group-active:scale-95">
             Хочу так <ArrowRight size={16} strokeWidth={2.5} />
