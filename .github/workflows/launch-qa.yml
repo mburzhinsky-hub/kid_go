@@ -27,7 +27,6 @@ jobs:
           npm run audit:places -- --warn > artifacts/audit-places.log 2>&1 || true
           tail -n 35 artifacts/audit-places.log
       - name: Venue records and external menu/parking/source links
-        continue-on-error: true
         run: npx tsx scripts/audit-launch.ts
       - name: Scenario & meal regression
         run: npm run test:editorial
@@ -61,7 +60,6 @@ jobs:
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium
       - name: Run local web server and mobile smoke
-        continue-on-error: true
         run: |
           mkdir -p artifacts
           python3 -m http.server 3000 --directory out > /tmp/kidgo-static-server.log 2>&1 &

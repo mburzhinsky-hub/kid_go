@@ -78,6 +78,7 @@ def main():
                 check("itinerary has route link", page.locator("a[href*=\'/map\']").count() > 0)
             page.goto(BASE+"/search/",wait_until="domcontentloaded")
             search=page.locator("input[aria-label=\'Поиск\']")
+            search.wait_for(state="visible", timeout=10000)
             check("search input available",search.count()>0)
             if search.count():
                 search.fill("зоопарк")
