@@ -15,9 +15,13 @@ export function ParentsPicks() {
   const ready = useSocial((s) => s.hydrated);
   const list = usePublicCollections({ limit: 8 });
   if (!ready || !list.length) return null;
+  const editorialOnly = list.every((r) => r.source === "seed");
   return (
     <section className="mt-7">
-      <SectionHeader title="Советуют родители" subtitle="Подборки мест от тех, кто там уже был" />
+      <SectionHeader
+        title={editorialOnly ? "Выбор Kids Go" : "Подборки мест"}
+        subtitle={editorialOnly ? "Тематические маршруты от команды Kids Go" : "Подборки команды и пользователей"}
+      />
       <div className="no-scrollbar snap-x-pad mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-4 pt-1">
         {list.map((r, i) => (
           <CollectionCard key={r.collection.id} data={r} priority={i === 0} />

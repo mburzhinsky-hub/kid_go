@@ -79,10 +79,17 @@ export function useHomeCtx(): { ctx: ScenarioCtx; pair: HomeCtx; ready: boolean 
 
 const toCard = (s: ScenarioDef): Scenario => ({ id: s.id, label: s.label, bg: s.bg, bubble: s.bubble, Glyph: s.Glyph, emoji: s.emoji, href: scenarioHref(s) });
 
+/** Статическая версия главной не должна выдавать октябрьские/летние сценарии за сегодняшние. */
+const EVERGREEN_IDS = ["short", "joy", "walk", "rain", "lunch-walk", "birthday", "toddler", "primary"];
+const EVERGREEN_SCENARIOS = EVERGREEN_IDS.flatMap((id) => {
+  const scenario = SCENARIO_LIBRARY.find((s) => s.id === id);
+  return scenario ? [toCard(scenario)] : [];
+});
+
 /** «Что хочется сегодня?» — 8 ситуаций, уместных именно сейчас. */
 export function HomeScenarios() {
   const { pair } = useHomeCtx();
-  const items = useMemo(() => pickScenarios(pair).map(toCard), [pair]);
+  const items = useMemo(() => pair === NEUTRAL_PAIR ? EVERGREEN_SCENARIOS : pickScenarios(pair).map(toCard), [pair]);
   return (
     <>
       <ScenarioGrid items={items} />
@@ -96,7 +103,7 @@ export function HomeScenarios() {
 /** «Подходит сегодня»: те же 8 ситуаций, что и на главной, без ссылки на весь список (используется на странице ситуаций). */
 export function LiveScenarios() {
   const { pair } = useHomeCtx();
-  const items = useMemo(() => pickScenarios(pair).map(toCard), [pair]);
+  const items = useMemo(() => pair === NEUTRAL_PAIR ? EVERGREEN_SCENARIOS : pickScenarios(pair).map(toCard), [pair]);
   return <ScenarioGrid items={items} />;
 }
 

@@ -21,17 +21,18 @@ export function Reviews({ place }: { place: Place }) {
               </div>
             </div>
             <div className="min-w-0">
-              {place.review_count > 0 ? <p className="text-[14px] font-semibold">{formatCountNoun(place.review_count, "отзыв", "отзыва", "отзывов")}</p> : <p className="text-[14px] font-semibold">Оценка посетителей</p>}
+              {place.review_count > 0 ? <p className="text-[14px] font-semibold">{formatCountNoun(place.review_count, "отзыв", "отзыва", "отзывов")}</p> : <p className="text-[14px] font-semibold">Рейтинг внешней площадки</p>}
               <a
                 href={place.rating_source}
                 target="_blank"
                 rel="noreferrer"
                 className="hit relative mt-1 inline-flex items-center gap-1 text-[13px] font-semibold text-muted underline decoration-line underline-offset-2"
               >
-                Читать отзывы <ExternalLink size={14} />
+                Читать отзывы на площадке <ExternalLink size={14} />
               </a>
             </div>
           </div>
+          <p className="mt-3 text-[12px] leading-snug text-muted">Оценка указана по внешнему источнику, не по отзывам пользователей Kids Go. Перед посещением проверьте актуальные отзывы по ссылке.</p>
         </div>
       )}
 
