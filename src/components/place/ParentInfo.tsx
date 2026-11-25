@@ -89,6 +89,10 @@ export function ParentInfo({ place }: { place: Place }) {
                   place.parking_info.status === "partial" ? "Парковка рядом" : "Парковки нет"}
               </p>
               <p className="mt-0.5 text-[13px] leading-snug text-muted">{place.parking_info.details}</p>
+              <p className="mt-1.5 text-[12px] leading-snug text-muted">
+                Сведения проверены {place.parking_info.checked_at}. Перед поездкой уточните актуальность.{" "}
+                <a href={place.parking_info.source} target="_blank" rel="noopener noreferrer" className="font-semibold underline underline-offset-2">Источник парковки</a>
+              </p>
             </div>
           </div>
         </div>
