@@ -68,6 +68,23 @@ def main():
             submit.click(timeout=8000)
             page.wait_for_url("**/planner/results/**",timeout=15000)
             check("anonymous visitor reaches results", "/planner/results/" in page.url, page.url)
+            page.wait_for_timeout(1500)
+            check("results contain an itinerary", page.locator("a[href*=\'/day\']").count() > 0)
+            day_link = page.locator("a[href*=\'/day\']").first
+            if day_link.count():
+                day_link.click(timeout=8000)
+                page.wait_for_timeout(1000)
+                check("itinerary page opens", "/day/" in page.url or "/day?" in page.url, page.url)
+                check("itinerary has route link", page.locator("a[href*=\'/map\']").count() > 0)
+            page.goto(BASE+"/search/",wait_until="domcontentloaded")
+            search=page.locator("input[aria-label=\'Поиск\']")
+            check("search input available",search.count()>0)
+            if search.count():
+                search.fill("зоопарк")
+                page.wait_for_timeout(900)
+                check("search returns place cards",page.locator("a[href*=\'/places/\']").count()>0)
+            page.goto(BASE+"/places/depo-food-hall/",wait_until="domcontentloaded")
+            check("food-hall menu URL appears",page.locator("a[href*=\'depomoscow.ru/corners\']").count()>0)
         except Exception as e:
             check("anonymous planner entry",False,str(e)[:250])
         context.close()
