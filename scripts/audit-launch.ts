@@ -67,7 +67,9 @@ async function verify(url: string, kind: Kind, slugs: string[]): Promise<Check> 
   const timeout = setTimeout(() => ctl.abort(), 9000);
   try {
     let response = await fetch(url, { method: "HEAD", redirect: "follow", signal: ctl.signal, headers: { "User-Agent": "Mozilla/5.0 (compatible; KidsGoLaunchAudit/1.0)" } });
-    if (response.status === 405 || response.status === 501) {
+    if (response.status >= 400) {
+      // Some legitimate venues serve 404/410 for HEAD while ordinary browsers GET the page.
+      // Never call a link broken solely based on its HEAD response.
       response = await fetch(url, { method: "GET", redirect: "follow", signal: ctl.signal });
       await response.body?.cancel();
     }
