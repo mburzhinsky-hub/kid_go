@@ -68,7 +68,9 @@ def main():
             submit.click(timeout=8000)
             page.wait_for_url("**/planner/results/**",timeout=15000)
             check("anonymous visitor reaches results", "/planner/results/" in page.url, page.url)
-            page.wait_for_timeout(1500)
+            # Recommendation engine and hydration may take several seconds on cold Chromium.
+            # Wait for a real itinerary instead of asserting after an arbitrary fixed sleep.
+            page.locator("a[href*=\'/day\']").first.wait_for(state="visible", timeout=20000)
             check("results contain an itinerary", page.locator("a[href*=\'/day\']").count() > 0)
             day_link = page.locator("a[href*=\'/day\']").first
             if day_link.count():
