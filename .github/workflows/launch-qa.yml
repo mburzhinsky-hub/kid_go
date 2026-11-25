@@ -1,0 +1,75 @@
+name: Launch QA (all venues and mobile)
+on:
+  push:
+    branches:
+      - audit/launch-qa-2026-11-25
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  venues:
+    name: 148 venues + links + pricing / parking metadata
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Full content audit (including all 148 venues)
+        continue-on-error: true
+        run: |
+          mkdir -p artifacts
+          npm run audit:places -- --warn > artifacts/audit-places.log 2>&1 || true
+          tail -n 35 artifacts/audit-places.log
+      - name: Venue records and external menu/parking/source links
+        continue-on-error: true
+        run: npx tsx scripts/audit-launch.ts
+      - name: Scenario & meal regression
+        run: npm run test:editorial
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: venue-audit
+          path: artifacts/
+          retention-days: 30
+  mobile:
+    name: Mobile Chromium viewport smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Build static website
+        env:
+          GITHUB_PAGES: "true"
+          NEXT_PUBLIC_BASE_PATH: ""
+          NEXT_PUBLIC_SITE_URL: https://kids-go.fun
+        run: |
+          rm -rf src/app/api src/app/admin
+          npm run build
+      - name: Chromium installation
+        run: |
+          python3 -m pip install --user playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+      - name: Run local web server and mobile smoke
+        continue-on-error: true
+        run: |
+          mkdir -p artifacts
+          python3 -m http.server 3000 --directory out > /tmp/kidgo-static-server.log 2>&1 &
+          sleep 5
+          python3 scripts/smoke-launch.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mobile-smoke
+          path: artifacts/
+          retention-days: 30
