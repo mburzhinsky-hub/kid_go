@@ -37,7 +37,8 @@ export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = [
   const snow = input.weather.condition === "snow";
   const rain = input.weather.condition === "rain" || snow;
 
-  if (rain && plan.rainProof) {
+  const fullyIndoors = plan.stops.every((s) => s.place.indoor && !s.place.outdoor);
+  if (rain && plan.rainProof && fullyIndoors) {
     why.push(snow ? "❄️ Всё под крышей" : "☔ Всё под крышей");
     head = snow ? "Хороший вариант на снежный день" : "Хороший вариант на дождливый день";
   } else if (!rain && plan.stops.some((s) => s.place.outdoor) && input.weather.condition === "sun") {
@@ -54,6 +55,9 @@ export function explainPlan(plan: Plan, input: PlannerInput, notes: string[] = [
   const outdoorShare = plan.stops.filter((s) => s.place.outdoor && !s.place.indoor).length / plan.stops.length;
   const youngest = ages0(input);
   const cond: string[] = [];
+  if (rain && plan.stops.some((s) => s.place.outdoor)) {
+    cond.push(snow ? "❄️ Часть маршрута на улице" : "☔ Часть маршрута на улице");
+  }
   if (!rain && temp <= -3) cond.push(outdoorShare > 0.5 ? "🧤 Мороз — одевайтесь теплее" : "🧣 Мороз — в основном в тепле");
   else if (!rain && temp >= 27) cond.push(plan.stops.some((s) => s.place.indoor || s.place.tags.some((t) => /вода|аквапарк|фонтан/i.test(t))) ? "🌡 Жара — есть тень или вода" : "🌡 Жара — берите воду и панамку");
   else if (input.weather.condition === "snow" && outdoorShare > 0) cond.push("❄️ Снег — для зимних забав");
