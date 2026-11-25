@@ -84,7 +84,7 @@ async function worker() {
     checks.push(await verify(key.slice(item.kind.length + 1), item.kind, item.slugs));
   }
 }
-await Promise.all(Array.from({ length: 18 }, worker));
+Promise.all(Array.from({ length: 18 }, worker)).then(() => {
 
 const count = (fn: (p: (typeof places)[number]) => boolean) => places.filter(fn).length;
 const aged = (date?: string | null) => date ? Math.floor((now.getTime() - Date.parse(date)) / 86400000) : null;
@@ -128,3 +128,5 @@ console.log(JSON.stringify(summary, null, 2));
 console.log("Broken links:");
 for (const c of checks.filter(x => x.outcome === "broken")) console.log(c.kind + " " + c.slugs.join(",") + " " + c.url);
 if (issues.length) { console.error(issues.join("\n")); process.exitCode = 1; }
+
+}).catch((error) => { console.error(error); process.exitCode = 1; });
